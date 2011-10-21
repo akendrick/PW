@@ -1,0 +1,439 @@
+<?php
+
+/**
+*  @file
+*  This module parses Adworks data into new Classified nodes.
+*/
+
+function adworks_node_insert($node) {
+  if ($node->type == 'adworks_file') {
+    _parse_adworks_data($node);
+  }
+}
+
+function adworks_node_update($node) {
+  if ($node->type == 'adworks_file') {
+    _parse_adworks_data($node);
+  }
+}
+
+function adworks_node_view($node, $view_mode) {
+  if ($node->type == 'adworks_file' && $view_mode == 'full') {
+    _parse_adworks_data($node);
+  }
+}
+
+
+/**
+*  Implementation of custom parser.
+*
+*  Parse through imputed Adworks data.
+*  Go through ads one by one.
+*/
+function _parse_adworks_data($node) {
+  $message = array(); // Return data about ad created.
+
+  // Convert pasted text into individual ads then create ads.
+  if ($node->body) {
+    $adworks_data = $node->body['und'][0]['value'];
+
+    // CHECK IMAGES
+    $image_check = _adworks_pre_flight_images($adworks_data, &$message);
+    if ($image_check == FALSE) {
+      return;
+    }
+
+    $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+    
+
+    foreach ($adworks_ads as $ad) {
+      if ($ad != NULL || $ad != '') {
+        _adworks_parse_indivual_ad($ad, &$message);
+      }
+    }
+    
+    dsm('OUTPUT MSG');
+    dsm($message);
+    
+    if (count($message['image']['error']) > 0) {
+      foreach ($message['image']['error'] as $missing) {
+        $images .= $missing . "\n";
+      }
+      drupal_set_message('MISSING IMAGES: ' . $images, 'warning');    
+    }
+    elseif ($message['ad_count'] == 0 || $message['ad_count'] == NULL) {
+      drupal_set_message('No Ads Created!', 'warning');    
+    }
+    else {
+      drupal_set_message('Ads Created: ' . $message['ad_count'], 'status');    
+    }
+  }
+}
+
+/**
+*  Check all images in Adworks file to see if they exist.
+*  
+*   @return
+*   TRUE if all images are present.
+*   FALSE if even 1 image is missing.
+*/
+function _adworks_pre_flight_images($ads, &$messages) {
+  preg_match_all('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ads, $images);
+  dsm('PRE-FLIGHT');
+  foreach ($images[0] as $key => $image) {
+    // Search Directory // Upgradable function
+    $image_name = $image . '.jpg';
+    
+    $options = array ('key' => 'filename');
+    $found = file_scan_directory('public://', '$' . $image_name . '$', $options);
+    $image_file = array_shift($found);
+
+    if(!$image_file->uri) {
+      $message['image']['error'][] = $image_name;
+    }  
+  }
+
+  if (count($message['image']['error']) > 0) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+*  Implementation of custom ad parser.
+*  
+*  Create node from ad.
+*
+*  @TODO
+*  Image handler should:
+*   - Perform PREFLIGHT for images!!
+*   - Check the entire directory for file
+*   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
+*   - MOVE - if file is in 'files/classified_ad_image_upload`
+*/
+function _adworks_parse_indivual_ad($ad, &$message) {
+  
+  $new_ad = new StdClass();
+  $new_ad->type = 'classified';
+  node_object_prepare($new_ad);
+    
+  $new_ad->title = 'Classified Ad Created Programmatically: ' . date('c');
+  $new_ad->language = 'und';
+  
+
+  // Image
+  preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
+  $image = $image[0];
+  if ($image) {
+    // Check for image on FILES
+    // Search Directory // Upgradable function
+    $image_name = $image . '.jpg';
+    $options = array ('key' => 'filename');
+    $found = file_scan_directory('public://', '$' . $image . '$', $options);
+    $image_file = array_shift($found);
+
+    // Create managed File Object and add Image fields.
+    if($image_file->uri) {      
+      $file = (object) array(
+        'uid' => 1,
+        'uri' => $image_file->uri,
+        'filename' => $image_file->filename,
+        'title' => 'Pennywise Classified Ad : ' . $image_file->name,
+        'filemime' => 'image/jpeg',
+        'status' => 1,
+      );
+      
+      // Move image to Classified Image folder
+      $file = file_copy($file, 'public://classified_ad_images', FILE_EXISTS_REPLACE);
+      
+      $new_ad->field_image = array(
+        $new_ad->language => array(
+          0 => (array)$file,
+        ),
+      );
+      
+      $message['image']['found'][] = $image_name . "\n";
+    }
+    else {
+      $message['image']['error'][] = $image_name . "\n";
+    }
+  }
+
+
+  // Ad Copy
+  preg_match('/(?<=\<begad>)(.+)(?=<endad>)/', $ad, $copy);
+  $copy = $copy[0];
+  
+  if ($image) {
+    // Remove PICAD reference from copy.
+    $copy_pic = explode('PICAD', $copy);
+    $copy = $copy_pic[0];
+    $message['image']['count'] += 1;
+  }
+  $new_ad->field_ad_copy = array(
+    $new_ad->language => array(
+      0 => array(
+        'value' => $copy,
+        'save_value' => check_plain($copy),
+      ),
+    ),
+  );
+
+
+  // Link
+  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $copy, $link);
+  $link = check_url($link[0]);
+  if ($link) {
+    $new_ad->field_link = array(
+      $new_ad->language => array(
+        0 => array(
+          'url' => $link,
+        ),
+      ),
+    );
+    // count links
+    $message['link'] += 1;
+  }
+  
+  // Phone
+  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
+  $phone = $phone[0];
+  
+  if ($phone) {
+    $new_ad->field_phone = array(
+      $new_ad->language => array(
+        0 => array(
+          'number' => $phone,
+          'country_codes' => 'ca',
+          'extension' => '',
+        ),
+      ),
+    );
+    // Count Phone Numbers
+    $message['phone'] += 1;
+  }
+
+  // area code
+  preg_match('/(?<=zip:)[a-zA-Z0-9 ]{7,9}/', $ad, $area_code);
+  $area_code = $area_code[0];
+
+  if ($area_code) {
+    $new_ad->field_area_code = array(
+      $new_ad->language => array(
+        0 => array(
+          'value' => $area_code,
+          'save_value' => check_plain($area_code),
+        ),
+      ),
+    );
+    // Count Area Codes
+    $message['Area Codes'] += 1;
+  }
+  
+  // LIVELOAD
+  $new_ad->field_ad_type = array(
+    $new_ad->language => array(
+      0 => array(
+        'value' => 0, // 1 for liveload
+      ),
+    ),
+  );
+  
+  
+  // Email
+  preg_match('/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/', $copy, $email);
+  $email = $email[0];
+  
+  if ($email) {
+    $new_ad->field_email = array(
+      $new_ad->language => array(
+        0 => array(
+          'email' => $email,
+        ),
+      ),
+    );
+    // Count Email
+    $message['email'] += 1;
+  }
+
+
+  // Classification
+  preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
+  $section = $section[0];
+  $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
+  $term = taxonomy_term_load($term_id);
+  
+  $new_ad->field_tags = array(
+    $new_ad->language => array(
+      0 => array(
+        'tid' => $term_id,
+        'taxonomy_term' => $term,
+      ),
+    ),
+  );
+  
+  
+  if (count($message['image']['error']) > 0 ) {
+    return;
+  }
+  elseif (count($message['image']['error']) == 0 || $message['image']['error'] == NULL) {
+    node_submit($new_ad);
+    #node_save($new_ad);
+    $message['ad_count'] += 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  #dsm('AD'); 
+#  #dsm($ad);
+#  // Create D7 Node Object
+#  // next 3 lines are only necessary if creating new nodes.
+#  $node = new stdClass();
+#  $node->type = 'classified';
+#  node_object_prepare($node);
+#      
+#      // Standard Node Creation bits
+#  $node->language = LANGUAGE_NONE;
+#  $node->uid = 1;
+#  $node->status = 1; // Published.
+#  #$node->created = time();
+#  #$node->changed = $node->created;
+#  #$node->format = 0;
+#  #$node->revision = 1;
+##  $node->log = t('Node Saved: ' . $node->title);
+      
+#    #  $node->promote = 0;
+#    #  $node->sticky = 0;
+#    #  $node->created = REQUEST_TIME;
+#      
+#  // PARSE DATA FROM AD DATA
+#    
+#  // classification
+#  preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
+#  $classification = $section[0];
+#
+#  // zip code
+#  preg_match('/(?<=zip:)[a-zA-Z0-9 ]{7,9}/', $ad, $zip);
+#  $zip = check_plain($zip[0]);
+#  if ($zip) {
+#    $node->field_area_code['und'][0]['value'] = $zip;
+#    $node->field_area_code['und'][0]['safe_value'] = check_plain($zip);
+#  }
+#    #
+#    #  // picture number
+#    #  preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $picad);
+#    #  $picad = check_plain($picad[0]);
+#    #  //if ($picad) { $count['#image'] +=1; }
+#    #
+#    #  // video number
+#    #  preg_match('/(?<=PICADVIDEO)[0-9]{4,20}/', $ad, $video);
+#    #  $video = $video[0];
+#    #
+#  // copy
+#  preg_match('/(?<=\<begad>)(.+)(?=<endad>)/', $ad, $copy);
+#  $copy = check_plain($copy[0]);
+#    #
+#    #  // If image remove PICAD reference from copy.
+#    #  if ($picad) {
+#    #    $copy_pic = split('PICAD', $copy);
+#    #    $copy = $copy_pic[0];
+#    #  }
+#    #
+#  // TITLE is first few chars of body text.
+#  $title  = substr($copy, 0, 45);
+#  $node->title = $title;
+##    #    
+#  // match phone numbers
+#  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
+#  $phone = $phone[0];
+#  if ($phone) {
+#    $node->field_phone = array(
+#      $node->language => array(
+#        0 => array(
+#          'number' => $phone,
+#          'country_codes' => 'ca',
+#          'extension' => '',
+#        ),
+#      ),
+#    );
+#  }
+##    $node->field_phone[$node->language][0]['number'] = $phone;
+#    $node->field_phone[$node->language][0]['country_codes'] = 'ca';
+#    $node->field_phone[$node->language][0]['extension'] = '';
+#  }
+#    #  
+  // match email addresses
+#  preg_match('/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/', $copy, $email);
+#  $email = $email[0];
+#  if ($email) {
+#    $node->field_email[$node->language][0]['email'] = $email;
+#  }
+#    #  
+  // match websites
+#  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $copy, $website);
+#  $website = valid_url($website[0]);
+#  if ($website) {
+#    $node->field_link[$node->language][0]['url'] = $email;
+#    $node->field_link[$node->language][0]['html'] = TRUE;
+#    $node->field_link[$node->language][0]['display_url'] = $email;
+#    $node->field_link[$node->language][0]['attributes'] = array();
+#    $node->field_link[$node->language][0]['title'] = 'LINK';
+#  }
+#      
+#  // CREATE NODE CONTENT
+#   
+#  // body
+#  $node->body = array(
+#    'und' => array(
+#      0 => array(
+#        'value' => 'Test Copy Goes here: ' . $copy,
+#        'summary' => '',
+#        'format' => 0,
+#      ),
+#    ),
+#  );
+#  ['und'][0]['value']  = 'Test Copy Goes here: ' . $copy;
+#  $node->body['und'][0]['summary']  = 'Test Copy Goes here: ' . $copy;
+#  $node->body['und'][0]['format'] = 'filtered_html';
+#      
+#    #  $path = 'classifieds/' . 'term_variable/' . $node->title;
+#    #  $node->path = array('alias' => $path);
+#    
+#      // TAXONOMY
+#    #  $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => '0580'))->fetchField();
+#    #  $term = taxonomy_term_load($term_id);
+#    #  $node->field_tags[0]['tid'] = $term_id;
+#    #  $node->field_tags[0]['taxonomy_term'] = $term;
+#    #  $node->field_tags[$node->language][0]['tid'] = $term_id;
+#    #  $node->field_tags[$node->language][0]['taxonomy_term'] = $term;
+#      
+#  node_validate($node);
+#  node_submit ($node);
+#  node_save ($node);
+#
+#  dsm('CREATED NODE: SAVED');
+#  dsm($node);
+#
+#      // TAXONOMY
+#    #  $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => '0580'))->fetchField();
+#    #  $term = taxonomy_term_load($term_id);
+#    #  $node->field_tags[0]['tid'] = $term_id;
+#    #  $node->field_tags[0]['taxonomy_term'] = $term;
+#    #  $node->field_tags[$node->language][0]['tid'] = $term_id;
+#    #  $node->field_tags[$node->language][0]['taxonomy_term'] = $term;
