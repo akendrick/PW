@@ -1,0 +1,7 @@
+name = Ad Submission
+description = Provides Additional functionality to the online ad submission.
+package = Pennywise
+core = 7.x
+files[] = ad_submission.module
+files[] = js/ad_submission_counter.js
+files[] = ad_submission_price_check.inc

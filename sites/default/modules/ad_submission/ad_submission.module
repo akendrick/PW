@@ -1,0 +1,51 @@
+<?php
+/**
+* @file
+*
+* Ads jQuery word counter and price generator 
+* - plus a backend PHP price generator to ensure proper price handling.
+*
+* Implements a crazy HOOK_form_alter(&$form, &$form_state, $form_id)
+* - Adds/modifies form[#state] to create multipage form
+* - Adds payment form data.
+* - verifies payment data
+* - shunts submitted payment data to seperate database
+*/
+function ad_submission_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
+  
+  // Call Payment form data.
+  module_load_include('inc', 'ad_submission', 'ad_submission_payment_form');
+  ad_submission_payment_form(&$form, &$form_state);
+    
+  dsm('FORM');
+  dsm($form);
+  dsm('FORM STATE');
+  dsm($form_state);
+}
+
+/**
+* Custom Validation
+*/
+function ad_submission_ad_payment_validation($form, &$form_state) {
+  // Call AD price check.
+  module_load_include('inc', 'ad_submission', 'ad_submission_price_check');
+  $price = ad_submission_price_check(&$form_state);
+  
+  $term_id = $form_state['values']['field_tags']['und'][0]['tid'];
+  $term = taxonomy_term_load($term_id);
+  
+  
+ # $form_state['#storage']['price']['total'] = '12.40';
+  
+}
+
+
+
+/**
+* Custom Submission
+*/
+function ad_submission_ad_payment_submission($form, &$form_state) {
+  dsm('Ad Submit :: SUBMISSION!');
+
+}
+
