@@ -7,6 +7,8 @@
 */
 
 function ad_submission_payment_form(&$form, &$form_state) {
+// Hide Ad Data
+
 // Modify '#weight' of existing form.
   $form['#groups']['group_ad']->weight = -15;
   $form['#groups']['group_upgrade']->weight = -10;

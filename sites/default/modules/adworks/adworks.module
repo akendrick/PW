@@ -8,6 +8,13 @@
 *   Move image file search into seperate function:
 *   - Check images in upload folder and across the `files` structure.
 *   - implement `file_validate_is_image($file)` -- Pro D7 Dev p.334
+*   - implement UTF-8 file conversion.
+*   - Check previous ads.
+*     - Perform a cursory check on the ad body (check 5-10 ads)
+*     - Check for similar ad copy
+*     - If several ads found similar then put alert:
+*       - 'DO you want to overwrite previous ads?'
+*       - 'Do you want to save file and not update?'
 */
 
 /**
@@ -15,11 +22,11 @@
 *
 * Disable Overlay on edit page.
 */
-function MYMODULE_admin_paths_alter(&$paths) {
-  $paths['node/*/edit'] = FALSE;
-  #$paths['node/add'] = FALSE;
-  #$paths['node/add/*'] = FALSE;
-}
+//function MYMODULE_admin_paths_alter(&$paths) {
+//  $paths['node/*/edit'] = FALSE;
+//  #$paths['node/add'] = FALSE;
+//  #$paths['node/add/*'] = FALSE;
+//}
 
 
 function adworks_node_insert($node) {
@@ -30,7 +37,7 @@ function adworks_node_insert($node) {
 }
 
 function adworks_node_update($node) {
-  dsm($node);
+  #dsm($node);
   if ($node->type == 'adworks_file') {
     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
     _parse_adworks_data($node, $create_ads);
@@ -39,7 +46,7 @@ function adworks_node_update($node) {
 
 function adworks_node_view($node, $view_mode) {
   if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
-    dsm($node);
+    #dsm($node);
     _adworks_pre_flight_ads($node);
   }
 }
@@ -56,6 +63,8 @@ function _parse_adworks_data($node) {
   // Convert pasted text into individual ads then create ads.
   if ($node->body) {
     
+
+    
     // CHECK IMAGES
     $image_check = _adworks_pre_flight_ads($node);
     if ($image_check == FALSE) {
@@ -64,6 +73,8 @@ function _parse_adworks_data($node) {
     
     // If images present proceed...
     $adworks_data = $node->body['und'][0]['value'];
+    // Convert Text to UTF8
+//    $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
     $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
 
     foreach ($adworks_ads as $ad) {
@@ -327,9 +338,9 @@ function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
     ),
   );
   
-  if ($new_ad->field_tags[$node->language][0]['tid'] == FALSE) {
-    dsm($new_ad->field_tags);
-  }
+  //if ($new_ad->field_tags[$node->language][0]['tid'] == FALSE) {
+  //  dsm($new_ad->field_tags);
+  //}
   
   
   if (count($images_missing) > 0 ) {
