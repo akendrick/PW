@@ -1,0 +1,176 @@
+<?php
+/**
+* @file
+* Custom FAPI payment info with validation + submission.
+*
+* @TODO
+* Live test CC Submit Handler!
+*/
+define ('DEBUG', TRUE);
+module_load_include('inc', 'node', 'node.pages');
+
+function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
+  module_load_include('inc', 'node', 'node.pages');
+  
+  // Hide SUBMIT AND PREVIEW
+  $form['actions']['save']['#access']    = FALSE;
+  $form['actions']['preview']['#access'] = FALSE;
+  $form['actions']['delete']['#access'] = FALSE;
+
+  // Hide CCID to act as a holding place for data later.
+  $form['field_price']['#access'] = FALSE;
+  $form['field_ccid']['#access'] = FALSE;
+  
+  // Add Price Review
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $ad_price = ad_submission_price_check($form_state);
+
+  //  Ad Price
+  $ad_price = ($ad_price == '0.00' ) ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  $form['field_price_check'] = array(
+    '#prefix' => '<div id="ad-price-box">',
+    '#markup' => $ad_price,
+    '#suffix' => '</div>',
+  );
+  
+  // Add Custom CC Form
+  if ($form['#multistep']['current'] == 'group_payment') {
+    // Show Submit Button.
+    $form['actions']['save']['#access'] = TRUE;
+    $form['actions']['save']['#value']  = 'Submit';
+    // Insert CC Validation.
+    $form['#validate'][] = '_ad_payment_cc_validate';
+    $form['#submit'][]   = '_ad_payment_cc_submit';
+    
+    module_load_include('inc', 'ad_payment', 'ad_payment_form');
+    ad_payment_form($form);
+  }  
+  elseif (!$form['#multistep']) {
+    module_load_include('inc', 'ad_payment', 'ad_payment_form');
+    ad_payment_form($form);
+    // Show SUBMIT AND PREVIEW if multistep
+    $form['actions']['save']['#access']    = TRUE;
+    $form['actions']['preview']['#access'] = TRUE;
+    $form['actions']['delete']['#access']  = TRUE;
+  }
+    
+  if(DEBUG) {
+    dsm('FORM');
+    dsm($form);
+    dsm('FORM STATE');
+    dsm($form_state);
+  }
+}
+
+
+/** 
+* Custom CC Validation.
+*/
+function _ad_payment_cc_validate(&$form, &$form_state) {
+  module_load_include('inc', 'ad_payment', 'ad_payment_cc_validate');
+  #_ad_payment_validate_cc_data($form_state);
+}
+
+/**
+* Custom CC Submit Handler.
+*
+* Submit data to Netidea.
+* Retrieve CCID and feed it into Ad_Payment module to link the two.
+*/
+function _ad_payment_cc_submit($form, $form_state) {
+  dsm('CC Submit Handler.');
+  
+  $values = $form_state['values'];
+  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
+  
+  // // Submit Data to Netidea
+  // // Commented Out Until Live test
+  
+  // define ('VALIDATION_TEST_MODE', FALSE);
+  // Following require needs to be enabled to function.
+  //  require_once ('classifieds.db.php');
+  // /* The CVVID is optional and can be omitted */
+  // $ccid = updateDatabase(
+  //  $values['field_first_name'] . ' ' . $values['field_last_name'],    // $_POST['name'], 
+  //  $values['email'],    // $_POST['email'], 
+  //  $card_type,    // $_POST['card_type'], 
+  //  $values['field_cc_number'],    // $_POST['card_number'], 
+  //  $values['field_exp_month'] . '/' . $values['field_exp_year'],    // $card_expiry, 
+  //  // NULL    // #$_POST['card_cvvid']);   
+  //  $values['field_exp_phone'],    // $_POST['phone']);   
+  // );
+  //
+  // /* You'll probably want to just email this link instead. */
+  // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
+  // #print "Order <a href='$url'>#$id</a> saved.";
+  
+  // CCID standin
+  $ccid = 13;
+  
+  // Update Ad Payment Table
+#  $table = 'ad_p';
+#  $record = new stdClass();
+#  $record->ccid     = $ccid;
+#  $record->uid      = $values['uid'];
+#  $record->nid      = $values['nid'];
+#  $record->cc_type  = $values['field_cc_type'];
+#  $record->exp_m    = $values['field_exp_year'];
+#  $record->exp_y    = $values['field_exp_year'];
+#  $record->cc_num   = substr($values['field_cc_number'], -4);
+#  $record->price    = serialize($form_state['stored']['price']);
+#  drupal_write_record($table, $record);
+#  dsm('RECORD')
+#  dsm($record);  
+}
+
+/**
+* Ad Price Display Theme Registration.
+* 
+* @param $form_state['storage']['price']
+*   
+* @return
+*   HTML output for form display.
+*/
+function _ad_payment_form_price_display($form_state) {
+  $price = $form_state['storage']['price'];
+  if(!$price) {
+    return;
+  }
+  
+  // Ad Copy
+  $ad_copy = check_plain($form_state['node']->field_ad_copy['und'][0]['value']);
+
+  // Liveload
+  $ad_status = ($price['options']['liveload'] == TRUE) ? 'Liveload Classified Ad' : 'Classified Ad';
+  
+  // Areas
+ if (is_array($form_state['node']->field_area['und'])) {
+   foreach($form_state['node']->field_area['und'] as $area) {
+     $areas .= ' ' . $area[0];
+   }
+ }  
+  // Rate
+  $rate = ($price['rate']['term_rate'] == 0) ? 'Personal' : 'Business';
+  
+  // Ad Taxonomy
+  $classification = $price['rate']['term'];
+  $section = $price['rate']['rate_name'];
+  
+  // Ad Price
+  $discount = ($price['areas'] == 4) ? ' <br/><em>With $2 Discount for booking all four areas! </em>' : '';
+  $ad_price = '$' . $price['total'];
+  
+  // Output Display 
+  // THIS NEEDS TO BE THEMED!
+  $ad_review = 
+    '<dl>' .
+    '<lh>Ad Copy:</lh><dt>' . $ad_copy . '</dt>' . 
+    '<lh>Ad Type:</lh><dt>' . $ad_status . '</dt>' . 
+    '<lh>Publication In <strong>' . $price['areas'] . '</strong> Area(s): </lh><dt> ' . $areas . ' </dt>' . 
+    '<lh>Classification:</lh><dt>' . $classification . ' (' . $section . ' rated)</dt>' . 
+    '<lh class="ad_price">Price:</lh><dt> <strong>' . $ad_price . '</strong>' . $discount . '<dt>' .
+    '</dl>';
+
+  return $ad_review;
+
+}

@@ -389,9 +389,9 @@ function _cck_phone_validate(&$item, $delta, $field, $instance, $langcode, &$err
 
     // Only allow digit, dash, space and bracket
     if (!_cck_phone_valid_input($phone_input, $ext_input)) {
-      $error = t('Phone number must be %min_length-%max_length digits only.', $error_params);
+      $error = t('The phone number must be between %min_length and %max_length digits in length.', $error_params);
       if ($settings['enable_extension'] && $ext_input != '') {
-        $error .= '<br />' . t('Phone extension must be less than %ext_max_length digits.', $error_params);
+        $error .= '<br />' . t('The phone extension must be less than %ext_max_length digits in length.', $error_params);
       }
 
       form_set_error($field['field_name'], $error);
@@ -405,9 +405,9 @@ function _cck_phone_validate(&$item, $delta, $field, $instance, $langcode, &$err
       }
       // Generic number validation
       if (!cck_phone_validate_number($countrycode, $phone_input, $ext_input)) {
-        $error = t('Phone number must be %min_length-%max_length digits only.', $error_params);
+        $error = t('The phone number must be between %min_length and %max_length digits in length.', $error_params);
         if ($field['enable_extension'] && $ext_input != '') {
-          $error .= '<br />' . t('Phone extension must be less than %ext_max_length digits.', $error_params);
+          $error .= '<br />' . t('The phone extension must be less than %ext_max_length digits in length.', $error_params);
         }
 
         form_set_error($field['field_name'], $error);
@@ -709,7 +709,7 @@ function cck_phone_phone_number_process($element, &$form_state, $form) {
     '#maxlength' => $field['settings']['size'],
     '#size' => $field['settings']['size'],
 //    '#title' => t('Number'),
-    '#description' => $element['#description'],
+//    '#description' => $element['#description'],
     '#required' => ($element['#delta'] == 0 && $element['#required']) ? $element['#required'] : FALSE,
     '#default_value' => isset($item['number']) ? $item['number'] : NULL,
   );
@@ -751,15 +751,19 @@ function cck_phone_phone_number_validate(&$element, &$form_state) {
   $instance = field_widget_instance($element, $form_state);
   $settings = $instance['settings'];
 
-  $phone_input = trim($item['number']);
-  $countrycode = trim($item['country_codes']);
+  if (isset($item['number'])) {
+    $phone_input = trim($item['number']);
+  }
+  if (isset($item['country_codes'])) {
+    $countrycode = trim($item['country_codes']);
+  }
   $ext_input = '';
 
-  if ($settings['enable_extension']) {
+  if ($settings['enable_extension'] && isset($item['extension'])) {
     $ext_input = trim($item['extension']);
   }
 
-  if ($phone_input) {
+  if (isset($phone_input)) {
 
     $error_params = array(
       '%phone_input' => check_plain($phone_input),   // original phone input
@@ -772,9 +776,9 @@ function cck_phone_phone_number_validate(&$element, &$form_state) {
 
     // Only allow digit, dash, space and bracket
     if (!_cck_phone_valid_input($phone_input, $ext_input)) {
-      $error = t('Phone number must be %min_length-%max_length digits only.', $error_params);
+      $error = t('The phone number must be between %min_length and %max_length digits in length.', $error_params);
       if ($settings['enable_extension'] && $ext_input != '') {
-        $error .= '<br />' . t('Phone extension must be less than %ext_max_length digits.', $error_params);
+        $error .= '<br />' . t('The phone extension must be less than %ext_max_length digits in length.', $error_params);
       }
 
       form_set_error($field['field_name'], $error);
@@ -788,9 +792,9 @@ function cck_phone_phone_number_validate(&$element, &$form_state) {
       }
       // Generic number validation
       if (!cck_phone_validate_number($countrycode, $phone_input, $ext_input)) {
-        $error = t('Phone number must be %min_length-%max_length digits only.', $error_params);
+        $error = t('The phone number must be between %min_length and %max_length digits in length.', $error_params);
         if ($settings['enable_extension'] && $ext_input != '') {
-          $error .= '<br />' . t('Phone extension must be less than %ext_max_length digits.', $error_params);
+          $error .= '<br />' . t('The phone extension must be less than %ext_max_length digits in length.', $error_params);
         }
 
         form_set_error($field['field_name'], $error);

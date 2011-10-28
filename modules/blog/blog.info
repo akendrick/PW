@@ -5,9 +5,8 @@ version = VERSION
 core = 7.x
 files[] = blog.test
 
-; Information added by drupal.org packaging script on 2011-10-25
-version = "7.x-dev"
-core = "7.x"
+; Information added by drupal.org packaging script on 2011-10-26
+version = "7.9"
 project = "drupal"
-datestamp = "1319544326"
+datestamp = "1319660730"
 

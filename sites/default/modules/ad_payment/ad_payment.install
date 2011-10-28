@@ -1,0 +1,64 @@
+<?php
+/**
+* Standard Install file.
+*/
+
+function ad_payment_schema() {
+  return array(
+    'adp' => array(
+      'description' => 'Created by `ad_submission` module.',
+      'fields' => array(
+        'ccid' => array(
+          'description' => 'Submitted node id number.',
+          'type' => 'int',
+          'size' => 'normal',
+          'not null' => TRUE,
+        ),
+        'uid' => array(
+          'description' => 'ID of user who submitted ad.',
+          'type' => 'int',
+          'size' => 'normal',
+          'not null' => TRUE,
+        ),
+        'nid' => array(
+          'description' => 'Node to which this field applies.',
+          'type' => 'int',
+           'size' => 'normal',
+         'not null' => TRUE,
+        ),
+        'cc_type' => array(
+          'description' => 'False is V, True is M.',
+          'type' => 'int',
+          'size' => 'tiny',
+          'not null' => TRUE,
+        ),
+        'exp_m' => array(
+          'description' => 'Month',
+          'type' => 'int',
+          'size' => 'small',
+          'not null' => TRUE,
+        ),
+        'exp_y' => array(
+          'description' => 'Year',
+          'type' => 'int',
+          'size' => 'small',
+          'not null' => TRUE,
+        ),
+        'cc_num' => array(
+          'description' => 'Last four digits.',
+          'type' => 'int',
+          'size' => 'small',
+          'not null' => TRUE,
+        ),
+        'price' => array(
+          'description' => 'Price of node.',
+          'type' => 'varchar',
+          'not null' => TRUE,
+          'length' => 128,
+          'description' => 'Serialized array of price elements.'
+        ),
+      ),
+      'primary key' => array('nid'),
+    ),
+  );
+}
