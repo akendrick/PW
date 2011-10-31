@@ -79,7 +79,7 @@ function my_validate_number($number, $ext = '', &$error) {
   }
 
   // t() is no needed
-  $error = '"%phone_input" is not a valid Malaysia phone number, it should be 9-10 digits number like "03-2222 2222", "0" is optional and will be removed.';
+  $error = '"%phone_input" is not a valid Malaysia phone number, it should be a 9-10 digit number like "03-2222 2222", "0" is optional and will be removed.';
   return FALSE;
 }
 

@@ -8,7 +8,7 @@
 /**
  * The current system version.
  */
-define('VERSION', '7.9-dev');
+define('VERSION', '7.10-dev');
 
 /**
  * Core API compatibility.
@@ -2498,7 +2498,6 @@ function get_t() {
  * Initialize all the defined language types.
  */
 function drupal_language_initialize() {
-  global $language;
   $types = language_types();
 
   // Ensure the language is correctly returned, even without multilanguage
@@ -2518,9 +2517,6 @@ function drupal_language_initialize() {
     // environments.
     bootstrap_invoke_all('language_init');
   }
-
-  // Send appropriate HTTP-Header for browsers and search engines.
-  header('Content-Language: ' . $language->language);
 }
 
 /**

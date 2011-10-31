@@ -41,12 +41,12 @@ function us_validate_number($number, $ext = '', &$error) {
   }
   elseif ($result && $matches[1] == '1') {
     // t() is no needed
-    $error = 'Please enter a 10 digits North American phone number like "999 999 9999", without the country code "1" or "+1"';
+    $error = 'Please enter a 10 digit North American phone number like "999 999 9999", without the country code "1" or "+1"';
     return FALSE;
   }
   else {
     // t() is no needed
-    $error = '"%phone_input" is not a valid North American phone number, it should be 10 digits number like "999 999 9999"';
+    $error = '"%phone_input" is not a valid North American phone number, it should be a 10 digit number like "999 999 9999"';
     return FALSE;
   }
 }

@@ -29,7 +29,7 @@ function pl_validate_number($number, $ext = '', &$error) {
     return TRUE;
   }
   else {
-    $error = '"%phone_input" is not a valid Polish phone number, it should be 9-digit
+    $error = '"%phone_input" is not a valid Polish phone number, it should be a 9-digit
       number like "99 999 99 99".';
     return FALSE;
   }

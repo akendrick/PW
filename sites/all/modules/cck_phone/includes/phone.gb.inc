@@ -45,7 +45,7 @@ function gb_validate_number($number, $ext = '', &$error) {
   }
 
   // t() is no needed
-  $error = '"%phone_input" is not a valid United Kingdom phone number, it should be 10 digits number like "99 9999 9999", with optional leading "0"';
+  $error = '"%phone_input" is not a valid United Kingdom phone number, it should be a 10 digit number like "99 9999 9999", with optional leading "0"';
   return FALSE;
 }
 

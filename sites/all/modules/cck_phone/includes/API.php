@@ -92,7 +92,7 @@ function CC_validate_number($number, $ext = '', &$error) {
 
   if (FALSE) {
     // t() is no needed
-    $error = '"%phone_input" is not a valid North American phone number, it should be 10 digits number like "999 999 9999"';
+    $error = '"%phone_input" is not a valid North American phone number, it should be a 10 digit number like "999 999 9999"';
     return FALSE;
   }
   return TRUE;
