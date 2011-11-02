@@ -28,8 +28,8 @@ function ad_payment_schema() {
         ),
         'cc_type' => array(
           'description' => 'False is V, True is M.',
-          'type' => 'int',
-          'size' => 'tiny',
+          'type' => 'varchar',
+          'length' => '12',
           'not null' => TRUE,
         ),
         'exp_m' => array(
@@ -50,15 +50,21 @@ function ad_payment_schema() {
           'size' => 'small',
           'not null' => TRUE,
         ),
-        'price' => array(
-          'description' => 'Price of node.',
-          'type' => 'varchar',
-          'not null' => TRUE,
-          'length' => 128,
-          'description' => 'Serialized array of price elements.'
-        ),
+      'price' => array(
+        'description' => 'Serialized array of price elements.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'UNIX timestamp: date created.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
       ),
       'primary key' => array('nid'),
     ),
   );
 }
+
+

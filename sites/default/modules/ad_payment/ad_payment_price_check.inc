@@ -27,17 +27,13 @@ define ('DEBUG', TRUE);
 *  $price - array of price elements.
 *  $form_state['storage']['price'] = $price;
 */
-function ad_submission_price_check(&$form_state) {
-
+function ad_payment_price_check(&$form_state) {
   // Clear $form_state storage price.
   $form_state['storage']['price'] = array();
 
   // Validate Rate
   $rate = _ad_payment_validate_rate($form_state);
 
-  // Determine Ad Section
-  // Set in $form_state['rate']
-  
   // Sections
   $areas = count($form_state['node']->field_area['und']);
   
@@ -83,8 +79,6 @@ function ad_submission_price_check(&$form_state) {
   
   // TEST PRICES
   if(DEBUG) {
-    dsm('FORM-STATE : NODE');
-    dsm($form_state['node']);
     // Base
     drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over']))); 
     // Adjusted with duration and areas

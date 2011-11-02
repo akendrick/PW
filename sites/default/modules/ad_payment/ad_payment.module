@@ -3,59 +3,73 @@
 * @file
 * Custom FAPI payment info with validation + submission.
 *
+* Creates a box with a link to a custom page: `submit-ad`.
+* `submit-ad` page determines your role:
+*   - Anon users can login or register an account.
+*     (Based on LoginToboggan unified login page.)
+*   - 'Submit Ad' & other 'Authenticated' users go straight ad creation.
+*  Add custom jQuery price checker with a PHP price check.
+*   - the PHP is the absolute truth and the one that is saved.
+*
 * @TODO
-* Live test CC Submit Handler!
+* - Live test CC Submit Handler!
+* - Take over or give up and let LoginToboggan take over the login.
 */
 define ('DEBUG', TRUE);
 
 /**
-* Implementation of HOOK_menu()
-*
-* Creates 'ad/submit' page and page callback function.
-*
+* Implementation of HOOK_init
+*/
+function ad_payment_init() {
+  drupal_add_js(drupal_get_path('module', 'ad_payment') . '/js/price_check.js');
+}
+
+
+/**
+* Implementation of HOOK_menu
 */
 function ad_payment_menu() {
-  $items['ad/submit'] = array(
-    'title' => t('Submit Classified Ad'),
-    'page callback' => 'ad_payment_form_page',
-    'type' => MENU_NORMAL_ITEM,
+  $items['submit-ad'] = array(
+    'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
+    'page callback'   => 'ad_payment_ad_submit_form_page',
+    'type'            => MENU_NORMAL_ITEM,
   );
   
   return $items;
 }
 
-/**
-* Page callback script for 'ad/submit'.
-*/
-function ad_payment_form_page() {
+function ad_payment_ad_submit_form_page() {
+
   global $user;
-  dsm("USER");
-  dsm($user);
   
-  if (!$user->uid && ($user->roles[1] = 'anonymous user' || $user->roles[2] = 'submit ad')) {
+  if (!$user->uid) {
+    // Use this code if you want LoginToboggan 
+    //  to take over completely the login process.
+    // This will result in the login form 
+    //  defaulting to 'login' rather than 'register'.
+    
+    // module_load_include('logintoboggan', 'logintoboggan');
+    // $content = logintoboggan_unified_login_page('login');
+  
+    // Cut and paste from LoginToboggan.
     $register_form = drupal_get_form('user_register_form');
     $rendered_login_form = drupal_render($login_form);
     $rendered_register_form = drupal_render($register_form);
     $variables = array(
-      'login_form' => $rendered_login_form,
+      'login_form'    => $rendered_login_form,
       'register_form' => $rendered_register_form,
-      'active_form' => $active_form,
+      'active_form'   => $active_form,
     );
-    $output = theme('lt_unified_login_page', $variables);
+    $content = theme('lt_unified_login_page', $variables);
   }
-  elseif ($user->uid) {
+  elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
+    // Get Node Creation Form.
     module_load_include('inc', 'node', 'node.pages');
-  
-    $ad = new StdClass();
-    $ad->type = 'ad_s_node_form';
-    node_object_prepare($ad);
-    
-    $output = drupal_get_form('ad_s_node_form', $ad);
-  
+    $content = node_add('ad_s');
   }
-
-  return $output;
+  
+  return $content;
 }
 
 /**
@@ -67,13 +81,15 @@ function ad_payment_block_info() {
     'status'     => 1,
     'visibility' => 0,
     'region'     => 'sidebar_first',
-    'pages'      => 'ad/submit',
+    'pages'      => 'ad/*',
   );
   
   return $blocks;
 }
+
 /**
 * Implementation of hook_block_view
+*
 */
 function ad_payment_block_view($delta = '') {
   $block = array();
@@ -81,63 +97,80 @@ function ad_payment_block_view($delta = '') {
   switch ($delta) {
     case 'ad_payment_create_ad':
       $block['subject'] = '<none>';
-      $block['content'] = l('Submit Ad', 'ad/submit');
+      $block['content'] = l('Submit Ad', 'submit-ad');
       break;
   }
   return $block;
 }
 
-
+/**
+* Implementation of HOOK_form_alter()
+*
+* Alter form to increase legibility and flow.
+* - Insert a modular Price block for both PHP and jQuery pricing.
+* - Hide 'Submit', 'Preview', and 'Delete' until completed form.
+* - Insert CC Form in the Last Step.
+* - Correct Validation errors by step.
+*/
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
-  module_load_include('inc', 'node', 'node.pages');
-  
-  // Hide SUBMIT AND PREVIEW
-  $form['actions']['save']['#access']    = FALSE;
-  $form['actions']['preview']['#access'] = FALSE;
-  $form['actions']['delete']['#access'] = FALSE;
-
-  // Hide CCID to act as a holding place for data later.
-  $form['field_price']['#access'] = FALSE;
-  $form['field_ccid']['#access'] = FALSE;
+  dsm('Form Alter');
   
   // Add Price Review
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $ad_price = ad_submission_price_check($form_state);
-
+  $ad_price = ad_payment_price_check($form_state);
+ 
+  //$ad_price = $form_state['storage']['price']['total'];
   //  Ad Price
-  $ad_price = ($ad_price == '0.00' ) ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  $ad_price = ($ad_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   $form['field_price_check'] = array(
     '#prefix' => '<div id="ad-price-box">',
     '#markup' => $ad_price,
     '#suffix' => '</div>',
   );
   
-  // Add Custom CC Form
-  if ($form['#multistep']['current'] == 'group_payment') {
+
+  // Hide Price Field
+  // $form['field_price']['#access'] = FALSE;
+
+  // Hide SUBMIT AND PREVIEW
+  // $form['actions']['save']['#access']    = FALSE;
+  # $form['actions']['preview']['#access'] = FALSE;
+  # $form['actions']['delete']['#access']  = FALSE;
+
+
+#  if ($form['#multistep']['current'] == 'group_payment') {
+    // Hide CCID to act as a holding place for data later.
+    // $form['field_price']['#access'] = FALSE;
+    // $form['field_ccid']['#access'] = FALSE;
+    
     // Show Submit Button.
-    $form['actions']['save']['#access'] = TRUE;
-    $form['actions']['save']['#value']  = 'Submit';
+    #$form['actions']['save']['#access'] = TRUE;
+    $form['actions']['save']['#value']  = 'Submit Ad';
+    
     // Insert CC Validation.
     $form['#validate'][] = '_ad_payment_cc_validate';
     $form['#submit'][]   = '_ad_payment_cc_submit';
     
+    // Float First 2 Groups (can't sink cc group).
+    $form['#fieldgroups']['group_ad']->weight = -20;
+    $form['#fieldgroups']['group_upgrade']->weight = -10;
+
     module_load_include('inc', 'ad_payment', 'ad_payment_form');
-    ad_payment_form($form);
-  }  
-  elseif (!$form['#multistep']) {
-    module_load_include('inc', 'ad_payment', 'ad_payment_form');
-    ad_payment_form($form);
-    // Show SUBMIT AND PREVIEW if multistep
-    $form['actions']['save']['#access']    = TRUE;
-    $form['actions']['preview']['#access'] = TRUE;
-    $form['actions']['delete']['#access']  = TRUE;
-  }
+    ad_payment_form($form, $form_state);
+ # }  
     
   if(DEBUG) {
+#    global $user;
+#    dsm('USER');
+#    dsm($user);
     dsm('FORM');
     dsm($form);
     dsm('FORM STATE');
     dsm($form_state);
+#    dsm('FORM-STATE : NODE');
+#    dsm($form_state['node']);
+
+
   }
 }
 
@@ -146,8 +179,20 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 * Custom CC Validation.
 */
 function _ad_payment_cc_validate(&$form, &$form_state) {
+  // Check CC Data
   module_load_include('inc', 'ad_payment', 'ad_payment_cc_validate');
-  #_ad_payment_validate_cc_data($form_state);
+  _ad_payment_validate_cc_data($form_state);
+  
+  // Get Price
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $ad_price = ad_payment_price_check($form_state);
+  dsm('AD PRICE (cc_validate) ----- ' . $ad_price);
+  form_set_value($form['field_price'], $ad_price, &$form_state);  
+  
+  dsm("Submit Ad Price = " . $ad_price);
+  // Set CCID
+  $ccid = date('now');
+  form_set_value($form['field_ccid'], $ccid, &$form_state);  
 }
 
 /**
@@ -157,11 +202,16 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 * Retrieve CCID and feed it into Ad_Payment module to link the two.
 */
 function _ad_payment_cc_submit($form, $form_state) {
+
   dsm('CC Submit Handler.');
+ 
   
   $values = $form_state['values'];
-  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
+  $node   = $form_state['node'];
+  $price  = $form_state['storage']['price'];
   
+  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
+  dsm("Card Type = " . $card_type);
   // // Submit Data to Netidea
   // // Commented Out Until Live test
   
@@ -183,23 +233,42 @@ function _ad_payment_cc_submit($form, $form_state) {
   // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
   // #print "Order <a href='$url'>#$id</a> saved.";
   
-  // CCID standin
-  $ccid = 13;
+
+if(DEBUG) {
+    global $user;
+    dsm('USER');
+    dsm($user);
+    dsm('FORM');
+    dsm($form);
+    dsm('FORM STATE');
+    dsm($form_state);
+    dsm('FORM-STATE : NODE');
+    dsm($form_state['node']);
+  }
+}
+
+function ad_payment_node_insert($node) {
+  dsm('NODE INSERT');
+  dsm($node);
   
-  // Update Ad Payment Table
-#  $table = 'ad_p';
-#  $record = new stdClass();
-#  $record->ccid     = $ccid;
-#  $record->uid      = $values['uid'];
-#  $record->nid      = $values['nid'];
-#  $record->cc_type  = $values['field_cc_type'];
-#  $record->exp_m    = $values['field_exp_year'];
-#  $record->exp_y    = $values['field_exp_year'];
-#  $record->cc_num   = substr($values['field_cc_number'], -4);
-#  $record->price    = serialize($form_state['stored']['price']);
-#  drupal_write_record($table, $record);
-#  dsm('RECORD')
-#  dsm($record);  
+  $ccid = rand();
+  // $cc_num = ($values['field_cc_num']) ? $values['field_cc_num'] : '1234';
+  // Get Price
+  // module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  // $ad_price = ad_payment_price_check($form_state);
+ dsm(substr($node->field_cc_number, -4));
+   $nid = db_insert('adp')->fields(array(
+    'ccid'    =>$ccid,
+    'uid'     =>$node->uid,
+    'nid'     =>$node->nid,
+    'cc_type' => ($node->field_card_type == 0) ? 'MasterCard' : 'Visa',
+    'exp_m'   =>$node->field_exp_month,
+    'exp_y'   =>$node->field_exp_year,
+    'cc_num'  =>substr($node->field_cc_number, -4),
+    'price'   =>$node->field_price,
+    'created' =>$node->created,
+  ))->execute();  
+
 }
 
 /**
