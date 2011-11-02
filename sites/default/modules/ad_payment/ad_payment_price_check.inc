@@ -59,8 +59,6 @@ function ad_payment_price_check(&$var, $data_type) {
     default:
       return;
   }
-  dsm('STORAGE');
-  dsm($storage);
 
   // Validate Rate
   $rate = _ad_payment_validate_rate($storage);

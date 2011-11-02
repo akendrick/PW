@@ -115,19 +115,6 @@ function ad_payment_block_view($delta = '') {
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   dsm('Form Alter');
   
-  //  Ad Price
-  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $ad_price = ad_payment_price_check($form_state, 'form_state'); 
-  $ad_price = ($ad_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
-  $form['field_price_check'] = array(
-    '#prefix' => '<div id="ad-price-box">',
-    '#markup' => $ad_price,
-    '#suffix' => '</div>',
-  );
-  
-
-  // Hide Price Field
-  // $form['field_price']['#access'] = FALSE;
 
   // Hide SUBMIT AND PREVIEW
   // $form['actions']['save']['#access']    = FALSE;
@@ -147,21 +134,33 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
     module_load_include('inc', 'ad_payment', 'ad_payment_form');
     ad_payment_form($form, $form_state);
- # }  
     
   if(DEBUG) {
-#    global $user;
-#    dsm('USER');
-#    dsm($user);
+    global $user;
+    dsm('USER');
+    dsm($user);
     dsm('FORM');
     dsm($form);
     dsm('FORM STATE');
     dsm($form_state);
-#    dsm('FORM-STATE : NODE');
-#    dsm($form_state['node']);
+    dsm('FORM-STATE : NODE');
+    dsm($form_state['node']);
 
 
   }
+  //  Ad Price
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $total_price = ad_payment_price_check($form_state, 'form_state'); 
+  $form['field_price']['#default_value'] = $total_price;
+  dsm('TOTAL PRICE - ' . $total_price);
+  $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  
+  $form['field_price_check'] = array(
+    '#prefix' => '<div id="ad-price-box">',
+    '#markup' => 'Total Price $' . $total_price,
+    '#weight' => -200,
+    '#suffix' => '</div>',
+  );
 }
 
 
@@ -178,8 +177,6 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   $ad_price = ad_payment_price_check($form_state, 'form_state');
   dsm('AD PRICE (cc_validate) ----- ' . $ad_price);
   form_set_value($form['field_price'], $ad_price, &$form_state);  
-  
-  dsm("Submit Ad Price = " . $ad_price);
 }
 
 /**
@@ -190,7 +187,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 */
 function _ad_payment_cc_submit($form, $form_state) {
 
-  dsm('CC Submit Handler.');
+#  dsm('CC Submit Handler.');
  
   
   $values = $form_state['values'];
@@ -198,7 +195,6 @@ function _ad_payment_cc_submit($form, $form_state) {
   $price  = $form_state['storage']['price'];
   
   $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
-  dsm("Card Type = " . $card_type);
   // // Submit Data to Netidea
   // // Commented Out Until Live test
   
@@ -227,15 +223,14 @@ function _ad_payment_cc_submit($form, $form_state) {
 }
 
 function ad_payment_node_insert($node) {
-  dsm('NODE INSERT');
-  dsm($node);
+#  dsm('NODE INSERT');
+#  dsm($node);
   
   // $cc_num = ($values['field_cc_num']) ? $values['field_cc_num'] : '1234';
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $ad_price = ad_payment_price_check($node, 'node');
   
-  dsm(substr($node->field_cc_number, -4));
    $nid = db_insert('adp')->fields(array(
     'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
     'uid'     => $node->uid,
@@ -247,6 +242,10 @@ function ad_payment_node_insert($node) {
     'price'   => $ad_price,
     'created' => $node->created,
   ))->execute();  
+  
+  
+  // Becuase Life isn't just.
+  // You need to update the newly created node with correct data.
   
 }
 
@@ -301,3 +300,4 @@ function _ad_payment_form_price_display($form_state) {
   return $ad_review;
 
 }
+
