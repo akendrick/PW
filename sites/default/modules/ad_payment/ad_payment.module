@@ -115,12 +115,9 @@ function ad_payment_block_view($delta = '') {
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   dsm('Form Alter');
   
-  // Add Price Review
-  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $ad_price = ad_payment_price_check($form_state);
- 
-  //$ad_price = $form_state['storage']['price']['total'];
   //  Ad Price
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $ad_price = ad_payment_price_check($form_state, 'form_state'); 
   $ad_price = ($ad_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   $form['field_price_check'] = array(
     '#prefix' => '<div id="ad-price-box">',
@@ -137,21 +134,14 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   # $form['actions']['preview']['#access'] = FALSE;
   # $form['actions']['delete']['#access']  = FALSE;
 
-
-#  if ($form['#multistep']['current'] == 'group_payment') {
-    // Hide CCID to act as a holding place for data later.
-    // $form['field_price']['#access'] = FALSE;
-    // $form['field_ccid']['#access'] = FALSE;
-    
-    // Show Submit Button.
-    #$form['actions']['save']['#access'] = TRUE;
+    // Change Save to Submit.
     $form['actions']['save']['#value']  = 'Submit Ad';
     
     // Insert CC Validation.
     $form['#validate'][] = '_ad_payment_cc_validate';
     $form['#submit'][]   = '_ad_payment_cc_submit';
     
-    // Float First 2 Groups (can't sink cc group).
+    // Float First 2 Groups.
     $form['#fieldgroups']['group_ad']->weight = -20;
     $form['#fieldgroups']['group_upgrade']->weight = -10;
 
@@ -185,14 +175,11 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $ad_price = ad_payment_price_check($form_state);
+  $ad_price = ad_payment_price_check($form_state, 'form_state');
   dsm('AD PRICE (cc_validate) ----- ' . $ad_price);
   form_set_value($form['field_price'], $ad_price, &$form_state);  
   
   dsm("Submit Ad Price = " . $ad_price);
-  // Set CCID
-  $ccid = date('now');
-  form_set_value($form['field_ccid'], $ccid, &$form_state);  
 }
 
 /**
@@ -232,43 +219,35 @@ function _ad_payment_cc_submit($form, $form_state) {
   // /* You'll probably want to just email this link instead. */
   // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
   // #print "Order <a href='$url'>#$id</a> saved.";
-  
 
-if(DEBUG) {
-    global $user;
-    dsm('USER');
-    dsm($user);
-    dsm('FORM');
-    dsm($form);
-    dsm('FORM STATE');
-    dsm($form_state);
-    dsm('FORM-STATE : NODE');
-    dsm($form_state['node']);
-  }
+  // Set CCID
+  $ccid = rand();
+  form_set_value($form['field_ccid'], $ccid, &$form_state);  
+
 }
 
 function ad_payment_node_insert($node) {
   dsm('NODE INSERT');
   dsm($node);
   
-  $ccid = rand();
   // $cc_num = ($values['field_cc_num']) ? $values['field_cc_num'] : '1234';
   // Get Price
-  // module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  // $ad_price = ad_payment_price_check($form_state);
- dsm(substr($node->field_cc_number, -4));
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $ad_price = ad_payment_price_check($node, 'node');
+  
+  dsm(substr($node->field_cc_number, -4));
    $nid = db_insert('adp')->fields(array(
-    'ccid'    =>$ccid,
-    'uid'     =>$node->uid,
-    'nid'     =>$node->nid,
+    'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
+    'uid'     => $node->uid,
+    'nid'     => $node->nid,
     'cc_type' => ($node->field_card_type == 0) ? 'MasterCard' : 'Visa',
-    'exp_m'   =>$node->field_exp_month,
-    'exp_y'   =>$node->field_exp_year,
-    'cc_num'  =>substr($node->field_cc_number, -4),
-    'price'   =>$node->field_price,
-    'created' =>$node->created,
+    'exp_m'   => $node->field_exp_month,
+    'exp_y'   => $node->field_exp_year,
+    'cc_num'  => substr($node->field_cc_number, -4),
+    'price'   => $ad_price,
+    'created' => $node->created,
   ))->execute();  
-
+  
 }
 
 /**
