@@ -1,8 +1,4 @@
 
-Drupal 7.10, xxxx-xx-xx (development version)
------------------------
-
-
 Drupal 7.9, 2011-10-26
 ----------------------
 - Critical fixes to OpenID to spec violations that could allow for
