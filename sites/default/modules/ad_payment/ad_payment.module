@@ -18,14 +18,6 @@
 define ('DEBUG', TRUE);
 
 /**
-* Implementation of HOOK_init
-*/
-function ad_payment_init() {
-  drupal_add_js(drupal_get_path('module', 'ad_payment') . '/js/price_check.js');
-}
-
-
-/**
 * Implementation of HOOK_menu
 */
 function ad_payment_menu() {
