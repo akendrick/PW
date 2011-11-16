@@ -1,0 +1,151 @@
+<?php
+/**
+* @file
+*
+* Ads jQuery word counter and price generator 
+* - plus a backend PHP price generator to ensure proper price handling.
+*
+* Implements a crazy HOOK_form_alter(&$form, &$form_state, $form_id)
+* - Adds/modifies form[#state] to create multipage form
+* - Adds payment form data.
+* - verifies payment data
+* - shunts submitted payment data to seperate database
+*/
+define ('DEBUG', TRUE);
+
+function ad_submission_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_state['rebuild']) {
+    // Remove previous submitted data.
+    $form_state['input'] = array();
+  }
+  if (empty($form_state['storage'])) {
+    //NO STEP has been set so start with the first STEP
+    $form_state['storage'] = array(
+      'step'  => 'ad_submission_form_ad_start', // Set STEP
+      'price' => array(), // Clear price calculations.
+    );
+  }
+  
+  if(DEBUG) {
+    dsm('FORM');
+    dsm($form);
+    dsm('FORM STATE');
+    dsm($form_state);
+  }
+  
+  // Set MultiStep SUBMIT handler.
+  $form['#submit'][] = 'ad_submission_multistep_ad_submit';
+  
+  // Run Form Steps
+  $function = $form_state['storage']['step'];
+  $form = $function($form, $form_state);
+
+  return $form;  
+}
+
+/**
+* Primary submit handler.
+*
+* @return
+* End.
+*/
+function ad_submission_multistep_ad_submit($form, &$form_state) {
+  dsm('Main Submit HANDLER');
+  
+  $values = $form_state['values'];
+  // Check if we are moving back or forward in the form.
+  if (isset($values['back']) && $values['op'] == $values['back']) {
+    // Code for moving backwards.
+  }
+  else {
+    // Record current state.
+    $step = $form_state['storage']['step'];
+    $form_state['storage']['steps'][] = $step;
+    
+    // Call step submit handler if it exists.
+    if (function_exists($step . '_submit')) {
+      $function = $step . '_submit';
+      $function($form, $form_state);
+    }
+  }
+ 
+  return;
+}
+
+
+/**
+* STEP ONE FORM
+*/
+function ad_submission_form_ad_start($form, &$form_state) {
+  // Hide SUBMIT AND PREVIEW
+  $form['actions']['submit']['#access']  = FALSE;
+  $form['actions']['preview']['#access'] = FALSE;
+
+  // Create Continue Button
+  $form['actions']['step'] = array(
+    '#type'   => 'submit',
+    '#value'  => t('Continue to Step 2'),
+    '#weight' => 30,
+  );
+  
+  // Activate Next Step
+  $form_state['storage']['step'] = 'ad_submission_form_payment_form';
+
+  return $form;
+}
+
+/**
+* STEP TWO FORM
+*/
+function ad_submission_form_payment_form($form, &$form_state) {
+  // Hide all submitted data.
+  $form['field_ad_copy']['#access']  = FALSE;
+  $form['field_tage']['#access']     = FALSE;
+  $form['field_area']['#access']     = FALSE;
+  $form['field_notes']['#access']    = FALSE;
+  $form['field_image']['#access']    = FALSE;
+  $form['field_image']['#access']    = FALSE;
+  $form['field_rate']['#access']     = FALSE;
+  $form['field_promote']['#access']  = FALSE;
+  $form['field_duration']['#access'] = FALSE;
+  
+  // Call Payment form data.
+  module_load_include('inc', 'ad_submission', 'ad_submission_payment_form');
+  ad_submission_payment_form(&$form, &$form_state);  
+
+
+  $form['actions']['back'] = array(
+    '#type'   => 'submit',
+    '#value'  => t('Return And Edit Ad'),
+    '#weight' => 30,
+  );
+
+  return $form;
+}
+
+/**
+* Custom Validation
+*/
+function ad_submission_ad_payment_validation($form, &$form_state) {
+  // Call AD price check.
+  module_load_include('inc', 'ad_submission', 'ad_submission_price_check');
+  $price = ad_submission_price_check(&$form_state);
+  
+  $term_id = $form_state['values']['field_tags']['und'][0]['tid'];
+  $term = taxonomy_term_load($term_id);
+  
+  
+ # $form_state['#storage']['price']['total'] = '12.40';
+  
+}
+
+
+
+/**
+* Custom Submission
+*/
+function ad_submission_ad_payment_submission($form, &$form_state) {
+  dsm('Ad Submit :: SUBMISSION!');
+
+}
+

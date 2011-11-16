@@ -14,17 +14,17 @@ function cck_phone_field_schema($field) {
     'columns' => array(
       'number' => array(
         'type' => 'varchar',
-        'length' => CCK_PHONE_PHONE_MAX_LENGTH,
+        'length' => 15,
         'not null' => FALSE,
       ),
       'country_codes' => array(
         'type' => 'varchar',
-        'length' => CCK_PHONE_CC_MAX_LENGTH,
+        'length' => 2,
         'not null' => FALSE,
       ),
       'extension' => array(
         'type' => 'varchar',
-        'length' => CCK_PHONE_EXTENSION_MAX_LENGTH,
+        'length' => 6,
         'not null' => FALSE,
       ),
     ),

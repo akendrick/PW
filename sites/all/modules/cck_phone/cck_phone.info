@@ -20,9 +20,17 @@ files[] = tests/phone.my.test
 files[] = tests/phone.us.test
 
 
+<<<<<<< HEAD
 ; Information added by drupal.org packaging script on 2011-10-27
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "cck_phone"
 datestamp = "1319716968"
+=======
+; Information added by drupal.org packaging script on 2011-10-28
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "cck_phone"
+datestamp = "1319803363"
+>>>>>>> 8ce21f2bb77044c
 
