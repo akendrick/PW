@@ -147,12 +147,12 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   dsm('TOTAL PRICE - ' . $total_price);
   $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   
-  $form['field_price_check'] = array(
-    '#prefix' => '<div id="ad-price-box">',
-    '#markup' => 'Total Price $' . $total_price,
-    '#weight' => -200,
-    '#suffix' => '</div>',
-  );
+ // $form['field_price_check'] = array(
+ //   '#prefix' => '<div id="ad-price-box">',
+ //   '#markup' => 'Total Price $' . $total_price,
+ //   '#weight' => -200,
+ //   '#suffix' => '</div>',
+ // );
 }
 
 

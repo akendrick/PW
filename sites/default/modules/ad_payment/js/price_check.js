@@ -271,9 +271,6 @@ Drupal.adPayment.displayMsg = function() {
  * PRIMARY EVENT HANDLING.
  */
 jQuery(document).ready(function() {
-  jQuery('#field-price-add-more-wrapper').hide();
-  jQuery('#field-ccid-add-more-wrapper').hide();
-
     var sideBar = '#sidebar-first > .section > .region';
     var priceBox = Drupal.adPayment.displayMsg();
     jQuery(sideBar).append(priceBox);
