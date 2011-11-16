@@ -6,7 +6,7 @@
 *  Custom payment form data
 */
 
-function ad_payment_form(&$form) {
+function ad_payment_form(&$form, $form_state) {
   // Get User Name
   global $user;
   $user_data = user_load($user->uid);
@@ -21,6 +21,13 @@ function ad_payment_form(&$form) {
   $form['#groups']['group_payment']->children[] = 'field_cc_number';
   $form['#groups']['group_payment']->children[] = 'field_exp_month';
   $form['#groups']['group_payment']->children[] = 'field_exp_year';
+
+  $form['#group_children']['field_card_type'] = 'group_payment';
+  $form['#group_children']['field_first_name'] = 'group_payment';
+  $form['#group_children']['field_last_name'] = 'group_payment';
+  $form['#group_children']['field_cc_number'] = 'group_payment';
+  $form['#group_children']['field_exp_month'] = 'group_payment';
+  $form['#group_children']['field_exp_year'] = 'group_payment';
 
   // Display Form
   $form['field_first_name'] = array(
@@ -55,6 +62,7 @@ function ad_payment_form(&$form) {
     '#validate' => array('_ad_payment_cc_number_validate'),
     '#size' => 18,
     '#maxlength' => 36,
+    '#default_value' => ($form_state['values']['field_cc_number']) ? $form_state['values']['field_cc_number'] : '',
     '#attributes' => array('autocomplete' =>'off'),
   );
   $months = array(
@@ -88,14 +96,13 @@ function ad_payment_form(&$form) {
     '#title' => t('Expiry Month'),
 #   '#required' => TRUE,
     '#options' => $months,
-    '#default_value' => check_plain($form_state['values']['field_exp_month']),
+    '#default_value' => ($form_state['values']['field_exp_month']) ? $form_state['values']['field_exp_month'] : '',
   );
   $form['field_exp_year'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Year'),
 #   '#required' => TRUE,
     '#options' => $years,
-    '#default_value' => check_plain($form_state['values']['field_exp_year']),
+    '#default_value' => ($form_state['values']['field_exp_year']) ? $form_state['values']['field_exp_year'] : '',
   );
 }
-

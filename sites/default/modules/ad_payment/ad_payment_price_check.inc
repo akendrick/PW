@@ -25,31 +25,56 @@ define ('DEBUG', TRUE);
 * 
 * @return
 *  $price - array of price elements.
-*  $form_state['storage']['price'] = $price;
+*  $storage['price'] = $price;
 */
-function ad_submission_price_check(&$form_state) {
-
+function ad_payment_price_check(&$var, $data_type) {
   // Clear $form_state storage price.
-  $form_state['storage']['price'] = array();
+  $storage = array();
+
+  switch ($data_type) {
+    case 'form_state':
+      $form_state = $var;
+      $storage['values'] = array(
+        'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
+        'section' => $form_state['values']['field_tags']['und'][0]['tid'],
+        'area'    => $form_state['values']['field_area']['und'],
+        'image'   => $form_state['values']['field_image']['und'][0]['fid'],
+        'rate'    => $form_state['values']['field_rate']['und'][0]['value'],
+        'ad_type' => $form_state['values']['field_promote']['und'][0]['value'],
+        'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
+      );
+      break;
+    case 'node':
+      $node = $var;
+      $storage['values'] = array(
+        'ad_copy' => $node->field_ad_copy['und'][0]['value'],
+        'section' => $node->field_tags['und'][0]['tid'],
+        'area'    => $node->field_area['und'],
+        'image'   => $node->field_image['und'][0]['fid'],
+        'rate'    => $node->field_rate['und'][0]['value'],
+        'ad_type' => $node->field_promote['und'][0]['value'],
+        'duration'=> $node->field_duration['und'][0]['value'],
+      );
+      break;
+    default:
+      return;
+  }
 
   // Validate Rate
-  $rate = _ad_payment_validate_rate($form_state);
+  $rate = _ad_payment_validate_rate($storage);
 
-  // Determine Ad Section
-  // Set in $form_state['rate']
-  
   // Sections
-  $areas = count($form_state['node']->field_area['und']);
+  $areas = count($storage['values']['area']);
   
   // Duration
-  $duration = _ad_payment_set_ad_duration($form_state['node']->field_duration['und'][0]['value']);
+  $duration = _ad_payment_set_ad_duration($storage['values']['duration']);
 
   // Word Count
-  $count = _ad_payment_word_counter($form_state['node']->field_ad_copy['und'][0]['value']);
+  $count = _ad_payment_word_counter($$storage['values']['ad_copy']);
   
   // Options
-  $liveload = ($form_state['node']->field_promote['und'][0]['value'] == 'Liveload Your Ad!') ? TRUE : FALSE;
-  $image = ($form_state['node']->field_image['und'][0]['fid']) ? TRUE : FALSE;
+  $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? TRUE : FALSE;
+  $image = ($storage['values']['image']) ? TRUE : FALSE;
   $options = array(
     'liveload' => $liveload,
     'image' => $image,
@@ -83,8 +108,6 @@ function ad_submission_price_check(&$form_state) {
   
   // TEST PRICES
   if(DEBUG) {
-    dsm('FORM-STATE : NODE');
-    dsm($form_state['node']);
     // Base
     drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over']))); 
     // Adjusted with duration and areas
@@ -100,7 +123,7 @@ function ad_submission_price_check(&$form_state) {
   
   
   // Set Price Variables
-  $form_state['storage']['price'] = array(
+  $storage['price'] = array(
     'rate' => $rate,
     'count' => $count,
     'duration' => $duration,
@@ -112,6 +135,11 @@ function ad_submission_price_check(&$form_state) {
     'total' => $total,
   );
   
+  //If form_state save date for future reference.
+  if ($data_type == 'form_state') {
+    $form_state['storage']['price'] = $storage['price'];
+    $form_state['storage']['values'] = $storage['values'];
+  }
   return $total;
 }
 
@@ -127,14 +155,13 @@ function ad_submission_price_check(&$form_state) {
 *   array of price points to determine ad price.
 *
 */
-function _ad_payment_validate_rate(&$form_state) {
-  $price = $form_state['storage']['price'];
+function _ad_payment_validate_rate($storage) {
 
   // Get Section Rating
-  $term = taxonomy_term_load ($form_state['node']->field_tags['und'][0]['tid']);
+  $term = taxonomy_term_load ($storage['values']['section']);
 
   // Get Form Rating
-  $form_rate = ($form_state['node']->field_rate['und'][0]['value'] == 'Personal') ? 0 : 1;
+  $form_rate = ($storage['values']['rate'] == 'Personal') ? 0 : 1;
 
   // Store Rate Data
   $rate = array(
@@ -188,8 +215,8 @@ function _ad_payment_validate_rate(&$form_state) {
 * - Use set_/get_ variable
 * - Cache business rated Terms
 */
-function _ad_payment_business_rating($form_state) {
-  $term_id = $form_state['values']['field_tags']['und'][0]['tid'];
+function _ad_payment_business_rating($storage) {
+  $term_id = $storage['values']['section'];
   $term = taxonomy_term_load($term_id);
   if($term->field_business_rated['und'][0]['value'] == FALSE) {
     return FALSE;
@@ -287,5 +314,4 @@ function _ad_payment_dollar_format($amount)  	{
   $new_amount = sprintf("%.2f",$amount);
   return $new_amount;
 }
-
 

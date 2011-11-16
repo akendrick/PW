@@ -773,11 +773,7 @@ function cck_phone_phone_number_validate(&$element, &$form_state) {
     $ext_input = trim($item['extension']);
   }
 
-<<<<<<< HEAD
-  if (isset($phone_input)) {
-=======
   if (isset($phone_input) && !empty($phone_input)) {
->>>>>>> 8ce21f2bb77044c
 
     $error_params = array(
       '%phone_input' => check_plain($phone_input),   // original phone input

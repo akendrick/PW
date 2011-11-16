@@ -28,13 +28,8 @@ function ad_payment_schema() {
         ),
         'cc_type' => array(
           'description' => 'False is V, True is M.',
-<<<<<<< HEAD
-          'type' => 'int',
-          'size' => 'tiny',
-=======
           'type' => 'varchar',
           'length' => '12',
->>>>>>> 8ce21f2bb77044c
           'not null' => TRUE,
         ),
         'exp_m' => array(
@@ -55,15 +50,6 @@ function ad_payment_schema() {
           'size' => 'small',
           'not null' => TRUE,
         ),
-<<<<<<< HEAD
-        'price' => array(
-          'description' => 'Price of node.',
-          'type' => 'varchar',
-          'not null' => TRUE,
-          'length' => 128,
-          'description' => 'Serialized array of price elements.'
-        ),
-=======
       'price' => array(
         'description' => 'Serialized array of price elements.',
         'type' => 'varchar',
@@ -75,15 +61,9 @@ function ad_payment_schema() {
         'type' => 'int',
         'not null' => TRUE,
       ),
->>>>>>> 8ce21f2bb77044c
       ),
       'primary key' => array('nid'),
     ),
   );
-<<<<<<< HEAD
-}
-=======
 }
 
-
->>>>>>> 8ce21f2bb77044c
