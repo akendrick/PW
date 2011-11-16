@@ -1,3 +1,11 @@
+/**
+ * Form Feedback 
+ *  
+ * @TODO: 
+ *  Links for State Switching - editing
+ *  Change title depending on state - 'page-title'
+ *
+ */ 
 Drupal.adPayment.formStateFeedback = function(formStep) {
   if (formStep == 1) {
     jQuery('#content').prepend('<div id="form-step"> <strong>Create Ad</strong> - Options - Payment - Submit </div>');
@@ -9,11 +17,14 @@ Drupal.adPayment.formStateFeedback = function(formStep) {
     jQuery('#form-step').html('<div id="form-step"> Create Ad - Options - <strong>Payment</strong> - Submit </div>');
   }
   else if (formStep == 4) {
-    jQuery('#content').html('<div id="form-step"> Create Ad - Options - Payment - <strong>Submit </strong> </div>');
+    jQuery('#form-step').html('<div id="form-step"> Create Ad - Options - Payment - <strong>Submit </strong> </div>');
   }
   else {};
 };
 
+/**
+ * State Hide/Show Funcitonality 
+ */ 
 Drupal.adPayment.formState = function() {
   // retrieve formStep - if set.
   var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');
@@ -28,7 +39,10 @@ Drupal.adPayment.formState = function() {
 
   jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
 
-  if (formStep == 2) {
+  // Hide Submit/Save Actions
+  jQuery('#edit-submit').hide();
+
+  if (formStep == 2) { // STEP 2 - UPGRADE AD
     jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
 
     jQuery('#edit-preview').attr({value: 'Continue Step 3 - Payment'});
@@ -37,10 +51,11 @@ Drupal.adPayment.formState = function() {
     jQuery('.group-upgrade').show();
     jQuery('.group-payment').hide();
     
+
     Drupal.adPayment.formStateFeedback(formStep);
     return false;
   } //
-  else if (formStep == 3) {
+  else if (formStep == 3) { // STEP 4 - PAYMENT
     jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
     jQuery('#edit-preview').attr({value: 'Review Ad'});
 
@@ -51,16 +66,23 @@ Drupal.adPayment.formState = function() {
     Drupal.adPayment.formStateFeedback(formStep);
     return false;
   } //
-  else if (formStep == 4) {
-    jQuery('#edit-submit').show();
+  else if (formStep == 4) { // STEP 5 - REVIEW & SUBMIT
+    jQuery('.group-ad').hide();
+    jQuery('.group-upgrade').hide();
+    jQuery('.group-payment').hide();
+    // ad review
+    jQuery('#ad-review').show();
+    jQuery('#ad-summary').hide();
+
     jQuery('#edit-preview').hide();
-    jQuery('#edit-submit').attr({value: 'Submit Completed Ad'});
+    jQuery('#edit-submit').attr({value: 'Submit Completed Ad'}).show();
+
     Drupal.adPayment.formStateFeedback(formStep);
 
     return false;
   }
   else {
-    formStep = 1;
+    formStep = 1; // STEP 1 - CREATE AD
     jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
     jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Upgrades'});
 
@@ -77,14 +99,13 @@ jQuery(document).ready(function() {
   jQuery('#field-price-add-more-wrapper').hide();
   jQuery('#field-ccid-add-more-wrapper').hide();
   jQuery('#field-ccid-add-more-wrapper').hide();
+  jQuery('#block-ad-payment-ad-payment-create-ad').hide();
   
   // Hide Upgrade
   jQuery('.group-upgrade').hide();
   // Hide Payment
   jQuery('.group-payment').hide();
   
-  // Hide Submit/Save Actions
-  jQuery('#edit-submit').hide();
   // Rename Preview
   jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Upgrades'});
 

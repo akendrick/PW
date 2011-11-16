@@ -63,7 +63,7 @@ Drupal.adPayment.formData = function(ad) {
   ad.wordCount = Drupal.adPayment.countWords(Drupal.adPayment.wordCleaner( ad.copy ));
   
   if (ad.wordCount == 'undefined' || ad.wordCount < 15) {
-    ad.wordCount = 15;
+    // ad.wordCount = 15;
   }
   else if (ad.wordCount > 15) {
     ad.countOver = ad.wordCount-15;
@@ -158,22 +158,28 @@ Drupal.adPayment.getPrice = function(ad) {
   // Base rate + overflow word count
   price.overCount = (ad.wordCount > 15) ? ad.countOver * price.word : 0 ;
   price.basePrice = price.base + price.overCount;
+
   // Adjusted with duration and areas
   price.adjPrice = price.basePrice * ad.duration * ad.area;
+
   // If booking all 4 areas get $1 off.
-  price.discount = ( ad.areas == 4 ) ?  -2 : 0 ;
+  price.discount = ( ad.area == 4 ) ?  -2 : 0 ;
+
   // If optional perks
   price.imagePrice = 0;
   price.liveload = (ad.type == 'Liveload Classified Ad') ? price.img : 0 ;
   price.optional = price.imagePrice + price.liveload;
+
   // SubTotal
   price.subTotal = price.adjPrice + price.discount + price.optional;
   
   // Get Taxes
   price.taxeRate = .12;
   price.taxes = price.subTotal * price.taxeRate;
+
   // Total Cost
   price.total = price.subTotal + price.taxes;
+
   // Round Total
   //price.total = Drupal.adPayment.formatCurrency(price.totalRaw);
   return price;
@@ -238,29 +244,41 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.type = Drupal.t("<dt>Ad Type:</dt><dd> @type</dd>", {'@type': ad.type});
   
   // PRICE
-  //ad.msg.price = Drupal.t("<dt>Price</dt><dd><ul><li>Base Price: @basePrice</li>", {'@basePrice': ad.price.basePrice});
-  if ( ad.wordCount >= 1) {
-    ad.msg.price = Drupal.t("<dt>Price</dt><dd><ul><li>Base Price: @basePrice</li><li>Over Price: @overPrice</li><li>Taxes: @taxes</li><li>Optional Extras: @optional</li><li>Total: @priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount,'@taxes': price.taxes, '@optional': price.optional, '@priceTotal': price.total});
+  ad.msg.price = Drupal.t("<ul><li>Subtotal: $@basePrice</li><li>Taxes: $@taxes</li><li>Total: $@total</li></ul>", {'@basePrice': price.subTotal, '@taxes': price.taxes,'@total': price.total});
+  if ( ad.wordCount >= 1) { // OPTIONAL -- <li>Base Price:$ @basePrice</li><li>Over Price: $@overPrice</li>
+    ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul><li>Sub Total: $@subTotal</li><li>Optional Extras: $@optional</li><li>Taxes: $@taxes</li><li>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotal, '@taxes': price.taxes, '@optional': price.optional, '@priceTotal': price.total});
   }
   else {
-    ad.msg.price = '<dt>Price</dt><dd>No Price Calculated</dd>';
+    ad.msg.price = '';
   }
   // Compose MSG
-  ad.msg = 
-    '<div id="price-box" class="block summary-price-block">'
+  ad.msg.summary = 
+    '<div id="ad-summary">' 
+    + '<div id="ad-summary-price" class="block summary-price-block">'
+    + '<h2>Summary</h2>'
+    + ad.msg.price
+    + ad.msg.wordcount
+    + ad.msg.countOver
+    + '</div>'
+    + '</div>'
+    ;
+
+  ad.msg.review = 
+    '<div id="review-ad-box-ad" class="review-ad-block">'
+    + '<h2>Ad</h2>'
+    + ad.msg.ad 
+    + ad.msg.wordcount 
+    + ad.msg.countOver  
+    + '</div>'
+    + '<div id="ad-review">'
+    + '<div id="review-ad-box-price" class="review-ad-block">'
     + '<h2>Summary</h2>'
     + '<dl>' 
     + ad.msg.areaList 
     + ad.msg.rate 
     + ad.msg.duration 
     + ad.msg.type 
-    + ad.msg.price 
-    + '</div>'
-    + '<div id="price-box-ad" class="block summary-ad-block">'
-    + '<h2>Ad</h2>'
-    + ad.msg.ad 
-    + ad.msg.wordcount 
-    + ad.msg.countOver  
+    + ad.msg.priceOverview 
     + '</div>'
     ;
   
@@ -269,17 +287,28 @@ Drupal.adPayment.displayMsg = function() {
 
 /**
  * PRIMARY EVENT HANDLING.
+ *
+ * Sidebar-first - summary
+ * Content Review - hidden until submitting
  */
 jQuery(document).ready(function() {
     var sideBar = '#sidebar-first > .section > .region';
-    var priceBox = Drupal.adPayment.displayMsg();
-    jQuery(sideBar).append(priceBox);
+    var summaryBox = Drupal.adPayment.displayMsg().summary;
+    jQuery(sideBar).append(summaryBox);
+    
+    // Create DIV for review
+    jQuery('#ad-s-node-form').prepend('<div id="ad-review">Placeholder</div>');
+    jQuery('#ad-review').hide();
   
   jQuery('#ad-s-node-form').bind('click change keypress keyup', function() {
-    var sideBar = '#sidebar-first > .section';
-    var priceBox = Drupal.adPayment.displayMsg();
-    jQuery(sideBar).html(priceBox);
-    //jQuery(sideBar).html(jQuery(document.createElement('div')).attr({id:'price-box',class:'block'}).prepend(priceBox));
+    var sideBox = '#ad-summary';
+    var summaryBox = Drupal.adPayment.displayMsg().summary;
+    jQuery(sideBox).html(summaryBox);
+    
+    // Review box.
+    var reviewLocation = '#ad-review';
+    var reviewBox = Drupal.adPayment.displayMsg().review;
+    jQuery(reviewLocation).html(reviewBox);
 
   });
 
