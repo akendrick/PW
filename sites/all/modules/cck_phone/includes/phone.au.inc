@@ -155,24 +155,19 @@ function au_validate_number($number, $ext = '', &$error) {
  * Default formatter for Australian phone number.
  */
 function au_formatter_default($element) {
-  $item = $element['#item'];
-  $field = content_fields($element['#field_name'], $element['#type_name']);
-
   // Display a global phone number with country code.
-  $cc = cck_phone_countrycodes($item['country_codes']);
+  $cc = cck_phone_countrycodes($element['country_codes']);
 
   list($valid_patterns, $invalid_patterns, $format_search_patterns, $format_replace_patterns, $format_replace_patterns_international) = _cck_phone_au_number_patterns();
 
-  return $cc['code'] .' '. preg_replace($format_search_patterns, $format_replace_patterns_international, $item['number']);
+  return $cc['code'] .' '. preg_replace($format_search_patterns, $format_replace_patterns_international, $element['number']);
 }
 
 /**
  * Local formatter for local Australian phone number.
  */
 function au_formatter_local($element) {
-  $item = $element['#item'];
-
   list($valid_patterns, $invalid_patterns, $format_search_patterns, $format_replace_patterns, $format_replace_patterns_international) = _cck_phone_au_number_patterns();
 
-  return preg_replace($format_search_patterns, $format_replace_patterns, $item['number']);
+  return preg_replace($format_search_patterns, $format_replace_patterns, $element['number']);
 }

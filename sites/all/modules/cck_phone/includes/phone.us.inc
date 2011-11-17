@@ -80,11 +80,10 @@ function us_sanitize_number(&$number) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function us_formatter_default($element) {
-  $item = $element['#item'];
   $phone = '';
 
   // Display a global phone number with country code.
-  $cc = cck_phone_countrycodes($item['country_codes']);
+  $cc = cck_phone_countrycodes($element['country_codes']);
 
   // Format the phone number however you like, this is the default
   // define regular expression
@@ -94,7 +93,7 @@ function us_formatter_default($element) {
     (\d{4})         # 4-digit line number
     /x';
 
-  $result = preg_match($regex, $item['number'], $matches);
+  $result = preg_match($regex, $element['number'], $matches);
 
   if ($result) {
     // output as +1 (AAA) BBB CCCC
@@ -120,7 +119,6 @@ function us_formatter_default($element) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function us_formatter_local($element) {
-  $item = $element['#item'];
   $phone = '';
 
   // Display a local phone number without country code.
@@ -130,7 +128,7 @@ function us_formatter_local($element) {
     (\d{4})         # 4-digit line number
     /x';
 
-  $result = preg_match($regex, $item['number'], $matches);
+  $result = preg_match($regex, $element['number'], $matches);
 
   if ($result) {
     // output as (AAA) BBB CCCC

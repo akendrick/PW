@@ -76,12 +76,12 @@ function gb_sanitize_number(&$number) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function gb_formatter_default($element) {
-  $item = $element['#item'];
+  $phone = '';
 
   // Display a global phone number with country code.
-  $cc = cck_phone_countrycodes($item['country_codes']);
+  $cc = cck_phone_countrycodes($element['country_codes']);
 
-  $result = preg_match(_uk_phone_rules(), $item['number'], $matches);
+  $result = preg_match(_uk_phone_rules(), $element['number'], $matches);
 
   if ($result) {
     // output as +44 AA BBBB CCCC, +44 AAA BBB CCCC or +44 AAAA BBB CCC
@@ -108,8 +108,10 @@ function gb_formatter_default($element) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function gb_formatter_local($element) {
+  $phone = '';
+
   // Display a local phone number without country code.
-  $result = preg_match(_uk_phone_rules(), $item['number'], $matches);
+  $result = preg_match(_uk_phone_rules(), $element['number'], $matches);
 
   if ($result) {
     // output as 0AA BBBB CCCC,  0AAA BBB CCCC or 0AAAA BBB CCC
