@@ -117,4 +117,5 @@ jQuery(document).ready(function() {
   });
   var formStep = Drupal.adPayment.formState();
   
+  alert(Drupal.settings.adPaymentT.32);
 });

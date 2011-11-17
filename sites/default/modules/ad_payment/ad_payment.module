@@ -17,6 +17,7 @@
 */
 define ('DEBUG', TRUE);
 
+
 /**
 * Implementation of HOOK_menu
 */
@@ -105,7 +106,7 @@ function ad_payment_block_view($delta = '') {
 * - Correct Validation errors by step.
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
-  dsm('Form Alter');
+  dpm('Form Alter');
   
 
   // Hide SUBMIT AND PREVIEW
@@ -129,14 +130,14 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     
   if(DEBUG) {
     global $user;
-    dsm('USER');
-    dsm($user);
-    dsm('FORM');
-    dsm($form);
-    dsm('FORM STATE');
-    dsm($form_state);
-    dsm('FORM-STATE : NODE');
-    dsm($form_state['node']);
+    dpm('USER');
+    dpm($user);
+    dpm('FORM');
+    dpm($form);
+    dpm('FORM STATE');
+    dpm($form_state);
+    dpm('FORM-STATE : NODE');
+    dpm($form_state['node']);
 
 
   }
@@ -144,7 +145,7 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $total_price = ad_payment_price_check($form_state, 'form_state'); 
   $form['field_price']['#default_value'] = $total_price;
-  dsm('TOTAL PRICE - ' . $total_price);
+  dpm('TOTAL PRICE - ' . $total_price);
   $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   
  // $form['field_price_check'] = array(
@@ -167,7 +168,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $ad_price = ad_payment_price_check($form_state, 'form_state');
-  dsm('AD PRICE (cc_validate) ----- ' . $ad_price);
+  dpm('AD PRICE (cc_validate) ----- ' . $ad_price);
   form_set_value($form['field_price'], $ad_price, &$form_state);  
 }
 
@@ -179,7 +180,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 */
 function _ad_payment_cc_submit($form, $form_state) {
 
-#  dsm('CC Submit Handler.');
+#  dpm('CC Submit Handler.');
  
   
   $values = $form_state['values'];
@@ -215,8 +216,8 @@ function _ad_payment_cc_submit($form, $form_state) {
 }
 
 function ad_payment_node_insert($node) {
-#  dsm('NODE INSERT');
-#  dsm($node);
+#  dpm('NODE INSERT');
+#  dpm($node);
   
   // $cc_num = ($values['field_cc_num']) ? $values['field_cc_num'] : '1234';
   // Get Price
@@ -291,4 +292,13 @@ function _ad_payment_form_price_display($form_state) {
 
   return $ad_review;
 
+}
+
+
+/**
+ * Implementation of HOOK_page
+ */
+function ad_payment_init() {
+  dpm('INIT');
+  drupal_add_js(array('adPaymentT' => array(32 => 'TermID-32')), 'setting');
 }
