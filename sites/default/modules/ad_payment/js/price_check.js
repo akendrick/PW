@@ -117,7 +117,6 @@ Drupal.adPayment.formData = function(ad) {
   // SECTION
   ad.section = jQuery('#edit-field-tags-und').val();
   
-
   // Validate Form Data
   Drupal.adPayment.validate(ad);
 
@@ -158,6 +157,7 @@ Drupal.adPayment.getPrice = function(ad) {
   // CALCULATE PRICE
   // If no area selected use default one.
   ad.area = (ad.area == 0) ? 1 : ad.area;
+
   // Base rate + overflow word count
   price.overCount = (ad.wordCount > 15) ? ad.countOver * price.word : 0 ;
   price.basePrice = price.base + price.overCount;
@@ -174,17 +174,20 @@ Drupal.adPayment.getPrice = function(ad) {
   price.optional = price.imagePrice + price.liveload;
 
   // SubTotal
-  price.subTotal = Drupal.adPayment.formatCurrency(price.adjPrice + price.discount + price.optional);
-  
+  price.subTotal = price.adjPrice + price.discount + price.optional;
+
   // Get Taxes
   price.taxeRate = .12;
-  price.taxes = Drupal.adPayment.formatCurrency(price.subTotal * price.taxeRate);
+  price.taxes = price.subTotal * price.taxeRate;
 
-  // Total Cost
-  price.total = Drupal.adPayment.formatCurrency(price.subTotal + price.taxes);
-
-  // Round Total
-  //price.total = Drupal.adPayment.formatCurrency(price.totalRaw);
+  // Total
+  price.total = price.subTotal +  price.taxes;
+  
+  // Round prices for output
+  price.subTotalRound =  Drupal.adPayment.formatCurrency(price.subTotal);
+  price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
+  price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
+  
   return price;
 };
 
@@ -256,10 +259,11 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.type = Drupal.t("<dt>Ad Type:</dt><dd> @type</dd>", {'@type': ad.type});
   
   // PRICE
-  ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotal, '@taxes': price.taxes,'@total': price.total});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-option'>Optional Extras: $@optional</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotal, '@taxes': price.taxes, '@optional': price.optional, '@priceTotal': price.total});
+  ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-option'>Optional Extras: $@optional</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@taxes': price.taxesRound, '@optional': price.optional, '@priceTotal': price.totalRound});
   
-  // Compose MSG
+  // Compose Messages
+  // Summary - quick feedback as you type.
   ad.msg.summary = 
     '<div id="ad-summary">' 
      + '<div id="ad-summary-price" class="block summary-price-block">'
@@ -273,6 +277,7 @@ Drupal.adPayment.displayMsg = function() {
     + '</div>'
     ;
 
+  // Review - full review of ad before submission.
   ad.msg.review = 
     '<div id="review-ad-box-ad" class="review-ad-block">'
     + '<h2>Ad</h2>'
@@ -302,12 +307,15 @@ Drupal.adPayment.displayMsg = function() {
  * Content Review - hidden until submitting
  */
 jQuery(document).ready(function() {
+    // Get Settings
+    // alert(Drupal.settings.adPaymentT[32]);
+
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
     jQuery(sideBar).append(summaryBox);
     
     // Create DIV for review
-    jQuery('#ad-s-node-form').prepend('<div id="ad-review">Placeholder</div>');
+    jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
     jQuery('#ad-review').hide();
   
     // create error box for validation
