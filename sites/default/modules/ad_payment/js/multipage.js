@@ -182,6 +182,4 @@ jQuery(document).ready(function() {
   
   });
   
-  // Term
-  // alert(Drupal.settings.adPaymentT[32]);
 });

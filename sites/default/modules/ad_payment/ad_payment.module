@@ -300,5 +300,26 @@ function _ad_payment_form_price_display($form_state) {
  */
 function ad_payment_init() {
   dpm('INIT');
-  drupal_add_js(array('adPaymentT' => array(32 => 'TermID-32')), 'setting');
+  $business_rated = array(
+    '7'  => 'Firewood',
+    '22' => 'Business Opportunities',
+    '23' => 'Employment Opportunities',
+    '38' => 'Commercial Rentals',
+    '39' => 'Rentals',
+    '43' => 'Commercial Real Estate',
+    '44' => 'Vacation Rentals',
+    '49' => 'Contractors/Tradesperson',
+    '52' => 'Health/Personal Care',
+    '69' => 'Farmers Market',
+  );
+  $headers = array(
+    14 => 1,
+    20 => 23,
+    32 => 34,
+    35 => 36,
+    37 => 47,
+    48 => 50,
+    54 => 57,
+  );
+  drupal_add_js(array('adPaymentSettings' => array('business' => $business_rated, 'headers' => $headers,)), 'setting');
 }

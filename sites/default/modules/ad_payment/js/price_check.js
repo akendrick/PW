@@ -116,6 +116,24 @@ Drupal.adPayment.formData = function(ad) {
   
   // SECTION
   ad.section = jQuery('#edit-field-tags-und').val();
+  if (ad.section >= 0) {
+    var bizRated = Drupal.settings.adPaymentSettings;
+    ad.sectionRating = jQuery.inArray(ad.section, bizRated);
+    if (ad.sectionRating == 'undefined') {
+      ad.sectionRating = 'Personal';
+    }
+    else {
+      ad.sectionRating = 'Business';
+    }
+    //console.log('Section: ' + ad.section);
+    //console.log('BizRate: ' + bizRated['business'][ad.section]);    
+    //console.log(checkSection);
+  }
+  
+  if (ad.sectionRating != ad.rate) {
+    console.log('Business Rated Term!!' + ad.sectionRating);
+  }
+  
   
   // Validate Form Data
   Drupal.adPayment.validate(ad);
@@ -308,7 +326,7 @@ Drupal.adPayment.displayMsg = function() {
  */
 jQuery(document).ready(function() {
     // Get Settings
-    // alert(Drupal.settings.adPaymentT[32]);
+    // alert(Drupal.settings.adPaymentSettings[7]);
 
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
