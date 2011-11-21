@@ -29,17 +29,74 @@ Drupal.adPayment.countWords = function(cleanedWordString) {
  * Form Validation
  */
 Drupal.adPayment.validate = function(ad) {
-
+  ad.errorMsg = {};
+  var state = false;
+  
   // Hyphenation Check
 	var hyphensRg = /([A-Za-z0-9][-_.*#]){3,}/;
   if (hyphensRg.test(ad.copy)) {
-    jQuery('#validation-box').html('Too Many Connections!<br> This ad will need to verified by Pennywise staff before approval. The quoted price may not be accurate.').addClass('error');
+    state = true;
+    ad.errorMsg.hyphen = 'Too Many Connections!<br> You have too many connections between words. This can include periods between words or hyphens. If this is correct you can ignore this warning.';
+    jQuery('#field-ad-copy-add-more-wrapper').addClass('error');
   }
-  else if (!hyphensRg.test(ad.copy)) {
-    jQuery('#validation-box').html('').addClass('ok');
-  };	
+  else {
+    jQuery('#field-ad-copy-add-more-wrapper').removeClass('error');  
+  };
 
+  // DETERMINE RATE
+  // - If BIZ rate. 
+  //   Ignore and clean errors.
+  // - If PERSONAL rate. 
+  //   Check term Rate.
+  //   If Term rate is Biz - send errors.
+  //   Otherwise ignore.
+  if (ad.formRate == 'Personal') {
+    // Get Selected SECTION
+    ad.section = jQuery('#edit-field-tags-und').val();
+    
+    if (ad.section >= 0) {
+      // get section ratings
+      var bizRatedSections = Drupal.settings.adPaymentBiz;
+      
+      if (bizRatedSections[ad.section]) {
+        // Biz Rated
+        state = true;
+        jQuery('.form-item-field-tags-und, #edit-field-rate-und').addClass('error');
+        ad.errorMsg.section = bizRatedSections[ad.section] + ' is a business rated section. Please choose another section or change your ad rating to "Business".';
+      }
+      else {
+        jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error');
+        // personal rate
+      }
+      
+    }
+  } 
+  else {
+      jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error');
+  };
+
+  
+  // Output error message
+  if (state) {
+    ad.errorMsg.warning = '<h3>This ad will need to verified by Pennywise staff before approval.<br /> The quoted price may not be accurate.</h3>';
+
+    var errorMsg = '';
+    jQuery.each(ad.errorMsg, function(key, value) {
+        errorMsg += '<li>' + value + '</li>';
+    });
+  
+    var validationBox = '<span id="validation-box-message"><ul>' + errorMsg + '</ul></span>';
+    jQuery('#validation-box').html(validationBox).addClass('error');
+  }
+  else {
+    jQuery('#validation-box').html('').removeClass('error');    
+    ad.errorMsg = '';
+  };
+
+  return ad;
+  
 };
+
 
 /**
  * Get Form Data.
@@ -91,13 +148,13 @@ Drupal.adPayment.formData = function(ad) {
   
   // RATE
   if (jQuery('#edit-field-rate-und-personal:checked').val() == 'Personal') {
-    ad.rate = 'Personal';
+    ad.formRate = 'Personal';
   }
   else if (jQuery('#edit-field-rate-und-business:checked').val() == 'Business') {
-    ad.rate = 'Business';
+    ad.formRate = 'Business';
   }
   else {
-    ad.rate = 'Not Set';
+    ad.formRate = 'Not Set';
   };
   
   // DURATION
@@ -114,29 +171,9 @@ Drupal.adPayment.formData = function(ad) {
     ad.type = 'Not Set';
   };
   
-  // SECTION
-  ad.section = jQuery('#edit-field-tags-und').val();
-  if (ad.section >= 0) {
-    var bizRated = Drupal.settings.adPaymentSettings;
-    ad.sectionRating = jQuery.inArray(ad.section, bizRated);
-    if (ad.sectionRating == 'undefined') {
-      ad.sectionRating = 'Personal';
-    }
-    else {
-      ad.sectionRating = 'Business';
-    }
-    //console.log('Section: ' + ad.section);
-    //console.log('BizRate: ' + bizRated['business'][ad.section]);    
-    //console.log(checkSection);
-  }
-  
-  if (ad.sectionRating != ad.rate) {
-    console.log('Business Rated Term!!' + ad.sectionRating);
-  }
-  
   
   // Validate Form Data
-  Drupal.adPayment.validate(ad);
+  ad = Drupal.adPayment.validate(ad);
 
   return ad;
 };
@@ -157,14 +194,14 @@ Drupal.adPayment.getPrice = function(ad) {
   var price = {};
 
   // Get Rate
-  if (ad.rate == 'Personal') {
+  if (ad.formRate == 'Personal') {
     price.rate = 'Personal';
     price.base = 3.5;
     price.word = .2;
     price.img  = 1.99;    
     price.promote = 5;
   }
-  else if (ad.rate == 'Business'){
+  else if (ad.formRate == 'Business'){
     price.rate = 'Business';
     price.base = 5;
     price.word = .4;
@@ -263,7 +300,7 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.areaList += '<em class="price-box duration duration-note">Internet Included FREE</em>';
   
   // Rate MSG 
-  ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.rate});
+  ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.formRate});
   
   // Duration MSG
   ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd> @duration weeks</dd>", {'@duration': ad.duration}) + ad.msg.durationDiscount;
@@ -280,6 +317,19 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
   ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-option'>Optional Extras: $@optional</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@taxes': price.taxesRound, '@optional': price.optional, '@priceTotal': price.totalRound});
   
+  // Error Messages
+  ad.msg.error = '';
+  if (ad.errorMsg) {
+    jQuery.each(ad.errorMsg, function(key, value) {
+      ad.msg.error += '<li>' + value + '</li>';
+    });
+    ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
+    console.log(ad.msg.error);
+  }
+  else {
+    ad.msg.error = '';
+  }  
+
   // Compose Messages
   // Summary - quick feedback as you type.
   ad.msg.summary = 
@@ -306,7 +356,8 @@ Drupal.adPayment.displayMsg = function() {
     + '<div id="ad-review">'
     + '<div id="review-ad-box-price" class="review-ad-block">'
     + '<h2>Summary</h2>'
-    + '<dl>' 
+    + ad.msg.error 
+    + '<dl>'
     + ad.msg.areaList 
     + ad.msg.rate 
     + ad.msg.duration 
@@ -337,9 +388,10 @@ jQuery(document).ready(function() {
     jQuery('#ad-review').hide();
   
     // create error box for validation
-    jQuery('#ad-s-node-form').prepend('<div id="validation-box"></div>');
+    var validationBox = '<div id="validation-box"></div>';
+    jQuery('#ad-s-node-form').prepend(validationBox);
 
-  jQuery('#ad-s-node-form').bind('click change keypress keyup ', function() { //click change keypress keyup
+  jQuery('#ad-s-node-form').bind('keyup click', function() { //click change keypress keyup
     var sideBox = '#ad-summary';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
     jQuery(sideBox).html(summaryBox);

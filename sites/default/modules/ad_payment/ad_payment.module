@@ -299,18 +299,19 @@ function _ad_payment_form_price_display($form_state) {
  * Implementation of HOOK_page
  */
 function ad_payment_init() {
-  dpm('INIT');
+  drupal_add_css(drupal_get_path('module', 'ad_payment') . '/css/ad_payment.css', array('type' => 'file'));
+
   $business_rated = array(
-    '7'  => 'Firewood',
-    '22' => 'Business Opportunities',
-    '23' => 'Employment Opportunities',
-    '38' => 'Commercial Rentals',
-    '39' => 'Rentals',
-    '43' => 'Commercial Real Estate',
-    '44' => 'Vacation Rentals',
-    '49' => 'Contractors/Tradesperson',
-    '52' => 'Health/Personal Care',
-    '69' => 'Farmers Market',
+    7  => 'Firewood',
+    22 => 'Business Opportunities',
+    23 => 'Employment Opportunities',
+    38 => 'Commercial Rentals',
+    39 => 'Rentals',
+    43 => 'Commercial Real Estate',
+    44 => 'Vacation Rentals',
+    49 => 'Contractors/Tradesperson',
+    52 => 'Health/Personal Care',
+    69 => 'Farmers Market',
   );
   $headers = array(
     14 => 1,
@@ -321,5 +322,6 @@ function ad_payment_init() {
     48 => 50,
     54 => 57,
   );
-  drupal_add_js(array('adPaymentSettings' => array('business' => $business_rated, 'headers' => $headers,)), 'setting');
+  drupal_add_js(array('adPaymentBiz' => $business_rated), 'setting');
+  drupal_add_js(array('adPaymentHead' => $headers), 'setting');
 }
