@@ -46,7 +46,7 @@ function module_builder_drush_command() {
     'description' => "Generate the code for a new Drupal module, including file headers and hook implementations.",
     'arguments' => array(
       'module name' => 'The machine name of the module.',
-      'hooks' => 'Short names of hooks, separated by spaces.',
+      'hooks' => "Short names of hooks, separated by spaces. Hook preset groups can be specific with an initial '@', eg '@block'.",
     ),
     'aliases' => array('mb'),
     'options' => array(
@@ -254,11 +254,11 @@ function drush_module_builder_callback_build() {
   module_builder_include('generate');
   // Build module code in all cases bar 'info'.
   if ($build != 'info') {
-    module_builder_build_module($commands, $module_data, $build_list);        
+    module_builder_build_module($module_data, $build_list);
   }
   // Build info code in cases 'info' and 'all'.
   if ($build == 'info' or $build == 'all') {
-    module_builder_build_info($commands, $module_data);
+    module_builder_build_info($module_data);
   }
   
   /*
@@ -296,6 +296,11 @@ function module_builder_build_data($commands) {
       'commands' => 0,
       'prompt' => dt('module name'),
       'required' => TRUE,
+    ),
+    'presets' => array(
+      'prompt' => dt('required hook presets'),
+      // This has neither 'commands' nor 'key' set, as these are pulled from the
+      // hook list in non-interactive mode.
     ),
     // It is essential this key follow the root name, so that the the root
     // name gets to the commands array first.
@@ -376,12 +381,24 @@ function module_builder_build_data($commands) {
   }
   
   // Extra processing for the hooks array (or not).
+  module_builder_include('process');
+  $hook_presets = module_builder_get_hook_presets();
+  $hooks = array();
   if (!is_array($module_data['hooks'])) {
     $module_data['hooks'] = preg_split('/\s+/', $module_data['hooks']);
   }
   // Convert the array from numeric to keyed by full hook name.
   foreach ($module_data['hooks'] as $hook_name) {
-    $hooks["hook_$hook_name"] = TRUE;
+    // Hook presets can be specified with an initial @.
+    if (substr($hook_name, 0, 1) == '@') {
+      $preset_name = substr($hook_name, 1);
+      // Convert the preset hooks list to the right format and add it to the array.
+      $preset_hooks = array_fill_keys($hook_presets[$preset_name]['hooks'], TRUE);
+      $hooks += $preset_hooks;
+    }
+    else {
+      $hooks["hook_$hook_name"] = TRUE;
+    }
   }
   // Special shortcut to get ALL THE HOOKS. BWAHAHA MINE ALL MINE.
   if (count($hooks) == 1 && isset($hooks['hook_all'])) {
@@ -405,8 +422,6 @@ function module_builder_default_readable_name($commands, $module_data) {
 /**
  * Generates and outputs module code.
  *
- * @param $commands
- *    The drush array of commands.
  * @param $module_data
  *    An array of module data. Passed by reference so file information can
  *    be added by module_builder_generate_module().
@@ -414,7 +429,7 @@ function module_builder_default_readable_name($commands, $module_data) {
  *    An array of requested code files to output
  *    'code' or 'all' means all of them.
  */  
-function module_builder_build_module($commands, &$module_data, $build_list) {
+function module_builder_build_module(&$module_data, $build_list) {
   //drush_print_r($module_data);
   //exit;
    
@@ -483,7 +498,7 @@ function module_builder_requested_filenames($module_root_name, $real, $abbrev) {
 /**
  * Generates and outputs info file code.
  */  
-function module_builder_build_info($commands, $module_data) {
+function module_builder_build_info($module_data) {
   module_builder_include('generate');
   $info_code = module_builder_generate_info($module_data);
 
@@ -646,6 +661,16 @@ function drush_module_builder_callback_hook_list() {
     drush_print("Group $file:", 2);
     foreach ($hooks as $key => $hook) {
       drush_print($hook['name'] . ': ' . $hook['description'], 4);
+    }
+  }
+
+  // List presets.
+  module_builder_include('process');
+  $hook_presets = module_builder_get_hook_presets();
+  foreach ($hook_presets as $hook_preset_name => $hook_preset_data) {
+    drush_print("Preset $hook_preset_name: " . $hook_preset_data['label'], 2);
+    foreach ($hook_preset_data['hooks'] as $hook) {
+      drush_print($hook, 4);
     }
   }
 

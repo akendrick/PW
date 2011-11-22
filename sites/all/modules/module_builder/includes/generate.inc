@@ -162,7 +162,8 @@ EOT;
       else {
         $code .= "\n\n";
       }
-      $code .= "}\n\n";
+      // Gap between successive hooks.
+      $code .= "}\n";
     } // foreach hook
 
     // Replace variables
@@ -605,6 +606,11 @@ function module_builder_get_templates($module_data) {
 
     if (!isset($hook_data_return[$destination][$hook_name])) {
       $hook_data_return[$destination][$hook_name] = $hook_function_declarations[$hook_name];
+    }
+    // We have no template data, so fill in the sample from the api.php file,
+    // as this is often informative.
+    if (empty($hook_data_return[$destination][$hook_name]['template'])) {
+      $hook_data_return[$destination][$hook_name]['template'] = $hook_function_declarations[$hook_name]['body'];
     }
   }
   
