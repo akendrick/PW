@@ -15,7 +15,7 @@
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
-define ('DEBUG', TRUE);
+define ('DEBUG', FALSE);
 
 
 /**
@@ -106,8 +106,6 @@ function ad_payment_block_view($delta = '') {
 * - Correct Validation errors by step.
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
-  dpm('Form Alter');
-  
 
   // Hide SUBMIT AND PREVIEW
   // $form['actions']['save']['#access']    = FALSE;
@@ -145,7 +143,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $total_price = ad_payment_price_check($form_state, 'form_state'); 
   $form['field_price']['#default_value'] = $total_price;
-  dpm('TOTAL PRICE - ' . $total_price);
   $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   
  // $form['field_price_check'] = array(
@@ -168,7 +165,6 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $ad_price = ad_payment_price_check($form_state, 'form_state');
-  dpm('AD PRICE (cc_validate) ----- ' . $ad_price);
   form_set_value($form['field_price'], $ad_price, &$form_state);  
 }
 

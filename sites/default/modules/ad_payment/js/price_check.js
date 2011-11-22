@@ -36,11 +36,11 @@ Drupal.adPayment.validate = function(ad) {
 	var hyphensRg = /([A-Za-z0-9][-_.*#]){3,}/;
   if (hyphensRg.test(ad.copy)) {
     state = true;
-    ad.errorMsg.hyphen = 'Too Many Connections!<br> You have too many connections between words. This can include periods between words or hyphens. If this is correct you can ignore this warning.';
-    jQuery('#field-ad-copy-add-more-wrapper').addClass('error');
+    ad.errorMsg.hyphen = Drupal.t('<h3>Too Many Connections!</h3> You have too many connections between words. This can include periods between words or hyphens. If this is correct you can ignore this warning.');
+    jQuery('#field-ad-copy-add-more-wrapper').addClass('error element-error');
   }
   else {
-    jQuery('#field-ad-copy-add-more-wrapper').removeClass('error');  
+    jQuery('#field-ad-copy-add-more-wrapper').removeClass('error element-error');  
   };
 
   // DETERMINE RATE
@@ -61,35 +61,35 @@ Drupal.adPayment.validate = function(ad) {
       if (bizRatedSections[ad.section]) {
         // Biz Rated
         state = true;
-        jQuery('.form-item-field-tags-und, #edit-field-rate-und').addClass('error');
-        ad.errorMsg.section = bizRatedSections[ad.section] + ' is a business rated section. Please choose another section or change your ad rating to "Business".';
+        jQuery('.form-item-field-tags-und, #edit-field-rate-und').addClass('error element-error');
+        ad.errorMsg.section = Drupal.t("<h3>@section is a business rated section.</h3> Please choose another section or change your ad rating to </em>Business</em>.", {'@section': bizRatedSections[ad.section]});
       }
       else {
-        jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error');
+        jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error element-error');
         // personal rate
       }
       
     }
   } 
   else {
-      jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error');
+      jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error element-error');
   };
 
   
   // Output error message
   if (state) {
-    ad.errorMsg.warning = '<h3>This ad will need to verified by Pennywise staff before approval.<br /> The quoted price may not be accurate.</h3>';
+    ad.errorMsg.warning = Drupal.t('<h3>The quoted price may not be accurate.</h3>This ad will need to verified by Pennywise staff before billing.');
 
-    var errorMsg = '';
+    var validationBoxes = '';
     jQuery.each(ad.errorMsg, function(key, value) {
-        errorMsg += '<li>' + value + '</li>';
+        validationBoxes += '<div style="display:block" class="messages error"><h2 class="element-invisible">Error Message</h2>' + value + '</div>';
     });
   
-    var validationBox = '<span id="validation-box-message"><ul>' + errorMsg + '</ul></span>';
-    jQuery('#validation-box').html(validationBox).addClass('error');
+    //var validationBox = '<h2 class="element-invisible">Error Message</h2><ul>' + errorMsg + '</ul>';
+    jQuery('#validation-box').html(validationBoxes);
   }
   else {
-    jQuery('#validation-box').html('').removeClass('error');    
+    jQuery('#validation-box').html('').removeClass('messages error');    
     ad.errorMsg = '';
   };
 
@@ -324,7 +324,6 @@ Drupal.adPayment.displayMsg = function() {
       ad.msg.error += '<li>' + value + '</li>';
     });
     ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
-    console.log(ad.msg.error);
   }
   else {
     ad.msg.error = '';

@@ -22,164 +22,126 @@ Drupal.adPayment.formStateFeedback = function(formStep) {
 /**
  * State Hide/Show Funcitonality 
  */ 
-Drupal.adPayment.formState = function(activationState, formStep) {
-  if (activationState == 'submit-form') {
-    // retrieve formStep - if set.
-    var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');
+Drupal.adPayment.formLayout = function(formStep) {
+
+  console.log('Step Detect: ' + formStep);
+  
+  // Default Layout
+  // Layout - hide all elements
+  jQuery('#field-price-add-more-wrapper, #field-ccid-add-more-wrapper, #block-ad-payment-ad-payment-create-ad, .group-upgrade, .group-payment').hide();
     
-    if (formStep == 'undefined') {
-      formStep = 0;
-    }
-    else {
-      // If the form is ready increment step.
-      formStep++;
-    }
-    
-    var returnVal = false;    
-  }
-  else {
-    var returnVal = true;
-  };
+  switch (formStep) {
+    case 1:
+      // STEP 1 - CREATE AD
+      Drupal.adPayment.formStateFeedback(formStep);
+      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Options'});
+      
+      // layout
+      jQuery('.group-upgrade, .group-payment, #ad-review').hide();
+      jQuery('.group-ad, #ad-summary').show();
+      break;
 
+    case 4:
+      // STEP 4 - SUBMIT AD
+      Drupal.adPayment.formStateFeedback(formStep);
+      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#edit-submit').attr({value: 'Submit Completed Ad'}).show();
+      
+      // layout
+      jQuery('#edit-preview, .group-ad, .group-upgrade, .group-payment, #ad-summary').hide();
+      jQuery('#ad-review').show();
+      break;
 
-  jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+    case 3:
+      // STEP 3 - PAYMENT DATA
+      Drupal.adPayment.formStateFeedback(formStep);
+      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#edit-preview').attr({value: 'Review Ad'});
+  
+      // layout
+      jQuery('.group-ad, .group-upgrade, #ad-review').hide();
+      jQuery('.group-payment').show();
+      break;
 
-  // Hide Submit/Save Actions
-  jQuery('#edit-submit').hide();
+    case 'all':
+      // ERROR - show ALL
+      Drupal.adPayment.formStateFeedback(4);
+      jQuery('group-ad, .group-upgrade, .group-payment, #ad-summary').show();
+      jQuery('#ad-review').hide();
+      jQuery('#edit-submit').attr({'value': 'Submit Completed Ad'}).show();
+     break;
 
-  if (formStep == 2) { // STEP 2 - UPGRADE AD
-    // form state
-    Drupal.adPayment.formStateFeedback(formStep);
-    jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
-    jQuery('#edit-preview').attr({value: 'Continue Step 3 - Payment'});
-    
-    // layout
-    jQuery('.group-ad').hide();
-    jQuery('.group-upgrade').show();
-    jQuery('.group-payment').hide();
-    jQuery('#ad-review').hide();
-    jQuery('#ad-summary').show();
-
-    return returnVal;
-  } 
-  else if (formStep == 3) { // STEP 4 - PAYMENT
-    // form state
-    Drupal.adPayment.formStateFeedback(formStep);
-    jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
-    jQuery('#edit-preview').attr({value: 'Review Ad'});
-
-    // layout
-    jQuery('.group-ad').hide();
-    jQuery('.group-upgrade').hide();
-    jQuery('.group-payment').show();
-    jQuery('#ad-review').hide();
-    jQuery('#ad-summary').show();
-
-    return returnVal;
-  } 
-  else if (formStep == 4) { // STEP 5 - REVIEW & SUBMIT
-    // form state
-    Drupal.adPayment.formStateFeedback(formStep);
-    jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
-    jQuery('#edit-preview').hide();
-    jQuery('#edit-submit').attr({value: 'Submit Completed Ad'}).show();
-    
-    // layout
-    jQuery('.group-ad').hide();
-    jQuery('.group-upgrade').hide();
-    jQuery('.group-payment').hide();
-    jQuery('#ad-review').show();
-    jQuery('#ad-summary').hide();
-    return returnVal;
-  }
-  else {
-    // form state
-    formStep = 1; // STEP 1 - CREATE AD
-    Drupal.adPayment.formStateFeedback(formStep);
-    jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
-    jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Upgrades'});
-    
-    // layout
-    jQuery('.group-ad').show();
-    jQuery('.group-upgrade').hide();
-    jQuery('.group-payment').hide();    
-    jQuery('#ad-review').hide();
-    jQuery('#ad-summary').show();
-
-    return returnVal;
+    case 2:
+      // STEP 2 - AD OPTIONS
+    default:
+      // DEFAULT
+      Drupal.adPayment.formStateFeedback(formStep);
+      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#edit-preview').attr({value: 'Continue Step 3 - Payment'});
+      
+      // layout
+      jQuery('#ad-review, .group-ad, .group-payment').hide();
+      jQuery('#ad-summary, .group-upgrade').show();
+      break;
   };
 }
 
-/**
- * Controls formState via the Header Buttons
- */
-Drupal.adPayment.stateSwitcher = function() {
-  var gotoStep = jQuery(this).attr('id');
-  
-  switch(gotoStep) {
-    case 'form-step-1':
-      Drupal.adPayment.formState('toggle', 1);
-      break;
-    case 'form-step-2':
-      Drupal.adPayment.formState('toggle', 2);
-      break;
-    case 'form-step-3':
-      Drupal.adPayment.formState('toggle', 3);
-      break;
-    case 'form-step-4':
-      Drupal.adPayment.formState('toggle', 4);
-      break;
-  };
-  
-  return false;
-};
-
 
 jQuery(document).ready(function() {
-  
-  // Layout - hide elements
-  jQuery('#field-price-add-more-wrapper').hide();
-  jQuery('#field-ccid-add-more-wrapper').hide();
-  jQuery('#block-ad-payment-ad-payment-create-ad').hide();
-  jQuery('.group-upgrade').hide();
-  jQuery('.group-payment').hide();
-  
-  // Rename Preview
-  jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Upgrades'});
-  
-  // Add State Switcher DIV
-  jQuery('#content').prepend('<div id="form-feedback"></div>');  
+  // Form State Switcher
+  jQuery('#content').prepend('<div id="form-feedback"></div>');      // Add State Switcher DIV
 
-
+  // Set layout
+    Drupal.adPayment.formLayout(1);
+  
+  // State Switcher
+  jQuery('#content').bind('mouseover click change', function() {  
+    jQuery("#form-feedback span").css('cursor', 'pointer').bind('click', function() {
+      var gotoStep = jQuery(this).attr('id');
+      console.log('Switcher: ' + gotoStep);
+      switch(gotoStep) {
+        case 'form-step-1':
+          Drupal.adPayment.formLayout(1);
+          break;
+        case 'form-step-2':
+          Drupal.adPayment.formLayout(2);
+          break;
+        case 'form-step-3':
+          Drupal.adPayment.formLayout(3);
+          break;
+        case 'form-step-4':
+          Drupal.adPayment.formLayout(4);
+          break;
+      };
+    });
+  }); // End Form State Switcher.
+  
   // Check Form Status on Submit
-  jQuery("#ad-s-node-form").submit(function(event) {
-    event.preventDefault();
-    var formStep = Drupal.adPayment.formState('submit-form', 'undefined');
-    return formStep;
-  });
-  var formStep = Drupal.adPayment.formState();
-  
-  // Form State Switching
-  jQuery('#content').bind('click change', function() {
-  
-  jQuery("#form-feedback span").css('cursor', 'pointer').bind('click', function() {
-    var gotoStep = jQuery(this).attr('id');
-    switch(gotoStep) {
-      case 'form-step-1':
-        Drupal.adPayment.formState('toggle', 1);
-        break;
-      case 'form-step-2':
-        Drupal.adPayment.formState('toggle', 2);
-        break;
-      case 'form-step-3':
-        Drupal.adPayment.formState('toggle', 3);
-        break;
-      case 'form-step-4':
-        Drupal.adPayment.formState('toggle', 4);
-        break;
-    };
+  jQuery("#ad-s-node-form").submit(function(adForm) {
+    adForm.preventDefault();
+    var self = this;
+
+      if (jQuery('#messages .error') === true) {
+        Drupal.adPayment.formLayout('all');
+        console.log('Error Step: ' + formStep);
+      }
+      else {
+        var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');    
+        if (!parseInt(formStep) | formStep == 'undefined' | formStep == 'Nan' | formStep == 'all') {
+          formStep = 2;
+        }
+        else {
+          // If the form is ready increment step.
+          formStep++;
+        };
+        
+        if (formStep > 4) {
+          self.submit();
+        }
+        Drupal.adPayment.formLayout(formStep);
+      };
   });
   
-  });
   
 });

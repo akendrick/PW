@@ -72,7 +72,6 @@ function _ad_payment_validate_cc_data($form_state) {
   
   if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
       _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type']) ) {
-    #dsm('Validated CC data!');
     return(TRUE);
   }
   return(FALSE);

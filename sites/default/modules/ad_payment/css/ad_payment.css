@@ -1,4 +1,8 @@
-.error {
+.element-error {
   background-repeat: no-repeat;
+  background-position-x: 5px;
+  background-position-y: 5px;
   padding-left: 40px;
+  color: #fff;
+  background-color: #fff;
 }
