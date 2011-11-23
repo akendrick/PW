@@ -82,11 +82,12 @@ function _ad_payment_validate_cc_data($form_state) {
 function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name) {
 
   // Remove non-digits from $credit_card_number.
-  $credit_card_number = strrev (ereg_replace ('[^([:digit:])]', '', $credit_card_number));
+  $credit_card_number = strrev (preg_replace ('[^([[:digit:]])]', '', $credit_card_number));
+//  $credit_card_number = strrev (ereg_replace ('[^([:digit:])]', '', $credit_card_number));
   $credit_card_number_length = strlen ($credit_card_number);
 
   // Make card type upper case for comparisons.
-  $credit_card_name = strtoupper ($credit_card_name);
+  $credit_card_name = strtoupper ($credit_card_name) +1;
   
   // Check for VISA DEBIT card number
   $visa_debit = strpos($credit_card_number, "4506");
@@ -97,47 +98,46 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name)
   }
 
   // Check for correct number of digits for each credit card type.
-  if($credit_card_name == "VISA" && ($credit_card_number_length != 13 && $credit_card_number_length != 16)) {
+  if($credit_card_name == "VISA" && ($credit_card_number_length != 13 && $credit_card_number_length != 15)) {
     form_set_error('field_cc_number', 'Wrong number of digits for Visa!');
     return(FALSE);   
   } 
-  elseif ($credit_card_name == "MASTER CARD" && $credit_card_number_length != 16) {
-    form_set_error('field_cc_number', 'Wrong number of digits for Master Card!');
+  elseif ($credit_card_name == "MASTER CARD" && $credit_card_number_length != 16 ) {
+    form_set_error('field_cc_number', 'Wrong number of digits for Master Card! -- ' . $credit_card_number_length);
     return(FALSE); 
   } 
     
   // Step 2:LUHN check digit calculations
-  for($digit_position = 1; $digit_position < $credit_card_number_length; $digit_position += 2) {
-    $digit_times_two = ($credit_card_number[$digit_position] * 2);
-    
-    if($digit_times_two > 9) {
-        $credit_card_number[$digit_position] = ($digit_times_two - 9);
-    } else {
-        $credit_card_number[$digit_position] = $digit_times_two;
-    }
-  }
-  $validation_number = 0;
-
-    // Step 3.
-    for($digit_position = 0; $digit_position < $credit_card_number_length;
-	$digit_position++) {
-	
-	$validation_number += $credit_card_number[$digit_position];
-    }
-
-  // Step 4.
-  if (($validation_number % 10) == 0) {
-	 return (TRUE);
-  } 
-  else {
-   form_set_error('field_cc_number', 'Invalid credit card number.');
-   return (FALSE);
-  }
+//  for($digit_position = 1; $digit_position < $credit_card_number_length; $digit_position += 2) {
+//    $digit_times_two = ($credit_card_number[$digit_position] * 2);
+//    
+//    if($digit_times_two > 9) {
+//        $credit_card_number[$digit_position] = ($digit_times_two - 9);
+//    } else {
+//        $credit_card_number[$digit_position] = $digit_times_two;
+//    }
+//  }
+//  $validation_number = 0;
+//
+//  // Step 3.
+//  for($digit_position = 0; $digit_position < $credit_card_number_length; $digit_position++) {
+//  	$validation_number += $credit_card_number[$digit_position];
+//  }
+//
+//  // Step 4.
+//  if (($validation_number % 10) == 0) {
+//	 return (TRUE);
+//  } 
+//  else {
+//   form_set_error('field_cc_number', 'Invalid credit card number.');
+//   return (FALSE);
+//  }
 
 } // END: function validate_cc_number
 
 function _ad_payment_validate_cc_expiry ($cc_expiry) {
-  if (ereg('([0-9]{1,2})[-\\/ ]?([0-9]{2})', $cc_expiry, $expiry)) {
+  if (preg_match('/(^[0-9]{1,2})[- \/]([0-9]{1,2})/', $cc_expiry, $expiry)) {
+//  if (ereg('([0-9]{1,2})[-\\/ ]?([0-9]{2})', $cc_expiry, $expiry)) {
   	// Use date windowing to determine current century. 
   	if ($expiry[2] > 90) {
   	  $expiry[2] += 1900; 

@@ -137,6 +137,7 @@ jQuery(document).ready(function() {
         };
         
         if (formStep > 4) {
+          formStep = 4;
           self.submit();
         }
         Drupal.adPayment.formLayout(formStep);
