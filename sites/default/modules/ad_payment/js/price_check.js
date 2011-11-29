@@ -33,7 +33,7 @@ Drupal.adPayment.validate = function(ad) {
   var state = false;
   
   // Hyphenation Check
-	var hyphensRg = /([A-Za-z0-9][-_.*#]){3,}/;
+	var hyphensRg = /([A-Za-z0-9][-_.*#]){2,}/;
   if (hyphensRg.test(ad.copy)) {
     state = true;
     ad.errorMsg.hyphen = Drupal.t('<h3>Too Many Connections!</h3> You have too many connections between words. This can include periods between words or hyphens. If this is correct you can ignore this warning.');
@@ -365,6 +365,9 @@ Drupal.adPayment.displayMsg = function() {
     + '</div>'
     ;
   
+  // SET FORM PRICE
+  jQuery('#edit-field-price-und-0-value').val(price.totalRound);
+  
   return ad.msg;
 }
 
@@ -375,6 +378,9 @@ Drupal.adPayment.displayMsg = function() {
  * Content Review - hidden until submitting
  */
 jQuery(document).ready(function() {
+  var formID = jQuery("form").attr('id');
+  if (formID == 'ad-s-node-form'){
+
     // Get Settings
     // alert(Drupal.settings.adPaymentSettings[7]);
 
@@ -389,19 +395,19 @@ jQuery(document).ready(function() {
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
-
-  jQuery('#ad-s-node-form').bind('keyup click', function() { //click change keypress keyup
-    var sideBox = '#ad-summary';
-    var summaryBox = Drupal.adPayment.displayMsg().summary;
-    jQuery(sideBox).html(summaryBox);
-    
-    // Review box.
-    var reviewLocation = '#ad-review';
-    var reviewBox = Drupal.adPayment.displayMsg().review;
-    jQuery(reviewLocation).html(reviewBox);
-
-  });
-
+  
+    jQuery('#ad-s-node-form').bind('keyup click', function() { //click change keypress keyup
+      var sideBox = '#ad-summary';
+      var summaryBox = Drupal.adPayment.displayMsg().summary;
+      jQuery(sideBox).html(summaryBox);
+      
+      // Review box.
+      var reviewLocation = '#ad-review';
+      var reviewBox = Drupal.adPayment.displayMsg().review;
+      jQuery(reviewLocation).html(reviewBox);
+  
+    });
+  };
 });
 
   

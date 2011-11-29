@@ -29,7 +29,7 @@ Drupal.adPayment.formLayout = function(formStep) {
   // Default Layout
   // Layout - hide all elements
   jQuery('#field-price-add-more-wrapper, #field-ccid-add-more-wrapper, #block-ad-payment-ad-payment-create-ad, .group-upgrade, .group-payment').hide();
-    
+    //
   switch (formStep) {
     case 1:
       // STEP 1 - CREATE AD
@@ -89,60 +89,63 @@ Drupal.adPayment.formLayout = function(formStep) {
 
 
 jQuery(document).ready(function() {
-  // Form State Switcher
-  jQuery('#content').prepend('<div id="form-feedback"></div>');      // Add State Switcher DIV
-
-  // Set layout
-    Drupal.adPayment.formLayout(1);
+  var formID = jQuery("form").attr('id');
+  if (formID == 'ad-s-node-form'){
   
-  // State Switcher
-  jQuery('#content').bind('mouseover click change', function() {  
-    jQuery("#form-feedback span").css('cursor', 'pointer').bind('click', function() {
-      var gotoStep = jQuery(this).attr('id');
-      console.log('Switcher: ' + gotoStep);
-      switch(gotoStep) {
-        case 'form-step-1':
-          Drupal.adPayment.formLayout(1);
-          break;
-        case 'form-step-2':
-          Drupal.adPayment.formLayout(2);
-          break;
-        case 'form-step-3':
-          Drupal.adPayment.formLayout(3);
-          break;
-        case 'form-step-4':
-          Drupal.adPayment.formLayout(4);
-          break;
-      };
-    });
-  }); // End Form State Switcher.
+    // Form State Switcher
+    jQuery('#content').prepend('<div id="form-feedback"></div>');      // Add State Switcher DIV
   
-  // Check Form Status on Submit
-  jQuery("#ad-s-node-form").submit(function(adForm) {
-    adForm.preventDefault();
-    var self = this;
-
-      if (jQuery('#messages .error') === true) {
-        Drupal.adPayment.formLayout('all');
-        console.log('Error Step: ' + formStep);
-      }
-      else {
-        var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');    
-        if (!parseInt(formStep) | formStep == 'undefined' | formStep == 'Nan' | formStep == 'all') {
-          formStep = 2;
+    // Set layout
+      Drupal.adPayment.formLayout(1);
+    
+    // State Switcher
+    jQuery('#content').bind('mouseover click change', function() {  
+      jQuery("#form-feedback span").css('cursor', 'pointer').bind('click', function() {
+        var gotoStep = jQuery(this).attr('id');
+        console.log('Switcher: ' + gotoStep);
+        switch(gotoStep) {
+          case 'form-step-1':
+            Drupal.adPayment.formLayout(1);
+            break;
+          case 'form-step-2':
+            Drupal.adPayment.formLayout(2);
+            break;
+          case 'form-step-3':
+            Drupal.adPayment.formLayout(3);
+            break;
+          case 'form-step-4':
+            Drupal.adPayment.formLayout(4);
+            break;
+        };
+      });
+    }); // End Form State Switcher.
+    
+    // Check Form Status on Submit
+    jQuery("#ad-s-node-form").submit(function(adForm) {
+      adForm.preventDefault();
+      var self = this;
+  
+        if (jQuery('#messages .error') === true) {
+          Drupal.adPayment.formLayout('all');
+          console.log('Error Step: ' + formStep);
         }
         else {
-          // If the form is ready increment step.
-          formStep++;
+          var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');    
+          if (!parseInt(formStep) | formStep == 'undefined' | formStep == 'Nan' | formStep == 'all') {
+            formStep = 2;
+          }
+          else {
+            // If the form is ready increment step.
+            formStep++;
+          };
+          
+          if (formStep > 4) {
+            formStep = 4;
+            self.submit();
+          }
+          Drupal.adPayment.formLayout(formStep);
         };
-        
-        if (formStep > 4) {
-          formStep = 4;
-          self.submit();
-        }
-        Drupal.adPayment.formLayout(formStep);
-      };
-  });
-  
+    });
+  };  
   
 });
