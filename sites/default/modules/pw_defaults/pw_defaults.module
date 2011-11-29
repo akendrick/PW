@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PW Defaults feature.
+ */
+
+include_once('pw_defaults.features.inc');

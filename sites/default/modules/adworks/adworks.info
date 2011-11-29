@@ -1,5 +1,5 @@
 name = Adworks
 description = Parses Adworks data into new classifieds.
-package = Pennywise
+package = "Pennywise"
 core = 7.x
 files[] = adworks.module

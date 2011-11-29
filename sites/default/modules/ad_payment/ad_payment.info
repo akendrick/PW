@@ -1,6 +1,6 @@
 name = Ad Payment
 description = Provides price calculations, CC# validation, (todo: jQuery feedback?)
-package = Pennywise
+package = "Pennywise"
 core = 7.x
 files[] = ad_payment.module
 files[] = ad_payment_cc_validate.inc
