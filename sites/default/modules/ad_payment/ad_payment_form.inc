@@ -13,6 +13,17 @@ function ad_payment_form(&$form, $form_state) {
   // To get the 'realname'
   // $user_data->realname 
 
+  // Determine User Role
+  if (user_access('edit any ad_s content')){
+    $access = FALSE;
+    $required = FALSE;
+    dpm(' Access removed your need to enter CC data.');
+  }
+  else {
+    $access = TRUE;
+    $required = TRUE;
+  }
+
   // CC Payment Form.
   // Place in correct multistep group.
   $form['#groups']['group_payment']->children[] = 'field_card_type';
@@ -37,7 +48,8 @@ function ad_payment_form(&$form, $form_state) {
     '#default_value' => ($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value'] : '',
     '#size' => 12,
     '#maxlength' => 35,
-#   '#required' => TRUE,
+    '#required' => $required,
+    '#access' => $access,
   );
   $form['field_last_name'] = array(
     '#type' => 'textfield',
@@ -46,7 +58,8 @@ function ad_payment_form(&$form, $form_state) {
     '#default_value' => ($user_data->field_last_name['und'][0]['value']) ? $user_data->field_last_name['und'][0]['value'] : '',
     '#size' => 12,
     '#maxlength' => 35,
-#   '#required' => TRUE,
+    '#required' => $required,
+    '#access' => $access,
   );
   $form['field_card_type'] = array(
     '#type' => 'radios',
@@ -54,16 +67,18 @@ function ad_payment_form(&$form, $form_state) {
     '#description' => t('Select your credit card'),
     '#options' => array('Master Card', 'Visa'),
 #    '#required' => TRUE,
+    '#access' => $access,
   );
   $form['field_cc_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Credit Card Number'),
-#   '#required' => TRUE,
     '#validate' => array('_ad_payment_cc_number_validate'),
     '#size' => 18,
     '#maxlength' => 36,
     '#default_value' => ($form_state['values']['field_cc_number']) ? $form_state['values']['field_cc_number'] : '',
     '#attributes' => array('autocomplete' =>'off'),
+    '#required' => $required,
+    '#access' => $access,
   );
   $months = array(
     '00' => 'Select Month',
@@ -94,15 +109,17 @@ function ad_payment_form(&$form, $form_state) {
   $form['field_exp_month'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Month'),
-#   '#required' => TRUE,
     '#options' => $months,
     '#default_value' => ($form_state['values']['field_exp_month']) ? $form_state['values']['field_exp_month'] : '',
+    '#required' => $required,
+    '#access' => $access,
   );
   $form['field_exp_year'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Year'),
-#   '#required' => TRUE,
     '#options' => $years,
     '#default_value' => ($form_state['values']['field_exp_year']) ? $form_state['values']['field_exp_year'] : '',
+    '#required' => $required,
+    '#access' => $access,
   );
 }

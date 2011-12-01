@@ -29,9 +29,36 @@ function ad_payment_menu() {
     'type'            => MENU_NORMAL_ITEM,
   );
   
+  $items['thank-you'] = array(
+    'access callback' => TRUE,
+    'title' => 'Thank You for submitting your ad.',
+    'page callback' => 'thankyou_page',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
+/**
+* Thank You Page
+*
+*/
+function thankyou_page() {
+
+  $content = "<h2>Thank you for choosing Pennywise.</h2>";
+  $content .= '<p>A confirmation message has been sent to your email address.';
+  return $content;
+}
+
+/**
+* Implementation of custom page.
+*
+* If user not logged in present LoginToboggan form.
+* else get `Submit Ad` form.
+*
+* @return
+*  form data
+*/
 function ad_payment_ad_submit_form_page() {
 
   global $user;
@@ -67,6 +94,9 @@ function ad_payment_ad_submit_form_page() {
 
 /**
 * Implementation of hook_block_info
+*
+* @return
+*  Ad creation link block
 */
 function ad_payment_block_info() {
   $blocks['ad_payment_create_ad'] = array(
@@ -83,6 +113,8 @@ function ad_payment_block_info() {
 /**
 * Implementation of hook_block_view
 *
+* @return
+*  `Ad Submit` submission form link.
 */
 function ad_payment_block_view($delta = '') {
   $block = array();
@@ -101,31 +133,33 @@ function ad_payment_block_view($delta = '') {
 *
 * Alter form to increase legibility and flow.
 * - Insert a modular Price block for both PHP and jQuery pricing.
-* - Hide 'Submit', 'Preview', and 'Delete' until completed form.
-* - Insert CC Form in the Last Step.
-* - Correct Validation errors by step.
+* - Insert CC Form in the Last Step (unless in EDITOR role)
+*
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
-  // Hide SUBMIT AND PREVIEW
-  // $form['actions']['save']['#access']    = FALSE;
-  # $form['actions']['preview']['#access'] = FALSE;
-  # $form['actions']['delete']['#access']  = FALSE;
+  // Change Save to Submit.
+  $form['actions']['save']['#value']  = 'Submit Ad';
+  
+  // Insert CC Validation.
+  $form['#validate'][] = '_ad_payment_cc_validate';
+  $form['#submit'][]   = '_ad_payment_cc_submit';
+  
+  // Float First 2 Groups.
+  $form['#fieldgroups']['group_ad']->weight = -20;
+  $form['#fieldgroups']['group_upgrade']->weight = -10;
 
-    // Change Save to Submit.
-    $form['actions']['save']['#value']  = 'Submit Ad';
+  
+  // Load CC form
+  module_load_include('inc', 'ad_payment', 'ad_payment_form');
+  ad_payment_form($form, $form_state);
     
-    // Insert CC Validation.
-    $form['#validate'][] = '_ad_payment_cc_validate';
-    $form['#submit'][]   = '_ad_payment_cc_submit';
-    
-    // Float First 2 Groups.
-    $form['#fieldgroups']['group_ad']->weight = -20;
-    $form['#fieldgroups']['group_upgrade']->weight = -10;
-
-    module_load_include('inc', 'ad_payment', 'ad_payment_form');
-    ad_payment_form($form, $form_state);
-    
+  //  Ad Price
+  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  $total_price = ad_payment_price_check($form_state, 'form_state'); 
+  $form['field_price']['#default_value'] = $total_price;
+  $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  
   if(DEBUG) {
     global $user;
     dpm('USER');
@@ -136,21 +170,10 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     dpm($form_state);
     dpm('FORM-STATE : NODE');
     dpm($form_state['node']);
-
-
+    
+    dpm('Access Check:');
+    dpm(user_access('submit_ad'));
   }
-  //  Ad Price
-  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $total_price = ad_payment_price_check($form_state, 'form_state'); 
-  $form['field_price']['#default_value'] = $total_price;
-  $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
-  
- // $form['field_price_check'] = array(
- //   '#prefix' => '<div id="ad-price-box">',
- //   '#markup' => 'Total Price $' . $total_price,
- //   '#weight' => -200,
- //   '#suffix' => '</div>',
- // );
 }
 
 

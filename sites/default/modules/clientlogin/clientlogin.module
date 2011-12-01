@@ -28,12 +28,6 @@ function clientlogin_menu() {
     'title' => 'Pennywise Ad Submission Page',
     'page callback' => clientlogin_page,
   );
-  $items['thank-you'] = array(
-    'access callback' => TRUE,
-    'title' => 'Thank You for submitting your ad.',
-    'page callback' => thankyou_page,
-    'type' => MENU_CALLBACK,
-  );
   
   return $items;
 }
@@ -80,18 +74,6 @@ function clientlogin_page() {
 
   return $content;
 }
-
-
-/**
-* Thank You Page
-*
-*/
-function thankyou_page() {
-  $content = "<h2>Thank you for choosing Pennywise.</h2>";
-  $content .= '<p>A confirmation message has been sent to your email address.';
-  return $content;
-}
-
 
 
 /**
