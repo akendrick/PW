@@ -13,31 +13,46 @@ function pw_display_user_default_permissions() {
   // Exported permission: create display_ads content
   $permissions['create display_ads content'] = array(
     'name' => 'create display_ads content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'display ad editor',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: delete any display_ads content
   $permissions['delete any display_ads content'] = array(
     'name' => 'delete any display_ads content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'display ad editor',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: delete own display_ads content
   $permissions['delete own display_ads content'] = array(
     'name' => 'delete own display_ads content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'display ad editor',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: edit any display_ads content
   $permissions['edit any display_ads content'] = array(
     'name' => 'edit any display_ads content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'display ad editor',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: edit own display_ads content
   $permissions['edit own display_ads content'] = array(
     'name' => 'edit own display_ads content',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'display ad editor',
+    ),
+    'module' => 'node',
   );
 
   return $permissions;
