@@ -70,7 +70,7 @@ function ad_payment_price_check(&$var, $data_type) {
   $duration = _ad_payment_set_ad_duration($storage['values']['duration']);
 
   // Word Count
-  $count = _ad_payment_word_counter($$storage['values']['ad_copy']);
+  $count = _ad_payment_word_counter($storage['values']['ad_copy']);
   
   // Options
   $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? TRUE : FALSE;

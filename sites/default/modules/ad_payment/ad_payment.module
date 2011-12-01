@@ -166,6 +166,10 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $ad_price = ad_payment_price_check($form_state, 'form_state');
   form_set_value($form['field_price'], $ad_price, &$form_state);  
+
+  // Set CCID
+  $ccid = rand();
+  form_set_value($form['field_ccid'], $ccid, &$form_state);  
 }
 
 /**
@@ -205,9 +209,6 @@ function _ad_payment_cc_submit($form, $form_state) {
   // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
   // #print "Order <a href='$url'>#$id</a> saved.";
 
-  // Set CCID
-  $ccid = rand();
-  form_set_value($form['field_ccid'], $ccid, &$form_state);  
 
 }
 
@@ -233,6 +234,7 @@ function ad_payment_node_insert($node) {
       'created' => $node->created,
     ))->execute();    
     
+    // SET CCID
     
     // Becuase Life isn't just.
     // You need to update the newly created node with correct data.
@@ -325,4 +327,15 @@ function ad_payment_init() {
   );
   drupal_add_js(array('adPaymentBiz' => $business_rated), 'setting');
   drupal_add_js(array('adPaymentHead' => $headers), 'setting');
+}
+
+/**
+* Implementation of views_api()
+*/
+function ad_payment_views_api() {
+
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'ad_payment') . '/views',
+  );
 }

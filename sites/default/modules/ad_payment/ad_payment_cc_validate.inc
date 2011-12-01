@@ -14,7 +14,7 @@
   // NETIDEA CODE
   // VALIDATION_TEST_MODE: set to TRUE to allow any card number for testing purposes.
   // Must be set before loading the CreditCardValidate.inc.php library! 
-  define ('VALIDATION_TEST_MODE', TRUE);
+  // define ('VALIDATION_TEST_MODE', TRUE);
 
 
 /**

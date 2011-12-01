@@ -165,6 +165,25 @@ function pw_defaults_views_default_views() {
   $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['type']['summary_options']['base_path'] = 'admin/pennywise/ads';
   $handler->display->display_options['arguments']['type']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['type']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['type']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['type']['validate_options']['types'] = array(
+    'classified' => 'classified',
+    'display_ads' => 'display_ads',
+    'ad_s' => 'ad_s',
+    'article' => 'article',
+  );
+  $handler->display->display_options['arguments']['type']['validate_options']['access'] = 0;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'ad_s' => 'ad_s',
+    'article' => 'article',
+    'classified' => 'classified',
+    'display_ads' => 'display_ads',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
