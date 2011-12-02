@@ -23,6 +23,18 @@ function ad_payment_form(&$form, $form_state) {
     $access = TRUE;
     $required = TRUE;
   }
+  
+  // Get Form State data - if any
+  if ($form_state['values']) {
+    $cc_number = $form_state['values']['field_cc_number'];
+    $cc_month  = $form_state['values']['field_exp_month'];
+    $cc_year   = $form_state['values']['field_exp_year'];
+  }
+  else {
+    $cc_number = '';
+    $cc_month  = '';
+    $cc_year   = '';
+  }
 
   // CC Payment Form.
   // Place in correct multistep group.
@@ -75,7 +87,7 @@ function ad_payment_form(&$form, $form_state) {
     '#validate' => array('_ad_payment_cc_number_validate'),
     '#size' => 18,
     '#maxlength' => 36,
-    '#default_value' => ($form_state['values']['field_cc_number']) ? $form_state['values']['field_cc_number'] : '',
+    '#default_value' => $cc_number,
     '#attributes' => array('autocomplete' =>'off'),
     '#required' => $required,
     '#access' => $access,
@@ -110,7 +122,7 @@ function ad_payment_form(&$form, $form_state) {
     '#type' => 'select',
     '#title' => t('Expiry Month'),
     '#options' => $months,
-    '#default_value' => ($form_state['values']['field_exp_month']) ? $form_state['values']['field_exp_month'] : '',
+    '#default_value' => $cc_month,
     '#required' => $required,
     '#access' => $access,
   );
@@ -118,7 +130,7 @@ function ad_payment_form(&$form, $form_state) {
     '#type' => 'select',
     '#title' => t('Expiry Year'),
     '#options' => $years,
-    '#default_value' => ($form_state['values']['field_exp_year']) ? $form_state['values']['field_exp_year'] : '',
+    '#default_value' => $cc_year,
     '#required' => $required,
     '#access' => $access,
   );

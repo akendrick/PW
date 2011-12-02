@@ -28,12 +28,17 @@ define ('DEBUG', TRUE);
 *  $storage['price'] = $price;
 */
 function ad_payment_price_check(&$var, $data_type) {
+  // If this is the first page then there are no values. So return empty.
+  if (!$var['values']) {
+    return;
+  }
   // Clear $form_state storage price.
   $storage = array();
 
   switch ($data_type) {
     case 'form_state':
       $form_state = $var;
+
       $storage['values'] = array(
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
         'section' => $form_state['values']['field_tags']['und'][0]['tid'],
@@ -158,7 +163,7 @@ function ad_payment_price_check(&$var, $data_type) {
 function _ad_payment_validate_rate($storage) {
 
   // Get Section Rating
-  $term = taxonomy_term_load ($storage['values']['section']);
+  $term = taxonomy_term_load($storage['values']['section']);
 
   // Get Form Rating
   $form_rate = ($storage['values']['rate'] == 'Personal') ? 0 : 1;

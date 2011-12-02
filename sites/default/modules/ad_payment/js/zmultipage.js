@@ -7,14 +7,17 @@
  *
  */ 
 Drupal.adPayment.formStateFeedback = function(formStep) {
-  var step1 = '<span id="form-step-1" class="form-feedback-step"> Create Ad </span>';
-  var step2 = '<span id="form-step-2" class="form-feedback-step"> Options </span>';
-  var step3 = '<span id="form-step-3" class="form-feedback-step"> Payment </span>';
-  var step4 = '<span id="form-step-4" class="form-feedback-step"> Review </span>';
+  var step1 = '<a href="#form-step-1" class="form-feedback-step"> Create Ad </a>';
+  var step2 = '<a href="#form-step-2" class="form-feedback-step"> Options </a>';
+  var step3 = '<a href="#form-step-3" class="form-feedback-step"> Payment </a>';
+  var step4 = '<a href="#form-step-4" class="form-feedback-step"> Review </a>';
   var formSteps = '<div id="form-feedback">' + step1 + step2 + step3 + step4 + '</div>';
 
   jQuery('#form-feedback').html(formSteps);
-  jQuery('#form-step-'+formStep).addClass('highlight');
+  jQuery('#form-step-'+formStep).addClass('form-feedback-step-highlight');
+  
+  // jQuery UI button test.
+  jQuery('.form-feedback').tabs();
 };
 
 
@@ -24,28 +27,28 @@ Drupal.adPayment.formStateFeedback = function(formStep) {
  */ 
 Drupal.adPayment.formLayout = function(formStep) {
 
-  console.log('Step Detect: ' + formStep);
+  // console.log('Step Detect: ' + formStep);
   
   // Default Layout
   // Layout - hide all elements
-  jQuery('#field-price-add-more-wrapper, #field-ccid-add-more-wrapper, #block-ad-payment-ad-payment-create-ad, .group-upgrade, .group-payment').hide();
+  jQuery('#field-price-add-more-wrapper, #field-price -add-more-wrapper, #block-ad-payment-ad-payment-create-ad, .group-upgrade, .group-payment').hide();
     //
   switch (formStep) {
     case 1:
       // STEP 1 - CREATE AD
       Drupal.adPayment.formStateFeedback(formStep);
-      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#field-price-add-more-wrapper').data('formStep', formStep);
       jQuery('#edit-preview').attr({value: 'Continue Step 2 - Ad Options'});
       
       // layout
-      jQuery('.group-upgrade, .group-payment, #ad-review').hide();
+      jQuery('.edit-submit, .group-upgrade, .group-payment, #ad-review').hide();
       jQuery('.group-ad, #ad-summary').show();
       break;
 
     case 4:
       // STEP 4 - SUBMIT AD
       Drupal.adPayment.formStateFeedback(formStep);
-      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#field-price-add-more-wrapper').data('formStep', formStep+1);
       jQuery('#edit-submit').attr({value: 'Submit Completed Ad'}).show();
       
       // layout
@@ -56,7 +59,7 @@ Drupal.adPayment.formLayout = function(formStep) {
     case 3:
       // STEP 3 - PAYMENT DATA
       Drupal.adPayment.formStateFeedback(formStep);
-      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#field-price-add-more-wrapper').data('formStep', formStep+1);
       jQuery('#edit-preview').attr({value: 'Review Ad'});
   
       // layout
@@ -77,7 +80,7 @@ Drupal.adPayment.formLayout = function(formStep) {
     default:
       // DEFAULT
       Drupal.adPayment.formStateFeedback(formStep);
-      jQuery('#field-ccid-add-more-wrapper').data('formStep', formStep);
+      jQuery('#field-price-add-more-wrapper').data('formStep', (formStep+1));
       jQuery('#edit-preview').attr({value: 'Continue Step 3 - Payment'});
       
       // layout
@@ -85,6 +88,8 @@ Drupal.adPayment.formLayout = function(formStep) {
       jQuery('#ad-summary, .group-upgrade').show();
       break;
   };
+  // console.log('Step SET: ' + formStep);
+
 }
 
 
@@ -102,7 +107,6 @@ jQuery(document).ready(function() {
     jQuery('#content').bind('mouseover click change', function() {  
       jQuery("#form-feedback span").css('cursor', 'pointer').bind('click', function() {
         var gotoStep = jQuery(this).attr('id');
-        console.log('Switcher: ' + gotoStep);
         switch(gotoStep) {
           case 'form-step-1':
             Drupal.adPayment.formLayout(1);
@@ -130,20 +134,42 @@ jQuery(document).ready(function() {
           console.log('Error Step: ' + formStep);
         }
         else {
-          var formStep = jQuery('#field-ccid-add-more-wrapper').data('formStep');    
-          if (!parseInt(formStep) | formStep == 'undefined' | formStep == 'Nan' | formStep == 'all') {
-            formStep = 2;
-          }
-          else {
-            // If the form is ready increment step.
-            formStep++;
+          var formStep = jQuery('#field-price-add-more-wrapper').data('formStep');    
+
+          switch(formStep) {
+            case 1:
+            case 2:
+              formStep++;
+              Drupal.adPayment.formLayout(formStep);
+              break;
+            case 3:
+              Drupal.adPayment.formLayout(formStep);
+              break;
+            case 4:
+              Drupal.adPayment.formLayout(formStep);
+              break;
+            case 5:
+              Drupal.adPayment.formLayout(formStep);
+              self.submit();
+            default:
+              formStep = 1;
+              Drupal.adPayment.formLayout(formStep);
+              break;
           };
-          
-          if (formStep > 4) {
-            formStep = 4;
-            self.submit();
-          }
-          Drupal.adPayment.formLayout(formStep);
+          // if (!parseInt(formStep) | formStep == 'undefined' | formStep == 'Nan' | formStep == 'all') {
+          //   formStep = 2;
+          //   console.log('Set Step as -  ' + formStep);
+          // }
+          // else {
+          //   // If the form is ready increment step.
+          //   formStep++;
+          // };
+          // 
+          // if (formStep > 4) {
+          //   formStep = 4;
+          //   self.submit();
+          // }
+          //Drupal.adPayment.formLayout(formStep);
         };
     });
   };  

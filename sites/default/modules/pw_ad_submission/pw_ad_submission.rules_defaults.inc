@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * pw_layout.rules_defaults.inc
+ * pw_ad_submission.rules_defaults.inc
  */
 
 /**
  * Implements hook_default_rules_configuration().
  */
-function pw_layout_default_rules_configuration() {
+function pw_ad_submission_default_rules_configuration() {
   $items = array();
   $items['rules_ad_submission_login_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_login_redirect" : {
       "LABEL" : "Login Existing User Redirect",

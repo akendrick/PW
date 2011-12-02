@@ -15,7 +15,7 @@
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
-define ('DEBUG', FALSE);
+define ('DEBUG', TRUE);
 
 
 /**
@@ -155,17 +155,22 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   ad_payment_form($form, $form_state);
     
   //  Ad Price
-  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $total_price = ad_payment_price_check($form_state, 'form_state'); 
-  $form['field_price']['#default_value'] = $total_price;
-  $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
-  
+  //  - Check only if submitted/in preview.
+  if ($form_state['values']) {
+    module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+    $total_price = ad_payment_price_check($form_state, 'form_state'); 
+    $form['field_price']['#default_value'] = $total_price;
+    $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  }
+    
   if(DEBUG) {
     global $user;
     dpm('USER');
     dpm($user);
     dpm('FORM');
     dpm($form);
+    dpm('FORM :: #FIELDGROUPS');
+    dpm($form['#fieldgroups']['group_ad']);
     dpm('FORM STATE');
     dpm($form_state);
     dpm('FORM-STATE : NODE');
@@ -350,6 +355,11 @@ function ad_payment_init() {
   );
   drupal_add_js(array('adPaymentBiz' => $business_rated), 'setting');
   drupal_add_js(array('adPaymentHead' => $headers), 'setting');
+
+  // Add jQuery UI
+  drupal_add_library('system', 'ui.tabs');
+  drupal_add_library('system', 'ui.button');
+
 }
 
 /**

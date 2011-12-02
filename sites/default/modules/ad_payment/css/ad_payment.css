@@ -1,3 +1,10 @@
+.form-feedback-step {
+  padding: 2px 20px;
+  size: 2em;
+}
+.form-feedback-step-highlight {
+  background-color: yellow;
+}
 .element-error {
   background-repeat: no-repeat;
   background-position-x: 5px;

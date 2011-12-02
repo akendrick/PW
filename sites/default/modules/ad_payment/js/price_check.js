@@ -390,13 +390,13 @@ jQuery(document).ready(function() {
     
     // Create DIV for review
     jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
-    jQuery('#ad-review').hide();
+    jQuery('#ad-review ').hide();
   
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
   
-    jQuery('#ad-s-node-form').bind('keyup click', function() { //click change keypress keyup
+    jQuery('#ad-s-node-form').bind('change', function() { //click change keypress keyup
       var sideBox = '#ad-summary';
       var summaryBox = Drupal.adPayment.displayMsg().summary;
       jQuery(sideBox).html(summaryBox);
@@ -406,6 +406,10 @@ jQuery(document).ready(function() {
       var reviewBox = Drupal.adPayment.displayMsg().review;
       jQuery(reviewLocation).html(reviewBox);
   
+      // Hide Submit Button if you're on page 4 and no ad copy.
+      if (jQuery('#form-step-4').is('.form-feedback-step-highlight')) {
+        console.log('You are on page 4.');
+      }
     });
   };
 });
