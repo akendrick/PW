@@ -15,7 +15,7 @@
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
-define ('DEBUG', TRUE);
+define ('DEBUG', FALSE);
 
 
 /**

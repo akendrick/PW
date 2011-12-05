@@ -23,7 +23,7 @@ function pw_ad_submission_field_group_info() {
     'label' => 'Ad Review',
     'weight' => '4',
     'children' => array(
-      0 => 'field_ad_review',
+      0 => 'field_ad_details',
     ),
     'format_type' => 'multipage',
     'format_settings' => array(
@@ -50,8 +50,8 @@ function pw_ad_submission_field_group_info() {
     'label' => 'Create Classified Ad',
     'weight' => '1',
     'children' => array(
-      0 => 'field_tags',
-      1 => 'field_ad_copy',
+      0 => 'field_ad_copy',
+      1 => 'field_tags',
       2 => 'field_area',
       3 => 'field_notes',
       4 => 'field_rate',

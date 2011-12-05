@@ -76,14 +76,14 @@ function pw_ad_submission_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ad_s-field_ad_review'
-  $fields['node-ad_s-field_ad_review'] = array(
+  // Exported field: 'node-ad_s-field_ad_details'
+  $fields['node-ad_s-field_ad_details'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_ad_review',
+      'field_name' => 'field_ad_details',
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -113,7 +113,7 @@ function pw_ad_submission_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 11,
+          'weight' => 12,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -123,8 +123,8 @@ function pw_ad_submission_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_ad_review',
-      'label' => 'Ad Review ',
+      'field_name' => 'field_ad_details',
+      'label' => 'Ad Details',
       'required' => 0,
       'settings' => array(
         'text_processing' => '0',
@@ -134,10 +134,10 @@ function pw_ad_submission_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '1',
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '1',
+        'weight' => '9',
       ),
     ),
   );
@@ -722,7 +722,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
 <em class=\'ad-note\'>Save $2 when you book all four areas.</em>');
   t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting');
   t('Ad Copy');
-  t('Ad Review ');
+  t('Ad Details');
   t('Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.');
   t('Area');
   t('Duration');

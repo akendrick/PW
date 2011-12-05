@@ -10,4 +10,4 @@ files[] = ad_payment_form.inc
 
 
 scripts[] = js/price_check.js
-scripts[] = js/multipage.js
+; scripts[] = js/multipage.js
