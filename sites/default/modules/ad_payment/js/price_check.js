@@ -381,9 +381,11 @@ jQuery(document).ready(function() {
   var formID = jQuery("form").attr('id');
   if (formID == 'ad-s-node-form'){
 
-    // Get Settings
-    // alert(Drupal.settings.adPaymentSettings[7]);
+    // Hide Edit/Submit unless on page 4
+    //jQuery('#edit-submit, #edit-preview').hide();
 
+
+    // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
     jQuery(sideBar).append(summaryBox);
@@ -396,7 +398,7 @@ jQuery(document).ready(function() {
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
   
-    jQuery('#ad-s-node-form').bind('change', function() { //click change keypress keyup
+    jQuery('#ad-s-node-form').bind('click keypress keyup change', function() { //click change keypress keyup
       var sideBox = '#ad-summary';
       var summaryBox = Drupal.adPayment.displayMsg().summary;
       jQuery(sideBox).html(summaryBox);
@@ -406,10 +408,17 @@ jQuery(document).ready(function() {
       var reviewBox = Drupal.adPayment.displayMsg().review;
       jQuery(reviewLocation).html(reviewBox);
   
+      var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
+      console.log('Page state: ' + pageState);
       // Hide Submit Button if you're on page 4 and no ad copy.
-      if (jQuery('#form-step-4').is('.form-feedback-step-highlight')) {
-        console.log('You are on page 4.');
-      }
+      // if (pageState == "display: block;") {
+      //   console.log('You are on page 4.');
+      //   jQuery('#edit-submit, #edit-preview').show();
+      // }
+      // else {
+      //   console.log('Not final page.');
+      //   jQuery('#edit-submit, #edit-preview').hide();
+      // };
     });
   };
 });

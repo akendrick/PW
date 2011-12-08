@@ -797,6 +797,7 @@ function pw_editorial_views_default_views() {
   $handler = $view->new_display('page', 'Main Editorial Page', 'editorial_main_page');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Community Editorials';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['fill_single_line'] = 0;
@@ -994,11 +995,13 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['filters']['sticky']['table'] = 'node';
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['value'] = '0';
+  $handler->display->display_options['filters']['sticky']['group'] = 0;
   /* Filter criterion: Content: Body (body) */
   $handler->display->display_options['filters']['body_value']['id'] = 'body_value';
   $handler->display->display_options['filters']['body_value']['table'] = 'field_data_body';
   $handler->display->display_options['filters']['body_value']['field'] = 'body_value';
   $handler->display->display_options['filters']['body_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['body_value']['group'] = 0;
   $handler->display->display_options['filters']['body_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['body_value']['expose']['operator_id'] = 'body_value_op';
   $handler->display->display_options['filters']['body_value']['expose']['label'] = 'Search all editorials for:';
@@ -1006,20 +1009,6 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['filters']['body_value']['expose']['identifier'] = 'body_value';
   $handler->display->display_options['filters']['body_value']['expose']['required'] = 0;
   $handler->display->display_options['filters']['body_value']['expose']['multiple'] = FALSE;
-  /* Filter criterion: Content: Area (field_area_taxonomy) */
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['id'] = 'field_area_taxonomy_tid';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['table'] = 'field_data_field_area_taxonomy';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['field'] = 'field_area_taxonomy_tid';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['expose']['operator_id'] = 'field_area_taxonomy_tid_op';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['expose']['label'] = 'Search by area';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['expose']['operator'] = 'field_area_taxonomy_tid_op';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['expose']['identifier'] = 'field_area_taxonomy_tid';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['reduce_duplicates'] = 0;
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['vocabulary'] = 'area';
-  $handler->display->display_options['filters']['field_area_taxonomy_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'editorial';
 
   /* Display: Main Editorial Highlight */
@@ -1171,10 +1160,10 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
   $handler->display->display_options['displays'] = array(
-    'page_1' => 'page_1',
+    'editorial_main_page' => 'editorial_main_page',
     'default' => 0,
-    'page' => 0,
-    'block' => 0,
+    'admin_page' => 0,
+    'block_1' => 0,
   );
   $handler->display->display_options['inherit_exposed_filters'] = 1;
 

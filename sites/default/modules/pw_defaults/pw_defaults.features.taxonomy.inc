@@ -12,8 +12,8 @@ function pw_defaults_taxonomy_default_vocabularies() {
     'area' => array(
       'name' => 'Area',
       'machine_name' => 'area',
-      'description' => 'Geographic areas in the West Kootenays',
-      'hierarchy' => '0',
+      'description' => 'Areas, Towns and Villages in the West Kootenays',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
