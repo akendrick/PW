@@ -13,6 +13,39 @@ function pw_ad_submission_field_group_info() {
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_ad_grouping|node|ad_s|form';
+  $field_group->group_name = 'group_ad_grouping';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_ad';
+  $field_group->data = array(
+    'label' => 'Ad Group',
+    'weight' => '27',
+    'children' => array(
+      0 => 'field_notes',
+      1 => 'title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Ad Group',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_ad_grouping|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_ad_review|node|ad_s|form';
   $field_group->group_name = 'group_ad_review';
   $field_group->entity_type = 'node';
@@ -51,12 +84,9 @@ function pw_ad_submission_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_ad_copy',
-      1 => 'field_tags',
-      2 => 'field_area',
-      3 => 'field_notes',
-      4 => 'field_rate',
-      5 => 'field_duration',
-      6 => 'title',
+      1 => 'group_area_rate',
+      2 => 'group_section_duration',
+      3 => 'group_ad_grouping',
     ),
     'format_type' => 'multipage',
     'format_settings' => array(
@@ -70,6 +100,39 @@ function pw_ad_submission_field_group_info() {
     ),
   );
   $export['group_ad|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_area_rate|node|ad_s|form';
+  $field_group->group_name = 'group_area_rate';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_ad';
+  $field_group->data = array(
+    'label' => 'Area & Rate',
+    'weight' => '25',
+    'children' => array(
+      0 => 'field_area',
+      1 => 'field_rate',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Area & Rate',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_area_rate|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -98,6 +161,39 @@ function pw_ad_submission_field_group_info() {
     ),
   );
   $export['group_payment|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_section_duration|node|ad_s|form';
+  $field_group->group_name = 'group_section_duration';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_ad';
+  $field_group->data = array(
+    'label' => 'Section & Duration',
+    'weight' => '26',
+    'children' => array(
+      0 => 'field_tags',
+      1 => 'field_duration',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Section & Duration',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_section_duration|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

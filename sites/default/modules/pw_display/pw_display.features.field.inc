@@ -483,10 +483,12 @@ function pw_display_field_default_fields() {
       'bundle' => 'display_ads',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Title tag allows you to shorten very long and complex web links with a concise title.
+      'description' => '<strong>NOTE: YOU must include HTTP://</strong>
+Title tag allows you to shorten very long and complex web links with a concise title.
 Eg. You can replace:
 <em>http://www.example.com/book_1/chapt-3/page_30</em>
-with <strong>Page 30</strong>.',
+with <strong>Page 30</strong>.
+',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -809,6 +811,12 @@ with <strong>Page 30</strong>.',
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('<strong>NOTE: YOU must include HTTP://</strong>
+Title tag allows you to shorten very long and complex web links with a concise title.
+Eg. You can replace:
+<em>http://www.example.com/book_1/chapt-3/page_30</em>
+with <strong>Page 30</strong>.
+');
   t('Business Rated');
   t('Classification ID');
   t('Client');
@@ -823,10 +831,6 @@ with <strong>Page 30</strong>.',
   t('Section Selector');
   t('Select the ad type. This will affect the ads placement and thumbnail size. <br>
 <strong>ALL ADS ARE FORCED RESIZED TO THE AD TYPE.</strong>.');
-  t('Title tag allows you to shorten very long and complex web links with a concise title.
-Eg. You can replace:
-<em>http://www.example.com/book_1/chapt-3/page_30</em>
-with <strong>Page 30</strong>.');
   t('Upload (or select) display ad.');
   t('Upload PDF of ad or related document.');
 
