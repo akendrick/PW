@@ -1012,7 +1012,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['path'] = 'editorial';
 
   /* Display: Main Editorial Highlight */
-  $handler = $view->new_display('attachment', 'Main Editorial Highlight', 'attachment_2');
+  $handler = $view->new_display('attachment', 'Main Editorial Highlight', 'editorial_highlight');
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -1165,7 +1165,8 @@ function pw_editorial_views_default_views() {
     'admin_page' => 0,
     'block_1' => 0,
   );
-  $handler->display->display_options['inherit_exposed_filters'] = 1;
+  $handler->display->display_options['inherit_arguments'] = 0;
+  $handler->display->display_options['inherit_exposed_filters'] = 0;
 
   /* Display: Editorial Block */
   $handler = $view->new_display('block', 'Editorial Block', 'block_1');
