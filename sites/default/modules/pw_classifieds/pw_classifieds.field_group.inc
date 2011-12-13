@@ -13,12 +13,39 @@ function pw_classifieds_field_group_info() {
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_cl_ad_master|node|classified|form';
+  $field_group->group_name = 'group_cl_ad_master';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'classified';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Classified Master Group',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_otional',
+      1 => 'group_default',
+      2 => 'group_contact',
+    ),
+    'format_type' => 'htabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_cl_ad_master|node|classified|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_contact|node|classified|form';
   $field_group->group_name = 'group_contact';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'classified';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_cl_ad_master';
   $field_group->data = array(
     'label' => 'Contact',
     'weight' => '2',
@@ -26,10 +53,11 @@ function pw_classifieds_field_group_info() {
       0 => 'field_phone',
       1 => 'field_email',
     ),
-    'format_type' => 'tab',
+    'format_type' => 'htab',
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
+        'description' => '',
         'classes' => '',
         'required_fields' => 1,
       ),
@@ -45,25 +73,24 @@ function pw_classifieds_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'classified';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_cl_ad_master';
   $field_group->data = array(
     'label' => 'Default',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
       0 => 'field_ad_type',
       1 => 'field_ad_copy',
       2 => 'field_tags',
       3 => 'title',
     ),
-    'format_type' => 'tab',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'label' => 'Default',
+      'formatter' => 'closed',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
         'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
       ),
-      'formatter' => 'open',
     ),
   );
   $export['group_default|node|classified|form'] = $field_group;
@@ -76,7 +103,7 @@ function pw_classifieds_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'classified';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_cl_ad_master';
   $field_group->data = array(
     'label' => 'Optional',
     'weight' => '3',
@@ -85,15 +112,14 @@ function pw_classifieds_field_group_info() {
       1 => 'field_area_code',
       2 => 'field_image',
     ),
-    'format_type' => 'tab',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'label' => 'Optional',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
-        'description' => '',
-      ),
       'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
     ),
   );
   $export['group_otional|node|classified|form'] = $field_group;

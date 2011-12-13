@@ -10,9 +10,9 @@
 function pw_ad_submission_default_rules_configuration() {
   $items = array();
   $items['rules_ad_submission_login_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_login_redirect" : {
-      "LABEL" : "Login Existing User Redirect",
+      "LABEL" : "Redirect - Anon\\/Ad Submission",
       "PLUGIN" : "reaction rule",
-      "TAGS" : [ "ad_submission", "login" ],
+      "TAGS" : [ "ad_submission", "login", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "user_login" ],
       "IF" : [
@@ -27,7 +27,7 @@ function pw_ad_submission_default_rules_configuration() {
     }
   }');
   $items['rules_ad_submission_submission_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_submission_redirect" : {
-      "LABEL" : "Ad Submission Submission Redirect",
+      "LABEL" : "Redirect - Ad Submission Completion",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "ad_submission redirect" ],
       "REQUIRES" : [ "rules" ],

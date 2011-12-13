@@ -173,9 +173,6 @@ function pw_editorial_ds_layout_settings_info() {
       'body' => 'ds_content',
       'node_link' => 'ds_content',
     ),
-    'limit' => array(
-      'field_image' => '1',
-    ),
     'classes' => array(),
   );
   $export['node|article|block_list_header'] = $ds_layout;
@@ -219,30 +216,24 @@ function pw_editorial_ds_layout_settings_info() {
         0 => 'field_image',
       ),
       'left' => array(
-        0 => 'title',
-        1 => 'post_date',
-        2 => 'body',
-        3 => 'comments',
+        0 => 'body',
       ),
       'right' => array(
         0 => 'field_images_editorial_extra',
         1 => 'field_submitter',
         2 => 'field_area_taxonomy',
-        3 => 'field_link',
-        4 => 'links',
+        3 => 'field_email',
+        4 => 'field_link',
       ),
     ),
     'fields' => array(
       'field_image' => 'header',
-      'title' => 'left',
-      'post_date' => 'left',
       'body' => 'left',
-      'comments' => 'left',
       'field_images_editorial_extra' => 'right',
       'field_submitter' => 'right',
       'field_area_taxonomy' => 'right',
+      'field_email' => 'right',
       'field_link' => 'right',
-      'links' => 'right',
     ),
     'classes' => array(),
   );

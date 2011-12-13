@@ -317,6 +317,9 @@ function pw_display_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_email',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'email',

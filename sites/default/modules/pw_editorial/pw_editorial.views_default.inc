@@ -211,6 +211,11 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  /* Sort criterion: Content: Published */
+  $handler->display->display_options['sorts']['status']['id'] = 'status';
+  $handler->display->display_options['sorts']['status']['table'] = 'node';
+  $handler->display->display_options['sorts']['status']['field'] = 'status';
+  $handler->display->display_options['sorts']['status']['order'] = 'DESC';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -256,11 +261,13 @@ function pw_editorial_views_default_views() {
   );
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = 'sticky';
   $handler->display->display_options['style_options']['columns'] = array(
     'sticky' => 'sticky',
     'status_1' => 'sticky',
     'new_comments' => 'new_comments',
     'field_image' => 'field_image',
+    'field_image_1' => 'field_image_1',
     'title' => 'title',
     'body' => 'title',
     'field_link' => 'title',
@@ -291,6 +298,15 @@ function pw_editorial_views_default_views() {
       'empty_column' => 1,
     ),
     'field_image' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_image_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -366,6 +382,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['sticky']['alter']['html'] = 0;
   $handler->display->display_options['fields']['sticky']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['sticky']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['sticky']['empty'] = 'Standard';
   $handler->display->display_options['fields']['sticky']['hide_empty'] = 0;
   $handler->display->display_options['fields']['sticky']['empty_zero'] = 1;
   $handler->display->display_options['fields']['sticky']['hide_alter_empty'] = 1;
@@ -675,14 +692,14 @@ function pw_editorial_views_default_views() {
     'node_make_sticky_action' => array(
       'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
+      'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Promote',
     ),
     'node_make_unsticky_action' => array(
       'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
+      'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Demote',
     ),
@@ -705,7 +722,7 @@ function pw_editorial_views_default_views() {
     'node_publish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
+      'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Publish',
     ),
@@ -740,7 +757,7 @@ function pw_editorial_views_default_views() {
     'node_unpublish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
+      'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Unpublish',
     ),
@@ -770,7 +787,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '0';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['exposed'] = TRUE;
   $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
@@ -783,7 +800,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['filters']['sticky']['table'] = 'node';
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['ui_name'] = 'Promoted Editorial';
-  $handler->display->display_options['filters']['sticky']['value'] = '0';
+  $handler->display->display_options['filters']['sticky']['value'] = 'All';
   $handler->display->display_options['filters']['sticky']['exposed'] = TRUE;
   $handler->display->display_options['filters']['sticky']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['sticky']['expose']['label'] = 'Promoted';

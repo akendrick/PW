@@ -64,7 +64,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '1',
         ),
         'simple_teaser' => array(
           'label' => 'hidden',
@@ -102,7 +102,7 @@ function pw_editorial_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '2',
+        'weight' => '5',
       ),
     ),
   );
@@ -163,7 +163,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '7',
+          'weight' => '4',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -195,6 +195,83 @@ function pw_editorial_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-article-field_email'
+  $fields['node-article-field_email'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_email',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'email',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'email',
+    ),
+    'field_instance' => array(
+      'bundle' => 'article',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'block_list_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'block_list_item' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'email',
+          'settings' => array(),
+          'type' => 'email_default',
+          'weight' => '5',
+        ),
+        'simple_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'module' => 'email',
+          'settings' => array(),
+          'type' => 'email_default',
+          'weight' => '0',
+        ),
+      ),
+      'ds_extras_field_template' => '',
+      'entity_type' => 'node',
+      'field_name' => 'field_email',
+      'label' => 'Email',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'email',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'email_textfield',
+        'weight' => '11',
       ),
     ),
   );
@@ -238,7 +315,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => 'content',
-            'image_style' => 'editorial_small',
+            'image_style' => 'editorial_block_list_header',
           ),
           'type' => 'image',
           'weight' => '0',
@@ -261,7 +338,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => 'editorial_small',
+            'image_style' => '',
           ),
           'type' => 'image',
           'weight' => '0',
@@ -271,7 +348,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => 'content',
-            'image_style' => 'editorial_medium',
+            'image_style' => 'editorial_teaser',
           ),
           'type' => 'image',
           'weight' => '0',
@@ -310,7 +387,7 @@ function pw_editorial_field_default_fields() {
               'autocomplete' => '1',
             ),
           ),
-          'preview_image_style' => 'editorial_medium',
+          'preview_image_style' => '',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
@@ -357,7 +434,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -370,7 +447,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightshow__editorial_small__original',
-          'weight' => '5',
+          'weight' => '2',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -380,8 +457,12 @@ function pw_editorial_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
           'weight' => '0',
         ),
       ),
@@ -422,7 +503,7 @@ function pw_editorial_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -479,7 +560,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '8',
+          'weight' => '6',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -489,8 +570,9 @@ function pw_editorial_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
+          'module' => 'link',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'link_default',
           'weight' => '6',
         ),
       ),
@@ -522,7 +604,7 @@ function pw_editorial_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '5',
+        'weight' => '13',
       ),
     ),
   );
@@ -578,7 +660,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '3',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -609,7 +691,7 @@ function pw_editorial_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '3',
       ),
     ),
   );
@@ -618,6 +700,7 @@ function pw_editorial_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Area');
   t('Body');
+  t('Email');
   t('External Article Link');
   t('Extra Images');
   t('Header Image');
