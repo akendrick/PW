@@ -251,6 +251,10 @@ function pw_editorial_views_default_views() {
     'article' => 'article',
   );
   $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
 
   /* Display: Admin */
   $handler = $view->new_display('page', 'Admin', 'admin_page');
@@ -261,10 +265,10 @@ function pw_editorial_views_default_views() {
   );
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['grouping'] = 'sticky';
+  $handler->display->display_options['style_options']['grouping'] = 'promote';
   $handler->display->display_options['style_options']['columns'] = array(
-    'sticky' => 'sticky',
-    'status_1' => 'sticky',
+    'status_1' => 'status_1',
+    'promote' => 'status_1',
     'new_comments' => 'new_comments',
     'field_image' => 'field_image',
     'field_image_1' => 'field_image_1',
@@ -278,14 +282,14 @@ function pw_editorial_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
-    'sticky' => array(
-      'sortable' => 1,
+    'status_1' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '<br />',
       'empty_column' => 0,
     ),
-    'status_1' => array(
+    'promote' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -362,32 +366,6 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Sticky */
-  $handler->display->display_options['fields']['sticky']['id'] = 'sticky';
-  $handler->display->display_options['fields']['sticky']['table'] = 'node';
-  $handler->display->display_options['fields']['sticky']['field'] = 'sticky';
-  $handler->display->display_options['fields']['sticky']['label'] = 'Status';
-  $handler->display->display_options['fields']['sticky']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['sticky']['alter']['text'] = 'Promoted';
-  $handler->display->display_options['fields']['sticky']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['sticky']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['sticky']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['sticky']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['sticky']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['sticky']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['sticky']['empty'] = 'Standard';
-  $handler->display->display_options['fields']['sticky']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['sticky']['empty_zero'] = 1;
-  $handler->display->display_options['fields']['sticky']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['sticky']['type'] = 'sticky';
-  $handler->display->display_options['fields']['sticky']['not'] = 0;
   /* Field: Content: Published */
   $handler->display->display_options['fields']['status_1']['id'] = 'status_1';
   $handler->display->display_options['fields']['status_1']['table'] = 'node';
@@ -411,6 +389,30 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['status_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['status_1']['type'] = 'published-notpublished';
   $handler->display->display_options['fields']['status_1']['not'] = 0;
+  /* Field: Content: Promoted to front page */
+  $handler->display->display_options['fields']['promote']['id'] = 'promote';
+  $handler->display->display_options['fields']['promote']['table'] = 'node';
+  $handler->display->display_options['fields']['promote']['field'] = 'promote';
+  $handler->display->display_options['fields']['promote']['label'] = 'Promoted Editorial';
+  $handler->display->display_options['fields']['promote']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['promote']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['promote']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['promote']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['promote']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['promote']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['promote']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['promote']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['promote']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['promote']['type'] = 'promoted-notpromoted';
+  $handler->display->display_options['fields']['promote']['not'] = 0;
   /* Field: Content: New comments */
   $handler->display->display_options['fields']['new_comments']['id'] = 'new_comments';
   $handler->display->display_options['fields']['new_comments']['table'] = 'node';
@@ -690,14 +692,14 @@ function pw_editorial_views_default_views() {
       'label' => '',
     ),
     'node_make_sticky_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Promote',
     ),
     'node_make_unsticky_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
@@ -713,11 +715,11 @@ function pw_editorial_views_default_views() {
       ),
     ),
     'node_promote_action' => array(
-      'selected' => 0,
+      'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
+      'skip_confirmation' => 1,
       'override_label' => 1,
-      'label' => 'Promote article to top.',
+      'label' => 'Promote',
     ),
     'node_publish_action' => array(
       'selected' => 1,
@@ -734,11 +736,11 @@ function pw_editorial_views_default_views() {
       'label' => '',
     ),
     'node_unpromote_action' => array(
-      'selected' => 0,
+      'selected' => 1,
       'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Demote',
     ),
     'node_save_action' => array(
       'selected' => 0,
@@ -1007,25 +1009,11 @@ function pw_editorial_views_default_views() {
     'article' => 'article',
   );
   $handler->display->display_options['filters']['type']['group'] = 0;
-  /* Filter criterion: Content: Sticky */
-  $handler->display->display_options['filters']['sticky']['id'] = 'sticky';
-  $handler->display->display_options['filters']['sticky']['table'] = 'node';
-  $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
-  $handler->display->display_options['filters']['sticky']['value'] = '0';
-  $handler->display->display_options['filters']['sticky']['group'] = 0;
-  /* Filter criterion: Content: Body (body) */
-  $handler->display->display_options['filters']['body_value']['id'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['table'] = 'field_data_body';
-  $handler->display->display_options['filters']['body_value']['field'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['body_value']['group'] = 0;
-  $handler->display->display_options['filters']['body_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['body_value']['expose']['operator_id'] = 'body_value_op';
-  $handler->display->display_options['filters']['body_value']['expose']['label'] = 'Search all editorials for:';
-  $handler->display->display_options['filters']['body_value']['expose']['operator'] = 'body_value_op';
-  $handler->display->display_options['filters']['body_value']['expose']['identifier'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['body_value']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['value'] = '0';
   $handler->display->display_options['path'] = 'editorial';
 
   /* Display: Main Editorial Highlight */
@@ -1176,6 +1164,32 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'article' => 'article',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['value'] = '1';
   $handler->display->display_options['displays'] = array(
     'editorial_main_page' => 'editorial_main_page',
     'default' => 0,
@@ -1319,6 +1333,27 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['sorts']['random']['id'] = 'random';
   $handler->display->display_options['sorts']['random']['table'] = 'views';
   $handler->display->display_options['sorts']['random']['field'] = 'random';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'article' => 'article',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
   $handler->display->display_options['block_description'] = 'Editorial Block';
   $export['editorial_views'] = $view;
 
