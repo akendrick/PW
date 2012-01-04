@@ -82,7 +82,7 @@ function pw_defaults_default_rules_configuration() {
       "IF" : [
         { "user_has_role" : {
             "account" : [ "account" ],
-            "roles" : { "value" : { "6" : "6" } },
+            "roles" : { "value" : { "6" : "6", "3" : "3" } },
             "operation" : "OR"
           }
         }

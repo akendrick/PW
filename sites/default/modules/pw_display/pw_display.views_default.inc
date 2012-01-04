@@ -1162,6 +1162,19 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'poster' => 'poster',
   );
+  /* Filter criterion: Content: Client (field_ad_client) */
+  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'pwadmin/display_ads/poster';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Poster Ads';
@@ -1797,6 +1810,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Link */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
@@ -2153,6 +2167,37 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'print' => 'print',
   );
+
+  /* Display: Poster Filler */
+  $handler = $view->new_display('block', 'Poster Filler', 'poster_filler');
+  $handler->display->display_options['display_description'] = 'Random Pennywise poster ads - as filler';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'display_ads' => 'display_ads',
+  );
+  /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
+  $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
+    'poster' => 'poster',
+  );
+  /* Filter criterion: Content: Client (field_ad_client) */
+  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['value'] = array(
+    83 => '83',
+  );
+  $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['hierarchy'] = 1;
   $export['display_ad_blocks'] = $view;
 
   return $export;

@@ -3,6 +3,8 @@
 /**
  * @file
  *  General hacks.
+ *  - Not in use at this time.
+ *  - MOre of a placeholder.
  */
 
 define ('DEBUG', TRUE);
