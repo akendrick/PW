@@ -20,7 +20,7 @@ function pw_adworks_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Administratiion',
+    'label' => 'Administration',
     'weight' => '1',
     'children' => array(
       0 => 'field_date_start',
@@ -30,12 +30,13 @@ function pw_adworks_field_group_info() {
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Administration',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_admin|node|adworks_file|form'] = $field_group;

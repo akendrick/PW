@@ -658,6 +658,12 @@ function pw_display_views_default_views() {
   $handler->display->display_options['sorts']['unpublish_on']['id'] = 'unpublish_on';
   $handler->display->display_options['sorts']['unpublish_on']['table'] = 'scheduler';
   $handler->display->display_options['sorts']['unpublish_on']['field'] = 'unpublish_on';
+  /* Contextual filter: Content: Display Ad Type (field_display_ad_type) */
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['format'] = 'default_summary';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -724,7 +730,7 @@ function pw_display_views_default_views() {
     'display_ads' => 'display_ads',
   );
   $handler->display->display_options['filters']['type']['group'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/display_ads/all';
+  $handler->display->display_options['path'] = 'pwadmin/display_ads/tab';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Dashboard';
   $handler->display->display_options['menu']['weight'] = '-40';
@@ -732,8 +738,8 @@ function pw_display_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Display Ad Parent';
   $handler->display->display_options['tab_options']['weight'] = '0';
 
-  /* Display: All Display Tab */
-  $handler = $view->new_display('page', 'All Display Tab', 'alldisplay');
+  /* Display: Display Tab */
+  $handler = $view->new_display('page', 'Display Tab', 'alldisplay');
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Has new content */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
@@ -1068,7 +1074,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/display_ads/display';
+  $handler->display->display_options['path'] = 'pwadmin/display_ads/all';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'All Display Ads';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1097,6 +1103,7 @@ function pw_display_views_default_views() {
   $handler = $view->new_display('page', 'Splash', 'splash');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Splash Ads Administration';
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1120,6 +1127,7 @@ function pw_display_views_default_views() {
 
   /* Display: Print */
   $handler = $view->new_display('page', 'Print', 'print');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1146,6 +1154,7 @@ function pw_display_views_default_views() {
   $handler = $view->new_display('page', 'Poster', 'poster');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Poster Ads Administration';
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1185,6 +1194,7 @@ function pw_display_views_default_views() {
   $handler = $view->new_display('page', 'Banner', 'banner');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Banner Ad Administration';
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Has new content */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';

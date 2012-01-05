@@ -425,7 +425,7 @@ function pw_classifieds_views_default_views() {
       'label' => 'Unpublish Multiple',
     ),
     'node_unpublish_by_keyword_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
@@ -481,7 +481,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Ad body contains';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator'] = 'field_ad_copy_value_op';
-  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'field_ad_copy_value';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'ad_copy_search';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['required'] = 0;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['multiple'] = FALSE;
 

@@ -374,6 +374,9 @@ function pw_display_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_high_res_ad',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -415,6 +418,7 @@ function pw_display_field_default_fields() {
           'weight' => 0,
         ),
       ),
+      'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_high_res_ad',
       'label' => 'High Resolution Ad',
@@ -439,7 +443,7 @@ function pw_display_field_default_fields() {
             'source_attach' => array(
               'absolute' => '0',
               'attach_mode' => 'copy',
-              'path' => 'display-ads/pdf',
+              'path' => 'display-ad/pdf',
             ),
             'source_reference' => array(
               'autocomplete' => '0',
