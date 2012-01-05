@@ -19,3 +19,30 @@ function pennywise_node_view($node, $view_mode, $langcode){
     dpm($view_mode);
   }
 }
+
+
+function pennywise_menu() {
+  
+  $items['pwadmin/display_ads/add'] = array(
+    'title'            => 'Create Display Ad',
+    'access arguments' => array('Display ads: Create new content'),
+    'weight'           => 10,
+    'page callback'    => 'create_node_page',
+    'page arguments'   => array('display_ads'),
+    'type'             => MENU_IS_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Custom page call back
+ *
+ * @return
+ *  Create new display ad.
+ **/
+function create_node_page($node_type) {
+  module_load_include('inc', 'node', 'node.pages');
+  $content = node_add($node_type);
+  return $content;
+}
