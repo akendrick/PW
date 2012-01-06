@@ -508,7 +508,7 @@ function pw_classifieds_views_default_views() {
   $handler = $view->new_display('page', 'Classified Tab', 'classified_tab');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Classified Ad Administration';
-  $handler->display->display_options['path'] = 'pwadmin/classified/classifieds';
+  $handler->display->display_options['path'] = 'pwadmin/classified/edit';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Classified Ads';
   $handler->display->display_options['menu']['weight'] = '0';
