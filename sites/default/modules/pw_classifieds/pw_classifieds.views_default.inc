@@ -254,6 +254,7 @@ function pw_classifieds_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: Ad Copy */
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';
@@ -838,6 +839,7 @@ function pw_classifieds_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: All taxonomy terms */
   $handler->display->display_options['fields']['term_node_tid']['id'] = 'term_node_tid';
@@ -1011,6 +1013,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_phone']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
+  $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['delta_limit'] = 'all';
   $handler->display->display_options['fields']['field_phone']['field_api_classes'] = 0;
   /* Field: Content: Duration */

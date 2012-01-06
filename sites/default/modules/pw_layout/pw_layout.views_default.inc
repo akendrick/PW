@@ -73,6 +73,7 @@ function pw_layout_views_default_views() {
     'image_style' => '',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: Classified Ad Type */
   $handler->display->display_options['fields']['field_ad_type']['id'] = 'field_ad_type';
@@ -196,6 +197,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['empty_zero'] = 1;
   $handler->display->display_options['fields']['field_phone']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
+  $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_phone']['delta_reversed'] = 0;
@@ -249,6 +251,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 1;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -358,6 +361,7 @@ function pw_layout_views_default_views() {
     'image_style' => 'classified_ad_image_small',
     'image_link' => 'content',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: Ad Copy */
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';

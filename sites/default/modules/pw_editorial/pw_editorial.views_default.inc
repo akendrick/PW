@@ -273,6 +273,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'editorial_small',
     'image_link' => 'file',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: Extra Images */
   $handler->display->display_options['fields']['field_images_editorial_extra']['id'] = 'field_images_editorial_extra';
@@ -301,6 +302,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'editorial_small',
     'image_link' => 'file',
   );
+  $handler->display->display_options['fields']['field_images_editorial_extra']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_images_editorial_extra']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_images_editorial_extra']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_images_editorial_extra']['delta_reversed'] = 0;
@@ -427,6 +429,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -1098,6 +1101,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => 'file',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_image']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
@@ -1143,6 +1147,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -1307,6 +1312,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'editorial_thumbnail',
     'image_link' => 'content',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_image']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
@@ -1511,6 +1517,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'editorial_medium',
     'image_link' => 'file',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['group_rows'] = 0;
   $handler->display->display_options['fields']['field_image']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
@@ -1703,6 +1710,7 @@ function pw_editorial_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => 'file',
   );
+  $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_image']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
@@ -1748,6 +1756,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;

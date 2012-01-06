@@ -29,7 +29,7 @@ function pennywise_menu() {
     'weight'           => 10,
     'page callback'    => 'create_node_page',
     'page arguments'   => array('display_ads'),
-    'type'             => MENU_IS_LOCAL_TASK,
+    'type'             => MENU_IS_LOCAL_ACTION,
   );
 
   return $items;

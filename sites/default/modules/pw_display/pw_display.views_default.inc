@@ -32,6 +32,8 @@ function pw_display_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
+  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['style_plugin'] = 'table';
@@ -693,21 +695,6 @@ function pw_display_views_default_views() {
   /* Display: Display Page */
   $handler = $view->new_display('page', 'Display Page', 'page');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Display Ad Type (field_display_ad_type) */
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_action'] = 'summary';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary_options']['base_path'] = 'pwadmin/display_ads';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['glossary'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['limit'] = '0';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['transform_dash'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['break_phrase'] = 0;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -735,9 +722,10 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
   $handler->display->display_options['path'] = 'pwadmin/display_ads';
-  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Display Ads';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
@@ -745,39 +733,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Display Ads';
   $handler->display->display_options['tab_options']['description'] = 'Show All Display Ads';
   $handler->display->display_options['tab_options']['weight'] = '0';
-  $handler->display->display_options['tab_options']['name'] = 'management';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Display Ad Type (field_display_ad_type) */
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_action'] = 'summary';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary_options']['base_path'] = 'pwadmin/display_ads';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['glossary'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['limit'] = '0';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['transform_dash'] = 0;
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['break_phrase'] = 0;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'display_ads' => 'display_ads',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/display_ads/select';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Display Ad Types';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'menu-pw-admin';
   $export['display_ad_administration'] = $view;
 
   $view = new view;
@@ -831,6 +787,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -864,6 +821,7 @@ function pw_display_views_default_views() {
     'image_style' => 'display_ad_banner',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   /* Contextual filter: Content: Has taxonomy term ID (with depth) */
   $handler->display->display_options['arguments']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
@@ -935,6 +893,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -968,6 +927,7 @@ function pw_display_views_default_views() {
     'image_style' => 'display_ad_poster',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1067,6 +1027,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
@@ -1100,6 +1061,7 @@ function pw_display_views_default_views() {
     'image_style' => 'display_ad_splash',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1161,6 +1123,7 @@ function pw_display_views_default_views() {
     'image_style' => 'display_ad_print_thumbnail',
     'image_link' => 'content',
   );
+  $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   /* Field: Client */
   $handler->display->display_options['fields']['term_node_tid']['id'] = 'term_node_tid';
