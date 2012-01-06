@@ -7,9 +7,9 @@ features[rules_config][] = "rules_create_promotion"
 name = "Example rules: Create promotion"
 package = "Features"
 
-; Information added by drupal.org packaging script on 2011-12-11
+; Information added by drupal.org packaging script on 2011-12-14
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "rb"
-datestamp = "1323607197"
+datestamp = "1323823423"
 

@@ -57,7 +57,7 @@ function cck_phone_field_info() {
       'instance_settings' => array(
         'default_country' => NULL,
         'all_country_codes' => TRUE,
-        'country_codes' => array('country_selection' => array()),
+        'country_codes' => array('hide_single_cc' => FALSE, 'country_selection' => array()),
         'enable_country_level_validation' => TRUE,
         'enable_extension' => FALSE,
       ),
@@ -99,6 +99,13 @@ function cck_phone_field_instance_settings_form($field, $instance) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#attributes' => array('class' => array('cck-phone-settings')),
+  );
+
+  $form['country_codes']['hide_single_cc'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide when only one country code'),
+    '#default_value' => $settings['country_codes']['hide_single_cc'],
+    '#description' => t('By default when there is only one country code, it will show as a display-only form element. Check this to hide the country code.'),
   );
 
   $form['country_codes']['country_selection'] = array(
@@ -601,10 +608,9 @@ function cck_phone_field_widget_process($element, &$form_state, $form) {
      '#type' => 'textfield',
      '#maxlength' => CCK_PHONE_EXTENSION_MAX_LENGTH,
      '#size' => CCK_PHONE_EXTENSION_MAX_LENGTH,
-//     '#title' => t('ext'),
+     '#title' => t('ext'),
      '#required' => FALSE,
      '#default_value' => isset($item['extension']) ? $item['extension'] : NULL,
-     '#prefix' => '<div class="cck-phone-extension">' . t('ext') . '</div>',
     );
   }
 
@@ -722,6 +728,11 @@ function cck_phone_phone_number_process($element, &$form_state, $form) {
 //    '#description' => $element['#description'],
     '#required' => ($element['#delta'] == 0 && $element['#required']) ? $element['#required'] : FALSE,
     '#default_value' => isset($item['number']) ? $item['number'] : NULL,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'cck_phone') . '/cck_phone.css',
+      )
+    )
   );
 
 /*  if ($field['enable_extension']) {
@@ -736,12 +747,37 @@ function cck_phone_phone_number_process($element, &$form_state, $form) {
     );
   }
 */
-  $element['country_codes'] = array(
-    '#type' => 'select',
-//    '#title' => 'Country code',
-    '#default_value' => isset($item['country_codes']) ? $item['country_codes'] : $settings['default_country'],
-    '#options' => _cck_phone_cc_options(),
-  );
+
+  // If only one country code, make it as hidden form item
+  $country_list = array_count_values($settings['country_codes']['country_selection']);
+  if ($country_list['0'] == count($settings['country_codes']['country_selection']) - 1) {
+    foreach (array_keys($country_list) as $k => $v) {
+      if ($v != '0') {  // only one value other than '0'
+        $cc = cck_phone_countrycodes($v);
+        if ($settings['country_codes']['hide_single_cc']) {
+          $element['country_codes'] = array(
+            '#type' => 'hidden',
+            '#value' => $v,
+          );
+        }
+        else {
+          $element['country_codes'] = array(
+            '#type' => 'item',
+            '#markup' => $value = $cc['country'] . ' (' . $cc['code'] . ')',
+          );
+        }
+      }
+    }
+  }
+  else {
+    $element['country_codes'] = array(
+      '#type' => 'select',
+  //    '#title' => 'Country code',
+      '#default_value' => isset($item['country_codes']) ? $item['country_codes'] : $settings['default_country'],
+      '#options' => _cck_phone_cc_options(),
+    );
+  }
+
 /*  if ($field['all_country_codes']) {
     $element['country_codes']['#options'] = _cck_phone_cc_options();
   }

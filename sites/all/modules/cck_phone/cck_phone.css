@@ -1,28 +1,14 @@
-.cck-phone-field .form-item {
-  margin: 0;
+/* input field */
+.form-phone-number .form-item,
+.form-phone-number .form-item label {
+  display: inline;
+}
+.form-phone-number .form-item label {
+  margin-left: 1em;
+  margin-right: .5em;
 }
 
-.cck-phone-column {
-  float: left;
-}
-.cck-phone-field-phone {
-  width: 15em;
-}
-.cck-phone-field-cc {
-  width: 25em;
-}
-
-.cck-phone-field-ext {
-  width: 9em;
-}
-.cck-phone-extension {
-  float: left;
-  margin: 0 .5em;
-}
-.cck-phone-field-ext .form-item {
-  float: left;
-}
-
+/* admin settings */
 .cck-phone-settings .form-checkboxes .form-item {
   float: left;
   width: 33%;

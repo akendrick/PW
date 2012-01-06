@@ -33,7 +33,7 @@ function cck_phone_token_values($type, $object = NULL, $options = array()) {
 
     $tokens['number'] = $item['number'];
     $tokens['country_codes'] = $item['country_codes'];
-    $tokens['extension'] = $item['extension'];
+    $tokens['extension'] = isset($item['extension']) ? $item['extension'] : '';
   }
 
   return $tokens;

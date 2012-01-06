@@ -68,8 +68,8 @@ function us_sanitize_number(&$number) {
  * Default formatter for international phone number.
  *
  * @param $element
- *   $element['#item']['country_codes']: alpha-2 country code
- *   $element['#item']['number']: phone number
+ *   $element['country_codes']: alpha-2 country code
+ *   $element['number']: phone number
  * @param $error
  *   The error message to shown to user.
  *   Available parameters to use in the error message are
@@ -96,19 +96,19 @@ function us_formatter_default($element) {
   $result = preg_match($regex, $element['number'], $matches);
 
   if ($result) {
-    // output as +1 (AAA) BBB CCCC
-    $phone =  $cc['code'] . ' (' . $matches[1] . ') ' . $matches[2] . ' ' . $matches[3];
+    // output as +1 (AAA) BBB-CCCC
+    $phone =  $cc['code'] . ' (' . $matches[1] . ') ' . $matches[2] . '-' . $matches[3];
   }
 
-  return $phone . $ext;
+  return $phone;
 }
 
 /**
  * Local formatter for local phone number.
  *
  * @param $element
- *   $element['#item']['country_codes']: alpha-2 country code
- *   $element['#item']['number']: phone number
+ *   $element['country_codes']: alpha-2 country code
+ *   $element['number']: phone number
  * @param $error
  *   The error message to shown to user.
  *   Available parameters to use in the error message are
@@ -132,7 +132,7 @@ function us_formatter_local($element) {
 
   if ($result) {
     // output as (AAA) BBB CCCC
-    $phone =  '(' . $matches[1] . ') ' . $matches[2] . ' ' . $matches[3];
+    $phone =  '(' . $matches[1] . ') ' . $matches[2] . '-' . $matches[3];
   }
 
   return $phone;

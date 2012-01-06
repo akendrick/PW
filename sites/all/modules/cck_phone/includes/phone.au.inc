@@ -144,7 +144,7 @@ function au_validate_number($number, $ext = '', &$error) {
     return FALSE;
   }
   elseif (!empty($correct_number)) {
-    $error = 'You have not entered a valid australian phone number. Pleae enter a 10 digit phone number including the area code, but not including the 61 international prefix. Valid 1800, 1300, and 13 numbers are accepted, as are satilite and AMPS numebrs.';
+    $error = 'You have not entered a valid australian phone number. Please enter a 10 digit phone number including the area code, but not including the 61 international prefix. Valid 1800, 1300, and 13 numbers are accepted, as are satilite and AMPS numbers.';
     return FALSE;
   }
 
