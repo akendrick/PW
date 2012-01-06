@@ -23,6 +23,7 @@ function pw_display_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Display Ads Overview';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
     6 => '6',
@@ -1067,12 +1068,21 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
+    'all' => 'all',
+    'banner' => 'banner',
+    'poster' => 'poster',
+    'print' => 'print',
+    'splash' => 'splash',
+    'target' => 'target',
+    'video' => 'video',
+  );
   $handler->display->display_options['filters']['field_display_ad_type_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type ';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'field_display_ad_type_value';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['required'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
   $handler->display->display_options['path'] = 'pwadmin/display_ads/all';
   $handler->display->display_options['menu']['type'] = 'tab';
