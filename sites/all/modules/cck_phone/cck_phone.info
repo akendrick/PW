@@ -20,9 +20,9 @@ files[] = tests/phone.my.test
 files[] = tests/phone.us.test
 
 
-; Information added by drupal.org packaging script on 2011-11-17
+; Information added by drupal.org packaging script on 2011-12-18
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "cck_phone"
-datestamp = "1321531398"
+datestamp = "1324209804"
 

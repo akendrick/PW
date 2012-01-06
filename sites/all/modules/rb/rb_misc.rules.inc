@@ -75,6 +75,20 @@ function rb_misc_rules_condition_info() {
     );
   }
 
+  // Automatic nodetitles.
+  if (module_exists('auto_nodetitle')) {
+    $conditions['rb_misc_condition_auto_nodetitle_is_needed'] = array(
+      'label' => t('Automatic Nodetitle is needed'),
+      'group' => t('Rules Bonus: Miscellaneous'),
+      'parameter' => array(
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Node'),
+        ),
+      ),
+    );
+  }
+
   return $conditions;
 }
 
@@ -335,6 +349,23 @@ function rb_misc_rules_action_info() {
     'group' => t('Rules Bonus: Miscellaneous'),
     );
   }
+
+  // Automatic Nodetitles.
+  if (module_exists('auto_nodetitle')) {
+    $actions['rb_misc_action_auto_nodetitle'] = array(
+      'label' => t('Set auto nodetitle'),
+      'parameter' => array(
+        'node' => array(
+          'type' => 'node',
+          'label' => t('Content'),
+          'save' => TRUE,
+        ),
+      ),
+      'access callback' => 'rules_node_admin_access',
+      'group' => t('Rules Bonus: Miscellaneous'),
+    );
+  }
+
   return $actions;
 }
 
@@ -500,6 +531,13 @@ function rb_misc_condition_user_has_permission($account, $permissions, $operatio
       }
       return TRUE;
   }
+}
+
+/**
+ * The 'rb_misc_condition_auto_nodetitle_is_needed' condition.
+ */
+function rb_misc_condition_auto_nodetitle_is_needed($node) {
+  return auto_nodetitle_is_needed($node);
 }
 
 /**
@@ -767,6 +805,13 @@ function rb_misc_action_get_path_alias($path, $language = LANGUAGE_NONE) {
   // Fetch the relevant alias, for the relevant language.
   $alias = path_load(array('source' => $path, 'language' => $language));
   return (array('alias' => $alias['alias']));
+}
+
+/**
+ * The 'rb_misc_action_auto_nodetitle' action.
+ */
+function rb_misc_action_auto_nodetitle($node) {
+  auto_nodetitle_set_title($node);
 }
 
 /**
