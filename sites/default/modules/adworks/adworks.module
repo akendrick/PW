@@ -22,14 +22,6 @@
  * Custom pages for Adworks file creation and deletion.
  */
 function adworks_menu() {
-//  $items['pwadmin/classified/adworks-upload'] = array(
-//    'title'           => 'Upload Adworks File',
-//    'access callback' => TRUE,
-//    'weight'          => 30,
-//    'page callback'   => 'node_create_page',
-//    'page arguments'  => array('adworks_file'),
-//    'type'            => MENU_IS_LOCAL_TASK,
-//  );
   
   $items['pwadmin/classified/submit-classified'] = array(
     'title'            => 'Create Classified Ad',
@@ -65,18 +57,7 @@ function node_create_page($node_type) {
 //  
   return $content;
 }
-///**
-// * Custom page call back
-// *
-// * @return
-// *  Create classified ad.
-// **/
-//function create_classified_ad_page() {
-//  module_load_include('inc', 'node') . '/node.pages');
-//  $content = node_add('classified');
-//  
-//  return $content;
-//}
+
 
 /**
 * Call Parser for Adworks INSERT - UPDATE - VIEW hooks().
