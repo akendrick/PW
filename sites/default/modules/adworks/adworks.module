@@ -17,47 +17,6 @@
 *       - 'Do you want to save file and not update?'
 */
 
-/**
- * Implementation of HOOK_menu
- * Custom pages for Adworks file creation and deletion.
- */
-function adworks_menu() {
-  
-  $items['pwadmin/classified/submit-classified'] = array(
-    'title'            => 'Create Classified Ad',
-    'access arguments' => array('Classified Ads: Create new content'),
-    'weight'           => 10,
-    'page callback'    => 'node_create_page',
-    'page arguments'   => array('classified'),
-    'type'             => MENU_IS_LOCAL_TASK,
-  );
-
-  $items['pwadmin/classified/adworks-upload'] = array(
-    'title' => 'Upload Adworks File',
-    'page callback'    => 'node_create_page',
-    'page arguments'   => array('adworks_file'),
-    'access arguments' => array('Adworks File: Create new content'),
-    'type'             => MENU_IS_LOCAL_TASK,
-    'weight'           => 20,
-/*     'file' => drupal_get_path('module', 'node') . '/node.pages.inc', */
-  );
-
-  return $items;
-}
-
-/**
- * Custom page call back
- *
- * @return
- *  Submit Adworks file & parse into classified Ads.
- **/
-function node_create_page($node_type) {
-  module_load_include('inc', 'node', 'node.pages');
-  $content = node_add($node_type);
-//  
-  return $content;
-}
-
 
 /**
 * Call Parser for Adworks INSERT - UPDATE - VIEW hooks().

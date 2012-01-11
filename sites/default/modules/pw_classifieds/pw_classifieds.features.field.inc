@@ -437,10 +437,13 @@ function pw_classifieds_field_default_fields() {
   $fields['node-classified-field_phone'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '3',
+      'cardinality' => '2',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_phone',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'cck_phone',

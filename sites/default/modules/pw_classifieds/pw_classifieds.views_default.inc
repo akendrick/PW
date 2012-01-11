@@ -525,6 +525,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['grouping'] = 'field_promote';
+  $handler->display->display_options['style_options']['group_rendered'] = 1;
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'field_image' => 'field_image',
@@ -543,6 +544,7 @@ function pw_classifieds_views_default_views() {
     'exp_m' => 'exp_m',
     'exp_y' => 'exp_y',
     'ccid' => 'ccid',
+    'nid' => 'nid',
     'edit_node' => 'ccid',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -658,6 +660,13 @@ function pw_classifieds_views_default_views() {
       'separator' => '<br />',
       'empty_column' => 0,
     ),
+    'nid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'edit_node' => array(
       'align' => '',
       'separator' => '<br />',
@@ -758,8 +767,15 @@ function pw_classifieds_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'rules_promote_incoming_ads' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'node_publish_action' => array(
-      'selected' => 1,
+      'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 1,
@@ -813,6 +829,32 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
+  /* Field: PROMOTE AD */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['ui_name'] = 'PROMOTE AD';
+  $handler->display->display_options['fields']['nid']['label'] = 'PROMOTE';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'pwadmin/classified/promote/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
   /* Field: Content: Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
@@ -1190,6 +1232,50 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['ccid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['ccid']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['ccid']['link_to_node'] = 0;
+  /* Field: User: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'users';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit User Data';
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['text'] = 'EDIT USER';
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node_1']['id'] = 'edit_node_1';
+  $handler->display->display_options['fields']['edit_node_1']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node_1']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';

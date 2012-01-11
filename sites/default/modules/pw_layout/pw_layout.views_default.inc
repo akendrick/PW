@@ -199,6 +199,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_phone']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_phone']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_phone']['delta_first_last'] = 0;

@@ -145,14 +145,13 @@ function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
     $new_ad->language => array(
       0 => array(
         'value' => $copy,
-        'save_value' => check_plain($copy),
+        'safe_value' => check_plain($copy),
       ),
     ),
   );
   
   // Ad Title
-  $title  = substr($copy, 0, 45);
-  $new_ad->title = date('c') . ' :: ' . $title;
+  $new_ad->title = substr($copy, 0, 45);
 
   // Link
   preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $copy, $link);
