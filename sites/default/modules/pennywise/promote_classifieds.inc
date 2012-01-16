@@ -6,7 +6,6 @@
  */
 define ('DEBUG', TRUE);
 
-
 function promote_to_classified_ad($nid) {
   $submitted = node_load($nid);
 
@@ -21,7 +20,8 @@ function promote_to_classified_ad($nid) {
     'ad type'     => $submitted->field_promote['und'][0]['value'],
     'uid'         => $submitted->uid,
     'title'       => substr($submitted->field_ad_copy['und'][0]['value'], 0, 55),
-    'duration'   => $submitted->field_duration['und'][0]['value'],
+    'duration'    => $submitted->field_duration['und'][0]['value'],
+//    'link'        => $submitted->
 //    'publish'     => array(
 //      'start'      => '',
 //      'end'        => '',
@@ -58,8 +58,12 @@ dpm($submitted->uid);
   $ad = new StdClass();
   $ad->type = 'classified';
   node_object_prepare($ad);
-    
+
+  // Attache AD SUBMISSION UID to new NODE
+  $ad->uid = $submitted->uid;
+ 
   $ad->language = 'und';
+  dpm($ad);
 
   if ($data['image']['fid']) {
     //dpm('Image Detected!');
@@ -80,19 +84,26 @@ dpm($submitted->uid);
       )
     )
   );
- // if($data['link']){
- //   $ad->field_link = array(
- //     $ad->laguage => array(
- //       0 => array(
- //         'url' => $data['link'],
- //       ),
- //     ),
- //   );
- // }
   
-  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
-  $data['phone'] = $phone[0];
-  if ($data['phone']) {
+  // SCAN AD FOR DATA 
+  // LINK
+  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $data['safe_copy'], $link);
+  $link = check_url($link[0]);
+  if($link){
+    dpm('Link detected - ' . $link);
+    $ad->field_link = array(
+      $ad->laguage => array(
+        0 => array(
+          'url' => $link,
+        ),
+      ),
+    );
+  }
+  // PHONE
+  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $data['safe_copy'], $phone);
+  $phone = $phone[0];
+  if ($phone) {
+    dpm('PHONE # detected - ' . $phone);
     $ad->field_phone = array(
       $ad->language => array(
         0 => array(
@@ -103,6 +114,7 @@ dpm($submitted->uid);
       ),
     );
   }
+  
   // LIVELOAD // by default
   $ad->field_ad_type = array(
     $ad->language => array(
@@ -126,7 +138,7 @@ dpm($submitted->uid);
   node_submit($ad);
   node_save($ad);
   
-
+  // UPDATE `adp` database with new NID
   ## Edit Newly created Classified Ad **
   dpm('Submitted');
   dpm($submitted);
@@ -144,10 +156,10 @@ dpm($submitted->uid);
   //?destination=pwadmin/classified/incoming
   $path = 'node/'. $ad->nid . '/edit';
   dpm('NEW PATH: ' . $path);
-  // drupal_goto($path);
+  drupal_goto($path);
   
-   module_load_include('inc', 'node', 'node.pages');
-   $edit_ad = node_form($form, $form_state, $ad->nid);
+   #module_load_include('inc', 'node', 'node.pages');
+   #$edit_ad = node_form($form, $form_state, $ad->nid);
    
    return $edit_ad;
 //   $ad = node_add('classified');

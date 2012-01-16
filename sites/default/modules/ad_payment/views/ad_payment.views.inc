@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implementation of HOOK_views_data
+ * Implements hook_views_data()
  *
  * For describing table data to views.
  */
@@ -30,13 +30,114 @@ function ad_payment_views_data() {
     ),
   );
 
-  //PRICE
-  $data['adp']['price'] = array(
-    'title' => t('Price'),
-    'help' => t('The final calculated price of the ad.'),
+  //NOTES
+  $data['adp']['notes'] = array(
+    'title' => t('Notes'),
+    'help' => t('Any notes sent along with the ad.'),
     'field' => array(
       'handler' => 'views_handler_field_node',
       'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //PRICE TOTAL
+  $data['adp']['price_total'] = array(
+    'title' => t('Price Total'),
+    'help' => t('The final calculated price of the ad.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //PRICE TAXES
+  $data['adp']['price_taxes'] = array(
+    'title' => t('Price Taxes'),
+    'help' => t('Taxes added to subtotal price.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //PRICE SUB
+  $data['adp']['price_subtotal'] = array(
+    'title' => t('Price Subtotal'),
+    'help' => t('Calculated price of ad.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //WORD COUNT
+  $data['adp']['word_count'] = array(
+    'title' => t('Word Count'),
+    'help' => t('Total count of words in the ad.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //AREAS
+  $data['adp']['areas'] = array(
+    'title' => t('Areas'),
+    'help' => t('Total number of areas selected.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //LIVELOAD
+  $data['adp']['liveload'] = array(
+    'title' => t('Liveload'),
+    'help' => t('If liveload selected - TRUE / FALSE.'),
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => t('Is Liveload'),
+      'type' => 'yes-no',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //IMAGE
+  $data['adp']['image'] = array(
+    'title' => t('Image'),
+    'help' => t('If Image uploaded - TRUE / FALSE.'),
+    'field' => array(
+      'handler' => 'views_handler_field_boolean',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => t('Image Uploaded'),
+      'type' => 'yes-no',
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',
@@ -48,7 +149,7 @@ function ad_payment_views_data() {
     'title' => t('CC Type'),
     'help' => t('Credit card used to pay for the ad.'),
     'field' => array(
-      'handler' => 'views_handler_field_node',
+      'handler' => 'ad_payment_handler_aes_decrypt',
       'click sortable' => TRUE,
     ),
     'sort' => array(
@@ -59,9 +160,9 @@ function ad_payment_views_data() {
   //CC Num
   $data['adp']['cc_num'] = array(
     'title' => t('CC Numbers'),
-    'help' => t('Last 4 digits of CC for verification.'),
+    'help' => t('For CC# verification.'),
     'field' => array(
-      'handler' => 'views_handler_field_node',
+      'handler' => 'ad_payment_handler_aes_decrypt',
       'click sortable' => TRUE,
     ),
     'sort' => array(
@@ -75,7 +176,7 @@ function ad_payment_views_data() {
     'title' => t('Expiry Month'),
     'help' => t('Expiry month of the credit card.'),
     'field' => array(
-      'handler' => 'views_handler_field_node',
+      'handler' => 'ad_payment_handler_aes_decrypt',
       'click sortable' => TRUE,
     ),
     'sort' => array(
@@ -88,7 +189,7 @@ function ad_payment_views_data() {
     'title' => t('Expiry Year'),
     'help' => t('Expiry Year of the credit card.'),
     'field' => array(
-      'handler' => 'views_handler_field_node',
+      'handler' => 'ad_payment_handler_aes_decrypt',
       'click sortable' => TRUE,
     ),
     'sort' => array(

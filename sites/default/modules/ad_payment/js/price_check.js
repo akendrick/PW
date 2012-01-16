@@ -1,4 +1,4 @@
-Drupal.adPayment = Drupal.adPayment || {};
+  Drupal.adPayment = Drupal.adPayment || {};
 
 
 /**
@@ -317,6 +317,14 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
   ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-option'>Optional Extras: $@optional</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@taxes': price.taxesRound, '@optional': price.optional, '@priceTotal': price.totalRound});
   
+  // SHow save on AGREE
+  if (jQuery('#edit-field-agree-und-confirm').is(':checked')) {
+    jQuery('#edit-submit, #edit-preview').show();
+  }
+  else {
+    jQuery('#edit-submit, #edit-preview').hide();
+  }
+      
   // Error Messages
   ad.msg.error = '';
   if (ad.errorMsg) {
@@ -324,6 +332,8 @@ Drupal.adPayment.displayMsg = function() {
       ad.msg.error += '<li>' + value + '</li>';
     });
     ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
+    jQuery('#edit-submit, #edit-preview').hide();
+
   }
   else {
     ad.msg.error = '';
@@ -364,7 +374,20 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.priceOverview 
     + '</div>'
     ;
-  
+  ad.msg.storage =
+    '$adp_pricing = array('
+    + '\'wordcount\' => ' + ad.wordCount + ',' 
+    + '\'duration\' => ' + ad.duration + ','
+    + '\'count_over\' => ' + ad.countOver + ','
+    + '\'area_list\' => ' + '\'' + ad.areaList + '\','
+    + '\'rate\' => ' + '\'' +  ad.formRate + '\','
+    + '\'type\' => ' + '\'' +  ad.type + '\','
+    + '\'base_price\' => ' + price.subTotalRound + ','
+    + '\'taxes_price\' => ' + price.taxesRound + ','
+    + '\'base_price\' => ' + price.subTotalRound + ','
+    + '\'total_price\' => ' + price.totalRound + ','
+    + ');'
+    // {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});  
   // SET FORM PRICE
   jQuery('#edit-field-price-und-0-value').val(price.totalRound);
   
@@ -382,17 +405,19 @@ jQuery(document).ready(function() {
   if (formID == 'ad-s-node-form'){
 
     // Hide Edit/Submit unless on page 4
-    //jQuery('#edit-submit, #edit-preview').hide();
-
+    jQuery('#edit-submit, #edit-preview').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
     jQuery(sideBar).append(summaryBox);
     
-    // Create DIV for review
+    // Create DIV for OverView
     jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
     jQuery('#ad-review ').hide();
+    // DIV for ReView
+    var reviewLocation = '#edit-field-agree';
+    jQuery(reviewLocation).prepend('<div id="review-ad-block"></div>');
   
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
@@ -403,13 +428,15 @@ jQuery(document).ready(function() {
       var summaryBox = Drupal.adPayment.displayMsg().summary;
       jQuery(sideBox).html(summaryBox);
       
-      // Review box.
-      var reviewLocation = '#ad-review';
+      // Review box
+      var reviewLocation = '#review-ad-block';
       var reviewBox = Drupal.adPayment.displayMsg().review;
       jQuery(reviewLocation).html(reviewBox);
+      // Store Details for future processing.
+      jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
   
-      var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
-      console.log('Page state: ' + pageState);
+      // var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
+      // console.log('Page state: ' + pageState);
       // Hide Submit Button if you're on page 4 and no ad copy.
       // if (pageState == "display: block;") {
       //   console.log('You are on page 4.');

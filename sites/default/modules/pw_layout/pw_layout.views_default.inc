@@ -254,6 +254,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;

@@ -17,29 +17,62 @@
 * - Create ADMIN INTERFACE -- field on taxonomy term for - BIZ RATEd
 */
 
-define ('DEBUG', TRUE);
-
+define ('DEBUG', FALSE);
 
 /**
-* Process ad price depending on returned form values.
-* 
-* @return
-*  $price - array of price elements.
-*  $storage['price'] = $price;
-*/
-function ad_payment_price_check(&$var, $data_type) {
-  // If this is the first page then there are no values. So return empty.
-  if (!$var['values']) {
-    return;
+ * Returns the details of the pricing model used to determine the final price.
+ *
+ * Used for double checking price data.
+ * 
+ * @return
+ *  Human readable array of ad submission data.
+ */
+function _ad_payment_pricing_details($node) {
+  // Get RAW DATA for processing
+  $storage['values'] = _ad_payment_get_payment_variables($node);
+
+  $rate = _ad_payment_validate_rate($storage);
+
+  $details = array(
+    'Ad Rate' => $rate['rate_name'],
+    'Word Count' => $count,
+    'Duration' => $duration['actual'] . ' weeks',
+    'Total Areas' => $areas,
+    'Areas' => $storage['values']['area'],
+    'options' => $options,
+    'Price' => array(
+      'discount' => $discount,
+      'sub-total' => $sub_total,
+      'taxes' => $taxes,
+      'total' => $total,
+    ),
+  );
+  if($options['image']){
+    $storage['values']['readable']['Image #'] = $form_state['input']['field_image']['und'][0]['fid'];
   }
-  // Clear $form_state storage price.
-  $storage = array();
 
-  switch ($data_type) {
+  return $details;
+}
+
+/**
+ * Returns array of form or node variables used to determine ad price.
+ *
+ * @var $form_state
+ *  This function is called from different points in the life of the form.
+ *  So different variables need to be consulted at different points.
+ *   - FORM_STATE - called during the creation of the node.
+ *   - NODE - called after the creation of the node or during the INSERT node function. 
+ *
+ * @return
+ *  array of form/node values
+ */
+function _ad_payment_get_payment_variables($type, $data){
+
+
+  switch ($type) {
     case 'form_state':
-      $form_state = $var;
-
-      $storage['values'] = array(
+      $form_state = $data;
+      $values = array(
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
         'section' => $form_state['values']['field_tags']['und'][0]['tid'],
         'area'    => $form_state['values']['field_area']['und'],
@@ -50,8 +83,8 @@ function ad_payment_price_check(&$var, $data_type) {
       );
       break;
     case 'node':
-      $node = $var;
-      $storage['values'] = array(
+      $node = $data;
+      $values = array(
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
         'section' => $node->field_tags['und'][0]['tid'],
         'area'    => $node->field_area['und'],
@@ -64,22 +97,54 @@ function ad_payment_price_check(&$var, $data_type) {
     default:
       return;
   }
+  
+  return $values;
+}
+
+
+/**
+* Process ad price depending on returned form values.
+* 
+* This function the authoritative source of ad pricing
+* @param $data_type 
+*   Alter the output depending on this variable.
+*   - Possible options:
+*     - form_state -> @return massage data for future use in $form_state and elsewhere.
+*     - node -> @return final price of submitted ad.
+
+* @return
+*  $price - array of price elements.
+*  $storage['price'] = $price;
+*/
+function ad_payment_price_check(&$var, $data_type) {
+
+  /* ONLY USED ON MULTI PAGE FORM */
+  // If this is the first page then there are no values. So return empty.
+  // if (!$var['values']) {
+  //   return;
+  // }
+
+  // Clear $form_state storage price.
+  $storage = array();
+
+  // Get RAW DATA for processing
+  $storage['values'] = _ad_payment_get_payment_variables($data_type, $var);
 
   // Validate Rate
   $rate = _ad_payment_validate_rate($storage);
 
-  // Sections
+  // Count Sections
   $areas = count($storage['values']['area']);
   
-  // Duration
+  // Validate Duration
   $duration = _ad_payment_set_ad_duration($storage['values']['duration']);
 
   // Word Count
   $count = _ad_payment_word_counter($storage['values']['ad_copy']);
   
   // Options
-  $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? TRUE : FALSE;
-  $image = ($storage['values']['image']) ? TRUE : FALSE;
+  $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? 1 : 0;
+  $image = ($storage['values']['image']) ? 1 : 0;
   $options = array(
     'liveload' => $liveload,
     'image' => $image,
@@ -110,7 +175,20 @@ function ad_payment_price_check(&$var, $data_type) {
   $total = $sub_total + $taxes;
   // Round Total
   $total = _ad_payment_dollar_format($total);
-  
+    
+  // Set Price Variables
+  $storage = array(
+    'rate' => $rate,
+    'count' => $count,
+    'duration' => $duration,
+    'areas' => $areas,
+    'options' => $options,
+    'discount' => $discount,
+    'subtotal' => $sub_total,
+    'taxes' => $taxes,
+    'total' => $total,
+  );
+
   // TEST PRICES
   if(DEBUG) {
     // Base
@@ -125,27 +203,20 @@ function ad_payment_price_check(&$var, $data_type) {
     // TOTAL
     drupal_set_message(t('Total Price: $@total', array('@total' => $total))); 
   }
+
   
-  
-  // Set Price Variables
-  $storage['price'] = array(
-    'rate' => $rate,
-    'count' => $count,
-    'duration' => $duration,
-    'areas' => $areas,
-    'options' => $options,
-    'discount' => $discount,
-    'sub-total' => $sub_total,
-    'taxes' => $taxes,
-    'total' => $total,
-  );
-  
+  // Determine which vales are returned.
   //If form_state save date for future reference.
+  
   if ($data_type == 'form_state') {
     $form_state['storage']['price'] = $storage['price'];
     $form_state['storage']['values'] = $storage['values'];
+    return $storage['total'];
   }
-  return $total;
+  else {
+    return $storage;
+  }
+  
 }
 
 

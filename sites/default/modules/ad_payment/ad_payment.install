@@ -4,66 +4,109 @@
 */
 
 function ad_payment_schema() {
-  return array(
-    'adp' => array(
-      'description' => 'Created by `ad_submission` module.',
-      'fields' => array(
-        'ccid' => array(
-          'description' => 'Submitted node id number.',
-          'type' => 'int',
-          'size' => 'normal',
-          'not null' => TRUE,
-        ),
-        'uid' => array(
-          'description' => 'ID of user who submitted ad.',
-          'type' => 'int',
-          'size' => 'normal',
-          'not null' => TRUE,
-        ),
-        'nid' => array(
-          'description' => 'Node to which this field applies.',
-          'type' => 'int',
-           'size' => 'normal',
-         'not null' => TRUE,
-        ),
-        'cc_type' => array(
-          'description' => 'False is V, True is M.',
-          'type' => 'varchar',
-          'length' => '12',
-          'not null' => TRUE,
-        ),
-        'exp_m' => array(
-          'description' => 'Month',
-          'type' => 'int',
-          'size' => 'small',
-          'not null' => TRUE,
-        ),
-        'exp_y' => array(
-          'description' => 'Year',
-          'type' => 'int',
-          'size' => 'small',
-          'not null' => TRUE,
-        ),
-        'cc_num' => array(
-          'description' => 'Last four digits.',
-          'type' => 'int',
-          'size' => 'small',
-          'not null' => TRUE,
-        ),
-      'price' => array(
-        'description' => 'Serialized array of price elements.',
-        'type' => 'varchar',
-        'length' => '255',
-        'not null' => TRUE,
-      ),
-      'created' => array(
-        'description' => 'UNIX timestamp: date created.',
-        'type' => 'int',
-        'not null' => TRUE,
-      ),
-      ),
-      'primary key' => array('nid'),
+$schema['adp'] = array(
+  'description' => 'Created by `ad_submission` module.',
+  'fields' => array(
+    'ccid' => array(
+      'description' => 'Submitted node id number.',
+      'type' => 'int',
+      'not null' => TRUE,
     ),
-  );
+    'uid' => array(
+      'description' => 'ID of user who submitted ad.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'nid' => array(
+      'description' => 'Node to which this field applies.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'cc_type' => array(
+      'description' => 'False is V, True is M.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'exp_m' => array(
+      'description' => 'Month',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'exp_y' => array(
+      'description' => 'Year',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'cc_num' => array(
+      'description' => 'Last four digits.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'notes' => array(
+      'description' => 'Any submitted notes - references Node notes.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'created' => array(
+      'description' => 'UNIX timestamp: date created.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'price_total' => array(
+      'description' => 'Total payment, including taxes and discounts.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'price_taxes' => array(
+      'description' => 'Taxes.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'price_subtotal' => array(
+      'description' => 'Price of ad determined by word count, areas, rate, duration and optional images & liveload.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'word_count' => array(
+      'description' => 'Word count - for determining ad base price.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'areas' => array(
+      'description' => 'Total number of publication areas - for determining ad base price.',
+      'type' => 'varchar',
+      'length' => '256',
+      'not null' => TRUE,
+    ),
+    'duration' => array(
+      'description' => 'Number of weeks is set for publication - for determining ad base price.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'liveload' => array(
+      'description' => 'Liveload status of ad - for determining ad base price.',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+    ),
+    'image' => array(
+      'description' => 'If ad contains image - for determining ad base price.',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+    ),
+  ),
+  'primary key' => array('nid'),
+);
 }
-

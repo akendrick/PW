@@ -355,10 +355,13 @@ function pw_classifieds_field_default_fields() {
   $fields['node-classified-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '3',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -400,6 +403,7 @@ function pw_classifieds_field_default_fields() {
           'weight' => 0,
         ),
       ),
+      'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_link',
       'label' => 'Link',
@@ -408,7 +412,7 @@ function pw_classifieds_field_default_fields() {
         'attributes' => array(
           'class' => '',
           'configurable_title' => 0,
-          'rel' => '',
+          'rel' => 'nofollow',
           'target' => 'default',
           'title' => '',
         ),
@@ -416,8 +420,8 @@ function pw_classifieds_field_default_fields() {
           'url_cutoff' => '80',
         ),
         'enable_tokens' => 1,
-        'title' => 'optional',
-        'title_maxlength' => 128,
+        'title' => 'none',
+        'title_maxlength' => '128',
         'title_value' => '',
         'url' => 0,
         'user_register_form' => FALSE,
@@ -437,7 +441,7 @@ function pw_classifieds_field_default_fields() {
   $fields['node-classified-field_phone'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '2',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_phone',
@@ -472,12 +476,13 @@ function pw_classifieds_field_default_fields() {
           'weight' => 0,
         ),
       ),
+      'ds_extras_field_template' => 'theme_ds_field_minimal',
       'entity_type' => 'node',
       'field_name' => 'field_phone',
       'label' => 'Phone',
       'required' => 0,
       'settings' => array(
-        'all_country_codes' => 0,
+        'all_country_codes' => 1,
         'country_codes' => array(
           'country_selection' => array(
             'ad' => 0,
@@ -672,6 +677,7 @@ function pw_classifieds_field_default_fields() {
             'sn' => 0,
             'so' => 0,
             'sr' => 0,
+            'ss' => 0,
             'st' => 0,
             'sv' => 0,
             'sy' => 0,
@@ -711,9 +717,10 @@ function pw_classifieds_field_default_fields() {
             'zm' => 0,
             'zw' => 0,
           ),
+          'hide_single_cc' => 1,
         ),
         'default_country' => 'ca',
-        'enable_country_level_validation' => 1,
+        'enable_country_level_validation' => 0,
         'enable_extension' => 1,
         'user_register_form' => FALSE,
       ),

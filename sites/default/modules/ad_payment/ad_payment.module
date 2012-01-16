@@ -15,7 +15,7 @@
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
-#define ('DEBUG', FALSE);
+define ('DEBUG', FALSE);
 
 
 /**
@@ -192,12 +192,20 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-  $ad_price = ad_payment_price_check($form_state, 'form_state');
-  form_set_value($form['field_price'], $ad_price, &$form_state);  
+  $price_total = ad_payment_price_check($form_state, 'form_state');
+  // form_set_value($form['field_price'], $ad_price, &$form_state); 
+  $updated_price = array(
+    'und' => array(
+      0 => array(
+        'value' =>  $price_total,
+      ),
+    ),
+  ); 
+  form_set_value($form['field_price'], $updated_price, &$form_state);  
 
   // Set CCID
-  $ccid = rand();
-  form_set_value($form['field_ccid'], $ccid, &$form_state);  
+  //$ccid = rand();
+  //form_set_value($form['field_ccid'], $ccid, &$form_state);  
 }
 
 /**
@@ -248,19 +256,30 @@ function ad_payment_node_insert($node) {
 
     // Get Price
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-    $ad_price = ad_payment_price_check($node, 'node');
-    
-     $nid = db_insert('adp')->fields(array(
+
+    $details = ad_payment_price_check($node, 'node');
+    dpm('Data for DATABASE');
+    dpm($details);
+
+    $nid = db_insert('adp')->fields(array(
       'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
       'uid'     => $node->uid,
       'nid'     => $node->nid,
-      'cc_type' => ($node->field_card_type == 0) ? 'MasterCard' : 'Visa',
-      'exp_m'   => $node->field_exp_month,
-      'exp_y'   => $node->field_exp_year,
-      'cc_num'  => substr($node->field_cc_number, -4),
-      'price'   => $ad_price,
+      'cc_type' => aes_encrypt(($node->field_card_type == 0) ? 'MasterCard' : 'Visa'),
+      'exp_m'   => aes_encrypt($node->field_exp_month),
+      'exp_y'   => aes_encrypt($node->field_exp_year),
+      'cc_num'  => aes_encrypt($node->field_cc_number), // substr($node->field_cc_number, -4),
+      'notes'   => $note = ($details['note']) ? $details['note'] : 'NULL',
       'created' => $node->created,
-    ))->execute();    
+      'word_count'  => $details['count']['count'],
+      'areas'    => $details['areas'],
+      'duration' => $details['duration']['actual'],
+      'liveload' => $details['options']['liveload'],
+      'image'    => $details['options']['image'],
+      'price_total' => $details['total'],
+      'price_taxes' => $details['taxes'],
+      'price_subtotal' => $details['subtotal'],
+      ))->execute();    
     
     // SET CCID
     
@@ -268,6 +287,16 @@ function ad_payment_node_insert($node) {
     // You need to update the newly created node with correct data.
   }
 }
+
+function ad_payment_node_delete($node) {
+  if($node->type == 'ad_s') {
+    $num_deleted = db_delete('adp')
+      ->condition('nid', $node->nid)
+      ->execute();
+  }  
+}
+
+
 
 /**
 * Ad Price Display Theme Registration.
