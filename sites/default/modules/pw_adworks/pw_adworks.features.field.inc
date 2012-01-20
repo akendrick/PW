@@ -139,77 +139,7 @@ function pw_adworks_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-adworks_file-field_date_start'
-  $fields['node-adworks_file-field_date_start'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date_start',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'module' => 'date',
-      'settings' => array(
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 'hour',
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => 0,
-        'timezone_db' => 'UTC',
-        'todate' => 'required',
-        'tz_handling' => 'site',
-      ),
-      'translatable' => '0',
-      'type' => 'datetime',
-    ),
-    'field_instance' => array(
-      'bundle' => 'adworks_file',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_date_start',
-      'label' => 'Start Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'strtotime',
-        'default_value2' => 'strtotime',
-        'default_value_code' => 'Tuesday 6:30am',
-        'default_value_code2' => '+1 Tuesday 6am',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'display_all_day' => 0,
-          'increment' => '30',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-0:+1',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => '6',
       ),
     ),
   );
@@ -268,7 +198,85 @@ function pw_adworks_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '2',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-adworks_file-field_publish'
+  $fields['node-adworks_file-field_publish'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_publish',
+      'field_permissions' => array(
+        'type' => '1',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'date',
+      'settings' => array(
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 'hour',
+          'minute' => 'minute',
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'timezone_db' => '',
+        'todate' => 'optional',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datetime',
+    ),
+    'field_instance' => array(
+      'bundle' => 'adworks_file',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_publish',
+      'label' => 'Publish Date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'strtotime',
+        'default_value2' => 'strtotime',
+        'default_value_code' => '+1 Tuesday 05:30',
+        'default_value_code2' => '+2 Tuesday 05:00',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'display_all_day' => 0,
+          'increment' => '30',
+          'input_format' => 'Y-m-d H:i:s',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'text_parts' => array(),
+          'year_range' => '-0:+1',
+        ),
+        'type' => 'date_popup',
+        'weight' => '4',
       ),
     ),
   );
@@ -278,7 +286,7 @@ function pw_adworks_field_default_fields() {
   t('Ad Creation Override');
   t('Body');
   t('Image Override');
-  t('Start Date');
+  t('Publish Date');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
 
   return $fields;

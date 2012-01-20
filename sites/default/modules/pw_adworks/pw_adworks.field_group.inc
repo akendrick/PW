@@ -23,9 +23,9 @@ function pw_adworks_field_group_info() {
     'label' => 'Administration',
     'weight' => '1',
     'children' => array(
-      0 => 'field_date_start',
-      1 => 'field_image_override',
-      2 => 'field_ad_creation_override',
+      0 => 'field_image_override',
+      1 => 'field_ad_creation_override',
+      2 => 'field_publish',
       3 => 'title',
     ),
     'format_type' => 'tab',

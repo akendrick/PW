@@ -24,6 +24,10 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
   if (DEBUG) {
    dpm('FORM');
    dpm($form);
+   dpm('FORM STATE');
+   dpm($form_state);
+   dpm('FORM STATE -- Node');
+   dpm($form_state['node']);
   }
 }
  
@@ -93,10 +97,13 @@ function _parse_adworks_data($node) {
 
     // Get Publish Dates
     $publish_date = array();
-    $publish_date['start'] = strtotime($node->field_publish['und'][0]['value']) + strtotime('+14.5 hours');
-    $publish_date['end'] = strtotime($node->field_publish['und'][0]['value2']) + strtotime('+16 hours');
+    $publish_date['start'] = strtotime($node->field_publish['und'][0]['value']);
+    $publish_date['end'] = strtotime($node->field_publish['und'][0]['value2']);
     
-    dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
+    if(DEBUG) {
+      dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
+    }
+      
     foreach ($adworks_ads as $ad) {
       if ($ad != NULL || $ad != '') {
         $results = _adworks_parse_indivual_ad($ad, $publish_date);
