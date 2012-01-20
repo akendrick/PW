@@ -30,7 +30,6 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
    dpm($form_state['node']);
   }
 }
- 
 
 /**
 * Call Parser for Adworks INSERT - UPDATE - VIEW hooks().
@@ -65,7 +64,6 @@ function adworks_node_view($node, $view_mode) {
     _adworks_pre_flight_ads($node);
   }
 }
-
 
 /**
 *  Implementation of custom parser.
