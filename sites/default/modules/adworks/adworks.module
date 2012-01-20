@@ -17,6 +17,16 @@
 *       - 'Do you want to save file and not update?'
 */
 
+/**
+ * Implementation of HOOK_form_alter()
+ */
+function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
+  if (DEBUG) {
+   dpm('FORM');
+   dpm($form);
+  }
+}
+ 
 
 /**
 * Call Parser for Adworks INSERT - UPDATE - VIEW hooks().
@@ -27,6 +37,7 @@
 function adworks_node_insert($node) {
   if ($node->type == 'adworks_file') {
     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
+    
     _parse_adworks_data($node, $create_ads);
   }
 }
@@ -35,6 +46,7 @@ function adworks_node_update($node) {
   #dsm($node);
   if ($node->type == 'adworks_file') {
     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
+    
     _parse_adworks_data($node, $create_ads);
   }
 }
@@ -42,6 +54,10 @@ function adworks_node_update($node) {
 function adworks_node_view($node, $view_mode) {
   if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
     module_load_include('inc', 'adworks', 'parse_adworks');
+  if (DEBUG) {
+   dpm('NODE');
+   dpm($node);
+  }
     _adworks_pre_flight_ads($node);
   }
 }
@@ -75,9 +91,15 @@ function _parse_adworks_data($node) {
     // OPTION2 // $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
     $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
 
+    // Get Publish Dates
+    $publish_date = array();
+    $publish_date['start'] = strtotime($node->field_publish['und'][0]['value']) + strtotime('+14.5 hours');
+    $publish_date['end'] = strtotime($node->field_publish['und'][0]['value2']) + strtotime('+16 hours');
+    
+    dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
     foreach ($adworks_ads as $ad) {
       if ($ad != NULL || $ad != '') {
-        $results = _adworks_parse_indivual_ad($ad);
+        $results = _adworks_parse_indivual_ad($ad, $publish_date);
       }
     }
     

@@ -289,11 +289,13 @@ function pw_layout_views_default_views() {
     'classified' => 'classified',
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = '0';
   /* Filter criterion: Content: Ad Copy (field_ad_copy) */
   $handler->display->display_options['filters']['field_ad_copy_value']['id'] = 'field_ad_copy_value';
   $handler->display->display_options['filters']['field_ad_copy_value']['table'] = 'field_data_field_ad_copy';
   $handler->display->display_options['filters']['field_ad_copy_value']['field'] = 'field_ad_copy_value';
   $handler->display->display_options['filters']['field_ad_copy_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_ad_copy_value']['group'] = '0';
   $handler->display->display_options['filters']['field_ad_copy_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Search classified ads:';
@@ -504,6 +506,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'classified' => 'classified',
   );
+  $handler->display->display_options['filters']['type']['group'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -589,6 +592,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'classification' => 'classification',
   );
+  $handler->display->display_options['filters']['machine_name']['group'] = '0';
   /* Filter criterion: Parent should not exist */
   $handler->display->display_options['filters']['field_classified_id_value']['id'] = 'field_classified_id_value';
   $handler->display->display_options['filters']['field_classified_id_value']['table'] = 'field_data_field_classified_id';
@@ -596,6 +600,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
   $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should not exist';
   $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'empty';
+  $handler->display->display_options['filters']['field_classified_id_value']['group'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -608,6 +613,10 @@ function pw_layout_views_default_views() {
   /* Display: Full List Page */
   $handler = $view->new_display('page', 'Full List Page', 'page_1');
   $handler->display->display_options['display_description'] = 'Listing of only child terms (PAGE).';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -616,6 +625,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'classification' => 'classification',
   );
+  $handler->display->display_options['filters']['machine_name']['group'] = 1;
   /* Filter criterion: Parent should exist */
   $handler->display->display_options['filters']['field_classified_id_value']['id'] = 'field_classified_id_value';
   $handler->display->display_options['filters']['field_classified_id_value']['table'] = 'field_data_field_classified_id';
@@ -623,6 +633,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
   $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should exist';
   $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_classified_id_value']['group'] = 1;
   $handler->display->display_options['path'] = 'front';
 
   /* Display: Sub List Block */
@@ -659,6 +670,10 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['arguments']['tid']['validate']['fail'] = 'summary';
   $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['tid']['not'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -667,6 +682,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'classification' => 'classification',
   );
+  $handler->display->display_options['filters']['machine_name']['group'] = 1;
   /* Filter criterion: Parent should not exist */
   $handler->display->display_options['filters']['field_classified_id_value']['id'] = 'field_classified_id_value';
   $handler->display->display_options['filters']['field_classified_id_value']['table'] = 'field_data_field_classified_id';
@@ -674,6 +690,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
   $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should not exist';
   $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_classified_id_value']['group'] = 1;
   $handler->display->display_options['block_description'] = 'Taxonomy Sub Section Block';
   $export['taxonomy_listing'] = $view;
 

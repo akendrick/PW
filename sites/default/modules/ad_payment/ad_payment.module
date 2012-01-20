@@ -15,8 +15,6 @@
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
-define ('DEBUG', FALSE);
-
 
 /**
 * Implementation of HOOK_menu
@@ -248,19 +246,31 @@ function _ad_payment_cc_submit($form, $form_state) {
 
 }
 
+
+/**
+ * Implementation of HOOK_node_insert()
+ *
+ * Save Form data to ADP table.
+ * Encrypt CC Data before storing.
+ *
+ * @TODO
+ * - This currently doesn't reference or receive any CCID numbers from Netidea.
+ * - So all the CCID data is rand().
+ */
 function ad_payment_node_insert($node) {
-  // Determine Node Type
-  // dpm($node);
-  
+
   if($node->type == 'ad_s') {
 
     // Get Price
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
 
     $details = ad_payment_price_check($node, 'node');
-    dpm('Data for DATABASE');
-    dpm($details);
-
+    
+    if (DEBUG) {
+      dpm('Data for DATABASE');
+      dpm($details);
+    }
+    
     $nid = db_insert('adp')->fields(array(
       'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
       'uid'     => $node->uid,
@@ -288,6 +298,10 @@ function ad_payment_node_insert($node) {
   }
 }
 
+
+/**
+ * If you delete `ad_s` node type - delete related field in `adp` table.
+ */
 function ad_payment_node_delete($node) {
   if($node->type == 'ad_s') {
     $num_deleted = db_delete('adp')

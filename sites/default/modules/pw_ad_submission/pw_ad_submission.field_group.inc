@@ -53,19 +53,22 @@ function pw_ad_submission_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_vgroup_parent';
   $field_group->data = array(
-    'label' => 'Ad Review',
+    'label' => 'Review & Submit',
     'weight' => '4',
     'children' => array(
       0 => 'field_ad_details',
+      1 => 'field_agree',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'formatter' => 'no-start',
+      'label' => 'Review & Submit',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '<h2>Review</h2>
+<ol><li>Review your ad to make sure all the information is correct<li>If there are any issues select the appropriate tab on top to correct it.<li> When finished click on SUBMIT to submit your ad. </ol>',
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_ad_review|node|ad_s|form'] = $field_group;
@@ -80,7 +83,7 @@ function pw_ad_submission_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_vgroup_parent';
   $field_group->data = array(
-    'label' => 'Create Classified Ad',
+    'label' => '1. CREATE AD',
     'weight' => '1',
     'children' => array(
       0 => 'field_ad_copy',
@@ -88,15 +91,16 @@ function pw_ad_submission_field_group_info() {
       2 => 'group_section_duration',
       3 => 'group_ad_grouping',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'label' => 'Create Classified Ad',
+      'label' => '1. CREATE AD',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => '',
+        'description' => '<h2>Step One:</h2>
+<ol><li><strong>Create your classified ad here.</strong><br>Fill out all the fields on this page. <li>When finished this page select the OPTIONS tab to continue. </ol>',
       ),
-      'formatter' => 'start',
+      'formatter' => 'open',
     ),
   );
   $export['group_ad|node|ad_s|form'] = $field_group;
@@ -144,20 +148,21 @@ function pw_ad_submission_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_vgroup_parent';
   $field_group->data = array(
-    'label' => 'Submit Payment',
+    'label' => '3. PAYMENT',
     'weight' => '3',
     'children' => array(
       0 => 'field_price',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'label' => 'Submit Payment',
+      'label' => '3. PAYMENT',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => '',
+        'description' => '<h2>Step Three:</h2>
+<ol><li>Fill out your credit card information here.<br /><strong>Pennywise makes every effort to keep your information safe!</strong><br><li>When finished this page select the REVIEW tab to finish. </ol>',
       ),
-      'formatter' => 'start',
+      'formatter' => 'closed',
     ),
   );
   $export['group_payment|node|ad_s|form'] = $field_group;
@@ -205,21 +210,22 @@ function pw_ad_submission_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_vgroup_parent';
   $field_group->data = array(
-    'label' => 'Upgrade Your Ad',
+    'label' => '2. OPTIONS',
     'weight' => '2',
     'children' => array(
       0 => 'field_image',
       1 => 'field_promote',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'htab',
     'format_settings' => array(
-      'label' => 'Upgrade Your Ad',
+      'label' => '2. OPTIONS',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
-        'description' => '',
+        'description' => '<h2>Step Two:</h2>
+<ol><li>Add some pizzaz with an image or get your ad online now with a liveload. <li>When finished this page select the PAYMENT tab to continue. </ol>',
       ),
-      'formatter' => 'no-start',
+      'formatter' => 'closed',
     ),
   );
   $export['group_upgrade|node|ad_s|form'] = $field_group;
@@ -234,7 +240,7 @@ function pw_ad_submission_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Submit Ad Vgroup',
+    'label' => 'Submit Ad Group',
     'weight' => '0',
     'children' => array(
       0 => 'group_ad',
@@ -242,15 +248,11 @@ function pw_ad_submission_field_group_info() {
       2 => 'group_payment',
       3 => 'group_ad_review',
     ),
-    'format_type' => 'multipage-group',
+    'format_type' => 'htabs',
     'format_settings' => array(
-      'label' => 'Submit Ad Vgroup',
+      'label' => 'Submit Ad Group',
       'instance_settings' => array(
         'classes' => '',
-        'page_header' => '3',
-        'page_counter' => '1',
-        'move_button' => '0',
-        'move_additional' => '1',
       ),
     ),
   );

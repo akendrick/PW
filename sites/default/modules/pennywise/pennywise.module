@@ -8,10 +8,6 @@
  */
 
 define ('DEBUG', TRUE);
- 
- 
-function pennywise_node_view($node, $view_mode, $langcode){
-}
 
 
 /**
@@ -25,14 +21,14 @@ function pennywise_menu() {
     'title'            => 'Create Classified Ad',
     'access arguments' => array('Classified Ads: Create new content'),
     'weight'           => 10,
-    'page callback'    => 'node_create_page',
+    'page callback'    => 'pennywise_create_node_page',
     'page arguments'   => array('classified'),
     'type'             => MENU_IS_LOCAL_TASK,
   );
 
   $items['pwadmin/classified/adworks-upload'] = array(
     'title' => 'Upload Adworks File',
-    'page callback'    => 'node_create_page',
+    'page callback'    => 'pennywise_create_node_page',
     'page arguments'   => array('adworks_file'),
     'access arguments' => array('Adworks File: Create new content'),
     'type'             => MENU_IS_LOCAL_TASK,
@@ -43,7 +39,7 @@ function pennywise_menu() {
     'title'            => 'Create Display Ad',
     'access arguments' => array('Display ads: Create new content'),
     'weight'           => 10,
-    'page callback'    => 'create_node_page',
+    'page callback'    => 'pennywise_create_node_page',
     'page arguments'   => array('display_ads'),
     'type'             => MENU_IS_LOCAL_ACTION,
   );
@@ -65,8 +61,10 @@ function pennywise_menu() {
  * @return
  *  Create new display ad.
  **/
-function create_node_page($node_type) {
+function pennywise_create_node_page($node_type) {
+  dpm($node_type);
   module_load_include('inc', 'node', 'node.pages');
   $content = node_add($node_type);
+  
   return $content;
 }

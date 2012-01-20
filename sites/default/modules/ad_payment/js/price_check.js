@@ -404,8 +404,8 @@ jQuery(document).ready(function() {
   var formID = jQuery("form").attr('id');
   if (formID == 'ad-s-node-form'){
 
-    // Hide Edit/Submit unless on page 4
-    jQuery('#edit-submit, #edit-preview').hide();
+    // Hide Edit/Submit & image AJAX uploader -  unless on page 4
+    jQuery('#edit-submit, #edit-preview, #edit-field-image-und-0-upload-button').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';

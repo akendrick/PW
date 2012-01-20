@@ -682,6 +682,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'target' => 'target',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
   $handler->display->display_options['filters']['field_display_ad_type_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type (field_display_ad_type)';
@@ -717,6 +718,7 @@ function pw_display_views_default_views() {
     'target' => 'target',
     'video' => 'video',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
   $handler->display->display_options['filters']['field_display_ad_type_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
@@ -758,6 +760,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['grouping'] = '';
   $handler->display->display_options['style_options']['columns'] = '5';
   $handler->display->display_options['style_options']['fill_single_line'] = 0;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -851,10 +854,12 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'print' => 'print',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
   /* Filter criterion: Content: Has taxonomy terms (with depth) */
   $handler->display->display_options['filters']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
   $handler->display->display_options['filters']['term_node_tid_depth']['table'] = 'node';
   $handler->display->display_options['filters']['term_node_tid_depth']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['group'] = '0';
   $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'classification';
   $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '3';
 
@@ -866,6 +871,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = '';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -936,13 +942,17 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -951,6 +961,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -958,6 +969,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'poster' => 'poster',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
 
   /* Display: Banner Block */
   $handler = $view->new_display('block', 'Banner Block', 'banner_block');
@@ -982,13 +994,17 @@ function pw_display_views_default_views() {
   $handler->display->display_options['arguments']['term_node_tid_depth']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['term_node_tid_depth']['set_breadcrumb'] = 0;
   $handler->display->display_options['arguments']['term_node_tid_depth']['use_taxonomy_term_path'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -997,6 +1013,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -1004,6 +1021,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'banner' => 'banner',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
   $handler->display->display_options['block_description'] = 'Banner Block w/TID';
 
   /* Display: Splash Block */
@@ -1071,13 +1089,17 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1086,6 +1108,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -1093,6 +1116,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'splash' => 'splash',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
 
   /* Display: Print Block */
   $handler = $view->new_display('block', 'Print Block', 'block_1');
@@ -1214,13 +1238,17 @@ function pw_display_views_default_views() {
   $handler->display->display_options['arguments']['term_node_tid_depth']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['term_node_tid_depth']['set_breadcrumb'] = 0;
   $handler->display->display_options['arguments']['term_node_tid_depth']['use_taxonomy_term_path'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1229,6 +1257,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -1236,11 +1265,16 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'print' => 'print',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
 
   /* Display: Poster Filler */
   $handler = $view->new_display('block', 'Poster Filler', 'poster_filler');
   $handler->display->display_options['display_description'] = 'Random Pennywise poster ads - as filler';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -1249,6 +1283,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -1256,6 +1291,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'poster' => 'poster',
   );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
   /* Filter criterion: Content: Client (field_ad_client) */
   $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
@@ -1263,6 +1299,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_ad_client_tid']['value'] = array(
     83 => '83',
   );
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';

@@ -43,10 +43,10 @@ function pw_ad_submission_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
+          'type' => 'text_plain',
           'weight' => '0',
         ),
       ),
@@ -103,11 +103,10 @@ function pw_ad_submission_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'text',
+          'label' => 'inline',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '2',
+          'type' => 'hidden',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'node',
@@ -130,14 +129,17 @@ function pw_ad_submission_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ad_s-field_area'
-  $fields['node-ad_s-field_area'] = array(
+  // Exported field: 'node-ad_s-field_agree'
+  $fields['node-ad_s-field_agree'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '4',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_area',
+      'field_name' => 'field_agree',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -147,9 +149,72 @@ function pw_ad_submission_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'Trail' => 'Trail',
-          'Nelson' => 'Nelson',
-          'Castlegar' => 'Castlegar',
+          'Confirm' => 'Confirm',
+          'Not Yet' => 'Not Ready Yet.',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'ad_s',
+      'default_value' => array(
+        0 => array(
+          'value' => 'Not Yet',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => 'Confirm your ad submission.',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
+        ),
+      ),
+      'ds_extras_field_template' => '',
+      'entity_type' => 'node',
+      'field_name' => 'field_agree',
+      'label' => 'Confirmation',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '10',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-ad_s-field_area'
+  $fields['node-ad_s-field_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '4',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_area',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'Trail' => 'Trail, Beaver Valley & Rossland',
+          'Nelson' => 'Nelson & Salmo',
+          'Castlegar' => 'Castlegar & Slocan Valley',
           'Kootenay Lake' => 'Kootenay Lake',
         ),
         'allowed_values_function' => '',
@@ -171,13 +236,14 @@ function pw_ad_submission_field_default_fields() {
 <em class=\'ad-note\'>Save $2 when you book all four areas.</em>',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
       ),
+      'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_area',
       'label' => 'Area',
@@ -235,11 +301,11 @@ function pw_ad_submission_field_default_fields() {
 <strong>Book 2 weeks receive your 3rd week FREE!</strong>',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '4',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'node',
@@ -294,14 +360,11 @@ function pw_ad_submission_field_default_fields() {
       'description' => 'Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
-          'weight' => '5',
+          'label' => 'hidden',
+          'module' => 'lightbox2',
+          'settings' => array(),
+          'type' => 'lightbox2__lightbox__medium__original',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'node',
@@ -376,10 +439,9 @@ function pw_ad_submission_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '9',
+          'type' => 'hidden',
+          'weight' => '15',
         ),
       ),
       'entity_type' => 'node',
@@ -428,16 +490,10 @@ function pw_ad_submission_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'number',
-          'settings' => array(
-            'decimal_separator' => '.',
-            'prefix_suffix' => TRUE,
-            'scale' => 2,
-            'thousand_separator' => ' ',
-          ),
-          'type' => 'number_decimal',
-          'weight' => '1',
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
         ),
       ),
       'entity_type' => 'node',
@@ -499,11 +555,10 @@ function pw_ad_submission_field_default_fields() {
 Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm).',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'list',
+          'label' => 'inline',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '7',
+          'type' => 'hidden',
+          'weight' => '10',
         ),
       ),
       'entity_type' => 'node',
@@ -559,11 +614,10 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'description' => '<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'list',
+          'label' => 'inline',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '8',
+          'type' => 'hidden',
+          'weight' => '14',
         ),
       ),
       'entity_type' => 'node',
@@ -623,11 +677,11 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'node',
@@ -665,6 +719,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
   t('Ad Details');
   t('Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.');
   t('Area');
+  t('Confirm your ad submission.');
+  t('Confirmation');
   t('Duration');
   t('Image');
   t('Liveload Your Ad');

@@ -28,6 +28,23 @@ function ad_payment_views_data() {
     'sort' => array(
       'handler' => 'views_handler_sort',
     ),
+    // Information for accepting a nid as an argument
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+      'name field' => 'CCID', // the field to display in the summary.
+    ),
+    // Information for accepting a nid as a filter
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'relationship' => array(
+      'title' => t('CC ID'),
+      'help' => t('Relate Node to the CC ID associated with it.'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'node',
+      'field' => 'ccid',
+      'label' => t('CC ID'),
+    ),
   );
 
   //NOTES

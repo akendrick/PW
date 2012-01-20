@@ -184,6 +184,7 @@ function pw_defaults_views_default_views() {
     'classified' => 'classified',
     'display_ads' => 'display_ads',
   );
+  $handler->display->display_options['filters']['type']['group'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -211,7 +212,7 @@ function pw_defaults_views_default_views() {
   );
   $handler->display->display_options['arguments']['type']['validate_options']['access'] = 0;
   $handler->display->display_options['arguments']['type']['validate']['fail'] = 'summary';
-  $handler->display->display_options['path'] = 'pwadmin/display-ads/test';
+  $handler->display->display_options['path'] = 'pwadmin';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Pennywise';
   $handler->display->display_options['menu']['weight'] = '0';

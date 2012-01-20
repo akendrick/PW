@@ -17,7 +17,6 @@
 * - Create ADMIN INTERFACE -- field on taxonomy term for - BIZ RATEd
 */
 
-define ('DEBUG', FALSE);
 
 /**
  * Returns the details of the pricing model used to determine the final price.

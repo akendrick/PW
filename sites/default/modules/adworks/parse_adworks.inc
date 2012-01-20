@@ -76,6 +76,16 @@ function _adworks_pre_flight_ads($node) {
 *  
 *  Create node from ad.
 *
+*  @param $ad
+*   Parsed Adworks data. Raw text data that requires GREP work.
+*  @param $publish_date
+*   Associative array containing publishing start & end date for new nodes.
+*   - start: in UNIX epoch time.
+*   - end: in UNIX epoch time.
+*  @param $create_ads 
+*   BOOLEAN - TRUE will save created ads. 
+*   For testing and image verification purposes only - Not implementated.
+*
 *  @TODO
 *  Image handler should:
 *   - Perform PREFLIGHT for images!!
@@ -83,13 +93,16 @@ function _adworks_pre_flight_ads($node) {
 *   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
-function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
+function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = TRUE) {
   
   $new_ad = new StdClass();
   $new_ad->type = 'classified';
   node_object_prepare($new_ad);
     
   $new_ad->language = 'und';
+  $new_ad->status = 0;
+  $new_ad->promote = 0;
+  $new_ad->sticky = 0;
   
 
   // Image
@@ -111,7 +124,6 @@ function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
         'filename' => $image_file->filename,
         'title' => 'Pennywise Classified Ad : ' . $image_file->name,
         'filemime' => 'image/jpeg',
-        'status' => 1,
       );
       
       // Move image to Classified Image folder
@@ -245,11 +257,19 @@ function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
     ),
   );
   
-  //if ($new_ad->field_tags[$node->language][0]['tid'] == FALSE) {
-  //  dsm($new_ad->field_tags);
-  //}
   
-  
+  // Scheduler
+  // Date & time set in adworks.module -- _parse_adworks_data($node)
+  if ($publish_dates) {
+    $new_ad->scheduler = array(
+      'published' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['start']),
+      'unpublished' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['end']),
+      'published_on' => $publish_dates['start'],
+      'unpublished_on' => $publish_dates['end'],
+    );
+  }
+
+// Return if any images missing.
   if (count($images_missing) > 0 ) {
     return $results;
   }
@@ -268,6 +288,26 @@ function _adworks_parse_indivual_ad($ad, $create_ads = TRUE) {
     }
   }
   
+  // Scheduler
+  // Date & time set in adworks.module -- _parse_adworks_data($node)
+  if ($publish_dates) {
+//    $new_ad->scheduler = array(
+//      'published' => date("l, F j, Y @h", $publish_dates['start']),
+//      'unpublished' => date("l, F j, Y @h", $publish_dates['end']),
+//      'published_on' => $publish_dates['start'],
+//      'unpublished_on' => $publish_dates['end'],
+//    );
+      db_insert('scheduler')
+      ->fields(array(
+        'nid' => $new_ad->nid,
+        'publish_on' => $publish_dates['start'],
+        'unpublish_on' => $publish_dates['end'],
+      ))
+      ->execute();
+  
+#    $publish_dates['start'];
+#    $publish_dates['end'];
+  }
   // Collate ad creation data.
   $results = array(
     'email' => $email_count,
