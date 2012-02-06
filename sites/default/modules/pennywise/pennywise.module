@@ -7,7 +7,7 @@
  *  - MOre of a placeholder.
  */
 
-define ('DEBUG', TRUE);
+define ('DEBUG', FALSE);
 
 
 /**
@@ -68,3 +68,5 @@ function pennywise_create_node_page($node_type) {
   
   return $content;
 }
+
+
