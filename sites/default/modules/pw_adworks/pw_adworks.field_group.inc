@@ -21,12 +21,11 @@ function pw_adworks_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Administration',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_image_override',
       1 => 'field_ad_creation_override',
-      2 => 'field_publish',
-      3 => 'title',
+      2 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

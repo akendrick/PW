@@ -7,9 +7,10 @@
 *   @TODO
 *   Move image file search into seperate function:
 *   - Check images in upload folder and across the `files` structure.
-*   - implement `file_validate_is_image($file)` -- Pro D7 Dev p.334
+*   - implement `file_validate_is_image($file)`
 *   - implement UTF-8 file conversion.
-*   - Check previous ads.
+*
+*   - Check previous ads. OPTIONAL
 *     - Perform a cursory check on the ad body (check 5-10 ads)
 *     - Check for similar ad copy
 *     - If several ads found similar then put alert:
@@ -21,7 +22,15 @@
  * Implementation of HOOK_form_alter()
  */
 function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
+  // add custom validation
+  array_push($form['#validate'], 'adworks_form_validate');
+
+  // add custom submission
+  array_push($form['#submit'], 'adworks_adworks_file_form_submit');
+  //$form['#submit'] = 'adworks_adworks_file_form_submit';
+  
   if (DEBUG) {
+   dpm('FORM ALTER');
    dpm('FORM');
    dpm($form);
    dpm('FORM STATE');
@@ -31,96 +40,143 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
   }
 }
 
+
+
 /**
 * Call Parser for Adworks INSERT - UPDATE - VIEW hooks().
 *
 * Disable Overlay on edit page.
 */
 
-function adworks_node_insert($node) {
-  if ($node->type == 'adworks_file') {
-    $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-    
-    _parse_adworks_data($node, $create_ads);
-  }
-}
+// function adworks_node_insert($node) {
+//   if ($node->type == 'adworks_file') {
+//     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
+//     
+//     _parse_adworks_data($node, $create_ads);
+//   }
+// }
+// 
+// function adworks_node_update($node) {
+//   #dsm($node);
+//   if ($node->type == 'adworks_file') {
+//     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
+//     
+//     _parse_adworks_data($node, $create_ads);
+//   }
+// }
+// 
+// function adworks_node_view($node, $view_mode) {
+//   if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
+//     module_load_include('inc', 'adworks', 'parse_adworks');
+//   if (DEBUG) {
+//    dpm('Node View');
+//    dpm('NODE');
+//    dpm($node);
+//   }
+//     _adworks_pre_flight_ads($node);
+//   }
+// }
 
-function adworks_node_update($node) {
-  #dsm($node);
-  if ($node->type == 'adworks_file') {
-    $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-    
-    _parse_adworks_data($node, $create_ads);
-  }
-}
+/**
+* Implementation of HOOK_form_validate() 
+*/
+function adworks_form_validate(&$form, &$form_state) {
+  dpm('VALIDATE');
+  // CHECK IMAGES
+  module_load_include('inc', 'adworks', 'parse_adworks');
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
 
-function adworks_node_view($node, $view_mode) {
-  if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
-    module_load_include('inc', 'adworks', 'parse_adworks');
-  if (DEBUG) {
-   dpm('NODE');
-   dpm($node);
+  // Image overide
+  $check_images = $form_state['values']['field_image_override']['und'][0]['value'];
+  if ($check_images) {
+    $adworks = _adworks_pre_flight_ads($adworks_data);
+    if ($adworks['status'] == FALSE) {
+      form_set_error('field_body', $adworks['message']);
+    }
+    else {
+      drupal_set_message($adworks['message'], 'status' );
+    }
   }
-    _adworks_pre_flight_ads($node);
+  else {
+      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images are not being checked.</strong>', 'warning' );  
   }
+
 }
 
 /**
-*  Implementation of custom parser.
-*
-*  Parse through imputed Adworks data.
-*  Go through ads one by one.
+* Implementation of HOOK_form_submit
 */
-function _parse_adworks_data($node) {
+function adworks_adworks_file_form_submit($form, &$form_state) {
 
-  // Convert pasted text into individual ads then create ads.
-  if ($node->body) {
-    
-    // Get Parser
-    module_load_include('inc', 'adworks', 'parse_adworks');
+  // Adworks Data
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
 
-    
-    // CHECK IMAGES
-    $image_check = _adworks_pre_flight_ads($node);
-    if ($image_check == FALSE) {
-      return;
-    }
-    
-    // If images present proceed...
-    $adworks_data = $node->body['und'][0]['value'];
-    
-    // Convert Text to UTF8
-    // OPTION2 // $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
-    $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+  // Get Parser
+  module_load_include('inc', 'adworks', 'parse_adworks');
 
-    // Get Publish Dates
-    $publish_date = array();
-    $publish_date['start'] = strtotime($node->field_publish['und'][0]['value']);
-    $publish_date['end'] = strtotime($node->field_publish['und'][0]['value2']);
+  // Images are validated in HOOK_form_validate()
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
+  // TEST SAFE DATA
+  //   $adworks_data = $data['body']['und'][0]['safe_value'];
+  
+  // Convert Text to UTF8
+  // OPTION2 // $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
+  $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+
+  // Get Publish Dates
+  $publish_date = array();
+  $publish_date['start'] = strtotime($form_state['values']['field_publish']['und'][0]['value']);
+  $publish_date['end'] = strtotime($form_state['values']['field_publish']['und'][0]['value2']);
+  
+  // Check Overrides
+  // Image overide
+  //$check_images = $form_state['values']['field_image_override']['und'][0]['value'];  
+  //dpm('PARSE: Image = ' . $check_images);
+
+  // Ad Creation Override.
+  // $create_ads = $form_state['values']['field_ad_creation_override']['und'][0]['value'];
+  //dpm('PARSE: Ads = ' . $create_ads);
+
+  $create_ads = TRUE;
+  $check_images = TRUE;
+ 
+  if(DEBUG) {
+    dpm('SUBMIT!');
+    dpm('PARSE DATA');
+    dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
+    dpm ('Images Override = ' . $check_images);
+    dpm ('Ads Override = ' . $create_ads);
+
+ //   $check_images = FALSE;
+ //   $create_ads = FALSE;    
+  }
     
-    if(DEBUG) {
-      dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
-    }
-      
-    foreach ($adworks_ads as $ad) {
-      if ($ad != NULL || $ad != '') {
-        $results = _adworks_parse_indivual_ad($ad, $publish_date);
-      }
-    }
-    
-    if ($results['image']['error']) {
-      foreach ($results['image']['error'] as $missing) {
-        $images .= $missing . "\n";
-      }
-      drupal_set_message('MISSING IMAGES: ' . $images, 'warning');    
-    }
-    elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
-      drupal_set_message('No Ads Created!', 'warning');    
-    }
-    else {
-      drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');    
+  foreach ($adworks_ads as $ad) {
+    if ($ad != NULL || $ad != '') {
+      $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
     }
   }
+  
+
+  if ($results['image']['error']) {
+    foreach ($results['image']['error'] as $missing) {
+      $images .= $missing . "\n";
+    }
+    form_set_error('field_bulk_image_upload', 'No Ads Created! MISSING IMAGES: ' . $images);
+  }
+  elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
+    form_set_error('field_body', 'No Ads Created! Please double check the Adworks ad copy.');
+  }
+  else {
+    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');    
+  }
+
+  if (!$create_ads) {
+      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );    
+  }
+  
+  //return;
+
 }
 
 

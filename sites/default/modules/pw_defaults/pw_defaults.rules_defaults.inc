@@ -35,7 +35,7 @@ function pw_defaults_default_rules_configuration() {
         }
       ],
       "DO" : [
-        { "drupal_message" : { "message" : "\\u003ca href=\'[site:url]\\/node\\/add\\/[node:content-type]\' class=\'add-another\'\\u003e+ Add Another \\u003c\\/a\\u003e" } }
+        { "drupal_message" : { "message" : "\\u003Ca href=\\u0027[site:url]\\/node\\/add\\/[node:content-type]\\u0027 class=\\u0027add-another\\u0027\\u003E+ Add Another \\u003C\\/a\\u003E" } }
       ]
     }
   }');

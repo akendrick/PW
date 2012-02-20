@@ -7,7 +7,7 @@
  *  - MOre of a placeholder.
  */
 
-define ('DEBUG', FALSE);
+define ('DEBUG', TRUE);
 
 
 /**

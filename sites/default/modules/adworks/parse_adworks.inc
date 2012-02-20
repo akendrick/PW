@@ -17,12 +17,15 @@
  *     TRUE if all images are present.
  *     FALSE if even 1 image is missing.
  */
-function _adworks_pre_flight_ads($node) {
+function _adworks_pre_flight_ads($adworks) {
   $message = array(); // Empty message array.
   
   // Parse ADWORKS->node->body for ads
-  if ($node->body) {
-    $ads = $node->body['und'][0]['value'];
+  
+  // Find Adworks Copy.
+ // $adworks = ($node->body) ? $node->body : $node['#node']->body;
+ // if ($adworks) {
+    $ads = $adworks;
 
     // Collect Ads
     preg_match_all('/(?<=\<begad>)(.+)(?=<endad>)/', $ads, $copy);
@@ -43,7 +46,7 @@ function _adworks_pre_flight_ads($node) {
       $image_file = array_shift($found);
       
       // If corresponding image is NOT FOUND record image name
-      if (!$image_file->uri) {
+      if (!$image_file) {
         $missing_image_files[] = $image_name;
       }
     }
@@ -57,18 +60,23 @@ function _adworks_pre_flight_ads($node) {
       foreach($missing_image_files as $missing) {
         $missing_images .= $missing . '<br>';
       }
-      $message_body .= '####### NO ADS UPLOADED ######### <br>MISSING IMAGES: <br>' . $missing_images;    
+      $message_body .= '<br>MISSING IMAGES: <br>' . $missing_images . '<br>####### NO ADS UPLOADED #########';    
       $status = FALSE;
+      
+      $preflight['status'] = $status;
+      $preflight['message'] = $message_body;
     }
     else {
       // Image files are present.
-      $message_body .= '<strong>Images All Present & Counted For!</strong>';    
+      $message_body .= '<strong>Images All Present & Counted For!</strong><br> Double check classified ad start date then click <strong>SAVE</strong>.';    
       $status = TRUE;
-    }
-  }
 
-  drupal_set_message($message_body, 'warning' );    
-  return $status;
+      $preflight['status'] = $status;
+      $preflight['message'] = $message_body;
+    }
+
+  return $preflight;
+
 }
 
 /**
@@ -79,22 +87,24 @@ function _adworks_pre_flight_ads($node) {
 *  @param $ad
 *   Parsed Adworks data. Raw text data that requires GREP work.
 *  @param $publish_date
-*   Associative array containing publishing start & end date for new nodes.
-*   - start: in UNIX epoch time.
-*   - end: in UNIX epoch time.
-*  @param $create_ads 
-*   BOOLEAN - TRUE will save created ads. 
-*   For testing and image verification purposes only - Not implementated.
+*    Associative array containing publishing start & end date for new nodes.
+*    - start: in UNIX epoch time.
+*    - end: in UNIX epoch time.
+*  @param bool $create_ads 
+*    BOOLEAN - TRUE will save created ads. 
+*    For testing and image verification purposes only.
+*  @param bool $check_images 
+*    BOOLEAN - TRUE will save images. 
+*    For testing and image verification purposes only.
 *
 *  @TODO
 *  Image handler should:
-*   - Perform PREFLIGHT for images!!
+*   - Perform PREFLIGHT for images!! -- DONE in form validation.
 *   - Check the entire directory for file
 *   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
-function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = TRUE) {
-  
+function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
   $new_ad = new StdClass();
   $new_ad->type = 'classified';
   node_object_prepare($new_ad);
@@ -104,11 +114,10 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = TR
   $new_ad->promote = 0;
   $new_ad->sticky = 0;
   
-
   // Image
   preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
   $image = $image[0];
-  if ($image) {
+  if ($image  && $check_images) {
     // Check for image on FILES
     // Search Directory // Upgradable function
     $image_name = $image . '.jpg';
@@ -269,45 +278,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = TR
     );
   }
 
-// Return if any images missing.
-  if (count($images_missing) > 0 ) {
-    return $results;
-  }
-  elseif (!$images_missing || count($images_missing) == 0) {
-    if ($create_ads == TRUE) {
-      node_submit($new_ad);
-      node_save($new_ad);
-      $ad_count += 1;
-    }
-    else {
-          
-      // log results
-      $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id . 
-      watchdog($watchdog_message, 'error message');
-      
-    }
-  }
-  
-  // Scheduler
-  // Date & time set in adworks.module -- _parse_adworks_data($node)
-  if ($publish_dates) {
-//    $new_ad->scheduler = array(
-//      'published' => date("l, F j, Y @h", $publish_dates['start']),
-//      'unpublished' => date("l, F j, Y @h", $publish_dates['end']),
-//      'published_on' => $publish_dates['start'],
-//      'unpublished_on' => $publish_dates['end'],
-//    );
-      db_insert('scheduler')
-      ->fields(array(
-        'nid' => $new_ad->nid,
-        'publish_on' => $publish_dates['start'],
-        'unpublish_on' => $publish_dates['end'],
-      ))
-      ->execute();
-  
-#    $publish_dates['start'];
-#    $publish_dates['end'];
-  }
   // Collate ad creation data.
   $results = array(
     'email' => $email_count,
@@ -322,6 +292,45 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = TR
     'ad_count' => $ad_count
   );
 
+//  if ($create_ads == FALSE) {
+//    //drupal_set_message('OVERRIDE - Do not create ads.', 'alert');
+//    return $results;
+//  }
+  
+  
+ // Return if any images missing.
+  if (count($images_missing) > 0 ) {
+    return $results;
+  }
+  elseif (!$images_missing || count($images_missing) == 0) {
+    if ($create_ads) {
+      node_submit($new_ad);
+      node_save($new_ad);
+      $ad_count += 1;
+    }
+    else {
+      // log results
+      $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id . 
+      watchdog($watchdog_message, 'error message');
+      $ad_count += 1;
+    }
+  }
+  
+  // Scheduler
+  // Date & time set in adworks.module -- _parse_adworks_data($node)
+  if ($publish_dates && $create_ads) {
+      db_insert('scheduler')
+      ->fields(array(
+        'nid' => $new_ad->nid,
+        'publish_on' => $publish_dates['start'],
+        'unpublish_on' => $publish_dates['end'],
+      ))
+      ->execute();
+  }
+
+  // update ad_count
+  $results['ad_count'] = $ad_count;
+  
   return $results;
   
 }

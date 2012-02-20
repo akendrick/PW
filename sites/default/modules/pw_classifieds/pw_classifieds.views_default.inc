@@ -39,19 +39,18 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'timestamp' => 'timestamp',
+    'status' => 'timestamp',
     'edit_node' => 'edit_node',
-    'term_node_tid' => 'term_node_tid',
+    'field_tags' => 'field_tags',
     'field_ad_type' => 'field_ad_type',
     'field_image' => 'field_image',
     'changed' => 'field_ad_copy',
     'field_ad_copy' => 'field_ad_copy',
-    'delete_node' => 'delete_node',
+    'field_publish' => 'field_publish',
+    'publish_on' => 'field_publish',
+    'unpublish_on' => 'field_publish',
     'views_bulk_operations' => 'views_bulk_operations',
     'ccid' => 'ccid',
-    'status' => 'status',
-    'field_publish' => 'status',
-    'publish_on' => 'status',
-    'unpublish_on' => 'status',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -60,14 +59,21 @@ function pw_classifieds_views_default_views() {
       'separator' => '',
       'empty_column' => 1,
     ),
+    'status' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
     'edit_node' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'term_node_tid' => array(
+    'field_tags' => array(
       'align' => '',
-      'separator' => '<br/>',
+      'separator' => '',
       'empty_column' => 0,
     ),
     'field_ad_type' => array(
@@ -98,35 +104,11 @@ function pw_classifieds_views_default_views() {
       'separator' => '<br />',
       'empty_column' => 0,
     ),
-    'delete_node' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'views_bulk_operations' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'ccid' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'status' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '<br />',
-      'empty_column' => 0,
-    ),
     'field_publish' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '',
+      'separator' => '<br />',
       'empty_column' => 0,
     ),
     'publish_on' => array(
@@ -137,6 +119,18 @@ function pw_classifieds_views_default_views() {
       'empty_column' => 0,
     ),
     'unpublish_on' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'ccid' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -194,6 +188,32 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['timestamp']['link_to_node'] = 0;
   $handler->display->display_options['fields']['timestamp']['comments'] = 0;
+  /* Field: Content: Published */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'node';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'Status';
+  $handler->display->display_options['fields']['status']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['status']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['status']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['status']['element_type'] = 'h3';
+  $handler->display->display_options['fields']['status']['element_class'] = 'publish-status';
+  $handler->display->display_options['fields']['status']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['status']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['status']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['status']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['status']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['status']['type'] = 'published-notpublished';
+  $handler->display->display_options['fields']['status']['not'] = 0;
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
@@ -217,34 +237,32 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
-  /* Field: Content: All taxonomy terms */
-  $handler->display->display_options['fields']['term_node_tid']['id'] = 'term_node_tid';
-  $handler->display->display_options['fields']['term_node_tid']['table'] = 'node';
-  $handler->display->display_options['fields']['term_node_tid']['field'] = 'term_node_tid';
-  $handler->display->display_options['fields']['term_node_tid']['label'] = 'Section';
-  $handler->display->display_options['fields']['term_node_tid']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['term_node_tid']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['term_node_tid']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['link_to_taxonomy'] = 1;
-  $handler->display->display_options['fields']['term_node_tid']['limit'] = 0;
-  $handler->display->display_options['fields']['term_node_tid']['vocabularies'] = array(
-    'classification' => 0,
-    'tags' => 0,
-  );
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_tags']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Content: Classified Ad Type */
   $handler->display->display_options['fields']['field_ad_type']['id'] = 'field_ad_type';
   $handler->display->display_options['fields']['field_ad_type']['table'] = 'field_data_field_ad_type';
@@ -341,32 +359,6 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['field_api_classes'] = 0;
-  /* Field: Content: Published */
-  $handler->display->display_options['fields']['status']['id'] = 'status';
-  $handler->display->display_options['fields']['status']['table'] = 'node';
-  $handler->display->display_options['fields']['status']['field'] = 'status';
-  $handler->display->display_options['fields']['status']['label'] = 'Status';
-  $handler->display->display_options['fields']['status']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['status']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['status']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['status']['element_type'] = 'h3';
-  $handler->display->display_options['fields']['status']['element_class'] = 'publish-status';
-  $handler->display->display_options['fields']['status']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['status']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['status']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['status']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['status']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['status']['type'] = 'published-notpublished';
-  $handler->display->display_options['fields']['status']['not'] = 0;
   /* Field: Content: Publish Date */
   $handler->display->display_options['fields']['field_publish']['id'] = 'field_publish';
   $handler->display->display_options['fields']['field_publish']['table'] = 'field_data_field_publish';
@@ -418,7 +410,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['publish_on']['hide_empty'] = 0;
   $handler->display->display_options['fields']['publish_on']['empty_zero'] = 0;
   $handler->display->display_options['fields']['publish_on']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['publish_on']['date_format'] = 'long';
+  $handler->display->display_options['fields']['publish_on']['date_format'] = 'short';
   /* Field: Scheduler: Unpublish on */
   $handler->display->display_options['fields']['unpublish_on']['id'] = 'unpublish_on';
   $handler->display->display_options['fields']['unpublish_on']['table'] = 'scheduler';
@@ -441,8 +433,8 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['unpublish_on']['hide_empty'] = 0;
   $handler->display->display_options['fields']['unpublish_on']['empty_zero'] = 0;
   $handler->display->display_options['fields']['unpublish_on']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'long';
-  /* Field: Content: Bulk operations */
+  $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'short';
+  /* Field: Bulk operations: Content */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
@@ -466,49 +458,42 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-    'node_assign_owner_action' => array(
+    'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_delete_item' => array(
+    'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 1,
       'label' => 'Delete',
     ),
-    'system_message_action' => array(
+    'action::system_message_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_script_action' => array(
+    'action::node_make_sticky_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_sticky_action' => array(
+    'action::node_make_unsticky_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_unsticky_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_argument_selector_action' => array(
+    'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -517,63 +502,63 @@ function pw_classifieds_views_default_views() {
         'url' => '',
       ),
     ),
-    'node_promote_action' => array(
+    'action::node_promote_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'rules_promote_incoming_ads' => array(
+    'rules_component::rules_promote_incoming_ads' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_publish_action' => array(
+    'action::node_publish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Publish',
     ),
-    'system_goto_action' => array(
+    'action::system_goto_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpromote_action' => array(
+    'action::node_unpromote_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_save_action' => array(
+    'action::node_save_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'system_send_email_action' => array(
+    'action::system_send_email_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpublish_action' => array(
+    'action::node_unpublish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Unpublish',
     ),
-    'node_unpublish_by_keyword_action' => array(
+    'action::node_unpublish_by_keyword_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
@@ -621,10 +606,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
+  $handler->display->display_options['filter_groups']['operator'] = 'OR';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -671,19 +653,6 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'ad_copy_search';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['required'] = 0;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['multiple'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
-  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
-  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
-  $handler->display->display_options['filters']['status']['expose']['required'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
 
   /* Display: Classified Link */
   $handler = $view->new_display('page', 'Classified Link', 'classified_pagelink');
@@ -723,19 +692,17 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['title'] = 'Incoming Ads';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['grouping'] = 'field_promote';
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'nid' => 'nid',
     'field_image' => 'field_image',
-    'term_node_tid' => 'term_node_tid',
+    'field_tags' => 'field_tags',
     'field_area' => 'field_area',
     'field_promote' => 'field_promote',
     'field_ad_copy' => 'field_ad_copy',
     'name' => 'name',
     'mail' => 'mail',
     'field_phone' => 'field_phone',
-    'field_date_start' => 'field_date_start',
     'cc_type_1' => 'cc_type_1',
     'exp_m' => 'exp_m',
     'exp_y' => 'exp_y',
@@ -760,7 +727,7 @@ function pw_classifieds_views_default_views() {
     'edit_node_1' => 'ccid',
     'ccid' => 'ccid',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'field_promote';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -781,7 +748,7 @@ function pw_classifieds_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'term_node_tid' => array(
+    'field_tags' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -820,11 +787,6 @@ function pw_classifieds_views_default_views() {
       'empty_column' => 0,
     ),
     'field_phone' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_date_start' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -993,7 +955,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Bulk operations */
+  /* Field: Bulk operations: Content */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
@@ -1017,49 +979,42 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-    'node_assign_owner_action' => array(
+    'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_delete_item' => array(
+    'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 1,
       'label' => 'Delete',
     ),
-    'system_message_action' => array(
+    'action::system_message_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_script_action' => array(
+    'action::node_make_sticky_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_sticky_action' => array(
+    'action::node_make_unsticky_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_unsticky_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_argument_selector_action' => array(
+    'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -1068,63 +1023,63 @@ function pw_classifieds_views_default_views() {
         'url' => '',
       ),
     ),
-    'node_promote_action' => array(
+    'action::node_promote_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'rules_promote_incoming_ads' => array(
+    'rules_component::rules_promote_incoming_ads' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_publish_action' => array(
+    'action::node_publish_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 1,
       'label' => 'Publish',
     ),
-    'system_goto_action' => array(
+    'action::system_goto_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpromote_action' => array(
+    'action::node_unpromote_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_save_action' => array(
+    'action::node_save_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'system_send_email_action' => array(
+    'action::system_send_email_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpublish_action' => array(
+    'action::node_unpublish_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
       'label' => 'Unpublish Multiple',
     ),
-    'node_unpublish_by_keyword_action' => array(
+    'action::node_unpublish_by_keyword_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 1,
@@ -1248,8 +1203,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['field_promote']['id'] = 'field_promote';
   $handler->display->display_options['fields']['field_promote']['table'] = 'field_data_field_promote';
   $handler->display->display_options['fields']['field_promote']['field'] = 'field_promote';
-  $handler->display->display_options['fields']['field_promote']['label'] = '';
-  $handler->display->display_options['fields']['field_promote']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_promote']['label'] = 'Ad Type';
   $handler->display->display_options['fields']['field_promote']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['absolute'] = 0;
@@ -1262,7 +1216,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['field_promote']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_promote']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_promote']['element_label_colon'] = 0;
   $handler->display->display_options['fields']['field_promote']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_promote']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_promote']['empty_zero'] = 0;
@@ -1371,29 +1325,6 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_phone']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_phone']['field_api_classes'] = 0;
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['field_date_start']['id'] = 'field_date_start';
-  $handler->display->display_options['fields']['field_date_start']['table'] = 'field_data_field_date_start';
-  $handler->display->display_options['fields']['field_date_start']['field'] = 'field_date_start';
-  $handler->display->display_options['fields']['field_date_start']['label'] = 'Date';
-  $handler->display->display_options['fields']['field_date_start']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_date_start']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_date_start']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_date_start']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_date_start']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_date_start']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_date_start']['hide_alter_empty'] = 0;
   /* Field: Ad Payment: CC Type */
   $handler->display->display_options['fields']['cc_type_1']['id'] = 'cc_type_1';
   $handler->display->display_options['fields']['cc_type_1']['table'] = 'adp';
@@ -1955,11 +1886,12 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['ccid']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['ccid']['link_to_node'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Ad Type */
+  $handler->display->display_options['sorts']['field_promote_value']['id'] = 'field_promote_value';
+  $handler->display->display_options['sorts']['field_promote_value']['table'] = 'field_data_field_promote';
+  $handler->display->display_options['sorts']['field_promote_value']['field'] = 'field_promote_value';
+  $handler->display->display_options['sorts']['field_promote_value']['ui_name'] = 'Ad Type';
+  $handler->display->display_options['sorts']['field_promote_value']['order'] = 'DESC';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
     2 => 'AND',
