@@ -1,0 +1,162 @@
+/****************  VARIABLES  ***********/
+
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@darkblue: #036;
+@medblue: #36C;
+@lightblue: #d1e5ff;
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: #fc9;
+
+
+@complement1: spin(@base, 180);
+@complement2: darken(spin(@base, 180), 5%);
+@lighten1: lighten(@base, 15%);
+@lighten2: lighten(@base, 30%);
+
+@lighter1: lighten(spin(@base, 5), 10%);
+@lighter2: lighten(spin(@base, 10), 20%);
+@darker1: darken(spin(@base, -5), 10%);
+@darker2: darken(spin(@base, -10), 20%);
+
+
+
+
+
+/*****************  MIXIN'  *****************/
+
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 5px, @top_right: 5px, @bottom_right: 5px, @bottom_left: 5px) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+/* center block */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* drop shadow */
+.text-drop-shadow (@colour: @black) {
+  text-shadow: 1px 1px 0px #fff, 2px 2px 6px @colour;
+}
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+	-webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow-off () {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+
+/* opacity */
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
+
+
+/*****************  BASE  *****************/
+body {
+  background-color: @lightblue;
+  font-size: 14pt;
+  font-family: Verdana,Geneva,'DejaVu Sans',sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.2em;
+	background: #FFF url(../images/pw_back1.jpg) no-repeat;
+}
+
+#region-content {
+  background-color: @white;
+}
+
+
+.block {
+  background-color: @white;
+  a {
+    text-decoration: none;  
+  }
+}
+
+/*****************  SIDEBAR FIRST  *****************/
+#region-sidebar-first .block {
+  .border-radius-custom (0px, 0px, 10px, 10px);
+  padding: 3px 3px 10px 3px;
+  margin: 0 0 15px 0;
+  .box-shadow;
+  h2, #edit-search-ads-wrapper label {
+    background-color: @darkblue;
+    color: @white;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.2em;
+    margin: 0 0 5px 0;
+  }
+}
+
+/* search block */
+#edit-search-ads {
+  width: 130px;
+  .center;
+}
+
+/* sections */
+.view-display-id-block_1 {
+  .box-shadow;
+  div, span { margin: 0; padding: 0;}
+  a {
+    text-decoration: none;
+    padding-bottom: 3px;
+    text-transform: capitalize;
+    line-height: .8em;
+  }
+  a: hover {
+    text-decoration: none;
+    font-weight: bolder;
+  }
+  .views-row-odd {
+    background-color: @lightblue;
+  }
+}
+
+/*****************  SIDEBAR SECOND  *****************/
+.view-display-id-poster_block {
+  padding: 0 0 20px 0;
+}
+
+/*****************  FRONT  *****************/
+
+
+/*****************  CLASSIFIEDS  *****************/
+
+
+/*****************  EDITORIAL  *****************/
+
+
+/*****************  ADMIN  *****************/
+
+
+/*****************  EDITORIAL  *****************/
