@@ -47,7 +47,7 @@ Todo Tasks: (Contribution is welcome!)
 - D7 port using Field API
 - migration option from phone.module
 - phone types (home, work, mobile, fax, etc) support
-- more simpletest
+- simpletest
 
 Ongoing Tasks:
 --------------

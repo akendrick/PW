@@ -56,6 +56,19 @@ function ds_forms_ds_layout_info() {
       'css' => TRUE,
       'form' => TRUE,
     ),
+    'ds_form_3col' => array(
+      'label' => t('3 column stacked'),
+      'path' => $path . '/layouts/ds_form_3col',
+      'regions' => array(
+        'header' => t('Header'),
+        'left' => t('Left'),
+        'middle' => t('Middle'),
+        'right' => t('Right'),
+        'footer' => t('Footer')
+      ),
+      'css' => TRUE,
+      'form' => TRUE,
+    ),
   );
 
   return $layouts;
@@ -73,6 +86,35 @@ function ds_forms_form_field_ui_field_overview_form_alter(&$form, &$form_state) 
     $form['#view_mode'] = 'form';
     $form_state['no_panels'] = TRUE;
     $form_state['no_view_mode_suggestions'] = TRUE;
+
+    // Make sure the refresh works.
+    if (!module_exists('field_group') && !module_exists('rel')) {
+      // This key is used to store the current updated field.
+      $form_state += array(
+        'formatter_settings_edit' => NULL,
+      );
+      // Add AJAX wrapper.
+      $form['fields']['#prefix'] = '<div id="field-display-overview-wrapper">';
+      $form['fields']['#suffix'] = '</div>';
+
+      // See field_ui.admin.inc for more details on refresh rows.
+      $form['refresh_rows'] = array('#type' => 'hidden');
+      $form['refresh'] = array(
+        '#type' => 'submit',
+        '#value' => t('Refresh'),
+        '#op' => 'refresh_table',
+        '#submit' => array('field_ui_display_overview_multistep_submit'),
+        '#ajax' => array(
+          'callback' => 'field_ui_display_overview_multistep_js',
+          'wrapper' => 'field-display-overview-wrapper',
+          'effect' => 'fade',
+          // The button stays hidden, so we hide the AJAX spinner too. Ad-hoc
+          // spinners will be added manually by the client-side script.
+          'progress' => 'none',
+        ),
+      );
+      $form['#attached']['css'][] = drupal_get_path('module', 'ds_forms') . '/ds_forms.admin.css';
+    }
 
     // Attach js.
     $form['#attached']['js'][] = drupal_get_path('module', 'ds_forms') . '/ds_forms.admin.js';
@@ -93,7 +135,13 @@ function ds_forms_form_alter(&$form, &$form_state, $form_id) {
     if ($layout = ds_get_layout($ds_form->entity_type, $ds_form->bundle, 'form', FALSE)) {
       // Add the theming function and add the layout as a class.
       $form['#theme'] = array('ds_forms_custom_form');
-      $form['#attributes']['class'][] = strtr($layout['layout'], '_', '-');
+      $class = strtr($layout['layout'], '_', '-');
+      if ((isset($form['#attributes']['class']) && is_array($form['#attributes']['class'])) || !(isset($form['#attributes']['class']))) {
+        $form['#attributes']['class'][] = $class;
+      }
+      elseif (isset($form['#attributes']['class']) && is_string($form['#attributes']['class'])) {
+        $form['#attributes']['class'] .= ' ' . $class . ' ';
+      }
     }
   }
 }
@@ -108,7 +156,7 @@ function ds_build_load($form, $form_id) {
     $ds_form = rel_build_load($form_id);
   }
 
-  if (!$ds_form && isset($form['#entity_type']) && (isset($form['#token']) && $form['#token'] != 'field_ui_field_overview_form')) {
+  if (!$ds_form && isset($form['#entity_type']) && $form_id != 'field_ui_field_overview_form') {
     $ds_form = new stdClass();
     $ds_form->entity_type = $form['#entity_type'];
     $ds_form->bundle = $form['#bundle'];

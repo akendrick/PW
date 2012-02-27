@@ -72,10 +72,13 @@ function template_preprocess_ds_row_fields(&$vars) {
 
   // Render the views fields into the template layout.
   // This code is more or less copied from ds_entity_variables().
-  if ($row_layout[$bundle]) {
+  if (isset($row_layout[$bundle])) {
 
     $view = $vars['view'];
     $layout = $row_layout[$bundle];
+    if (!$layout) {
+      return;
+    }
 
     // Hide empty regions variable.
     $hide_empty_regions = $layout['settings']['hide_empty_regions'];
@@ -98,6 +101,10 @@ function template_preprocess_ds_row_fields(&$vars) {
       $region_content = '';
       if (isset($layout['settings']['regions'][$region_name])) {
         foreach ($layout['settings']['regions'][$region_name] as $key => $field) {
+          // Do not render the field when empty and configured to be hidden.
+          if ($view->field[$field]->options['hide_empty'] && empty($view->style_plugin->rendered_fields[$row_index][$field])) {
+            continue;
+          }
           $region_content .= '<div class="views-field-' . $field . '">';
           if (isset($view->field[$field]->options['label'])) {
             $region_content .= '<div class="field-label">';

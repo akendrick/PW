@@ -73,7 +73,8 @@ function ds_switch_view_mode_inline() {
   }
   else {
     if (node_access('view', $entity[$id])) {
-      $content = drupal_render(node_view($entity[$id], $view_mode));
+      $element = node_view($entity[$id], $view_mode);
+      $content = drupal_render($element);
     }
     else {
       $error = t('Access denied');

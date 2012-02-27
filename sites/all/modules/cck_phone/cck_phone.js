@@ -7,7 +7,7 @@
    */
   Drupal.PhoneNumber.filter = function() {
     var field = $(this);
-    var checkboxes = $('.form-checkboxes .form-item', field.parent().parent());
+    var checkboxes = field.parent().parent().find('.form-checkboxes .form-item');
     var found = false;
     var label = "";
     var option = null;
@@ -56,58 +56,45 @@
    * Country selection should include default country code by default.
    */
   Drupal.PhoneNumber.checkDefault = function(e) {
-    var defaultCC = $('#edit-default-country').val();
+    var defaultCC = $('#edit-instance-settings-default-country').val();
     var span = $('<span class="default-cc"></span>').append(Drupal.t('Default'));
 
-    if ($('.cck-phone-default-country').find('.form-checkbox').val() == defaultCC) {
-      $('#edit-country-selection-' + defaultCC)
-        .attr('checked', 'checked');
-    }
-    else {
-      $('.cck-phone-default-country')
-        .removeClass('cck-phone-default-country')
-        .find('span.default-cc').remove();
+    $('.cck-phone-settings .form-checkboxes').find('.form-checkbox').each(function() {
+      if ($(this).val() == defaultCC) {
+        $('.cck-phone-default-country')
+          .removeClass('cck-phone-default-country')
+          .find('span.default-cc').remove();
 
-
-      $('#edit-country-selection-' + defaultCC)
-        .attr('checked', 'checked')
-        .parents('.form-item:first')
-          .addClass('cck-phone-default-country')
-          .append(span);
-    }
+        // TODO: check for "Enable default country code" only set the checkbox
+        $(this)
+          // .attr('checked', 'checked')
+          .parents('.form-item:first')
+            .addClass('cck-phone-default-country')
+            .append(span);
+      }
+    });
   };
 
   /**
    * Attach a filtering textfield to checkboxes.
    */
-  Drupal.behaviors.PhoneNumber = function (context) {
-    // Toggle collapsible on selection
-    $('#edit-all-country-codes').change(function() {
-      if ($(this).attr('checked')) {
-        $('fieldset.cck-phone-settings').addClass('collapsed');
-      }
-      else {
-        $('fieldset.cck-phone-settings').removeClass('collapsed');
-      }
-    });
-    $('#edit-all-country-codes').trigger('change');
+  Drupal.behaviors.PhoneNumber = {
+    attach: function(context) {
+      // Ensure the new default country is checked
+      $('#edit-instance-settings-default-country, .cck-phone-settings .form-checkboxes').bind('change', Drupal.PhoneNumber.checkDefault);
+      $('#edit-instance-settings-default-country').trigger('change');
+      $('form#field-ui-field-edit-form').submit(Drupal.PhoneNumber.checkDefault);
 
-    // Ensure the new default country is checked
-    $('#edit-default-country, .cck-phone-settings .form-checkboxes').bind('change', Drupal.PhoneNumber.checkDefault);
-    $('#edit-default-country').trigger('change');
-    $('form#content-field-edit-form').submit(Drupal.PhoneNumber.checkDefault);
+      // Filter for countries
+      var form = '<div class="form-item container-inline">'
+               + '  <label>' + Drupal.t('Filter') + ':</label> '
+               + '  <input class="cck-phone-filter form-text" type="text" size="30" />'
+               + '  <a class="cck-phone-check" style="margin-left: 1em;" href="javascript://">' + Drupal.t('Select all') + '</a>'
+               + '</div>';
 
-
-    // Filter for countries
-    var form = '<div class="form-item">'
-             + '  <label>' + Drupal.t('Filter') + ':</label> '
-             + '  <input class="cck-phone-filter" type="text" size="16" />'
-             + '</div>'
-             + '<div class="form-item">'
-             + '  <a class="cck-phone-check" href="javascript://">' + Drupal.t('Select all') + '</a>'
-             + '</div>';
-    $('.cck-phone-settings .form-checkboxes', context).before(form);
-    $('input.cck-phone-filter').bind('keyup', Drupal.PhoneNumber.filter);
-    $('a.cck-phone-check').bind('click', Drupal.PhoneNumber.checkall);
+      $('.cck-phone-settings .form-checkboxes', context).before(form);
+      $('input.cck-phone-filter').bind('keyup', Drupal.PhoneNumber.filter);
+      $('a.cck-phone-check').bind('click', Drupal.PhoneNumber.checkall);
+    }
   };
 })(jQuery);

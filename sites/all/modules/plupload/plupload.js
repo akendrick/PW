@@ -55,48 +55,50 @@ Drupal.behaviors.plupload = {
         'action': $form.attr('action'),
         'target': $form.attr('target')
       };
-      $form.submit(function(e) {
-        var uploader = $('.plupload-element', this).pluploadQueue();
+      $form.once('plupload-form-init', function() {
+        $(this).submit(function(e) {
+          var uploader = $('.plupload-element', this).pluploadQueue();
 
-        // Only allow the submit to proceed if there are files and they've all
-        // completed uploading.
-        // @todo Implement a setting for whether the field is required, rather
-        //   than assuming that all are.
-        if (uploader.files.length > 0 && uploader.total.uploaded == uploader.files.length) {
-          // Plupload's html4 runtime has a bug where it changes the attributes
-          // of the form to handle the file upload, but then fails to change
-          // them back after the upload is finished.
-          for (var attr in originalFormAttributes) {
-            $form.attr(attr, originalFormAttributes[attr]);
-          }
-          return;
-        }
-
-        // If we're here, stop the form submit, and perform logic as appropriate
-        // to the current upload state.
-        e.preventDefault();
-        if (uploader.files.length == 0) {
-          alert('You must at least upload one file.');
-        }
-        else if (uploader.state == plupload.STARTED) {
-          alert('Your files are currently being uploaded. Please wait until they are finished before submitting this form.');
-        }
-        else {
-          var stateChangedHandler = function() {
-            if (uploader.total.uploaded == uploader.files.length) {
-              // Plupload's html4 runtime has a bug where it changes the
-              // attributes of the form to handle the file upload, but then
-              // fails to change them back after the upload is finished.
-              for (var attr in originalFormAttributes) {
-                $form.attr(attr, originalFormAttributes[attr]);
-              }
-              uploader.unbind('StateChanged', stateChangedHandler);
-              $form.submit();
+          // Only allow the submit to proceed if there are files and they've all
+          // completed uploading.
+          // @todo Implement a setting for whether the field is required, rather
+          //   than assuming that all are.
+          if (uploader.files.length > 0 && uploader.total.uploaded == uploader.files.length) {
+            // Plupload's html4 runtime has a bug where it changes the attributes
+            // of the form to handle the file upload, but then fails to change
+            // them back after the upload is finished.
+            for (var attr in originalFormAttributes) {
+              $form.attr(attr, originalFormAttributes[attr]);
             }
-          };
-          uploader.bind('StateChanged', stateChangedHandler);
-          uploader.start();
-        }
+            return;
+          }
+
+          // If we're here, stop the form submit, and perform logic as appropriate
+          // to the current upload state.
+          e.preventDefault();
+          if (uploader.files.length == 0) {
+            alert('You must at least upload one file.');
+          }
+          else if (uploader.state == plupload.STARTED) {
+            alert('Your files are currently being uploaded. Please wait until they are finished before submitting this form.');
+          }
+          else {
+            var stateChangedHandler = function() {
+              if (uploader.total.uploaded == uploader.files.length) {
+                // Plupload's html4 runtime has a bug where it changes the
+                // attributes of the form to handle the file upload, but then
+                // fails to change them back after the upload is finished.
+                for (var attr in originalFormAttributes) {
+                  $form.attr(attr, originalFormAttributes[attr]);
+                }
+                uploader.unbind('StateChanged', stateChangedHandler);
+                $form.submit();
+              }
+            };
+            uploader.bind('StateChanged', stateChangedHandler);
+            uploader.start();
+          }
+        });
       });
     });
   }

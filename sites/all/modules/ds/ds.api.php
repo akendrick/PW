@@ -510,7 +510,8 @@ function hook_ds_panels_default_fields($entity_type, $bundle, $view_mode) {
 function ds_views_row_ENTITY_NAME($entity, $view_mode) {
   $nid = $vars['row']->{$vars['field_alias']};
   $node = node_load($nid);
-  return drupal_render(node_view($node, $view_mode));
+  $element = node_view($node, $view_mode);
+  return drupal_render($element);
 }
 
 /**

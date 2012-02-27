@@ -7,17 +7,15 @@
 
 function _uk_phone_rules() {
   // TODO: more detailed check by area codes
-  $regex = '/^
-      ([0]*)(2[03489])(\d{4})(\d{4})  # 02x [eight-digit local number]
+  return '/^
+      0*(2[03489])(\d{4})(\d{4})    # 02x [eight-digit local number]
       |
-      ([0]*)(11[3-8])(\d{3})(\d{4})   # 011x [seven-digit local number]
+      0*(11[3-8])(\d{3})(\d{4})     # 011x [seven-digit local number]
       |
-      ([0]*)(1[2-9]1)(\d{3})(\d{4})   # 01x1 [seven-digit local number]
+      0*(1[2-9]1)(\d{3})(\d{4})     # 01x1 [seven-digit local number]
       |
-      ([0]*)(1[2-9][0|2-9]\d)(\d{5,6})   # 01xxx [mostly six-digit local numbers] (but not 01x1 codes)
+      0*(1[2-9][0|2-9]\d)(\d{5,6})  # 01xxx [mostly six-digit local numbers] (but not 01x1 codes)
     $/x';
-
-  return $regex;
 }
 
 /**
@@ -44,7 +42,7 @@ function gb_validate_number($number, $ext = '', &$error) {
     return TRUE;
   }
 
-  // t() is no needed
+  // t() is not needed
   $error = '"%phone_input" is not a valid United Kingdom phone number, it should be a 10 digit number like "99 9999 9999", with optional leading "0"';
   return FALSE;
 }
@@ -76,16 +74,19 @@ function gb_sanitize_number(&$number) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function gb_formatter_default($element) {
-  $phone = '';
-
   // Display a global phone number with country code.
-  $cc = cck_phone_countrycodes($element['country_codes']);
-
-  $result = preg_match(_uk_phone_rules(), $element['number'], $matches);
-
-  if ($result) {
-    // output as +44 AA BBBB CCCC, +44 AAA BBB CCCC or +44 AAAA BBB CCC
-    $phone =  $cc['code'] . $matches[1] . '-' . $matches[2] . ' ' . $matches[3];
+  $phone = '';
+  $number = $element['number'];
+  if ($number) {
+    $cc = cck_phone_countrycodes($element['country_codes']);
+    if (preg_match(_uk_phone_rules(), $number, $matches)) {
+      // output as +44 AA BBBB CCCC, +44 AAA BBB CCCC or +44 AAAA BBB CCC
+      array_shift($matches);
+      $phone =  $cc['code'] . ' ' . implode(' ', $matches);
+    }
+    else {
+      $phone = "$cc[code] $number";
+    }
   }
 
   return $phone;
@@ -108,14 +109,18 @@ function gb_formatter_default($element) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function gb_formatter_local($element) {
-  $phone = '';
-
   // Display a local phone number without country code.
-  $result = preg_match(_uk_phone_rules(), $element['number'], $matches);
-
-  if ($result) {
-    // output as 0AA BBBB CCCC,  0AAA BBB CCCC or 0AAAA BBB CCC
-    $phone =  '0' . $matches[1] . '-' . $matches[2] . ' ' . $matches[3];
+  $phone = '';
+  $number = $element['number'];
+  if ($number) {
+    if (preg_match(_uk_phone_rules(), $number, $matches)) {
+      // output as 0AA BBBB CCCC, 0AAA BBB CCCC or 0AAAA BBB CCC
+      array_shift($matches);
+      $phone =  '0' . implode(' ', $matches);
+    }
+    else {
+      $phone = "0$number";
+    }
   }
 
   return $phone;

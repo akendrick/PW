@@ -76,6 +76,7 @@ function ds_edit_view_mode_form($form, &$form_state, $view_mode = '') {
     '#default_value' => $view_mode->label,
     '#description' => t('The human-readable label of the view mode. This name must be unique.'),
     '#required' => TRUE,
+    '#maxlength' => 32,
     '#size' => 30,
   );
 

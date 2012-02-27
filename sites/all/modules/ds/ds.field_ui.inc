@@ -30,7 +30,7 @@ function ds_field_ui_fields_layouts(&$form, &$form_state) {
   }
 
   // Add buttons to add fields in overlay.
-  if ($entity_type != 'ds_views' && isset($form['#ds_layout']) && user_access('admin_fields') && $view_mode != 'form') {
+  if (isset($form['#ds_layout']) && user_access('admin_fields') && $view_mode != 'form') {
     _ds_field_ui_custom_fields($entity_type, $bundle, $view_mode, $form, $form_state);
   }
 
@@ -728,6 +728,7 @@ function ds_field_ui_layout_clone($form, &$form_state) {
 
     // Show message.
     drupal_set_message(t('The layout has been cloned. Note that not all settings for all fields have been copied over, you need to check those and save this screen again.'));
+  
   }
   else {
     drupal_set_message(t('No layout was cloned.'));
@@ -849,7 +850,7 @@ function ds_ds_field_settings_form($field) {
           $title = t('Edit content');
         }
         $form['select'] = array(
-          '#markup' => '<div class="select-content-link">' . l($title, 'admin/structure/ds/fields/manage_ctools/content/' . $action . '/' . $field['entity_type'] . '/' . $field['name'] . $args, array('attributes' => array('class' => array('ctools-use-modal'), $query))) . '</div>',
+          '#markup' => '<div class="select-content-link">' . l($title, 'admin/structure/ds/fields/manage_ctools/content/' . $action . '/' . $field['entity_type'] . '/' . $field['name'] . $args, array('attributes' => array('class' => array('ctools-use-modal'))) + $query) . '</div>',
           '#weight' => -10,
         );
         $form['load_terms'] = array(

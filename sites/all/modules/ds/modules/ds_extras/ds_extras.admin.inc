@@ -394,8 +394,8 @@ function ds_extras_field_ui_alter(&$form, &$form_state) {
     $form['#submit'] = array_merge(array('ds_extras_vd_field_ui_submit'), $form['#submit']);
   }
 
-  // Page title functionality, currently only works on nodes.
-  if (isset($form['#ds_layout']) && $form['#entity_type'] == 'node' && ($form['#view_mode'] == 'full' || $form['#view_mode'] == 'revision' || variable_get('ds_extras_switch_view_mode', FALSE)) && variable_get('ds_extras_hide_page_title', FALSE)) {
+  // Page title functionality, currently only works on nodes, users and taxonomy terms.
+  if (variable_get('ds_extras_hide_page_title', FALSE) && isset($form['#ds_layout']) && in_array($form['#entity_type'], array('node', 'user', 'taxonomy_term')) && ($form['#view_mode'] == 'full' || $form['#view_mode'] == 'revision' || (variable_get('ds_extras_switch_view_mode', FALSE) && $form['#entity_type'] == 'node'))) {
     $form['additional_settings']['ds_layouts']['ds_page_title_options'] = _ds_extras_page_title_options($form['#ds_layout']->settings, $form['#entity_type']);
   }
 

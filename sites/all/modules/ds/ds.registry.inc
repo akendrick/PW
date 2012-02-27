@@ -185,6 +185,14 @@ function _ds_entity_info_alter(&$entity_info) {
       continue;
     }
 
+    if (!isset($entity_info[$row->entity_type])) {
+      continue;
+    }
+
+    if (!isset($entity_info[$row->entity_type]['bundles'][$row->bundle])) {
+      continue;
+    }
+
     $layout = array();
     if (!isset($row->settings['ds_panels'])) {
       $layout = $ds_layouts[$row->layout];
@@ -349,6 +357,7 @@ function _ds_ds_layout_info() {
             'label' => $layout['title'],
             'path' => $layout['path'],
             'module' => 'panels',
+            'panels' => $layout,
             'flexible' => TRUE,
             'regions' => $regions,
           );

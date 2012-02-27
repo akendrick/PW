@@ -1,4 +1,37 @@
 -------------------------------------------------------------------------------------
+7.x-1.5 14/02/2012
+-------------------------------------------------------------------------------------
+- #1423498 by swentel: expose load_comments in views export.
+- #1391192 by czigor: fix notice in ds_render_ctools_field().
+- #1410440 by swentel: fix #bundle notices once and for all.
+- #1382132 by andypost: follow up on region warning.
+- #1294686 by victoriachan: follow up on empty region to block error.
+- #1382132 by swentel: add warning about wrong regions.
+- #1387036 by donquixote and swentel: Fix array to string conversion in implode.
+- #1388288 by mrfelton: Fix vertical tabs with empty regions. 
+- #1342030 by swentel: Add page title options for user and taxonomy term.
+- #1370386 by swentel: Fix link to entity uri.
+- #1369170 by swentel: Fix errors on form class not being an error.
+- #1360480 by swentel: fix panel layouts on taxonomy terms.
+- #1365142 by swentel: hide field with ds views fields if configured.
+- #1311108 by swentel: full content view mode not fully disabled.
+- #1324196 by swentel: fix notices with relation and efq.
+- #1313228 by swentel: followup, limit length on machine name.
+- #1289516 by swentel: Username field is not passed through form_username() function.
+- #1332376 by swentel: 3 column stacked form layout.
+- #1356190 by swentel: use $form_id instead of $form['#token'].
+- #1343990 by OnkelTem: Fix changing of fields on forms.
+- #1354630 by swentel: DS entity views can handle custom fields now as well.
+- #1345278 by swentel: fixed Node title field label not displayed.
+- #1353140 by isaacfreeman and swentel: implement hook_admin_paths() for display tab.
+- #1240510 by tim.plunkett: follow up on Views row options missing in views export.
+- #1359106 by netsensei: DS alters entity info without checking if bundles exists.
+- #1355936 by GoZ: Token clear option.
+- #1336342 by Casper_Deseyne: Flexible panels layouts need the full $layout as well.
+- #1295586 by pfrenssen: follow up on variables passed by reference.
+- #1358162 by zuuperman: set the title on page title options.
+
+-------------------------------------------------------------------------------------
 7.x-1.4 31/10/2011
 -------------------------------------------------------------------------------------
 - #1299580 by swentel: ability to set FT on instance level + tpl suggestion.

@@ -106,6 +106,11 @@ function _ds_extras_entity_info() {
       'label' => t('Display suite Views'),
       'bundles' => $bundles,
       'ds_display' => TRUE,
+      'base table' => 'views_view',
+      'entity keys' => array(
+        'id' => 'vid',
+        'label' => 'name',
+      ),
     ),
   );
 
@@ -177,21 +182,22 @@ function _ds_extras_module_implements_alter(&$implementations, $hook) {
   // we'll unset hooks here if necessary which otherwhise do nothing at all.
 
   // Field template
-  $fs_hooks = array(
+  $ft_hooks = array(
     'ds_field_settings_alter',
     'form_ds_styles_form_alter',
     'form_field_ui_field_edit_form_alter',
     'theme',
   );
-  if (!variable_get('ds_extras_field_template', FALSE) && in_array($hook, $fs_hooks)) {
+  if (!variable_get('ds_extras_field_template', FALSE) && in_array($hook, $ft_hooks)) {
     unset($implementations['ds_extras']);
   }
 
   // Contextual
-  $fs_hooks = array(
+  $con_hooks = array(
     'contextual_links_view_alter',
+    'admin_paths',
   );
-  if ((!variable_get('ds_extras_contextual', FALSE) && in_array($hook, $fs_hooks)) || !module_exists('field_ui')) {
+  if ((!variable_get('ds_extras_contextual', FALSE) && in_array($hook, $con_hooks)) || !module_exists('field_ui')) {
     unset($implementations['ds_extras']);
   }
 

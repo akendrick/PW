@@ -38,15 +38,53 @@ class views_plugin_ds_entity_view extends views_plugin_row {
   function option_definition() {
     $options = parent::option_definition();
     $options['view_mode'] = array('default' => 'teaser');
+    $options['load_comments'] = array('default' => FALSE);
     $options['alternating'] = array('default' => FALSE);
     $options['changing'] = array('default' => FALSE);
     $options['grouping'] = array('default' => FALSE);
     $options['advanced'] = array('default' => FALSE);
-    $options['grouping_fieldset'] = array('default' => FALSE);
-    $options['default_fieldset'] = array('default' => FALSE);
-    $options['alternating_fieldset'] = array('default' => FALSE);
-    $options['advanced_fieldset'] = array('default' => FALSE);
+    $options['grouping_fieldset'] = array(
+      'contains' => array(
+        'grouping' => array('default' => FALSE, 'bool' => TRUE),
+        'group_field' => array('default' => ''),
+        'group_field_function' => array('default' => ''),
+      ),
+    );
+    $options['default_fieldset'] = array(
+      'contains' => array(
+        'view_mode' => array('default' => ''),
+      ),
+    );
+    $options['alternating_fieldset'] = array(
+      'contains' => array(
+        'alternating' => array('default' => FALSE, 'bool' => TRUE),
+        'allpages' => array('default' => FALSE, 'bool' => TRUE),
+        'item' => array(
+          'default' => array(),
+          'export' => 'ds_item_export_option',
+        ),
+      ),
+    );
+    $options['advanced_fieldset'] = array(
+      'contains' => array(
+        'advanced' => array('default' => FALSE, 'bool' => TRUE),
+      ),
+    );
     return $options;
+  }
+
+  /**
+   * Custom export function for alternating_fieldset items.
+   */
+  function ds_item_export_option($indent, $prefix, $storage, $option, $definition, $parents) {
+    $output = '';
+    $definition = array('default' => 'teaser');
+    foreach ($storage as $key => $value) {
+      if (strstr($key, 'item_') !== FALSE) {
+        $output .= parent::export_option($indent, $prefix, $storage, $key, $definition, $parents);
+      }
+    }
+    return $output;
   }
 
   function options_form(&$form, &$form_state) {
@@ -81,6 +119,7 @@ class views_plugin_ds_entity_view extends views_plugin_row {
         '#type' => 'checkbox',
         '#description' => t('Load comments for every node to display.'),
         '#default_value' => isset($this->options['load_comments']) ? $this->options['load_comments'] : FALSE,
+        '#access' => module_exists('comment'),
       );
     }
 
@@ -339,7 +378,7 @@ class views_plugin_ds_entity_view extends views_plugin_row {
  */
 function ds_views_row_render_node($entity, $view_mode, $load_comments) {
   $node_display = node_view($entity, $view_mode);
-  if ($load_comments) {
+  if ($load_comments && module_exists('comment')) {
     $node_display['comments'] = comment_node_page_additions($entity);
   }
   return drupal_render($node_display);
@@ -350,35 +389,39 @@ function ds_views_row_render_node($entity, $view_mode, $load_comments) {
  */
 function ds_views_row_render_comment($entity, $view_mode, $load_comments) {
   $node = node_load($entity->nid);
-  return drupal_render(comment_view($entity, $node, $view_mode));
+  $element = comment_view($entity, $node, $view_mode);
+  return drupal_render($element);
 }
 
 /**
  * Render the user through the entity plugin.
  */
 function ds_views_row_render_users($entity, $view_mode, $load_comments) {
-  return drupal_render(user_view($entity, $view_mode));
+  $element = user_view($entity, $view_mode);
+  return drupal_render($element);
 }
 
 /**
  * Render the taxonomy term through the entity plugin.
  */
 function ds_views_row_render_taxonomy_term_data($entity, $view_mode, $load_comments) {
-  $el = taxonomy_term_view($entity, $view_mode);
-  return drupal_render($el);
+  $element = taxonomy_term_view($entity, $view_mode);
+  return drupal_render($element);
 }
 
 /**
  * Render the file through the entity plugin.
  */
 function ds_views_row_render_file_managed($entity, $view_mode, $load_comments) {
-  return drupal_render(file_view($entity, $view_mode));
+  $element = file_view($entity, $view_mode);
+  return drupal_render($element);
 }
 
 /**
  * Render the micro through the entity plugin.
  */
 function ds_views_row_render_micro($entity, $view_mode, $load_comments) {
-  return drupal_render(micro_view($entity, $view_mode));
+  $element = micro_view($entity, $view_mode);
+  return drupal_render($element);
 }
 

@@ -147,6 +147,19 @@ function ds_extras_permission() {
 }
 
 /**
+ * Implements hook_admin_paths().
+ */
+function ds_extras_admin_paths() {
+  if (variable_get('node_admin_theme')) {
+    return array(
+      'node/*/display' => TRUE,
+      'user/*/display' => TRUE,
+      'taxonomy/term/*/display' => TRUE,
+    );
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function ds_extras_menu_alter(&$items) {
@@ -276,7 +289,8 @@ function ds_preprocess_field(&$variables) {
   $config = array();
   static $field_settings = array();
   if (!isset($field_settings[$variables['element']['#entity_type']][$variables['element']['#bundle']][$variables['element']['#view_mode']])) {
-    $field_settings[$variables['element']['#entity_type']][$variables['element']['#bundle']][$variables['element']['#view_mode']] = ds_get_field_settings($variables['element']['#entity_type'], $variables['element']['#bundle'], $variables['element']['#view_mode']);
+    $layout = ds_get_layout($variables['element']['#entity_type'], $variables['element']['#bundle'], $variables['element']['#view_mode']);
+    $field_settings[$variables['element']['#entity_type']][$variables['element']['#bundle']][$variables['element']['#view_mode']] = ds_get_field_settings($variables['element']['#entity_type'], $variables['element']['#bundle'], $layout['view_mode']);
   }
 
   // Get the field name and field instance info - if available.
@@ -490,19 +504,14 @@ function ds_extras_get_view_mode() {
 }
 
 /**
- * Page title options for a full node page view.
+ * Page title options for a full entity page view.
  */
 function ds_extras_process_page_title(&$variables) {
-  if (isset($variables['node']) && ((node_is_page($variables['node']) && arg(2) == '') || arg(2) == 'revisions') && $layout = ds_get_layout('node', $variables['node']->type, ds_extras_get_view_mode())) {
-    if (isset($layout['settings']['hide_page_title']) && $layout['settings']['hide_page_title'] == 1) {
-      $variables['title'] = '';
-    }
-    elseif (isset($layout['settings']['hide_page_title']) && $layout['settings']['hide_page_title'] == 2 && !empty($layout['settings']['page_option_title'])) {
-      $contexts = array();
-      $entity = node_load(arg(1));
-      ds_create_entity_context('node', $entity, $contexts);
-      $title = $layout['settings']['page_option_title'];
-      $variables['title'] = filter_xss_admin(ctools_context_keyword_substitute($title, array(), $contexts));
+  $page_title = drupal_static('ds_page_title');
+  if (!empty($page_title)) {
+    $variables['title'] = $page_title['title'];
+    if (!empty($page_title['head_title'])) {
+      drupal_set_title($page_title['head_title']);
     }
   }
 }
@@ -865,15 +874,34 @@ function ds_extras_entity_view_alter(&$build, $entity_type) {
 
   // If views and core doesn't send information along on the entity,
   // Display suite doesn't have a context to render the layout.
-  if (!isset($build['#entity_type']) && !isset($build['#bundle'])) {
+  if (!isset($build['#entity_type']) || !isset($build['#bundle'])) {
     return;
   }
 
   $bundle = $build['#bundle'];
   $view_mode = $build['#view_mode'];
+  $layout = ds_get_layout($entity_type, $bundle, ds_extras_get_view_mode());
+
+  // Page title options.
+  if (variable_get('ds_extras_hide_page_title', FALSE)) {
+    $page_title = &drupal_static('ds_page_title');
+    if (isset($layout['settings']['hide_page_title']) && $layout['settings']['hide_page_title'] == 1) {
+      $page_title['title'] = '';
+    }
+    elseif (isset($layout['settings']['hide_page_title']) && $layout['settings']['hide_page_title'] == 2 && !empty($layout['settings']['page_option_title'])) {
+      $contexts = array();
+      $id = (arg(0) == 'taxonomy') ? arg(2) : arg(1);
+      $entity = entity_load($entity_type, array($id));
+      ds_create_entity_context($entity_type, $entity[$id], $contexts);
+      $title = $layout['settings']['page_option_title'];
+      $title = filter_xss_admin(ctools_context_keyword_substitute($title, array(), $contexts));
+      $page_title['title'] = $title;
+      $page_title['head_title'] = $title;
+    }
+  }
 
   // Disable blocks.
-  if (($layout = ds_get_layout($entity_type, $bundle, $view_mode)) && isset($layout['settings']['hide_sidebars']) && !isset($loaded[$entity_type][$bundle][$view_mode])) {
+  if (isset($layout['settings']['hide_sidebars']) && !isset($loaded[$entity_type][$bundle][$view_mode])) {
 
     // Store the setting.
     $loaded[$entity_type][$bundle][$view_mode] = TRUE;
@@ -891,7 +919,7 @@ function ds_extras_entity_view_alter(&$build, $entity_type) {
 function ds_extras_render_panel_layout(&$vars) {
   static $displays = array();
 
-  if (isset($vars['elements']) && $layout = ds_get_layout($vars['elements']['#entity_type'], $vars['elements']['#bundle'], $vars['elements']['#view_mode'])) {
+  if (isset($vars['elements']) && isset($vars['elements']['#bundle']) && $layout = ds_get_layout($vars['elements']['#entity_type'], $vars['elements']['#bundle'], $vars['elements']['#view_mode'])) {
 
     if (empty($layout['settings']['ds_panels'])) {
       return;
@@ -900,7 +928,9 @@ function ds_extras_render_panel_layout(&$vars) {
     $entity_type = $vars['elements']['#entity_type'];
     $bundle = $vars['elements']['#bundle'];
     $view_mode = $vars['elements']['#view_mode'];
-    $element = ($entity_type == 'user') ? '#account' : '#' . $entity_type;
+    $element = '#' . $entity_type;
+    if ($entity_type == 'user') $element = '#account';
+    if ($entity_type == 'taxonomy_term') $element = '#term';
     $entity = $vars['elements'][$element];
     ctools_include('plugins', 'panels');
 

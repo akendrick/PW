@@ -433,10 +433,22 @@ function ds_get_layout_info() {
   static $layouts = FALSE;
 
   if (!$layouts) {
+    $errors = array();
+
     $layouts = module_invoke_all('ds_layout_info');
 
     // Give modules a chance to alter the layouts information.
     drupal_alter('ds_layout_info', $layouts);
+
+    // Check that there is no 'content' region.
+    foreach ($layouts as $key => $info) {
+      if (isset($info['regions']['content'])) {
+        $errors[] = $key;
+      }
+    }
+    if (!empty($errors)) {
+      drupal_set_message(t('Following layouts have a "content" region key which is invalid: %layouts.', array('%layouts' => implode(', ', $errors))), 'error');
+    }
   }
 
   return $layouts;
@@ -474,12 +486,14 @@ function ds_get_layout($entity_type, $bundle, $view_mode, $fallback = TRUE) {
     // Check if a layout is configured.
     if (isset($entity_info[$entity_type]['bundles'][$bundle]['layouts'][$view_mode]) && ($overriden || $view_mode == 'default')) {
       $layouts[$layout_key] = $entity_info[$entity_type]['bundles'][$bundle]['layouts'][$view_mode];
+      $layouts[$layout_key]['view_mode'] = $view_mode;
     }
 
     // In case $view_mode is not found, check if we have a default layout,
     // but only if the view mode settings aren't overridden for this view mode.
     if ($view_mode != 'default' && !$overriden && $fallback && isset($entity_info[$entity_type]['bundles'][$bundle]['layouts']['default'])) {
       $layouts[$layout_key] = $entity_info[$entity_type]['bundles'][$bundle]['layouts']['default'];
+      $layouts[$layout_key]['view_mode'] = 'default';
     }
 
     // Register the false return value as well.
@@ -620,6 +634,11 @@ function ds_get_field_value($key, $field, $entity, $entity_type, $bundle, $view_
   $field['bundle'] = $bundle;
   $field['view_mode'] = $view_mode;
 
+  // Special case for ds_views which can handle custom fields now.
+  if ($field['field_type'] != DS_FIELD_TYPE_PREPROCESS && $entity_type == 'ds_views') {
+    $entity->preprocess_fields[] = $key;
+  }
+
   switch ($field['field_type']) {
 
     case DS_FIELD_TYPE_PREPROCESS:
@@ -679,7 +698,7 @@ function ds_field_attach_view_alter(&$build, $context) {
   $bundle = $build['#bundle'];
   $view_mode = $context['view_mode'];
   $entity = $context['entity'];
-  $layout = ds_get_layout($build['#entity_type'], $build['#bundle'], $context['view_mode']);
+  $layout = ds_get_layout($entity_type, $bundle, $view_mode);
 
   // Do not render panel layouts.
   if (!empty($layout['settings']['ds_panels'])) {
@@ -700,7 +719,7 @@ function ds_field_attach_view_alter(&$build, $context) {
 
   // Add Display Suite display fields.
   $fields = ds_get_fields($entity_type);
-  $field_values = ds_get_field_settings($entity_type, $bundle, $view_mode);
+  $field_values = ds_get_field_settings($entity_type, $bundle, $layout['view_mode']);
 
   foreach ($field_values as $key => $field) {
 
@@ -716,6 +735,12 @@ function ds_field_attach_view_alter(&$build, $context) {
       $field['formatter_settings'] = $field_values[$key]['formatter_settings'];
     }
     $field_value = ds_get_field_value($key, $field, $entity, $entity_type, $bundle, $view_mode);
+
+    // Title label.
+    if ($key == 'title' && $entity_type == 'node') {
+      $node_type = node_type_get_type($entity);
+      $field['title'] = $node_type->title_label;
+    }
 
     if ($field_value) {
       $build[$key] = array(
@@ -767,7 +792,7 @@ function ds_field_attach_view_alter(&$build, $context) {
  * This function is added in ds_theme_registry_alter().
  */
 function ds_entity_variables(&$vars) {
-  if (isset($vars['elements']) && $layout = ds_get_layout($vars['elements']['#entity_type'], $vars['elements']['#bundle'], $vars['elements']['#view_mode'])) {
+  if (isset($vars['elements']) && isset($vars['elements']['#bundle']) && $layout = ds_get_layout($vars['elements']['#entity_type'], $vars['elements']['#bundle'], $vars['elements']['#view_mode'])) {
 
     // Do not render panel layouts.
     if (!empty($layout['settings']['ds_panels'])) {
@@ -967,7 +992,7 @@ function ds_render_code_field($field) {
     }
     // Token support - check on token property so we don't run every single field through token.
     if (isset($field['properties']['use_token']) && $field['properties']['use_token'] == TRUE) {
-      $value = token_replace($value, array($field['entity_type'] => $field['entity']));
+      $value = token_replace($value, array($field['entity_type'] => $field['entity']), array('clear' => TRUE));
     }
     return $value;
   }
@@ -995,6 +1020,9 @@ function ds_render_ctools_field($field) {
         if ($info['module'] == 'taxonomy') {
           if (empty($field['entity']->{$key})) {
             continue;
+          }
+          if (!isset($field['entity']->{$key}[$language])) {
+            $language = LANGUAGE_NONE;
           }
           foreach ($field['entity']->{$key}[$language] as $tkey => $item) {
             if (isset($item['tid']) && !isset($item['taxonomy_term'])) {
@@ -1059,6 +1087,9 @@ function ds_render_block_field($field) {
       case DS_BLOCK_TEMPLATE:
         global $theme_key;
         $block = (object) $block;
+        if (!isset($block->subject)) {
+          $block->subject = NULL;
+        }
         $block->region = NULL;
         $block->module = $module;
         $block->delta = $delta;
@@ -1099,7 +1130,12 @@ function ds_render_field($field) {
     $output = t($settings['link text']);
   }
   elseif (isset($field['properties']['entity_render_key']) && isset($field['entity']->{$field['properties']['entity_render_key']})) {
-    $output = $field['entity']->{$field['properties']['entity_render_key']};
+    if ($field['entity_type'] == 'user' && $field['properties']['entity_render_key'] == 'name') {
+      $output = format_username($field['entity']);
+    }
+    else {
+      $output = $field['entity']->{$field['properties']['entity_render_key']};
+    }
   }
 
   if (empty($output)) {
@@ -1112,9 +1148,8 @@ function ds_render_field($field) {
       $path = $field['entity']->uri['path'];
     }
     else {
-      $entity_key = $field['properties']['entity_id_key'];
-      $entity_path = $field['properties']['entity_path'];
-      $path = $entity_path . '/' . $field['entity']->{$entity_key};
+      $uri_info = entity_uri($field['entity_type'], $field['entity']);
+      $path = $uri_info['path'];
     }
     $output = l($output, $path);
   }

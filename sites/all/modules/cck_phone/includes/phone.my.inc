@@ -111,6 +111,8 @@ function my_sanitize_number(&$number) {
  *   TRUE if it is a valid phone number for that country, FALSE otherwise.
  */
 function my_formatter_default($element) {
+  $phone = '';
+
   // Display a global phone number with country code.
   $cc = cck_phone_countrycodes($element['country_codes']);
 
