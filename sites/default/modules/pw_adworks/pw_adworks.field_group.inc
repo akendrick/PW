@@ -25,7 +25,8 @@ function pw_adworks_field_group_info() {
     'children' => array(
       0 => 'field_image_override',
       1 => 'field_ad_creation_override',
-      2 => 'title',
+      2 => 'field_bulk_image_upload',
+      3 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -81,7 +81,7 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 * Implementation of HOOK_form_validate() 
 */
 function adworks_form_validate(&$form, &$form_state) {
-  dpm('VALIDATE');
+
   // CHECK IMAGES
   module_load_include('inc', 'adworks', 'parse_adworks');
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
@@ -140,17 +140,6 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   $create_ads = TRUE;
   $check_images = TRUE;
  
-  if(DEBUG) {
-    dpm('SUBMIT!');
-    dpm('PARSE DATA');
-    dpm("START: " . $publish_date['start'] . '(' . date("Y-m-d H", $publish_date['start']) . ') END: ' . $publish_date['end'] .  '(' . date("Y-m-d H", $publish_date['end']) . ')');
-    dpm ('Images Override = ' . $check_images);
-    dpm ('Ads Override = ' . $create_ads);
-
- //   $check_images = FALSE;
- //   $create_ads = FALSE;    
-  }
-    
   foreach ($adworks_ads as $ad) {
     if ($ad != NULL || $ad != '') {
       $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
@@ -167,6 +156,9 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
     form_set_error('field_body', 'No Ads Created! Please double check the Adworks ad copy.');
   }
+  // elseif ($results['schedule'] != TRUE) {
+  //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
+  // }
   else {
     drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');    
   }

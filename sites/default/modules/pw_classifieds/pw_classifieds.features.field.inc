@@ -483,6 +483,7 @@ function pw_classifieds_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'all_country_codes' => 1,
+        'country_code_position' => 'after',
         'country_codes' => array(
           'country_selection' => array(
             'ad' => 0,
@@ -721,6 +722,7 @@ function pw_classifieds_field_default_fields() {
         ),
         'default_country' => 'ca',
         'enable_country_level_validation' => 0,
+        'enable_default_country' => TRUE,
         'enable_extension' => 1,
         'user_register_form' => FALSE,
       ),

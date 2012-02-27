@@ -68,7 +68,7 @@ function _adworks_pre_flight_ads($adworks) {
     }
     else {
       // Image files are present.
-      $message_body .= '<strong>Images All Present & Counted For!</strong><br> Double check classified ad start date then click <strong>SAVE</strong>.';    
+      $message_body .= '<strong>Images All Present & Counted For!</strong>.';    
       $status = TRUE;
 
       $preflight['status'] = $status;
@@ -105,6 +105,8 @@ function _adworks_pre_flight_ads($adworks) {
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
 function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
+  $image_count = 0;
+  
   $new_ad = new StdClass();
   $new_ad->type = 'classified';
   node_object_prepare($new_ad);
@@ -113,6 +115,9 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
   $new_ad->status = 0;
   $new_ad->promote = 0;
   $new_ad->sticky = 0;
+  $new_ad->sticky = 0;
+  $new_ad->revision = 0;
+
   
   // Image
   preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
@@ -276,7 +281,11 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
       'published_on' => $publish_dates['start'],
       'unpublished_on' => $publish_dates['end'],
     );
+    $new_ad->publish_on = $publish_dates['start'];
+    $new_ad->unpublish_on = $publish_dates['end'];
   }
+  
+  
 
   // Collate ad creation data.
   $results = array(
@@ -297,8 +306,9 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
 //    return $results;
 //  }
   
-  
  // Return if any images missing.
+ $create_ads = TRUE;
+ 
   if (count($images_missing) > 0 ) {
     return $results;
   }
@@ -317,17 +327,26 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
   }
   
   // Scheduler
+  // Handled on SAVE
+  // THis is OBSELETE NOW.
+  
   // Date & time set in adworks.module -- _parse_adworks_data($node)
-  if ($publish_dates && $create_ads) {
-      db_insert('scheduler')
-      ->fields(array(
-        'nid' => $new_ad->nid,
-        'publish_on' => $publish_dates['start'],
-        'unpublish_on' => $publish_dates['end'],
-      ))
-      ->execute();
-  }
-
+  // if ($new_ad->nid) {
+  //   if ($publish_dates['start'] && $publish_dates['end'] && $create_ads) {
+  //     db_insert('scheduler')
+  //       ->fields(array(
+  //         'nid' => $new_ad->nid,
+  //         'publish_on' => $publish_dates['start'],
+  //         'unpublish_on' => $publish_dates['end'],
+  //       ))
+  //       ->execute();
+  //   }
+  //   $results['schedule'] = TRUE;
+  // }
+  // else {
+  //   $results['schedule'] = 'Unable to schedule ad.';
+  // }
+  
   // update ad_count
   $results['ad_count'] = $ad_count;
   

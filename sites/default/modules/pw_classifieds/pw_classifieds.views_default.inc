@@ -448,6 +448,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
@@ -673,6 +674,19 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'ad_copy_search';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['required'] = 0;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '0';
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
 
   /* Display: Classified Link */
   $handler = $view->new_display('page', 'Classified Link', 'classified_pagelink');

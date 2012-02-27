@@ -45,7 +45,7 @@ function pw_adworks_field_default_fields() {
       'bundle' => 'adworks_file',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Please make certain that the copy is a plain text file and you have converted all your apostrophes and commas.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -157,97 +157,7 @@ function pw_adworks_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '6',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-adworks_file-field_bulk_image_upload'
-  $fields['node-adworks_file-field_bulk_image_upload'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_bulk_image_upload',
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'module' => 'file',
-      'settings' => array(
-        'display_default' => 0,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'file',
-    ),
-    'field_instance' => array(
-      'bundle' => 'adworks_file',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_bulk_image_upload',
-      'label' => 'Bulk Image Upload',
-      'required' => 0,
-      'settings' => array(
-        'description_field' => 0,
-        'file_directory' => 'classifieds_ad_image_upload',
-        'file_extensions' => 'jpg gif',
-        'max_filesize' => '100KB',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'media',
-        'settings' => array(
-          'allowed_schemes' => array(
-            'public' => 'public',
-          ),
-          'allowed_types' => array(
-            0 => 0,
-            'audio' => 0,
-            'default' => 0,
-            'image' => 'image',
-            'video' => 0,
-          ),
-          'progress_indicator' => 'throbber',
-        ),
-        'type' => 'media_generic',
-        'weight' => '0',
+        'weight' => '2',
       ),
     ),
   );
@@ -318,7 +228,7 @@ function pw_adworks_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '5',
+        'weight' => '1',
       ),
     ),
   );
@@ -417,8 +327,8 @@ function pw_adworks_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Ad Creation Override');
   t('Body');
-  t('Bulk Image Upload');
   t('Image Override');
+  t('Please make certain that the copy is a plain text file and you have converted all your apostrophes and commas.');
   t('Publish Date');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
 

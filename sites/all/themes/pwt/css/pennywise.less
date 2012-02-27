@@ -10,6 +10,10 @@
 @medblue: #36C;
 @lightblue: #d1e5ff;
 
+@plum: #303;
+@peach: #FC9;
+@sand: #e5e0dc;
+
 @alert: #fe4e4e;
 @warning: #ff0;
 @status: #fc9;
@@ -21,7 +25,7 @@
 @lighten2: lighten(@base, 30%);
 
 @lighter1: lighten(spin(@base, 5), 10%);
-@lighter2: lighten(spin(@base, 10), 20%);
+@lighter2: lighten(spin(@base, 10), 80%);
 @darker1: darken(spin(@base, -5), 10%);
 @darker2: darken(spin(@base, -10), 20%);
 
@@ -73,20 +77,77 @@
 	opacity: 		@opacity;
 }
 
+/* cols */
+.cols (@cols: 2; @width: 1em) {
+	-moz-column-count: @cols;
+	-moz-column-gap: 1em;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 1em;
+	column-count: 2;
+	column-gap: 1em;
+	
+ -webkit-column-span:1; /* Chrome */
+ column-span:1;
+
+	widows: 8;
+	orphans: 8;
+}
+
+
+/* rotate */
+.rotate(@deg: 90deg) {
+  transform:rotate(@deg);
+  -ms-transform:rotate(@deg); /* IE 9 */
+  -moz-transform:rotate(@deg); /* Firefox */
+  -webkit-transform:rotate(@deg); /* Safari and Chrome */
+  -o-transform:rotate(@deg); /* Opera */
+}
 
 
 /*****************  BASE  *****************/
 body {
   background-color: @lightblue;
-  font-size: 14pt;
+	background: #FFF url(../images/pw_back1.jpg) no-repeat;
+}
+
+h1, h2, h3, h4, h5, h6, h7, h7, h8, a,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, h7 a, h7 a, h8 a, {
+  font-size: 1.1;
   font-family: Verdana,Geneva,'DejaVu Sans',sans-serif;
   font-style: normal;
-  font-weight: normal;
   text-transform: normal;
   letter-spacing: normal;
   line-height: 1.2em;
-	background: #FFF url(../images/pw_back1.jpg) no-repeat;
+  text-decoration: none;
 }
+a {
+  text-decoration: none;
+}
+h1 {
+  font-size: 1.8 em;
+}
+h2 {
+  font-size: 1.6 em;
+}
+h3 {
+  font-size: 1.4 em;
+}
+h4 {
+  font-size: 1.2 em;
+}
+h5 {
+  font-size: 1 em;
+}
+h6 {
+  font-size: .9 em;
+}
+h7 {
+  font-size: .8 em;
+}
+h8 {
+  font-size: .7 em;
+}
+
 
 #region-content {
   background-color: @white;
@@ -151,7 +212,43 @@ body {
 
 
 /*****************  CLASSIFIEDS  *****************/
-
+.content {
+  .classified-ad-section {
+    /* section headers */
+    h3 {
+      text-align: center;
+      text-decoration: none;
+    }
+  }
+  ul.classified-ad-section {
+    list-style: none;
+    .cols;
+    li {
+      padding: 4px 5px 4px 4px;
+      margin: 0 0 4px 4px;
+      .edit-link {
+        display: block;
+        background-color: @alert;
+        color: white;
+        .border-radius(4px);
+        float: left; 
+        font-size: 1em;
+      } 
+      .edit-link-small {
+        font-size: .8em;
+        text-transform: uppercase;
+        margin-right: 5px;
+        text-align: center;
+      }
+    }
+    li:first-line {
+      font-weight: bold;
+    }
+    li.views-row-odd {
+      background-color: @lighten(@sand);
+    }
+  }
+}
 
 /*****************  EDITORIAL  *****************/
 
