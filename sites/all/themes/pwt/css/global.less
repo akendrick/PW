@@ -19,18 +19,9 @@
 @status: #fc9;
 
 
-@complement1: spin(@base, 180);
-@complement2: darken(spin(@base, 180), 5%);
-@lighten1: lighten(@base, 15%);
-@lighten2: lighten(@base, 30%);
-
-@lighter1: lighten(spin(@base, 5), 10%);
-@lighter2: lighten(spin(@base, 10), 80%);
-@darker1: darken(spin(@base, -5), 10%);
-@darker2: darken(spin(@base, -10), 20%);
-
-
-
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
 
 
 /*****************  MIXIN'  *****************/
@@ -78,7 +69,7 @@
 }
 
 /* cols */
-.cols (@cols: 2; @width: 1em) {
+.cols (@cols: 2, @width: 1em) {
 	-moz-column-count: @cols;
 	-moz-column-gap: 1em;
 	-webkit-column-count: 2;
@@ -108,58 +99,108 @@
 body {
   background-color: @lightblue;
 	background: #FFF url(../images/pw_back1.jpg) no-repeat;
-}
 
-h1, h2, h3, h4, h5, h6, h7, h7, h8, a,
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, h7 a, h7 a, h8 a, {
-  font-size: 1.1;
-  font-family: Verdana,Geneva,'DejaVu Sans',sans-serif;
-  font-style: normal;
-  text-transform: normal;
-  letter-spacing: normal;
-  line-height: 1.2em;
-  text-decoration: none;
-}
-a {
-  text-decoration: none;
-}
-h1 {
-  font-size: 1.8 em;
-}
-h2 {
-  font-size: 1.6 em;
-}
-h3 {
-  font-size: 1.4 em;
-}
-h4 {
-  font-size: 1.2 em;
-}
-h5 {
-  font-size: 1 em;
-}
-h6 {
-  font-size: .9 em;
-}
-h7 {
-  font-size: .8 em;
-}
-h8 {
-  font-size: .7 em;
-}
-
-
-#region-content {
-  background-color: @white;
-}
-
-
-.block {
-  background-color: @white;
-  a {
-    text-decoration: none;  
+  h1, h2, h3, h4, h5, h6, h7, h7, h8, a,
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, h7 a, h7 a, h8 a, {
+  /*   font-size: 1.1; */
+    font-family: Verdana,Geneva,'DejaVu Sans',sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: normal;
+    line-height: 1.2em;
+    text-decoration: none;
+    letter-spacing: -0.05em;
+    margin-bottom: 16px;
   }
+  a {
+    text-decoration: none;
+  }
+  h1 {
+    font-size: 2.4 em;
+  }
+  h2 {
+    font-size: 2.2 em;
+  }
+  h3 {
+    font-size: 2 em;
+  }
+  h4 {
+    font-size: 1.8 em;
+  }
+  h5 {
+    font-size: 1.6 em;
+  }
+  h6 {
+    font-size: 1.4 em;
+  }
+  h7 {
+    font-size: 1.2 em;
+  }
+  h8 {
+    font-size: 1 em;
+  }
+  
+  p {
+    
+  }
+  
+  #region-content {
+    background-color: @white;
+  }
+  
+  
+  .block {
+    background-color: @white;
+    a {
+      text-decoration: none;  
+    }
+  }
+
+  /* style */
+  fieldset {
+    background-color: @sand;
+    padding: 10px;
+    .fieldset-wrapper {
+      padding: 10px;
+    }
+    .collapsed .fieldset-wrapper {
+      height: 30px;
+      margin-left: 40px;
+    }
+  }
+  .item-list {
+    ol li {
+      list-style: inherit;
+      list-style-position: inside;
+    }
+    ul li {
+      list-style: none;
+      list-style-position: inherit;
+    }
+    ul.bullet li {
+      list-style: square;
+      list-style-position: inherit;
+    }
+  }
+  
+  blockquote {
+    margin-left: 10%;
+    padding: 2%;
+    background-color: @sand;
+    border: 1pt solid @plum;
+    border-left: 0;
+    border-right: 0;
+    p {
+      margin: 2%;
+      padding: 2%;
+    }
+    p:first-line {
+      font-weight: bold;
+    }
+  }
+
 }
+
 
 /*****************  SIDEBAR FIRST  *****************/
 #region-sidebar-first .block {
@@ -179,24 +220,44 @@ h8 {
 }
 
 /* search block */
-#edit-search-ads {
-  width: 130px;
-  .center;
+#views-exposed-form-search-ads-search-page {
+  #edit-search-ads {
+    width: 130px;
+    .center;
+  }
+  .views-exposed-widget {
+    padding: 0px;
+    margin: 0px;
+    float: none;
+  }
+}
+
+/* ad placement block */
+#block-ad-payment-ad-payment-create-ad{
+  text-align: center;
+  a {
+    font-size: 1.4em;
+  }
 }
 
 /* sections */
-.view-display-id-block_1 {
+#block-views-taxonomy-listing-block-1 {
   .box-shadow;
-  div, span { margin: 0; padding: 0;}
+  div, span { 
+    margin: 0; 
+    padding: 0;
+  }
+  .views-row {
+    margin: 0 0 0 5px;
+    padding: 2px 0 3px 4px;
+    line-height: 1.2em;
+    line-spacing: -0.05em;
+  }
   a {
-    text-decoration: none;
-    padding-bottom: 3px;
     text-transform: capitalize;
     line-height: .8em;
   }
-  a: hover {
-    text-decoration: none;
-    font-weight: bolder;
+  a:hover {
   }
   .views-row-odd {
     background-color: @lightblue;
@@ -213,11 +274,19 @@ h8 {
 
 /*****************  CLASSIFIEDS  *****************/
 .content {
-  .classified-ad-section {
+  .classified-ad-header {
     /* section headers */
     h3 {
+      margin: 25px 0 4px 2px;
       text-align: center;
       text-decoration: none;
+      font-size: 1.4em;
+      background-color: @darkblue;
+      .border-radius-custom(10px, 10px, 0px, 0px);
+      a {
+        color: @white;
+        text-decoration: none;
+      }
     }
   }
   ul.classified-ad-section {
@@ -245,7 +314,7 @@ h8 {
       font-weight: bold;
     }
     li.views-row-odd {
-      background-color: @lighten(@sand);
+      .background-color-lighten(@sand, 40);
     }
   }
 }

@@ -1,4 +1,5 @@
-/****************  VARIABLES  ***********/
+/*
+***************  VARIABLES  ***********/
 /* COLOURS */
 /*****************  MIXIN'  *****************/
 /* rounded corners */
@@ -16,99 +17,89 @@
 body {
   background-color: #d1e5ff;
   background: #ffffff url(../images/pw_back1.jpg) no-repeat;
-  /* style */
-
 }
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6,
-body h7,
-body h7,
-body h8,
-body a,
-body h1 a,
-body h2 a,
-body h3 a,
-body h4 a,
-body h5 a,
-body h6 a,
-body h7 a,
-body h7 a,
-body h8 a {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7,
+h7,
+h8,
+a,
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+h7 a,
+h7 a,
+h8 a {
   /*   font-size: 1.1; */
 
   font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif;
   font-style: normal;
-  font-weight: bold;
   text-transform: normal;
+  letter-spacing: normal;
   line-height: 1.2em;
   text-decoration: none;
   letter-spacing: -0.05em;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
-body a {
+a {
   text-decoration: none;
 }
-body h1 {
+h1 {
   font-size: 2.4 em;
 }
-body h2 {
-  font-size: 2.2 em;
-}
-body h3 {
+h2 {
   font-size: 2 em;
 }
-body h4 {
+h3 {
   font-size: 1.8 em;
 }
-body h5 {
+h4 {
   font-size: 1.6 em;
 }
-body h6 {
+h5 {
   font-size: 1.4 em;
 }
-body h7 {
+h6 {
   font-size: 1.2 em;
 }
-body h8 {
+h7 {
   font-size: 1 em;
 }
-body #region-content {
+h8 {
+  font-size: 1 em;
+}
+#region-content {
   background-color: #ffffff;
 }
-body .block {
+.block {
   background-color: #ffffff;
 }
-body .block a {
+.block a {
   text-decoration: none;
 }
-body fieldset {
+/* style */
+fieldset {
   background-color: #e5e0dc;
   padding: 10px;
 }
-body fieldset .fieldset-wrapper {
+fieldset .fieldset-wrapper {
   padding: 10px;
 }
-body fieldset .collapsed .fieldset-wrapper {
+fieldset .collapsed .fieldset-wrapper {
   height: 30px;
   margin-left: 40px;
 }
-body .item-list ol li {
-  list-style: inherit;
-  list-style-position: inside;
+ol li {
+  list-style: lower-latin;
 }
-body .item-list ul li {
-  list-style: none;
-  list-style-position: inherit;
-}
-body .item-list ul.bullet li {
-  list-style: square;
-  list-style-position: inherit;
-}
-body blockquote {
+blockquote {
   margin-left: 10%;
   padding: 2%;
   background-color: #e5e0dc;
@@ -116,11 +107,11 @@ body blockquote {
   border-left: 0;
   border-right: 0;
 }
-body blockquote p {
+blockquote p {
   margin: 2%;
   padding: 2%;
 }
-body blockquote p:first-line {
+blockquote p:first-line {
   font-weight: bold;
 }
 /*****************  SIDEBAR FIRST  *****************/
@@ -144,45 +135,33 @@ body blockquote p:first-line {
   margin: 0 0 5px 0;
 }
 /* search block */
-#views-exposed-form-search-ads-search-page #edit-search-ads {
+#edit-search-ads {
   width: 130px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-#views-exposed-form-search-ads-search-page .views-exposed-widget {
-  padding: 0px;
-  margin: 0px;
-  float: none;
-}
-/* ad placement block */
-#block-ad-payment-ad-payment-create-ad {
-  text-align: center;
-}
-#block-ad-payment-ad-payment-create-ad a {
-  font-size: 1.4em;
-}
 /* sections */
-#block-views-taxonomy-listing-block-1 {
+.view-display-id-block_1 {
   -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
 }
-#block-views-taxonomy-listing-block-1 div, #block-views-taxonomy-listing-block-1 span {
+.view-display-id-block_1 div, .view-display-id-block_1 span {
   margin: 0;
   padding: 0;
 }
-#block-views-taxonomy-listing-block-1 .views-row {
-  margin: 0 0 0 5px;
-  padding: 2px 0 3px 4px;
-  line-height: 1.2em;
-  line-spacing: -0.05em;
-}
-#block-views-taxonomy-listing-block-1 a {
+.view-display-id-block_1 a {
+  text-decoration: none;
+  padding-bottom: 3px;
   text-transform: capitalize;
   line-height: .8em;
 }
-#block-views-taxonomy-listing-block-1 .views-row-odd {
+.view-display-id-block_1 a:hover {
+  text-decoration: none;
+  font-weight: bolder;
+}
+.view-display-id-block_1 .views-row-odd {
   background-color: #d1e5ff;
 }
 /*****************  SIDEBAR SECOND  *****************/
@@ -252,4 +231,5 @@ body blockquote p:first-line {
 }
 /*****************  EDITORIAL  *****************/
 /*****************  ADMIN  *****************/
-/*****************  EDITORIAL  *****************/
+/*****************  EDITORIAL  ****************
+*/

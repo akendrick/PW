@@ -40,12 +40,6 @@ zones[menu] = 'Menu'
 zones[preface] = 'Preface'
 zones[postscript] = 'Postscript'
 
-stylesheets[all][] = css/pennywise.less
-
-css[global.css][name] = 'Your custom global styles'
-css[global.css][description] = 'This file holds all the globally active custom CSS of your theme.'
-css[global.css][options][weight] = '10'
-
 settings[alpha_grid] = 'alpha_default'
 settings[alpha_primary_alpha_default] = 'normal'
 settings[alpha_responsive] = '1'
@@ -65,6 +59,14 @@ settings[alpha_layouts_alpha_default_normal_weight] = '2'
 settings[alpha_layouts_alpha_default_wide_responsive] = '1'
 settings[alpha_layouts_alpha_default_wide_media] = 'all and (min-width: 1220px)'
 settings[alpha_layouts_alpha_default_wide_weight] = '3'
+
+
+stylesheets[all][] = css/pw.less
+
+css[global.css][name] = 'PW custom global styles'
+css[global.css][description] = 'Globally active custom CSS of your theme.'
+css[global.css][options][weight] = '-30'
+
 
 settings[alpha_viewport] = '1'
 settings[alpha_viewport_initial_scale] = '1'
