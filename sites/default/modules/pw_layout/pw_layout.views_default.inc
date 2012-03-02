@@ -365,7 +365,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_image']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_image']['element_type'] = 'div';
   $handler->display->display_options['fields']['field_image']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['field_image']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_image']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['field_image']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_image']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_image']['hide_alter_empty'] = 1;
@@ -397,7 +397,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
   $handler->display->display_options['fields']['edit_node']['element_class'] = 'edit-link edit-link-small';
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
@@ -447,8 +447,10 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_tags']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_tags']['element_class'] = 'classified-ad-section';
   $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
@@ -463,7 +465,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<span class=\'classified-ad\'>[field_ad_copy] [edit_node]</span>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'classified-ad\'>[field_ad_copy] [edit_node]</div>';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
@@ -547,8 +549,8 @@ function pw_layout_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Section Page */
+  $handler = $view->new_display('page', 'Section Page', 'page');
   $handler->display->display_options['path'] = 'taxonomy/term/%';
 
   /* Display: Feed */
@@ -583,7 +585,9 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['row_class'] = 'classified-section-link';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'classified-section-links';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
@@ -613,7 +617,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['html'] = 0;
   $handler->display->display_options['fields']['name']['element_class'] = 'classified-section-link';
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['name']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['name']['hide_empty'] = 0;
   $handler->display->display_options['fields']['name']['empty_zero'] = 0;
   $handler->display->display_options['fields']['name']['hide_alter_empty'] = 1;

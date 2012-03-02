@@ -21,11 +21,21 @@ function pw_editorial_ds_field_settings_info() {
       'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '0',
+        'wrapper' => 'h6',
+        'class' => 'field-editorial-title',
+      ),
     ),
     'node_link' => array(
       'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
+      'formatter_settings' => array(
+        'link text' => 'More',
+        'wrapper' => '',
+        'class' => '',
+      ),
     ),
   );
   $export['node|article|block_list_header'] = $ds_fieldsetting;
@@ -43,12 +53,12 @@ function pw_editorial_ds_field_settings_info() {
       'format' => 'default',
       'formatter_settings' => array(
         'link' => '1',
-        'wrapper' => 'h2',
+        'wrapper' => 'h6',
         'class' => '',
       ),
     ),
     'node_link' => array(
-      'weight' => '1',
+      'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -190,11 +200,13 @@ function pw_editorial_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'title',
-        1 => 'node_link',
+        1 => 'body',
+        2 => 'node_link',
       ),
     ),
     'fields' => array(
       'title' => 'ds_content',
+      'body' => 'ds_content',
       'node_link' => 'ds_content',
     ),
     'classes' => array(),

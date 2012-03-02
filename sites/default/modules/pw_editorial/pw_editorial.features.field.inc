@@ -58,9 +58,12 @@ function pw_editorial_field_default_fields() {
         ),
         'block_list_item' => array(
           'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '2',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => '80',
+          ),
+          'type' => 'text_trimmed',
+          'weight' => '1',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -159,7 +162,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '12',
         ),
         'default' => array(
           'label' => 'inline',
@@ -230,13 +233,13 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'block_list_item' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '7',
         ),
         'default' => array(
           'label' => 'above',
@@ -287,6 +290,9 @@ function pw_editorial_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_image',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -327,7 +333,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '7',
+          'weight' => '9',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -367,7 +373,7 @@ function pw_editorial_field_default_fields() {
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '800 KB',
         'max_resolution' => '1200x1200',
-        'min_resolution' => '300x300',
+        'min_resolution' => '150x150',
         'title_field' => 1,
         'user_register_form' => FALSE,
       ),
@@ -443,7 +449,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '8',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -559,7 +565,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '10',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -659,7 +665,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '11',
         ),
         'default' => array(
           'label' => 'above',

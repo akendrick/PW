@@ -18,6 +18,10 @@ body {
   background: #ffffff url(../images/pw_back1.jpg) no-repeat;
   /* style */
 
+  /* conetextual links */
+
+  /* TABS */
+
 }
 body h1,
 body h2,
@@ -77,7 +81,8 @@ body h8 {
   font-size: 1 em;
 }
 body #region-content {
-  background-color: #ffffff;
+  /*     background-color: @white; */
+
 }
 body .block {
   background-color: #ffffff;
@@ -122,6 +127,14 @@ body blockquote p {
 }
 body blockquote p:first-line {
   font-weight: bold;
+}
+body .tabs ul {
+  background-color: #003366;
+  margin: 0;
+}
+body #page-title {
+  text-align: center;
+  font-size: 3em;
 }
 /*****************  SIDEBAR FIRST  *****************/
 #region-sidebar-first .block {
@@ -185,15 +198,78 @@ body blockquote p:first-line {
 #block-views-taxonomy-listing-block-1 .views-row-odd {
   background-color: #d1e5ff;
 }
+.classified-section-link {
+  /* List style for taxonomy section links. */
+
+  list-style: none;
+}
 /*****************  SIDEBAR SECOND  *****************/
 .view-display-id-poster_block {
   padding: 0 0 20px 0;
 }
-/*****************  FRONT  *****************/
+/*****************  DISPLAY ADS  *****************/
+.view-display-id-poster_block .views-row {
+  margin-bottom: 20px;
+}
+#block-views-display-ad-blocks-banner-block {
+  background-color: inherit;
+  padding: 0;
+  margin: 0;
+}
+#block-views-display-ad-blocks-banner-block a .img {
+  margin: 4px auto 20px auto;
+  display: block;
+}
 /*****************  CLASSIFIEDS  *****************/
-.content .classified-ad-header {
-  /* section headers */
+/* section header box */
+#block-views-taxonomy-listing-block-2 {
+  background-color: #fbfaf9;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#block-views-taxonomy-listing-block-2 h2.block-title {
+  text-align: center;
+}
+#block-views-taxonomy-listing-block-2 ul {
+  padding: 10px 30px 0px 30px;
+  -moz-column-count: 2;
+  -moz-column-gap: 1em;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 1em;
+  column-count: 2;
+  column-gap: 1em;
+  -webkit-column-span: 1;
+  /* Chrome */
 
+  column-span: 1;
+  widows: 8;
+  orphans: 8;
+}
+#block-views-taxonomy-listing-block-2 ul li {
+  width: 200px;
+  padding: 0 0 0 10px;
+  list-style-position: inherit;
+  list-style: square;
+}
+#block-views-taxonomy-listing-block-2 ul .views-row-even {
+  background-color: #f0edeb;
+}
+#block-views-taxonomy-listing-block-2 ul .classified-section-link {
+  list-style: square;
+}
+/* classified ads */
+.content .classified-ad-header {
+  background-color: #ffffff;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 .content .classified-ad-header h3 {
   margin: 25px 0 4px 2px;
@@ -209,7 +285,7 @@ body blockquote p:first-line {
   color: #ffffff;
   text-decoration: none;
 }
-.content ul.classified-ad-section {
+.content .classified-ad-section {
   list-style: none;
   -moz-column-count: 2;
   -moz-column-gap: 1em;
@@ -224,11 +300,11 @@ body blockquote p:first-line {
   widows: 8;
   orphans: 8;
 }
-.content ul.classified-ad-section li {
+.content .classified-ad-section li {
   padding: 4px 5px 4px 4px;
   margin: 0 0 4px 4px;
 }
-.content ul.classified-ad-section li .edit-link {
+.content .classified-ad-section li .edit-link {
   display: block;
   background-color: #fe4e4e;
   color: white;
@@ -238,17 +314,17 @@ body blockquote p:first-line {
   float: left;
   font-size: 1em;
 }
-.content ul.classified-ad-section li .edit-link-small {
+.content .classified-ad-section li .edit-link-small {
   font-size: .8em;
   text-transform: uppercase;
   margin-right: 5px;
   text-align: center;
 }
-.content ul.classified-ad-section li:first-line {
+.content .classified-ad-section li:first-line {
   font-weight: bold;
 }
-.content ul.classified-ad-section li.views-row-odd {
-  background-color: #ffffff;
+.content .classified-ad-section li.views-row-odd {
+  background-color: #e5e0dc;
 }
 /*****************  EDITORIAL  *****************/
 /*****************  ADMIN  *****************/
