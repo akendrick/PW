@@ -65,7 +65,7 @@ function pw_ad_submission_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '24',
+        'weight' => '11',
       ),
     ),
   );
@@ -124,7 +124,7 @@ function pw_ad_submission_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '9',
+        'weight' => '12',
       ),
     ),
   );
@@ -187,7 +187,7 @@ function pw_ad_submission_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '10',
+        'weight' => '8',
       ),
     ),
   );
@@ -256,7 +256,7 @@ function pw_ad_submission_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '15',
+        'weight' => '3',
       ),
     ),
   );
@@ -320,7 +320,7 @@ function pw_ad_submission_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '17',
+        'weight' => '5',
       ),
     ),
   );
@@ -333,6 +333,9 @@ function pw_ad_submission_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_image',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -400,7 +403,7 @@ function pw_ad_submission_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '3',
+        'weight' => '19',
       ),
     ),
   );
@@ -459,7 +462,7 @@ function pw_ad_submission_field_default_fields() {
           'rows' => '3',
         ),
         'type' => 'text_textarea',
-        'weight' => '29',
+        'weight' => '20',
       ),
     ),
   );
@@ -512,7 +515,7 @@ function pw_ad_submission_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -573,7 +576,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '2',
+        'weight' => '19',
       ),
     ),
   );
@@ -632,7 +635,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '17',
+        'weight' => '6',
       ),
     ),
   );
@@ -696,7 +699,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '18',
+        'weight' => '6',
       ),
     ),
   );

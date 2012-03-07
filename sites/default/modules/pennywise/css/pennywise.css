@@ -1,0 +1,104 @@
+/* COLOURS */
+/* GENERAL Form Style */
+.ds-form-3col-stacked {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  width: 1160px;
+  background-color: #d1e5ff;
+}
+.ds-form-3col-stacked .tabledrag-toggle-weight {
+  visibility: hidden;
+  height: 0;
+}
+.ds-form-3col-stacked h3 {
+  /*     border-bottom: 2pt groove @plum; */
+
+  text-transform: uppercase;
+  padding: 2pt;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto 0 auto;
+  display: block;
+  background-color: #3366cc;
+  color: #ffffff;
+  /*     span { padding: 0 15px; background-color: @white;} */
+
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+.ds-form-3col-stacked .form-wrapper {
+  width: 90%;
+}
+.ds-form-3col-stacked .form-item {
+  width: 100%;
+}
+.ds-form-3col-stacked .group-left {
+  padding: 10px;
+  width: 380px;
+  background-color: #ffcc99;
+  margin: 4px;
+  height: 100%;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+.ds-form-3col-stacked .group-middle {
+  width: 300px;
+  padding: 10px;
+  height: 100%;
+}
+.ds-form-3col-stacked .group-middle div {
+  width: 100%;
+}
+.ds-form-3col-stacked .group-right {
+  width: 300px;
+  padding: 10px;
+  border-left: solid 1pt #ffffff;
+  background: #ebf3ff;
+  height: 100%;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin: 4px;
+}
+.ds-form-3col-stacked .from-item {
+  width: 100%;
+}
+/* Editorial (Article) & Classified Node Form Style */
+.node-article-form .ds-form-3col-stacked .group-left, .node-classified-form .ds-form-3col-stacked .group-left {
+  width: 320px;
+}
+.node-article-form .ds-form-3col-stacked .group-middle, .node-classified-form .ds-form-3col-stacked .group-middle {
+  width: 390px;
+}
+.node-article-form .ds-form-3col-stacked .group-right, .node-classified-form .ds-form-3col-stacked .group-right {
+  width: 365px;
+}
+/* Display Ad Node Form */
+.node-display_ads-form #field-ad-copy-add-more-wrapper {
+  width: 100%;
+}
+.node-display_ads-form #field-ad-copy-add-more-wrapper #edit-field-ad-copy-und-0-format {
+  width: 100%;
+}
+.node-display_ads-form .ds-form-3col-stacked {
+  height: 645px;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-left {
+  margin: 4px;
+  width: 320px;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-left .form-item {
+  border: none;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-left input {
+  width: 100%;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-middle {
+  width: 365px;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-right {
+  width: 365px;
+}

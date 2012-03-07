@@ -49,6 +49,25 @@ function thankyou_page() {
 }
 
 /**
+ *  Implements hook_theme
+ *
+ *  Set up for custom page node form theming.
+ */
+// function ad_payment_theme($existing, $type, $theme, $path) {
+//   return array(
+//     'ad_s_node_form' => array(
+//       'render element' => 'form',
+//       'template' => 'ad-submission-node-form',
+//       // set default path:
+//       'path' => drupal_get_path('module', 'ad_payment'),
+//     ),
+//   );
+// }
+
+
+
+
+/**
 * Implementation of custom page.
 *
 * If user not logged in present LoginToboggan form.

@@ -1,0 +1,134 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@darkblue: #036;
+@medblue: #36C;
+@lightblue: #d1e5ff;
+
+@plum: #303;
+@peach: #FC9;
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%); 
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: #fc9;
+
+
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
+
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 5px, @top_right: 5px, @bottom_right: 5px, @bottom_left: 5px) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+
+
+
+
+/* GENERAL Form Style */
+.ds-form-3col-stacked {
+  .border-radius;
+  .tabledrag-toggle-weight {
+    visibility: hidden;
+    height: 0;
+  }
+  h3 {
+/*     border-bottom: 2pt groove @plum; */
+    text-transform: uppercase;
+    padding: 2pt;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto 0 auto;
+    display: block;
+    background-color: @medblue;
+    color: @white;
+/*     span { padding: 0 15px; background-color: @white;} */
+    .border-radius;
+  }
+  .form-wrapper {
+    width: 90%;
+  }
+  width: 1160px;
+  background-color: @lightblue;
+  .form-item { width: 100%; }
+  .group-left {
+    padding: 10px;
+    width: 380px;
+    background-color: @peach;
+    margin: 4px;
+    height: 100%;
+    .border-radius;
+  }
+  .group-middle{
+    width: 300px;
+    padding: 10px;
+    div { width: 100%; }
+    height: 100%;
+  }
+  .group-right {
+    width: 300px;
+    padding: 10px;
+    border-left: solid 1pt @white;
+    background: lighten(@lightblue, 5%);
+    height: 100%;
+    .border-radius;
+    margin: 4px;
+  }
+  .from-item {
+    width: 100%;
+  }
+}
+
+/* Editorial (Article) & Classified Node Form Style */
+.node-article-form, .node-classified-form {
+  .ds-form-3col-stacked {
+    .group-left {
+      width: 320px;
+    }
+    .group-middle {
+      width: 390px;
+    }
+    .group-right {
+      width: 365px;
+    }
+  }
+}
+
+
+/* Display Ad Node Form */
+.node-display_ads-form {
+  #field-ad-copy-add-more-wrapper {
+    width: 100%;
+    #edit-field-ad-copy-und-0-format {
+      width: 100%;
+    }
+  }
+  .ds-form-3col-stacked {
+    height: 645px;
+    .group-left {
+      margin: 4px;
+      .form-item { border: none; }
+      width: 320px;
+      input { width: 100%; }
+    }
+    .group-middle {
+      width: 365px;
+    }
+    .group-right {
+      width: 365px;
+    
+    }
+  }
+}

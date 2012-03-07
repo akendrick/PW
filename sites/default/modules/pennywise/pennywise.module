@@ -9,6 +9,15 @@
 
 define ('DEBUG', FALSE);
 
+/**
+ * Implementation of HOOK_page
+ */
+function pennywise_init() {
+  
+  drupal_add_css(drupal_get_path('module', 'pennywise') . '/css/pennywise.css', array('type' => 'file'));
+
+}
+
 
 /**
  * Implementation of HOOK_menu
@@ -70,3 +79,20 @@ function pennywise_create_node_page($node_type) {
 }
 
 
+/**
+ * Implementation of HOOK_form_alter.
+ */
+// function pennywise_node_validate($node, &$form) {
+//   $time = $form['scheduler_settings']['unpublish']['#value']['time'];
+//   
+//   $time = (!$time) ? '01:00:00' : $time;
+// 
+// 
+//   dpm('node');
+//   dpm($node);
+//   dpm('form');
+//   dpm($form);
+//   dpm('Form _ Scheduler');
+//   dpm($form['scheduler_settings']);
+//   
+// }

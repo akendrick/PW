@@ -22,7 +22,7 @@ function pw_editorial_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
-        'link' => '0',
+        'link' => '1',
         'wrapper' => 'h6',
         'class' => 'field-editorial-title',
       ),
@@ -34,7 +34,7 @@ function pw_editorial_ds_field_settings_info() {
       'formatter_settings' => array(
         'link text' => 'More',
         'wrapper' => '',
-        'class' => '',
+        'class' => 'field-link-readmore',
       ),
     ),
   );
@@ -54,7 +54,7 @@ function pw_editorial_ds_field_settings_info() {
       'formatter_settings' => array(
         'link' => '1',
         'wrapper' => 'h6',
-        'class' => '',
+        'class' => 'field-block-list-header',
       ),
     ),
     'node_link' => array(
@@ -64,7 +64,7 @@ function pw_editorial_ds_field_settings_info() {
       'formatter_settings' => array(
         'link text' => 'More',
         'wrapper' => '',
-        'class' => '',
+        'class' => 'field-block-link-readmore',
       ),
     ),
   );

@@ -2,3 +2,4 @@ name = Pennywise
 description = General Pennywise hacks.
 package = "Pennywise"
 core = 7.x
+

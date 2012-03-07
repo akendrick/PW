@@ -412,7 +412,7 @@ function _cck_phone_validate(&$item, $delta, $field, $instance, $langcode, &$err
   }
   $ext_input = '';
   $settings = $instance['settings'];
-dsm($item);
+
   if ($settings['enable_extension']) {
     $ext_input = trim($item['extension']);
   }
@@ -866,3 +866,4 @@ function cck_phone_validate_number($countrycode, $number, $ext = '') {
 
   return TRUE;
 }
+

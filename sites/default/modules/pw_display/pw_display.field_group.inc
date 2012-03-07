@@ -21,29 +21,60 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Basic',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_display_ad_type',
-      1 => 'field_display_ad',
-      2 => 'field_tags',
-      3 => 'field_ad_copy',
-      4 => 'field_section_all_select',
+      1 => 'field_ad_copy',
+      2 => 'field_ad_client',
+      3 => 'field_publish_date',
+      4 => 'title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'open',
+      'label' => 'Basic',
       'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'grid-6',
         'description' => '',
-        'show_label' => 1,
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
-        'classes' => '',
-        'required_fields' => 1,
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_basics|node|display_ads|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_description_box|node|display_ads|form';
+  $field_group->group_name = 'group_description_box';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'display_ads';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Description Box',
+    'weight' => '13',
+    'children' => array(),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Description Box',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'grid-6',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_description_box|node|display_ads|form'] = $field_group;
 
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -56,7 +87,7 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Options',
-    'weight' => '4',
+    'weight' => '9',
     'children' => array(
       0 => 'field_email',
       1 => 'field_link',

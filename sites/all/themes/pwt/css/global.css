@@ -220,6 +220,84 @@ body #page-title {
   margin: 4px auto 20px auto;
   display: block;
 }
+/*****************  EDITORIAL  *****************/
+/* default block - header*/
+.view-id-editorial_views {
+  /* list items */
+
+}
+.view-id-editorial_views h6 {
+  font-size: 1em;
+  line-height: 1.1em;
+  text-align: center;
+  letter-spacing: -0.1;
+  margin: 0 0 5px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+.view-id-editorial_views .field-name-body {
+  line-height: 1em;
+  font-size: .95em;
+  letter-spacing: 0em;
+  margin: 0;
+  padding: 0;
+}
+.view-id-editorial_views p {
+  margin: 0;
+  padding: 0;
+}
+.view-id-editorial_views .field-name-node-link {
+  padding: 0;
+  margin: 0 0 20px 0;
+  font-size: .8em;
+  text-transform: uppercase;
+}
+/* slideshow */
+.region-header-second h2.block-title {
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #003366;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  color: #ffffff;
+  font-size: .8em;
+  line-height: .9em;
+  padding: 2px;
+}
+.region-header-second .view-content {
+  height: 130px;
+  background-color: #ffffff;
+}
+.view-editorial-slideshow .field-name-field-image {
+  float: left;
+  margin: 0 10px 0 0;
+  height: 130px;
+  overflow: hidden;
+}
+.view-editorial-slideshow .field-name-title h6 {
+  margin: 0 0 10px 0;
+  font-size: 1.6em;
+  line-height: 1.4em;
+}
+.view-editorial-slideshow .field-name-title h6 a {
+  color: #000000;
+}
+.view-editorial-slideshow .field-name-body {
+  margin: 0;
+  padding: 0;
+  letter-spacing: -0.08em;
+  font-size: .9em;
+  display: inline;
+  visibility: hidden;
+  height: 0px;
+  float: left;
+}
+.view-editorial-slideshow .field-name-node-link {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  display: inline;
+}
 /*****************  CLASSIFIEDS  *****************/
 /* section header box */
 #block-views-taxonomy-listing-block-2 {
@@ -239,24 +317,15 @@ body #page-title {
 }
 #block-views-taxonomy-listing-block-2 ul {
   padding: 10px 30px 0px 30px;
-  -moz-column-count: 2;
-  -moz-column-gap: 1em;
-  -webkit-column-count: 2;
-  -webkit-column-gap: 1em;
-  column-count: 2;
-  column-gap: 1em;
-  -webkit-column-span: 1;
-  /* Chrome */
+  /* .cols; */
 
-  column-span: 1;
-  widows: 8;
-  orphans: 8;
 }
 #block-views-taxonomy-listing-block-2 ul li {
-  width: 200px;
+  width: 75%;
   padding: 0 0 0 10px;
   list-style-position: inherit;
-  list-style: square;
+  /*       list-style: square; */
+
 }
 #block-views-taxonomy-listing-block-2 ul .views-row-even {
   background-color: #f0edeb;
@@ -287,18 +356,8 @@ body #page-title {
 }
 .content .classified-ad-section {
   list-style: none;
-  -moz-column-count: 2;
-  -moz-column-gap: 1em;
-  -webkit-column-count: 2;
-  -webkit-column-gap: 1em;
-  column-count: 2;
-  column-gap: 1em;
-  -webkit-column-span: 1;
-  /* Chrome */
+  /* .cols; */
 
-  column-span: 1;
-  widows: 8;
-  orphans: 8;
 }
 .content .classified-ad-section li {
   padding: 4px 5px 4px 4px;
@@ -326,6 +385,5 @@ body #page-title {
 .content .classified-ad-section li.views-row-odd {
   background-color: #e5e0dc;
 }
-/*****************  EDITORIAL  *****************/
 /*****************  ADMIN  *****************/
 /*****************  EDITORIAL  *****************/

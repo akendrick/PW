@@ -71,7 +71,7 @@ function pw_classifieds_field_default_fields() {
           'rows' => '15',
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => '11',
       ),
     ),
   );
@@ -133,7 +133,7 @@ function pw_classifieds_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '2',
+        'weight' => '10',
       ),
     ),
   );
@@ -200,7 +200,7 @@ function pw_classifieds_field_default_fields() {
           'size' => '10',
         ),
         'type' => 'text_textfield',
-        'weight' => '12',
+        'weight' => '15',
       ),
     ),
   );
@@ -257,7 +257,7 @@ function pw_classifieds_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '13',
+        'weight' => '18',
       ),
     ),
   );
@@ -349,7 +349,7 @@ function pw_classifieds_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '14',
+        'weight' => '12',
       ),
     ),
   );
@@ -358,7 +358,7 @@ function pw_classifieds_field_default_fields() {
   $fields['node-classified-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -435,7 +435,7 @@ function pw_classifieds_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '13',
+        'weight' => '16',
       ),
     ),
   );
@@ -736,7 +736,7 @@ function pw_classifieds_field_default_fields() {
           'size' => 15,
         ),
         'type' => 'phone_number',
-        'weight' => '12',
+        'weight' => '17',
       ),
     ),
   );
@@ -806,7 +806,7 @@ function pw_classifieds_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '3',
+        'weight' => '11',
       ),
     ),
   );

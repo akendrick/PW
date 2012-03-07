@@ -200,7 +200,7 @@ function pw_editorial_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '9',
       ),
     ),
   );
@@ -512,7 +512,7 @@ function pw_editorial_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -521,7 +521,7 @@ function pw_editorial_field_default_fields() {
   $fields['node-article-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -616,7 +616,7 @@ function pw_editorial_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '13',
+        'weight' => '10',
       ),
     ),
   );
@@ -703,7 +703,7 @@ function pw_editorial_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '3',
+        'weight' => '8',
       ),
     ),
   );

@@ -72,11 +72,11 @@
 /* cols */
 .cols (@cols: 2, @width: 1em) {
 	-moz-column-count: @cols;
-	-moz-column-gap: 1em;
-	-webkit-column-count: 2;
-	-webkit-column-gap: 1em;
-	column-count: 2;
-	column-gap: 1em;
+	-moz-column-gap: @width;
+	-webkit-column-count: @cols;
+	-webkit-column-gap: @width;
+	column-count: @cols;
+	column-gap: @width;
 	
  -webkit-column-span:1; /* Chrome */
  column-span:1;
@@ -304,6 +304,80 @@ body {
   }
 }
 
+/*****************  EDITORIAL  *****************/
+/* default block - header*/
+.view-id-editorial_views {
+  h6 {
+    font-size: 1em;
+    line-height: 1.1em;
+    text-align: center;
+    letter-spacing: -0.1;
+    margin: 0 0 5px 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
+  .field-name-body {
+    line-height: 1em;
+    font-size: .95em;
+    letter-spacing: 0em;
+    margin: 0; padding: 0;
+  }
+  p {margin: 0; padding: 0; }
+  .field-name-node-link {
+    padding: 0; margin: 0 0 20px 0;
+    font-size: .8em;
+    text-transform: uppercase;
+  }
+  /* list items */
+}
+/* slideshow */
+.region-header-second {
+  h2.block-title {
+    text-transform: uppercase;
+    text-align: center;
+    background-color: @darkblue;
+    .border-radius-custom (5px, 5px, 0, 0);
+    color: @white;
+    font-size: .8em;
+    line-height: .9em;
+    padding: 2px;
+  }
+  .view-content {
+    height: 130px;
+    background-color: @white;
+  }
+}
+.view-editorial-slideshow  {
+  .field-name-field-image {
+    float: left;
+    margin: 0 10px 0 0;
+    height: 130px;
+    overflow: hidden;
+  }
+  .field-name-title {
+    h6 { 
+      margin: 0 0 10px 0;     
+      font-size: 1.6em;
+      line-height: 1.4em;
+      a { color: @black; }
+    }
+  }
+  .field-name-body {
+    margin: 0; padding: 0;
+    letter-spacing: -0.08em;
+    font-size: .9em;
+    display: inline;
+    visibility: hidden;
+    height: 0px;float: left;
+    
+  }
+  .field-name-node-link {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    display: inline;
+  }
+}
+
 /*****************  CLASSIFIEDS  *****************/
 
 /* section header box */
@@ -319,12 +393,12 @@ body {
   }
   ul {
     padding: 10px 30px 0px 30px;
-    .cols;
+    /* .cols; */
     li {
-      width: 200px;
+      width: 75%;
       padding: 0 0 0 10px;
       list-style-position: inherit;
-      list-style: square;
+/*       list-style: square; */
     }
     .views-row-even {
       background-color: lighten(@sand, 5%);
@@ -355,7 +429,7 @@ body {
   }
   .classified-ad-section {
     list-style: none;
-    .cols;
+    /* .cols; */
     li {
       padding: 4px 5px 4px 4px;
       margin: 0 0 4px 4px;
@@ -383,7 +457,6 @@ body {
   }
 }
 
-/*****************  EDITORIAL  *****************/
 
 
 /*****************  ADMIN  *****************/

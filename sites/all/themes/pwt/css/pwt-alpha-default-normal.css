@@ -1,1 +1,18 @@
 /* This file will hold styles that are loaded using the same media query as the normal grid. */
+
+
+.classified-ad-section, #block-views-taxonomy-listing-block-2 ul {
+
+	-moz-column-count: 2;
+	-moz-column-gap: 1em;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 1em;
+	column-count: 2;
+	column-gap: 1em;
+	
+ -webkit-column-span:1; /* Chrome */
+ column-span:1;
+
+	widows: 8;
+	orphans: 8;
+}

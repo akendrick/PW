@@ -29,7 +29,7 @@ function hu_parts($number) {
 
   $result = array();
   // Last 9 digits
-  $n = drupal_drupal_substr($number, -9);
+  $n = drupal_substr($number, -9);
 
   if ($n === FALSE || (drupal_substr($n, 0, 1) != 2 && drupal_substr($n, 0, 1) != 3 && drupal_substr($n, 0, 1) != 7)) {
     // No 9 digit, check for 8 digit

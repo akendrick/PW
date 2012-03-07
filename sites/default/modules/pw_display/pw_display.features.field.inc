@@ -78,7 +78,7 @@ function pw_display_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '5',
       ),
     ),
   );
@@ -144,7 +144,7 @@ function pw_display_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => '7',
       ),
     ),
   );
@@ -237,7 +237,7 @@ function pw_display_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => '0',
       ),
     ),
   );
@@ -304,7 +304,7 @@ function pw_display_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '3',
       ),
     ),
   );
@@ -402,7 +402,7 @@ function pw_display_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'display_ads',
       'deleted' => '0',
-      'description' => 'Upload PDF of ad or related document.',
+      'description' => 'Upload related document.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -421,12 +421,12 @@ function pw_display_field_default_fields() {
       'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_high_res_ad',
-      'label' => 'High Resolution Ad',
+      'label' => 'Related File',
       'required' => 0,
       'settings' => array(
         'description_field' => 1,
-        'file_directory' => '',
-        'file_extensions' => 'pdf',
+        'file_directory' => 'display-ad/attachment',
+        'file_extensions' => 'pdf gif tif jpg',
         'max_filesize' => '4MB',
         'user_register_form' => FALSE,
       ),
@@ -443,7 +443,7 @@ function pw_display_field_default_fields() {
             'source_attach' => array(
               'absolute' => '0',
               'attach_mode' => 'copy',
-              'path' => 'display-ad/pdf',
+              'path' => 'display-ad/attachment',
             ),
             'source_reference' => array(
               'autocomplete' => '0',
@@ -461,7 +461,7 @@ function pw_display_field_default_fields() {
   $fields['node-display_ads-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -613,7 +613,7 @@ with <strong>Page 30</strong>.
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '4',
       ),
     ),
   );
@@ -679,7 +679,7 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '3',
+        'weight' => '1',
       ),
     ),
   );
@@ -749,7 +749,7 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '4',
+        'weight' => '2',
       ),
     ),
   );
@@ -905,16 +905,16 @@ with <strong>Page 30</strong>.
   t('Display Ad');
   t('Display Ad Type');
   t('Email');
-  t('High Resolution Ad');
   t('Link');
   t('Optional email contact for business.');
   t('Publishing Date');
+  t('Related File');
   t('Section');
   t('Section Selector');
   t('Select the ad type. This will affect the ads placement and thumbnail size. <br>
 <strong>ALL ADS ARE FORCED RESIZED TO THE AD TYPE.</strong>.');
   t('Upload (or select) display ad.');
-  t('Upload PDF of ad or related document.');
+  t('Upload related document.');
 
   return $fields;
 }
