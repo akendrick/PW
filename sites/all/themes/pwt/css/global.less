@@ -14,6 +14,7 @@
 @peach: #FC9;
 @sand: #e5e0dc;
 @lightsand: lighten(@sand, 10%); 
+@sunlight: rgb(255, 248, 221);
 
 @alert: #fe4e4e;
 @warning: #ff0;
@@ -431,8 +432,8 @@ body {
     list-style: none;
     /* .cols; */
     li {
-      padding: 4px 5px 4px 4px;
-      margin: 0 0 4px 4px;
+      padding: 0;
+      margin: 0;
       .edit-link {
         display: block;
         background-color: @alert;
@@ -448,12 +449,43 @@ body {
         text-align: center;
       }
     }
-    li:first-line {
+    /* Individual Ads */
+    li .classified-ad-copy:first-line {
       font-weight: bold;
     }
-    li.views-row-odd {
+    .views-row .classified-ad {
+      padding: 5px;
+      margin: 0 0 5px 0;
+    }
+    /* zebra strip */
+    .views-row-odd .classified-ad {
       background-color: @sand;
     }
+    /* liveload */
+    .row-type-Liveload {
+      
+    }
+    .views-row .ad-type-Liveload, .views-row-odd .ad-type-Liveload {
+      background-color: @sunlight;
+      border: 2pt dotted @warning;
+    }
+    li.row-type-Liveload:first-line {
+      color: @alert;
+    }
+    .views-row .Liveload-footer {
+      text-align: center;
+      padding: 2pt;
+      text-transform: uppercase;
+      font-size: .8em;
+      line-height: .9em;
+      font-weight: bolder;
+      background-color: @warning;
+    }
+    .views-row .Regular-footer {
+      visibility: hidden;
+      height: 0px;
+    }
+
   }
 }
 

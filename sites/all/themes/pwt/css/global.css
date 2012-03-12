@@ -358,10 +358,16 @@ body #page-title {
   list-style: none;
   /* .cols; */
 
+  /* Individual Ads */
+
+  /* zebra strip */
+
+  /* liveload */
+
 }
 .content .classified-ad-section li {
-  padding: 4px 5px 4px 4px;
-  margin: 0 0 4px 4px;
+  padding: 0;
+  margin: 0;
 }
 .content .classified-ad-section li .edit-link {
   display: block;
@@ -379,11 +385,35 @@ body #page-title {
   margin-right: 5px;
   text-align: center;
 }
-.content .classified-ad-section li:first-line {
+.content .classified-ad-section li .classified-ad-copy:first-line {
   font-weight: bold;
 }
-.content .classified-ad-section li.views-row-odd {
+.content .classified-ad-section .views-row .classified-ad {
+  padding: 5px;
+  margin: 0 0 5px 0;
+}
+.content .classified-ad-section .views-row-odd .classified-ad {
   background-color: #e5e0dc;
+}
+.content .classified-ad-section .views-row .ad-type-Liveload, .content .classified-ad-section .views-row-odd .ad-type-Liveload {
+  background-color: #fff8dd;
+  border: 2pt dotted #ffff00;
+}
+.content .classified-ad-section li.row-type-Liveload:first-line {
+  color: #fe4e4e;
+}
+.content .classified-ad-section .views-row .Liveload-footer {
+  text-align: center;
+  padding: 2pt;
+  text-transform: uppercase;
+  font-size: .8em;
+  line-height: .9em;
+  font-weight: bolder;
+  background-color: #ffff00;
+}
+.content .classified-ad-section .views-row .Regular-footer {
+  visibility: hidden;
+  height: 0px;
 }
 /*****************  ADMIN  *****************/
 /*****************  EDITORIAL  *****************/
