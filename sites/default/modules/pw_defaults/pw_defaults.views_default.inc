@@ -13,7 +13,7 @@ function pw_defaults_views_default_views() {
   $view = new view;
   $view->name = 'pennywise_admin_dashboard';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'default, admin, pwadmin, pw';
   $view->base_table = 'node';
   $view->human_name = 'Pennywise Admin Dashboard';
   $view->core = 7;
@@ -198,21 +198,21 @@ function pw_defaults_views_default_views() {
   $handler->display->display_options['arguments']['type']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['type']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['type']['summary_options']['base_path'] = 'pwadmin';
+  $handler->display->display_options['arguments']['type']['summary_options']['base_path'] = 'admin/pennywise';
   $handler->display->display_options['arguments']['type']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['type']['specify_validation'] = 1;
   $handler->display->display_options['arguments']['type']['validate']['type'] = 'node';
   $handler->display->display_options['arguments']['type']['validate_options']['types'] = array(
-    'display_ads' => 'display_ads',
     'ad_s' => 'ad_s',
-    'article' => 'article',
     'classified' => 'classified',
+    'display_ads' => 'display_ads',
+    'article' => 'article',
     'page' => 'page',
     'webform' => 'webform',
   );
   $handler->display->display_options['arguments']['type']['validate_options']['access'] = 0;
   $handler->display->display_options['arguments']['type']['validate']['fail'] = 'summary';
-  $handler->display->display_options['path'] = 'pwadmin';
+  $handler->display->display_options['path'] = 'admin/pennywise';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Pennywise';
   $handler->display->display_options['menu']['weight'] = '0';

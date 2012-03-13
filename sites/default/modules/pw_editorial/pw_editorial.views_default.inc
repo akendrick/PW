@@ -770,7 +770,7 @@ function pw_editorial_views_default_views() {
   /* Display: Display Page */
   $handler = $view->new_display('page', 'Display Page', 'page');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'pwadmin/article';
+  $handler->display->display_options['path'] = 'admin/pennywise/article';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Editorial Administration';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -793,7 +793,7 @@ function pw_editorial_views_default_views() {
     'display_ads' => 'display_ads',
   );
   $handler->display->display_options['filters']['type']['group'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/article/tab';
+  $handler->display->display_options['path'] = 'admin/pennywise/article/tab';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Editorial Dashborad';
   $handler->display->display_options['menu']['weight'] = '-40';
@@ -805,7 +805,7 @@ function pw_editorial_views_default_views() {
   $view = new view;
   $view->name = 'editorial_promote_list';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'default, pw, admin, pwadmin, editorial, article';
   $view->base_table = 'node';
   $view->human_name = 'Editorial Promote List';
   $view->core = 7;
@@ -1009,7 +1009,7 @@ function pw_editorial_views_default_views() {
 
   /* Display: Older Promoted Editorials */
   $handler = $view->new_display('page', 'Older Promoted Editorials', 'page');
-  $handler->display->display_options['path'] = 'pwadmin/editorial/sticky-list';
+  $handler->display->display_options['path'] = 'admin/pwadmin/editorial/sticky-list';
 
   /* Display: Recent */
   $handler = $view->new_display('page', 'Recent', 'page_1');
@@ -1025,7 +1025,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  $handler->display->display_options['path'] = 'pwadmin/editorial/recent-list';
+  $handler->display->display_options['path'] = 'admin/pennywise/editorial/recent-list';
   $export['editorial_promote_list'] = $view;
 
   $view = new view;

@@ -13,7 +13,7 @@ function pw_display_views_default_views() {
   $view = new view;
   $view->name = 'display_ad_administration';
   $view->description = 'Views Bulk Admin for Display Ads';
-  $view->tag = 'default';
+  $view->tag = 'default, admin, pwadmin, pw';
   $view->base_table = 'node';
   $view->human_name = 'Display Ad Administration';
   $view->core = 7;
@@ -672,7 +672,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/display_ads';
+  $handler->display->display_options['path'] = 'admin/pennywise/display_ads';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Display Ads';
   $handler->display->display_options['menu']['weight'] = '0';

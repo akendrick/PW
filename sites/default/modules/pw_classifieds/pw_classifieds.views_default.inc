@@ -13,7 +13,7 @@ function pw_classifieds_views_default_views() {
   $view = new view;
   $view->name = 'classified_ad_administration';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'default, pwadmin, admin, pw';
   $view->base_table = 'node';
   $view->human_name = 'Classified Ad Administration';
   $view->core = 7;
@@ -698,7 +698,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
-  $handler->display->display_options['path'] = 'pwadmin/classified';
+  $handler->display->display_options['path'] = 'admin/pennywise/classified';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Classified Ads';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -711,7 +711,7 @@ function pw_classifieds_views_default_views() {
   $handler = $view->new_display('page', 'Classified Tab', 'classified_tab');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Classified Ad Administration';
-  $handler->display->display_options['path'] = 'pwadmin/classified/edit';
+  $handler->display->display_options['path'] = 'admin/pennywise/classified/edit';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Classified Ads';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1939,7 +1939,7 @@ function pw_classifieds_views_default_views() {
     'ad_s' => 'ad_s',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['path'] = 'pwadmin/classified/ad_s';
+  $handler->display->display_options['path'] = 'admin/pennywise/classified/ad_s';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Incoming Ads';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1983,7 +1983,7 @@ function pw_classifieds_views_default_views() {
     1 => '1',
   );
   $handler->display->display_options['filters']['field_ad_type_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'pwadmin/classified/liveload';
+  $handler->display->display_options['path'] = 'admin/pennywise/classified/liveload';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Liveload Ads';
   $handler->display->display_options['menu']['weight'] = '0';
