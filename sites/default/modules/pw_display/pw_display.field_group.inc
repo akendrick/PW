@@ -21,7 +21,7 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Basic',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_display_ad_type',
       1 => 'field_ad_copy',
@@ -57,7 +57,7 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description Box',
-    'weight' => '13',
+    'weight' => '9',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -87,7 +87,7 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Options',
-    'weight' => '9',
+    'weight' => '5',
     'children' => array(
       0 => 'field_email',
       1 => 'field_link',

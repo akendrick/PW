@@ -157,6 +157,9 @@ function pw_display_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_display_ad',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -233,11 +236,11 @@ function pw_display_field_default_fields() {
               'autocomplete' => '1',
             ),
           ),
-          'preview_image_style' => 'medium',
+          'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '0',
+        'weight' => '2',
       ),
     ),
   );
@@ -679,7 +682,7 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '1',
+        'weight' => '0',
       ),
     ),
   );
@@ -749,7 +752,7 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );

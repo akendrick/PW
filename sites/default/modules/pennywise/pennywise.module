@@ -78,6 +78,11 @@ function pennywise_create_node_page($node_type) {
   return $content;
 }
 
+/**
+* Custom support function for MENU_LOCAL_TASKS_ALTER
+*
+* Custom sub-function for filling details into LOCAL ACTIONS
+*/
 function pennywise_custom_action_links($node_type, $action_link_name, $destination = NULL) {
   $item = menu_get_item('node/add/' . $node_type); 
   $item['title'] = $action_link_name ;
@@ -91,9 +96,10 @@ function pennywise_custom_action_links($node_type, $action_link_name, $destinati
     );
   }
 }
-//        $item = menu_get_item('node/add/display-ads/?destination=' . $root_path); 
 /**
 * Implementation of HOOK_menu_local_tasks_alter
+* 
+* Create Action Links dependant on URL and access.
 */
 function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 

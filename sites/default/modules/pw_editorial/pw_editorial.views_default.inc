@@ -22,7 +22,7 @@ function pw_editorial_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Editorial Administration';
+  $handler->display->display_options['title'] = 'Editorial';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -771,10 +771,11 @@ function pw_editorial_views_default_views() {
   $handler = $view->new_display('page', 'Display Page', 'page');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'admin/pennywise/article';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Editorial Administration';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Editorial';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
+  $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Display Ads';
   $handler->display->display_options['tab_options']['description'] = 'Show All Display Ads';
@@ -783,6 +784,7 @@ function pw_editorial_views_default_views() {
 
   /* Display: DisplayTab */
   $handler = $view->new_display('page', 'DisplayTab', 'displaytab');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
@@ -797,6 +799,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Editorial Dashborad';
   $handler->display->display_options['menu']['weight'] = '-40';
+  $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Editorial Parent';
   $handler->display->display_options['tab_options']['weight'] = '0';

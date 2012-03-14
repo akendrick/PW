@@ -678,7 +678,7 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '0';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['exposed'] = TRUE;
   $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
@@ -690,6 +690,7 @@ function pw_classifieds_views_default_views() {
 
   /* Display: Classified Link */
   $handler = $view->new_display('page', 'Classified Link', 'classified_pagelink');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -699,10 +700,11 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['path'] = 'admin/pennywise/classified';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Classified Ads';
+  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['title'] = 'Classifieds';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
+  $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Classifieds (All)';
   $handler->display->display_options['tab_options']['weight'] = '0';
@@ -712,10 +714,11 @@ function pw_classifieds_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Classified Ad Administration';
   $handler->display->display_options['path'] = 'admin/pennywise/classified/edit';
-  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Classified Ads';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
+  $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Classifieds';
   $handler->display->display_options['tab_options']['weight'] = '0';
@@ -1940,12 +1943,13 @@ function pw_classifieds_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['path'] = 'admin/pennywise/classified/ad_s';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Incoming Ads';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['title'] = 'Incoming';
+  $handler->display->display_options['menu']['weight'] = '-10';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
+  $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Incoming Ads';
+  $handler->display->display_options['tab_options']['title'] = 'Classifieds';
   $handler->display->display_options['tab_options']['weight'] = '0';
 
   /* Display: Liveload Page */
