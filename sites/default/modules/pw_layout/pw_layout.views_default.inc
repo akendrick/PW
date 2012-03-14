@@ -378,38 +378,38 @@ function pw_layout_views_default_views() {
   );
   $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['text'] = '<span class=\'edit-link edit-link-small\'>edit</span>';
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
-  $handler->display->display_options['fields']['edit_node']['element_class'] = 'edit-link edit-link-small';
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  /* Field: Content: Publish link */
+  $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['table'] = 'node';
+  $handler->display->display_options['fields']['publishcontent']['field'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['label'] = '';
+  $handler->display->display_options['fields']['publishcontent']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['publishcontent']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['publishcontent']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['element_type'] = 'div';
+  $handler->display->display_options['fields']['publishcontent']['element_class'] = 'field-publish-link';
+  $handler->display->display_options['fields']['publishcontent']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['publishcontent']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['publishcontent']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'X';
+  $handler->display->display_options['fields']['publishcontent']['publish'] = 'O';
   /* Field: Content: Ad Copy */
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['table'] = 'field_data_field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['field'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['label'] = '';
-  $handler->display->display_options['fields']['field_ad_copy']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['absolute'] = 0;
@@ -423,6 +423,8 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_ad_copy']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_ad_copy']['element_class'] = 'classified-ad-copy';
   $handler->display->display_options['fields']['field_ad_copy']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ad_copy']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_ad_copy']['hide_empty'] = 0;
@@ -496,7 +498,6 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type_1']['field'] = 'field_ad_type';
   $handler->display->display_options['fields']['field_ad_type_1']['ui_name'] = 'Content: Ad Type: Liveload Footer';
   $handler->display->display_options['fields']['field_ad_type_1']['label'] = '';
-  $handler->display->display_options['fields']['field_ad_type_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type_1']['alter']['alter_text'] = 1;
   $handler->display->display_options['fields']['field_ad_type_1']['alter']['text'] = '<div class="[field_ad_type]-footer">LIVELOAD AD</div>';
   $handler->display->display_options['fields']['field_ad_type_1']['alter']['make_link'] = 0;
@@ -518,14 +519,66 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type_1']['empty_zero'] = 1;
   $handler->display->display_options['fields']['field_ad_type_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_ad_type_1']['field_api_classes'] = 0;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['text'] = '<span class=\'edit-link edit-link-small\'>edit</span>';
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
+  $handler->display->display_options['fields']['edit_node']['element_class'] = 'edit-link edit-link-small';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
+  /* Field: Content: Delete link */
+  $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['label'] = '';
+  $handler->display->display_options['fields']['delete_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['delete_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['delete_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['delete_node']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['delete_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['delete_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['delete_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['delete_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['delete_node']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['delete_node']['text'] = 'Delete';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'classified-ad ad-type-[field_ad_type] section-%1\'>
 [field_image]
-<div class=\'classified-ad-copy\'>[edit_node] [field_ad_copy]</div>
+<div class=\'classified-ad-copy\'><!-- [edit_node]--> [field_ad_copy]</div>
 [field_ad_type_1]
 </div>';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
@@ -545,6 +598,24 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['nothing']['hide_empty'] = 1;
   $handler->display->display_options['fields']['nothing']['empty_zero'] = 1;
   $handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 0;
+  /* Field: Global: Contextual Links */
+  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
+  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['label'] = '';
+  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
+    'edit_node' => 'edit_node',
+    'delete_node' => 'delete_node',
+    'field_image' => 0,
+    'field_ad_copy' => 0,
+    'field_tags' => 0,
+    'field_ad_type' => 0,
+    'field_ad_type_1' => 0,
+    'publishcontent' => 0,
+    'nothing' => 0,
+  );
+  $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Sort criterion: Content: Section (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';

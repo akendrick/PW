@@ -432,45 +432,43 @@ body {
     list-style: none;
     /* .cols; */
     li {
-      padding: 0;
-      margin: 0;
-      .edit-link {
-        display: block;
-        background-color: @alert;
-        color: white;
-        .border-radius(4px);
-        float: left; 
-        font-size: 1em;
-      } 
-      .edit-link-small {
-        font-size: .8em;
-        text-transform: uppercase;
-        margin-right: 5px;
-        text-align: center;
+      padding: 4px;
+      margin: 4px 0;
+      /* Individual Ads */
+      .views-row {
+        padding: 5px;
+        margin: 0 0 5px 0;
       }
+      .classified-ad-copy:first-line {
+        font-weight: bolder;
+      }
+      /* Publish Link */
+    .field-publish-link {
+      display: block;
+      background-color: @alert;
+      color: white;
+      .border-radius(4px);
+      font-size: 1em;
+      margin-right: 5px;
+      text-align: center;
+      float: left;
+      a { color: @white; padding: 2px;}
     }
-    /* Individual Ads */
-    li .classified-ad-copy:first-line {
-      font-weight: bold;
-    }
-    .views-row .classified-ad {
-      padding: 5px;
-      margin: 0 0 5px 0;
-    }
-    /* zebra strip */
-    .views-row-odd .classified-ad {
-      background-color: @sand;
-    }
+}
+      /* zebra strip */
+      .views-row-odd{
+        background-color: lighten(@sand, 5);
+      }
     /* liveload */
     .row-type-Liveload {
-      
-    }
-    .views-row .ad-type-Liveload, .views-row-odd .ad-type-Liveload {
       background-color: @sunlight;
       border: 2pt dotted @warning;
     }
-    li.row-type-Liveload:first-line {
+    .row-type-Liveload:first-line {
       color: @alert;
+    }
+    .views-row-odd.row-type-Liveload {
+      background-color: darken(@sunlight, 5);
     }
     .views-row .Liveload-footer {
       text-align: center;
@@ -486,6 +484,9 @@ body {
       height: 0px;
     }
 
+    li:first-line {
+      font-weight: bold;
+    }
   }
 }
 

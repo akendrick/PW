@@ -34,10 +34,22 @@
 }
 
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+
+.button(@colour: @lightblue) {
+  .border-radius;
+  .center;
+  color: @white;
+  background-color: @colour;
+}  
 
 
-
-/* GENERAL Form Style */
+/*************************** GENERAL Form Style */
 .ds-form-3col-stacked {
   .border-radius;
   .tabledrag-toggle-weight {
@@ -108,7 +120,6 @@
   }
 }
 
-
 /* Display Ad Node Form */
 .node-display_ads-form {
   #field-ad-copy-add-more-wrapper {
@@ -139,5 +150,42 @@
       width: 365px;
     
     }
+  }
+}
+
+
+/*************************** ADMIN Interface */
+.view-display-admin-v2  {
+  table { border: none; }
+  td {
+    width: 15%;
+    .views-field-status {
+      .border-radius;
+      padding: 3pt;
+      width: 80%;
+    }
+    .Enabled { 
+      background-color: lighten(@warning, 40);
+    }
+    .Disabled { 
+      background-color: lighten(@status, 20);
+    }
+    .views-field, .views-field-item {
+      .center;
+    }
+    .views-field-title a{
+      text-decoration: none;
+      font-weight: bolder;
+      font-size: 1em;
+      color: @black;
+    }
+  }
+  .field-publish-link {
+    .button;
+    width: 60%;
+    font-size: .8em;
+    line-height: 1em;
+    padding: 2pt;
+    text-transform: uppercase;
   }
 }

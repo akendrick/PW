@@ -1,5 +1,11 @@
 /* COLOURS */
-/* GENERAL Form Style */
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+/*************************** GENERAL Form Style */
 .ds-form-3col-stacked {
   border-radius: 10px;
   -moz-border-radius: 10px;
@@ -63,8 +69,11 @@
   -webkit-border-radius: 10px;
   margin: 4px;
 }
-.ds-form-3col-stacked .from-item {
+.ds-form-3col-stacked .form-item {
   width: 100%;
+}
+.vertical-tabs-panes {
+  clear: both;
 }
 /* Editorial (Article) & Classified Node Form Style */
 .node-article-form .ds-form-3col-stacked .group-left, .node-classified-form .ds-form-3col-stacked .group-left {
@@ -89,6 +98,7 @@
 .node-display_ads-form .ds-form-3col-stacked .group-left {
   margin: 4px;
   width: 320px;
+  height: 750px;
 }
 .node-display_ads-form .ds-form-3col-stacked .group-left .form-item {
   border: none;
@@ -96,9 +106,63 @@
 .node-display_ads-form .ds-form-3col-stacked .group-left input {
   width: 100%;
 }
+.node-display_ads-form .ds-form-3col-stacked .group-left .image-widget {
+  width: 55%;
+}
+.node-display_ads-form .ds-form-3col-stacked .group-left .image-widget img {
+  float: left;
+}
 .node-display_ads-form .ds-form-3col-stacked .group-middle {
   width: 365px;
 }
 .node-display_ads-form .ds-form-3col-stacked .group-right {
   width: 365px;
+}
+/*************************** ADMIN Interface */
+.view-display-admin-v2 table {
+  border: none;
+}
+.view-display-admin-v2 td {
+  width: 15%;
+}
+.view-display-admin-v2 td .views-field-status {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding: 3pt;
+  width: 80%;
+}
+.view-display-admin-v2 td .Enabled {
+  background-color: #ffffcc;
+}
+.view-display-admin-v2 td .Disabled {
+  background-color: #ffffff;
+}
+.view-display-admin-v2 td .views-field, .view-display-admin-v2 td .views-field-item {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+.view-display-admin-v2 td .views-field-title a {
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 1em;
+  color: #000000;
+}
+.view-display-admin-v2 .field-publish-link {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  color: #ffffff;
+  background-color: #d1e5ff;
+  width: 60%;
+  font-size: .8em;
+  line-height: 1em;
+  padding: 2pt;
+  text-transform: uppercase;
 }
