@@ -132,5 +132,28 @@ function pw_editorial_field_group_info() {
   );
   $export['group_ed_group_master|node|article|form'] = $field_group;
 
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'path|node|article|form';
+  $field_group->group_name = 'path';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'article';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'URL path settings',
+    'weight' => '39',
+    'children' => array(),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'instance_settings' => array(
+        'classes' => 'path-form',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['path|node|article|form'] = $field_group;
+
   return $export;
 }

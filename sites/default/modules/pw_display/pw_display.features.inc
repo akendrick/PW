@@ -9,6 +9,10 @@
  */
 function pw_display_ctools_plugin_api() {
   list($module, $api) = func_get_args();
+  if ($module == "ds" && $api == "ds") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "field_group" && $api == "field_group") {
     return array("version" => "1");
   }
@@ -177,7 +181,7 @@ function pw_display_node_info() {
       'description' => t('General display ad content type - for banner, splash, poster, print, video, target, etc. '),
       'has_title' => '1',
       'title_label' => t('Ad Title'),
-      'help' => '',
+      'help' => t('Note: <strong>Obituaries, Birth Announcements, Wedding Announcements</strong> are considered clients.'),
     ),
   );
   return $items;

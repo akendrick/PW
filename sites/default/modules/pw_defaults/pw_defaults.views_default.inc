@@ -180,9 +180,11 @@ function pw_defaults_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'ad_s' => 'ad_s',
-    'article' => 'article',
+    'attachment' => 'attachment',
     'classified' => 'classified',
     'display_ads' => 'display_ads',
+    'article' => 'article',
+    'page' => 'page',
   );
   $handler->display->display_options['filters']['type']['group'] = '0';
 

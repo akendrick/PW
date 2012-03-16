@@ -45,7 +45,7 @@ function pw_layout_views_default_views() {
   );
   $handler->display->display_options['row_options']['hide_empty'] = 1;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Field: Content: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -230,10 +230,11 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['fields']['field_email']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_email']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
-  /* Field: Content: Link */
+  /* Field: Content: Highlighted Link */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link']['label'] = 'Link';
   $handler->display->display_options['fields']['field_link']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_link']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_link']['alter']['absolute'] = 0;
@@ -264,7 +265,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['sorts']['field_ad_type_value']['table'] = 'field_data_field_ad_type';
   $handler->display->display_options['sorts']['field_ad_type_value']['field'] = 'field_ad_type_value';
   $handler->display->display_options['sorts']['field_ad_type_value']['ui_name'] = 'Liveload on Top';
-  /* Sort criterion: Content: Image (field_image:fid) */
+  /* Sort criterion: Field: Header Image (field_image:fid) */
   $handler->display->display_options['sorts']['field_image_fid']['id'] = 'field_image_fid';
   $handler->display->display_options['sorts']['field_image_fid']['table'] = 'field_data_field_image';
   $handler->display->display_options['sorts']['field_image_fid']['field'] = 'field_image_fid';
@@ -345,7 +346,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 1;
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
-  /* Field: Content: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -635,7 +636,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['sorts']['field_ad_type_value']['table'] = 'field_data_field_ad_type';
   $handler->display->display_options['sorts']['field_ad_type_value']['field'] = 'field_ad_type_value';
   $handler->display->display_options['sorts']['field_ad_type_value']['order'] = 'DESC';
-  /* Sort criterion: Content: Image (field_image:fid) */
+  /* Sort criterion: Field: Header Image (field_image:fid) */
   $handler->display->display_options['sorts']['field_image_fid']['id'] = 'field_image_fid';
   $handler->display->display_options['sorts']['field_image_fid']['table'] = 'field_data_field_image';
   $handler->display->display_options['sorts']['field_image_fid']['field'] = 'field_image_fid';

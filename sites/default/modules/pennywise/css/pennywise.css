@@ -72,9 +72,6 @@
 .ds-form-3col-stacked .form-item {
   width: 100%;
 }
-.vertical-tabs-panes {
-  clear: both;
-}
 /* Editorial (Article) & Classified Node Form Style */
 .node-article-form .ds-form-3col-stacked .group-left, .node-classified-form .ds-form-3col-stacked .group-left {
   width: 320px;
@@ -91,9 +88,6 @@
 }
 .node-display_ads-form #field-ad-copy-add-more-wrapper #edit-field-ad-copy-und-0-format {
   width: 100%;
-}
-.node-display_ads-form .ds-form-3col-stacked {
-  height: 645px;
 }
 .node-display_ads-form .ds-form-3col-stacked .group-left {
   margin: 4px;
@@ -115,8 +109,30 @@
 .node-display_ads-form .ds-form-3col-stacked .group-middle {
   width: 365px;
 }
+.node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama, .node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama, .node-display_ads-form .ds-form-3col-stacked .group-middle table.cke_editor {
+  width: 350px;
+  height: 300px;
+}
 .node-display_ads-form .ds-form-3col-stacked .group-right {
   width: 365px;
+}
+/* .ds-form-3col-stacked .group-middle .cke_skin_kama .cke_editor { width: 200px } */
+/* Page node form */
+/* node attachments node form */
+.node-attachment-form.ds-form-3col #edit-title, #page-node-form #edit-title {
+  width: 250px;
+}
+.node-attachment-form.ds-form-3col .group-middle, #page-node-form .group-middle {
+  width: 400px;
+}
+.node-attachment-form.ds-form-3col #body-add-more-wrapper #edit-body-und-0-value,
+#page-node-form #body-add-more-wrapper #edit-body-und-0-value,
+.node-attachment-form.ds-form-3col #body-add-more-wrapper .form-textarea-wrapper .grippie,
+#page-node-form #body-add-more-wrapper .form-textarea-wrapper .grippie {
+  width: 380px;
+}
+.node-attachment-form.ds-form-3col .group-right, #page-node-form .group-right {
+  width: 380px;
 }
 /*************************** ADMIN Interface */
 .view-display-admin-v2 table {

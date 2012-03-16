@@ -16,6 +16,7 @@ function pw_editorial_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'editorial editor',
+      2 => 'sales',
     ),
     'module' => 'node',
   );
@@ -36,6 +37,7 @@ function pw_editorial_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'editorial editor',
+      2 => 'sales',
     ),
     'module' => 'node',
   );
@@ -56,6 +58,7 @@ function pw_editorial_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'editorial editor',
+      2 => 'sales',
     ),
     'module' => 'node',
   );

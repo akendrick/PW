@@ -253,6 +253,62 @@ function pw_editorial_ds_layout_settings_info() {
 
   $ds_layout = new stdClass;
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|article|form';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'article';
+  $ds_layout->view_mode = 'form';
+  $ds_layout->layout = 'ds_form_3col';
+  $ds_layout->settings = array(
+    'hide_empty_regions' => 0,
+    'hide_sidebars' => FALSE,
+    'regions' => array(
+      'left' => array(
+        0 => 'group_ed_basic',
+        1 => 'body',
+      ),
+      'middle' => array(
+        0 => 'group_bonus',
+        1 => 'title',
+        2 => 'field_submitter',
+        3 => 'field_area_taxonomy',
+        4 => 'field_link',
+        5 => 'field_email',
+      ),
+      'hidden' => array(
+        0 => 'group_ed_group_master',
+        1 => '_add_existing_field',
+      ),
+      'right' => array(
+        0 => 'group_details',
+        1 => 'field_image',
+        2 => 'field_images_editorial_extra',
+      ),
+      'footer' => array(
+        0 => 'path',
+      ),
+    ),
+    'fields' => array(
+      'group_ed_basic' => 'left',
+      'group_bonus' => 'middle',
+      'group_ed_group_master' => 'hidden',
+      'group_details' => 'right',
+      'body' => 'left',
+      'field_image' => 'right',
+      'title' => 'middle',
+      'field_submitter' => 'middle',
+      'field_area_taxonomy' => 'middle',
+      'field_images_editorial_extra' => 'right',
+      'field_link' => 'middle',
+      'field_email' => 'middle',
+      'path' => 'footer',
+      '_add_existing_field' => 'hidden',
+    ),
+    'classes' => array(),
+  );
+  $export['node|article|form'] = $ds_layout;
+
+  $ds_layout = new stdClass;
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|simple_teaser';
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';

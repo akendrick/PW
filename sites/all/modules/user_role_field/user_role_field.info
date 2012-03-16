@@ -1,0 +1,15 @@
+; $Id: user_role_field.info,v 1.1 2010/08/27 02:33:43 berend Exp $
+name = User role field
+description = Define user fields by role
+dependencies[] = field_ui
+package = CCK
+core = 7.x
+files[] = user_role_field.module
+files[] = user_role_field.admin.inc
+
+; Information added by drupal.org packaging script on 2011-02-23
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "user_role_field"
+datestamp = "1298500861"
+

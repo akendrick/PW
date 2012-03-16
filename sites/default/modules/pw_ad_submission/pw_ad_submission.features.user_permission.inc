@@ -66,6 +66,7 @@ function pw_ad_submission_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
+      2 => 'sales',
     ),
     'module' => 'publishcontent',
   );
@@ -126,6 +127,7 @@ function pw_ad_submission_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
+      2 => 'sales',
     ),
     'module' => 'publishcontent',
   );

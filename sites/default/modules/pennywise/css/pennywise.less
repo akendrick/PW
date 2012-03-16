@@ -102,9 +102,6 @@
     width: 100%;
   }
 }
-.vertical-tabs-panes {
-  clear: both;
-}
 /* Editorial (Article) & Classified Node Form Style */
 .node-article-form, .node-classified-form {
   .ds-form-3col-stacked {
@@ -129,7 +126,6 @@
     }
   }
   .ds-form-3col-stacked {
-    height: 645px;
     .group-left {
       margin: 4px;
       .form-item { border: none; }
@@ -145,14 +141,28 @@
     }
     .group-middle {
       width: 365px;
+      .cke_skin_kama, .cke_skin_kama, table.cke_editor {
+        width: 350px;
+        height: 300px;
+      }
     }
     .group-right {
       width: 365px;
-    
     }
   }
 }
+/* .ds-form-3col-stacked .group-middle .cke_skin_kama .cke_editor { width: 200px } */
 
+/* Page node form */
+/* node attachments node form */
+.node-attachment-form.ds-form-3col, #page-node-form {
+  #edit-title { width: 250px; }
+   .group-middle { width: 400px; }
+  #body-add-more-wrapper {
+    #edit-body-und-0-value, .form-textarea-wrapper .grippie { width: 380px; }
+  }
+  .group-right{ width: 380px; }
+}
 
 /*************************** ADMIN Interface */
 .view-display-admin-v2  {

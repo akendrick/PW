@@ -121,6 +121,9 @@ function pw_editorial_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_area_taxonomy',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -141,6 +144,18 @@ function pw_editorial_field_default_fields() {
             'vocabulary' => 'area',
             'parent' => '0',
           ),
+        ),
+        'user_role_field' => array(
+          1 => 0,
+          2 => 0,
+          3 => 0,
+          4 => 0,
+          5 => 0,
+          6 => 0,
+          7 => 0,
+          8 => 0,
+          9 => '9',
+          10 => 0,
         ),
       ),
       'translatable' => '0',
@@ -310,6 +325,18 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
+        'user_role_field' => array(
+          1 => 0,
+          2 => 0,
+          3 => '3',
+          4 => 0,
+          5 => '5',
+          6 => '6',
+          7 => '7',
+          8 => 0,
+          9 => '9',
+          10 => '10',
+        ),
       ),
       'translatable' => '0',
       'type' => 'image',
@@ -396,6 +423,15 @@ function pw_editorial_field_default_fields() {
               'autocomplete' => '1',
             ),
           ),
+          'insert' => 0,
+          'insert_class' => '',
+          'insert_default' => array(
+            0 => 'auto',
+          ),
+          'insert_styles' => array(
+            0 => 'auto',
+          ),
+          'insert_width' => '',
           'preview_image_style' => '',
           'progress_indicator' => 'throbber',
         ),
@@ -409,10 +445,13 @@ function pw_editorial_field_default_fields() {
   $fields['node-article-field_images_editorial_extra'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '3',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_images_editorial_extra',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'fid' => array(
           'columns' => array(
@@ -508,6 +547,15 @@ function pw_editorial_field_default_fields() {
               'autocomplete' => '1',
             ),
           ),
+          'insert' => 0,
+          'insert_class' => '',
+          'insert_default' => array(
+            0 => 'auto',
+          ),
+          'insert_styles' => array(
+            0 => 'auto',
+          ),
+          'insert_width' => '',
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),

@@ -34,7 +34,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
-  /* Field: Content: Link */
+  /* Field: Content: Highlighted Link */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
@@ -166,7 +166,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Link */
+  /* Field: Content: Highlighted Link */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
@@ -329,7 +329,7 @@ function pw_display_views_default_views() {
   /* Display: Splash Block */
   $handler = $view->new_display('block', 'Splash Block', 'splash_block');
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Link */
+  /* Field: Content: Highlighted Link */
   $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
   $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
   $handler->display->display_options['fields']['field_link']['field'] = 'field_link';

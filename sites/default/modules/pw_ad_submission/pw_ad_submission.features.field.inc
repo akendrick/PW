@@ -18,6 +18,9 @@ function pw_ad_submission_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_ad_copy',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -353,6 +356,18 @@ function pw_ad_submission_field_default_fields() {
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
+        'user_role_field' => array(
+          1 => 0,
+          2 => 0,
+          3 => '3',
+          4 => 0,
+          5 => '5',
+          6 => '6',
+          7 => '7',
+          8 => 0,
+          9 => '9',
+          10 => '10',
+        ),
       ),
       'translatable' => '0',
       'type' => 'image',
@@ -399,6 +414,15 @@ function pw_ad_submission_field_default_fields() {
               'autocomplete' => '0',
             ),
           ),
+          'insert' => 0,
+          'insert_class' => '',
+          'insert_default' => array(
+            0 => 'auto',
+          ),
+          'insert_styles' => array(
+            0 => 'auto',
+          ),
+          'insert_width' => '',
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),

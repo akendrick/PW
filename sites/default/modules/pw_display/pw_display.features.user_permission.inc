@@ -15,6 +15,7 @@ function pw_display_user_default_permissions() {
     'name' => 'create display_ads content',
     'roles' => array(
       0 => 'display ad editor',
+      1 => 'sales',
     ),
     'module' => 'node',
   );
@@ -33,6 +34,7 @@ function pw_display_user_default_permissions() {
     'name' => 'delete own display_ads content',
     'roles' => array(
       0 => 'display ad editor',
+      1 => 'sales',
     ),
     'module' => 'node',
   );
@@ -51,6 +53,7 @@ function pw_display_user_default_permissions() {
     'name' => 'edit own display_ads content',
     'roles' => array(
       0 => 'display ad editor',
+      1 => 'sales',
     ),
     'module' => 'node',
   );
@@ -81,6 +84,7 @@ function pw_display_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'display ad editor',
+      2 => 'sales',
     ),
     'module' => 'publishcontent',
   );
@@ -111,6 +115,7 @@ function pw_display_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'display ad editor',
+      2 => 'sales',
     ),
     'module' => 'publishcontent',
   );

@@ -57,7 +57,7 @@ function pw_display_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description Box',
-    'weight' => '9',
+    'weight' => '7',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -91,7 +91,7 @@ function pw_display_field_group_info() {
     'children' => array(
       0 => 'field_email',
       1 => 'field_link',
-      2 => 'field_high_res_ad',
+      2 => 'field_entity_reference',
     ),
     'format_type' => 'div',
     'format_settings' => array(

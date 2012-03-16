@@ -16,7 +16,7 @@ function pw_defaults_filter_default_formats() {
     'name' => 'Filtered HTML',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-9',
+    'weight' => '-8',
     'filters' => array(
       'filter_url' => array(
         'weight' => '0',
@@ -53,17 +53,53 @@ function pw_defaults_filter_default_formats() {
     'name' => 'Full HTML',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-8',
+    'weight' => '-10',
     'filters' => array(
       'filter_url' => array(
         'weight' => '0',
         'status' => '1',
         'settings' => array(
-          'filter_url_length' => 72,
+          'filter_url_length' => '72',
         ),
       ),
       'filter_autop' => array(
         'weight' => '1',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'filter_htmlcorrector' => array(
+        'weight' => '10',
+        'status' => '1',
+        'settings' => array(),
+      ),
+    ),
+  );
+
+  // Exported format: Markdown Filter
+  $formats['markdown_filtering'] = array(
+    'format' => 'markdown_filtering',
+    'name' => 'Markdown Filter',
+    'cache' => '1',
+    'status' => '1',
+    'weight' => '-7',
+    'filters' => array(
+      'filter_autop' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'lightbox2_filter' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'filter_markdown' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
+      'media_filter' => array(
+        'weight' => '2',
         'status' => '1',
         'settings' => array(),
       ),
@@ -81,7 +117,7 @@ function pw_defaults_filter_default_formats() {
     'name' => 'Plain text',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-10',
+    'weight' => '-9',
     'filters' => array(
       'filter_html_escape' => array(
         'weight' => '0',

@@ -16,11 +16,5 @@ function pw_defaults_user_default_roles() {
     'weight' => '7',
   );
 
-  // Exported role: submit ad
-  $roles['submit ad'] = array(
-    'name' => 'submit ad',
-    'weight' => '1',
-  );
-
   return $roles;
 }
