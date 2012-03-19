@@ -13,13 +13,13 @@ function pw_pages_attachments_menu_default_menu_custom() {
   // Exported menu: menu-pages
   $menus['menu-pages'] = array(
     'menu_name' => 'menu-pages',
-    'title' => 'Pages',
-    'description' => 'Static page menu.',
+    'title' => 'Advertising',
+    'description' => 'Advertising information, sales, circulation, web stats, sales reps etc',
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Pages');
-  t('Static page menu.');
+  t('Advertising');
+  t('Advertising information, sales, circulation, web stats, sales reps etc');
 
 
   return $menus;
