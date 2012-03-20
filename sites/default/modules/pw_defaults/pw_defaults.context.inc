@@ -10,7 +10,7 @@
 function pw_defaults_context_default_contexts() {
   $export = array();
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'general_layout';
@@ -102,7 +102,7 @@ function pw_defaults_context_default_contexts() {
       ),
     ),
     'delta' => array(
-      'delta_template' => 'content_left',
+      'delta_template' => 'traditional',
     ),
   );
   $context->condition_mode = 1;
@@ -113,7 +113,7 @@ function pw_defaults_context_default_contexts() {
   t('ads');
   $export['general_layout'] = $context;
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'pwadmin_layout';

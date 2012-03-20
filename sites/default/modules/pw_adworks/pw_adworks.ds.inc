@@ -10,7 +10,7 @@
 function pw_adworks_ds_field_settings_info() {
   $export = array();
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|adworks_file|default';
   $ds_fieldsetting->entity_type = 'node';
@@ -30,7 +30,7 @@ function pw_adworks_ds_field_settings_info() {
   );
   $export['node|adworks_file|default'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|adworks_file|full';
   $ds_fieldsetting->entity_type = 'node';
@@ -59,7 +59,7 @@ function pw_adworks_ds_field_settings_info() {
 function pw_adworks_ds_layout_settings_info() {
   $export = array();
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|adworks_file|default';
   $ds_layout->entity_type = 'node';
@@ -85,7 +85,7 @@ function pw_adworks_ds_layout_settings_info() {
   );
   $export['node|adworks_file|default'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|adworks_file|full';
   $ds_layout->entity_type = 'node';
@@ -113,7 +113,7 @@ function pw_adworks_ds_layout_settings_info() {
   );
   $export['node|adworks_file|full'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|adworks_file|teaser';
   $ds_layout->entity_type = 'node';

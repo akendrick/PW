@@ -10,7 +10,7 @@
 function pw_editorial_ds_field_settings_info() {
   $export = array();
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|block_list_header';
   $ds_fieldsetting->entity_type = 'node';
@@ -40,7 +40,7 @@ function pw_editorial_ds_field_settings_info() {
   );
   $export['node|article|block_list_header'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|block_list_item';
   $ds_fieldsetting->entity_type = 'node';
@@ -70,7 +70,7 @@ function pw_editorial_ds_field_settings_info() {
   );
   $export['node|article|block_list_item'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|default';
   $ds_fieldsetting->entity_type = 'node';
@@ -100,7 +100,7 @@ function pw_editorial_ds_field_settings_info() {
   );
   $export['node|article|default'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|simple_teaser';
   $ds_fieldsetting->entity_type = 'node';
@@ -125,7 +125,7 @@ function pw_editorial_ds_field_settings_info() {
   );
   $export['node|article|simple_teaser'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|teaser';
   $ds_fieldsetting->entity_type = 'node';
@@ -159,7 +159,7 @@ function pw_editorial_ds_field_settings_info() {
 function pw_editorial_ds_layout_settings_info() {
   $export = array();
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|block_list_header';
   $ds_layout->entity_type = 'node';
@@ -187,7 +187,7 @@ function pw_editorial_ds_layout_settings_info() {
   );
   $export['node|article|block_list_header'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|block_list_item';
   $ds_layout->entity_type = 'node';
@@ -213,7 +213,7 @@ function pw_editorial_ds_layout_settings_info() {
   );
   $export['node|article|block_list_item'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|default';
   $ds_layout->entity_type = 'node';
@@ -251,7 +251,7 @@ function pw_editorial_ds_layout_settings_info() {
   );
   $export['node|article|default'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|form';
   $ds_layout->entity_type = 'node';
@@ -307,7 +307,7 @@ function pw_editorial_ds_layout_settings_info() {
   );
   $export['node|article|form'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|simple_teaser';
   $ds_layout->entity_type = 'node';
@@ -338,7 +338,7 @@ function pw_editorial_ds_layout_settings_info() {
   );
   $export['node|article|simple_teaser'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|teaser';
   $ds_layout->entity_type = 'node';
@@ -381,7 +381,7 @@ function pw_editorial_ds_layout_settings_info() {
 function pw_editorial_ds_view_modes_info() {
   $export = array();
 
-  $ds_view_mode = new stdClass;
+  $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
   $ds_view_mode->view_mode = 'block_list_header';
   $ds_view_mode->label = 'Block List Header';
@@ -390,7 +390,7 @@ function pw_editorial_ds_view_modes_info() {
   );
   $export['block_list_header'] = $ds_view_mode;
 
-  $ds_view_mode = new stdClass;
+  $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
   $ds_view_mode->view_mode = 'block_list_item';
   $ds_view_mode->label = 'Block List Item';
@@ -399,7 +399,7 @@ function pw_editorial_ds_view_modes_info() {
   );
   $export['block_list_item'] = $ds_view_mode;
 
-  $ds_view_mode = new stdClass;
+  $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
   $ds_view_mode->view_mode = 'simple_teaser';
   $ds_view_mode->label = 'Simple Teaser';

@@ -10,7 +10,7 @@
 function pw_classifieds_context_default_contexts() {
   $export = array();
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'classified_ad_layout';
@@ -48,7 +48,7 @@ function pw_classifieds_context_default_contexts() {
         'views-display_ad_blocks-splash_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-splash_block',
-          'region' => 'user_second',
+          'region' => 'branding',
           'weight' => '-10',
         ),
         'views--exp-search_ads-search_page' => array(

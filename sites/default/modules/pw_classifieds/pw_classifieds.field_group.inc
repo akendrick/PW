@@ -10,7 +10,7 @@
 function pw_classifieds_field_group_info() {
   $export = array();
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_cl_ad_master|node|classified|form';
@@ -35,7 +35,7 @@ function pw_classifieds_field_group_info() {
   );
   $export['group_cl_ad_master|node|classified|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_contact|node|classified|form';
@@ -60,7 +60,7 @@ function pw_classifieds_field_group_info() {
   );
   $export['group_contact|node|classified|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_default|node|classified|form';
@@ -93,7 +93,7 @@ function pw_classifieds_field_group_info() {
   );
   $export['group_default|node|classified|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_form_basics|node|classified|form';
@@ -126,7 +126,7 @@ function pw_classifieds_field_group_info() {
   );
   $export['group_form_basics|node|classified|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_otional|node|classified|form';

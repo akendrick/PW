@@ -10,7 +10,7 @@
 function pw_display_ds_field_settings_info() {
   $export = array();
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|display_ads|default';
   $ds_fieldsetting->entity_type = 'node';
@@ -25,7 +25,7 @@ function pw_display_ds_field_settings_info() {
   );
   $export['node|display_ads|default'] = $ds_fieldsetting;
 
-  $ds_fieldsetting = new stdClass;
+  $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|display_ads|teaser';
   $ds_fieldsetting->entity_type = 'node';
@@ -54,7 +54,7 @@ function pw_display_ds_field_settings_info() {
 function pw_display_ds_layout_settings_info() {
   $export = array();
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|display_ads|default';
   $ds_layout->entity_type = 'node';
@@ -92,7 +92,7 @@ function pw_display_ds_layout_settings_info() {
   );
   $export['node|display_ads|default'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|display_ads|form';
   $ds_layout->entity_type = 'node';
@@ -152,7 +152,7 @@ function pw_display_ds_layout_settings_info() {
   );
   $export['node|display_ads|form'] = $ds_layout;
 
-  $ds_layout = new stdClass;
+  $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
   $ds_layout->id = 'node|display_ads|teaser';
   $ds_layout->entity_type = 'node';

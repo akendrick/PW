@@ -10,7 +10,7 @@
 function pw_display_field_group_info() {
   $export = array();
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_basics|node|display_ads|form';
@@ -46,7 +46,7 @@ function pw_display_field_group_info() {
   );
   $export['group_basics|node|display_ads|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_description_box|node|display_ads|form';
@@ -76,7 +76,7 @@ function pw_display_field_group_info() {
   );
   $export['group_description_box|node|display_ads|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_options|node|display_ads|form';

@@ -59,7 +59,7 @@ function pw_defaults_taxonomy_default_vocabularies() {
       'name' => 'Client',
       'machine_name' => 'client',
       'description' => 'Tag ads with client names for easier organization and viewing.',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(

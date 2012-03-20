@@ -1115,12 +1115,6 @@ function pw_display_views_default_views() {
   $handler->display->display_options['sorts']['unpublish_on']['id'] = 'unpublish_on';
   $handler->display->display_options['sorts']['unpublish_on']['table'] = 'scheduler';
   $handler->display->display_options['sorts']['unpublish_on']['field'] = 'unpublish_on';
-  /* Contextual filter: Content: Display Ad Type (field_display_ad_type) */
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['format'] = 'default_summary';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -1163,20 +1157,6 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
-  /* Filter criterion: Content: Client (field_ad_client) */
-  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
-  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   /* Filter criterion: Content: Section (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
@@ -1206,9 +1186,24 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'classification';
   $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
   $handler->display->display_options['filters']['field_tags_tid']['error_message'] = 0;
+  /* Filter criterion: Content: Client (field_ad_client) */
+  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['reduce'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
 
-  /* Display: Display Page */
-  $handler = $view->new_display('page', 'Display Page', 'page');
+  /* Display: Display Tab */
+  $handler = $view->new_display('page', 'Display Tab', 'page');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['grouping'] = array(
@@ -1699,6 +1694,20 @@ function pw_display_views_default_views() {
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Display Ad Type (field_display_ad_type) */
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_action'] = 'summary';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['sort_order'] = 'desc';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['number_of_records'] = '1';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['summary']['human'] = 0;
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_display_ad_type_value']['not'] = 0;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -1769,22 +1778,22 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid']['error_message'] = 0;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Display';
+  $handler->display->display_options['menu']['title'] = 'Display Ads';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
   $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Display Ads';
   $handler->display->display_options['tab_options']['description'] = 'Show All Display Ads';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'menu-pw-admin';
 
-  /* Display: All Display Ads */
-  $handler = $view->new_display('page', 'All Display Ads', 'all_display');
+  /* Display: Display Page */
+  $handler = $view->new_display('page', 'Display Page', 'all_display');
   $handler->display->display_options['display_description'] = 'All ads';
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/all';
-  $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'All';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Ads';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
   $handler->display->display_options['menu']['context'] = 0;

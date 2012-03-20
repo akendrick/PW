@@ -10,7 +10,7 @@
 function pw_ad_submission_delta_default_templates() {
   $export = array();
 
-  $delta = new stdClass;
+  $delta = new stdClass();
   $delta->disabled = FALSE; /* Edit this to true to make a default delta disabled initially */
   $delta->api_version = 3;
   $delta->machine_name = 'ad_submission_layout';

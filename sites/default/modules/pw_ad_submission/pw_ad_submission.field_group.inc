@@ -10,7 +10,7 @@
 function pw_ad_submission_field_group_info() {
   $export = array();
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_ad_copy_block|node|ad_s|form';
@@ -42,7 +42,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_ad_copy_block|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_ad_grouping|node|ad_s|form';
@@ -72,7 +72,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_ad_grouping|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_ad_review|node|ad_s|form';
@@ -99,7 +99,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_ad_review|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_ad|node|ad_s|form';
@@ -129,7 +129,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_ad|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_area_rate|node|ad_s|form';
@@ -161,7 +161,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_area_rate|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_opt_image_block|node|ad_s|form';
@@ -193,7 +193,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_opt_image_block|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_opt_liveload_block|node|ad_s|form';
@@ -225,7 +225,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_opt_liveload_block|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_opt_notes_block|node|ad_s|form';
@@ -257,7 +257,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_opt_notes_block|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_payment|node|ad_s|form';
@@ -284,7 +284,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_payment|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_section_duration|node|ad_s|form';
@@ -317,7 +317,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_section_duration|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_section_group|node|ad_s|form';
@@ -349,7 +349,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_section_group|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_upgrade|node|ad_s|form';
@@ -378,7 +378,7 @@ function pw_ad_submission_field_group_info() {
   );
   $export['group_upgrade|node|ad_s|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_vgroup_parent|node|ad_s|form';

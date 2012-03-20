@@ -45,7 +45,7 @@ function pw_adworks_field_default_fields() {
       'bundle' => 'adworks_file',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Please make certain that the copy is a plain text file and you have converted all your apostrophes and commas.',
+      'description' => '<h4>To minimize any problems copy Adworks copy into a plain text file preferably <em>TextWrangler</em> and use <strong>Straighten Quotes</strong>.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -325,10 +325,10 @@ function pw_adworks_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('<h4>To minimize any problems copy Adworks copy into a plain text file preferably <em>TextWrangler</em> and use <strong>Straighten Quotes</strong>.');
   t('Ad Creation Override');
   t('Body');
   t('Image Override');
-  t('Please make certain that the copy is a plain text file and you have converted all your apostrophes and commas.');
   t('Publish Date');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
 
