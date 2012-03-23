@@ -91,7 +91,30 @@ body h8 {
   font-size: 2.8em;
   margin-bottom: 0px;
 }
+/* contact info */
+#block-pennywise-pw-contact .pw-contact-local_phone-wrapper, #block-pennywise-pw-contact .pw-contact-fax-wrapper, #block-pennywise-pw-contact .pw-contact-address-wrapper {
+  display: block;
+}
+/* header */
+#region-header-second {
+  display: block;
+}
 /****** classifieds *******/
+/* Classifed - Sub-section links */
+.classified-sub_section-links {
+  -moz-column-count: 2;
+  -moz-column-gap: 1em;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 1em;
+  column-count: 2;
+  column-gap: 1em;
+  -webkit-column-span: 1;
+  /* Chrome */
+
+  column-span: 1;
+  widows: 8;
+  orphans: 8;
+}
 .classified-ad-section, #block-views-taxonomy-listing-block-2 .content ul {
   -moz-column-count: 2;
   -moz-column-gap: 1em;

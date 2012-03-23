@@ -29,3 +29,11 @@ function pwt_process_region(&$vars) {
     $vars['linked_logo_img'] = $vars['logo'] ? l($vars['logo_img'], '<front>', array('attributes' => array('rel' => 'home', 'title' => check_plain($vars['site_name'])), 'html' => TRUE)) : '';
   }
 }
+
+
+/**
+ * Implements HOOK__preprocess_page
+ */
+function pwt_preprocess_page(&$vars) {
+  $vars['breadcrumb'] = '';
+}

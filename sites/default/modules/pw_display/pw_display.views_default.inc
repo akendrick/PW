@@ -1338,7 +1338,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
   $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
   $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['max_length'] = '45';
+  $handler->display->display_options['fields']['title']['alter']['max_length'] = '20';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['title']['alter']['more_link'] = 0;
@@ -2407,13 +2407,14 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
   $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
   $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['reduce'] = 0;
   $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
   $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/print';

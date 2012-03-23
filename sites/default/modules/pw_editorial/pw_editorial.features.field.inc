@@ -49,11 +49,8 @@ function pw_editorial_field_default_fields() {
       'display' => array(
         'block_list_header' => array(
           'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => '120',
-          ),
-          'type' => 'text_trimmed',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '2',
         ),
         'block_list_item' => array(

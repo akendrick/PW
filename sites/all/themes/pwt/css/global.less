@@ -7,7 +7,7 @@
 @gray: #e5e0dc;
 
 @darkblue: #036;
-@medblue: #36C;
+@medblue: lighten(@darkblue, 15); // #36C;
 @lightblue: #d1e5ff;
 
 @plum: #303;
@@ -18,8 +18,9 @@
 
 @alert: #fe4e4e;
 @warning: #ff0;
-@status: #fc9;
+@status: lighten(#060, 10);
 
+@highlight: lighten(#900, 20);
 
 .background-color-lighten(@colour, @amount: 10) {
   background-color: lighten(@colour, @amount);
@@ -34,11 +35,12 @@
   -moz-border-radius: @radius;
   -webkit-border-radius: @radius;
 }
-.border-radius-custom (@top_left: 8px, @top_right: 8px, @bottom_right: 0, @bottom_left: 0) {
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
   border-radius: @top_left @top_right @bottom_right @bottom_left;
   -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
 	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
 }
+
 
 /* center block */
 .center {
@@ -97,6 +99,18 @@
   -o-transform:rotate(@deg); /* Opera */
 }
 
+.button (@background: @highlight, @link: @white, @hover: @warning, @padding: 5px) {
+  a {
+    .border-radius;
+    background-color: @background;
+    color: @link;
+    padding: @padding;
+  }
+  a:hover {
+    background-color: @hover;
+    color: @background;
+  }
+}
 
 /*****************  BASE  *****************/
 body {
@@ -148,7 +162,8 @@ body {
   }
   
   #region-content {
-/*     background-color: @white; */
+    background-color: @white;
+    .border-radius-custom;
   }
   
   
@@ -186,6 +201,27 @@ body {
     }
   }
   
+  .block {
+    background-color: inherit;
+    h2 {
+      color: @white;
+      a { color: @white; }
+      background-color: @medblue;
+      .border-radius-custom;
+      margin: 0;
+      padding: 5px;
+    }
+      /* all lists in blocks lose their bullets */
+    li.views-row-even {
+      background-color: @lightsand;
+    }
+    li.views-row-odd {
+      background-color: @white;
+    }
+    li {
+      list-style: none;
+    }
+  }
   blockquote {
     margin-left: 10%;
     padding: 2%;
@@ -220,19 +256,20 @@ body {
   font-size: 2em;
   
 }
-
+/***************** contact bar ********/
 #block-pennywise-pw-contact {
   background-color: transparent;
+  margin: 10px 0;
   #pw-contact-info-block {
     margin: 0;
     background-color: @white;
     border: solid 2pt @lightblue;
     padding: 4px;
     .center;
-    margin: 0 10px;
     .border-radius;
+    height: 40px;
     
-    div {display: inline; }
+/*     div {display: inline; } */
   }
   dt, dd {
     display: inline;
@@ -245,32 +282,71 @@ body {
     padding: 0;
   }
   dd {
-    margin: 0 10px 0 4px;
-    a {
-      color: @alert;
-    }
+/*     margin: 0 10px 0 4px; */
+    .button;
   }
   /* Individual Fields */
   .pw-contact-wrapper {
-    padding: 2pt;
-/*     border-left: solid 1pt @lightblue; */
-/*     border-right: solid 1pt @lightblue; */
+    margin: 0;
+    width: 170px;
+    float: left;
   }
-  .pw-contact-email-label, .pw-contact-facebook-label, .pw-contact-address-label {
-    display: none;
+  dt.pw-contact-label {
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
+  dd.pw-contact-value {
+    font-size: larger;
+    clear: both;
   }
   .pw-contact-toll_free-wrapper {
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bolder;
     background-color: @sunlight;
     .border-radius;
-    padding: 5px;
+    width: 200px;
   }
+  .pw-contact-email-wrapper, .pw-contact-facebook-wrapper {
+    max-width: 60px;
+    padding: 12px 0;
+  }
+  .pw-contact-facebook-wrapper {
+    max-width: 90px;
+  }
+  dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
+    display: none;
+  }
+  dd.pw-contact-email-value, dd.pw-contact-facebook-value, dd.pw-contact-address-value  {
+    font-size: smaller;
+  }
+  dd.pw-contact-facebook-value a {
+/*     background-image: url('http://localhost:8888/pw7/images/facebook'); */
+    background-image: url(../../../../default/files/facebook-logo-80x30.png);
+    background-position-x: -8px;
+    background-position-y: -2px;
+    width: 80px;
+    height: 30px;
+    color: transparent;
+    .border-radius(5px);
+  }
+  dd.pw-contact-address-value {
+    display: block;
+    line-height: 1.1em;
+    width: 180px;
+    font-size: 1em;
+    padding: 4px 0 0 0 ;
+  }
+  /* mobile hide */
+  .pw-contact-local_phone-wrapper, .pw-contact-fax-wrapper, .pw-contact-address-wrapper {
+    display: none;
+  }
+  
 }
 
 /********** HIDE ON MOBILE *****************/
 #zone-postscript, #zone-threeup, #region-header-second {
-  visibility: hidden;
+  display: none;
   height: 0px;
 }
 #region-header-first {
@@ -284,14 +360,20 @@ body {
 #region-branding {
   width: 460px; /* Grid 6 */
 }
+
+/****************** HEADER *************************/
+#zone-menu, #region-header-first {
+  h2.block-title {
+    display: none;
+  }
+}
+
 /*****************  SIDEBAR FIRST  *****************/
+
 #region-sidebar-first .block {
-  .border-radius-custom (0px, 0px, 10px, 10px);
   padding: 3px 3px 10px 3px;
   margin: 0 0 15px 0;
-  .box-shadow;
   h2, #edit-search-ads-wrapper label {
-    background-color: @darkblue;
     color: @white;
     text-transform: uppercase;
     text-align: center;
@@ -303,6 +385,10 @@ body {
 
 /* search block */
 #views-exposed-form-search-ads-search-page {
+  label {
+    .border-radius-custom ; 
+    background-color: @status;  
+  }
   #edit-search-ads {
     width: 130px;
     .center;
@@ -316,9 +402,12 @@ body {
 
 /* ad placement block */
 #block-ad-payment-ad-payment-create-ad{
-  text-align: center;
+  h2 { display: none; }
+  .button;
   a {
     font-size: 1.4em;
+    padding: 10px;
+    .center;
   }
 }
 
@@ -369,10 +458,13 @@ body {
 
 #block-views-display-ad-blocks-banner-block {
   background-color: inherit;
-  padding: 0; margin: 0;
-  a .img {
-    margin: 4px auto 20px auto;
-    display: block;
+  padding: 0; margin: 5px 0;
+  a {
+    .center;
+    .img {
+      margin: 4px auto 20px auto;
+      display: block;
+    }
   }
 }
 
@@ -408,7 +500,7 @@ body {
   h2.block-title {
     text-transform: uppercase;
     text-align: center;
-    background-color: @darkblue;
+/*     background-color: @darkblue; */
     .border-radius-custom (5px, 5px, 0, 0);
     color: @white;
     font-size: .8em;
@@ -421,6 +513,7 @@ body {
   }
 }
 .view-editorial-slideshow  {
+  
   .field-name-field-image {
     float: left;
     margin: 0 10px 0 0;
@@ -440,7 +533,7 @@ body {
     letter-spacing: -0.08em;
     font-size: .9em;
     display: inline;
-    visibility: hidden;
+/*     display: none; */
     height: 0px;float: left;
     
   }
@@ -453,31 +546,25 @@ body {
 
 /*****************  CLASSIFIEDS  *****************/
 
-/* section header box */
-#block-views-taxonomy-listing-block-2 {
+/* sub_section links */
+#block-views-taxonomy-listing-tax-sub-list {
   background-color: @lightsand;
-  margin: 0;
-  padding: 0;
   .border-radius;
-  max-width: 500px;
-  .center;
+  width: 100%;
+  margin: 10px;
+  .block-inner {
+    .center;
+    max-width: 480px;
+  }
   h2.block-title {
     text-align: center;
   }
-  ul {
+  ul.classified-sub_section-links {
     padding: 10px 30px 0px 30px;
     /* .cols; */
     li {
       width: 75%;
       padding: 0 0 0 10px;
-      list-style-position: inherit;
-/*       list-style: square; */
-    }
-    .views-row-even {
-      background-color: lighten(@sand, 5%);
-    }
-    .classified-section-link {
-      list-style: square;
     }
   }
 }
@@ -493,7 +580,7 @@ body {
       text-decoration: none;
       font-size: 1.4em;
       background-color: @darkblue;
-      .border-radius-custom(10px, 10px, 0px, 0px);
+      .border-radius-custom;
       a {
         color: @white;
         text-decoration: none;
@@ -552,7 +639,7 @@ body {
       background-color: @warning;
     }
     .views-row .Regular-footer {
-      visibility: hidden;
+      display: none;
       height: 0px;
     }
 

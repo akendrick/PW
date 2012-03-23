@@ -82,8 +82,10 @@ body h8 {
   font-size: 1 em;
 }
 body #region-content {
-  /*     background-color: @white; */
-
+  background-color: #ffffff;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
 }
 body .block {
   background-color: #ffffff;
@@ -114,6 +116,32 @@ body .item-list ul.bullet li {
   list-style: square;
   list-style-position: inherit;
 }
+body .block {
+  background-color: inherit;
+  /* all lists in blocks lose their bullets */
+
+}
+body .block h2 {
+  color: #ffffff;
+  background-color: #0059b3;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  margin: 0;
+  padding: 5px;
+}
+body .block h2 a {
+  color: #ffffff;
+}
+body .block li.views-row-even {
+  background-color: #fbfaf9;
+}
+body .block li.views-row-odd {
+  background-color: #ffffff;
+}
+body .block li {
+  list-style: none;
+}
 body blockquote {
   margin-left: 10%;
   padding: 2%;
@@ -135,17 +163,21 @@ body .tabs ul {
 }
 #page-title {
   background-color: #003366;
-  border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  -webkit-border-radius: 8px 8px 0 0;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
   padding: 5px;
   color: #ffffff;
   text-align: center;
   font-size: 2em;
 }
+/***************** contact bar ********/
 #block-pennywise-pw-contact {
   background-color: transparent;
+  margin: 10px 0;
   /* Individual Fields */
+
+  /* mobile hide */
 
 }
 #block-pennywise-pw-contact #pw-contact-info-block {
@@ -157,13 +189,12 @@ body .tabs ul {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin: 0 10px;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-}
-#block-pennywise-pw-contact #pw-contact-info-block div {
-  display: inline;
+  height: 40px;
+  /*     div {display: inline; } */
+
 }
 #block-pennywise-pw-contact dt, #block-pennywise-pw-contact dd {
   display: inline;
@@ -177,33 +208,83 @@ body .tabs ul {
   padding: 0;
 }
 #block-pennywise-pw-contact dd {
-  margin: 0 10px 0 4px;
+  /*     margin: 0 10px 0 4px; */
+
 }
 #block-pennywise-pw-contact dd a {
-  color: #fe4e4e;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 5px;
+}
+#block-pennywise-pw-contact dd a:hover {
+  background-color: #ffff00;
+  color: #ff0000;
 }
 #block-pennywise-pw-contact .pw-contact-wrapper {
-  padding: 2pt;
-  /*     border-left: solid 1pt @lightblue; */
-
-  /*     border-right: solid 1pt @lightblue; */
-
+  margin: 0;
+  width: 170px;
+  float: left;
 }
-#block-pennywise-pw-contact .pw-contact-email-label, #block-pennywise-pw-contact .pw-contact-facebook-label, #block-pennywise-pw-contact .pw-contact-address-label {
-  display: none;
+#block-pennywise-pw-contact dt.pw-contact-label {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+#block-pennywise-pw-contact dd.pw-contact-value {
+  font-size: larger;
+  clear: both;
 }
 #block-pennywise-pw-contact .pw-contact-toll_free-wrapper {
-  font-size: 1.4em;
+  font-size: 1.2em;
   font-weight: bolder;
   background-color: #fff8dd;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  padding: 5px;
+  width: 200px;
+}
+#block-pennywise-pw-contact .pw-contact-email-wrapper, #block-pennywise-pw-contact .pw-contact-facebook-wrapper {
+  max-width: 60px;
+  padding: 12px 0;
+}
+#block-pennywise-pw-contact .pw-contact-facebook-wrapper {
+  max-width: 90px;
+}
+#block-pennywise-pw-contact dt.pw-contact-email-label, #block-pennywise-pw-contact dt.pw-contact-facebook-label, #block-pennywise-pw-contact dt.pw-contact-address-label {
+  display: none;
+}
+#block-pennywise-pw-contact dd.pw-contact-email-value, #block-pennywise-pw-contact dd.pw-contact-facebook-value, #block-pennywise-pw-contact dd.pw-contact-address-value {
+  font-size: smaller;
+}
+#block-pennywise-pw-contact dd.pw-contact-facebook-value a {
+  /*     background-image: url('http://localhost:8888/pw7/images/facebook'); */
+
+  background-image: url(../../../../default/files/facebook-logo-80x30.png);
+  background-position-x: -8px;
+  background-position-y: -2px;
+  width: 80px;
+  height: 30px;
+  color: transparent;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#block-pennywise-pw-contact dd.pw-contact-address-value {
+  display: block;
+  line-height: 1.1em;
+  width: 180px;
+  font-size: 1em;
+  padding: 4px 0 0 0 ;
+}
+#block-pennywise-pw-contact .pw-contact-local_phone-wrapper, #block-pennywise-pw-contact .pw-contact-fax-wrapper, #block-pennywise-pw-contact .pw-contact-address-wrapper {
+  display: none;
 }
 /********** HIDE ON MOBILE *****************/
 #zone-postscript, #zone-threeup, #region-header-second {
-  visibility: hidden;
+  display: none;
   height: 0px;
 }
 #region-header-first {
@@ -218,19 +299,16 @@ body .tabs ul {
   /* Grid 6 */
 
 }
+/****************** HEADER *************************/
+#zone-menu h2.block-title, #region-header-first h2.block-title {
+  display: none;
+}
 /*****************  SIDEBAR FIRST  *****************/
 #region-sidebar-first .block {
-  border-radius: 0px 0px 10px 10px;
-  -moz-border-radius: 0px 0px 10px 10px;
-  -webkit-border-radius: 0px 0px 10px 10px;
   padding: 3px 3px 10px 3px;
   margin: 0 0 15px 0;
-  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
 }
 #region-sidebar-first .block h2, #region-sidebar-first .block #edit-search-ads-wrapper label {
-  background-color: #003366;
   color: #ffffff;
   text-transform: uppercase;
   text-align: center;
@@ -239,6 +317,12 @@ body .tabs ul {
   margin: 0 0 5px 0;
 }
 /* search block */
+#views-exposed-form-search-ads-search-page label {
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  background-color: #009900;
+}
 #views-exposed-form-search-ads-search-page #edit-search-ads {
   width: 130px;
   display: block;
@@ -252,11 +336,28 @@ body .tabs ul {
   float: none;
 }
 /* ad placement block */
-#block-ad-payment-ad-payment-create-ad {
-  text-align: center;
+#block-ad-payment-ad-payment-create-ad h2 {
+  display: none;
+}
+#block-ad-payment-ad-payment-create-ad a {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 5px;
+}
+#block-ad-payment-ad-payment-create-ad a:hover {
+  background-color: #ffff00;
+  color: #ff0000;
 }
 #block-ad-payment-ad-payment-create-ad a {
   font-size: 1.4em;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 /* sections */
 #block-views-taxonomy-listing-block-1 {
@@ -308,7 +409,13 @@ body .tabs ul {
 #block-views-display-ad-blocks-banner-block {
   background-color: inherit;
   padding: 0;
-  margin: 0;
+  margin: 5px 0;
+}
+#block-views-display-ad-blocks-banner-block a {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 #block-views-display-ad-blocks-banner-block a .img {
   margin: 4px auto 20px auto;
@@ -350,7 +457,8 @@ body .tabs ul {
 .region-header-second h2.block-title {
   text-transform: uppercase;
   text-align: center;
-  background-color: #003366;
+  /*     background-color: @darkblue; */
+
   border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
   -webkit-border-radius: 5px 5px 0 0;
@@ -383,7 +491,8 @@ body .tabs ul {
   letter-spacing: -0.08em;
   font-size: .9em;
   display: inline;
-  visibility: hidden;
+  /*     display: none; */
+
   height: 0px;
   float: left;
 }
@@ -393,40 +502,33 @@ body .tabs ul {
   display: inline;
 }
 /*****************  CLASSIFIEDS  *****************/
-/* section header box */
-#block-views-taxonomy-listing-block-2 {
+/* sub_section links */
+#block-views-taxonomy-listing-tax-sub-list {
   background-color: #fbfaf9;
-  margin: 0;
-  padding: 0;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  max-width: 500px;
+  width: 100%;
+  margin: 10px;
+}
+#block-views-taxonomy-listing-tax-sub-list .block-inner {
   display: block;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  max-width: 480px;
 }
-#block-views-taxonomy-listing-block-2 h2.block-title {
+#block-views-taxonomy-listing-tax-sub-list h2.block-title {
   text-align: center;
 }
-#block-views-taxonomy-listing-block-2 ul {
+#block-views-taxonomy-listing-tax-sub-list ul.classified-sub_section-links {
   padding: 10px 30px 0px 30px;
   /* .cols; */
 
 }
-#block-views-taxonomy-listing-block-2 ul li {
+#block-views-taxonomy-listing-tax-sub-list ul.classified-sub_section-links li {
   width: 75%;
   padding: 0 0 0 10px;
-  list-style-position: inherit;
-  /*       list-style: square; */
-
-}
-#block-views-taxonomy-listing-block-2 ul .views-row-even {
-  background-color: #f0edeb;
-}
-#block-views-taxonomy-listing-block-2 ul .classified-section-link {
-  list-style: square;
 }
 /* classified ads */
 .content .classified-ad-header {
@@ -441,9 +543,9 @@ body .tabs ul {
   text-decoration: none;
   font-size: 1.4em;
   background-color: #003366;
-  border-radius: 10px 10px 0px 0px;
-  -moz-border-radius: 10px 10px 0px 0px;
-  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
 }
 .content .classified-ad-header h3 a {
   color: #ffffff;
@@ -512,7 +614,7 @@ body .tabs ul {
   background-color: #ffff00;
 }
 .content .classified-ad-section .views-row .Regular-footer {
-  visibility: hidden;
+  display: none;
   height: 0px;
 }
 .content .classified-ad-section li:first-line {
@@ -541,10 +643,10 @@ body .tabs ul {
   text-align: center;
 }
 .sales-representative-list .sales-area-header {
-  border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  -webkit-border-radius: 8px 8px 0 0;
-  background-color: #3366cc;
+  border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  background-color: #0059b3;
   color: #ffffff;
 }
 /*****************  ADMIN  *****************/
