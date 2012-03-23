@@ -17,49 +17,63 @@ function pw_classifieds_context_default_contexts() {
   $context->description = 'General layout for classified ad blocks';
   $context->tag = 'classifieds';
   $context->conditions = array(
+    'mobile' => array(
+      'values' => array(
+        'desktop' => 'desktop',
+        'ipad' => 'ipad',
+      ),
+    ),
     'path' => array(
       'values' => array(
         '<front>' => '<front>',
         'section/*' => 'section/*',
+        '~admin' => '~admin',
+        '~admin/*' => '~admin/*',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-taxonomy_listing-block_2' => array(
+        'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
-          'delta' => 'taxonomy_listing-block_2',
+          'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-9',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-7',
+          'weight' => '-8',
         ),
         'views-display_ad_blocks-splash_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-splash_block',
-          'region' => 'branding',
+          'region' => 'splash_two',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'menu',
+          'weight' => '-10',
+        ),
+        'views-02990d644d7eb62daab6d080d86a23b7' => array(
+          'module' => 'views',
+          'delta' => '02990d644d7eb62daab6d080d86a23b7',
+          'region' => 'sidebar_first',
           'weight' => '-10',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-        'views-taxonomy_listing-block_1' => array(
-          'module' => 'views',
-          'delta' => 'taxonomy_listing-block_1',
           'region' => 'sidebar_first',
           'weight' => '-9',
         ),
@@ -105,7 +119,7 @@ function pw_classifieds_context_default_contexts() {
       'delta_template' => 'content_left',
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.

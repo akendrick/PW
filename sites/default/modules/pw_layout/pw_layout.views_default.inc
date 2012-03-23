@@ -756,8 +756,8 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['style_options']['row_class'] = 'classified-section-link';
-  $handler->display->display_options['style_options']['wrapper_class'] = 'classified-section-links';
+  $handler->display->display_options['style_options']['row_class'] = 'classified-sub_section-link-row';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'classified-sub_section-links';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
@@ -821,15 +821,15 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['filters']['field_classified_id_value']['group'] = '0';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  $handler = $view->new_display('page', 'Page', 'classified_page');
   $handler->display->display_options['path'] = 'front';
 
   /* Display: List Block */
-  $handler = $view->new_display('block', 'List Block', 'block_1');
+  $handler = $view->new_display('block', 'List Block', 'taxonomy_list_view_block');
   $handler->display->display_options['display_description'] = 'Section Heading List Block';
 
   /* Display: Full List Page */
-  $handler = $view->new_display('page', 'Full List Page', 'page_1');
+  $handler = $view->new_display('page', 'Full List Page', 'full_list_page');
   $handler->display->display_options['display_description'] = 'Listing of only child terms (PAGE).';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
@@ -855,7 +855,7 @@ function pw_layout_views_default_views() {
   $handler->display->display_options['path'] = 'front';
 
   /* Display: Sub List Block */
-  $handler = $view->new_display('block', 'Sub List Block', 'block_2');
+  $handler = $view->new_display('block', 'Sub List Block', 'tax_sub_list');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = '%1 Sections';
   $handler->display->display_options['display_description'] = 'List ';

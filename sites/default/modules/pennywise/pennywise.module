@@ -3,8 +3,15 @@
 /**
  * @file
  *  General hacks.
- *  - Not in use at this time.
- *  - MOre of a placeholder.
+ *
+ *  Add custom action links to PW Admin pages for node creation.
+ *
+ *  Custom blocks for use in layout:
+ *    - PW Logo
+ *    - PW Contact info (with editable data fields)
+ *
+ *  @TODO
+ *  - Seperate Contact Block THEME layer.
  */
 
 define ('DEBUG', FALSE);
@@ -139,4 +146,143 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         break;
     }
   }
+}
+
+/**
+* Implementation of HOOK_block_info
+*
+* Adding basic theme blocks for Context and Delta.
+*/
+function pennywise_block_info() {
+  $blocks['pw_logo'] = array(
+    'info'    => t('PW Logo'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_contact'] = array(
+    'info'    => t('PW Contact'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  
+  return $blocks;
+}
+
+/**
+* Implementation of HOOK_block_configure
+*/
+function pennywise_block_configure($delta) {
+  $form = array();
+  switch($delta) {
+    case 'pw_contact':
+      $form['pennywise_contact_information']['pw_phone_toll_free'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Toll free phone number.'),
+        '#size' => 15,
+        '#default_value' => variable_get('pw_phone_toll_free', '1-800-663-4619'),
+      );
+      $form['pennywise_contact_information']['pw_phone_local'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Local phone number.'),
+        '#size' => 15,
+        '#default_value' => variable_get('pw_phone_local', '250-353-2602'),
+      );
+      $form['pennywise_contact_information']['pw_phone_fax'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Fax number.'),
+        '#size' => 15,
+/*         '#description' => t('This is the main contact information for Pennywise.'), */
+        '#default_value' => variable_get('pw_phone_fax', '250-353-7444'),
+      );
+      $form['pennywise_contact_information']['pw_mailing_address'] = array(
+        '#type' => 'textfield',
+        '#title' => t('General email address.'),
+        '#size' => 80,
+        '#default_value' => variable_get('pw_mailing_address', 'Box 430, Kaslo, BC Canada, V0G 1M0'),
+      );
+      $form['pennywise_contact_information']['pw_email'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mailing address.'),
+        '#size' => 45,
+        '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),
+      );
+      $form['pennywise_contact_information']['pw_facebook_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Facebook link.'),
+        '#size' => 50,
+        '#description' => t('Include full link address. This means <strong>http://</strong>. '),
+        '#default_value' => variable_get('pw_facebook_link', 'http://www.facebook.com/profile.php?id=728375773'),
+      );
+      break;
+  }
+  
+  return $form;
+}
+
+
+/**
+* Implementation of HOOK_block_save
+*/
+function pennywise_block_save($delta = '', $edit = array()) {
+  dpm($edit);
+  switch($delta) {
+    case 'pw_contact':
+      variable_set('pw_title', $edit['pw_contact_title']);
+      variable_set('pw_phone_toll_free', $edit['pw_phone_toll_free']);
+      variable_set('pw_phone_local', $edit['pw_phone_local']);
+      variable_set('pw_phone_fax', $edit['pw_phone_fax']);
+      variable_set('pw_mailing_address', $edit['pw_mailing_address']);
+      variable_set('pw_email', $edit['pw_email']);
+      variable_set('pw_facebook_link',   $edit['pw_facebook_link']);
+      break;
+  }
+}
+
+/**
+* Implementation of HOOK_block_view
+*/
+function pennywise_block_view($delta = '') {
+  switch($delta) {
+    case 'pw_logo':
+      $subject    = '';
+      $logo_path  = theme_get_setting('logo');
+      $image      = '<img src="' . $logo_path . '" alt="' . t('Home') . '" />';
+      $content    = l($image, '', array('html' => TRUE, 'attributes' => array('rel' => 'home', 'id' => 'logo', 'title' => t('Home'))));
+      break;
+
+    case 'pw_contact':
+      $subject = variable_get('pw_contact_title', '<none>');
+      
+      $pw_contact = array(
+        'toll_free'   => variable_get('pw_phone_toll_free'),
+        'local_phone' => variable_get('pw_phone_local'),
+        'fax'         => variable_get('pw_phone_fax'),
+        'address'     => variable_get('pw_mailing_address'),
+        'email'       => l('email', 'mailto:' . variable_get('pw_email'), array('absolute' => TRUE)),
+        'facebook'    => l('facebook', variable_get('pw_facebook_link'), array('absolute' => TRUE)),
+      );
+  
+      $content = '<dl id="pw-contact-info-block">';
+      $a = 0;
+      foreach($pw_contact as $key => $value) {
+        $key_view = ucwords(str_replace('_', ' ', $key));
+        $a++;
+        $row = ($a % 2)? 'row-odd' : 'row-even';
+        $content .= "<div class='pw-contact-wrapper pw-contact-$key-wrapper $row'>";
+        $content .= "<dt class='pw-contact-label pw-contact-$key-label'>$key_view</dt>";
+        $content .= "<dd class='pw-contact-value pw-contact-$key-value'>$value</dd>";
+        $content .= "</div>";
+      }      
+      $content .= '</dl>';
+
+      break;   
+}
+  $block = array(
+    'subject' => $subject,
+    'content' => $content,
+  );
+
+  return $block;
 }

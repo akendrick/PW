@@ -29,9 +29,10 @@ function pw_users_contact_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['style_plugin'] = 'grid';
-  $handler->display->display_options['style_options']['columns'] = '2';
-  $handler->display->display_options['style_options']['fill_single_line'] = 1;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['row_class'] = 'sales-row';
+  $handler->display->display_options['style_options']['class'] = 'sales-person';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'sales-representative-list';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
     'field_first_name' => 'field_first_name',
@@ -70,6 +71,47 @@ function pw_users_contact_views_default_views() {
   $handler->display->display_options['fields']['field_area_taxonomy']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_area_taxonomy']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_area_taxonomy']['field_api_classes'] = 0;
+  /* Field: User: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'users';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
+  /* Field: Global: Contextual Links */
+  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
+  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['label'] = '';
+  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
+    'edit_node' => 'edit_node',
+    'field_area_taxonomy' => 0,
+    'field_image' => 0,
+    'name' => 0,
+    'field_phone' => 0,
+    'field_fax' => 0,
+    'mail' => 0,
+  );
+  $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
@@ -224,7 +266,7 @@ function pw_users_contact_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_phone']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_phone']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['field_phone']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_phone']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_phone']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_phone']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_phone']['hide_alter_empty'] = 1;
@@ -252,54 +294,13 @@ function pw_users_contact_views_default_views() {
   $handler->display->display_options['fields']['field_fax']['element_label_type'] = 'strong';
   $handler->display->display_options['fields']['field_fax']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_fax']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['field_fax']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_fax']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_fax']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_fax']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_fax']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_fax']['click_sort_column'] = 'number';
   $handler->display->display_options['fields']['field_fax']['type'] = 'local_phone_number';
   $handler->display->display_options['fields']['field_fax']['field_api_classes'] = 0;
-  /* Field: User: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'users';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-  /* Field: Global: Contextual Links */
-  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
-  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
-  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
-  $handler->display->display_options['fields']['contextual_links']['label'] = '';
-  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
-    'edit_node' => 'edit_node',
-    'field_area_taxonomy' => 0,
-    'field_image' => 0,
-    'name' => 0,
-    'field_phone' => 0,
-    'field_fax' => 0,
-    'mail' => 0,
-  );
-  $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Sort criterion: User: Address (field_address:last_name) */
   $handler->display->display_options['sorts']['field_address_last_name']['id'] = 'field_address_last_name';
   $handler->display->display_options['sorts']['field_address_last_name']['table'] = 'field_data_field_address';

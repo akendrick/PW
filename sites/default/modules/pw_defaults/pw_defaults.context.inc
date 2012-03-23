@@ -42,7 +42,13 @@ function pw_defaults_context_default_contexts() {
         'views-display_ad_blocks-splash_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-splash_block',
-          'region' => 'user_second',
+          'region' => 'splash_two',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'menu',
           'weight' => '-10',
         ),
         'views--exp-search_ads-search_page' => array(
@@ -57,29 +63,11 @@ function pw_defaults_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-9',
         ),
-        'views-taxonomy_listing-block_1' => array(
-          'module' => 'views',
-          'delta' => 'taxonomy_listing-block_1',
-          'region' => 'sidebar_first',
-          'weight' => '-8',
-        ),
-        'menu_block-2' => array(
-          'module' => 'menu_block',
-          'delta' => 2,
-          'region' => 'sidebar_first',
-          'weight' => '-7',
-        ),
         'views-editorial_views-block_1' => array(
           'module' => 'views',
           'delta' => 'editorial_views-block_1',
           'region' => 'sidebar_first',
           'weight' => '-6',
-        ),
-        'user-login' => array(
-          'module' => 'user',
-          'delta' => 'login',
-          'region' => 'sidebar_first',
-          'weight' => '-5',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -102,7 +90,7 @@ function pw_defaults_context_default_contexts() {
       ),
     ),
     'delta' => array(
-      'delta_template' => 'traditional',
+      'delta_template' => 'content_left',
     ),
   );
   $context->condition_mode = 1;
@@ -122,8 +110,8 @@ function pw_defaults_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'pwadmin' => 'pwadmin',
-        'pwadmin/*' => 'pwadmin/*',
+        'admin' => 'admin',
+        'admin/*' => 'admin/*',
       ),
     ),
   );

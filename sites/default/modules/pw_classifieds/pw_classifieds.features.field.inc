@@ -52,6 +52,15 @@ function pw_classifieds_field_default_fields() {
           'type' => 'text_default',
           'weight' => '2',
         ),
+        'rss' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => '80',
+          ),
+          'type' => 'text_trimmed',
+          'weight' => '2',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -117,6 +126,12 @@ function pw_classifieds_field_default_fields() {
           'type' => 'list_default',
           'weight' => '0',
         ),
+        'rss' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -181,6 +196,12 @@ function pw_classifieds_field_default_fields() {
           'type' => 'hidden',
           'weight' => '7',
         ),
+        'rss' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -237,6 +258,12 @@ function pw_classifieds_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
+          'weight' => '6',
+        ),
+        'rss' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '6',
         ),
         'teaser' => array(
@@ -323,6 +350,16 @@ function pw_classifieds_field_default_fields() {
           ),
           'type' => 'image',
           'weight' => '3',
+        ),
+        'rss' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -423,6 +460,12 @@ function pw_classifieds_field_default_fields() {
           'type' => 'link_default',
           'weight' => '5',
         ),
+        'rss' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -506,6 +549,12 @@ function pw_classifieds_field_default_fields() {
           'module' => 'cck_phone',
           'settings' => array(),
           'type' => 'global_phone_number',
+          'weight' => '4',
+        ),
+        'rss' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '4',
         ),
         'teaser' => array(
@@ -817,6 +866,13 @@ function pw_classifieds_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+        'rss' => array(
           'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
