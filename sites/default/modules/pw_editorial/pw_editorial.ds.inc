@@ -77,25 +77,20 @@ function pw_editorial_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'article';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
-    'title' => array(
-      'weight' => '1',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
     'links' => array(
-      'weight' => '9',
+      'weight' => '10',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'comments' => array(
-      'weight' => '4',
+      'weight' => '6',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'post_date' => array(
-      'weight' => '2',
+      'weight' => '10',
       'label' => 'hidden',
-      'format' => 'ds_post_date_long',
+      'format' => 'ds_post_date_medium',
     ),
   );
   $export['node|article|default'] = $ds_fieldsetting;
@@ -217,33 +212,41 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
   $ds_layout->view_mode = 'default';
-  $ds_layout->layout = 'ds_2col_stacked';
+  $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
     'hide_empty_regions' => 0,
     'hide_sidebars' => 0,
     'regions' => array(
-      'header' => array(
+      'ds_content' => array(
         0 => 'field_image',
-      ),
-      'left' => array(
-        0 => 'body',
-      ),
-      'right' => array(
-        0 => 'field_images_editorial_extra',
-        1 => 'field_submitter',
-        2 => 'field_area_taxonomy',
-        3 => 'field_email',
-        4 => 'field_link',
+        1 => 'group_editorial_details',
+        2 => 'group_editorial_more',
+        3 => 'field_images_editorial_extra',
+        4 => 'body',
+        5 => 'comments',
+        6 => 'field_link',
+        7 => 'field_email',
+        8 => 'field_submitter',
+        9 => 'field_entity_reference',
+        10 => 'links',
+        11 => 'post_date',
+        12 => 'field_area_taxonomy',
       ),
     ),
     'fields' => array(
-      'field_image' => 'header',
-      'body' => 'left',
-      'field_images_editorial_extra' => 'right',
-      'field_submitter' => 'right',
-      'field_area_taxonomy' => 'right',
-      'field_email' => 'right',
-      'field_link' => 'right',
+      'field_image' => 'ds_content',
+      'group_editorial_details' => 'ds_content',
+      'group_editorial_more' => 'ds_content',
+      'field_images_editorial_extra' => 'ds_content',
+      'body' => 'ds_content',
+      'comments' => 'ds_content',
+      'field_link' => 'ds_content',
+      'field_email' => 'ds_content',
+      'field_submitter' => 'ds_content',
+      'field_entity_reference' => 'ds_content',
+      'links' => 'ds_content',
+      'post_date' => 'ds_content',
+      'field_area_taxonomy' => 'ds_content',
     ),
     'classes' => array(),
   );
@@ -260,45 +263,47 @@ function pw_editorial_ds_layout_settings_info() {
     'hide_empty_regions' => 0,
     'hide_sidebars' => FALSE,
     'regions' => array(
+      'header' => array(
+        0 => 'body',
+      ),
       'left' => array(
         0 => 'group_ed_basic',
-        1 => 'body',
-      ),
-      'middle' => array(
-        0 => 'group_bonus',
         1 => 'title',
         2 => 'field_submitter',
         3 => 'field_area_taxonomy',
-        4 => 'field_link',
-        5 => 'field_email',
+        4 => 'field_image',
       ),
-      'hidden' => array(
-        0 => 'group_ed_group_master',
-        1 => '_add_existing_field',
+      'middle' => array(
+        0 => 'group_bonus',
+        1 => 'field_link',
+        2 => 'field_email',
       ),
       'right' => array(
         0 => 'group_details',
-        1 => 'field_image',
-        2 => 'field_images_editorial_extra',
+        1 => 'field_images_editorial_extra',
+        2 => 'field_entity_reference',
       ),
-      'footer' => array(
+      'hidden' => array(
         0 => 'path',
+        1 => 'group_ed_group_master',
+        2 => '_add_existing_field',
       ),
     ),
     'fields' => array(
+      'body' => 'header',
       'group_ed_basic' => 'left',
       'group_bonus' => 'middle',
-      'group_ed_group_master' => 'hidden',
       'group_details' => 'right',
-      'body' => 'left',
-      'field_image' => 'right',
-      'title' => 'middle',
-      'field_submitter' => 'middle',
-      'field_area_taxonomy' => 'middle',
-      'field_images_editorial_extra' => 'right',
+      'path' => 'hidden',
+      'group_ed_group_master' => 'hidden',
+      'title' => 'left',
       'field_link' => 'middle',
+      'field_submitter' => 'left',
       'field_email' => 'middle',
-      'path' => 'footer',
+      'field_images_editorial_extra' => 'right',
+      'field_area_taxonomy' => 'left',
+      'field_image' => 'left',
+      'field_entity_reference' => 'right',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(),

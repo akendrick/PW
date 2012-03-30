@@ -256,6 +256,22 @@ Drupal.wysiwyg.plugins.media = {
       }
     }
 
+   // Convert style-based floating of images to classes. Note we leave the
+   // the attribute so that the WYSIWYG editor will remember the setting.
+   // First, remove any previous left/right classes, note that class will
+   // contain at least 'media-image'
+   mediaAttributes['class'] = mediaAttributes['class'].replace(/\s*media-image-(left|right)\s*/g, ' ');
+
+   // Add appropriate left/right class to the <img> tag.
+   if (mediaAttributes['style']) {
+     if (-1 != mediaAttributes['style'].indexOf('float: right;')) {
+       mediaAttributes['class'] += ' media-image-right';
+    }
+    if (-1 != mediaAttributes['style'].indexOf('float: left;')) {
+      mediaAttributes['class'] += ' media-image-left';
+     }
+   }
+
     // Remove elements from attribs using the blacklist
     for (var blackList in Drupal.settings.media.blacklist) {
       delete mediaAttributes[Drupal.settings.media.blacklist[blackList]];

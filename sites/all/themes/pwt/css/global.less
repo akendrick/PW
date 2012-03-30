@@ -6,9 +6,17 @@
 @white: #fff;
 @gray: #e5e0dc;
 
-@darkblue: #036;
-@medblue: lighten(@darkblue, 15); // #36C;
-@lightblue: #d1e5ff;
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #060;
+@editorial_light: lighten(@editorial, 10);
+@editorial_dark: darken(@editorial, 10);
+
+@other: #FC9;
+@other_dark: darken(@other, 10);
+@other_light: lighten(@other, 10);
 
 @plum: #303;
 @peach: #FC9;
@@ -28,6 +36,10 @@
 
 
 /*****************  MIXIN'  *****************/
+/* isolate box -- for debuging */
+.border{
+    border: 1pt solid @alert;
+}
 
 /* rounded corners */
 .border-radius (@radius: 10px) {
@@ -99,22 +111,22 @@
   -o-transform:rotate(@deg); /* Opera */
 }
 
-.button (@background: @highlight, @link: @white, @hover: @warning, @padding: 5px) {
+.button (@background: @highlight, @link1: @white, @hover: @warning, @link2: @white, @padding: 5px) {
   a {
     .border-radius;
     background-color: @background;
-    color: @link;
+    color: @link1;
     padding: @padding;
   }
   a:hover {
     background-color: @hover;
-    color: @background;
+    color: @link2;
   }
 }
 
 /*****************  BASE  *****************/
 body {
-  background-color: @lightblue;
+  background-color: @classified_light;
 	background: #FFF url(../images/pw_back1.jpg) no-repeat;
 
   h1, h2, h3, h4, h5, h6, h7, h7, h8, a,
@@ -206,7 +218,7 @@ body {
     h2 {
       color: @white;
       a { color: @white; }
-      background-color: @medblue;
+      background-color: @classified_med;
       .border-radius-custom;
       margin: 0;
       padding: 5px;
@@ -223,8 +235,8 @@ body {
     }
   }
   blockquote {
-    margin-left: 10%;
-    padding: 2%;
+    margin: 5px 0 25px 0;
+/*     padding: 2%; */
     background-color: @sand;
     border: 1pt solid @plum;
     border-left: 0;
@@ -242,13 +254,13 @@ body {
   /* TABS */
   .tabs {
     ul {
-      background-color: @darkblue;
+      background-color: @classified_dark;
       margin: 0;
     }
   }
 }
 #page-title {
-  background-color: @darkblue;
+  background-color: @classified_dark;
   .border-radius-custom;
   padding: 5px;
   color: @white;
@@ -260,11 +272,13 @@ body {
 #block-pennywise-pw-contact {
   background-color: transparent;
   margin: 10px 0;
+  display: table;
+  width: 100%;
   #pw-contact-info-block {
     margin: 0;
     background-color: @white;
-    border: solid 2pt @lightblue;
-    padding: 4px;
+    border: solid 2pt @classified_light;
+/*     padding: 4px; */
     .center;
     .border-radius;
     height: 40px;
@@ -287,9 +301,12 @@ body {
   }
   /* Individual Fields */
   .pw-contact-wrapper {
-    margin: 0;
+    margin: 4px;
     width: 170px;
     float: left;
+    line-height: 1.2em;
+    display: table-cell;
+    vertical-align: middle;
   }
   dt.pw-contact-label {
     width: 100%;
@@ -306,29 +323,42 @@ body {
     background-color: @sunlight;
     .border-radius;
     width: 200px;
-  }
-  .pw-contact-email-wrapper, .pw-contact-facebook-wrapper {
-    max-width: 60px;
-    padding: 12px 0;
-  }
-  .pw-contact-facebook-wrapper {
-    max-width: 90px;
+    margin: 2px;
   }
   dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
     display: none;
   }
-  dd.pw-contact-email-value, dd.pw-contact-facebook-value, dd.pw-contact-address-value  {
+  dd.pw-contact-email-value, dd.pw-contact-address-value  {
     font-size: smaller;
   }
+  .pw-contact-email-wrapper {
+    max-width: 60px;
+    padding: 6px 4px;
+  }
+  .pw-contact-facebook-wrapper {
+    max-width: 60px;
+    margin: 8px;
+    height: 100%;
+    vertical-align: middle;
+  }
+  dd.pw-contact-facebook-value, .pw-contact-facebook-wrapper {
+    padding: 0;
+    margin: 0;
+  }
   dd.pw-contact-facebook-value a {
-/*     background-image: url('http://localhost:8888/pw7/images/facebook'); */
-    background-image: url(../../../../default/files/facebook-logo-80x30.png);
-    background-position-x: -8px;
-    background-position-y: -2px;
-    width: 80px;
-    height: 30px;
+    float: left;
+    background-image: url(../../../../default/files/facebook-logo_30.png);
     color: transparent;
-    .border-radius(5px);
+    background-color: inherit;
+    background-repeat: no-repeat;
+    .border-radius(0);
+    width: 40px;
+    height: 30px;
+    background-position-x: 5px;
+    background-position-y: 5px;
+  }
+  dd.pw-contact-facebook-value a:hover {
+    color: @black;
   }
   dd.pw-contact-address-value {
     display: block;
@@ -337,6 +367,7 @@ body {
     font-size: 1em;
     padding: 4px 0 0 0 ;
   }
+
   /* mobile hide */
   .pw-contact-local_phone-wrapper, .pw-contact-fax-wrapper, .pw-contact-address-wrapper {
     display: none;
@@ -368,26 +399,29 @@ body {
   }
 }
 
-/*****************  SIDEBAR FIRST  *****************/
+/*****************  BLOCKS  *****************/
 
 #region-sidebar-first .block {
   padding: 3px 3px 10px 3px;
   margin: 0 0 15px 0;
-  h2, #edit-search-ads-wrapper label {
-    color: @white;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 1em;
-    line-height: 1.2em;
-    margin: 0 0 5px 0;
+  h2, #edit-search-ads-wrapper {
+    label {
+      color: @white;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1.2em;
+      margin: 0 0 5px 0;
+    }
   }
 }
 
 /* search block */
 #views-exposed-form-search-ads-search-page {
-  label {
     .border-radius-custom ; 
-    background-color: @status;  
+    background-color: @classified_dark; 
+    padding: 4px 1px; 
+  label {
   }
   #edit-search-ads {
     width: 130px;
@@ -400,47 +434,54 @@ body {
   }
 }
 
-/* ad placement block */
+/* submit ad block */
 #block-ad-payment-ad-payment-create-ad{
   h2 { display: none; }
-  .button;
-  a {
-    font-size: 1.4em;
-    padding: 10px;
+  #ad-submission-link-wrapper {
+    width: 100%;
+    .button(@other, @white, @other_dark, @black, 0);
     .center;
+    margin: 0;
+    padding: 0;
+    a {
+      width: 100%;
+      font-size: 1.4em;
+      padding: 10px;    
+    }
   }
 }
 
 /* sections */
-#block-views-taxonomy-listing-block-1 {
-  .box-shadow;
-  div, span { 
-    margin: 0; 
-    padding: 0;
+.classified-full_section-links {
+  margin: 0; 
+  padding: 0;
+  width: 100%;
+  font-size: 1.1em;
+  line-height: 1.2em;
+  line-spacing: -0.05em;
+  li {  
+    padding: 2pt 2pt 3pt 4pt;  
   }
-  .views-row {
-    margin: 0 0 0 5px;
-    padding: 2px 0 3px 4px;
-    line-height: 1.2em;
-    line-spacing: -0.05em;
+  li.classified-full-section-link-row.views-row-even{
+    background-color: darken(@lightsand, 5);
   }
-  a {
-    text-transform: capitalize;
-    line-height: .8em;
-  }
-  a:hover {
-  }
-  .views-row-odd {
-    background-color: @lightblue;
+  .classified-full-section-link-row a:hover {
+    color: @alert;
   }
 }
 .classified-section-link { /* List style for taxonomy section links. */
-  list-style: none;
+/*   list-style: none; */
 }
 
-/*****************  SIDEBAR SECOND  *****************/
 .view-display-id-poster_block {
   padding: 0 0 20px 0;
+}
+
+/* advertising */
+.block-menu-pages {
+  h2 {
+    background-color: @other;
+  }
 }
 
 /*****************  DISPLAY ADS  *****************/
@@ -496,24 +537,28 @@ body {
   /* list items */
 }
 /* slideshow */
-.region-header-second {
-  h2.block-title {
+.view-editorial-slideshow  {
+  .view-header, .view-footer {
+    p { line-height: 1 em; margin: 0;}
+  }
+
+  a.editorial-slideshow-link{
+    .center;
+    margin: 0; padding: 0;
     text-transform: uppercase;
-    text-align: center;
-/*     background-color: @darkblue; */
     .border-radius-custom (5px, 5px, 0, 0);
     color: @white;
-    font-size: .8em;
-    line-height: .9em;
-    padding: 2px;
+    padding: 1px;
+    width: 100%;
+    background-color: @editorial;
+  }
+  .view-footer a {
+    .border-radius-custom (0, 0, 5px, 5px);
   }
   .view-content {
     height: 130px;
     background-color: @white;
   }
-}
-.view-editorial-slideshow  {
-  
   .field-name-field-image {
     float: left;
     margin: 0 10px 0 0;
@@ -533,7 +578,6 @@ body {
     letter-spacing: -0.08em;
     font-size: .9em;
     display: inline;
-/*     display: none; */
     height: 0px;float: left;
     
   }
@@ -541,6 +585,46 @@ body {
     text-transform: uppercase;
     font-size: 1.2em;
     display: inline;
+  }
+  .view-footer {
+    .border-radius-custom( 0, 0, 5px, 5px);
+  }
+}
+/* editorial page */
+.node-article.view-mode-full {
+  
+  li {
+    list-style: square;
+    margin: 4px 15px 4px 2px;
+  }
+  #node_article_full_group_editorial_details {
+    float: left;
+    clear: left;
+    margin: 15px;
+    legend {
+      display: none;
+    }
+  }
+  #node_article_full_group_editorial_more {
+    margin: 15px;
+    float: left;
+    clear: left;
+    legend {
+      display: none;
+    }
+  }
+  .field-name-body {
+    margin: 20px 10px 0 60px;
+    p:first-child:first-line {
+      font-size: large;
+    }
+    br {
+      width: 100%;
+      height: 20px;
+      .border;
+      clear: both; 
+      padding: 20px;
+    }
   }
 }
 
@@ -579,7 +663,7 @@ body {
       text-align: center;
       text-decoration: none;
       font-size: 1.4em;
-      background-color: @darkblue;
+      background-color: @classified_dark;
       .border-radius-custom;
       a {
         color: @white;
@@ -651,6 +735,9 @@ body {
 
 /*****************  sales  *****************/
 .sales-representative-list {
+  h2 {
+    background-color: @other;
+  }
   padding: 10px;
   ul {
     list-style: none;
@@ -668,7 +755,7 @@ body {
   }
   .sales-area-header {
     .border-radius-custom;
-    background-color: @medblue;
+    background-color: @classified_med;
     color: @white;
   }
 }

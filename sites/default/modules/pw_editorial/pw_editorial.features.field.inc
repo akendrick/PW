@@ -67,7 +67,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '5',
         ),
         'simple_teaser' => array(
           'label' => 'hidden',
@@ -105,7 +105,7 @@ function pw_editorial_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '5',
+        'weight' => '0',
       ),
     ),
   );
@@ -181,7 +181,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '11',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -258,7 +258,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '5',
+          'weight' => '8',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -289,7 +289,120 @@ function pw_editorial_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '11',
+        'weight' => '8',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-article-field_entity_reference'
+  $fields['node-article-field_entity_reference'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_entity_reference',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 1,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'field_ad_copy:value',
+            'property' => 'nid',
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'article' => 'article',
+            'attachment' => 'attachment',
+            'display_ads' => 'display_ads',
+            'page' => 'page',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'article',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'block_list_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'block_list_item' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+        'simple_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_entity_reference',
+      'label' => 'Reference Other',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '10',
       ),
     ),
   );
@@ -433,7 +546,7 @@ function pw_editorial_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '6',
+        'weight' => '10',
       ),
     ),
   );
@@ -492,7 +605,7 @@ function pw_editorial_field_default_fields() {
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightshow__editorial_small__original',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -613,11 +726,11 @@ function pw_editorial_field_default_fields() {
           'weight' => '10',
         ),
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '6',
+          'type' => 'link_label',
+          'weight' => '7',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -661,7 +774,7 @@ function pw_editorial_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '10',
+        'weight' => '7',
       ),
     ),
   );
@@ -713,11 +826,11 @@ function pw_editorial_field_default_fields() {
           'weight' => '11',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '9',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -762,6 +875,7 @@ function pw_editorial_field_default_fields() {
   t('Extra Images');
   t('Header Image');
   t('Maximum of 3 links per article.');
+  t('Reference Other');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');

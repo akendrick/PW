@@ -22,14 +22,14 @@ function pw_defaults_filter_default_formats() {
         'weight' => '0',
         'status' => '1',
         'settings' => array(
-          'filter_url_length' => 72,
+          'filter_url_length' => '72',
         ),
       ),
       'filter_html' => array(
         'weight' => '1',
         'status' => '1',
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
+          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd><p><br><strike>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),
@@ -56,19 +56,28 @@ function pw_defaults_filter_default_formats() {
     'weight' => '-10',
     'filters' => array(
       'filter_url' => array(
-        'weight' => '0',
+        'weight' => '-44',
         'status' => '1',
         'settings' => array(
           'filter_url_length' => '72',
         ),
       ),
       'filter_autop' => array(
-        'weight' => '1',
+        'weight' => '-40',
         'status' => '1',
         'settings' => array(),
       ),
+      'filter_html' => array(
+        'weight' => '-39',
+        'status' => '1',
+        'settings' => array(
+          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <strike> <img> <br> <p>',
+          'filter_html_help' => 1,
+          'filter_html_nofollow' => 0,
+        ),
+      ),
       'filter_htmlcorrector' => array(
-        'weight' => '10',
+        'weight' => '-37',
         'status' => '1',
         'settings' => array(),
       ),
@@ -128,7 +137,7 @@ function pw_defaults_filter_default_formats() {
         'weight' => '1',
         'status' => '1',
         'settings' => array(
-          'filter_url_length' => 72,
+          'filter_url_length' => '72',
         ),
       ),
       'filter_autop' => array(
