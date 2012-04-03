@@ -98,6 +98,12 @@ function pw_layout_context_default_contexts() {
           'region' => 'content',
           'weight' => '-8',
         ),
+        'views-display_ad_blocks-block_1' => array(
+          'module' => 'views',
+          'delta' => 'display_ad_blocks-block_1',
+          'region' => 'splash_one',
+          'weight' => '-10',
+        ),
         'views-display_ad_blocks-splash_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-splash_block',
@@ -134,11 +140,11 @@ function pw_layout_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-22',
         ),
-        'menu-menu-pages' => array(
+        'menu-menu-advertising-links' => array(
           'module' => 'menu',
-          'delta' => 'menu-pages',
+          'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
-          'weight' => '-21',
+          'weight' => '-10',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',

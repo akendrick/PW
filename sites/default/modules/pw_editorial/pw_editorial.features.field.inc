@@ -49,8 +49,11 @@ function pw_editorial_field_default_fields() {
       'display' => array(
         'block_list_header' => array(
           'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => '100',
+          ),
+          'type' => 'text_trimmed',
           'weight' => '2',
         ),
         'block_list_item' => array(
@@ -168,7 +171,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '11',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -245,7 +248,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '10',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -356,7 +359,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '8',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -592,7 +595,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '9',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -717,7 +720,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '12',
         ),
         'block_list_item' => array(
           'label' => 'above',
@@ -817,7 +820,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '13',
         ),
         'block_list_item' => array(
           'label' => 'above',

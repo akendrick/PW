@@ -2,37 +2,40 @@
 
 /**
  * @file
- * This file is empty by default because the base theme chain (Alpha & Omega) provides
- * all the basic functionality. However, in case you wish to customize the output that Drupal
- * generates through Alpha & Omega this file is a good place to do so.
- * 
- * Alpha comes with a neat solution for keeping this file as clean as possible while the code
- * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
- * for more information on this topic.
+ *
+ * - Menu Zebra stripping.
+ *
+ *
+ *
+ *
  */
  
- 
+
 /**
- * Implements hook_process_region().
+ * Preprocesses menus being rendered in blocks to add zebra-striping classes to
+ * each menu item.
+ *
+ * Desired output has odd/even classes like:
+ *
+ * <ul class="menu">
+ *   <li class="first leaf has-children menu-mlid-346 even"><a href="/racing">Racing</a></li>
+ *   <li class="leaf menu-mlid-347 odd"><a href="/recreational">Recreational</a></li>
+ *   <li class="leaf menu-mlid-348 even"><a href="/get-sailing">Get into Sailing</a></li>
+ *   <li class="last leaf menu-mlid-349 odd"><a href="/clubs">Clubs</a></li>
+ * </ul>
  */
-// function pwt_process_region(&$vars) {
-//   if (in_array($vars['elements']['#region'], array('pwt_one'))) {
-//     $theme = alpha_get_theme();
-//     $vars['site_name'] = $theme->page['site_name'];
-//     $vars['linked_site_name'] = l($vars['site_name'], '<front>', array('attributes' => array('title' => t('Home')), 'html' => TRUE));
-//     $vars['site_slogan'] = $theme->page['site_slogan'];
-//     $vars['site_name_hidden'] = $theme->page['site_name_hidden'];
-//     $vars['site_slogan_hidden'] = $theme->page['site_slogan_hidden'];
-//     $vars['logo'] = $theme->page['logo'];
-//     $vars['logo_img'] = $vars['logo'] ? '<img src="' . $vars['logo'] . '" alt="' . check_plain($vars['site_name']) . '" id="logo" />' : '';
-//     $vars['linked_logo_img'] = $vars['logo'] ? l($vars['logo_img'], '<front>', array('attributes' => array('rel' => 'home', 'title' => check_plain($vars['site_name'])), 'html' => TRUE)) : '';
-//   }
-// }
+function pwt_preprocess_menu_advertising_links_block_wrapper(&$variables, $hook) {
+  dpm($variables);
+  
+  $zebra = 0;
+  foreach (element_children($variables['content']) as $mlid){
+    $variables['content'][$mlid]['#attributes']['class'][] = ($zebra % 2) ? 'odd' : 'even';
+    $zebra++;
+  }
+}
+
+
+// function pwt_menu_alter(&$items) {
+//   dpm ($items);
 // 
-// 
-// /**
-//  * Implements HOOK__preprocess_page
-//  */
-// function pwt_preprocess_page(&$vars) {
-//   $vars['breadcrumb'] = '';
 // }

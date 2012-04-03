@@ -29,7 +29,7 @@ function pw_defaults_filter_default_formats() {
         'weight' => '1',
         'status' => '1',
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd><p><br><strike>',
+          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <strike> <h2> <h3> <h4> <h5> <h6>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),
@@ -66,15 +66,6 @@ function pw_defaults_filter_default_formats() {
         'weight' => '-40',
         'status' => '1',
         'settings' => array(),
-      ),
-      'filter_html' => array(
-        'weight' => '-39',
-        'status' => '1',
-        'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <strike> <img> <br> <p>',
-          'filter_html_help' => 1,
-          'filter_html_nofollow' => 0,
-        ),
       ),
       'filter_htmlcorrector' => array(
         'weight' => '-37',
