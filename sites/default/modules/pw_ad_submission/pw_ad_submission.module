@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the pw_ad_submission feature.
- */
-
-include_once('pw_ad_submission.features.inc');

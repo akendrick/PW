@@ -180,7 +180,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
   $new_ad->title = substr($copy, 0, 45);
 
   // Link
-  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $copy, $link);
+  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+#!?)+)/', $copy, $link);
   $link = check_url($link[0]);
   if ($link) {
     $new_ad->field_link = array(

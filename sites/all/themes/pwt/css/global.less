@@ -229,12 +229,6 @@ body {
       text-align: center;
     }
       /* all lists in blocks lose their bullets */
-    li.views-row-even, .views-row-odd {
-      background-color: @lightsand;
-    }
-    li.views-row-odd,  .views-row-even {
-      background-color: @sand;
-    }
     li {
       list-style: none;
     }
@@ -539,9 +533,10 @@ body {
 }
 
 /*  Highlight BLOCK  */
-#block-views-editorial-views-editorial-block {
+#views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block, 
+.view-display-id-editorial_block {
   .views-row {
-    border-bottom: 2pt solid @editorial_light;
+    border-bottom: 1pt solid @editorial_light;
   }
   .views-row-odd, .views-row-even {
     background-color: @white;
@@ -572,40 +567,47 @@ body {
 
 /*  Slideshow BLOCK */
 .view-editorial-slideshow  {
+  #views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block {
+    width: 340px;
+    background-color: @lightsand;
+  }
   .field-item, .even, .odd {
-    background-color: @lightsand
+    background-color: @lightsand;
   }
   .view-header, .view-footer {
     p { line-height: 1 em; margin: 0;}
   }
-
   a.editorial-slideshow-link{
     .center;
     margin: 0; padding: 0;
     text-transform: uppercase;
-    .border-radius-custom (5px, 5px, 0, 0);
     color: @white;
     padding: 1px;
-/*     width: 100%; */
     background-color: @editorial_dark;
+  }
+  .view-header a{
+    .border-radius-custom (5px, 5px, 0, 0);
   }
   .view-footer a {
     .border-radius-custom (0, 0, 5px, 5px);
   }
-  .view-content {
+
+  .view-content, .node-article {
     height: 130px;
-    width: 100%;
     background-color: @white;
   }
   .field-name-field-image {
     float: left;
-    margin: 0 10px 0 0;
     height: 130px;
     overflow: hidden;
+    img {
+      padding: 0 10px 0 0;
+    }
   }
   .field-name-title {
     h6 { 
-      margin: 0 0 4px 0;     
+      margin: 0;
+      padding: 2px 4px;
       font-size: 1.2em;
       line-height: 1.1em;
       letter-spacing: -0.08em;
@@ -613,20 +615,14 @@ body {
     }
   }
   .field-name-body, .field-type-text-with-summary {
-    margin: 0; padding: 0;
+    margin: 0; 
     letter-spacing: -0.08em;
     font-size: .9em;
-    display: inline;
-    float: left;
-    
   }
   .field-name-node-link {
     text-transform: uppercase;
-    font-size: 1.2em;
-/*     display: inline; */
-  }
-  .view-footer {
-    .border-radius-custom( 0, 0, 5px, 5px);
+    font-size: .9em;
+    a { padding: 5px; }
   }
 }
 /* Main Editorial PAGE */
@@ -670,6 +666,15 @@ body {
 /*****************  CLASSIFIEDS  *****************/
 
 /* Main Sections BLOCK */
+.view-section-pages, .view-search-ads {
+   li.views-row-even, .views-row-odd {
+      background-color: @lightsand;
+    }
+    li.views-row-odd,  .views-row-even {
+      background-color: @sand;
+    }
+}
+
 .classified-full_section-links {
   margin: 0; 
   padding: 0;
@@ -790,7 +795,13 @@ body {
   }
 }
 
-/*****************  sales  *****************/
+
+/*****************  ADMIN  *****************/
+
+
+/*****************  SPECIFIC PAGES  *****************/
+
+/* SALES REP */
 .sales-representative-list {
   h2 {
     background-color: @other;
@@ -816,9 +827,10 @@ body {
     color: @white;
   }
 }
-
-
-/*****************  ADMIN  *****************/
-
-
-/*****************  EDITORIAL  *****************/
+.view-id-sales_people_page {
+  ul.sales-person {
+    li.views-row-even, li.views-row-odd {
+      background-color: @lightsand;
+    }
+  }
+}

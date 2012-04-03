@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the PW Users & Contact feature.
- */
-
-include_once('pw_users_contact.features.inc');

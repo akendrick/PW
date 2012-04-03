@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the PW Editorial feature.
- */
-
-include_once('pw_editorial.features.inc');
