@@ -73,13 +73,16 @@
   width: 100%;
 }
 /* Editorial (Article) & Classified Node Form Style */
-.node-article-form .ds-form-3col-stacked .group-left, .node-classified-form .ds-form-3col-stacked .group-left {
+.node-article-form .ds-form-3col-stacked .group-left,
+.node-classified-form .ds-form-3col-stacked .group-left {
   width: 320px;
 }
-.node-article-form .ds-form-3col-stacked .group-middle, .node-classified-form .ds-form-3col-stacked .group-middle {
+.node-article-form .ds-form-3col-stacked .group-middle,
+.node-classified-form .ds-form-3col-stacked .group-middle {
   width: 390px;
 }
-.node-article-form .ds-form-3col-stacked .group-right, .node-classified-form .ds-form-3col-stacked .group-right {
+.node-article-form .ds-form-3col-stacked .group-right,
+.node-classified-form .ds-form-3col-stacked .group-right {
   width: 365px;
 }
 /* Display Ad Node Form */
@@ -109,7 +112,9 @@
 .node-display_ads-form .ds-form-3col-stacked .group-middle {
   width: 365px;
 }
-.node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama, .node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama, .node-display_ads-form .ds-form-3col-stacked .group-middle table.cke_editor {
+.node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama,
+.node-display_ads-form .ds-form-3col-stacked .group-middle .cke_skin_kama,
+.node-display_ads-form .ds-form-3col-stacked .group-middle table.cke_editor {
   width: 350px;
   height: 300px;
 }
@@ -119,10 +124,12 @@
 /* .ds-form-3col-stacked .group-middle .cke_skin_kama .cke_editor { width: 200px } */
 /* Page node form */
 /* node attachments node form */
-.node-attachment-form.ds-form-3col #edit-title, #page-node-form #edit-title {
+.node-attachment-form.ds-form-3col #edit-title,
+#page-node-form #edit-title {
   width: 250px;
 }
-.node-attachment-form.ds-form-3col .group-middle, #page-node-form .group-middle {
+.node-attachment-form.ds-form-3col .group-middle,
+#page-node-form .group-middle {
   width: 400px;
 }
 .node-attachment-form.ds-form-3col #body-add-more-wrapper #edit-body-und-0-value,
@@ -131,42 +138,53 @@
 #page-node-form #body-add-more-wrapper .form-textarea-wrapper .grippie {
   width: 380px;
 }
-.node-attachment-form.ds-form-3col .group-right, #page-node-form .group-right {
+.node-attachment-form.ds-form-3col .group-right,
+#page-node-form .group-right {
   width: 380px;
 }
 /*************************** ADMIN Interface */
-.view-display-admin-v2 table {
+.view-display-admin-v2 table,
+.view-id-editorial_administration table {
   border: none;
 }
-.view-display-admin-v2 td {
+.view-display-admin-v2 td,
+.view-id-editorial_administration td {
   width: 15%;
 }
-.view-display-admin-v2 td .views-field-status {
+.view-display-admin-v2 td .views-field-status,
+.view-id-editorial_administration td .views-field-status {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   padding: 3pt;
   width: 80%;
 }
-.view-display-admin-v2 td .Enabled {
+.view-display-admin-v2 td .Enabled,
+.view-id-editorial_administration td .Enabled {
   background-color: #ffffcc;
 }
-.view-display-admin-v2 td .Disabled {
+.view-display-admin-v2 td .Disabled,
+.view-id-editorial_administration td .Disabled {
   background-color: #ffffff;
 }
-.view-display-admin-v2 td .views-field, .view-display-admin-v2 td .views-field-item {
+.view-display-admin-v2 td .views-field,
+.view-id-editorial_administration td .views-field,
+.view-display-admin-v2 td .views-field-item,
+.view-id-editorial_administration td .views-field-item {
   margin-left: auto;
   margin-right: auto;
   display: block;
   text-align: center;
 }
-.view-display-admin-v2 td .views-field-title a {
+.view-display-admin-v2 td .views-field-title a,
+.view-id-editorial_administration td .views-field-title a {
   text-decoration: none;
   font-weight: bolder;
   font-size: 1em;
   color: #000000;
 }
-.view-display-admin-v2 .field-publish-link {
+.view-display-admin-v2 .field-publish-link,
+.view-id-editorial_administration .field-publish-link {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
