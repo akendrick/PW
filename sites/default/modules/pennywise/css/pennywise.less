@@ -167,12 +167,16 @@
 /*************************** ADMIN Interface */
 .view-display-admin-v2, .view-id-editorial_administration  {
   table { border: none; }
-  td {
+  td.editorial-col, td.display-col {
     width: 15%;
+    vertical-align: bottom;
+
     .views-field-status {
-      .border-radius;
+      .border-radius-custom(10px, 10px, 0, 0);
       padding: 3pt;
       width: 80%;
+      height: 38px;
+      border: 1pt solid @warning;
     }
     .Enabled { 
       background-color: lighten(@warning, 40);
@@ -180,14 +184,45 @@
     .Disabled { 
       background-color: lighten(@status, 20);
     }
+    .field-promote-status-Promoted {
+      background-color: darken(@status, 20);
+    }
     .views-field, .views-field-item {
       .center;
+    }
+    .views-field-bulk-actions {
+      width: 8%;
+      padding: 4px 4px 15px 4px;
+      float: left;
     }
     .views-field-title a{
       text-decoration: none;
       font-weight: bolder;
       font-size: 1em;
       color: @black;
+      height: 30px;
+      overflow: hidden;
+    }
+    .views-field-body {
+      height: 60px;
+      overflow: hidden;
+    }
+    .field-promote-status--promote {
+      border-bottom: 10pt solid @warning;
+    }
+    .new-marker .marker {
+      width: 83%;
+      .border-radius-custom(0, 0, 8px, 8px);
+      padding: 2px;
+      font-weight: bolder;
+      background-color: @alert;
+      color: @white;
+      font-size: .8em;
+      line-height: .9em;
+      .center;
+    }
+    .no-marker {
+      display: none;
     }
   }
   .field-publish-link {
@@ -197,5 +232,8 @@
     line-height: 1em;
     padding: 2pt;
     text-transform: uppercase;
+  }
+  .field-unpublish-link {
+    background-color: @white;
   }
 }

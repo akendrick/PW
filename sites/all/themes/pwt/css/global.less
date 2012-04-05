@@ -532,9 +532,9 @@ body {
   /* list items */
 }
 
-/*  Highlight BLOCK  */
+/*  Editorial Highlight/Recent BLOCK  */
 #views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block, 
-.view-display-id-editorial_block {
+.view-display-id-editorial_block, .view-display-id-recent_editorial_block {
   .views-row {
     border-bottom: 1pt solid @editorial_light;
   }
@@ -548,11 +548,19 @@ body {
   .field-name-field-image {
     padding: 0;
   }
-  .field-name-body, .field-name-title {
+  
+   .views-field-title, .field-name-title, {
     padding: 0 3px;
+    font-size: 1.1em;
+    line-height: 1.2em;
+    text-align: center;
   }
-  .field-name-body {
+  
+  .views-field-body,  .field-name-body,{
+    text-align: left;
     letter-spacing: -0.08em;
+    font-size: .9em;
+    line-height: 1em;
   }
   .field-name-node-link {
     margin: 0 0 3px 0;
@@ -562,6 +570,12 @@ body {
       margin: 3px;
       float: right;
     }
+  }
+  .pager ul, .pager li.pager-next, .pager li.pager-current, .pager li a{
+    background-color: @editorial_dark;
+    color: @white;
+    background-image: none;
+    height: 12px;
   }
 }
 
@@ -626,6 +640,7 @@ body {
   }
 }
 /* Main Editorial PAGE */
+/*
 .node-article.view-mode-full {
   
   li {
@@ -662,6 +677,7 @@ body {
     }
   }
 }
+*/
 
 /*****************  CLASSIFIEDS  *****************/
 
@@ -751,19 +767,7 @@ body {
       .classified-ad-copy:first-line {
         font-weight: bolder;
       }
-      /* Publish Link */
-    .field-publish-link {
-      display: block;
-      background-color: @alert;
-      color: white;
-      .border-radius(4px);
-      font-size: 1em;
-      margin-right: 5px;
-      text-align: center;
-      float: left;
-      a { color: @white; padding: 2px;}
-    }
-}
+  }
     /* liveload */
     .row-type-Liveload {
       background-color: @sunlight;
@@ -797,6 +801,27 @@ body {
 
 
 /*****************  ADMIN  *****************/
+/**********  SEE PENNYWISE MODULE **********/
+
+/* inline delete link */
+.inline-x-delete-link {
+  a:link { 
+    display: block;
+    .border-radius(4px);
+    font-size: 1em;
+    margin-right: 5px;
+    text-align: center;
+    float: left;
+    background-color: @other;
+    color: @white; 
+    padding: 2px;
+    border: 1pt solid @other;
+  }
+  a:hover {
+    background-color: lighten(@other_light, 10);
+    color: @other;
+  }
+}
 
 
 /*****************  SPECIFIC PAGES  *****************/
@@ -834,3 +859,6 @@ body {
     }
   }
 }
+
+
+
