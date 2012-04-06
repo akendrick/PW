@@ -17,11 +17,12 @@
 @other: #fc4021; /*  #F63;  */
 @other_dark: darken(@other, 25);
 @other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other, 45);
 
 @plum: #303;
 @peach: #FC9;
-@sand: #e5e0dc;
 
+@sand: #e5e0dc;
 @lightsand: lighten(@sand, 10%); 
 @darksand: darken(@sand, 5); 
 
@@ -317,11 +318,11 @@ body {
     clear: both;
   }
   .pw-contact-toll_free-wrapper {
-    font-size: 1.2em;
+    font-size: .9em;
     font-weight: bolder;
     background-color: @sunlight;
     .border-radius;
-    width: 200px;
+    max-width: 200px;
     margin: 2px;
   }
   dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
@@ -640,44 +641,43 @@ body {
   }
 }
 /* Main Editorial PAGE */
-/*
-.node-article.view-mode-full {
-  
-  li {
-    list-style: square;
-    margin: 4px 15px 4px 2px;
+.view-display-id-editorial_main_page {
+  letter-spacing: -0.06em;
+  line-height: 1.2em;
+  .views-field-field-image {
+    .center;
   }
-  #node_article_full_group_editorial_details {
-    float: left;
-    clear: left;
-    margin: 15px;
-    legend {
-      display: none;
-    }
+  .views-field-title {
+    text-align: center;
+    margin-top: 5px;
   }
-  #node_article_full_group_editorial_more {
-    margin: 15px;
-    float: left;
-    clear: left;
-    legend {
-      display: none;
-    }
+  .views-field-body p{
+    padding: 0 20px;
+    text-align: justify;
+
   }
-  .field-name-body {
-    margin: 20px 10px 0 60px;
-    p:first-child:first-line {
-      font-size: large;
-    }
-    br {
-      width: 100%;
-      height: 20px;
-      .border;
-      clear: both; 
-      padding: 20px;
-    }
+  .views-field-view-node a {
+    margin: 10px auto;
+    display: block;
+    padding: 2px 10px;
+    width: 200px;
+    background-color: @other_light;
+    color: @plum;
+    .border-radius;
+    text-align: center;
+    border: 1pt solid @other_light;
+  }
+  .views-field-view-node a:hover {
+    background-color: @other_extra_light;
   }
 }
-*/
+.editorial-page-highlight-attachment {
+  .views-field-field-image a img{
+    max-width: 580px;
+    max-height: 400px;
+  }
+}
+
 
 /*****************  CLASSIFIEDS  *****************/
 
@@ -712,18 +712,27 @@ body {
 /*   list-style: none; */
 }
 
+/* page title */
+.page-taxonomy-term h1#page-title {
+  margin: 0;
+  padding: 4px;
+}
 /* sub_section links BLOCK */
 #block-views-taxonomy-listing-tax-sub-list {
   background-color: @lightsand;
-  .border-radius;
+  margin: 0;
   width: 100%;
-  margin: 10px;
   .block-inner {
+    font-size: large;
     .center;
-    max-width: 480px;
+/*     max-width: 100%; */
+    margin: 0;
+    min-width: 100px;
   }
   h2.block-title {
+    margin: 0;
     text-align: center;
+    .border-radius(0);
   }
   ul.classified-sub_section-links {
     padding: 10px 30px 0px 30px;
