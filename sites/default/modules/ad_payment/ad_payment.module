@@ -64,9 +64,6 @@ function thankyou_page() {
 //   );
 // }
 
-
-
-
 /**
 * Implementation of custom page.
 *
@@ -140,7 +137,7 @@ function ad_payment_block_view($delta = '') {
     case 'ad_payment_create_ad':
       $block['subject'] = '<none>';
       $block['content'] = '<div id="ad-submission-link-wrapper">' . 
-        l('Submit Ad', 'submit-ad', array('attributes' => array('class' => 'ad-submission-link'),)) . 
+        l('Submit Ad', 'submit-ad', array('attributes' => array('class' => array('ad-submission-link')),)) . 
         '</div>';
       break;
   }
