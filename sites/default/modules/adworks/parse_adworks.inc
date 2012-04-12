@@ -22,18 +22,13 @@ function _adworks_pre_flight_ads($adworks) {
   
   // Parse ADWORKS->node->body for ads
   
-  // Find Adworks Copy.
- // $adworks = ($node->body) ? $node->body : $node['#node']->body;
- // if ($adworks) {
-    $ads = $adworks;
-
     // Collect Ads
-    preg_match_all('/(?<=\<begad>)(.+)(?=<endad>)/', $ads, $copy);
+    preg_match_all('/(?<=\<begad>)(.+)(?=<endad>)/', $adworks, $copy);
     $ad_count = count($copy[0]);
     $ad_count_message = 'Classified Ad Count: ' . $ad_count . '<br>';
 
     // Collect Images
-    preg_match_all('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ads, $images);
+    preg_match_all('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $adworks, $images);
     $image_count = count($images[0]);
     $image_count_message = 'Image Count: ' . $image_count . '<br>';
 
@@ -90,9 +85,6 @@ function _adworks_pre_flight_ads($adworks) {
 *    Associative array containing publishing start & end date for new nodes.
 *    - start: in UNIX epoch time.
 *    - end: in UNIX epoch time.
-*  @param bool $create_ads 
-*    BOOLEAN - TRUE will save created ads. 
-*    For testing and image verification purposes only.
 *  @param bool $check_images 
 *    BOOLEAN - TRUE will save images. 
 *    For testing and image verification purposes only.
@@ -104,7 +96,7 @@ function _adworks_pre_flight_ads($adworks) {
 *   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
-function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
+function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = NULL) {
   $image_count = 0;
   
   $new_ad = new StdClass();
@@ -131,7 +123,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
     $image_file = array_shift($found);
 
     // Create managed File Object and add Image fields.
-    if($image_file->uri) {      
+    if($image_file->uri && $check_images == TRUE) {      
       $file = (object) array(
         'uid' => 1,
         'uri' => $image_file->uri,
@@ -139,7 +131,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL) {
         'title' => 'Pennywise Classified Ad : ' . $image_file->name,
         'filemime' => 'image/jpeg',
       );
-      
       // Move image to Classified Image folder
       $file = file_copy($file, 'public://classified_ad_images', FILE_EXISTS_REPLACE);
       

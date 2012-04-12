@@ -376,7 +376,7 @@ body {
 }
 
 /********** HIDE ON MOBILE *****************/
-#zone-postscript, #zone-threeup, #region-header-second {
+#zone-postscript, #zone-threeup, #region-header-second, region-splash-one, #region-splash-two {
   display: none;
   height: 0px;
 }
@@ -391,6 +391,7 @@ body {
 #region-branding {
   width: 460px; /* Grid 6 */
 }
+
 
 /****************** HEADER *************************/
 #zone-menu, #region-header-first {
@@ -776,7 +777,22 @@ body {
       .classified-ad-copy:first-line {
         font-weight: bolder;
       }
+      /* more link */
+      .classified-ad-copy a {
+        font-size: .7em;
+        color: @plum;
+        background-color: @classified_light;
+        padding: 1px 2px;
+        border: 1pt solid @classified_light;
+        .border-radius;
+      }
+      .classified-ad-copy a:link:hover {
+        color: @white;
+        background-color: @classified_dark;
+        border: 1pt solid @other_dark;
+      }
   }
+  
     /* liveload */
     .row-type-Liveload {
       background-color: @sunlight;

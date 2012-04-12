@@ -78,35 +78,58 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 // }
 
 /**
-* Implementation of HOOK_form_validate() 
-*/
+ * Implementation of HOOK_form_validate() 
+ *
+ * Checks for administrative override.
+ * - runs preflight.
+ */
 function adworks_form_validate(&$form, &$form_state) {
 
-  // CHECK IMAGES
+  // Load & Run Preflight script -- checks images
   module_load_include('inc', 'adworks', 'parse_adworks');
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
+  $adworks_preflight = _adworks_pre_flight_ads($adworks_data);
 
-  // Image overide
-  $check_images = $form_state['values']['field_image_override']['und'][0]['value'];
-  if ($check_images) {
-    $adworks = _adworks_pre_flight_ads($adworks_data);
-    if ($adworks['status'] == FALSE) {
-      form_set_error('field_body', $adworks['message']);
-    }
-    else {
-      drupal_set_message($adworks['message'], 'status' );
-    }
+  // Preflight message
+  if ( $adworks_preflight['status'] == FALSE) {
+    drupal_set_message($adworks_preflight['message'], 'warning' );  
   }
   else {
-      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images are not being checked.</strong>', 'warning' );  
+    drupal_set_message($adworks_preflight['message'], 'status' );  
   }
+  
+  // Node Creation Override.
+  if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
+    form_set_error('field_ad_creation_override', 'No ads were created due to Override.');
+    return;
+  }
+
 
 }
 
 /**
-* Implementation of HOOK_form_submit
-*/
+ * Implementation of HOOK_form_submit
+ * 
+ * Create ads from adworks data.
+ * - If image check is off - do not attach images.
+ * - If preview --> exit.
+ * - Else create ads.
+ */
 function adworks_adworks_file_form_submit($form, &$form_state) {
+   // Preview Override
+  if ($form_state['clicked_button']['#submit'][0] == 'node_form_build_preview') {
+    drupal_set_message('<h2>Adworks Data Preview</h2>', 'alert' );
+    return;
+  }
+
+  // Image Check Override
+  if (!$form_state['values']['field_image_override']['und'][0]['value']) {
+    $check_images = FALSE;
+    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images were not attached!</strong>', 'warning' );  
+  }
+  else {
+    $chekc_images = TRUE;
+  }
 
   // Adworks Data
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
@@ -129,7 +152,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   $publish_date['end'] = strtotime($form_state['values']['field_publish']['und'][0]['value2']);
   
   // Check Overrides
-  // Image overide
+  // Image override
   //$check_images = $form_state['values']['field_image_override']['und'][0]['value'];  
   //dpm('PARSE: Image = ' . $check_images);
 
@@ -166,8 +189,6 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   if (!$create_ads) {
       drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );    
   }
-  
-  //return;
 
 }
 
