@@ -15,7 +15,11 @@
 
 @alert: #fe4e4e;
 @warning: #ff0;
-@status: #fc9;
+@status: #09c900;
+
+@alert_t: rgba(254,78,78,0.2);
+@warning_t: rgba(0,15,240,0.2);
+@status_t: rgba(9,201,0,0.2);
 
 
 .background-color-lighten(@colour, @amount: 10) {
@@ -235,5 +239,40 @@
   }
   .field-unpublish-link {
     background-color: @white;
+  }
+}
+
+/******************* Classifieds Table Layout ADMIN ********/
+/* #views-form-classified-ad-administration-classified-pagelink { */
+.vbo-views-form {
+  table {
+    /* status */
+    tr.classified-admin-table-row-published-Not {
+      background-color: @alert_t;
+      border-color: @alert;
+      border-width: 1pt 5pt;      
+    }
+    tr.classified-admin-table-row-published-Published {
+      border-color: @status;
+      border-width: 1pt 5pt;      
+    }
+    tr.odd.classified-admin-table-row-published-Not {
+      background-color: lighten(@alert_t, 10);
+      border-color: lighten(@alert, 10);
+      border-width: 1pt 5pt;      
+    }
+    tr.odd.classified-admin-table-row-published-Published {
+      border-color: lighten(@status, 10);
+    }
+  }
+
+  ul {
+    li {list-style: none;}
+  }
+  td.views-field-field-publish, td.views-field-unpublish-on, td.views-field-changed {
+    width: 250px;
+  }
+  td.views-field-field-tags {
+    width: 100px;
   }
 }
