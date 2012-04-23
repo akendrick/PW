@@ -168,18 +168,18 @@ function less_cron_queue_info() {
  *
  * @param $phase The phase in which hook_requirements is run: install or runtime.
  */
-function less_requirements($phase) {
-  if ($phase == 'runtime' && variable_get('less_devel', FALSE)) {
-    return array(
-      'LESS' => array(
-        'title' => 'LESS',
-        'value' => 'Developer mode enabled',
-        'description' => t('LESS files are being regenerated on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/settings/less'))),
-        'severity' => REQUIREMENT_WARNING,
-      ),
-    );
-  }
-}
+#function less_requirements($phase) {
+#  if ($phase == 'runtime' && variable_get('less_devel', FALSE)) {
+#    return array(
+#      'LESS' => array(
+#        'title' => 'LESS',
+#        'value' => 'Developer mode enabled',
+#        'description' => t('LESS files are being regenerated on every request. Remember to <a href="!url">turn off</a> this feature on production websites.', array("!url" => url('admin/settings/less'))),
+#        'severity' => REQUIREMENT_WARNING,
+#      ),
+#    );
+#  }
+#}
 
 function less_element_info_alter(&$type) {
   array_unshift($type['styles']['#pre_render'], '_less_pre_render');
