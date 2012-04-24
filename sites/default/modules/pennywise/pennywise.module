@@ -150,10 +150,16 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 }
 
 /**
-* Implementation of HOOK_block_info
-*
-* Adding basic theme blocks for Context and Delta.
-*/
+ * Implementation of HOOK_block_info
+ *
+ * Adding basic theme blocks for Context and Delta.
+ * @var pw_logo
+ * - Custom Logo block
+ * @var pw_contact
+ * - Custom contact info block
+ * @var pw_breadcrumb
+ * - Custom breadcrumb box
+ */
 function pennywise_block_info() {
   $blocks['pw_logo'] = array(
     'info'    => t('PW Logo'),
@@ -167,13 +173,21 @@ function pennywise_block_info() {
     'visibility' => 0,
     'cache' => 8,
   );
+  $blocks['pw_breadcrumb'] = array(
+    'info'    => t('PW BreadCrumbs'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
   
   return $blocks;
 }
 
 /**
-* Implementation of HOOK_block_configure
-*/
+ * Implementation of HOOK_block_configure
+ *
+ * Configuration options for Contact information block.
+ */
 function pennywise_block_configure($delta) {
   $form = array();
   switch($delta) {
@@ -242,8 +256,13 @@ function pennywise_block_save($delta = '', $edit = array()) {
 }
 
 /**
-* Implementation of HOOK_block_view
-*/
+ * Implementation of HOOK_block_view
+ *
+ * Call custom block details.
+ * - Logo block
+ * - Contact block
+ * - Breadcrumb block
+ */
 function pennywise_block_view($delta = '') {
   switch($delta) {
     case 'pw_logo':
@@ -278,8 +297,13 @@ function pennywise_block_view($delta = '') {
       }      
       $content .= '</dl>';
 
-      break;   
-}
+      break;  
+    case 'pw_breadcrumb':
+      $subject = '';
+     // $breadcrumb = theme('breadcrumb', 'test');
+      $content = "<div id='pw-breadcrumb' >breadcrumb block test $breadcrumb </div>";
+      break;  
+  }
   $block = array(
     'subject' => $subject,
     'content' => $content,

@@ -459,7 +459,29 @@ body {
   }
 }
 
-
+/* Super Menu */
+ul#megamenu-menu-pw-super-menu {
+  padding: 2px 4px 3px 2px;
+  margin: 0 0 10px 0;
+  background-color: @classified_dark;
+  a { color: @white; }
+  a:hover { background-color: @classified_light; color: @black; }
+  a:visited { background-color: @classified_med; color: @white; }
+  li { 
+    .border-radius(0); 
+    background-color: @classified_dark; 
+    color: @white; 
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    line-height: 1em;
+    width: 150px;
+  }
+  h3 {
+    background-color: #classified_med;
+    font-size: 1em;
+  }
+}
 
 /*****************  DISPLAY ADS  *****************/
 
@@ -499,6 +521,25 @@ body {
     .img {
       margin: 4px auto 20px auto;
       display: block;
+    }
+  }
+}
+
+/* display ad pages - simple page */
+#region-user-second {
+  #edit-search-ads-wrapper {
+    color: @white;
+    text-align: center;
+  }
+}
+.node-type-display-ads {
+  .ds-2col-stacked.node-display-ads {
+    .field-name-field-display-ad {
+      a {
+        img {
+          .center;
+        }
+      }
     }
   }
 }

@@ -144,20 +144,31 @@
 }
 /*************************** ADMIN Interface */
 .view-display-admin-v2 table,
-.view-id-editorial_administration table {
+.view-id-editorial_administration table,
+.view-id-page_administration table {
   border: none;
 }
 .view-display-admin-v2 td.editorial-col,
 .view-id-editorial_administration td.editorial-col,
+.view-id-page_administration td.editorial-col,
 .view-display-admin-v2 td.display-col,
-.view-id-editorial_administration td.display-col {
+.view-id-editorial_administration td.display-col,
+.view-id-page_administration td.display-col,
+.view-display-admin-v2 td,
+.view-id-editorial_administration td,
+.view-id-page_administration td {
   width: 15%;
   vertical-align: bottom;
 }
 .view-display-admin-v2 td.editorial-col .views-field-status,
 .view-id-editorial_administration td.editorial-col .views-field-status,
+.view-id-page_administration td.editorial-col .views-field-status,
 .view-display-admin-v2 td.display-col .views-field-status,
-.view-id-editorial_administration td.display-col .views-field-status {
+.view-id-editorial_administration td.display-col .views-field-status,
+.view-id-page_administration td.display-col .views-field-status,
+.view-display-admin-v2 td .views-field-status,
+.view-id-editorial_administration td .views-field-status,
+.view-id-page_administration td .views-field-status {
   border-radius: 10px 10px 0 0;
   -moz-border-radius: 10px 10px 0 0;
   -webkit-border-radius: 10px 10px 0 0;
@@ -168,30 +179,55 @@
 }
 .view-display-admin-v2 td.editorial-col .Enabled,
 .view-id-editorial_administration td.editorial-col .Enabled,
+.view-id-page_administration td.editorial-col .Enabled,
 .view-display-admin-v2 td.display-col .Enabled,
-.view-id-editorial_administration td.display-col .Enabled {
+.view-id-editorial_administration td.display-col .Enabled,
+.view-id-page_administration td.display-col .Enabled,
+.view-display-admin-v2 td .Enabled,
+.view-id-editorial_administration td .Enabled,
+.view-id-page_administration td .Enabled {
   background-color: #ffffcc;
 }
 .view-display-admin-v2 td.editorial-col .Disabled,
 .view-id-editorial_administration td.editorial-col .Disabled,
+.view-id-page_administration td.editorial-col .Disabled,
 .view-display-admin-v2 td.display-col .Disabled,
-.view-id-editorial_administration td.display-col .Disabled {
+.view-id-editorial_administration td.display-col .Disabled,
+.view-id-page_administration td.display-col .Disabled,
+.view-display-admin-v2 td .Disabled,
+.view-id-editorial_administration td .Disabled,
+.view-id-page_administration td .Disabled {
   background-color: #39ff30;
 }
 .view-display-admin-v2 td.editorial-col .field-promote-status-Promoted,
 .view-id-editorial_administration td.editorial-col .field-promote-status-Promoted,
+.view-id-page_administration td.editorial-col .field-promote-status-Promoted,
 .view-display-admin-v2 td.display-col .field-promote-status-Promoted,
-.view-id-editorial_administration td.display-col .field-promote-status-Promoted {
+.view-id-editorial_administration td.display-col .field-promote-status-Promoted,
+.view-id-page_administration td.display-col .field-promote-status-Promoted,
+.view-display-admin-v2 td .field-promote-status-Promoted,
+.view-id-editorial_administration td .field-promote-status-Promoted,
+.view-id-page_administration td .field-promote-status-Promoted {
   background-color: #046300;
 }
 .view-display-admin-v2 td.editorial-col .views-field,
 .view-id-editorial_administration td.editorial-col .views-field,
+.view-id-page_administration td.editorial-col .views-field,
 .view-display-admin-v2 td.display-col .views-field,
 .view-id-editorial_administration td.display-col .views-field,
+.view-id-page_administration td.display-col .views-field,
+.view-display-admin-v2 td .views-field,
+.view-id-editorial_administration td .views-field,
+.view-id-page_administration td .views-field,
 .view-display-admin-v2 td.editorial-col .views-field-item,
 .view-id-editorial_administration td.editorial-col .views-field-item,
+.view-id-page_administration td.editorial-col .views-field-item,
 .view-display-admin-v2 td.display-col .views-field-item,
-.view-id-editorial_administration td.display-col .views-field-item {
+.view-id-editorial_administration td.display-col .views-field-item,
+.view-id-page_administration td.display-col .views-field-item,
+.view-display-admin-v2 td .views-field-item,
+.view-id-editorial_administration td .views-field-item,
+.view-id-page_administration td .views-field-item {
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -199,16 +235,26 @@
 }
 .view-display-admin-v2 td.editorial-col .views-field-bulk-actions,
 .view-id-editorial_administration td.editorial-col .views-field-bulk-actions,
+.view-id-page_administration td.editorial-col .views-field-bulk-actions,
 .view-display-admin-v2 td.display-col .views-field-bulk-actions,
-.view-id-editorial_administration td.display-col .views-field-bulk-actions {
+.view-id-editorial_administration td.display-col .views-field-bulk-actions,
+.view-id-page_administration td.display-col .views-field-bulk-actions,
+.view-display-admin-v2 td .views-field-bulk-actions,
+.view-id-editorial_administration td .views-field-bulk-actions,
+.view-id-page_administration td .views-field-bulk-actions {
   width: 8%;
   padding: 4px 4px 15px 4px;
   float: left;
 }
 .view-display-admin-v2 td.editorial-col .views-field-title a,
 .view-id-editorial_administration td.editorial-col .views-field-title a,
+.view-id-page_administration td.editorial-col .views-field-title a,
 .view-display-admin-v2 td.display-col .views-field-title a,
-.view-id-editorial_administration td.display-col .views-field-title a {
+.view-id-editorial_administration td.display-col .views-field-title a,
+.view-id-page_administration td.display-col .views-field-title a,
+.view-display-admin-v2 td .views-field-title a,
+.view-id-editorial_administration td .views-field-title a,
+.view-id-page_administration td .views-field-title a {
   text-decoration: none;
   font-weight: bolder;
   font-size: 1em;
@@ -218,21 +264,36 @@
 }
 .view-display-admin-v2 td.editorial-col .views-field-body,
 .view-id-editorial_administration td.editorial-col .views-field-body,
+.view-id-page_administration td.editorial-col .views-field-body,
 .view-display-admin-v2 td.display-col .views-field-body,
-.view-id-editorial_administration td.display-col .views-field-body {
+.view-id-editorial_administration td.display-col .views-field-body,
+.view-id-page_administration td.display-col .views-field-body,
+.view-display-admin-v2 td .views-field-body,
+.view-id-editorial_administration td .views-field-body,
+.view-id-page_administration td .views-field-body {
   height: 60px;
   overflow: hidden;
 }
 .view-display-admin-v2 td.editorial-col .field-promote-status--promote,
 .view-id-editorial_administration td.editorial-col .field-promote-status--promote,
+.view-id-page_administration td.editorial-col .field-promote-status--promote,
 .view-display-admin-v2 td.display-col .field-promote-status--promote,
-.view-id-editorial_administration td.display-col .field-promote-status--promote {
+.view-id-editorial_administration td.display-col .field-promote-status--promote,
+.view-id-page_administration td.display-col .field-promote-status--promote,
+.view-display-admin-v2 td .field-promote-status--promote,
+.view-id-editorial_administration td .field-promote-status--promote,
+.view-id-page_administration td .field-promote-status--promote {
   border-bottom: 10pt solid #ffff00;
 }
 .view-display-admin-v2 td.editorial-col .new-marker .marker,
 .view-id-editorial_administration td.editorial-col .new-marker .marker,
+.view-id-page_administration td.editorial-col .new-marker .marker,
 .view-display-admin-v2 td.display-col .new-marker .marker,
-.view-id-editorial_administration td.display-col .new-marker .marker {
+.view-id-editorial_administration td.display-col .new-marker .marker,
+.view-id-page_administration td.display-col .new-marker .marker,
+.view-display-admin-v2 td .new-marker .marker,
+.view-id-editorial_administration td .new-marker .marker,
+.view-id-page_administration td .new-marker .marker {
   width: 83%;
   border-radius: 0 0 8px 8px;
   -moz-border-radius: 0 0 8px 8px;
@@ -250,12 +311,18 @@
 }
 .view-display-admin-v2 td.editorial-col .no-marker,
 .view-id-editorial_administration td.editorial-col .no-marker,
+.view-id-page_administration td.editorial-col .no-marker,
 .view-display-admin-v2 td.display-col .no-marker,
-.view-id-editorial_administration td.display-col .no-marker {
+.view-id-editorial_administration td.display-col .no-marker,
+.view-id-page_administration td.display-col .no-marker,
+.view-display-admin-v2 td .no-marker,
+.view-id-editorial_administration td .no-marker,
+.view-id-page_administration td .no-marker {
   display: none;
 }
 .view-display-admin-v2 .field-publish-link,
-.view-id-editorial_administration .field-publish-link {
+.view-id-editorial_administration .field-publish-link,
+.view-id-page_administration .field-publish-link {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -272,8 +339,13 @@
   text-transform: uppercase;
 }
 .view-display-admin-v2 .field-unpublish-link,
-.view-id-editorial_administration .field-unpublish-link {
+.view-id-editorial_administration .field-unpublish-link,
+.view-id-page_administration .field-unpublish-link {
   background-color: #ffffff;
+}
+/* page admin */
+.view-id-page_administration.view-display-id-page table td {
+  vertical-align: bottom;
 }
 /******************* Classifieds Table Layout ADMIN ********/
 /* #views-form-classified-ad-administration-classified-pagelink { */

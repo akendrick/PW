@@ -169,9 +169,9 @@
 }
 
 /*************************** ADMIN Interface */
-.view-display-admin-v2, .view-id-editorial_administration  {
+.view-display-admin-v2, .view-id-editorial_administration, .view-id-page_administration  {
   table { border: none; }
-  td.editorial-col, td.display-col {
+  td.editorial-col, td.display-col, td {
     width: 15%;
     vertical-align: bottom;
 
@@ -239,6 +239,13 @@
   }
   .field-unpublish-link {
     background-color: @white;
+  }
+}
+
+/* page admin */
+.view-id-page_administration.view-display-id-page {
+  table {
+    td { vertical-align: bottom; }
   }
 }
 
