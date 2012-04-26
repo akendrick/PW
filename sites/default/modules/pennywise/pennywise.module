@@ -14,7 +14,7 @@
  *  - Seperate Contact Block THEME layer.
  */
 
-define ('DEBUG', TRUE);
+define ('DEBUG', FALSE);
 
 /**
  * Implementation of HOOK_page
@@ -25,6 +25,10 @@ function pennywise_init() {
 
 }
 
+
+function pennywise_page_alter(&$page) {
+  // dpm($page);
+}
 
 /**
  * Implementation of HOOK_menu
@@ -299,9 +303,32 @@ function pennywise_block_view($delta = '') {
 
       break;  
     case 'pw_breadcrumb':
+      $site_path = $base_url . base_path();
+    
       $subject = '';
-     // $breadcrumb = theme('breadcrumb', 'test');
-      $content = "<div id='pw-breadcrumb' >breadcrumb block test $breadcrumb </div>";
+      $url = current_path();
+
+      $address_string = explode('/', $url);
+      $page_id = array_pop($address_string);
+      $term = taxonomy_term_load($page_id);
+      
+      $home = "<a href='$site_path'>  Classifieds >> </a>";
+      
+      if ($term->tid) {
+        // If taxonomy term load current page into breadcrumbs.
+        $child = "<a href='$site_path/taxonomy/term/" . $term->tid . "'> " . $term->name . " </a>";
+        $ancestor = db_query('SELECT parent FROM {taxonomy_term_hierarchy} WHERE tid = :tid', array(':tid' => $term->tid))->fetchField();
+        
+        // Load Parent - if any;
+        if ($ancestor) {
+            $parent = taxonomy_term_load($ancestor);
+            $parent = "<a href='$site_path/taxonomy/term/" . $parent->tid . "'>  " . $parent->name . " >> </a>";
+        }
+        $content = "<div id='pw-breadcrumb' >$home $parent $child </div>";
+      }
+      else {
+        $content = '';
+      }
       break;  
   }
   $block = array(
