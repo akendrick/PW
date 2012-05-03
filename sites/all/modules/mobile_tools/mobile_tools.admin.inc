@@ -13,20 +13,25 @@
  */ 
 function mobile_tools_configuration_form() {
   global $base_url;
-  $form['mobile_tools_configuration'] = array(
+  $form['general'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('General'),
+  );
+  
+  $form['general']['mobile_tools_configuration'] = array(
     '#type' => 'fieldset',
     '#title' => 'General configuration',
     '#description' => 'Enter the mobile and desktop url for your site. If both urls are equal there will be no redirection, but only theme switching. Go to "theme switching" to configure the theme',
     '#collapsible' => TRUE,
   );
   
-  $form['mobile_tools_configuration']['mobile_tools_mobile_url'] = array(
+  $form['general']['mobile_tools_configuration']['mobile_tools_mobile_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Mobile URL'),
     '#description' => t('Give the name of your mobile site. It is recommended to use the convention of m.domain .com or www.domain.mobi'),
     '#default_value' => variable_get('mobile_tools_mobile_url', mobile_tools_create_mobile_url($base_url)),
   );
-  $form['mobile_tools_configuration']['mobile_tools_desktop_url'] = array(
+  $form['general']['mobile_tools_configuration']['mobile_tools_desktop_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Desktop URL'),
     '#description' => t('Give the name of your regular website.'),
@@ -34,14 +39,21 @@ function mobile_tools_configuration_form() {
     '#default_value' => variable_get('mobile_tools_desktop_url', $base_url)
   );
   
- $form['mobile_tools_redirection'] = array(
+ $form['general']['mobile_tools_redirection'] = array(
     '#type' => 'fieldset',
     '#title' => t('Redirection options'),
     '#collapsible' => TRUE,  
     '#collapsed' => TRUE,
   );
   
-  $form['mobile_tools_redirection']['mobile_tools_redirect'] = array(
+  // @todo add detection for aggressive caching and disable redirection field
+  // @todo add form alter on caching form to disable the redirection flag
+  // @todo change options for redirect to the following:
+  //  - none
+  //  - first page (redirect the user when they view their first page, i.e. when they create their session)
+  //  - automatic (redirect on all pages)
+  
+  $form['general']['mobile_tools_redirection']['mobile_tools_redirect'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable automatic redirection of the mobile user'),
     '#default_value' => variable_get('mobile_tools_redirect', FALSE),
@@ -50,28 +62,28 @@ function mobile_tools_configuration_form() {
     will set a cookie that remembers that the user does not want to be redirected. To undo, add ?device=auto',
   );
   
-  $form['mobile_tools_redirection']['mobile_tools_cookie_session'] = array (
+  $form['general']['mobile_tools_redirection']['mobile_tools_cookie_session'] = array (
     '#type' => 'textfield',
     '#title' => 'Redirection cookie    (seconds)',
     '#description' => t('This field is only used when using the "?device=" setting. This is the lifetime of the cookie that determines how long the session is remembered. Choose 0 for only the session.'),
     '#default_value' => variable_get('mobile_tools_cookie_session', 3600*24*30),
   );
   
-  $form['mobile_tools_redirection']['mobile_tools_redirect_exceptions_type'] = array(
+  $form['general']['mobile_tools_redirection']['mobile_tools_redirect_exceptions_type'] = array(
   	'#type' => 'radios',
     '#title' => 'exception type',
     '#options' => array('not-redirect' => 'Do not redirect from the following pages', 'only-redirect' => 'Do only redirect from the following pages' ),
     '#default_value' => variable_get('mobile_tools_redirect_exceptions_type', 'not-redirect'),
   );
   
-  $form['mobile_tools_redirection']['mobile_tools_redirect_exceptions'] = array(
+  $form['general']['mobile_tools_redirection']['mobile_tools_redirect_exceptions'] = array(
   	'#type' => 'textarea',
     '#title' => 'redirection exceptions',
     '#description' => t('Give the paths to pages that should not be redirected. Put each path on a separate line. The \'*\' character is a wildcard.'),
     '#default_value' => variable_get('mobile_tools_redirect_exceptions', ''),
   );
   
-  $form['mobile_tools_notification'] = array(
+  $form['general']['mobile_tools_notification'] = array(
     '#type' => 'fieldset',
     '#title' => t('Mobile Tools block message options'),
     '#collapsed' => TRUE,
@@ -79,20 +91,15 @@ function mobile_tools_configuration_form() {
     '#description' => t('You can create a block with a different message on the mobile site than the desktop site. This can be for example used to create a link back to the deskop or mobile site (e.g. view Mobile | Desktop)'),
   );
 
-  $form['mobile_tools_notification']['mobile_notification'] = array(
+  $form['general']['mobile_tools_notification']['mobile_tools_switch_link_text'] = array(
     '#type' => 'textarea',
     '#rows' => 2,
-    '#title' => t('On the Mobile site'),
-    '#default_value' => variable_get('mobile_notification', MOBILE_NOTIFICATION),
+    '#title' => t('Block text'),
+    '#description' => t('If you would like to include the name of the device group in your text, add &#64;device to your text. It will be replaced by the name of the device group.'),
+    '#default_value' => variable_get('mobile_tools_switch_link_text', MOBILE_TOOLS_SWITCH_LINK_TEXT),
   );
-  $form['mobile_tools_notification']['desktop_notification'] = array(
-    '#type' => 'textarea',
-    '#title' => t('On the desktops site'),
-    '#rows' => 2,
-    '#default_value' => variable_get('desktop_notification', DESKTOP_NOTIFICATION),
-  ); 
    
-   $form['build_mode'] = array(
+   $form['general']['build_mode'] = array(
     '#type' => 'fieldset',
     '#title' => t('Mobile Tools Build Mode'),
     '#collapsible' => TRUE,
@@ -100,22 +107,22 @@ function mobile_tools_configuration_form() {
     '#description' => t('Enable a Mobile Build mode'),
   );
   
-  $form['build_mode']['mobile_tools_enable_build_mode'] = array(
+  $form['general']['build_mode']['mobile_tools_enable_build_mode'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable a Mobile Tools display mode'),
     '#default_value' => variable_get('mobile_tools_enable_build_mode', 0),
     '#description' => t('New build modes will be available in the Content Types configuration page (see Manage Display)'),
   );
   
-  $form['extra'] = array(
+  $form['general']['extra'] = array(
     '#type' => 'fieldset',
-    '#title' => 'extra',
+    '#title' => 'Other Options',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
   
 
-  $form['extra']['default_nodes_main_mobile'] = array(
+  $form['general']['extra']['default_nodes_main_mobile'] = array(
       '#type' => 'select',
       '#title' => t('Number of posts on main page for the mobile version'),
       '#default_value' => variable_get('default_nodes_main_mobile', 10),
@@ -138,7 +145,7 @@ function mobile_tools_configuration_form() {
       '#description' => t('The default maximum number of posts to display per page on overview pages such as the main page (on Mobile).'),
   );
 
-  $form['extra']['site_frontpage_mobile'] = array(
+  $form['general']['extra']['site_frontpage_mobile'] = array(
     '#type' => 'textfield',
     '#title' => t('Choose another frontpage for mobile visitors.'),
     '#default_value' => variable_get('site_frontpage_mobile', variable_get('site_frontpage', 'node')),
@@ -159,6 +166,16 @@ function mobile_tools_configuration_form_validate($form, &$form_state) {
   variable_set('menu_rebuild_needed', TRUE);
 }
 
+/**
+ * Configuration form for Space related settings
+ */
+function mobile_tools_configuration_spaces_form($form, &$form_state) {
+  $form = array();
+  
+  // @todo
+
+  return system_settings_form($form);
+}
 
  /**
  * Configuration form for configuring the mobile context in the theming system
@@ -185,8 +202,8 @@ function mobile_tools_themes_configuration_form() {
     '#type' => 'radios',
     '#title' => t('When do you want to switch themes'),
     '#default_value' => variable_get('mobile_tools_theme_switch', 'mobile-tools-no-switch'),
-    '#options' =>   array('mobile-tools-no-switch' => 'No theme switch', 'mobile-tools-mobile-device' => 'Switch theme for a mobile device *', 'mobile-tools-mobile-url' => 'Switch theme based on the URL'),
-    '#description' => 'Choose one of these methods. *This is not recommended since using 1 url for both mobile and desktop site disable the drupal caching.',
+    '#options' =>   array('mobile-tools-no-switch' => 'No theme switch', 'mobile-tools-mobile-url' => 'Switch theme based on the URL'),
+    '#description' => 'Choose one of these methods. To change theme based on device, ensure device redirection is enabled. *Note these settings will be replaced by the new device groups options.',
   );
   if (count($themes) > 0 ) {
    $form['mobile_tools_theme_configuration']['mobile_tools_theme_name'] = array(
@@ -291,80 +308,31 @@ function mobile_tools_configuration_options($configuration) {
 }
 
 /**
- * Configuration of external modules
- *  
+ * Helper function to assist in making a mobile url (m.*) from a given url
+ *
+ * @param $url
+ *  orginal url
+ * @return
+ *  the mobile url
  */
-function mobile_tools_external_modules_configuration_form() {
-  $form['mobile_tools_detection'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('External detection modules'),
-    '#collapsible' => TRUE,
-    '#description' => t('You can let other modules do the device detection or detect if your site is being mobilised.'),
-  );
-  $form['mobile_tools_detection']['mobile_tools_device_detection'] = array(
-    '#type' => 'radios',
-    '#title' => 'Device detection module',
-    '#default_value' => variable_get('mobile_tools_device_detection', 'mobile_tools'),
-    '#options' => _mobile_tools_external('device-detection'),
-    '#description' => t('Choose which module is in charge for detecting if the visiting device is a mobile device. The Mobile Tools provides a standard implementation. You can also use other modules'),
-  );
+function mobile_tools_create_mobile_url($url) {
   
-  $device_capability =  _mobile_tools_external('device-capability');
-  $mess = '';
-  if (count($device_capability) == 0) {
-    $mess = 'No device capability modules installed';
+  // @todo replace with a PURL provider definition
+  
+  $url_parsed = parse_url($url);
+  if (!array_key_exists('path', $url_parsed)) {
+    $url_parsed['path'] = "";
   }
-  $form['mobile_tools_detection']['mobile_tools_device_capabilities'] = array(
-    '#type' => 'radios',
-    '#title' => 'Device capability detection',
-    '#default_value' => variable_get('mobile_tools_device_capabilities', 'wurfl'),
-    '#options' => $device_capability,
-    '#prefix' => $mess,
-    '#description' => t('The mobile tools module gives an abstract api in order to get capabilities of the mobile devices. These capability can be fetched by calling mobile_tools_devicecapability($capability). Capability can be for example "is_wireless_device". A full range of parameters can be found on !wurfl you need at least one capability module (like !wurfl2) to use this functionality', array('!wurfl' => l('http://wurfl.sourceforge.net/help_doc.php', 'http://wurfl.sourceforge.net/help_doc.php'), '!wurfl2' => l('http://drupal.org/project/wurfl', 'http://drupal.org/project/wurfl')))
-  );
-  return system_settings_form($form);
-} 
-
-/**
- *  Helper function to return the options for definition of the Drupal usage
- */ 
-function mobile_tools_site_type_options() {
-  $options = array('mobile' => t('Only the mobile site'),  'desktop' => t('only the deskop site'), 'mobile-desktop' => t('for both mobile and desktop site'));  
-  return $options;
-} 
-
-/**********************************************************
- * Helper function to integrate with third party modules  *
- **********************************************************/ 
-/**
- *  Help function that retrieves the modules that implement the 
- *  hook_is_mobile_device() or hook_is_mobile_site() hooks. 
- */  
-function _mobile_tools_external($type) {
-  switch ($type) {
-    case 'device-detection':
-      $modules = mobile_tools_get_module_names(module_implements('is_mobile_device'));
-    break;
-    case 'device-capability':
-      $modules = mobile_tools_get_module_names(module_implements('devicecapability'));
-      unset($modules['mobile_tools']);
-    break;
-  }  
-  return $modules;
-} 
-/**
- * return the human readable name of the modules
- */ 
-function mobile_tools_get_module_names($modules) {
-  $output = array();
-  foreach ($modules as $module_value) {
-    $query = "SELECT * FROM {system} WHERE type = 'module' AND name = :name";
-    $item = db_query($query, array(':name' => $module_value))->fetchObject();
-    if (!empty($item)) {
-      $info = $item->info;
-      $info = unserialize($info);
-      $output[$module_value] = $info['name']; 
-    }
+  $url = $url_parsed['host'];
+  $url = explode('.', $url);
+  if (count($url) == 3 ) {
+    $url[0] = 'm';
+    return 'http://' . implode('.', $url)  . $url_parsed['path'];
   }
-  return $output;
+  elseif (count($url) == 2) {
+    return 'http://m.' . implode('.', $url)  . $url_parsed['path'];
+  }
+  else {
+    return 'http://' .  implode('.', $url)  . $url_parsed['path'] . '/mobile';
+  }
 }
