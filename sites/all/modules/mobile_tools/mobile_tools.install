@@ -6,6 +6,27 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function mobile_tools_install() {
+  // @todo adjust module weight to alongside any dependency modules
+}
+
+/**
+ * Implements hook_schema().
+ */
+function mobile_tools_schema() {
+  $schema = array();
+  
+  // Cache table for storing device groups
+  //$schema['cache_mobile_tools_device_group'] = array();
+  
+  return $schema;
+}
+
+
+
+/**
  * Implements hook_uninstall().
  *
  * Removing the mobile user roles from the role table
@@ -59,3 +80,17 @@ function mobile_tools_update_7200() {
 
   return $t('Renamed incorrect variable names.');
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Adds the new device group table
+ */
+//function mobile_tools_update_7201(&$sandbox) {
+  //$schema = array();
+  
+  //$schema['cache_mobile_tools_device_group'] = array();
+  
+  //drupal_create_table('cache_mobile_tools_device_group', $schema);
+//}
+
