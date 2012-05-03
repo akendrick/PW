@@ -45,12 +45,12 @@ function ad_payment_form(&$form, $form_state) {
   $form['#groups']['group_payment']->children[] = 'field_exp_month';
   $form['#groups']['group_payment']->children[] = 'field_exp_year';
 
-  $form['#group_children']['field_card_type'] = 'group_payment';
+  $form['#group_children']['field_card_type']  = 'group_payment';
   $form['#group_children']['field_first_name'] = 'group_payment';
-  $form['#group_children']['field_last_name'] = 'group_payment';
-  $form['#group_children']['field_cc_number'] = 'group_payment';
-  $form['#group_children']['field_exp_month'] = 'group_payment';
-  $form['#group_children']['field_exp_year'] = 'group_payment';
+  $form['#group_children']['field_last_name']  = 'group_payment';
+  $form['#group_children']['field_cc_number']  = 'group_payment';
+  $form['#group_children']['field_exp_month']  = 'group_payment';
+  $form['#group_children']['field_exp_year']   = 'group_payment';
 
   // Display Form
   $form['field_first_name'] = array(

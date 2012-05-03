@@ -231,7 +231,7 @@ body {
     }
       /* all lists in blocks lose their bullets */
     li {
-      list-style: none;
+      list-style: square;
     }
   }
   blockquote {
@@ -831,6 +831,7 @@ ul#megamenu-menu-pw-super-menu {
     list-style: none;
     /* .cols; */
     li {
+      list-style: none;
       padding: 4px;
       margin: 4px 0;
       /* Individual Ads */
@@ -1057,13 +1058,39 @@ body.page-submit-ad {
       display: none;
     }
       /* hide details */
-    #edit-field-ad-details {
+    #edit-field-ad-details, #field-ad-details-add-more-wrapper {
       display: none;
     }
     
       /*large ad copy body*/
     #edit-field-ad-copy-und-0-value {
       font-size: 1.4em;
+    }
+
+    /*empty summary box*/
+    .ad-summary-directions { 
+      h4 { 
+        background-color: @classified_med; 
+        .border-radius-custom;
+        text-align: center;
+        color: @white;
+        margin: 0;
+        padding: 4px;
+      }
+      color: @white;
+      padding: 5px;
+      background-color: @classified_med;
+      .border-radius-custom(0, 0, 10px, 10px); 
+      ul {
+        margin: 0 0 0 20px;
+        padding: 0 5px 5px 10px;
+        li {
+          font-size: 1em;
+          line-height: 1.2em;
+          margin-bottom: 6px;
+          list-style-position: outside;
+        }
+      } 
     }
     #ad-summary {
       height: 280px;
@@ -1166,8 +1193,7 @@ body.page-submit-ad {
     }
     
       /*payment*/
-    #node_ad_s_form_group_payment {
-      .fieldset-wrapper {
+    #node_ad_s_form_group_payment .fieldset-wrapper, .field-name-field-agree {
         width: 300px;
         margin: 0 auto 0 auto;
         display: block;

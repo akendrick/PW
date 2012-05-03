@@ -345,8 +345,8 @@ Drupal.adPayment.displayMsg = function() {
   // Summary - quick feedback as you type.
   ad.msg.summary = 
     '<div id="ad-summary">' 
-     + '<div id="ad-summary-price" class="block summary-price-block">'
-     + '<h2>Summary</h2>'
+     + '<div id="ad-summary-price" class="block summary-price-block block-details">'
+     + '<h4 class="ad-summary-header">Summary</h4>'
      + '<dl class="ad-summary">'
      + '<span class="ad-summary-block">' + ad.msg.areaListSum  + '</span>' 
      + '<span class="ad-summary-block">' + ad.msg.durationSum  + '</span>' 
@@ -419,7 +419,8 @@ jQuery(document).ready(function() {
     
     // Create DIV for OverView
     //jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
-    jQuery('.group-ad-copy-block').append('<div id="ad-review"></div>');
+    var boxDetails = '<div id="ad-review" class="ad-review-empty-box"> <div id="ad-summary" class="block summary-price-block ad-summary-directions"> <h4 class="ad-summary-header">Directions</h4><ul class="ad-summary-list"> <li>Begin by typing your ad in the <em>Ad Copy</em> box.</li> <li>Below that are your preferences for how & where you want your ad displayed.</li> <li>To get help your ad get noticed check out step <em>2: Options</em>.</li> <li>Enter credit card information in step <em>3: Payment</em>.</li> <li>When satisfied with your ad go to step <em>Review & Submit</em> to submit your finished ad.</li></ul></div></div>';
+    jQuery('.group-ad-copy-block').prepend(boxDetails);
 //    jQuery('#ad-review ').hide();
 
     // DIV for ReView
