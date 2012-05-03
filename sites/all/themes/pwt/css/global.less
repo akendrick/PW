@@ -461,25 +461,48 @@ body {
 
 /* Super Menu */
 ul#megamenu-menu-pw-super-menu {
-  padding: 2px 4px 3px 2px;
-  margin: 0 0 10px 0;
-  background-color: @classified_dark;
-  a { color: @white; }
-  a:hover { background-color: @classified_light; color: @black; }
-  a:visited { background-color: @classified_med; color: @white; }
-  li { 
-    .border-radius(0); 
-    background-color: @classified_dark; 
-    color: @white; 
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    line-height: 1em;
-    width: 150px;
-  }
-  h3 {
-    background-color: #classified_med;
-    font-size: 1em;
+  ul.megamenu-bin {
+    .box-shadow;
+    li {
+      padding: 0; margin: 0;
+      .border-radius(0);
+    }
+    li.megamenu-slot {
+      margin-top: 3px;
+      background-color: @classified_light;
+      h3 a{ 
+        .border-radius(0);
+        font-size: 100%;
+        line-height: .9em;
+        color: @black; 
+      }
+      a:hover {
+        background-color: @classified_med;
+        color: @white
+      }
+    }
+    li.megamenu-slot-title {
+      font-size: 1em;
+    }
+    ul.megamenu-items {
+      li.megamenu-item {
+        background-color: @white;
+        line-height: .8em;
+        a { 
+          .border-radius(0);
+          font-size: .9em;
+          color: @classified_dark; 
+        }
+        a:hover {
+          background-color: darken(@classified_light, 5);
+          color: @black;
+        }
+      }
+      li.even {
+        background-color: @sand;
+      }
+    }
+  
   }
 }
 
@@ -892,6 +915,80 @@ ul#megamenu-menu-pw-super-menu {
 
 /*****************  SPECIFIC PAGES  *****************/
 
+/* LOGIN PAGE */
+.not-logged-in.page-user, .not-logged-in.page-submit-ad {
+  #region-content {
+    background-color: transparent;
+  }
+  background-color: transparent;
+  .login {
+    background-color: transparent;
+  }
+  #login-message {
+    background-color: @alert;
+    color: @white;
+    font-weight: bold;
+    padding: 10px;
+    .border-radius;
+  }
+  #user-login {
+    background-color: @darksand;
+    .border-radius;      
+    border: 1px solid @plum;
+    padding: 10px 30px;
+    margin: 0px;
+    .form-item {
+      width: 100%;
+      label {
+        padding: 2px;
+      }
+      input {
+      }
+    }
+  }
+  #user-register-form {
+    background-color: @sunlight;
+    .border-radius;      
+    border: 1px solid @plum;
+    padding: 10px 30px;
+    margin: 0px;
+    .form-item {
+      width: 100%;
+      label {
+        padding: 2px;
+      }
+      input {
+      }
+    }
+  }
+  #login-links {
+    margin:0;  
+    line-height: 1em;  
+      margin: 35px 0 10px 0;
+    a {
+      width: 40%;
+      font-size: .9em;
+      .border-radius-custom;
+      line-height: 1.2em;
+      border: 1pt @plum solid;
+    }
+    a.login-link.lt-active {
+      border-bottom: 0;
+    }
+    #login-link{
+      background-color: @darksand;
+    }
+    #register-link {
+      background-color: @darklight;
+    }
+    a.lt-active {
+      border-bottom: 0px;
+    }
+
+  }
+}
+
+
 /* SALES REP */
 .sales-representative-list {
   h2 {
@@ -926,5 +1023,188 @@ ul#megamenu-menu-pw-super-menu {
   }
 }
 
+/* SEARCH PAGE */
+.page-search {
+  .view-id-search_ads {
+    h3 {
+        width: 90%;
+        background-color: @classified_med;
+        color: @white;
+        margin: 0;
+        padding: 2px 0 2px 15px;
+        .border-radius-custom;
+        a {
+          color: @white;
+        }
+    }
+  }
+}
 
 
+/*ad submission page */
+body.page-submit-ad {
+  #ad-s-node-form { /*general style*/
+
+      /* mobile stylin' */
+    ul.horizontal-tabs-list {
+      li { width: 23%; }
+      strong { font-size: .9em; }
+      .form-required { display: none; }
+    }
+    .field-name-field-area .description,
+    .field-name-field-rate .description,
+    /* .field-name-field-duration .description */ {
+      display: none;
+    }
+      /* hide details */
+    #edit-field-ad-details {
+      display: none;
+    }
+    
+      /*large ad copy body*/
+    #edit-field-ad-copy-und-0-value {
+      font-size: 1.4em;
+    }
+    #ad-summary {
+      height: 280px;
+      margin: 0 30px;
+      #ad-summary-price {
+        dl.ad-summary {
+          dt, dl, dd { 
+            margin: 0; 
+            padding: 0; 
+            line-height: .9em; 
+            font-size: .9em;
+            text-align: center;
+          }
+          dt {
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          dd {
+            font-size: 1.2em; /*1.2em*/
+            line-height: 1.3em;
+          }
+          .ad-summary-block {
+            width: 100px;
+            height: 40px;
+            background-color: @classified_med;
+            color: @white;
+            text-align: center;
+            margin: 6px;
+            padding: 5px;
+            float: left;
+          }
+          .ad-summary-price-block {
+            width: 220px;
+            height: auto;
+            font-size: 1em;
+            line-height: 1em;
+            dt { float: left; width: 50px; }
+            dd { float: right; }
+          }
+        }
+      }
+    }
+
+    .form-wrapper {
+      background-color: @lightsand;
+      padding: 4px 15px;
+      .border-radius;
+      margin: 4px 2px;
+    }
+    
+    
+      /* HIGHLIGHTS */
+      /*colour certain input fields*/
+    .field-name-field-promote, 
+    .form-item-field-agree-und,
+    .field-name-field-price {
+      background-color: @darklight;
+    }
+      /*increase text*/
+    #edit-field-image-und legend, label.edit-field-promote-und, label.edit-field-agree-und {
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bolder;
+      margin-bottom: 12px;
+    }
+      
+
+    
+      /* OPTIONS */
+      /* add image for emphasis */
+    #edit-field-image-und {
+        background-image: url(../../../../default/files/images/page/forSale.gif);
+        background-repeat: no-repeat;
+        background-position: 0 48px;
+      .fieldset-legend {}
+      .fieldset-description {
+        margin: 10px 5px 40px 80px
+      }
+    }
+      /* Liveload  */
+    .form-item-field-promote-und {
+      .description {
+          width: 100%;
+          text-align: center;
+        em {
+          font-size: 1.4em;
+          font-weight: bolder;
+          color: @classified_dark;
+        }
+      }
+    }
+    /* notes */
+    .group-opt-notes-block {
+      margin: 10px 0 0 0;
+      background-color: @darksand;
+      padding: 5px;
+      .border-radius;
+    }
+    
+      /*payment*/
+    #node_ad_s_form_group_payment {
+      .fieldset-wrapper {
+        width: 300px;
+        margin: 0 auto 0 auto;
+        display: block;
+      }
+    }
+    
+    /* confirm */
+    .form-item-field-agree-und {
+      padding: 10px;
+      .border-radius;
+    }
+
+    
+    background-color: transparent;
+    border: none;
+    /* HORZ tabs */
+    ul.horizontal-tabs-list {
+      background-color: transparent;
+      border: none;
+      margin-bottom: -12px;
+      padding: 0;
+      li {
+        background-color: @darksand;
+        .border-radius;
+      }
+      li.selected {
+        background-color: @white;
+      }
+    }
+    /*form*/
+    .horizontal-tabs-panes {
+      background-color: @white;
+      .border-radius;
+      fieldset {
+        background-color: transparent;
+        .border-radius(0);
+      }
+    }
+  }
+}

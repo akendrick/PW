@@ -274,15 +274,17 @@ Drupal.adPayment.displayMsg = function() {
   // Over 15 words notice.
   if (ad.wordCount > 15) {
     ad.msg.countOver   = Drupal.t("<dt>Words over 15:</dt><dd> @count at &cent;@wordPrice0 a word </dd>", {'@count': ad.countOver, '@wordPrice': price.word});
+    ad.msg.countOverSum   = Drupal.t("<dt>Words over 15:</dt><dd> @count </dd>", {'@count': ad.countOver});
   }
   else {
     ad.msg.countOver = '';
+    ad.msg.countOverSum = '<dt>Words over 15:</dt><dd>0</dd>';
   }
   
   // Area MSG
   if (ad.area == 0) {
-    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd> No Area Selcted</dd>");
-    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><em>No Area Selcted</em></dd>");
+    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd> No Area Selected</dd>");
+    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><em>No Area Selected</em></dd>");
   }
   else if (ad.area > 0 && ad.area < 4) {
     ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas</dd>", {'@area': ad.area, '@areas': ad.areaList});
@@ -290,7 +292,7 @@ Drupal.adPayment.displayMsg = function() {
   }
   else if (ad.area == 4) {
     ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas <br />$2 Discount on ad.</dd>", {'@area': ad.area, '@areas': ad.areaList});
-    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area <br />$2 Discount.</dd>", {'@area': ad.area,});
+    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area </dd>", {'@area': ad.area,});
   }
   else {
     ad.msg.areaList = '<dt>Area: None Selected</dt><dd>Please select an area for your ad to appear in.</dd>';
@@ -307,7 +309,7 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks</dd>", {'@duration': ad.duration});
   if (ad.duration == '2') {
     ad.msg.duration = '<dt>Duration:</dt><dd>When you book for 2 weeks you get the 3rd for FREE!</dd>';
-    ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks <br />+ 3rd Week Free!</dd>", {'@duration': ad.duration});
+    ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks</dd>", {'@duration': ad.duration});
   };
   
   // Liveload
@@ -345,11 +347,13 @@ Drupal.adPayment.displayMsg = function() {
     '<div id="ad-summary">' 
      + '<div id="ad-summary-price" class="block summary-price-block">'
      + '<h2>Summary</h2>'
-     + ad.msg.areaListSum 
-     + ad.msg.durationSum 
-     + ad.msg.wordcount
-     + ad.msg.countOver
-     + ad.msg.priceSum
+     + '<dl class="ad-summary">'
+     + '<span class="ad-summary-block">' + ad.msg.areaListSum  + '</span>' 
+     + '<span class="ad-summary-block">' + ad.msg.durationSum  + '</span>' 
+     + '<span class="ad-summary-block">' + ad.msg.wordcount    + '</span>'
+     + '<span class="ad-summary-block">' + ad.msg.countOverSum + '</span>'
+     + '<span class="ad-summary-block ad-summary-price-block">' + ad.msg.priceSum     + '</span>'
+     + '</dl>'
      + '</div>'
     + '</div>'
     ;
@@ -362,7 +366,7 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.wordcount 
     + ad.msg.countOver  
     + '</div>'
-    + '<div id="ad-review">'
+    + '<div id="ad-review-data">'
     + '<div id="review-ad-box-price" class="review-ad-block">'
     + '<h2>Summary</h2>'
     + ad.msg.error 
@@ -372,6 +376,7 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.duration 
     + ad.msg.type 
     + ad.msg.priceOverview 
+    + '</dl>'
     + '</div>'
     ;
   ad.msg.storage =
@@ -410,11 +415,13 @@ jQuery(document).ready(function() {
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
-    jQuery(sideBar).append(summaryBox);
+    jQuery(sideBar).prepend(summaryBox);
     
     // Create DIV for OverView
-    jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
-    jQuery('#ad-review ').hide();
+    //jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
+    jQuery('.group-ad-copy-block').append('<div id="ad-review"></div>');
+//    jQuery('#ad-review ').hide();
+
     // DIV for ReView
     var reviewLocation = '#edit-field-agree';
     jQuery(reviewLocation).prepend('<div id="review-ad-block"></div>');
@@ -424,6 +431,7 @@ jQuery(document).ready(function() {
     jQuery('#ad-s-node-form').prepend(validationBox);
   
     jQuery('#ad-s-node-form').bind('click keypress keyup change', function() { //click change keypress keyup
+
       var sideBox = '#ad-summary';
       var summaryBox = Drupal.adPayment.displayMsg().summary;
       jQuery(sideBox).html(summaryBox);
@@ -431,7 +439,11 @@ jQuery(document).ready(function() {
       // Review box
       var reviewLocation = '#review-ad-block';
       var reviewBox = Drupal.adPayment.displayMsg().review;
-      jQuery(reviewLocation).html(reviewBox);
+      jQuery(reviewLocation).html(reviewBox).show();
+
+      console.log(reviewBox);
+      jQuery('#ad-review').html(summaryBox);
+
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
   

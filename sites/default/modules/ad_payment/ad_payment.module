@@ -72,36 +72,38 @@ function thankyou_page() {
 *
 * @return
 *  form data
+*
+* The login protion is commented out.
 */
 function ad_payment_ad_submit_form_page() {
 
   global $user;
   
-  if (!$user->uid) {
-    // Use this code if you want LoginToboggan 
-    //  to take over completely the login process.
-    // This will result in the login form 
-    //  defaulting to 'login' rather than 'register'.
-    
-    // module_load_include('logintoboggan', 'logintoboggan');
-    // $content = logintoboggan_unified_login_page('login');
-  
-    // Cut and paste from LoginToboggan.
-    $register_form = drupal_get_form('user_register_form');
-    $rendered_login_form = drupal_render($login_form);
-    $rendered_register_form = drupal_render($register_form);
-    $variables = array(
-      'login_form'    => $rendered_login_form,
-      'register_form' => $rendered_register_form,
-      'active_form'   => $active_form,
-    );
-    $content = theme('lt_unified_login_page', $variables);
-  }
-  elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
+//  if (!$user->uid) {
+//    // Use this code if you want LoginToboggan 
+//    //  to take over completely the login process.
+//    // This will result in the login form 
+//    //  defaulting to 'login' rather than 'register'.
+//    
+//    // module_load_include('logintoboggan', 'logintoboggan');
+//    // $content = logintoboggan_unified_login_page('login');
+//  
+//    // Cut and paste from LoginToboggan.
+//    $register_form = drupal_get_form('user_register_form');
+//    $rendered_login_form = drupal_render($login_form);
+//    $rendered_register_form = drupal_render($register_form);
+//    $variables = array(
+//      'login_form'    => $rendered_login_form,
+//      'register_form' => $rendered_register_form,
+//      'active_form'   => $active_form,
+//    );
+//    $content = theme('lt_unified_login_page', $variables);
+//  }
+//  elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
     // Get Node Creation Form.
     module_load_include('inc', 'node', 'node.pages');
     $content = node_add('ad_s');
-  }
+//  }
   
   return $content;
 }
@@ -229,6 +231,10 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 *
 * Submit data to Netidea.
 * Retrieve CCID and feed it into Ad_Payment module to link the two.
+* 
+* Check for User by email
+* - If user doesn't exist create with name, email and random password.
+* - If already exists link to node.
 */
 function _ad_payment_cc_submit($form, $form_state) {
 
@@ -261,6 +267,7 @@ function _ad_payment_cc_submit($form, $form_state) {
   // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
   // #print "Order <a href='$url'>#$id</a> saved.";
 
+  
 
 }
 

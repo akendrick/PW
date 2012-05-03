@@ -14,7 +14,7 @@ function ad_payment_form(&$form, $form_state) {
   // $user_data->realname 
 
   // Determine User Role
-  if (user_access('edit any ad_s content')){
+  if (user_access('edit any ad_s content') && !DEBUG){
     $access = FALSE;
     $required = FALSE;
     dpm(' Access removed your need to enter CC data.');

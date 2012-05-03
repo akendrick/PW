@@ -14,7 +14,7 @@
  *  - Seperate Contact Block THEME layer.
  */
 
-define ('DEBUG', FALSE);
+define ('DEBUG', TRUE);
 
 /**
  * Implementation of HOOK_page
