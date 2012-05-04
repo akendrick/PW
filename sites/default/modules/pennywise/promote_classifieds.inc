@@ -37,7 +37,7 @@ function promote_to_classified_ad($nid) {
       'status' => 1,
       'uid' => $submitted->uid,
     ),
-);  
+  );  
 
 // Implied items
 // - Phone
@@ -45,7 +45,7 @@ function promote_to_classified_ad($nid) {
 // - 
   
 
-## Create New Classified Ad **
+// Create New Classified Ad
 
   $ad = new StdClass();
   $ad->type = 'classified';

@@ -37,48 +37,21 @@ function pennywise_init() {
 
 /**
  * Implementation of HOOK_menu
- *  - Custom form pages for Adworks, Classified & Display node creation.
- *  - Callback page for ad promotion.
+ *  
+ *  - Callback page for ad_submission to classified ad conversion (promotion).
  */
-// function pennywise_menu() {
+function pennywise_menu() {
 
-//  $items['admin/pennywise/classified/submit-classified'] = array(
-//    'title'            => 'Create Classified Ad',
-//    'access arguments' => array('Classified Ads: Create new content'),
-//    'weight'           => 10,
-//    'page callback'    => 'pennywise_create_node_page',
-//    'page arguments'   => array('classified'),
-//    'type'             => MENU_IS_LOCAL_TASK,
-//  );
-
-//  $items['admin/pennywise/classified/adworks-upload'] = array(
-//    'title' => 'Upload Adworks File',
-//    'page callback'    => 'pennywise_create_node_page',
-//    'page arguments'   => array('adworks_file'),
-//    'access arguments' => array('Adworks File: Create new content'),
-//    'type'             => MENU_IS_LOCAL_TASK,
-//    'weight'           => 20,
-//  );
-//
-//  $items['admin/pennywise/display_ads/add'] = array(
-//    'title'            => 'Create Display Ad',
-//    'access arguments' => array('Display ads: Create new content'),
-//    'weight'           => 10,
-//    'page callback'    => 'pennywise_create_node_page',
-//    'page arguments'   => array('display_ads'),
-//    'type'             => MENU_IS_LOCAL_ACTION,
-//  );
-//
-//  $items['admin/pennywise/classified/promote/%'] = array(
-//    'title' => 'Promote',
-//    'page callback'    => 'promote_to_classified_ad',
-//    'page arguments'   => array(3),
-//    'access arguments' => array('Adworks File: Create new content'),
-//    'file'             => 'promote_classifieds.inc',
-/*     'type'             => MENU_CALLBACK, */
-//  );
-//  return $items;
-// }
+  $items['admin/pennywise/classified/promote/%'] = array(
+    'title' => 'Promote',
+    'page callback'    => 'promote_to_classified_ad',
+    'page arguments'   => array(3),
+    'access arguments' => array('Adworks File: Create new content'),
+    'file'             => 'promote_classifieds.inc',
+    'type'             => MENU_CALLBACK, 
+  );
+  return $items;
+ }
 
 /**
  * Custom page call back
