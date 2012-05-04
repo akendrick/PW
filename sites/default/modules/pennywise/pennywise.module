@@ -14,7 +14,16 @@
  *  - Seperate Contact Block THEME layer.
  */
 
-define ('DEBUG', FALSE);
+// FORM DEBUG
+// Displays Form Data
+define ('DEBUG', TRUE);
+
+// VALIDATION_TEST_MODE: set to TRUE to allow any card number for testing purposes.
+// Must be set before loading the CreditCardValidate.inc.php library! 
+   define ('VALIDATION_TEST_MODE', TRUE);
+
+
+
 
 /**
  * Implementation of HOOK_page
@@ -26,16 +35,12 @@ function pennywise_init() {
 }
 
 
-function pennywise_page_alter(&$page) {
-  // dpm($page);
-}
-
 /**
  * Implementation of HOOK_menu
  *  - Custom form pages for Adworks, Classified & Display node creation.
  *  - Callback page for ad promotion.
  */
-function pennywise_menu() {
+// function pennywise_menu() {
 
 //  $items['admin/pennywise/classified/submit-classified'] = array(
 //    'title'            => 'Create Classified Ad',
@@ -73,7 +78,7 @@ function pennywise_menu() {
 /*     'type'             => MENU_CALLBACK, */
 //  );
 //  return $items;
-}
+// }
 
 /**
  * Custom page call back

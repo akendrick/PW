@@ -20,16 +20,16 @@
 * Implementation of HOOK_menu
 */
 function ad_payment_menu() {
-  $items['submit-ad'] = array(
+  $items['ad/submit'] = array(
     'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
     'page callback'   => 'ad_payment_ad_submit_form_page',
     'type'            => MENU_NORMAL_ITEM,
   );
   
-  $items['thank-you'] = array(
+  $items['ad/thank-you'] = array(
     'access callback' => TRUE,
-    'title' => 'Thank You for submitting your ad.',
+    'title' => 'Your ad has been submitted.',
     'page callback' => 'thankyou_page',
     'type' => MENU_CALLBACK,
   );
@@ -43,8 +43,9 @@ function ad_payment_menu() {
 */
 function thankyou_page() {
 
-  $content = "<h2>Thank you for choosing Pennywise.</h2>";
-  $content .= '<p>A confirmation message has been sent to your email address.';
+  $content = "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
+  $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
+  $content .= '<p>' . l('Return to classifieds', '<front>') . '<p>';
   return $content;
 }
 
@@ -139,7 +140,7 @@ function ad_payment_block_view($delta = '') {
     case 'ad_payment_create_ad':
       $block['subject'] = '<none>';
       $block['content'] = '<div id="ad-submission-link-wrapper">' . 
-        l('Submit Ad', 'submit-ad', array('attributes' => array('class' => array('ad-submission-link')),)) . 
+        l('Submit Ad', 'ad/submit', array('attributes' => array('class' => array('ad-submission-link')),)) . 
         '</div>';
       break;
   }
@@ -235,17 +236,21 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 * Check for User by email
 * - If user doesn't exist create with name, email and random password.
 * - If already exists link to node.
+* - Send email comfirmation.
 */
 function _ad_payment_cc_submit($form, $form_state) {
 
-#  dpm('CC Submit Handler.');
- 
   
   $values = $form_state['values'];
   $node   = $form_state['node'];
   $price  = $form_state['storage']['price'];
   
   $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
+
+
+  dpm($form);
+  dpm($form_state);
+
   // // Submit Data to Netidea
   // // Commented Out Until Live test
   
