@@ -58,6 +58,17 @@
 	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
 }
 
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
 
 /* center block */
 .center {
@@ -844,20 +855,6 @@ ul#megamenu-menu-pw-super-menu {
       .classified-ad-copy:first-line {
         font-weight: bolder;
       }
-      /* more link */
-      .classified-ad-copy a {
-        font-size: .7em;
-        color: @plum;
-        background-color: @classified_light;
-        padding: 1px 2px;
-        border: 1pt solid @classified_light;
-        .border-radius;
-      }
-      .classified-ad-copy a:link:hover {
-        color: @white;
-        background-color: @classified_dark;
-        border: 1pt solid @other_dark;
-      }
   }
   
     /* liveload */
@@ -890,7 +887,43 @@ ul#megamenu-menu-pw-super-menu {
     }
   }
 }
+/* read-more link */
+.classified-more-link a {
+  font-size: .7em;
+  color: @plum;
+  background-color: @classified_light;
+  padding: 1px 2px;
+  border: 1pt solid @classified_light;
+  .border-radius;
+}
+.classified-more-link a:link:hover {
+  color: @white;
+  background-color: @classified_dark;
+  border: 1pt solid @other_dark;
+}
 
+/** Classified Ad Page **/
+
+.node-type-classified {
+  #page-title { display: none;}
+  .ds-2col-stacked {
+    .group-left {
+      width: 100%;
+    }
+    .group-right {
+      width: 100%;
+    }
+  }
+  .classified-detail-box {
+    margin: 0 10px;
+  }
+  .field-name-field-ad-copy {
+    font-size: 1.6em;
+  }
+  .field-name-field-ad-copy :first-line {
+    font-weight: bold;
+  }
+}
 
 /*****************  ADMIN  *****************/
 /**********  SEE PENNYWISE MODULE **********/
@@ -917,6 +950,19 @@ ul#megamenu-menu-pw-super-menu {
 
 
 /*****************  SPECIFIC PAGES  *****************/
+.page-node {
+  /* attachments */
+  .node-attachment {
+    .center;
+    .field-name-title {
+      margin-top: 15px;
+    }
+    .field-name-field-entity-reference .even {
+      background-color: @lightsand;
+    }
+  }
+
+}
 
 /* LOGIN PAGE */
 .not-logged-in.page-user, .not-logged-in.page-submit-ad {
@@ -1006,8 +1052,10 @@ ul#megamenu-menu-pw-super-menu {
       margin: 10px;
       .border-radius;
       background-color: @lightsand;
+      list-style: none;
       .views-field {
         .center;
+        
       }
     }
     
@@ -1016,6 +1064,31 @@ ul#megamenu-menu-pw-super-menu {
     .border-radius-custom;
     background-color: @classified_med;
     color: @white;
+  }
+  .views-field-field-image {
+    margin-top: 10px;
+  }
+  .views-field-field-first-name, .views-field-field-last-name {
+    width: 30%;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .views-field-contact {
+    margin: 12px;
+    a {
+      color: @white;
+      background-color: @other;
+      padding: 5px;
+      .border-radius;
+      border: 2pt solid @white;
+      .drop-shadow;
+    }
+    a:hover {
+      .drop-shadow(3px, 3px, 6px, lighten(@black, 10));
+    }
+    .views-field-field-phone, .views-field-field-fax {
+      font-weight: bold;
+    }
   }
 }
 .view-id-sales_people_page {
@@ -1029,16 +1102,28 @@ ul#megamenu-menu-pw-super-menu {
 /* SEARCH PAGE */
 .page-search {
   .view-id-search_ads {
-    h3 {
+    .view-grouping-header a {
         width: 90%;
         background-color: @classified_med;
         color: @white;
-        margin: 0;
-        padding: 2px 0 2px 15px;
+        font-size: 1.4em;
+        margin: 20px 10px;
+        padding: 10px 15px 3px 15px;
         .border-radius-custom;
-        a {
-          color: @white;
+    }
+    .search-result-wrapper { 
+      h3 { display: none; }
+      ul {
+        border: solid 3pt @classified_med;
+        padding: 5px;
+        li {
+          list-style: none;
+          padding: 5px;
         }
+        li:first-line {
+          font-weight: bold;
+        }
+      }
     }
   }
 }
