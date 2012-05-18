@@ -17,7 +17,7 @@
 @other: #fc4021; /*  #F63;  */
 @other_dark: darken(@other, 25);
 @other_light: lighten(@other, 25);
-@other_extra_light: lighten(@other, 45);
+@other_extra_light: lighten(@other_light, 25);
 
 @plum: #303;
 @peach: #FC9;
@@ -403,6 +403,18 @@ body {
   width: 460px; /* Grid 6 */
 }
 
+/**************** Contextual Links ***/
+.contextual-links-wrapper {
+  .contextual-links {
+    li {
+      list-style: none;
+      border: none;
+      a {
+        border: none;
+      }
+    }
+  }
+}
 
 /****************** HEADER *************************/
 #zone-menu, #region-header-first {
@@ -457,6 +469,7 @@ body {
   padding: 0;
   margin: 0;
   h2 { display: none; }
+/*
   #ad-submission-link-wrapper {
     width: 100%;
     .button(@other, @white, @other_light, @black, 0);
@@ -469,10 +482,36 @@ body {
       padding: 10px;    
     }
   }
+*/
 }
+
+.contact-button, #ad-submission-link-wrapper {
+  margin-bottom: 10px;
+  .center;
+  a:link {
+    color: @white;
+    background-color: @other;
+    padding: 5px;
+    .border-radius;
+    border: 2pt solid @white;
+    .drop-shadow;
+  }
+  a:visited { color: @white; }
+  a:hover {
+    .drop-shadow(3px, 3px, 6px, lighten(@black, 10));
+    background-color: @other_dark;
+  }
+}
+#ad-submission-link-wrapper {
+  font-size: 1.6em;
+  width: 100%;
+}
+
 
 /* Super Menu */
 ul#megamenu-menu-pw-super-menu {
+  background-color: @classified_dark;
+  a { color: @white; }
   ul.megamenu-bin {
     .box-shadow;
     li {
@@ -486,7 +525,7 @@ ul#megamenu-menu-pw-super-menu {
         .border-radius(0);
         font-size: 100%;
         line-height: .9em;
-        color: @black; 
+        color: @white; 
       }
       a:hover {
         background-color: @classified_med;
@@ -532,13 +571,13 @@ ul#megamenu-menu-pw-super-menu {
 }
 
 /* Poster Block */
-.view-display-id-poster_block {
+#block-views-display-ad-blocks-poster-block {
   padding: 0 0 20px 0;
-  .center;
   .views-row {
     margin-bottom: 20px;
     float: left;
     padding: 5px 10px;
+    .center;
   }
   .view-footer {
     clear: both;
@@ -546,7 +585,7 @@ ul#megamenu-menu-pw-super-menu {
 }
 
 /* Banner Block */
-#block-views-display-ad-blocks-banner-block {
+#block-views-display-ad-blocks-x  -block {
   .views-row {
     background-color: transparent;
   }
@@ -580,35 +619,11 @@ ul#megamenu-menu-pw-super-menu {
 }
 
 
-/*****************  EDITORIAL  *****************/
-/* default block - header*/
-.view-id-editorial_views {
-  h2.editorial-highlight-box {
-    background-color: @editorial_dark;
-  }
-  h6 {
-    font-size: 1em;
-    line-height: 1.1em;
-    text-align: center;
-    letter-spacing: -0.1;
-    margin: 0 0 5px 0;
-    padding: 0;
-    text-transform: uppercase;
-  }
-  .field-name-body {
-    line-height: 1em;
-    font-size: .95em;
-    letter-spacing: 0em;
-    margin: 0; padding: 0;
-  }
-  p {margin: 0; padding: 0; }
-  .field-name-node-link {
-    padding: 0; margin: 0 0 20px 0;
-    font-size: .8em;
-    text-transform: uppercase;
-  }
-  /* list items */
+/*****************  BLOCKS  *****************/
+#block-views-editorial-views-editorial-block {
+  display: none;
 }
+
 
 /*  Editorial Highlight/Recent BLOCK  */
 #views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block, 
@@ -717,21 +732,25 @@ ul#megamenu-menu-pw-super-menu {
     a { padding: 5px; }
   }
 }
-/* Main Editorial PAGE */
-.view-display-id-editorial_main_page {
+/************ Main Editorial PAGE */
+.node-article.view-mode-full, .view-editorial-views  {
   letter-spacing: -0.06em;
   line-height: 1.2em;
+/*   li { list-style: none; } */
   .views-field-field-image {
     .center;
+    img { margin-bottom: 10px; }
   }
   .views-field-title {
     text-align: center;
-    margin-top: 5px;
+    margin-top: 8px;
   }
-  .views-field-body p{
-    padding: 0 20px;
-    text-align: justify;
-
+  .views-field-body {
+    p {
+      margin: 5px;
+      padding: 0 20px;
+      text-align: justify;
+    }  
   }
   .views-field-view-node a {
     margin: 10px auto;
@@ -745,14 +764,44 @@ ul#megamenu-menu-pw-super-menu {
     border: 1pt solid @other_light;
   }
   .views-field-view-node a:hover {
-    background-color: @other_extra_light;
+    background-color: @other;
+    color: @white;
   }
+/*
+  .field-group-fieldset {
+    font-size: .9em;
+    padding: 10px;
+    .field {
+      margin: 2px;
+    }
+  }
+*/
+  .fieldset-wrapper {
+    margin: 0; padding: 0;
+    width: 90%;
+  }
+
+  legend {
+    display: none;
+  }
+  .editorial-page-highlight-attachment {
+    .views-field-field-image img{
+      max-width: 580px;
+      max-height: 400px;
+    }
+  }
+  /* details and info boxes */
 }
-.editorial-page-highlight-attachment {
-  .views-field-field-image a img{
-    max-width: 580px;
-    max-height: 400px;
-  }
+#node_article_full_group_editorial_details {
+  float: left;
+  width: 90%;
+  margin: 10px 20px 0 10px;
+}
+#node_article_full_group_editorial_more {
+  float: left;
+  clear: both;
+  width: 90%;
+  margin: 0 20px 20px 10px;
 }
 
 
@@ -769,6 +818,7 @@ ul#megamenu-menu-pw-super-menu {
 }
 
 .classified-full_section-links {
+  background-color: @white;
   margin: 0; 
   padding: 0;
   width: 100%;
@@ -781,6 +831,9 @@ ul#megamenu-menu-pw-super-menu {
   }
   li.classified-full-section-link-row{
     list-style: none;
+  }
+  li.views-row-even {
+    background-color: @lightsand;
   }
   .classified-full-section-link-row a:hover {
     color: @alert;
@@ -806,6 +859,7 @@ ul#megamenu-menu-pw-super-menu {
 /*     max-width: 100%; */
     margin: 0;
     min-width: 100px;
+    overflow: hidden;
   }
   h2.block-title {
     margin: 0;
@@ -1039,7 +1093,7 @@ ul#megamenu-menu-pw-super-menu {
 
 
 /* SALES REP */
-.sales-representative-list {
+.sales-representative-list  {
   h2 {
     background-color: @other;
   }
@@ -1073,22 +1127,9 @@ ul#megamenu-menu-pw-super-menu {
     font-size: 1.2em;
     font-weight: bold;
   }
-  .views-field-contact {
-    margin: 12px;
-    a {
-      color: @white;
-      background-color: @other;
-      padding: 5px;
-      .border-radius;
-      border: 2pt solid @white;
-      .drop-shadow;
-    }
-    a:hover {
-      .drop-shadow(3px, 3px, 6px, lighten(@black, 10));
-    }
-    .views-field-field-phone, .views-field-field-fax {
-      font-weight: bold;
-    }
+/*   .views-field-contact, */
+  .views-field-field-phone, .views-field-field-fax {
+    font-weight: bold;
   }
 }
 .view-id-sales_people_page {

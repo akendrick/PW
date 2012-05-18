@@ -141,6 +141,8 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  * - Custom contact info block
  * @var pw_breadcrumb
  * - Custom breadcrumb box
+ * @var pw_contact_user
+ * - contact user button
  */
 function pennywise_block_info() {
   $blocks['pw_logo'] = array(
@@ -151,6 +153,12 @@ function pennywise_block_info() {
   );
   $blocks['pw_contact'] = array(
     'info'    => t('PW Contact'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_contact_user'] = array(
+    'info'    => t('PW Contact User'),
     'status'  => FALSE,
     'visibility' => 0,
     'cache' => 8,
@@ -279,7 +287,19 @@ function pennywise_block_view($delta = '') {
       }      
       $content .= '</dl>';
 
-      break;  
+      break; 
+    
+    case 'pw_contact_user':
+      $path_details = explode('/', current_path());
+
+      if($path_details[0] == 'user' && $path_details[2] != 'contact') {
+        $content = '<div class="contact-button">'. l('Contact', 'user/' . $path_details[1] . '/contact') . '</a></div>';
+      }
+      else {
+        $content = '';
+      }
+      break;
+         
     case 'pw_breadcrumb':
       $site_path = $base_url . base_path();
     
