@@ -6,7 +6,11 @@
  */
 
 /**
- * Create new `classified_ad` based on data from `ad_s` submission.
+ * Custom function promot_to_classified_ad
+ *
+ * @var nid
+ * - Node id to load node for conversion.
+ * - Create new `classified_ad` based on data from `ad_s` submission.
  *
  * NOTE: 
  *  This function deletes the database entry from `adp`. 
@@ -124,37 +128,37 @@ function promote_to_classified_ad($nid) {
   );
   
   
-  // Proces ad
-  node_submit($ad);
-  node_save($ad);
-  
-  // UPDATE `adp` database with new NID
-  ## Edit Newly created Classified Ad **
-  
-
-  //dpm('Submitted');
-  //dpm($submitted);
-  //dpm('Data');
-  //dpm($data);
-  //dpm('NEW AD');
-  //dpm($ad);
-  //dpm($ad->nid);
-  
-  // Testing Redirect
-  //$options = array(
-  //  'query' => 'destination=pwadmin/classified/incoming'
-  //);
-  //$destination = drupal_get_destination();
-  //?destination=pwadmin/classified/incoming
-  $path = 'node/'. $ad->nid . '/edit';
-  dpm('NEW PATH: ' . $path);
-  drupal_goto($path);
-  
-   #module_load_include('inc', 'node', 'node.pages');
-   #$edit_ad = node_form($form, $form_state, $ad->nid);
-   
-   return $edit_ad;
-//   $ad = node_add('classified');
+    // Proces ad
+ //   node_submit($ad);
+ //   node_save($ad);
+    
+    // UPDATE `adp` database with new NID
+    ## Edit Newly created Classified Ad **
+    
+    if (DEBUG) {  
+      dpm('Submitted');
+      dpm($submitted);
+      dpm('Data');
+      dpm($data);
+      dpm('NEW AD');
+      dpm($ad);
+      dpm($ad->nid);
+    // Testing Redirect
+      $options = array(
+        'query' => 'destination=pwadmin/classified/incoming'
+      );
+      $destination = drupal_get_destination();
+      //?destination=pwadmin/classified/incoming
+    }    
+ //   $path = 'node/'. $ad->nid . '/edit';
+ //   dpm('NEW PATH: ' . $path);
+ //   drupal_goto($path);
+    
+     #module_load_include('inc', 'node', 'node.pages');
+     #$edit_ad = node_form($form, $form_state, $ad->nid);
+     
+ //    return $edit_ad;
+    //$ad = node_add('classified');
 
 
 

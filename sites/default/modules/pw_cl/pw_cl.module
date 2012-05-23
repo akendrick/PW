@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PW Classifieds feature.
+ */
+
+include_once 'pw_cl.features.inc';

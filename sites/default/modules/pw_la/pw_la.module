@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PW Layout feature.
+ */
+
+include_once 'pw_la.features.inc';
