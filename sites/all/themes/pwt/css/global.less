@@ -23,8 +23,8 @@
 @peach: #FC9;
 
 @sand: #e5e0dc;
-@lightsand: lighten(@sand, 10%); 
-@darksand: darken(@sand, 5); 
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
 
 @sunlight: rgb(255, 248, 221);
 @darklight: darken(@sunlight, 5);
@@ -109,7 +109,7 @@
 	-webkit-column-gap: @width;
 	column-count: @cols;
 	column-gap: @width;
-	
+
  -webkit-column-span:1; /* Chrome */
  column-span:1;
 
@@ -184,21 +184,21 @@ body {
   h8 {
     font-size: 1 em;
   }
-  
+
   p {
-    
+
   }
-  
+
   #region-content {
     background-color: @white;
     .border-radius-custom;
   }
-  
-  
+
+
   .block {
     background-color: @white;
     a {
-      text-decoration: none;  
+      text-decoration: none;
     }
   }
 
@@ -228,7 +228,7 @@ body {
       list-style-position: inherit;
     }
   }
-  
+
   .block {
     background-color: inherit;
     h2 {
@@ -277,7 +277,7 @@ body {
   color: @white;
   text-align: center;
   font-size: 2em;
-  
+
 }
 /***************** contact bar ********/
 #block-pennywise-pw-contact {
@@ -293,7 +293,7 @@ body {
     .center;
     .border-radius;
     height: 40px;
-    
+
 /*     div {display: inline; } */
   }
   dt, dd {
@@ -383,7 +383,7 @@ body {
   .pw-contact-local_phone-wrapper, .pw-contact-fax-wrapper, .pw-contact-address-wrapper {
     display: none;
   }
-  
+
 }
 
 /********** HIDE ON MOBILE *****************/
@@ -447,9 +447,9 @@ body {
 
 /* search block */
 #views-exposed-form-search-ads-search-page {
-    .border-radius; 
-    background-color: @classified_dark; 
-    padding: 4px 1px; 
+    .border-radius;
+    background-color: @classified_dark;
+    padding: 4px 1px;
   label {
   }
   #edit-search-ads {
@@ -479,7 +479,7 @@ body {
     a {
       width: 100%;
       font-size: 1.4em;
-      padding: 10px;    
+      padding: 10px;
     }
   }
 */
@@ -521,11 +521,11 @@ ul#megamenu-menu-pw-super-menu {
     li.megamenu-slot {
       margin-top: 3px;
       background-color: @classified_light;
-      h3 a{ 
+      h3 a{
         .border-radius(0);
         font-size: 100%;
         line-height: .9em;
-        color: @white; 
+        color: @white;
       }
       a:hover {
         background-color: @classified_med;
@@ -539,10 +539,10 @@ ul#megamenu-menu-pw-super-menu {
       li.megamenu-item {
         background-color: @white;
         line-height: .8em;
-        a { 
+        a {
           .border-radius(0);
           font-size: .9em;
-          color: @classified_dark; 
+          color: @classified_dark;
         }
         a:hover {
           background-color: darken(@classified_light, 5);
@@ -553,7 +553,7 @@ ul#megamenu-menu-pw-super-menu {
         background-color: @sand;
       }
     }
-  
+
   }
 }
 
@@ -625,8 +625,36 @@ ul#megamenu-menu-pw-super-menu {
 }
 
 
+
+/** feedback form JS (not technically a block) **/
+#block-feedback-form {
+  .feedback-link {
+    background-color: @white;
+    padding: 10px;
+    .border-radius;
+    .drop-shadow;
+  }
+  form {
+    .drop-shadow;
+    .border-radius;
+    background-color: @darksand;
+  }
+}
+
+
+/** User Login **/
+.not-logged-in #user-login {
+  background-color: @plum;
+  color: @white;
+  .description {
+    color: @white;
+  }
+}
+
+
+
 /*  Editorial Highlight/Recent BLOCK  */
-#views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block, 
+#views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block,
 .view-display-id-editorial_block, .view-display-id-recent_editorial_block {
   .views-row {
     border-bottom: 1pt solid @editorial_light;
@@ -641,14 +669,14 @@ ul#megamenu-menu-pw-super-menu {
   .field-name-field-image {
     padding: 0;
   }
-  
+
    .views-field-title, .field-name-title, {
     padding: 0 3px;
     font-size: 1.1em;
     line-height: 1.2em;
     text-align: center;
   }
-  
+
   .views-field-body,  .field-name-body,{
     text-align: left;
     letter-spacing: -0.08em;
@@ -712,7 +740,7 @@ ul#megamenu-menu-pw-super-menu {
     }
   }
   .field-name-title {
-    h6 { 
+    h6 {
       margin: 0;
       padding: 2px 4px;
       font-size: 1.2em;
@@ -722,7 +750,7 @@ ul#megamenu-menu-pw-super-menu {
     }
   }
   .field-name-body, .field-type-text-with-summary {
-    margin: 0; 
+    margin: 0;
     letter-spacing: -0.08em;
     font-size: .9em;
   }
@@ -750,7 +778,7 @@ ul#megamenu-menu-pw-super-menu {
       margin: 5px;
       padding: 0 20px;
       text-align: justify;
-    }  
+    }
   }
   .views-field-view-node a {
     margin: 10px auto;
@@ -819,15 +847,15 @@ ul#megamenu-menu-pw-super-menu {
 
 .classified-full_section-links {
   background-color: @white;
-  margin: 0; 
+  margin: 0;
   padding: 0;
   width: 100%;
   font-size: 1.1em;
   line-height: 1.2em;
   line-spacing: -0.05em;
-  li {  
+  li {
     list-style: none;
-    padding: 2pt 2pt 3pt 4pt;  
+    padding: 2pt 2pt 3pt 4pt;
   }
   li.classified-full-section-link-row{
     list-style: none;
@@ -910,7 +938,7 @@ ul#megamenu-menu-pw-super-menu {
         font-weight: bolder;
       }
   }
-  
+
     /* liveload */
     .row-type-Liveload {
       background-color: @sunlight;
@@ -984,7 +1012,7 @@ ul#megamenu-menu-pw-super-menu {
 
 /* inline delete link */
 .inline-x-delete-link {
-  a:link { 
+  a:link {
     display: block;
     .border-radius(4px);
     font-size: 1em;
@@ -992,7 +1020,7 @@ ul#megamenu-menu-pw-super-menu {
     text-align: center;
     float: left;
     background-color: @other;
-    color: @white; 
+    color: @white;
     padding: 2px;
     border: 1pt solid @other;
   }
@@ -1036,7 +1064,7 @@ ul#megamenu-menu-pw-super-menu {
   }
   #user-login {
     background-color: @darksand;
-    .border-radius;      
+    .border-radius;
     border: 1px solid @plum;
     padding: 10px 30px;
     margin: 0px;
@@ -1051,7 +1079,7 @@ ul#megamenu-menu-pw-super-menu {
   }
   #user-register-form {
     background-color: @sunlight;
-    .border-radius;      
+    .border-radius;
     border: 1px solid @plum;
     padding: 10px 30px;
     margin: 0px;
@@ -1065,8 +1093,8 @@ ul#megamenu-menu-pw-super-menu {
     }
   }
   #login-links {
-    margin:0;  
-    line-height: 1em;  
+    margin:0;
+    line-height: 1em;
       margin: 35px 0 10px 0;
     a {
       width: 40%;
@@ -1109,10 +1137,10 @@ ul#megamenu-menu-pw-super-menu {
       list-style: none;
       .views-field {
         .center;
-        
+
       }
     }
-    
+
   }
   .sales-area-header {
     .border-radius-custom;
@@ -1152,7 +1180,7 @@ ul#megamenu-menu-pw-super-menu {
         padding: 10px 15px 3px 15px;
         .border-radius-custom;
     }
-    .search-result-wrapper { 
+    .search-result-wrapper {
       h3 { display: none; }
       ul {
         border: solid 3pt @classified_med;
@@ -1189,16 +1217,16 @@ body.page-ad-submit {
     #edit-field-ad-details, #field-ad-details-add-more-wrapper {
       display: none;
     }
-    
+
       /*large ad copy body*/
     #edit-field-ad-copy-und-0-value {
       font-size: 1.4em;
     }
 
     /*empty summary box*/
-    .ad-summary-directions { 
-      h4 { 
-        background-color: @classified_med; 
+    .ad-summary-directions {
+      h4 {
+        background-color: @classified_med;
         .border-radius-custom;
         text-align: center;
         color: @white;
@@ -1208,7 +1236,7 @@ body.page-ad-submit {
       color: @white;
       padding: 5px;
       background-color: @classified_med;
-      .border-radius-custom(0, 0, 10px, 10px); 
+      .border-radius-custom(0, 0, 10px, 10px);
       ul {
         margin: 0 0 0 20px;
         padding: 0 5px 5px 10px;
@@ -1218,17 +1246,17 @@ body.page-ad-submit {
           margin-bottom: 6px;
           list-style-position: outside;
         }
-      } 
+      }
     }
     #ad-summary {
       height: 280px;
       margin: 0 30px;
       #ad-summary-price {
         dl.ad-summary {
-          dt, dl, dd { 
-            margin: 0; 
-            padding: 0; 
-            line-height: .9em; 
+          dt, dl, dd {
+            margin: 0;
+            padding: 0;
+            line-height: .9em;
             font-size: .9em;
             text-align: center;
           }
@@ -1269,11 +1297,11 @@ body.page-ad-submit {
       .border-radius;
       margin: 4px 2px;
     }
-    
-    
+
+
       /* HIGHLIGHTS */
       /*colour certain input fields*/
-    .field-name-field-promote, 
+    .field-name-field-promote,
     .form-item-field-agree-und,
     .field-name-field-price {
       background-color: @darklight;
@@ -1286,7 +1314,7 @@ body.page-ad-submit {
       font-weight: bolder;
       margin-bottom: 12px;
     }
-      
+
     /* classififiaciton */
     #edit-field-tags-und {
       height: 25em;
@@ -1294,7 +1322,7 @@ body.page-ad-submit {
         font-weight: bold;
       }
     }
-    
+
       /* OPTIONS */
       /* add image for emphasis */
     #edit-field-image-und {
@@ -1325,7 +1353,7 @@ body.page-ad-submit {
       padding: 5px;
       .border-radius;
     }
-    
+
       /*payment*/
     #node_ad_s_form_group_payment .fieldset-wrapper, .field-name-field-agree {
         width: 300px;
@@ -1333,14 +1361,14 @@ body.page-ad-submit {
         display: block;
       }
     }
-    
+
     /* confirm */
     .form-item-field-agree-und {
       padding: 10px;
       .border-radius;
     }
 
-    
+
     background-color: transparent;
     border: none;
     /* HORZ tabs */
