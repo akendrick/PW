@@ -12,6 +12,7 @@ dependencies[] = ctools
 dependencies[] = delta
 dependencies[] = megamenu
 dependencies[] = menu
+dependencies[] = menu_block
 dependencies[] = pennywise
 dependencies[] = views
 features[context][] = classified_ad_layout

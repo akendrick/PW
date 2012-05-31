@@ -14,9 +14,19 @@ function pw_la_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'classified_ad_layout';
-  $context->description = 'TRAD layout for PW site';
-  $context->tag = 'traditional';
+  $context->description = 'layout for PW site';
+  $context->tag = 'layout';
   $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '<front>' => '<front>',
+        'section/*' => 'section/*',
+        'node/*' => 'node/*',
+        'editorial/*' => 'editorial/*',
+        'sales/*' => 'sales/*',
+        'user' => 'user',
+      ),
+    ),
     'sitewide' => array(
       'values' => array(
         1 => 1,
@@ -29,6 +39,12 @@ function pw_la_context_default_contexts() {
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact_user' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact_user',
           'region' => 'content',
           'weight' => '-10',
         ),
@@ -50,12 +66,6 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-7',
         ),
-        'pennywise-pw_contact_user' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_contact_user',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'megamenu-menu-pw-super-menu' => array(
           'module' => 'megamenu',
           'delta' => 'menu-pw-super-menu',
@@ -66,31 +76,31 @@ function pw_la_context_default_contexts() {
           'module' => 'ad_payment',
           'delta' => 'ad_payment_create_ad',
           'region' => 'sidebar_first',
-          'weight' => '-27',
+          'weight' => '-29',
         ),
-        'views-02990d644d7eb62daab6d080d86a23b7' => array(
-          'module' => 'views',
-          'delta' => '02990d644d7eb62daab6d080d86a23b7',
+        'menu_block-4' => array(
+          'module' => 'menu_block',
+          'delta' => 4,
           'region' => 'sidebar_first',
-          'weight' => '-26',
+          'weight' => '-28',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
           'region' => 'sidebar_first',
-          'weight' => '-25',
+          'weight' => '-27',
         ),
         'views-editorial_views-editorial_block' => array(
           'module' => 'views',
           'delta' => 'editorial_views-editorial_block',
           'region' => 'sidebar_first',
-          'weight' => '-24',
+          'weight' => '-26',
         ),
         'menu-menu-advertising-links' => array(
           'module' => 'menu',
           'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
-          'weight' => '-23',
+          'weight' => '-25',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -120,8 +130,8 @@ function pw_la_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('TRAD layout for PW site');
-  t('traditional');
+  t('layout');
+  t('layout for PW site');
   $export['classified_ad_layout'] = $context;
 
   $context = new stdClass();
@@ -378,8 +388,6 @@ function pw_la_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'display/*' => 'display/*',
-        'user/*' => 'user/*',
         'ad/*' => 'ad/*',
         'submit-ad' => 'submit-ad',
       ),
