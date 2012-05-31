@@ -36,15 +36,15 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-taxonomy_listing-tax_sub_list' => array(
-          'module' => 'views',
-          'delta' => 'taxonomy_listing-tax_sub_list',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'pennywise-pw_contact_user' => array(
           'module' => 'pennywise',
           'delta' => 'pw_contact_user',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'views-taxonomy_listing-tax_sub_list' => array(
+          'module' => 'views',
+          'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
           'weight' => '-10',
         ),
@@ -78,15 +78,15 @@ function pw_la_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-29',
         ),
-        'menu_block-4' => array(
-          'module' => 'menu_block',
-          'delta' => 4,
-          'region' => 'sidebar_first',
-          'weight' => '-28',
-        ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
+          'region' => 'sidebar_first',
+          'weight' => '-28',
+        ),
+        'menu_block-4' => array(
+          'module' => 'menu_block',
+          'delta' => 4,
           'region' => 'sidebar_first',
           'weight' => '-27',
         ),

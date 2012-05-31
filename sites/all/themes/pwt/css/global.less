@@ -620,6 +620,91 @@ ul#megamenu-menu-pw-super-menu {
 
 
 /*****************  BLOCKS  *****************/
+/**** Classified DHTML Link Block ******/
+#block-menu-block-4 {
+  .content {
+    background-color: @white;
+    width: 100%
+  }
+  li {
+    width: 90%;
+    line-height: 1em;
+    a { width: 89%; }
+  }
+  li:hover {
+    background-color: @lightsand;
+    .border-radius;
+  }
+  li.expanded {
+    background-color: @white;
+    .border-radius;
+    margin: 2px;
+    a {
+      color: @plum;
+    }
+  }
+  menu.expanded {
+    background-color: @sand;
+  }
+  li.expanded, li.active-trail {
+    background-color: @classified_dark;
+    a {
+      color: @white;
+    }
+    ul {
+      margin-top: 5px;
+      background-color: @classified_light;
+      .border-radius;
+      a { color: @classified_dark; }
+      li.active-trail {
+        background-color: @sunlight;
+      }
+      li:hover {
+        background-color: @classified_med;
+        a { color: @white; }
+      }
+      li.leaf {
+        border-bottom: 1pt solid @white;
+      }
+      li.leaf.last {
+        border-bottom: 0;
+      }
+    }
+  }
+
+}
+
+/*
+  ul.menu {
+    width: 100%;
+    li {
+      width: 100%;
+    }
+    li.active-trail {
+      background-color: @sand;
+    }
+    ul.menu li{
+      background-color: @sand;
+    }
+    a {
+      padding: 2px;
+      width: 100px;
+    }
+    a.expanded {
+      background-color: @classified_light;
+    }
+    a.active-trail {
+      background-color: @classified_dark;
+      width: 100%;
+      color: @white;
+    }
+    a.active {
+      background-color: @sunlight;
+    }
+*/
+
+
+
 #block-views-editorial-views-editorial-block {
   display: none;
 }
@@ -628,16 +713,36 @@ ul#megamenu-menu-pw-super-menu {
 
 /** feedback form JS (not technically a block) **/
 #block-feedback-form {
-  .feedback-link {
-    background-color: @white;
-    padding: 10px;
+  padding: 0;
+  margin: 10px;
+  h2 {
+    text-align: center;
+    border: 2pt solid @white;
+    margin: 10px;
+    background-color: @alert;
+    .box-shadow;
     .border-radius;
-    .drop-shadow;
+    padding: 0 10px 10px 10px;
+    .feedback-link {
+      #feedback-form-toggle { margin: auto; padding: 0;}
+      letter-spacing: .1em;
+      font-size: .5em;
+      line-height: .3em;
+      font-weight: bold;
+      color: @white;
+/*       padding: 0 10px 5px 10px ; */
+    }
   }
-  form {
+  .feedback-form {
     .drop-shadow;
     .border-radius;
-    background-color: @darksand;
+    background-color: @status;
+    color: @white;
+    border: 2pt solid @white;
+  }
+
+  .description {
+    color: @white;
   }
 }
 
