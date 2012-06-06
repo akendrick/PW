@@ -22,9 +22,16 @@ function pw_la_context_default_contexts() {
         '<front>' => '<front>',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
+        'editorial' => 'editorial',
         'editorial/*' => 'editorial/*',
         'sales/*' => 'sales/*',
+        'browse/*' => 'browse/*',
+        'online/*' => 'online/*',
+        'digital/*' => 'digital/*',
+        'edition/*' => 'edition/*',
         'user' => 'user',
+        'user/*' => 'user/*',
+        'contact/*' => 'contact/*',
       ),
     ),
     'sitewide' => array(
@@ -36,12 +43,6 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_contact_user' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_contact_user',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
@@ -133,6 +134,48 @@ function pw_la_context_default_contexts() {
   t('layout');
   t('layout for PW site');
   $export['classified_ad_layout'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'contact_block';
+  $context->description = 'Contact block';
+  $context->tag = 'layout';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'people/*' => 'people/*',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'pennywise-pw_contact_user' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact_user',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'menu',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+    'delta' => array(
+      'delta_template' => 'traditional',
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Contact block');
+  t('layout');
+  $export['contact_block'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */

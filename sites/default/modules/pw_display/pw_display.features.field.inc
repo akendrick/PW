@@ -69,6 +69,7 @@ function pw_display_field_default_fields() {
       'label' => 'Client',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -138,6 +139,7 @@ function pw_display_field_default_fields() {
       'label' => 'Description',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -179,7 +181,7 @@ function pw_display_field_default_fields() {
       ),
       'module' => 'image',
       'settings' => array(
-        'default_image' => 0,
+        'default_image' => '993',
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
@@ -211,6 +213,7 @@ function pw_display_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'alt_field' => 1,
+        'custom_add_another' => '',
         'default_image' => 0,
         'file_directory' => 'images/display',
         'file_extensions' => 'png gif jpg jpeg',
@@ -327,6 +330,7 @@ function pw_display_field_default_fields() {
       'label' => 'Display Ad Type',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -382,6 +386,7 @@ function pw_display_field_default_fields() {
       'label' => 'Email',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -472,6 +477,7 @@ function pw_display_field_default_fields() {
       'label' => 'File Attach',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -546,6 +552,7 @@ function pw_display_field_default_fields() {
       'label' => 'Related File',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'description_field' => 1,
         'file_directory' => 'images/attachment',
         'file_extensions' => 'pdf gif tif jpg',
@@ -673,6 +680,7 @@ with <strong>Page 30</strong>.
           'target' => 'user',
           'title' => '',
         ),
+        'custom_add_another' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -749,6 +757,7 @@ with <strong>Page 30</strong>.
       'label' => 'Publishing Date',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -817,6 +826,7 @@ with <strong>Page 30</strong>.
       'label' => 'Section Selector',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -886,6 +896,7 @@ with <strong>Page 30</strong>.
       'label' => 'Section',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(

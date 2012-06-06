@@ -65,6 +65,7 @@ function pw_admin_field_default_fields() {
       'label' => 'Business Rated',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -131,6 +132,7 @@ function pw_admin_field_default_fields() {
       'label' => 'Classification ID',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),

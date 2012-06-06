@@ -51,7 +51,7 @@
   -webkit-border-radius: 10px;
 }
 .ds-form-3col-stacked .group-middle {
-  width: 300px;
+  width: 280px;
   padding: 10px;
   height: 100%;
 }
@@ -59,7 +59,7 @@
   width: 100%;
 }
 .ds-form-3col-stacked .group-right {
-  width: 300px;
+  width: 280px;
   padding: 10px;
   border-left: solid 1pt #ffffff;
   background: #ebf3ff;

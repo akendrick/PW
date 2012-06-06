@@ -58,6 +58,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Ad Copy',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -117,6 +118,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Ad Details',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -183,6 +185,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Confirmation',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -199,7 +202,7 @@ function pw_cl_field_default_fields() {
   $fields['node-ad_s-field_area'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '4',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_area',
@@ -252,6 +255,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Area',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -316,6 +320,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Duration',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -391,6 +396,7 @@ function pw_cl_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'custom_add_another' => '',
         'default_image' => 0,
         'file_directory' => 'online_ad_submission_images',
         'file_extensions' => 'png gif jpg jpeg',
@@ -480,6 +486,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -532,6 +539,7 @@ function pw_cl_field_default_fields() {
       'label' => 'Price',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'max' => '',
         'min' => '',
         'prefix' => '',
@@ -597,6 +605,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Liveload Your Ad',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -656,6 +665,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Rate',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -720,6 +730,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Section',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -814,6 +825,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Body',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'display_summary' => 0,
         'text_processing' => '0',
         'user_register_form' => FALSE,
@@ -890,6 +902,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Ad Creation Override',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -961,6 +974,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Image Override',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -982,12 +996,14 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'entity_types' => array(),
       'field_name' => 'field_publish',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '0',
       ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'date',
       'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
         'granularity' => array(
           'day' => 'day',
           'hour' => 'hour',
@@ -1039,6 +1055,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Publish Date',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'default_value' => 'strtotime',
         'default_value2' => 'strtotime',
         'default_value_code' => '+1 Tuesday 05:30',
@@ -1126,6 +1143,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Ad Copy',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1197,6 +1215,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Classified Ad Type',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1267,6 +1286,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Area Code',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1331,6 +1351,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Email',
       'required' => 0,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1424,6 +1445,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'required' => 0,
       'settings' => array(
         'alt_field' => 1,
+        'custom_add_another' => '',
         'default_image' => 0,
         'file_directory' => 'classified_ad_images',
         'file_extensions' => 'png gif jpg jpeg',
@@ -1553,6 +1575,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'target' => 'default',
           'title' => '',
         ),
+        'custom_add_another' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -1875,6 +1898,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           ),
           'hide_single_cc' => 1,
         ),
+        'custom_add_another' => '',
         'default_country' => 'ca',
         'enable_country_level_validation' => 0,
         'enable_default_country' => TRUE,
@@ -1958,6 +1982,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'label' => 'Classification',
       'required' => 1,
       'settings' => array(
+        'custom_add_another' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(

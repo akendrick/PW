@@ -11,6 +11,168 @@ function pw_editorial_related_views_default_views() {
   $export = array();
 
   $view = new view;
+  $view->name = 'digital_edition_pages';
+  $view->description = 'Digital Edition Pag';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Digital Edition Pages';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Pennywise Digital Edition';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '12';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'field_area' => 'field_area',
+    'field_publish' => 'field_publish',
+  );
+  $handler->display->display_options['row_options']['separator'] = ',';
+  $handler->display->display_options['row_options']['hide_empty'] = 1;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
+  /* Field: Content: Area */
+  $handler->display->display_options['fields']['field_area']['id'] = 'field_area';
+  $handler->display->display_options['fields']['field_area']['table'] = 'field_data_field_area';
+  $handler->display->display_options['fields']['field_area']['field'] = 'field_area';
+  $handler->display->display_options['fields']['field_area']['label'] = '';
+  $handler->display->display_options['fields']['field_area']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_area']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_area']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_area']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_area']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_area']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_area']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_area']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_area']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_area']['field_api_classes'] = 0;
+  /* Field: Content: Scribd */
+  $handler->display->display_options['fields']['field_scribd']['id'] = 'field_scribd';
+  $handler->display->display_options['fields']['field_scribd']['table'] = 'field_data_field_scribd';
+  $handler->display->display_options['fields']['field_scribd']['field'] = 'field_scribd';
+  $handler->display->display_options['fields']['field_scribd']['label'] = '';
+  $handler->display->display_options['fields']['field_scribd']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_scribd']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_scribd']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_scribd']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_scribd']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_scribd']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_scribd']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_scribd']['field_api_classes'] = 0;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_edition_date']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_edition_date']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  $handler->display->display_options['fields']['field_edition_date']['field_api_classes'] = 0;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: Content: Area (field_area) */
+  $handler->display->display_options['arguments']['field_area_value']['id'] = 'field_area_value';
+  $handler->display->display_options['arguments']['field_area_value']['table'] = 'field_data_field_area';
+  $handler->display->display_options['arguments']['field_area_value']['field'] = 'field_area_value';
+  $handler->display->display_options['arguments']['field_area_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_area_value']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_area_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_area_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_area_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_area_value']['summary']['human'] = 0;
+  $handler->display->display_options['arguments']['field_area_value']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['field_area_value']['validate']['fail'] = 'ignore';
+  $handler->display->display_options['arguments']['field_area_value']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_area_value']['not'] = 0;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+
+  /* Display: Menu */
+  $handler = $view->new_display('page', 'Menu', 'pw_digital_edition_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Pennywise Digital Edition';
+  $handler->display->display_options['path'] = 'edition/%';
+  $handler->display->display_options['menu']['title'] = 'Digital Pennywise';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Pennywise Digital Edition';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'menu-pw-super-menu';
+  $export['digital_edition_pages'] = $view;
+
+  $view = new view;
   $view->name = 'editorial_promote_list';
   $view->description = '';
   $view->tag = 'default, pw, admin, pwadmin, editorial, article';
@@ -93,6 +255,13 @@ function pw_editorial_related_views_default_views() {
       'label' => '',
     ),
     'action::system_message_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,

@@ -173,6 +173,14 @@ function pw_editorial_related_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'pw_digital' => array(
+      'name' => t('PW Digital Edition'),
+      'base' => 'node_content',
+      'description' => t('Digital editions of the Pennywise paper. Using PDF with Scribd or other variation to display it.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
   );
   return $items;
 }

@@ -12,14 +12,13 @@ function pw_admin_default_rules_configuration() {
   $items['rules_add_another'] = entity_import('rules_config', '{ "rules_add_another" : {
       "LABEL" : "Add Another",
       "PLUGIN" : "reaction rule",
-      "ACTIVE" : false,
       "TAGS" : [ "admin", "clone", "duplication" ],
       "REQUIRES" : [ "rules" ],
-      "ON" : [ "node_insert", "node_update", "node_presave" ],
+      "ON" : [ "node_insert", "node_update" ],
       "IF" : [
         { "user_has_role" : {
             "account" : [ "site:current-user" ],
-            "roles" : { "value" : { "6" : "6", "5" : "5", "7" : "7" } },
+            "roles" : { "value" : { "6" : "6", "5" : "5", "7" : "7", "3" : "3", "10" : "10" } },
             "operation" : "OR"
           }
         },
@@ -27,9 +26,12 @@ function pw_admin_default_rules_configuration() {
         { "node_is_of_type" : {
             "node" : [ "node" ],
             "type" : { "value" : {
+                "attachment" : "attachment",
                 "classified" : "classified",
                 "display_ads" : "display_ads",
-                "article" : "article"
+                "article" : "article",
+                "pw_digital" : "pw_digital",
+                "page" : "page"
               }
             }
           }

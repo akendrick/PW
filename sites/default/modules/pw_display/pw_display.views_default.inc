@@ -98,7 +98,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -328,7 +328,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -589,7 +589,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -731,7 +731,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -925,7 +925,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -1163,7 +1163,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
