@@ -851,6 +851,9 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_ad_creation_override',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -872,7 +875,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'bundle' => 'adworks_file',
       'default_value' => array(
         0 => array(
-          'value' => '1',
+          'value' => '0',
         ),
       ),
       'deleted' => '0',

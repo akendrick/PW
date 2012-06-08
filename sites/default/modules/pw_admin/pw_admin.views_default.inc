@@ -2443,6 +2443,115 @@ function pw_admin_views_default_views() {
   $handler = $view->new_display('page', 'Liveload', 'liveload_pagetab');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Liveload';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_ad_type',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+    1 => array(
+      'field' => 'unpublish_on',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+    2 => array(
+      'field' => 'status',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['row_class'] = 'classified-admin-table-row-published-[status]';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'timestamp' => 'timestamp',
+    'status' => 'timestamp',
+    'edit_node' => 'edit_node',
+    'field_tags' => 'field_tags',
+    'field_ad_type' => 'field_ad_type',
+    'field_image' => 'field_image',
+    'field_ad_copy' => 'field_ad_copy',
+    'changed' => 'changed',
+    'publish_on' => 'publish_on',
+    'unpublish_on' => 'unpublish_on',
+    'views_bulk_operations' => 'views_bulk_operations',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'timestamp' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 1,
+    ),
+    'status' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
+    'edit_node' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_tags' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_ad_type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 1,
+    ),
+    'field_image' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 1,
+    ),
+    'field_ad_copy' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'changed' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'publish_on' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'unpublish_on' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['override'] = 0;
+  $handler->display->display_options['style_options']['sticky'] = 0;
+  $handler->display->display_options['style_options']['empty_table'] = 0;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Has new content */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
@@ -3490,23 +3599,17 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['type']['value'] = array(
     'classified' => 'classified',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Scheduler: Unpublish on */
+  $handler->display->display_options['filters']['unpublish_on']['id'] = 'unpublish_on';
+  $handler->display->display_options['filters']['unpublish_on']['table'] = 'scheduler';
+  $handler->display->display_options['filters']['unpublish_on']['field'] = 'unpublish_on';
+  $handler->display->display_options['filters']['unpublish_on']['operator'] = 'empty';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '0';
-  /* Filter criterion: Scheduler: Unpublish on */
-  $handler->display->display_options['filters']['unpublish_on']['id'] = 'unpublish_on';
-  $handler->display->display_options['filters']['unpublish_on']['table'] = 'scheduler';
-  $handler->display->display_options['filters']['unpublish_on']['field'] = 'unpublish_on';
-  $handler->display->display_options['filters']['unpublish_on']['operator'] = '<=';
-  $handler->display->display_options['filters']['unpublish_on']['value']['value'] = '4am today';
-  $handler->display->display_options['filters']['unpublish_on']['value']['type'] = 'offset';
-  $handler->display->display_options['filters']['unpublish_on']['expose']['operator_id'] = 'unpublish_on_op';
-  $handler->display->display_options['filters']['unpublish_on']['expose']['label'] = 'Unpublished';
-  $handler->display->display_options['filters']['unpublish_on']['expose']['operator'] = 'unpublish_on_op';
-  $handler->display->display_options['filters']['unpublish_on']['expose']['identifier'] = 'unpublish_on';
-  $handler->display->display_options['filters']['unpublish_on']['expose']['multiple'] = FALSE;
   $handler->display->display_options['path'] = 'admin/pennywise/classified/expired';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Expired';

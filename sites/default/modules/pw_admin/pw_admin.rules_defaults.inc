@@ -16,13 +16,6 @@ function pw_admin_default_rules_configuration() {
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert", "node_update" ],
       "IF" : [
-        { "user_has_role" : {
-            "account" : [ "site:current-user" ],
-            "roles" : { "value" : { "6" : "6", "5" : "5", "7" : "7", "3" : "3", "10" : "10" } },
-            "operation" : "OR"
-          }
-        },
-        { "AND" : [] },
         { "node_is_of_type" : {
             "node" : [ "node" ],
             "type" : { "value" : {
@@ -34,6 +27,13 @@ function pw_admin_default_rules_configuration() {
                 "page" : "page"
               }
             }
+          }
+        },
+        { "AND" : [] },
+        { "user_has_role" : {
+            "account" : [ "site:current-user" ],
+            "roles" : { "value" : { "6" : "6", "5" : "5", "7" : "7", "3" : "3", "10" : "10" } },
+            "operation" : "OR"
           }
         }
       ],

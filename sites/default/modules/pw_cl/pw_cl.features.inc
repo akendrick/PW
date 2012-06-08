@@ -98,7 +98,7 @@ function pw_cl_node_info() {
       'description' => t('Upload and schedule new ads from Adworks.'),
       'has_title' => '1',
       'title_label' => t('Title'),
-      'help' => '',
+      'help' => t('Make sure ALL IMAGES are loaded before <strong>Saving</strong> the file. Use the <strong>Preview</strong> button with the <strong>Do NOT create images</strong> option until ALL images are loaded..'),
     ),
     'classified' => array(
       'name' => t('Classified Ads'),
