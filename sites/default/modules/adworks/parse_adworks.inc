@@ -265,7 +265,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
       ),
     ),
   );
-  dsm('TERM: ' . $term_id . ' - ' . $term_name);
 
   // Scheduler
   // Date & time set in adworks.module -- _parse_adworks_data($node)
@@ -314,6 +313,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
       // AD SAVE
       node_submit($new_ad);
       node_save($new_ad);
+
+      dpm($new_ad);
       $ad_count += 1;
     }
     else {
@@ -347,6 +348,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
 
   // update ad_count
   $results['ad_count'] = $ad_count;
+
 
   return $results;
 
