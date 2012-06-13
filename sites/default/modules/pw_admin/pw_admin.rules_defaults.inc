@@ -12,6 +12,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_add_another'] = entity_import('rules_config', '{ "rules_add_another" : {
       "LABEL" : "Add Another",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "clone", "duplication" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert", "node_update" ],

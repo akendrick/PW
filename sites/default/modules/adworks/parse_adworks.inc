@@ -313,8 +313,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
       // AD SAVE
       node_submit($new_ad);
       node_save($new_ad);
-
-      dpm($new_ad);
       $ad_count += 1;
     }
     else {

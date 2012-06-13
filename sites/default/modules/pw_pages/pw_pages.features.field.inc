@@ -2128,7 +2128,7 @@ function pw_pages_field_default_fields() {
             'filefield_sources' => array(
               'attach' => 0,
               'reference' => 'reference',
-              'remote' => 'remote',
+              'remote' => 0,
             ),
             'source_attach' => array(
               'absolute' => '0',
@@ -2164,7 +2164,7 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -2285,7 +2285,7 @@ function pw_pages_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'pw_digital',
       'deleted' => '0',
-      'description' => 'Optional direct download of PDF without having to go through Scribd.',
+      'description' => 'Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -2309,7 +2309,7 @@ function pw_pages_field_default_fields() {
         'custom_add_another' => '',
         'description_field' => 0,
         'file_directory' => 'pdf',
-        'file_extensions' => 'pdf',
+        'file_extensions' => 'pdf zip rar',
         'max_filesize' => '12MB',
         'user_register_form' => FALSE,
       ),
@@ -2321,7 +2321,7 @@ function pw_pages_field_default_fields() {
             'filefield_sources' => array(
               'attach' => 0,
               'reference' => 'reference',
-              'remote' => 0,
+              'remote' => 'remote',
             ),
             'source_attach' => array(
               'absolute' => '0',
@@ -2356,7 +2356,7 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
@@ -2460,6 +2460,7 @@ function pw_pages_field_default_fields() {
   t('Body');
   t('Cover');
   t('Description');
+  t('Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]');
   t('Edition Date');
   t('Email');
   t('Extra Images');
@@ -2467,7 +2468,6 @@ function pw_pages_field_default_fields() {
   t('Highlighted Link');
   t('Inserted Images');
   t('Link');
-  t('Optional direct download of PDF without having to go through Scribd.');
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
   t('PDF');
   t('Reference Other');
