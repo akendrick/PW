@@ -26,7 +26,7 @@ function ad_payment_menu() {
     'page callback'   => 'ad_payment_ad_submit_form_page',
     'type'            => MENU_NORMAL_ITEM,
   );
-  
+
   $items['ad/thank-you'] = array(
     'access callback' => TRUE,
     'title' => 'Your ad has been submitted.',
@@ -69,7 +69,7 @@ function thankyou_page() {
 * Implementation of custom page.
 *
 * If user not logged in present LoginToboggan form.
-* else get `Submit Ad` form. 
+* else get `Submit Ad` form.
 *
 * ************************** DISABLED **********
 *
@@ -81,16 +81,16 @@ function thankyou_page() {
 function ad_payment_ad_submit_form_page() {
 
 //  global $user;
-  
+
 //  if (!$user->uid) {
-//    // Use this code if you want LoginToboggan 
+//    // Use this code if you want LoginToboggan
 //    //  to take over completely the login process.
-//    // This will result in the login form 
+//    // This will result in the login form
 //    //  defaulting to 'login' rather than 'register'.
-//    
+//
 //    // module_load_include('logintoboggan', 'logintoboggan');
 //    // $content = logintoboggan_unified_login_page('login');
-//  
+//
 //    // Cut and paste from LoginToboggan.
 //    $register_form = drupal_get_form('user_register_form');
 //    $rendered_login_form = drupal_render($login_form);
@@ -107,7 +107,7 @@ function ad_payment_ad_submit_form_page() {
     module_load_include('inc', 'node', 'node.pages');
     $content = node_add('ad_s');
 //  }
-  
+
   return $content;
 }
 
@@ -125,7 +125,7 @@ function ad_payment_block_info() {
     'region'     => 'sidebar_first',
     'pages'      => 'ad/*',
   );
-  
+
   return $blocks;
 }
 
@@ -137,12 +137,12 @@ function ad_payment_block_info() {
 */
 function ad_payment_block_view($delta = '') {
   $block = array();
-  
+
   switch ($delta) {
     case 'ad_payment_create_ad':
       $block['subject'] = '<none>';
-      $block['content'] = '<div id="ad-submission-link-wrapper">' . 
-        l('Submit Ad', 'ad/submit', array('attributes' => array('class' => array('ad-submission-link')),)) . 
+      $block['content'] = '<div id="ad-submission-link-wrapper">' .
+        l('Submit Ad', 'ad/submit', array('attributes' => array('class' => array('ad-submission-link')),)) .
         '</div>';
       break;
   }
@@ -161,30 +161,30 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
   // Change Save to Submit.
   $form['actions']['save']['#value']  = 'Submit Ad';
-  
+
   // Insert CC Validation.
   $form['#validate'][] = '_ad_payment_cc_validate';
   $form['#submit'][]   = '_ad_payment_cc_submit';
-  
+
   // Float First 2 Groups.
   $form['#fieldgroups']['group_ad']->weight = -20;
   $form['#fieldgroups']['group_upgrade']->weight = -10;
 
-  
+
   // Load CC form
   module_load_include('inc', 'ad_payment', 'ad_payment_form');
   ad_payment_form($form, $form_state);
-    
+
   //  Ad Price
   //  - Check only if submitted/in preview.
   if ($form_state['values']) {
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-    $total_price = ad_payment_price_check($form_state, 'form_state'); 
+    $total_price = ad_payment_price_check($form_state, 'form_state');
     $form['field_price']['#default_value'] = $total_price;
     $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   }
-    
-  if(DEBUG) {
+
+  if (DEBUG) {
     global $user;
     dpm('USER');
     dpm($user);
@@ -196,37 +196,37 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     dpm($form_state);
     dpm('FORM-STATE : NODE');
     dpm($form_state['node']);
-    
+
     dpm('Access Check:');
     dpm(user_access('submit_ad'));
   }
 }
 
 
-/** 
+/**
 * Custom CC Validation.
 */
 function _ad_payment_cc_validate(&$form, &$form_state) {
   // Check CC Data
   module_load_include('inc', 'ad_payment', 'ad_payment_cc_validate');
   _ad_payment_validate_cc_data($form_state);
-  
+
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $price_total = ad_payment_price_check($form_state, 'form_state');
-  // form_set_value($form['field_price'], $ad_price, &$form_state); 
+  // form_set_value($form['field_price'], $ad_price, &$form_state);
   $updated_price = array(
     'und' => array(
       0 => array(
         'value' =>  $price_total,
       ),
     ),
-  ); 
-  form_set_value($form['field_price'], $updated_price, &$form_state);  
+  );
+  form_set_value($form['field_price'], $updated_price, &$form_state);
 
   // Set CCID
   //$ccid = rand();
-  //form_set_value($form['field_ccid'], $ccid, &$form_state);  
+  //form_set_value($form['field_ccid'], $ccid, &$form_state);
 }
 
 /**
@@ -234,7 +234,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 *
 * Submit data to Netidea.
 * Retrieve CCID and feed it into Ad_Payment module to link the two.
-* 
+*
 * Check for User by email
 * - If user doesn't exist create with name, email and random password.
 * - If already exists link to node.
@@ -242,39 +242,40 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 */
 function _ad_payment_cc_submit($form, $form_state) {
 
-  
+
   $values = $form_state['values'];
   $node   = $form_state['node'];
   $price  = $form_state['storage']['price'];
-  
+
   $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
 
-
-  dpm($form);
-  dpm($form_state);
+  if (DEBUG) {
+    dpm($form);
+    dpm($form_state);
+  }
 
   // // Submit Data to Netidea
   // // Commented Out Until Live test
-  
+
   // define ('VALIDATION_TEST_MODE', FALSE);
   // Following require needs to be enabled to function.
   //  require_once ('classifieds.db.php');
   // /* The CVVID is optional and can be omitted */
   // $ccid = updateDatabase(
-  //  $values['field_first_name'] . ' ' . $values['field_last_name'],    // $_POST['name'], 
-  //  $values['email'],    // $_POST['email'], 
-  //  $card_type,    // $_POST['card_type'], 
-  //  $values['field_cc_number'],    // $_POST['card_number'], 
-  //  $values['field_exp_month'] . '/' . $values['field_exp_year'],    // $card_expiry, 
-  //  // NULL    // #$_POST['card_cvvid']);   
-  //  $values['field_exp_phone'],    // $_POST['phone']);   
+  //  $values['field_first_name'] . ' ' . $values['field_last_name'],    // $_POST['name'],
+  //  $values['email'],    // $_POST['email'],
+  //  $card_type,    // $_POST['card_type'],
+  //  $values['field_cc_number'],    // $_POST['card_number'],
+  //  $values['field_exp_month'] . '/' . $values['field_exp_year'],    // $card_expiry,
+  //  // NULL    // #$_POST['card_cvvid']);
+  //  $values['field_exp_phone'],    // $_POST['phone']);
   // );
   //
   // /* You'll probably want to just email this link instead. */
-  // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);    
+  // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);
   // #print "Order <a href='$url'>#$id</a> saved.";
 
-  
+
 
 }
 
@@ -297,12 +298,12 @@ function ad_payment_node_insert($node) {
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
 
     $details = ad_payment_price_check($node, 'node');
-    
+
     if (DEBUG) {
       dpm('Data for DATABASE');
       dpm($details);
     }
-    
+
     $nid = db_insert('adp')->fields(array(
       'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
       'uid'     => $node->uid,
@@ -321,10 +322,10 @@ function ad_payment_node_insert($node) {
       'price_total' => $details['total'],
       'price_taxes' => $details['taxes'],
       'price_subtotal' => $details['subtotal'],
-      ))->execute();    
-    
+      ))->execute();
+
     // SET CCID
-    
+
     // Becuase Life isn't just.
     // You need to update the newly created node with correct data.
   }
@@ -339,16 +340,16 @@ function ad_payment_node_delete($node) {
     $num_deleted = db_delete('adp')
       ->condition('nid', $node->nid)
       ->execute();
-  }  
+  }
 }
 
 
 
 /**
 * Ad Price Display Theme Registration.
-* 
+*
 * @param $form_state['storage']['price']
-*   
+*
 * @return
 *   HTML output for form display.
 */
@@ -357,44 +358,44 @@ function _ad_payment_form_price_display($form_state) {
   if(!$price) {
     return;
   }
-  
+
   // Ad Copy
   $ad_copy = check_plain($form_state['node']->field_ad_copy['und'][0]['value']);
 
   // Liveload
   $ad_status = ($price['options']['liveload'] == TRUE) ? 'Liveload Classified Ad' : 'Classified Ad';
-  
+
   // Areas
  if (is_array($form_state['node']->field_area['und'])) {
    foreach($form_state['node']->field_area['und'] as $area) {
      $areas .= ' ' . $area[0];
    }
- }  
+ }
   // Rate
   $rate = ($price['rate']['term_rate'] == 0) ? 'Personal' : 'Business';
-  
+
   // Ad Taxonomy
   $classification = $price['rate']['term'];
   $section = $price['rate']['rate_name'];
-  
+
   // Ad Price
   $discount = ($price['areas'] == 4) ? ' <br/><em>With $2 Discount for booking all four areas! </em>' : '';
   $ad_price = '$' . $price['total'];
-  
-  // Output Display 
+
+  // Output Display
   // THIS NEEDS TO BE THEMED!
-  $ad_review = 
+  $ad_review =
     '<dl>' .
-    '<lh>Ad Copy:</lh><dt>' . $ad_copy . '</dt>' . 
-    '<lh>Ad Type:</lh><dt>' . $ad_status . '</dt>' . 
-    '<lh>Publication In <strong>' . $price['areas'] . '</strong> Area(s): </lh><dt> ' . $areas . ' </dt>' . 
-    '<lh>Classification:</lh><dt>' . $classification . ' (' . $section . ' rated)</dt>' . 
+    '<lh>Ad Copy:</lh><dt>' . $ad_copy . '</dt>' .
+    '<lh>Ad Type:</lh><dt>' . $ad_status . '</dt>' .
+    '<lh>Publication In <strong>' . $price['areas'] . '</strong> Area(s): </lh><dt> ' . $areas . ' </dt>' .
+    '<lh>Classification:</lh><dt>' . $classification . ' (' . $section . ' rated)</dt>' .
     '<lh class="ad_price">Price:</lh><dt> <strong>' . $ad_price . '</strong>' . $discount . '<dt>' .
     '</dl>';
 
   // Set Form Return Value
   jQuery('#edit-field-price-und-0-value').attr('val', $ad_price);
-  
+
   return $ad_review;
 
 }
@@ -404,7 +405,7 @@ function _ad_payment_form_price_display($form_state) {
  * Implementation of HOOK_page
  */
 function ad_payment_init() {
-  
+
   drupal_add_css(drupal_get_path('module', 'ad_payment') . '/css/ad_payment.css', array('type' => 'file'));
 
   $business_rated = array(

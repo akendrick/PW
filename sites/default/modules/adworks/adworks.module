@@ -28,7 +28,7 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
   // add custom submission
   array_push($form['#submit'], 'adworks_adworks_file_form_submit');
   //$form['#submit'] = 'adworks_adworks_file_form_submit';
-  
+
   if (DEBUG) {
    dpm('FORM ALTER');
    dpm('FORM');
@@ -51,20 +51,20 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 // function adworks_node_insert($node) {
 //   if ($node->type == 'adworks_file') {
 //     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-//     
+//
 //     _parse_adworks_data($node, $create_ads);
 //   }
 // }
-// 
+//
 // function adworks_node_update($node) {
 //   #dsm($node);
 //   if ($node->type == 'adworks_file') {
 //     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-//     
+//
 //     _parse_adworks_data($node, $create_ads);
 //   }
 // }
-// 
+//
 // function adworks_node_view($node, $view_mode) {
 //   if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
 //     module_load_include('inc', 'adworks', 'parse_adworks');
@@ -78,7 +78,7 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 // }
 
 /**
- * Implementation of HOOK_form_validate() 
+ * Implementation of HOOK_form_validate()
  *
  * Checks for administrative override.
  * - runs preflight.
@@ -92,12 +92,12 @@ function adworks_form_validate(&$form, &$form_state) {
 
   // Preflight message
   if ( $adworks_preflight['status'] == FALSE) {
-    drupal_set_message($adworks_preflight['message'], 'warning' );  
+    drupal_set_message($adworks_preflight['message'], 'warning' );
   }
   else {
-    drupal_set_message($adworks_preflight['message'], 'status' );  
+    drupal_set_message($adworks_preflight['message'], 'status' );
   }
-  
+
   // Node Creation Override.
   if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
     form_set_error('field_ad_creation_override', 'No ads were created due to Override.');
@@ -109,7 +109,7 @@ function adworks_form_validate(&$form, &$form_state) {
 
 /**
  * Implementation of HOOK_form_submit
- * 
+ *
  * Create ads from adworks data.
  * - If image check is off - do not attach images.
  * - If preview --> exit.
@@ -125,7 +125,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   // Image Check Override
   if (!$form_state['values']['field_image_override']['und'][0]['value']) {
     $check_images = FALSE;
-    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images were not attached!</strong>', 'warning' );  
+    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images were not attached!</strong>', 'warning' );
   }
   else {
     $chekc_images = TRUE;
@@ -141,7 +141,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
   // TEST SAFE DATA
   //   $adworks_data = $data['body']['und'][0]['safe_value'];
-  
+
   // Convert Text to UTF8
   // OPTION2 // $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
   $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
@@ -150,10 +150,10 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   $publish_date = array();
   $publish_date['start'] = strtotime($form_state['values']['field_publish']['und'][0]['value']);
   $publish_date['end'] = strtotime($form_state['values']['field_publish']['und'][0]['value2']);
-  
+
   // Check Overrides
   // Image override
-  //$check_images = $form_state['values']['field_image_override']['und'][0]['value'];  
+  //$check_images = $form_state['values']['field_image_override']['und'][0]['value'];
   //dpm('PARSE: Image = ' . $check_images);
 
   // Ad Creation Override.
@@ -162,13 +162,13 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
 
   $create_ads = TRUE;
   $check_images = TRUE;
- 
+
   foreach ($adworks_ads as $ad) {
-    if ($ad != NULL || $ad != '') {
+    if ($ad != NULL || $ad !== '') {
       $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
     }
   }
-  
+
 
   if ($results['image']['error']) {
     foreach ($results['image']['error'] as $missing) {
@@ -183,11 +183,11 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
   // }
   else {
-    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');    
+    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');
   }
 
   if (!$create_ads) {
-      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );    
+      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );
   }
 
 }
