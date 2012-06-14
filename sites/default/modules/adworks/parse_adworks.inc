@@ -85,8 +85,13 @@ function _adworks_pre_flight_ads($adworks) {
 *    Associative array containing publishing start & end date for new nodes.
 *    - start: in UNIX epoch time.
 *    - end: in UNIX epoch time.
+*  @param bool $create_ads
+*    BOOLEAN - TRUE will save nodes,
+*       FALSE omits the save and returns ad data.
+*    For testing and image verification purposes only.
 *  @param bool $check_images
 *    BOOLEAN - TRUE will save images.
+*       FALSE omits image check (acts as if images don't exist).
 *    For testing and image verification purposes only.
 *
 *  @TODO
@@ -96,7 +101,7 @@ function _adworks_pre_flight_ads($adworks) {
 *   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
-function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = NULL) {
+function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL) {
 
   $image_count = 0;
 
@@ -163,9 +168,9 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
     $new_ad->language => array(
       0 => array(
         'value' => $copy,
-        'summary' => text_summary($copy),
-        'format' => filter_default_format(),
-#        'format' => 'filtered_html',
+#        'summary' => text_summary($copy),
+#        'format' => filter_default_format(),
+        'format' => 'filtered_html',
 #        'value' => $copy, // was 'safe_value'
       ),
     ),
@@ -255,16 +260,21 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
   preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
   $section = $section[0];
   $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
-  $term_name = taxonomy_term_load($term_id);
+  if(!$term_id) {
+    $errors[] = 'Taxonomy term missing: ' . $section;
+  }
+  else {
+    $term_name = taxonomy_term_load($term_id);
 
-  $new_ad->field_tags = array(
-    $new_ad->language => array(
-      0 => array(
-        'tid' => $term_id,
-        'taxonomy_term' => $term_name,
+    $new_ad->field_tags = array(
+      $new_ad->language => array(
+        0 => array(
+          'tid' => $term_id,
+          'taxonomy_term' => $term_name,
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   // Scheduler
   // Date & time set in adworks.module -- _parse_adworks_data($node)
@@ -292,7 +302,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
       'total' => $image_count,
     ),
     'phone' => $phone_count,
-    'ad_count' => $ad_count
+    'ad_count' => $ad_count,
+    'errors' => $errors,
   );
 
 //  if ($create_ads == FALSE) {
@@ -300,26 +311,32 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
 //    return $results;
 //  }
 
+// AD COUNTER
+// Returns ad count even if ads aren't save to database.
+if(!$create_ads) {
+  $ad_count += 1;
+  $results['ad_count'] = $ad_count;
+}
 
 
  // Return if any images missing.
- $create_ads = TRUE;
+ //$create_ads = TRUE;
 
-  if (count($images_missing) > 0 ) {
+  if (count($images_missing) > 0 || $image_check == TRUE) {
     return $results;
   }
-  elseif (!$images_missing || count($images_missing) == 0) {
+  elseif (!$images_missing || count($images_missing) == 0 || !$errors) {
     if ($create_ads) {
       // AD SAVE
       node_submit($new_ad);
       node_save($new_ad);
       $ad_count += 1;
+      $results['ad_count'] = $ad_count;
     }
     else {
       // log results
       $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id .
       watchdog($watchdog_message, 'error message');
-      $ad_count += 1;
     }
   }
 
@@ -343,9 +360,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $check_images = 
   // else {
   //   $results['schedule'] = 'Unable to schedule ad.';
   // }
-
-  // update ad_count
-  $results['ad_count'] = $ad_count;
 
 
   return $results;

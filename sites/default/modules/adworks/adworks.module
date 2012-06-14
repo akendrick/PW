@@ -100,7 +100,7 @@ function adworks_form_validate(&$form, &$form_state) {
 
   // Node Creation Override.
   if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
-    form_set_error('field_ad_creation_override', 'No ads were created due to Override.');
+    form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
     return;
   }
 
@@ -116,9 +116,13 @@ function adworks_form_validate(&$form, &$form_state) {
  * - Else create ads.
  */
 function adworks_adworks_file_form_submit($form, &$form_state) {
-   // Preview Override
+  // Set Default State
+  $create_ads = TRUE;
+  $check_images = TRUE;
+  // Preview Override
   if ($form_state['clicked_button']['#submit'][0] == 'node_form_build_preview') {
     drupal_set_message('<h2>Adworks Data Preview</h2>', 'alert' );
+    $create_ads = FALSE;
     return;
   }
 
@@ -128,7 +132,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
     drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images were not attached!</strong>', 'warning' );
   }
   else {
-    $chekc_images = TRUE;
+    $check_images = TRUE;
   }
 
   // Adworks Data
@@ -160,8 +164,6 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   // $create_ads = $form_state['values']['field_ad_creation_override']['und'][0]['value'];
   //dpm('PARSE: Ads = ' . $create_ads);
 
-  $create_ads = TRUE;
-  $check_images = TRUE;
 
   foreach ($adworks_ads as $ad) {
     if ($ad != NULL || $ad !== '') {
@@ -169,15 +171,22 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
     }
   }
 
-
-  if ($results['image']['error']) {
+  // ERROR OUTPUT
+  if ($results['image']['error'] || $results['errors']) {
+    // Image errors
+    $error_message = 'No Ads Created! \n ******************* MISSING IMAGES: ';
     foreach ($results['image']['error'] as $missing) {
-      $images .= $missing . "\n";
+      $error_message .= $missing . "\n";
     }
-    form_set_error('field_bulk_image_upload', 'No Ads Created! MISSING IMAGES: ' . $images);
+    // Other Errors
+    $error_message .= "/n ***************** ERRORS DETECTED: /n";
+    foreach ($results['errors'] as $error) {
+      $error_message .= $error . "\n";
+    }
+    form_set_error('field_body', $error_message);
   }
   elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
-    form_set_error('field_body', 'No Ads Created! Please double check the Adworks ad copy.');
+    form_set_error('field_body', 'Unable to save ads to database. Please consult administrator.');
   }
   // elseif ($results['schedule'] != TRUE) {
   //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
@@ -186,9 +195,9 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
     drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');
   }
 
-  if (!$create_ads) {
-      drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );
-  }
+  //if (!$create_ads) {
+  //    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );
+  //}
 
 }
 
