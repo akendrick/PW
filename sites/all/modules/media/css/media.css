@@ -71,6 +71,17 @@
   list-style: none;
 }
 
+/** This is a massive hack. There must be a better way. See media.fields.inc **/
+
+.media-widget .fid {
+  display:none;
+}
+
+.media-widget a.button + a.button {
+  margin-left: 15px;
+  display: none;
+}
+
 /* @end */
 
 /* @group media item */
@@ -162,23 +173,13 @@
   overflow: hidden;
 }
 
-.view-content #media-browser-library-list {
-  margin: 0;
-}
-
-.media-list-thumbnails{
-  overflow: hidden;
-  width: 100%;
+.media-display-thumbnails .media-list-thumbnails {
+  margin: 0 -10px;
 }
 
 .media-list-thumbnails > li {
   float: left;
   list-style: none;
-}
-
-.media-list-thumbnails .media-item {
-  margin-left: 0;
-  margin-top: 0;
 }
 
 .media-list-thumbnails .form-type-checkbox {
@@ -316,6 +317,10 @@ a.button {
 
 .media-clear {
   clear: both;
+}
+
+.media-thumbnails-select {
+  float: left;
 }
 
 #edit-options .form-item-format label {

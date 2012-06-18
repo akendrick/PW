@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Form builder; display the realname settings form.
+ * Form constructor for the Real name settings form.
  *
+ * @see realname_settings_form_validate()
  * @see realname_settings_form_submit()
  */
 function realname_settings_form($form, &$form_state) {
@@ -29,9 +30,20 @@ function realname_settings_form($form, &$form_state) {
 }
 
 /**
- * Form submit handler for the realname settings form.
+ * Form validation handler for realname_settings_form().
  *
- * @see realname_settings_form().
+ * @see realname_settings_form_submit()
+ */
+function realname_settings_form_validate($form, &$form_state) {
+  if (strpos($form_state['values']['realname_pattern'], '[user:name]') !== FALSE) {
+    form_set_error('realname_pattern', t('The <em>[user:name]</em> token cannot be used as it will cause recursion.'));
+  }
+}
+
+/**
+ * Form submission handler for realname_settings_form().
+ *
+ * @see realname_settings_form_validate()
  */
 function realname_settings_form_submit($form, $form_state) {
   if ($form['realname_pattern']['#default_value'] != $form_state['values']['realname_pattern']) {

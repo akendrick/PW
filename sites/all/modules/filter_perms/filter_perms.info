@@ -3,9 +3,9 @@ description = Provides role and module filters to simplify the user permissions 
 package = Administration
 core = 7.x
 
-; Information added by drupal.org packaging script on 2011-11-22
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-05-16
+version = "7.x-1.0"
 core = "7.x"
 project = "filter_perms"
-datestamp = "1321921398"
+datestamp = "1337183755"
 

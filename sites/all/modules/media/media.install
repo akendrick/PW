@@ -5,6 +5,8 @@
  * Install, update and uninstall functions for the Media module.
  */
 
+define('MEDIA_UPDATE_RECORDS_ON_INSTALL', 200);
+
 /**
  * Implements hook_schema().
  */
@@ -115,6 +117,36 @@ function media_schema() {
 }
 
 /**
+ * Implements hook_field_schema().
+ */
+function media_field_schema($field) {
+  return array(
+    'columns' => array(
+      'fid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'data' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        //'description' => 'Used for storing additional information.  Can be harnessed by widgets',
+      ),
+    ),
+    'indexes' => array(
+      'fid' => array('fid'),
+    ),
+  );
+}
+
+/**
  * Implements hook_install().
  */
 function media_install() {
@@ -176,6 +208,25 @@ function media_install() {
     $bundle_settings = field_bundle_settings('file', $name);
     $bundle_settings['extra_fields']['display']['file']['media_small'] = array('weight' => 0, 'visible' => FALSE);
     field_bundle_settings('file', $name, $bundle_settings);
+  }
+
+  // Set permissions.
+  $roles = user_roles();
+  foreach ($roles as $rid => $role) {
+    user_role_grant_permissions($rid, array('view media'));
+  }
+
+  // Updates the type field for the first MEDIA_UPDATE_RECORDS_ON_INSTALL files.
+  $invalid_files = media_type_invalid_files_count();
+  if ($invalid_files <= MEDIA_UPDATE_RECORDS_ON_INSTALL) {
+    media_type_batch_update(FALSE, MEDIA_UPDATE_RECORDS_ON_INSTALL);
+  }
+
+  $invalid_files = media_type_invalid_files_count();
+  if ($invalid_files > 0) {
+    // Not all files could be converted. Display a persistant nag message on
+    // every page for the administrator, urging them to finish the process.
+    media_variable_set('show_file_type_rebuild_nag', TRUE);
   }
 }
 
@@ -277,8 +328,8 @@ function media_update_7002() {
     ),
     'primary key' => array('name'),
   );
-  db_create_table('media_type', $schema['media_type']);
 
+  db_create_table('media_type', $scheme['media_type']);
   drupal_load('module', 'media');
   $old_types = variable_get('media_types');
   foreach ($old_types as $type) {
@@ -307,9 +358,10 @@ function media_update_7003() {
 }
 
 /**
- * Empty update function to trigger a menu rebuild.
+ * Removed /media from the menu.
  */
 function media_update_7004() {
+  // Do nothing. Running an update function will trigger a menu rebuild.
 }
 
 /**
@@ -344,9 +396,13 @@ function media_update_7007() {
 }
 
 /**
- * Empty function.
+ * Give all users view media perm by default
  */
 function media_update_7008() {
+  $roles = user_roles();
+  foreach ($roles as $rid => $role) {
+    user_role_grant_permissions($rid, array('view media'));
+  }
 }
 
 /**
@@ -477,6 +533,8 @@ function media_update_7016() {
     // data storage. We can do a direct db_update() for when the default SQL
     // storage back-end is being used, but must skip updating fields that use a
     // different storage type.
+    // @todo What else should be added here (e.g., logging and/or a message to
+    //   the administrator)?
     if ($field['storage']['type'] !== 'field_sql_storage' || !module_exists('field_sql_storage') || !$field['storage']['active']) {
       $messages[] = t('Cannot update field %id (%field_name) because it does not use the field_sql_storage storage type.', array(
         '%id' => $field['id'],
@@ -578,7 +636,7 @@ function media_update_7017() {
   // configurations. However, if file_entity_update_7001() has already run
   // prior to media_update_7016(), run it again in order to capture those
   // configurations too.
-  if (db_table_exists('file_display') && function_exists('file_entity_update_7001')) {
+  if (db_table_exists('file_display')) {
     file_entity_update_7001();
   }
 }
@@ -620,72 +678,4 @@ function media_update_7020() {
   if (variable_get('media__wysiwyg_allowed_types') == array('image', 'video')) {
     variable_del('media__wysiwyg_allowed_types');
   }
-}
-
-/**
- * Replace 'view media' perm from all users having the role with 'view file'.
- */
-function media_update_7200() {
-  $perms = user_permission_get_modules();
-  if (!isset($perms['view file'])) {
-    throw new DrupalUpdateException('The File Entity module needs to be upgraded before continuing.');
-  }
-  else {
-    $roles = user_roles(FALSE, 'view media');
-    $permissions = array(
-      'view media' => FALSE,
-      'view file' => TRUE,
-    );
-    foreach ($roles as $rid => $role) {
-      user_role_change_permissions($rid, $permissions);
-    }
-    $roles = user_roles(FALSE, 'edit media');
-    $permissions = array(
-      'edit media' => FALSE,
-      'edit file' => TRUE,
-    );
-    foreach ($roles as $rid => $role) {
-      user_role_change_permissions($rid, $permissions);
-    }
-    $roles = user_roles(FALSE, 'administer media');
-    $permissions = array(
-      'administer media' => FALSE,
-      'administer files' => TRUE,
-    );
-    foreach ($roles as $rid => $role) {
-      user_role_change_permissions($rid, $permissions);
-    }
-  }
-}
-
-/**
- * Enable the new Media Field module if this site uses "media" fields. File fields are now preferred for storing media.
- */
-function media_update_7201() {
-  $fields = field_info_fields();
-  foreach ($fields as $field) {
-    if ($field['type'] == 'media') {
-      // This update function may run even if Media is not enabled. Don't enable
-      // Media Field if its dependencies aren't already enabled.
-      module_enable(array('mediafield'), FALSE);
-
-      // Update entries in file_usage so that they are associated with Media
-      // Field rather than Media.
-      // @TODO This update function may conflict with http://drupal.org/node/1268116
-      db_update('file_usage')
-        ->condition('module', 'media')
-        ->fields(array('module' => 'mediafield'))
-        ->execute();
-
-      return t('The "Media" field type has been moved to the new "Media Field" module. This site uses media fields, so the Media Field module has been enabled.');
-    }
-  }
-  return t('The "Media" field type has been moved to the new "Media Field" module. File fields can be used to store media.');
-}
-
-/**
- * Enable the Views module if it is not already enabled.
- */
-function media_update_7202() {
-  module_enable(array('views'));
 }

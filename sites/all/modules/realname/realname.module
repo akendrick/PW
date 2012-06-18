@@ -132,6 +132,26 @@ function realname_user_operations_realname_update(array $uids) {
 }
 
 /**
+ * Implements hook_action_info().
+ */
+function realname_action_info() {
+  $info['realname_action_realname_update'] = array(
+    'type' => 'user',
+    'label' => t('Update real name'),
+    'configurable' => FALSE,
+  );
+
+  return $info;
+}
+
+/**
+ * Action callback to update a user's realname.
+ */
+function realname_action_realname_update($account, $context = array()) {
+  realname_delete($account->uid);
+}
+
+/**
  * Implements hook_views_api().
  */
 function realname_views_api() {
@@ -200,10 +220,15 @@ function realname_update($account) {
 
   // Perform token replacement on the real name pattern.
   $realname = token_replace($pattern, array('user' => $account), array('clear' => TRUE, 'sanitize' => FALSE));
-  $realname = trim(strip_tags($realname));
+
+  // Remove any HTML tags.
+  $realname = strip_tags(decode_entities($realname));
+
+  // Remove double spaces (if a token had no value).
+  $realname = preg_replace('/ {2,}/', ' ', $realname);
 
   // The name must be trimmed to 255 characters before inserting into the database.
-  $realname = truncate_utf8($realname, 255);
+  $realname = truncate_utf8(trim($realname), 255);
 
   // Allow other modules to alter the generated realname.
   drupal_alter('realname', $realname, $account);
@@ -243,6 +268,7 @@ function realname_delete($uid) {
 function realname_delete_multiple(array $uids) {
   db_delete('realname')->condition('uid', $uids, 'IN')->execute();
   drupal_static_reset('realname_load_multiple');
+  entity_get_controller('user')->resetCache($uids);
 }
 
 /**
@@ -251,6 +277,7 @@ function realname_delete_multiple(array $uids) {
 function realname_delete_all() {
   db_delete('realname')->execute();
   drupal_static_reset('realname_load_multiple');
+  entity_get_controller('user')->resetCache();
 }
 
 /**
