@@ -10,21 +10,22 @@
  * This is a copy from views_handler_field_node.inc in the Views module.
  * Additions are commented inline.
  */
-class views_handler_field_node_page_title extends views_handler_field {
-  /**
-   * Constructor to provide additional fields to add.
-   */
-  function construct() {
-    parent::construct();
-    //$this->additional_fields['nid'] = 'nid';
+class views_handler_field_node_page_title extends views_handler_field_node {
 
-    // Page Title: Load the node title for later.
-    //$this->additional_fields['title'] = 'title';
-    if (module_exists('translation')) {
-      $this->additional_fields['language'] = 'language';
+  /**
+   * We need to tweak the init() - if we fallback to title, ensure title is in the query!
+   */
+  function init(&$view, &$options) {
+    parent::init($view, $options);
+    if (!empty($this->options['use_node_title'])) {
+      $this->additional_fields['title'] = array('table' => 'node', 'field' => 'title');
     }
   }
 
+
+  /**
+   * Define out default options
+   */
   function option_definition() {
     $options = parent::option_definition();
     $options['link_to_node'] = array('default' => FALSE);
@@ -65,7 +66,10 @@ class views_handler_field_node_page_title extends views_handler_field {
   function render_link($data, $values) {
     if (!empty($this->options['link_to_node']) && $data !== NULL && $data !== '') {
       $this->options['alter']['make_link'] = TRUE;
-      $this->options['alter']['path'] = "node/" . $values->{$this->aliases['nid']};
+
+      $key = isset($this->aliases['nid']) ? $this->aliases['nid'] : 'nid';
+      $this->options['alter']['path'] = "node/" . $values->{$key};
+
       if (isset($this->aliases['language'])) {
         $languages = language_list();
         if (isset($languages[$values->{$this->aliases['language']}])) {
@@ -81,7 +85,8 @@ class views_handler_field_node_page_title extends views_handler_field {
 
   function render($values) {
     if (empty($values->{$this->field_alias}) && !empty($this->options['use_node_title'])) {
-      return $this->render_link(check_plain($values->{$this->aliases['title']}), $values);
+      $key = isset($this->aliases['title']) ? $this->aliases['title'] : 'title';
+      return $this->render_link(check_plain($values->{$key}), $values);
     }
     else {
       return $this->render_link(check_plain($values->{$this->field_alias}), $values);

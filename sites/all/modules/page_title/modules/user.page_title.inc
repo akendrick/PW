@@ -7,7 +7,7 @@
 
 
 /**
- * Implementation of hook_page_title_alter().
+ * Implements hook_page_title_alter().
  */
 function user_page_title_alter(&$title) {
   // If we're looking at either a user profile page, get the user title
@@ -20,7 +20,7 @@ function user_page_title_alter(&$title) {
 
 
 /**
- * Implementation of hook_page_title_pattern_alter().
+ * Implements hook_page_title_pattern_alter().
  */
 function user_page_title_pattern_alter(&$pattern, &$types) {
   if ($user = menu_get_object('user')) {
@@ -31,7 +31,7 @@ function user_page_title_pattern_alter(&$pattern, &$types) {
 
 
 /**
- * Implementation of hook_page_title_settings().
+ * Implements hook_page_title_settings().
  */
 function user_page_title_settings() {
   return array(

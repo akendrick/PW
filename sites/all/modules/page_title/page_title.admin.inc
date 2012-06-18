@@ -34,6 +34,7 @@ function page_title_admin_settings() {
       '#element_validate' => array('token_element_validate'),
       '#type' => 'textfield',
       '#size' => 30,
+      '#maxlength' => 255,
     );
 
     $form['patterns']['scope'][$key] = array(
@@ -68,5 +69,5 @@ function page_title_admin_settings() {
 
 
 function _page_title_scope_t($item) {
-  return t(ucfirst($item));
+  return t(drupal_ucfirst($item));
 }

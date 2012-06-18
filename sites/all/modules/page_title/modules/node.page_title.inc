@@ -7,7 +7,7 @@
 
 
 /**
- * Implementation of hook_page_title_alter().
+ * Implements hook_page_title_alter().
  */
 function node_page_title_alter(&$title) {
   $menu_item = menu_get_item();
@@ -25,7 +25,7 @@ function node_page_title_alter(&$title) {
 
 
 /**
- * Implementation of hook_page_title_pattern_alter().
+ * Implements hook_page_title_pattern_alter().
  */
 function node_page_title_pattern_alter(&$pattern, &$types) {
   $menu_item = menu_get_item();
@@ -64,7 +64,7 @@ function node_page_title_pattern_alter(&$pattern, &$types) {
 
 
 /**
- * Implementation of hook_page_title_settings().
+ * Implements hook_page_title_settings().
  */
 function node_page_title_settings() {
   $settings = array();

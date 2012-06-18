@@ -7,7 +7,7 @@
 
 
 /**
- * Implementation of hook_page_title_alter().
+ * Implements hook_page_title_alter().
  */
 function comment_page_title_alter(&$title) {
   // Get the current menu item and compare the path to the comment reply path.
@@ -31,7 +31,7 @@ function comment_page_title_alter(&$title) {
 
 
 /**
- * Implementation of hook_page_title_pattern_alter().
+ * Implements hook_page_title_pattern_alter().
  */
 function comment_page_title_pattern_alter(&$pattern, &$types) {
   $menu_item = menu_get_item();
@@ -46,6 +46,7 @@ function comment_page_title_pattern_alter(&$pattern, &$types) {
     // passed as a token.
     // TODO: Handle multiple terms? Only pass specific terms per content type?
     if (!empty($types['node']->taxonomy)) {
+      reset($types['node']->taxonomy);
       $types['taxonomy'] = current($types['node']->taxonomy);
     }
 
@@ -63,7 +64,7 @@ function comment_page_title_pattern_alter(&$pattern, &$types) {
 
 
 /**
- * Implementation of hook_page_title_settings().
+ * Implements hook_page_title_settings().
  */
 function comment_page_title_settings() {
   return array(

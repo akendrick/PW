@@ -7,7 +7,7 @@
  */
 
 /**
- * Implementation of hook_schema().
+ * Implements hook_schema().
  */
 function page_title_schema() {
   $schema['page_title'] = array(
@@ -24,7 +24,7 @@ function page_title_schema() {
 
 
 /**
- * Implementation of hook_update_n().
+ * Implements hook_update_n().
  */
 function page_title_update_6200() {
   $ret = array();
@@ -61,7 +61,7 @@ function page_title_update_6200() {
 
 
 /**
- * Implementation of hook_update_n().
+ * Implements hook_update_n().
  * Rename all the Vocabulary settings to reference by the new Machine Name, rather than Vocab ID.
  */
 function page_title_update_7200() {
@@ -91,7 +91,7 @@ function page_title_update_7200() {
 
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function page_title_uninstall() {
   // Clear variables

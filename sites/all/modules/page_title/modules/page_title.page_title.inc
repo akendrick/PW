@@ -7,7 +7,7 @@
 
 
 /**
- * Implementation of hook_page_title_alter().
+ * Implements hook_page_title_alter().
  */
 function page_title_page_title_alter(&$title) {
  // If nothing above set a title, give the legacy function a chance to act
@@ -23,7 +23,7 @@ function page_title_page_title_alter(&$title) {
 
 
 /**
- * Implementation of hook_page_title_pattern_alter().
+ * Implements hook_page_title_pattern_alter().
  */
 function page_title_page_title_pattern_alter(&$pattern, &$types) {
   // If frontpage, then use the frontpage pattern and set the title.
@@ -36,7 +36,7 @@ function page_title_page_title_pattern_alter(&$pattern, &$types) {
 
 
 /**
- * Implementation of hook_page_title_settings().
+ * Implements hook_page_title_settings().
  */
 function page_title_page_title_settings() {
   return array(

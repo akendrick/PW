@@ -38,7 +38,7 @@ function page_title_help($path, $arg) {
 
 
 /**
- * Implementation of hook_requirements().
+ * Implements hook_requirements().
  */
 function page_title_requirements($phase) {
   $requirements = array();
@@ -357,10 +357,33 @@ function page_title_node_type_form_submit($form, &$form_state) {
  * Implement hook_node_load().
  */
 function page_title_node_load($nodes) {
-  foreach ($nodes as $node) {
-    if ($page_title = page_title_load_title($node->nid, 'node')) {
-      $node->page_title = $page_title;
+  $nids = array();
+
+  // Get the settings
+  $settings = page_title_get_settings();
+
+  // Get a list of node nids to fetch page_title's later
+  foreach ($nodes AS $node) {
+    // Check the node type has the 'Show Field' enabled, otherwise there is no point querying for the data
+    if (isset($settings['page_title_type_' . $node->type]) && $settings['page_title_type_' . $node->type]['show field']) {
+      $nids[] = $node->nid;
     }
+    // Otherwise, set a blank value on the node
+    else {
+      $nodes[$node->nid] = '';
+    }
+  }
+
+  // If we have ended up with no nodes to load titles for, lets not query...
+  if (empty($nids)) {
+    return;
+  }
+
+  // Fetch page_title information from database and assign it to nodes
+  // TODO - Can we make this better? IN() queries dont scale welll..
+  $result = db_query('SELECT page_title, id FROM {page_title} WHERE type = :type AND id IN (:nids)', array(':type' => 'node', ':nids' => $nids));
+  foreach ($result AS $record) {
+    $nodes[$record->id]->page_title = $record->page_title;
   }
 }
 
@@ -370,7 +393,7 @@ function page_title_node_load($nodes) {
  */
 function page_title_node_insert($node) {
   if (user_access('set page title') && isset($node->page_title) && drupal_strlen(trim($node->page_title)) > 0) {
-     db_insert('page_title')->fields(array('type' => 'node', 'id' => $node->nid, 'page_title' => $node->page_title))->execute();
+    db_insert('page_title')->fields(array('type' => 'node', 'id' => $node->nid, 'page_title' => $node->page_title))->execute();
   }
 }
 
@@ -379,8 +402,15 @@ function page_title_node_insert($node) {
  * Implement hook_node_update().
  */
 function page_title_node_update($node) {
-  if (user_access('set page title') && isset($node->page_title) && drupal_strlen(trim($node->page_title)) > 0) {
-    db_merge('page_title')->key(array('type' => 'node', 'id' => $node->nid))->fields(array('page_title' => $node->page_title))->execute();
+  if (user_access('set page title') && isset($node->page_title)) {
+    // If there is content to the Page Title, 'merge' it (ie, either UPDATE or INSERT)
+    if (drupal_strlen(trim($node->page_title)) > 0) {
+      db_merge('page_title')->key(array('type' => 'node', 'id' => $node->nid))->fields(array('page_title' => $node->page_title))->execute();
+    }
+    // Otherwise, delete the row (if there is one)
+    else {
+      db_delete('page_title')->condition('type', 'node')->condition('id', $node->nid)->execute();
+    }
   }
 }
 
@@ -607,6 +637,16 @@ function page_title_preprocess_html(&$vars) {
  * Implement hook_init().
  */
 function page_title_init() {
+  // Make sure our API includes are included on all page loads.
+  page_title_include_api_files();
+}
+
+
+/**
+ * Function to ensure API files are included.
+ * We use a static variable so we can use include, which is faster than include_one
+ */
+function page_title_include_api_files() {
   // Using $runonce, we can ensure the include code below only gets run once.
   $runonce = &drupal_static(__FUNCTION__, FALSE);
   if ($runonce) return;
@@ -692,7 +732,7 @@ function page_title_form_views_ui_config_item_form_alter_submit($form, &$form_st
 
 
 /**
- * Implementation of hook_views_api().
+ * Implements hook_views_api().
  */
 function page_title_views_api() {
     return array(
@@ -702,7 +742,7 @@ function page_title_views_api() {
 
 
 /**
- * Implementation of hook_views_plugins().
+ * Implements hook_views_plugins().
  */
 function page_title_views_plugins() {
   return array(
@@ -731,6 +771,30 @@ function page_title_views_plugins() {
 
 
 /**
+ * Implements hook_entity_uuid_save().
+ */
+function page_title_uuid_entity_uuid_save(&$entity, $entity_type) {
+  if (!empty($entity->page_title)) {
+    // Insert page_title record for this entity.
+    db_insert('page_title')
+      ->fields(array(
+        'type' => $entity_type,
+        'id' => entity_id($entity_type, $entity),
+        'page_title' => $entity->page_title,
+      ))
+      ->execute();
+  }
+  else {
+    // Delete item so we get an auto-generated value basedo on settings.
+    db_delete('page_title')
+      ->condition('type', $entity_type)
+      ->condition('id', entity_id($entity_type, $entity))
+      ->execute();
+  }
+}
+
+
+/**
  * Get the Page Title Setttings
  */
 function page_title_get_settings($flush = FALSE) {
@@ -753,7 +817,12 @@ function page_title_get_settings($flush = FALSE) {
     return $cache->data;
   }
 
-  // Get the settings from hoko_page_title_settings().
+  // We run this here as there are edge cases where it seems hook_init() and
+  // cache clearing intefere with each other, casuing INC files to not be included
+  // See: http://drupal.org/node/1567790
+  page_title_include_api_files();
+
+  // Get the settings from hook_page_title_settings().
   $settings = module_invoke_all('page_title_settings');
 
   // For each setting, apply a "default" mask (this makes it easier to use
@@ -817,7 +886,7 @@ function page_title_get_module_apis() {
 
 
 /**
- * Implementation of hook_page_title_api().
+ * Implements hook_page_title_api().
  */
 function page_title_page_title_api() {
   return array(
@@ -837,6 +906,7 @@ function forum_page_title_api() { return page_title_page_title_api(); }
 function user_page_title_api() { return page_title_page_title_api(); }
 function blog_page_title_api() { return page_title_page_title_api(); }
 function views_page_title_api() { return page_title_page_title_api(); }
+function uc_catalog_page_title_api() { return page_title_page_title_api(); }
 
 
 /**

@@ -7,7 +7,7 @@
 
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  *
  * Provides the Page Title as a Views field for Views 2.
  */
@@ -55,7 +55,7 @@ function page_title_views_data() {
 
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_handlers().
  */
 function page_title_views_handlers() {
   return array(

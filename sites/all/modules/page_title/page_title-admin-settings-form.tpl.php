@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Template file for the admin settings form. Renders the settings form as a table.
+ */
 
 $form = &$variables['form'];
 
