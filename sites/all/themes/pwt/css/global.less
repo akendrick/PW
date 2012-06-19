@@ -513,6 +513,7 @@ body {
 
 /* Super Menu */
 ul#megamenu-menu-pw-super-menu {
+/*
   background-color: @classified_dark;
   a { color: @white; }
   ul.megamenu-bin {
@@ -527,7 +528,7 @@ ul#megamenu-menu-pw-super-menu {
       h3 a{
         .border-radius(0);
         font-size: 100%;
-        line-height: .9em;
+        line-height: .6em;
         color: @white;
       }
       a:hover {
@@ -536,8 +537,10 @@ ul#megamenu-menu-pw-super-menu {
       }
     }
     li.megamenu-slot-title {
-      font-size: 1em;
+      font-size: .8em;
     }
+*/
+/*
     ul.megamenu-items {
       li.megamenu-item {
         background-color: @white;
@@ -556,8 +559,9 @@ ul#megamenu-menu-pw-super-menu {
         background-color: @sand;
       }
     }
+*/
 
-  }
+/*   } */
 }
 
 /*****************  DISPLAY ADS  *****************/
@@ -624,7 +628,7 @@ ul#megamenu-menu-pw-super-menu {
 
 /*****************  BLOCKS  *****************/
 /**** Classified DHTML Link Block ******/
-#block-menu-block-4 {
+.menu-name-menu-pw-super-menu {
   .content {
     background-color: @white;
     width: 100%
@@ -649,7 +653,9 @@ ul#megamenu-menu-pw-super-menu {
   menu.expanded {
     background-color: @sand;
   }
-  li.expanded, li.active-trail {
+  li.expanded ul.menu { display: none; }
+  li.active-trail {
+    ul.menu { display: block; }
     background-color: @classified_dark;
     a {
       color: @white;
