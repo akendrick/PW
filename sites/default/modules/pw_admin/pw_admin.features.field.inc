@@ -10,7 +10,7 @@
 function pw_admin_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'taxonomy_term-classification-field_business_rated'
+  // Exported field: 'taxonomy_term-classification-field_business_rated'.
   $fields['taxonomy_term-classification-field_business_rated'] = array(
     'field_config' => array(
       'active' => '1',
@@ -24,6 +24,7 @@ function pw_admin_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -80,7 +81,7 @@ function pw_admin_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-classification-field_classified_id'
+  // Exported field: 'taxonomy_term-classification-field_classified_id'.
   $fields['taxonomy_term-classification-field_classified_id'] = array(
     'field_config' => array(
       'active' => '1',
@@ -104,6 +105,7 @@ function pw_admin_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '6',

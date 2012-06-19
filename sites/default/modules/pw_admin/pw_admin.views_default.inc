@@ -6760,8 +6760,8 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['promote']['expose']['identifier'] = 'promote';
   $handler->display->display_options['filters']['promote']['expose']['multiple'] = FALSE;
 
-  /* Display: Display Page */
-  $handler = $view->new_display('page', 'Display Page', 'page');
+  /* Display: Tab */
+  $handler = $view->new_display('page', 'Tab', 'page');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'admin/pennywise/article';
   $handler->display->display_options['menu']['type'] = 'tab';
@@ -6775,12 +6775,11 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';
 
-  /* Display: Display Menu */
-  $handler = $view->new_display('page', 'Display Menu', 'page_1');
-  $handler->display->display_options['enabled'] = FALSE;
+  /* Display: Display Page */
+  $handler = $view->new_display('page', 'Display Page', 'page_2');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'admin/pennywise/article';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'admin/pennywise/article/all';
+  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Editorial';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
@@ -6795,7 +6794,7 @@ Un-Published: [unpublish_on]<br>';
   $view = new view;
   $view->name = 'page_administration';
   $view->description = 'Views Bulk Admin for Display Ads';
-  $view->tag = 'default';
+  $view->tag = 'admin';
   $view->base_table = 'node';
   $view->human_name = 'Page Administration';
   $view->core = 7;
@@ -8072,19 +8071,16 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['contextual_links']['fields'] = array(
     'edit_node' => 'edit_node',
-    'nid' => 'nid',
     'view_node' => 'view_node',
     'revert_revision' => 'revert_revision',
     'delete_node' => 'delete_node',
-    'status' => 0,
     'timestamp' => 0,
-    'promote' => 0,
-    'field_image' => 0,
-    'field_images_editorial_extra' => 0,
-    'title' => 0,
-    'field_submitter' => 0,
+    'field_area' => 0,
+    'field_edition_date' => 0,
+    'view_node_1' => 0,
+    'views_bulk_operations' => 0,
     'body' => 0,
-    'publishcontent' => 0,
+    'nid' => 0,
   );
   $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Field: Content: Published */

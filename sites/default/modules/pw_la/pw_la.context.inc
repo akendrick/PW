@@ -43,29 +43,29 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'pennywise-pw_breadcrumb' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_breadcrumb',
+          'region' => 'content',
+          'weight' => '-30',
+        ),
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-29',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-9',
-        ),
-        'pennywise-pw_breadcrumb' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_breadcrumb',
-          'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-28',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-7',
+          'weight' => '-27',
         ),
         'megamenu-menu-pw-super-menu' => array(
           'module' => 'megamenu',

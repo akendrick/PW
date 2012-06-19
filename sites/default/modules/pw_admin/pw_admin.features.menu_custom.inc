@@ -10,7 +10,7 @@
 function pw_admin_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: menu-pw-admin
+  // Exported menu: menu-pw-admin.
   $menus['menu-pw-admin'] = array(
     'menu_name' => 'menu-pw-admin',
     'title' => 'PW Admin',
