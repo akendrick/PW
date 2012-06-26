@@ -31,7 +31,7 @@ function pw_cl_views_api() {
 function pw_cl_image_default_styles() {
   $styles = array();
 
-  // Exported image style: classified-list-style
+  // Exported image style: classified-list-style.
   $styles['classified-list-style'] = array(
     'name' => 'classified-list-style',
     'effects' => array(
@@ -53,7 +53,7 @@ function pw_cl_image_default_styles() {
     ),
   );
 
-  // Exported image style: classified_page_style
+  // Exported image style: classified_page_style.
   $styles['classified_page_style'] = array(
     'name' => 'classified_page_style',
     'effects' => array(

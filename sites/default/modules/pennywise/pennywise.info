@@ -3,3 +3,4 @@ description = General Pennywise hacks.
 package = "Pennywise"
 core = 7.x
 
+;scripts[] = js/pw_form_admin.js

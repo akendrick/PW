@@ -17,6 +17,9 @@
   visibility: hidden;
   height: 0;
 }
+.ds-form-3col-stacked table.tableheader-processed {
+  width: 200px;
+}
 .ds-form-3col-stacked h3 {
   /*     border-bottom: 2pt groove @plum; */
 
@@ -84,6 +87,10 @@
 .node-article-form .ds-form-3col-stacked .group-right,
 .node-classified-form .ds-form-3col-stacked .group-right {
   width: 365px;
+}
+.node-article-form .ds-form-3col-stacked #edit-field-image-und,
+.node-classified-form .ds-form-3col-stacked #edit-field-image-und {
+  width: 300px;
 }
 /* Display Ad Node Form */
 .node-display_ads-form #field-ad-copy-add-more-wrapper {

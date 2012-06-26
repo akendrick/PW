@@ -1,4 +1,4 @@
-  Drupal.adPayment = Drupal.adPayment || {};
+Drupal.adPayment = Drupal.adPayment || {};
 
 
 /**
@@ -7,7 +7,7 @@
  * First we clean the text.
  * Then we count it.
  *
- *  Counter and Cleaner from jQuery 
+ *  Counter and Cleaner from jQuery
  */
 Drupal.adPayment.wordCleaner = function(content) {
 	var fullStr = content + " ";
@@ -16,7 +16,7 @@ Drupal.adPayment.wordCleaner = function(content) {
 	var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9-@_.]+/gi;
 	var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
 	var splitString = cleanedStr.split(" ");
-	
+
 	return splitString;
 };
 Drupal.adPayment.countWords = function(cleanedWordString) {
@@ -31,7 +31,7 @@ Drupal.adPayment.countWords = function(cleanedWordString) {
 Drupal.adPayment.validate = function(ad) {
   ad.errorMsg = {};
   var state = false;
-  
+
   // Hyphenation Check
 	var hyphensRg = /([A-Za-z0-9][-_.*#]){2,}/;
   if (hyphensRg.test(ad.copy)) {
@@ -40,24 +40,24 @@ Drupal.adPayment.validate = function(ad) {
     jQuery('#field-ad-copy-add-more-wrapper').addClass('error element-error');
   }
   else {
-    jQuery('#field-ad-copy-add-more-wrapper').removeClass('error element-error');  
+    jQuery('#field-ad-copy-add-more-wrapper').removeClass('error element-error');
   };
 
   // DETERMINE RATE
-  // - If BIZ rate. 
+  // - If BIZ rate.
   //   Ignore and clean errors.
-  // - If PERSONAL rate. 
+  // - If PERSONAL rate.
   //   Check term Rate.
   //   If Term rate is Biz - send errors.
   //   Otherwise ignore.
   if (ad.formRate == 'Personal') {
     // Get Selected SECTION
     ad.section = jQuery('#edit-field-tags-und').val();
-    
+
     if (ad.section >= 0) {
       // get section ratings
       var bizRatedSections = Drupal.settings.adPaymentBiz;
-      
+
       if (bizRatedSections[ad.section]) {
         // Biz Rated
         state = true;
@@ -68,14 +68,14 @@ Drupal.adPayment.validate = function(ad) {
         jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error element-error');
         // personal rate
       }
-      
+
     }
-  } 
+  }
   else {
       jQuery('.form-item-field-tags-und, #edit-field-rate-und').removeClass('error element-error');
   };
 
-  
+
   // Output error message
   if (state) {
     ad.errorMsg.warning = Drupal.t('<h3>The quoted price may not be accurate.</h3>This ad will need to verified by Pennywise staff before billing.');
@@ -84,17 +84,17 @@ Drupal.adPayment.validate = function(ad) {
     jQuery.each(ad.errorMsg, function(key, value) {
         validationBoxes += '<div style="display:block" class="messages error"><h2 class="element-invisible">Error Message</h2>' + value + '</div>';
     });
-  
+
     //var validationBox = '<h2 class="element-invisible">Error Message</h2><ul>' + errorMsg + '</ul>';
     jQuery('#validation-box').html(validationBoxes);
   }
   else {
-    jQuery('#validation-box').html('').removeClass('messages error');    
+    jQuery('#validation-box').html('').removeClass('messages error');
     ad.errorMsg = '';
   };
 
   return ad;
-  
+
 };
 
 
@@ -105,22 +105,22 @@ Drupal.adPayment.validate = function(ad) {
  *  array of form variables.
  */
 Drupal.adPayment.formData = function(ad) {
-    
-  // Ad Copy 
+
+  // Ad Copy
   ad.copy = jQuery('#edit-field-ad-copy-und-0-value').val();
-  
+
   // Word Counter
   ad.wordCountTrim = jQuery('#edit-field-ad-copy-und-0-value').val().trim();
   //ad.wordCount     = jQuery('#edit-field-ad-copy-und-0-value').val().split(/\b[\n\s,\.:;.]*/).length;
   ad.wordCount = Drupal.adPayment.countWords(Drupal.adPayment.wordCleaner( ad.copy ));
-  
+
   if (ad.wordCount == 'undefined' || ad.wordCount < 15) {
     // ad.wordCount = 15;
   }
   else if (ad.wordCount > 15) {
     ad.countOver = ad.wordCount-15;
   }
-  
+
   // AD AREA
   ad.area = 0;
   ad.areaList = '';
@@ -145,7 +145,7 @@ Drupal.adPayment.formData = function(ad) {
     ad.areaList += 'Castlegar';
   }
   //ad.area = (ad.area == 0) ? 'undefined' : ad.area;
-  
+
   // RATE
   if (jQuery('#edit-field-rate-und-personal:checked').val() == 'Personal') {
     ad.formRate = 'Personal';
@@ -156,10 +156,10 @@ Drupal.adPayment.formData = function(ad) {
   else {
     ad.formRate = 'Not Set';
   };
-  
+
   // DURATION
   ad.duration = jQuery('#edit-field-duration-und').val();
-  
+
   // LIVELOAD
   if (jQuery('#edit-field-promote-und-0:checked').val() == '0') {
     ad.type = 'Regular Classified Ad';
@@ -170,8 +170,8 @@ Drupal.adPayment.formData = function(ad) {
   else {
     ad.type = 'Not Set';
   };
-  
-  
+
+
   // Validate Form Data
   ad = Drupal.adPayment.validate(ad);
 
@@ -198,17 +198,17 @@ Drupal.adPayment.getPrice = function(ad) {
     price.rate = 'Personal';
     price.base = 3.5;
     price.word = .2;
-    price.img  = 1.99;    
+    price.img  = 1.99;
     price.promote = 5;
   }
   else if (ad.formRate == 'Business'){
     price.rate = 'Business';
     price.base = 5;
     price.word = .4;
-    price.img  = 2.99;    
+    price.img  = 2.99;
     price.promote = 5;
   };
-  
+
   // CALCULATE PRICE
   // If no area selected use default one.
   ad.area = (ad.area == 0) ? 1 : ad.area;
@@ -237,12 +237,12 @@ Drupal.adPayment.getPrice = function(ad) {
 
   // Total
   price.total = price.subTotal +  price.taxes;
-  
+
   // Round prices for output
   price.subTotalRound =  Drupal.adPayment.formatCurrency(price.subTotal);
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
-  
+
   return price;
 };
 
@@ -252,25 +252,25 @@ Drupal.adPayment.getPrice = function(ad) {
  *
  * Determine form data and configure display.
  */
-Drupal.adPayment.displayMsg = function() { 
+Drupal.adPayment.displayMsg = function() {
   var ad = {};
   ad = Drupal.adPayment.formData(ad);
-  
-  var price = {};  
+
+  var price = {};
   price = Drupal.adPayment.getPrice(ad);
-   
+
   // Ad Message
   ad.msg = {};
   ad.msg.wordcount   = Drupal.t("<dt>Word count:</dt><dd>@count </dd>", {'@count': ad.wordCount});
-  
+
   // Show formatted ad:
   if (ad.wordCount > 0) {
     ad.msg.ad = Drupal.t("<dt>How your ad will look:</dt><dd>@trim </dd>", {'@trim': ad.wordCountTrim});
-  } 
+  }
   else {
     ad.msg.ad = '';
-  }; 
-  
+  };
+
   // Over 15 words notice.
   if (ad.wordCount > 15) {
     ad.msg.countOver   = Drupal.t("<dt>Words over 15:</dt><dd> @count at &cent;@wordPrice0 a word </dd>", {'@count': ad.countOver, '@wordPrice': price.word});
@@ -280,7 +280,7 @@ Drupal.adPayment.displayMsg = function() {
     ad.msg.countOver = '';
     ad.msg.countOverSum = '<dt>Words over 15:</dt><dd>0</dd>';
   }
-  
+
   // Area MSG
   if (ad.area == 0) {
     ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd> No Area Selected</dd>");
@@ -300,10 +300,10 @@ Drupal.adPayment.displayMsg = function() {
   }
   // ad web area free
   ad.msg.areaList += '<em class="price-box duration duration-note">Internet Included FREE</em>';
-  
-  // Rate MSG 
+
+  // Rate MSG
   ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.formRate});
-  
+
   // Duration MSG
   ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd> @duration weeks</dd>", {'@duration': ad.duration}) + ad.msg.durationDiscount;
   ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks</dd>", {'@duration': ad.duration});
@@ -311,14 +311,14 @@ Drupal.adPayment.displayMsg = function() {
     ad.msg.duration = '<dt>Duration:</dt><dd>When you book for 2 weeks you get the 3rd for FREE!</dd>';
     ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks</dd>", {'@duration': ad.duration});
   };
-  
+
   // Liveload
   ad.msg.type = Drupal.t("<dt>Ad Type:</dt><dd> @type</dd>", {'@type': ad.type});
-  
+
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
   ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-option'>Optional Extras: $@optional</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@taxes': price.taxesRound, '@optional': price.optional, '@priceTotal': price.totalRound});
-  
+
   // SHow save on AGREE
   if (jQuery('#edit-field-agree-und-confirm').is(':checked')) {
     jQuery('#edit-submit, #edit-preview').show();
@@ -326,7 +326,7 @@ Drupal.adPayment.displayMsg = function() {
   else {
     jQuery('#edit-submit, #edit-preview').hide();
   }
-      
+
   // Error Messages
   ad.msg.error = '';
   if (ad.errorMsg) {
@@ -339,17 +339,17 @@ Drupal.adPayment.displayMsg = function() {
   }
   else {
     ad.msg.error = '';
-  }  
+  }
 
   // Compose Messages
   // Summary - quick feedback as you type.
-  ad.msg.summary = 
-    '<div id="ad-summary">' 
+  ad.msg.summary =
+    '<div id="ad-summary">'
      + '<div id="ad-summary-price" class="block summary-price-block block-details">'
      + '<h4 class="ad-summary-header">Summary</h4>'
      + '<dl class="ad-summary">'
-     + '<span class="ad-summary-block">' + ad.msg.areaListSum  + '</span>' 
-     + '<span class="ad-summary-block">' + ad.msg.durationSum  + '</span>' 
+     + '<span class="ad-summary-block">' + ad.msg.areaListSum  + '</span>'
+     + '<span class="ad-summary-block">' + ad.msg.durationSum  + '</span>'
      + '<span class="ad-summary-block">' + ad.msg.wordcount    + '</span>'
      + '<span class="ad-summary-block">' + ad.msg.countOverSum + '</span>'
      + '<span class="ad-summary-block ad-summary-price-block">' + ad.msg.priceSum     + '</span>'
@@ -359,29 +359,29 @@ Drupal.adPayment.displayMsg = function() {
     ;
 
   // Review - full review of ad before submission.
-  ad.msg.review = 
+  ad.msg.review =
     '<div id="review-ad-box-ad" class="review-ad-block">'
     + '<h2>Ad</h2>'
-    + ad.msg.ad 
-    + ad.msg.wordcount 
-    + ad.msg.countOver  
+    + ad.msg.ad
+    + ad.msg.wordcount
+    + ad.msg.countOver
     + '</div>'
     + '<div id="ad-review-data">'
     + '<div id="review-ad-box-price" class="review-ad-block">'
     + '<h2>Summary</h2>'
-    + ad.msg.error 
+    + ad.msg.error
     + '<dl>'
-    + ad.msg.areaList 
-    + ad.msg.rate 
-    + ad.msg.duration 
-    + ad.msg.type 
-    + ad.msg.priceOverview 
+    + ad.msg.areaList
+    + ad.msg.rate
+    + ad.msg.duration
+    + ad.msg.type
+    + ad.msg.priceOverview
     + '</dl>'
     + '</div>'
     ;
   ad.msg.storage =
     '$adp_pricing = array('
-    + '\'wordcount\' => ' + ad.wordCount + ',' 
+    + '\'wordcount\' => ' + ad.wordCount + ','
     + '\'duration\' => ' + ad.duration + ','
     + '\'count_over\' => ' + ad.countOver + ','
     + '\'area_list\' => ' + '\'' + ad.areaList + '\','
@@ -392,10 +392,10 @@ Drupal.adPayment.displayMsg = function() {
     + '\'base_price\' => ' + price.subTotalRound + ','
     + '\'total_price\' => ' + price.totalRound + ','
     + ');'
-    // {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});  
+    // {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
   // SET FORM PRICE
   jQuery('#edit-field-price-und-0-value').val(price.totalRound);
-  
+
   return ad.msg;
 }
 
@@ -416,7 +416,7 @@ jQuery(document).ready(function() {
     var sideBar = '#sidebar-first > .section > .region';
     var summaryBox = Drupal.adPayment.displayMsg().summary;
     jQuery(sideBar).prepend(summaryBox);
-    
+
     // Create DIV for OverView
     //jQuery('#ad-s-node-form').prepend('<div id="ad-review">There are no ads ready to submit at this time.</div>');
     var boxDetails = '<div id="ad-review" class="ad-review-empty-box"> <div id="ad-summary" class="block summary-price-block ad-summary-directions"> <h4 class="ad-summary-header">Directions</h4><ul class="ad-summary-list"> <li>Begin by typing your ad in the <em>Ad Copy</em> box.</li> <li>Below that are your preferences for how & where you want your ad displayed.</li> <li>To get help your ad get noticed check out step <em>2: Options</em>.</li> <li>Enter credit card information in step <em>3: Payment</em>.</li> <li>When satisfied with your ad go to step <em>Review & Submit</em> to submit your finished ad.</li></ul></div></div>';
@@ -426,17 +426,17 @@ jQuery(document).ready(function() {
     // DIV for ReView
     var reviewLocation = '#edit-field-agree';
     jQuery(reviewLocation).prepend('<div id="review-ad-block"></div>');
-  
+
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
-  
+
     jQuery('#ad-s-node-form').bind('click keypress keyup change', function() { //click change keypress keyup
 
       var sideBox = '#ad-summary';
       var summaryBox = Drupal.adPayment.displayMsg().summary;
       jQuery(sideBox).html(summaryBox);
-      
+
       // Review box
       var reviewLocation = '#review-ad-block';
       var reviewBox = Drupal.adPayment.displayMsg().review;
@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
 
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
-  
+
       // var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
       // console.log('Page state: ' + pageState);
       // Hide Submit Button if you're on page 4 and no ad copy.
@@ -463,4 +463,3 @@ jQuery(document).ready(function() {
   };
 });
 
-  

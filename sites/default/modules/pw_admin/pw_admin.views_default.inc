@@ -6763,7 +6763,7 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Tab */
   $handler = $view->new_display('page', 'Tab', 'page');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'admin/pennywise/article';
+  $handler->display->display_options['path'] = 'admin/pennywise/article/all';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Editorial';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -6778,8 +6778,8 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Display Page */
   $handler = $view->new_display('page', 'Display Page', 'page_2');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'admin/pennywise/article/all';
-  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['path'] = 'admin/pennywise/article';
+  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Editorial';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
