@@ -40,6 +40,15 @@ function _adworks_pre_flight_ads($adworks) {
       $found = file_scan_directory('public://', '$' . $image_name . '$', $options);
       $image_file = array_shift($found);
 
+      // Determine if file is currently in use.
+      $image_folder = explode('/', $image_file->uri);
+      $image_folder = $image_folder[2];
+      
+      if($image_folder == 'classified_ad_images') {
+        // Do nothing as ad already exists.
+        $image_in_use[] = $image_name;
+      }
+
       // If corresponding image is NOT FOUND record image name
       if (!$image_file) {
         $missing_image_files[] = $image_name;
@@ -49,13 +58,20 @@ function _adworks_pre_flight_ads($adworks) {
     // Count and sort missing images
     $message_body = $ad_count_message . $image_count_message . '<br>';
 
+    if ($image_in_use) {
+      sort($image_in_use);
+      foreach($image_in_use as $image) {
+        $in_use .= $image . '<br>';
+      }
+      $message_body .= '<br><strong>IN USE BY ANOTHER AD OR ALREADY UPLOADED:</strong><br>' . $in_use . '<br> If you are uploading a newer version, please edit that ad directly.<br>';;
+    }
     if ($missing_image_files) {
       // Sort Image files
       sort($missing_image_files);
       foreach($missing_image_files as $missing) {
         $missing_images .= $missing . '<br>';
       }
-      $message_body .= '<br>MISSING IMAGES: <br>' . $missing_images . '<br>####### NO ADS UPLOADED #########';
+      $message_body .= '<br><strong>MISSING IMAGES: <strong><br>' . $missing_images . '<br>####### NO ADS UPLOADED #########';
       $status = FALSE;
 
       $preflight['status'] = $status;
@@ -63,7 +79,7 @@ function _adworks_pre_flight_ads($adworks) {
     }
     else {
       // Image files are present.
-      $message_body .= '<strong>Images All Present & Counted For!</strong>.';
+      $message_body .= '<BR><BR><strong>Images All Present & Counted For!</strong>.';
       $status = TRUE;
 
       $preflight['status'] = $status;
@@ -102,6 +118,7 @@ function _adworks_pre_flight_ads($adworks) {
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
 function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL) {
+  global $base_path;
 
   $image_count = 0;
 
@@ -128,6 +145,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     $found = file_scan_directory('public://', '$' . $image . '$', $options);
     $image_file = array_shift($found);
 
+    
     // Create managed File Object and add Image fields.
     if($image_file->uri && $check_images == TRUE) {
       $file = (object) array(
@@ -138,8 +156,18 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
         'filemime' => 'image/jpeg',
       );
       // Move image to Classified Image folder
-      $file = file_copy($file, 'public://classified_ad_images', FILE_EXISTS_REPLACE);
+      $image_folder = explode('/', $file->uri);
+      $image_folder = $image_folder[2];
+      
+      if($image_folder == 'classified_ad_images') {
+        // Do nothing as ad already exists.
+        $errors .= 'Unable to upload image ' . $image_file->name . ' as it already exists. If you are uploading a newer version, please edit that ad directly.';
+      }
+      else {
+        $file = file_copy($file, 'public://' . $image_folder, FILE_EXISTS_REPLACE);      
+      }
 
+  
       $new_ad->field_image = array(
         $new_ad->language => array(
           0 => (array)$file,
@@ -265,7 +293,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
   }
   else {
     $term_name = taxonomy_term_load($term_id);
-
+    
     $new_ad->field_tags = array(
       $new_ad->language => array(
         0 => array(
@@ -319,6 +347,7 @@ if(!$create_ads) {
 }
 
 
+
  // Return if any images missing.
  //$create_ads = TRUE;
 
@@ -328,9 +357,9 @@ if(!$create_ads) {
   elseif (!$images_missing || count($images_missing) == 0 || !$errors) {
     if ($create_ads) {
       // AD SAVE
+      $ad_count += 1;
       node_submit($new_ad);
       node_save($new_ad);
-      $ad_count += 1;
       $results['ad_count'] = $ad_count;
     }
     else {

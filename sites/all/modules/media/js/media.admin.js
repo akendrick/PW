@@ -9,14 +9,14 @@
 (function ($) {
 
 /**
- * Functionality for the administrative file listings.
+ * Functionality for the thumbnail display
  */
 Drupal.behaviors.mediaAdmin = {
   attach: function (context) {
     // Show a javascript confirmation dialog if a user has files selected and
     // they try to switch between the "Thumbnail" and "List" local tasks.
-    $('.tabs.secondary a').bind('click', function () {
-      if ($(':checkbox:checked', $('.file-entity-admin-files-form')).length != 0) {
+    $('.media-display-switch a').bind('click', function () {
+      if ($(':checkbox:checked', $('form#media-admin')).length != 0) {
         return confirm(Drupal.t('If you switch views, you will lose your selection.'));
       }
     });
@@ -41,7 +41,8 @@ Drupal.behaviors.mediaAdmin = {
     });
 
     $('ul.action-links', context).prepend($('<li></li>').append($launcherLink));
-    if ($('body.page-admin-content-file-thumbnails').length != 0) {
+
+    if ($('.media-display-thumbnails').length) {
       // Implements 'select all/none' for thumbnail view.
       // @TODO: Support grabbing more than one page of thumbnails.
       var allLink = $('<a href="#">' + Drupal.t('all') + '</a>')
@@ -59,7 +60,7 @@ Drupal.behaviors.mediaAdmin = {
         .append(allLink)
         .append(', ')
         .append(noneLink)
-        .prependTo('.media-display-thumbnails')
+        .prependTo('#media-admin > div')
       // If the media item is clicked anywhere other than on the image itself
       // check the checkbox. For the record, JS thinks this is wonky.
       $('.media-item').bind('click', function (e) {
@@ -91,8 +92,29 @@ Drupal.behaviors.mediaAdmin = {
         });
       });
     }
+
+    // When any checkboxes are clicked on this form check to see if any are checked.
+    // If any checkboxes are checked, show the edit options (@todo rename to edit-actions).
+    $('#media-admin :checkbox').bind('change', function () {
+      Drupal.behaviors.mediaAdmin.showOrHideEditOptions();
+    });
+
+    Drupal.behaviors.mediaAdmin.showOrHideEditOptions();
+  },
+
+  // Checks if any checkboxes on the form are checked, if so it will show the
+  // edit-options panel.
+  showOrHideEditOptions: function() {
+    var fieldset = $('#edit-options');
+    if (!$('#media-admin input[type=checkbox]:checked').size()) {
+      fieldset.slideUp('fast');
+    }
+    else {
+      fieldset.slideDown('fast');
+    }
   }
 };
+
 
 /**
  * JavaScript for the Media types administrative form.
@@ -117,5 +139,6 @@ Drupal.behaviors.mediaTypesAdmin = {
   }
 };
 
-})(jQuery);
 
+
+})(jQuery);
