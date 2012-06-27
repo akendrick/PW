@@ -109,16 +109,35 @@ function _adworks_pre_flight_ads($adworks) {
 *    BOOLEAN - TRUE will save images.
 *       FALSE omits image check (acts as if images don't exist).
 *    For testing and image verification purposes only.
+*  @param $context
+*    Returns output for batch process and error handling.
 *
-*  @TODO
-*  Image handler should:
-*   - Perform PREFLIGHT for images!! -- DONE in form validation.
-*   - Check the entire directory for file
-*   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
-*   - MOVE - if file is in 'files/classified_ad_image_upload`
+* Note: 
+*   Scheduler data is now handled on node_save();
 */
-function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL, &$context) {
+function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL, &$context) {
   global $base_path;
+
+  // Prepare Batch Output Reporting
+  //$context['results'][] = $results;
+  if (empty($context['sandbox'])) {
+    $context['sandbox'] = array(
+      'progress' => 0,
+      'email_count' => 0,
+      'node_count' => 0,
+      'image_count' => 0,
+      'image_found' => 0,
+      'image_already_uploaded' => 0,
+      'image_missing' => 0,
+      'phone_count' => 0,
+      'link_count' => 0,
+      'area_count' => 0,
+      'error_count' => 0,
+      'error_messages' => array(),
+      'max' => $ad_total,
+    );
+  }
+
 
   $image_count = 0;
 
@@ -137,21 +156,20 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
   // Image
   preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
   $image = $image[0];
+  
+  $image = FALSE;
   if ($image  && $check_images) {
-    // Check for image on FILES
+    $context['sandbox']['images_count']++;
+ 
+    // Check for image in FILES
     // Search Directory // Upgradable function
     $image_name = $image . '.jpg';
     $options = array ('key' => 'filename');
     $found = file_scan_directory('public://', '$' . $image . '$', $options);
     
-//    dpm('Image FOUND');
-//    dpm($found);
-//    
-//    dpm('Image FOUND');
-//    dpm($found);
-//    dpm($image_file->uri);
-    
-
+    dpm('FILE FOUND');
+    dpm($found);
+    // If Image present prepare it for saving.
     if($image_file && $check_images) {
 
       // Take image object file and save to permanent directory
@@ -168,12 +186,13 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       // - Convert to ARRAY!
       $new_ad->field_image[$new_ad->language][0] = (array) $file;
       
-      // dpm('FILE');
-      // dpm($file);
-      $images_found[] = $image_name;
+      //$images_found[] = $image_name;
+      $context['sandbox']['image_found']++;
     }
     else {
-      $images_missing[] = $image_name;
+      // log missing images.
+      //$images_missing[] = $image_name;
+      $context['sandbox']['image_missing']++;
     }
     
   }
@@ -224,7 +243,9 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       ),
     );
     // count links
-    $link_count += 1;
+    //$link_count += 1;
+    $context['sandbox']['link_count']++;
+
   }
   // Phone
   preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
@@ -241,7 +262,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       ),
     );
     // Count Phone Numbers
-    $phone_count += 1;
+    //$phone_count += 1;
+    $context['sandbox']['phone_count']++;
   }
 
   // area code
@@ -258,7 +280,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       ),
     );
     // Count Area Codes
-    $area_code_count += 1;
+    //$area_code_count += 1;
+    $context['sandbox']['area_count']++;
   }
 
   // LIVELOAD
@@ -284,7 +307,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       ),
     );
     // Count Email
-    $email_count += 1;
+    //$email_count += 1;
+    $context['sandbox']['email_count']++;
   }
 
   // Classification
@@ -293,8 +317,10 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
   $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
 
   if(!$term_id) {
-    dpm('Taxonomy term missing (' . $term_id . '): ' . $section );
-    $errors[] = 'Taxonomy term missing (' . $term_id . '): ' . $section ;
+    //dpm('Taxonomy term missing (' . $term_id . '): ' . $section );
+    //$errors[] = 'Taxonomy term missing (' . $term_id . '): ' . $section ;
+    $context['sandbox']['error_count']++;
+    $context['sandbox']['error_messages'][] = 'Taxonomy term missing: ' . $section;
   }
   else {
     $term_name = taxonomy_term_load($term_id);
@@ -324,34 +350,11 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     $new_ad->unpublish_on = $publish_dates['end'];
   }
 
-
-
-  // Collate ad creation data.
-  $results = array(
-    'email' => $email_count,
-    'link' => $link_count,
-    'area code' => $area_code_count,
-    'image' => array(
-      'found' => $images_found,
-      'error' => $images_missing,
-      'total' => $image_count,
-    ),
-    'phone' => $phone_count,
-    'ad_count' => $ad_count,
-    'errors' => $errors,
-  );
-  
-
-//  if ($create_ads == FALSE) {
-//    //drupal_set_message('OVERRIDE - Do not create ads.', 'alert');
-//    return $results;
-//  }
-
 // AD COUNTER
 // Returns ad count even if ads aren't save to database.
 if(!$create_ads) {
-  $ad_count += 1;
   $results['ad_count'] = $ad_count;
+  $context['progress']++;
 }
 
 
@@ -368,7 +371,7 @@ if(!$create_ads) {
       $ad_count += 1;
       node_submit($new_ad);
       node_save($new_ad);
-      $results['ad_count'] = $ad_count;
+      $context['progress']++;
     }
     else {
       // log results
@@ -376,41 +379,65 @@ if(!$create_ads) {
       watchdog($watchdog_message, 'error message');
     }
   }
+    $context['progress']++;
   
-  // Batch Output
-  $context['results'][] = $results;
-  if (empty($context['sandbox'])) {
-    $context['sandbox']['progress'] = 0;
-    $context['sandbox']['current_node'] = 0;
-    $context['sandbox']['error'] = 0;
-  }
-  $context['sandbox']['error'][] = $results['error'];
-  $context['progress']++;
   
-
-
-  // Scheduler
-  // Handled on SAVE
-  // THis is OBSELETE NOW.
-
-  // Date & time set in adworks.module -- _parse_adworks_data($node)
-  // if ($new_ad->nid) {
-  //   if ($publish_dates['start'] && $publish_dates['end'] && $create_ads) {
-  //     db_insert('scheduler')
-  //       ->fields(array(
-  //         'nid' => $new_ad->nid,
-  //         'publish_on' => $publish_dates['start'],
-  //         'unpublish_on' => $publish_dates['end'],
-  //       ))
-  //       ->execute();
-  //   }
-  //   $results['schedule'] = TRUE;
-  // }
-  // else {
-  //   $results['schedule'] = 'Unable to schedule ad.';
-  // }
-
-
-  return $results;
+  //if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+  //  $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  //}
+//  return $results;
 
 }
+
+/**
+* Implementation of custom finished batch script
+*
+* Returns information from batch_set();
+*/
+
+function adworks_batch_finished($success, $results, $operations) {
+  //drupal_goto('admin/pennywise/classified/upcomming');
+  dpm('Results');
+  dpm($results);
+  
+  if ($success) {
+    $message = count($results) . ' processed.';
+    $message .= theme('item_list', $results);
+    //$message = format_plural(count($results), 'One classified ad processed.', '@count classified ads processed.');
+  }
+  else {
+    $error_operation = reset($operations);
+    $message = t('An error occured while processing %error_op with arguments: @arguments', 
+      array('%error_op' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    //$message = t('Finished with error(s)');
+  }
+  drupal_set_message($message);
+  
+  dpm('RESULTS');
+  dpm($results);
+}
+
+//  // ERROR OUTPUT
+//  if ($results['image']['error'] || $results['errors']) {
+//    // Image errors
+//    $error_message = 'No Ads Created! \n ******************* MISSING IMAGES: ';
+//    foreach ($results['image']['error'] as $missing) {
+//      $error_message .= $missing . "\n";
+//    }
+//    // Other Errors
+//    $error_message .= "/n ***************** ERRORS DETECTED: /n";
+//    foreach ($results['errors'] as $error) {
+//      $error_message .= $error . "\n";
+//    }
+//    form_set_error('field_body', $error_message);
+//  }
+//  elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
+//    form_set_error('field_body', 'Unable to save ads to database. Please consult administrator.');
+//  }
+//  // elseif ($results['schedule'] != TRUE) {
+//  //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
+//  // }
+//  else {
+//    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');
+//  }
+

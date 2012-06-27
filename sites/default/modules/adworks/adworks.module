@@ -114,6 +114,7 @@ function adworks_form_validate(&$form, &$form_state) {
  * - If image check is off - do not attach images.
  * - If preview --> exit.
  * - Else create ads.
+ * - Images are validated in  HOOK_form_validate()
  */
 function adworks_adworks_file_form_submit($form, &$form_state) {
   // Set Default State
@@ -140,11 +141,9 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
 
   // Get Parser
   module_load_include('inc', 'adworks', 'parse_adworks');
-
-  // Images are validated in HOOK_form_validate()
+  
+  // Get Adworks copy
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
-  // TEST SAFE DATA
-  //   $adworks_data = $data['body']['und'][0]['safe_value'];
 
   // Convert Text to UTF8
   $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
@@ -154,75 +153,23 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   $publish_date['start'] = strtotime($form_state['values']['field_publish']['und'][0]['value']);
   $publish_date['end'] = strtotime($form_state['values']['field_publish']['und'][0]['value2']);
 
-  // Check Overrides
-  // Image override
-  //$check_images = $form_state['values']['field_image_override']['und'][0]['value'];
-  //dpm('PARSE: Image = ' . $check_images);
-
-  // Ad Creation Override.
-  // $create_ads = $form_state['values']['field_ad_creation_override']['und'][0]['value'];
-  //dpm('PARSE: Ads = ' . $create_ads);
-  
-  // BATCH TEST
+  // BATCH PROCESS ADS
   foreach ($adworks_ads as $ad) {
-    $batch_ads[] = array($ad, array($publish_date, $create_ads, $check_images));
+    $batch_ads[] = array('_adworks_parse_individual_ad', array($ad, $publish_date, $create_ads, $check_images));
   }
 
   $batch = array(
     'title' => t('Uploading Classified Ads'),
-    'operations' => $batch_ads,
+    'init_message' => t('Importing Adworks file... Preparing to process classified ads... '),
+    'progress_message' => t('Processing @current of @total ads'),
+    'error_message' => t('An error occurred and some or all of the import has failed.'),
     'finished' => 'adworks_batch_finished',
-    'file' => DRUPAL_ROOT . '/' . drupal_get_path('module', 'adworks') .'/parse_adworks.inc',
+    'operations' => $batch_ads,
+    'file' => drupal_get_path('module', 'adworks') .'/parse_adworks.inc',
   ); 
-  batch_set($batch); 
-  batch_process($batch);
-  // TEST BATCH
-  //foreach ($adworks_ads as $ad) {
-  //  if ($ad != NULL || $ad !== '') {
-  //    $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
-  //  }
-  //}
-
-  // ERROR OUTPUT
-  if ($results['image']['error'] || $results['errors']) {
-    // Image errors
-    $error_message = 'No Ads Created! \n ******************* MISSING IMAGES: ';
-    foreach ($results['image']['error'] as $missing) {
-      $error_message .= $missing . "\n";
-    }
-    // Other Errors
-    $error_message .= "/n ***************** ERRORS DETECTED: /n";
-    foreach ($results['errors'] as $error) {
-      $error_message .= $error . "\n";
-    }
-    form_set_error('field_body', $error_message);
-  }
-  elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
-    form_set_error('field_body', 'Unable to save ads to database. Please consult administrator.');
-  }
-  // elseif ($results['schedule'] != TRUE) {
-  //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
-  // }
-  else {
-    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');
-  }
-
-  //if (!$create_ads) {
-  //    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## DEBUG MODE - No ads will be created.</strong>', 'warning' );
-  //}
-
-}
-
-
-function adworks_batch_finished($success, $results, $operations) {
-  if ($success) {
-    $message = format_plural(count($results), 'One classified ad processed.', '@count classified ads processed.');
-  }
-  else {
-    $message = t('Finished with error(s)');
-  }
-  drupal_set_message($message);
+  batch_set($batch);
   
-  dpm('RESULTS');
-  dpm($results);
+  $redirect = 'admin/pennywise/classified/upcomming';
+  batch_process($redirect);
 }
+
