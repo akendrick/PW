@@ -117,7 +117,7 @@ function _adworks_pre_flight_ads($adworks) {
 *   - LEAVE - if already a 'live' file (ie. in `files/classifieds_ad_images`
 *   - MOVE - if file is in 'files/classified_ad_image_upload`
 */
-function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL) {
+function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL, &$context) {
   global $base_path;
 
   $image_count = 0;
@@ -340,6 +340,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     'ad_count' => $ad_count,
     'errors' => $errors,
   );
+  
 
 //  if ($create_ads == FALSE) {
 //    //drupal_set_message('OVERRIDE - Do not create ads.', 'alert');
@@ -375,6 +376,18 @@ if(!$create_ads) {
       watchdog($watchdog_message, 'error message');
     }
   }
+  
+  // Batch Output
+  $context['results'][] = $results;
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_node'] = 0;
+    $context['sandbox']['error'] = 0;
+  }
+  $context['sandbox']['error'][] = $results['error'];
+  $context['progress']++;
+  
+
 
   // Scheduler
   // Handled on SAVE

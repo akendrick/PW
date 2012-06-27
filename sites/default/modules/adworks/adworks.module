@@ -147,7 +147,6 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   //   $adworks_data = $data['body']['und'][0]['safe_value'];
 
   // Convert Text to UTF8
-  // OPTION2 // $adworks_data = mb_convert_encoding($adworks_data, "macintosh", "UTF-8");
   $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
 
   // Get Publish Dates
@@ -163,13 +162,26 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   // Ad Creation Override.
   // $create_ads = $form_state['values']['field_ad_creation_override']['und'][0]['value'];
   //dpm('PARSE: Ads = ' . $create_ads);
-
-
+  
+  // BATCH TEST
   foreach ($adworks_ads as $ad) {
-    if ($ad != NULL || $ad !== '') {
-      $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
-    }
+    $batch_ads[] = array($ad, array($publish_date, $create_ads, $check_images));
   }
+
+  $batch = array(
+    'title' => t('Uploading Classified Ads'),
+    'operations' => $batch_ads,
+    'finished' => 'adworks_batch_finished',
+    'file' => DRUPAL_ROOT . '/' . drupal_get_path('module', 'adworks') .'/parse_adworks.inc',
+  ); 
+  batch_set($batch); 
+  batch_process($batch);
+  // TEST BATCH
+  //foreach ($adworks_ads as $ad) {
+  //  if ($ad != NULL || $ad !== '') {
+  //    $results = _adworks_parse_indivual_ad($ad, $publish_date, $create_ads, $check_images); // was $results
+  //  }
+  //}
 
   // ERROR OUTPUT
   if ($results['image']['error'] || $results['errors']) {
@@ -202,3 +214,15 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
 }
 
 
+function adworks_batch_finished($success, $results, $operations) {
+  if ($success) {
+    $message = format_plural(count($results), 'One classified ad processed.', '@count classified ads processed.');
+  }
+  else {
+    $message = t('Finished with error(s)');
+  }
+  drupal_set_message($message);
+  
+  dpm('RESULTS');
+  dpm($results);
+}
