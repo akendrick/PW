@@ -143,43 +143,41 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     $image_name = $image . '.jpg';
     $options = array ('key' => 'filename');
     $found = file_scan_directory('public://', '$' . $image . '$', $options);
-    $image_file = array_shift($found);
-
     
-    // Create managed File Object and add Image fields.
-    if($image_file->uri && $check_images == TRUE) {
-      $file = (object) array(
-        'uid' => 1,
-        'uri' => $image_file->uri,
-        'filename' => $image_file->filename,
-        'title' => 'Pennywise Classified Ad : ' . $image_file->name,
-        'filemime' => 'image/jpeg',
-      );
-      // Move image to Classified Image folder
-      $image_folder = explode('/', $file->uri);
-      $image_folder = $image_folder[2];
-      
-      if($image_folder == 'classified_ad_images') {
-        // Do nothing as ad already exists.
-        $errors .= 'Unable to upload image ' . $image_file->name . ' as it already exists. If you are uploading a newer version, please edit that ad directly.';
-      }
-      else {
-        $file = file_copy($file, 'public://' . $image_folder, FILE_EXISTS_REPLACE);      
-      }
+//    dpm('Image FOUND');
+//    dpm($found);
+//    
+//    dpm('Image FOUND');
+//    dpm($found);
+//    dpm($image_file->uri);
+    
 
+    if($image_file && $check_images) {
+
+      // Take image object file and save to permanent directory
+      $image_file = array_shift($found);
+      $destination = 'public://classified_ad_images/' . $image_file->filename;
+      $replace = FILE_EXISTS_REPLACE;
+ 
+      $file = file_save_data($image_file->uri, $destination, $replace);
   
-      $new_ad->field_image = array(
-        $new_ad->language => array(
-          0 => (array)$file,
-        ),
-      );
-
+      // Set Status
+      $file->status = FILE_STATUS_PERMANENT;
+  
+      // Prepare Classified Node Object
+      // - Convert to ARRAY!
+      $new_ad->field_image[$new_ad->language][0] = (array) $file;
+      
+      // dpm('FILE');
+      // dpm($file);
       $images_found[] = $image_name;
     }
     else {
       $images_missing[] = $image_name;
     }
+    
   }
+    
 
 
   // Ad Copy
@@ -196,7 +194,7 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     $new_ad->language => array(
       0 => array(
         'value' => $copy,
-#        'summary' => text_summary($copy),
+#        'summary' => text_summary($copy),  
 #        'format' => filter_default_format(),
         'format' => 'filtered_html',
 #        'value' => $copy, // was 'safe_value'
@@ -206,7 +204,14 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
 
   // Ad Title
   $new_ad->title = substr($copy, 0, 45);
-
+  // Use Title to label uploaded image (if any)
+  if ($image) {
+    $new_ad->field_image[$new_ad->language] = array(
+      0 => array(
+        'description' => $new_ad->title,
+        )
+    );
+  }
   // Link
   preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+#!?)+)/', $copy, $link);
   $link = check_url($link[0]);
@@ -221,7 +226,6 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     // count links
     $link_count += 1;
   }
-
   // Phone
   preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
   $phone = $phone[0];
@@ -283,13 +287,14 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
     $email_count += 1;
   }
 
-
   // Classification
   preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
   $section = $section[0];
   $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
+
   if(!$term_id) {
-    $errors[] = 'Taxonomy term missing: ' . $section;
+    dpm('Taxonomy term missing (' . $term_id . '): ' . $section );
+    $errors[] = 'Taxonomy term missing (' . $term_id . '): ' . $section ;
   }
   else {
     $term_name = taxonomy_term_load($term_id);
@@ -303,6 +308,8 @@ function _adworks_parse_indivual_ad($ad, $publish_dates = NULL, $create_ads = NU
       ),
     );
   }
+
+  // dpm( debug_backtrace() );
 
   // Scheduler
   // Date & time set in adworks.module -- _parse_adworks_data($node)
