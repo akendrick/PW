@@ -7,6 +7,43 @@
  */
 
 /**
+ * Custom REGEX for URL
+ *
+ * @param $ad_copy
+ *  - text string that will be searched.
+ * @param $search_copy
+ *  'link' - ignore email addresses
+ *  'email' - ignore links
+ */
+function ad_url($ad_copy, $search_type = 'link') {
+  $regex = "/((https?|ftp)\:\/\/)?"; // SCHEME 
+  $regex .= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass 
+  $regex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP 
+  $regex .= "(\:[0-9]{2,5})?"; // Port 
+  $regex .= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path 
+  $regex .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query 
+  $regex .= "(#[a-z_.-][a-z0-9+\$_.-]*)?/"; // Anchor 
+
+  preg_match($regex, $ad_copy, $found);
+  
+  // SET EMAIL FLAG
+  $email = strstr($found[0], '@');
+
+  switch ($search_type) {
+    case 'email':
+      if ($email) {
+        return($found[0]);
+      }
+      break;
+    case 'link':
+      if (!$email) {
+        return($found[0]);
+      }
+      break;
+  }
+}
+
+/**
  *  Test Adworks Copy.
  *
  *   Test the presence of referneced image files.
@@ -17,10 +54,11 @@
  *     TRUE if all images are present.
  *     FALSE if even 1 image is missing.
  */
-function _adworks_pre_flight_ads($adworks, &$context) {
+function _adworks_pre_flight_ads($ad, &$context) {
   // Batch Message
   if (empty($context['results'])) {
   $context['results'] = array(
+    'batch_type' => 'tested',
     'progress' => 0,
     'email_count' => 0,
     'ad_count' => 0,
@@ -28,7 +66,7 @@ function _adworks_pre_flight_ads($adworks, &$context) {
     'image_found' => 0,
     'image_already_uploaded' => 0,
     'image_missing' => 0,
-    'image_missing_files' = array(),
+    'image_missing_files' => array(),
     'phone_count' => 0,
     'link_count' => 0,
     'area_count' => 0,
@@ -37,115 +75,82 @@ function _adworks_pre_flight_ads($adworks, &$context) {
     'blank_ad' => 0,
     );
   }
+  
+  // Ad Copy
+  preg_match('/(?<=\<begad>)(.+)(?=<endad>)/', $ad, $copy);
+  $copy = $copy[0];
+  if (trim($copy) == NULL || $copy == '') {
+    $context['results']['blank_ad'][] = 'No ad copy. Possibly a blank line.';  
+  }
+  else {
 
-  //$message = array(); // Empty message array.
+    $context['results']['ad_count']++;
 
-  // Parse ADWORKS->node->body for ads
+    // Image
+    preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $copy, $image);
+    $image = $image[0];
+  
+    if ($image) {
+      $context['results']['image_count']++;
+   
+      // Check for image in FILES
+      // Search Directory // Upgradable function
+      $image_name = $image . '.jpg';
+      $options = array ('key' => 'filename');
+      $found = file_scan_directory('public://', '$' . $image . '$', $options);
+      $image_file = array_shift($found);
+      
+      if($image_file) {
+        $context['results']['image_found']++;
+      }
+      else {
+        // log missing images.
+        //$images_missing[] = $image_name;
+        $context['results']['image_missing']++;
+        $context['results']['image_missing_files'][] = $image_file;
+     }
+    }
 
-  // Collect Ads
-  preg_match_all('/(?<=\<begad>)(.+)(?=<endad>)/', $adworks, $copy);
-  $ad_count = count($copy[0]);
-  //$ad_count_message = 'Classified Ad Count: ' . $ad_count . '<br>';
-  $context['results']['ad_count']++;
+    // Link
+    $link = ad_url($copy, 'link');
+    if ($link) {
+      $context['results']['link_count']++;
+    }
+    
+    // Email
+    $email = ad_url($copy, 'email');
+    if ($email) {
+      $context['results']['email_count']++;
+    }
 
-  // Collect Images
-//  preg_match_all('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $adworks, $images);
-//  $image_count = count($images[0]);
-//  //$image_count_message = 'Image Count: ' . $image_count . '<br>';
-//  $context['results']['image_count']++;
-//
-//  // Cycle through all the ads for images
-//  foreach ($images[0] as $key => $image) {
-//      // Search Directory // Upgradable function
-//      $image_name = $image . '.jpg';
-//      $options = array ('key' => 'filename');
-//      $found = file_scan_directory('public://', '$' . $image_name . '$', $options);
-//      $image_file = array_shift($found);
-//
-//      // Determine if file is currently in use.
-//      $image_folder = explode('/', $image_file->uri);
-//      $image_folder = $image_folder[2];
-//      
-//      if($image_folder == 'classified_ad_images') {
-//        // Do nothing as ad already exists.
-//        //$image_in_use[] = $image_name;
-//        $context['results']['image_already_uploaded']++;
-//      }
-//
-//      // If corresponding image is NOT FOUND record image name
-//      if (!$image_file) {
-//        //$missing_image_files[] = $image_name;
-//        $context['results']['image_missing']++;
-//        $context['results']['image_missing_files'][] = $image_name;
-//      }
-//    }
-//    
-//    dpm($context['results']);
+    // Phone
+    preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
+    if ($phone[0]) {
+      $context['results']['phone_count']++;
+    }
+
+    // area code
+    preg_match('/(?<=zip:)[a-zA-Z0-9 ]{7,9}/', $ad, $area_code);
+    if ($area_code[0]) {
+      $context['results']['area_count']++;
+    }
+
+    // Classification
+    preg_match('/(?<=class:)[0-9]{4}/', $copy, $section);
+    $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section[0]))->fetchField();
+    if(!$term_id) {
+      if ($new_ad->title === NULL || $new_ad->title == '') {
+        // Skip further reporting as already flagged as empty.
+      }
+      else {
+        $context['results']['error_count']++;
+        $context['results']['error_messages'][] = 'Taxonomy term missing ' . $section[0] . ' : ' . $new_ad->title;
+        $save_ad = FALSE;
+      }
+    }
+  }
 }
 
-//    // Count and sort missing images
-//    $message_body = $ad_count_message . $image_count_message . '<br>';
-//
-//    if ($image_in_use) {
-//      sort($image_in_use);
-//      foreach($image_in_use as $image) {
-//        $in_use .= $image . '<br>';
-//      }
-//      $message_body .= '<br><strong>IN USE BY ANOTHER AD OR ALREADY UPLOADED:</strong><br>' . $in_use . '<br> If you are uploading a newer version, please edit that ad directly.<br>';;
-//    }
-//    if ($missing_image_files) {
-//      // Sort Image files
-//      sort($missing_image_files);
-//      foreach($missing_image_files as $missing) {
-//        $missing_images .= $missing . '<br>';
-//      }
-//      $message_body .= '<br><strong>MISSING IMAGES: <strong><br>' . $missing_images . '<br>####### NO ADS UPLOADED #########';
-//      $status = FALSE;
-//
-//      $preflight['status'] = $status;
-//      $preflight['message'] = $message_body;
-//    }
-//    else {
-//      // Image files are present.
-//      $message_body .= '<BR><BR><strong>Images All Present & Counted For!</strong>.';
-//      $status = TRUE;
-//
-//      $preflight['status'] = $status;
-//      $preflight['message'] = $message_body;
-//    }
-
-//  return $preflight;
-
-// }
-
-/**
-* Implementation of custom batch finished script
-*/
-//fucntion preflight_batch_finished($success, $results, $operations) {
-//  if ($success) {
-//    $processed = array();
-//    $processed[] = t('@ads tested', array('@ads' => $results['total']);
-//    if ($results['image_count']) { 
-//      $processed[] = t('@images image count', array('@images' => $results['image_count'])); 
-//      $processed[] = t('@found images found', array('@found' => $results['image_found'])); 
-//      $processed[] = t('@previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
-//      $processed[] = t('@missing missing images', array('@missing' => $results['image_missing'])); 
-//    }
-//    else {
-//      $processed[] = '0 images found';
-//    }
-//
-//    
-//    $message = theme('item_list', array('items' => $processed, 'title' => 'Ads Preflight'));
-//    $status = 'status';
-//  }
-//  else {
-//    $message = 'Errors detected';
-//    $status = 'error';
-//  }
-//  
-//  drupal_set_message($message, $status);
-//}
 
 /**
 *  Implementation of custom ad parser.
@@ -180,6 +185,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
   //$context['results'][] = $results;
   if (empty($context['results'])) {
     $context['results'] = array(
+      'batch_type' => 'uploaded',
       'progress' => 0,
       'email_count' => 0,
       'ad_count' => 0,
@@ -187,7 +193,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       'image_found' => 0,
       'image_already_uploaded' => 0,
       'image_missing' => 0,
-      'image_missing_files' = array(),
+      'image_missing_files' => array(),
       'phone_count' => 0,
       'link_count' => 0,
       'area_count' => 0,
@@ -298,8 +304,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
     );
   }
   // Link
-  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+#!?)+)/', $copy, $link);
-  $link = check_url($link[0]);
+  $link = ad_url($copy, 'link');
   if ($link) {
     $new_ad->field_link = array(
       $new_ad->language => array(
@@ -311,8 +316,8 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
     // count links
     //$link_count += 1;
     $context['results']['link_count']++;
-
   }
+
   // Phone
   preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
   $phone = $phone[0];
@@ -359,11 +364,8 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
     ),
   );
 
-
   // Email
-  preg_match('/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})/', $copy, $email);
-  $email = $email[0];
-
+  $email = ad_url($copy, 'email');
   if ($email) {
     $new_ad->field_email = array(
       $new_ad->language => array(
@@ -465,82 +467,90 @@ if(!$create_ads) {
 * Implementation of custom finished batch script
 *
 * Returns information from batch_set();
+* Used by both BATCH_PREFLIGHT and BATCH_PROCESS.
+*
 */
 
 function adworks_batch_finished($success, $results, $operations) {
   
   if ($success) {
+    // Set default status
+    $status = 'status';
+
+    // Default Success Message
     $processed = array();
-    $processed[] = t('@ads ads uploaded', array('@ads' => $results['ad_count']));
+    $processed[] = t('@ads ads @batch_type', array('@ads' => $results['ad_count'], '@batch_type' => $results['batch_type']));
     $processed[] = t('@email emails', array('@email' => $results['email_count']));
     $processed[] = t('@area postal codes', array('@area' => $results['area_count']));
     $processed[] = t('@phone phone numbers', array('@phone' => $results['phone_count']));
-    $processed[] = t('@link website links', array('@link' => $results['link_count']));
-    $processed[] = t('@blanks empty lines', array('@blanks' => $results['blank_ad'])); 
-    
-    $status = 'status';
-    
-    if ($results['image_count']) { 
-      $processed[] = t('@images image count', array('@images' => $results['image_count'])); 
-      $processed[] = t('@found images found', array('@found' => $results['image_found'])); 
-      $processed[] = t('@previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
-      
-      if ($results['image_missing']) {
-        $missing_message = t('############### @missing MISSING IMAGES: ##################', array('@missing' => $results['image_missing'])); 
-        $error_message .= theme('item_list', array('items' => $results['image_missing_file'], 'title' => $missing_message))
+
+    // If websites
+    if ($results['link_count']) {
+      $processed[] = t('@link website links', array('@link' => $results['link_count']));
+    }
         
-        $status = 'warning'
+    
+    // If blanks lines detected
+    if (count($results['blank_ad'])) {
+      $processed[] = format_plural(count($results['blank_ad']), '@count blank line', '@count blank lines');
+#      $processed[] = t('@blanks empty lines', array('@blanks' => count($results['blank_ad']))); 
+    }
+        
+    // If images detected
+    if ($results['image_count']) { 
+      $image_message = t('@images images required - @found found', array('@images' => $results['image_count'], '@found' => $results['image_found'])); 
+      // $processed[] = t('@found images found', array('@found' => $results['image_found'])); 
+      
+      // already uploaded
+      if ($results['image_already_uploaded']) { 
+        $image_message .= t('@previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
       }
+      
+      // missing image output
+      if ($results['image_missing']) {
+        $image_message .= t(' <strong> @missing MISSING </strong>', array('@missing' => $results['image_missing'])); 
+        $missing_message = t('############### @missing MISSING IMAGES: ##################', array('@missing' => $results['image_missing'])); 
+        $error_message .= theme('item_list', array('items' => $results['image_missing_file'], 'title' => $missing_message));
+        
+        $status = 'warning';
+      }
+      $processed[] = $image_message;
     }
     else {
-      $processed[] = '0 images found';
+      $processed[] = '0 images';
     }
-    //$message = theme('item_list', $processed);
-    $message = theme('item_list', array('items' => $processed, 'title' => 'Classified Ads Uploaded'));
+    
+    // Set Message OUTPUT
+    $title = strtoupper( t('Classified ads @batch_type', array( '@batch_type' => $results['batch_type'])) );
+    rsort($processed);
+    $message = theme('item_list', array('items' => $processed, 'title' => $title));
 
+    // Errors Detected -- WARNING
     if ($results['error_count']) { 
       $processed[] = t('@error errors', array('@error' => $results['error_count']));
       $error_message .= format_plural(count($results['error_messages']), '<strong>One error detected.</strong><br>', '<strong>@count errors detected.</strong><br>');
-      $error_message .= theme('item_list', array('items' =>$results['error_messages'], 'title' => 'ERRORS DETECTED'))
-
-      $status = 'warning'
+      $error_message .= theme('item_list', array('items' => $results['error_messages'], 'title' => 'ERRORS DETECTED'));
+    
+      $status = 'warning';
     }
   }
   else {
+    // MAJOR ERRORS -- unable to process.
     $error_operation = reset($operations);
-    $message = t('An error occured while processing %error_op with arguments: @arguments', 
+    $error_message = t('<strong>##############    ALERT ADMINSITRATION IMMEDIATELY #####################</strong> <br><br> 
+      An error occured while processing   <strong> %error_op </strong>   on ad: <br><br>@arguments', 
       array('%error_op' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
     $status = 'error';
   }
   
+  if ($results['batch_type'] == 'tested') {
+    form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
+  }
   if ($error_message) {
     drupal_set_message($error_message, $status);  
   }  
-  drupal_set_message($message, 'status');
+  if ($message) {
+    drupal_set_message($message, 'status');
+  }
   
 }
-
-//  // ERROR OUTPUT
-//  if ($results['image']['error'] || $results['errors']) {
-//    // Image errors
-//    $error_message = 'No Ads Created! \n ******************* MISSING IMAGES: ';
-//    foreach ($results['image']['error'] as $missing) {
-//      $error_message .= $missing . "\n";
-//    }
-//    // Other Errors
-//    $error_message .= "/n ***************** ERRORS DETECTED: /n";
-//    foreach ($results['errors'] as $error) {
-//      $error_message .= $error . "\n";
-//    }
-//    form_set_error('field_body', $error_message);
-//  }
-//  elseif ($results['ad_count'] == 0 || $results['ad_count'] == NULL) {
-//    form_set_error('field_body', 'Unable to save ads to database. Please consult administrator.');
-//  }
-//  // elseif ($results['schedule'] != TRUE) {
-//  //  form_set_error('field_body', 'Problems have been detected with ad scheduling. Please consult system administrator.');
-//  // }
-//  else {
-//    drupal_set_message('Ads Created: ' . $results['ad_count'], 'status');
-//  }
-

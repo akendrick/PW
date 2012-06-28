@@ -29,6 +29,7 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
   array_push($form['#submit'], 'adworks_adworks_file_form_submit');
   //$form['#submit'] = 'adworks_adworks_file_form_submit';
 
+
   if (DEBUG) {
    dpm('FORM ALTER');
    dpm('FORM');
@@ -41,41 +42,6 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 }
 
 
-
-/**
-* Call Parser for Adworks INSERT - UPDATE - VIEW hooks().
-*
-* Disable Overlay on edit page.
-*/
-
-// function adworks_node_insert($node) {
-//   if ($node->type == 'adworks_file') {
-//     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-//
-//     _parse_adworks_data($node, $create_ads);
-//   }
-// }
-//
-// function adworks_node_update($node) {
-//   #dsm($node);
-//   if ($node->type == 'adworks_file') {
-//     $create_ads = $node->field_ad_creation_override[$node->language][0]['value'];
-//
-//     _parse_adworks_data($node, $create_ads);
-//   }
-// }
-//
-// function adworks_node_view($node, $view_mode) {
-//   if ($node->type == 'adworks_file' && $view_mode == 'full' && $node->preview == 'Preview') {
-//     module_load_include('inc', 'adworks', 'parse_adworks');
-//   if (DEBUG) {
-//    dpm('Node View');
-//    dpm('NODE');
-//    dpm($node);
-//   }
-//     _adworks_pre_flight_ads($node);
-//   }
-// }
 
 /**
  * Implementation of HOOK_form_validate()
@@ -101,30 +67,33 @@ function adworks_form_validate(&$form, &$form_state) {
     $preflight_batch_ads[] = array('_adworks_pre_flight_ads', array($ad));
   }
   // Batch
-  $batch = array(
-    'title' => t('Preflighting Classified Ads'),
-    'init_message' => t('Checking images...'),
+  $preflight_batch = array(
+    'title' => t('Preflight Classified Ads'),
+    'init_message' => t('Checking images, ad copy, links, emails and more ...'),
     'progress_message' => t('Testing @current of @total ads'),
     'finished' => 'adworks_batch_finished',
     'operations' => $preflight_batch_ads,
     'file' => drupal_get_path('module', 'adworks') . '/parse_adworks.inc',
+    'has_form_submits' => FALSE,
   );
-  batch_set($preflight_batch_ads);
+  batch_set($preflight_batch);
   batch_process();
 
+  $form_state['batch_preview']['adworks'] = $adworks_data;
+  
   // Preflight message
-  if ( $adworks_preflight['status'] == FALSE) {
-    drupal_set_message($adworks_preflight['message'], 'warning' );
-  }
-  else {
-    drupal_set_message($adworks_preflight['message'], 'status' );
-  }
-
-  // Node Creation Override.
-  if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
-    form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
-    return;
-  }
+  // if ( $adworks_preflight['status'] == FALSE) {
+  //   drupal_set_message($adworks_preflight['message'], 'warning' );
+  // }
+  // else {
+  //   drupal_set_message($adworks_preflight['message'], 'status' );
+  // }
+  // 
+  // // Node Creation Override.
+  // if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
+  //   form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
+  //   return;
+  // }
 
 
 }
