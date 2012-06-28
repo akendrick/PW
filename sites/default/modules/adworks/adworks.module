@@ -84,11 +84,33 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
  * - runs preflight.
  */
 function adworks_form_validate(&$form, &$form_state) {
+  if ($form_state['input']['field_ad_creation_override']['und']) {
+    return;
+  }
+  
 
+  
   // Load & Run Preflight script -- checks images
-  module_load_include('inc', 'adworks', 'parse_adworks');
+  //module_load_include('inc', 'adworks', 'parse_adworks');
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
-  $adworks_preflight = _adworks_pre_flight_ads($adworks_data);
+  $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+  //  $adworks_preflight = _adworks_pre_flight_ads($adworks_data);
+
+  // Batch Process Preview
+  foreach ($adworks_ads as $ad) {
+    $preflight_batch_ads[] = array('_adworks_pre_flight_ads', array($ad));
+  }
+  // Batch
+  $batch = array(
+    'title' => t('Preflighting Classified Ads'),
+    'init_message' => t('Checking images...'),
+    'progress_message' => t('Testing @current of @total ads'),
+    'finished' => 'adworks_batch_finished',
+    'operations' => $preflight_batch_ads,
+    'file' => drupal_get_path('module', 'adworks') . '/parse_adworks.inc',
+  );
+  batch_set($preflight_batch_ads);
+  batch_process();
 
   // Preflight message
   if ( $adworks_preflight['status'] == FALSE) {
