@@ -217,55 +217,6 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
   $new_ad->sticky = 0;
   $new_ad->revision = 0;
 
-
-  // Image
-  preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
-  $image = $image[0];
-
-  if ($image  && $check_images) {
-    $context['results']['image_count']++;
- 
-    // Check for image in FILES
-    // Search Directory // Upgradable function
-    $image_name = $image . '.jpg';
-    $options = array ('key' => 'filename');
-    $found = file_scan_directory('public://', '$' . $image . '$', $options);
-    $image_file = array_shift($found);
-    
-    dpm('FILE FOUND');
-    dpm($found);
-    // If Image present prepare it for saving.
-    if($image_file && $check_images) {
-
-      // Take image object file and save to permanent directory
-      $destination = 'public://classified_ad_images/' . $image_file->filename;
-      $replace = FILE_EXISTS_REPLACE;
- 
-      $file = file_save_data($image_file->uri, $destination, $replace);
-      dpm('FILE SAVE DATA');
-      dpm($file);
-  
-      // Set Status
-      $file->status = FILE_STATUS_PERMANENT;
-  
-      // Prepare Classified Node Object
-      // - Convert to ARRAY!
-      $new_ad->field_image[$new_ad->language][0] = (array) $file;
-      
-      //$images_found[] = $image_name;
-      $context['results']['image_found']++;
-    }
-    else {
-      // log missing images.
-      //$images_missing[] = $image_name;
-      $context['results']['image_missing']++;
-      $context['results']['image_missing_files'][] = $image_file;
-   }
-    
-  }
-    
-
-
   // Ad Copy
   preg_match('/(?<=\<begad>)(.+)(?=<endad>)/', $ad, $copy);
   $copy = $copy[0];
@@ -291,178 +242,217 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
         ),
       ),
     );
-  }
-
-  // Ad Title
-  $new_ad->title = substr($copy, 0, 45);
-  // Use Title to label uploaded image (if any)
-  if ($image) {
-    $new_ad->field_image[$new_ad->language] = array(
-      0 => array(
-        'description' => $new_ad->title,
-        )
-    );
-  }
-  // Link
-  $link = ad_url($copy, 'link');
-  if ($link) {
-    $new_ad->field_link = array(
-      $new_ad->language => array(
-        0 => array(
-          'url' => $link,
-        ),
-      ),
-    );
-    // count links
-    //$link_count += 1;
-    $context['results']['link_count']++;
-  }
-
-  // Phone
-  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
-  $phone = $phone[0];
-
-  if ($phone) {
-    $new_ad->field_phone = array(
-      $new_ad->language => array(
-        0 => array(
-          'number' => $phone,
-          'country_codes' => 'ca',
-          'extension' => '',
-        ),
-      ),
-    );
-    // Count Phone Numbers
-    //$phone_count += 1;
-    $context['results']['phone_count']++;
-  }
-
-  // area code
-  preg_match('/(?<=zip:)[a-zA-Z0-9 ]{7,9}/', $ad, $area_code);
-  $area_code = $area_code[0];
-
-  if ($area_code) {
-    $new_ad->field_area_code = array(
-      $new_ad->language => array(
-        0 => array(
-          'value' => $area_code,
-          'save_value' => check_plain($area_code),
-        ),
-      ),
-    );
-    // Count Area Codes
-    //$area_code_count += 1;
-    $context['results']['area_count']++;
-  }
-
-  // LIVELOAD
-  $new_ad->field_ad_type = array(
-    $new_ad->language => array(
-      0 => array(
-        'value' => 0, // 1 for liveload
-      ),
-    ),
-  );
-
-  // Email
-  $email = ad_url($copy, 'email');
-  if ($email) {
-    $new_ad->field_email = array(
-      $new_ad->language => array(
-        0 => array(
-          'email' => $email,
-        ),
-      ),
-    );
-    // Count Email
-    //$email_count += 1;
-    $context['results']['email_count']++;
-  }
-
-  // Classification
-  preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
-  $section = $section[0];
-  $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
-
-  if(!$term_id) {
-    //dpm('Taxonomy term missing (' . $term_id . '): ' . $section );
-    //$errors[] = 'Taxonomy term missing (' . $term_id . '): ' . $section ;
-    if ($new_ad->title === NULL || $new_ad->title == '') {
-      // Skip further reporting as already flagged as empty.
-    }
-    else {
-      $context['results']['error_count']++;
-      $context['results']['error_messages'][] = 'Taxonomy term missing ' . $section . ' : ' . $new_ad->title;
-      $save_ad = FALSE;
-    }
-  }
-  else {
-    $term_name = taxonomy_term_load($term_id);
-    
-    $new_ad->field_tags = array(
-      $new_ad->language => array(
-        0 => array(
-          'tid' => $term_id,
-          'taxonomy_term' => $term_name,
-        ),
-      ),
-    );
-  }
-
-  // dpm( debug_backtrace() );
-
-  // Scheduler
-  // Date & time set in adworks.module -- _parse_adworks_data($node)
-  if ($publish_dates) {
-    $new_ad->scheduler = array(
-      'published' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['start']),
-      'unpublished' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['end']),
-      'published_on' => $publish_dates['start'],
-      'unpublished_on' => $publish_dates['end'],
-    );
-    $new_ad->publish_on = $publish_dates['start'];
-    $new_ad->unpublish_on = $publish_dates['end'];
-  }
-
-// AD COUNTER
-// Returns ad count even if ads aren't save to database.
-if(!$create_ads) {
-  $results['ad_count'] = $ad_count;
-  $context['progress']++;
-}
+    // Ad Title
+    $new_ad->title = substr($copy, 0, 45);
 
 
+//    // Use Title to label uploaded image (if any)
+//    if ($image) {
+//      $new_ad->field_image[$new_ad->language] = array(
+//        0 => array(
+//          'description' => $new_ad->title,
+//          )
+//      );
+//    }
+//
 
- // Return if any images missing.
- //$create_ads = TRUE;
-
-  if (count($images_missing) > 0 || $image_check == TRUE) {
-    return $results;
-  }
-  elseif (!$images_missing || count($images_missing) == 0 || !$errors) {
-    if ($create_ads && $save_ad) {
-      // AD SAVE
-      $ad_count += 1;
-      node_submit($new_ad);
-      node_save($new_ad);
-      $context['results']['ad_count']++;
-    }
-    else {
-      // log results
-      $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id .
-      watchdog($watchdog_message, 'error message');
-    }
-  }
-    $context['progress']++;
-    $context['results']['progress']++;
+    // Image
+    preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
+    $image = $image[0];
   
-  //if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
-  //  $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-  //}
-//  return $results;
+    if ($image  && $check_images) {
+      $context['results']['image_count']++;
+   
+      // Check for image in FILES
+      // Search Directory // Upgradable function
+      $image_name = $image . '.jpg';
+      $options = array ('key' => 'filename');
+      $found = file_scan_directory('public://', '$' . $image . '$', $options);
+      $image_file = array_shift($found);
+      
+      #dpm('FILE FOUND');
+      #dpm($found);
+      // If Image present prepare it for saving.
+      if($image_file && $check_images) {
+  
+        // Take image object file and save to permanent directory
+        $destination = 'public://classified_ad_images/' . $image_file->filename;
+        $replace = FILE_EXISTS_REPLACE;
+   
+        $file = file_save_data($image_file->uri, $destination, $replace);
+        #dpm('FILE SAVE DATA');
+        #dpm($file);
+    
+        // Set Status
+        $file->status = FILE_STATUS_PERMANENT;
+    
+        // Prepare Classified Node Object
+        // - Convert to ARRAY!
+        $new_ad->field_image[$new_ad->language][0] = (array) $file;
+        
+        //$images_found[] = $image_name;
+        $context['results']['image_found']++;
+      }
+      else {
+        // log missing images.
+        //$images_missing[] = $image_name;
+        $context['results']['image_missing']++;
+        $context['results']['image_missing_files'][] = $image_file;
+     }
+      
+    }
+  
+    // Link
+    $link = ad_url($copy, 'link');
+    if ($link) {
+      $new_ad->field_link = array(
+        $new_ad->language => array(
+          0 => array(
+            'url' => $link,
+          ),
+        ),
+      );
+      // count links
+      $context['results']['link_count']++;
+    }
+  
+    // Phone
+    preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $copy, $phone);
+    $phone = $phone[0];
+  
+    if ($phone) {
+      $new_ad->field_phone = array(
+        $new_ad->language => array(
+          0 => array(
+            'number' => $phone,
+            'country_codes' => 'ca',
+            'extension' => '',
+          ),
+        ),
+      );
+      // Count Phone Numbers
+      //$phone_count += 1;
+      $context['results']['phone_count']++;
+    }
+  
+    // area code
+    preg_match('/(?<=zip:)[a-zA-Z0-9 ]{7,9}/', $ad, $area_code);
+    $area_code = $area_code[0];
+  
+    if ($area_code) {
+      $new_ad->field_area_code = array(
+        $new_ad->language => array(
+          0 => array(
+            'value' => $area_code,
+            'save_value' => check_plain($area_code),
+          ),
+        ),
+      );
+      // Count Area Codes
+      //$area_code_count += 1;
+      $context['results']['area_count']++;
+    }
+  
+    // LIVELOAD
+    $new_ad->field_ad_type = array(
+      $new_ad->language => array(
+        0 => array(
+          'value' => 0, // 1 for liveload
+        ),
+      ),
+    );
+  
+    // Email
+    $email = ad_url($copy, 'email');
+    if ($email) {
+      $new_ad->field_email = array(
+        $new_ad->language => array(
+          0 => array(
+            'email' => $email,
+          ),
+        ),
+      );
+      // Count Email
+      //$email_count += 1;
+      $context['results']['email_count']++;
+    }
+  
+    // Classification
+    preg_match('/(?<=class:)[0-9]{4}/', $ad, $section);
+    $section = $section[0];
+    $term_id = db_query('SELECT tid FROM {taxonomy_term_data} WHERE tid = (SELECT entity_id FROM {field_data_field_classified_id} WHERE field_classified_id_value = :cid)', array(':cid' => $section))->fetchField();
+  
+    if(!$term_id) {
+      //dpm('Taxonomy term missing (' . $term_id . '): ' . $section );
+      //$errors[] = 'Taxonomy term missing (' . $term_id . '): ' . $section ;
+      if ($new_ad->title === NULL || $new_ad->title == '') {
+        // Skip further reporting as already flagged as empty.
+      }
+      else {
+        $context['results']['error_count']++;
+        $context['results']['error_messages'][] = 'Taxonomy term missing ' . $section . ' : ' . $new_ad->title;
+        $save_ad = FALSE;
+      }
+    }
+    else {
+      $term_name = taxonomy_term_load($term_id);
+      
+      $new_ad->field_tags = array(
+        $new_ad->language => array(
+          0 => array(
+            'tid' => $term_id,
+            'taxonomy_term' => $term_name,
+          ),
+        ),
+      );
+    }
 
+    // dpm( debug_backtrace() );
+  
+    // Scheduler
+    // Date & time set in adworks.module -- _parse_adworks_data($node)
+    if ($publish_dates) {
+      $new_ad->scheduler = array(
+        'published' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['start']),
+        'unpublished' => date(variable_get('date_format_long', 'l, F j, Y - H:i'), $publish_dates['end']),
+        'published_on' => $publish_dates['start'],
+        'unpublished_on' => $publish_dates['end'],
+      );
+      $new_ad->publish_on = $publish_dates['start'];
+      $new_ad->unpublish_on = $publish_dates['end'];
+    }
+  
+    // AD COUNTER
+    // Returns ad count even if ads aren't save to database.
+    if(!$create_ads) {
+      $results['ad_count'] = $ad_count;
+      $context['progress']++;
+    }
+
+   // Return if any images missing.
+   //$create_ads = TRUE;
+  
+    if (count($images_missing) > 0 || $image_check == TRUE) {
+      return $results;
+    }
+    elseif (!$images_missing || count($images_missing) == 0 || !$errors) {
+      if ($create_ads && $save_ad) {
+        // AD SAVE
+        $ad_count += 1;
+        node_submit($new_ad);
+        node_save($new_ad);
+        $context['results']['ad_count']++;
+      }
+      else {
+        // log results
+        $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id .
+        watchdog($watchdog_message, 'error message');
+      }
+    }
+  
+    $context['progress']++;
+  }
 }
-
 /**
 * Implementation of custom finished batch script
 *
