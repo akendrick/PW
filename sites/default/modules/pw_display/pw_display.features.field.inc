@@ -10,7 +10,7 @@
 function pw_display_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-display_ads-field_ad_client'
+  // Exported field: 'node-display_ads-field_ad_client'.
   $fields['node-display_ads-field_ad_client'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function pw_display_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -85,7 +86,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_ad_copy'
+  // Exported field: 'node-display_ads-field_ad_copy'.
   $fields['node-display_ads-field_ad_copy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -109,6 +110,7 @@ function pw_display_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -155,7 +157,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_display_ad'
+  // Exported field: 'node-display_ads-field_display_ad'.
   $fields['node-display_ads-field_display_ad'] = array(
     'field_config' => array(
       'active' => '1',
@@ -179,6 +181,7 @@ function pw_display_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => '993',
@@ -271,12 +274,12 @@ function pw_display_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => '0',
       ),
     ),
   );
 
-  // Exported field: 'node-display_ads-field_display_ad_type'
+  // Exported field: 'node-display_ads-field_display_ad_type'.
   $fields['node-display_ads-field_display_ad_type'] = array(
     'field_config' => array(
       'active' => '1',
@@ -290,6 +293,7 @@ function pw_display_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -343,7 +347,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_email'
+  // Exported field: 'node-display_ads-field_email'.
   $fields['node-display_ads-field_email'] = array(
     'field_config' => array(
       'active' => '1',
@@ -356,6 +360,7 @@ function pw_display_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'email',
       'settings' => array(),
       'translatable' => '0',
@@ -401,7 +406,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_entity_reference'
+  // Exported field: 'node-display_ads-field_entity_reference'.
   $fields['node-display_ads-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -425,6 +430,7 @@ function pw_display_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -494,7 +500,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_high_res_ad'
+  // Exported field: 'node-display_ads-field_high_res_ad'.
   $fields['node-display_ads-field_high_res_ad'] = array(
     'field_config' => array(
       'active' => '1',
@@ -518,6 +524,7 @@ function pw_display_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'display_default' => 1,
@@ -611,7 +618,7 @@ function pw_display_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-display_ads-field_link'
+  // Exported field: 'node-display_ads-field_link'.
   $fields['node-display_ads-field_link'] = array(
     'field_config' => array(
       'active' => '1',
@@ -624,6 +631,7 @@ function pw_display_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -702,7 +710,7 @@ with <strong>Page 30</strong>.
     ),
   );
 
-  // Exported field: 'node-display_ads-field_publish_date'
+  // Exported field: 'node-display_ads-field_publish_date'.
   $fields['node-display_ads-field_publish_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -726,6 +734,7 @@ with <strong>Page 30</strong>.
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -773,7 +782,7 @@ with <strong>Page 30</strong>.
     ),
   );
 
-  // Exported field: 'node-display_ads-field_section_all_select'
+  // Exported field: 'node-display_ads-field_section_all_select'.
   $fields['node-display_ads-field_section_all_select'] = array(
     'field_config' => array(
       'active' => '1',
@@ -787,6 +796,7 @@ with <strong>Page 30</strong>.
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -834,12 +844,12 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
 
-  // Exported field: 'node-display_ads-field_tags'
+  // Exported field: 'node-display_ads-field_tags'.
   $fields['node-display_ads-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
@@ -860,6 +870,7 @@ with <strong>Page 30</strong>.
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -904,7 +915,7 @@ with <strong>Page 30</strong>.
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );

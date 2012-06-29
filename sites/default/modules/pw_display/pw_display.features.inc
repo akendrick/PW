@@ -31,7 +31,7 @@ function pw_display_views_api() {
 function pw_display_image_default_styles() {
   $styles = array();
 
-  // Exported image style: display_ad_print_thumbnail
+  // Exported image style: display_ad_print_thumbnail.
   $styles['display_ad_print_thumbnail'] = array(
     'name' => 'display_ad_print_thumbnail',
     'effects' => array(

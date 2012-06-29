@@ -323,7 +323,6 @@ function pw_pages_ds_layout_settings_info() {
         1 => 'title',
         2 => 'field_submitter',
         3 => 'field_area_taxonomy',
-        4 => 'field_image',
       ),
       'middle' => array(
         0 => 'group_bonus',
@@ -332,8 +331,11 @@ function pw_pages_ds_layout_settings_info() {
       ),
       'right' => array(
         0 => 'group_details',
+        1 => 'field_entity_reference',
+      ),
+      'footer' => array(
+        0 => 'field_image',
         1 => 'field_images_editorial_extra',
-        2 => 'field_entity_reference',
       ),
       'hidden' => array(
         0 => 'path',
@@ -346,17 +348,17 @@ function pw_pages_ds_layout_settings_info() {
       'group_ed_basic' => 'left',
       'group_bonus' => 'middle',
       'group_details' => 'right',
+      'field_image' => 'footer',
+      'field_images_editorial_extra' => 'footer',
       'path' => 'hidden',
       'group_ed_group_master' => 'hidden',
       'title' => 'left',
       'field_link' => 'middle',
       'field_submitter' => 'left',
       'field_email' => 'middle',
-      'field_images_editorial_extra' => 'right',
-      'field_area_taxonomy' => 'left',
-      'field_image' => 'left',
-      'field_entity_reference' => 'right',
       '_add_existing_field' => 'hidden',
+      'field_area_taxonomy' => 'left',
+      'field_entity_reference' => 'right',
     ),
     'classes' => array(),
   );
@@ -545,15 +547,17 @@ function pw_pages_ds_layout_settings_info() {
       ),
       'left' => array(
         0 => 'title',
-        1 => 'field_images_editorial_extra',
       ),
       'middle' => array(
-        0 => 'field_image',
-        1 => 'field_link',
+        0 => 'field_link',
       ),
       'right' => array(
         0 => 'field_entity_reference',
         1 => 'path',
+      ),
+      'footer' => array(
+        0 => 'field_image',
+        1 => 'field_images_editorial_extra',
       ),
       'hidden' => array(
         0 => '_add_existing_field',
@@ -562,11 +566,11 @@ function pw_pages_ds_layout_settings_info() {
     'fields' => array(
       'body' => 'header',
       'title' => 'left',
-      'field_images_editorial_extra' => 'left',
-      'field_image' => 'middle',
-      'field_entity_reference' => 'right',
       'field_link' => 'middle',
+      'field_entity_reference' => 'right',
       'path' => 'right',
+      'field_image' => 'footer',
+      'field_images_editorial_extra' => 'footer',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(),

@@ -10,7 +10,7 @@
 function pw_pages_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-article-body'
+  // Exported field: 'node-article-body'.
   $fields['node-article-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -36,6 +36,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -114,7 +115,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-article-field_area_taxonomy'
+  // Exported field: 'node-article-field_area_taxonomy'.
   $fields['node-article-field_area_taxonomy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -138,6 +139,7 @@ function pw_pages_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -222,7 +224,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-article-field_email'
+  // Exported field: 'node-article-field_email'.
   $fields['node-article-field_email'] = array(
     'field_config' => array(
       'active' => '1',
@@ -235,6 +237,7 @@ function pw_pages_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'email',
       'settings' => array(),
       'translatable' => '0',
@@ -300,7 +303,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-article-field_entity_reference'
+  // Exported field: 'node-article-field_entity_reference'.
   $fields['node-article-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -324,6 +327,7 @@ function pw_pages_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -414,7 +418,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-article-field_image'
+  // Exported field: 'node-article-field_image'.
   $fields['node-article-field_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -438,6 +442,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -555,12 +560,12 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '10',
+        'weight' => '4',
       ),
     ),
   );
 
-  // Exported field: 'node-article-field_images_editorial_extra'
+  // Exported field: 'node-article-field_images_editorial_extra'.
   $fields['node-article-field_images_editorial_extra'] = array(
     'field_config' => array(
       'active' => '1',
@@ -584,6 +589,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -681,12 +687,12 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '9',
+        'weight' => '5',
       ),
     ),
   );
 
-  // Exported field: 'node-article-field_link'
+  // Exported field: 'node-article-field_link'.
   $fields['node-article-field_link'] = array(
     'field_config' => array(
       'active' => '1',
@@ -699,6 +705,7 @@ function pw_pages_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -791,7 +798,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-article-field_submitter'
+  // Exported field: 'node-article-field_submitter'.
   $fields['node-article-field_submitter'] = array(
     'field_config' => array(
       'active' => '1',
@@ -812,6 +819,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -879,7 +887,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-body'
+  // Exported field: 'node-attachment-body'.
   $fields['node-attachment-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -905,6 +913,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -956,7 +965,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-field_entity_reference'
+  // Exported field: 'node-attachment-field_entity_reference'.
   $fields['node-attachment-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -980,6 +989,7 @@ function pw_pages_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -1049,7 +1059,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-field_high_res_ad'
+  // Exported field: 'node-attachment-field_high_res_ad'.
   $fields['node-attachment-field_high_res_ad'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1073,6 +1083,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'display_default' => 1,
@@ -1166,7 +1177,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-field_image'
+  // Exported field: 'node-attachment-field_image'.
   $fields['node-attachment-field_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1190,6 +1201,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -1305,7 +1317,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-field_link'
+  // Exported field: 'node-attachment-field_link'.
   $fields['node-attachment-field_link'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1318,6 +1330,7 @@ function pw_pages_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1391,7 +1404,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-page-body'
+  // Exported field: 'node-page-body'.
   $fields['node-page-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1417,6 +1430,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1426,7 +1440,7 @@ function pw_pages_field_default_fields() {
       'bundle' => 'page',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Scribd ID - pub-18673738874898982461',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -1460,12 +1474,12 @@ function pw_pages_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
 
-  // Exported field: 'node-page-field_entity_reference'
+  // Exported field: 'node-page-field_entity_reference'.
   $fields['node-page-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1489,6 +1503,7 @@ function pw_pages_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -1556,12 +1571,12 @@ function pw_pages_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
 
-  // Exported field: 'node-page-field_image'
+  // Exported field: 'node-page-field_image'.
   $fields['node-page-field_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1585,6 +1600,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -1695,12 +1711,12 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '3',
+        'weight' => '5',
       ),
     ),
   );
 
-  // Exported field: 'node-page-field_images_editorial_extra'
+  // Exported field: 'node-page-field_images_editorial_extra'.
   $fields['node-page-field_images_editorial_extra'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1724,6 +1740,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -1814,12 +1831,12 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => '6',
       ),
     ),
   );
 
-  // Exported field: 'node-page-field_link'
+  // Exported field: 'node-page-field_link'.
   $fields['node-page-field_link'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1832,6 +1849,7 @@ function pw_pages_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1900,12 +1918,12 @@ function pw_pages_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '5',
+        'weight' => '2',
       ),
     ),
   );
 
-  // Exported field: 'node-pw_digital-body'
+  // Exported field: 'node-pw_digital-body'.
   $fields['node-pw_digital-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1931,6 +1949,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1987,7 +2006,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_area'
+  // Exported field: 'node-pw_digital-field_area'.
   $fields['node-pw_digital-field_area'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2004,6 +2023,7 @@ function pw_pages_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -2054,7 +2074,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_display_ad'
+  // Exported field: 'node-pw_digital-field_display_ad'.
   $fields['node-pw_digital-field_display_ad'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2078,6 +2098,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => '993',
@@ -2169,7 +2190,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_edition_date'
+  // Exported field: 'node-pw_digital-field_edition_date'.
   $fields['node-pw_digital-field_edition_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2182,6 +2203,7 @@ function pw_pages_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -2249,7 +2271,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_pdf'
+  // Exported field: 'node-pw_digital-field_pdf'.
   $fields['node-pw_digital-field_pdf'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2273,6 +2295,7 @@ function pw_pages_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'display_default' => 1,
@@ -2361,7 +2384,7 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_scribd'
+  // Exported field: 'node-pw_digital-field_scribd'.
   $fields['node-pw_digital-field_scribd'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2385,6 +2408,7 @@ function pw_pages_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '80',
@@ -2473,7 +2497,6 @@ function pw_pages_field_default_fields() {
   t('Reference Other');
   t('References');
   t('Scribd');
-  t('Scribd ID - pub-18673738874898982461');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');

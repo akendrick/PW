@@ -31,7 +31,7 @@ function pw_pages_views_api() {
 function pw_pages_image_default_styles() {
   $styles = array();
 
-  // Exported image style: editorial_block_list_header
+  // Exported image style: editorial_block_list_header.
   $styles['editorial_block_list_header'] = array(
     'name' => 'editorial_block_list_header',
     'effects' => array(
@@ -53,7 +53,7 @@ function pw_pages_image_default_styles() {
     ),
   );
 
-  // Exported image style: editorial_header
+  // Exported image style: editorial_header.
   $styles['editorial_header'] = array(
     'name' => 'editorial_header',
     'effects' => array(
@@ -75,7 +75,7 @@ function pw_pages_image_default_styles() {
     ),
   );
 
-  // Exported image style: editorial_small
+  // Exported image style: editorial_small.
   $styles['editorial_small'] = array(
     'name' => 'editorial_small',
     'effects' => array(
@@ -97,7 +97,7 @@ function pw_pages_image_default_styles() {
     ),
   );
 
-  // Exported image style: editorial_teaser
+  // Exported image style: editorial_teaser.
   $styles['editorial_teaser'] = array(
     'name' => 'editorial_teaser',
     'effects' => array(
@@ -119,7 +119,7 @@ function pw_pages_image_default_styles() {
     ),
   );
 
-  // Exported image style: editorial_thumbnail
+  // Exported image style: editorial_thumbnail.
   $styles['editorial_thumbnail'] = array(
     'name' => 'editorial_thumbnail',
     'effects' => array(

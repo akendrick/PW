@@ -16,7 +16,7 @@
 
 // FORM DEBUG
 // Displays Form Data
-define ('DEBUG', FALSE);
+define ('DEBUG', TRUE);
 
 // VALIDATION_TEST_MODE: set to TRUE to allow any card number for testing purposes.
 // Must be set before loading the CreditCardValidate.inc.php library!
@@ -42,7 +42,7 @@ function pennywise_init() {
  */
 function pennywise_menu() {
 
-  $items['admin/pennywise/classified/promote/%'] = array(
+  $items['admin/pennywise/promote_ad/%'] = array(
     'title' => 'Promote',
     'page callback'    => 'promote_to_classified_ad',
     'page arguments'   => array(3),

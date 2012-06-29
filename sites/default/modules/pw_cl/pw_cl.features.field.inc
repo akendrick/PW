@@ -1522,7 +1522,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '12',
+        'weight' => '3',
       ),
     ),
   );

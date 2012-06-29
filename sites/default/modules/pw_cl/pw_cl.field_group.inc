@@ -275,8 +275,7 @@ function pw_cl_field_group_info() {
     'label' => 'Basics',
     'weight' => '1',
     'children' => array(
-      0 => 'field_image',
-      1 => 'field_tags',
+      0 => 'field_tags',
     ),
     'format_type' => 'div',
     'format_settings' => array(

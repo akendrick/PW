@@ -56,8 +56,7 @@ function pw_pages_field_group_info() {
     'label' => 'Media',
     'weight' => '3',
     'children' => array(
-      0 => 'field_images_editorial_extra',
-      1 => 'field_entity_reference',
+      0 => 'field_entity_reference',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -89,10 +88,9 @@ function pw_pages_field_group_info() {
     'label' => 'Basic',
     'weight' => '1',
     'children' => array(
-      0 => 'field_image',
-      1 => 'field_submitter',
-      2 => 'field_area_taxonomy',
-      3 => 'title',
+      0 => 'field_submitter',
+      1 => 'field_area_taxonomy',
+      2 => 'title',
     ),
     'format_type' => 'div',
     'format_settings' => array(

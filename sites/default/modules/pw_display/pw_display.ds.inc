@@ -59,10 +59,12 @@ function pw_display_ds_layout_settings_info() {
     'hide_empty_regions' => 1,
     'hide_sidebars' => FALSE,
     'regions' => array(
+      'header' => array(
+        0 => 'field_display_ad',
+      ),
       'left' => array(
         0 => 'field_section_all_select',
         1 => 'field_tags',
-        2 => 'field_display_ad',
       ),
       'middle' => array(
         0 => 'field_display_ad_type',
@@ -86,9 +88,9 @@ function pw_display_ds_layout_settings_info() {
       ),
     ),
     'fields' => array(
+      'field_display_ad' => 'header',
       'field_section_all_select' => 'left',
       'field_tags' => 'left',
-      'field_display_ad' => 'left',
       'field_display_ad_type' => 'middle',
       'group_basics' => 'middle',
       'path' => 'right',
