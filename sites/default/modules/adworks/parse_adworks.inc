@@ -65,6 +65,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
     'image_count' => 0,
     'image_found' => 0,
     'image_already_uploaded' => 0,
+    'image_replaced' => array(),
     'image_missing' => 0,
     'image_missing_files' => array(),
     'phone_count' => 0,
@@ -72,7 +73,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
     'area_count' => 0,
     'error_count' => 0,
     'error_messages' => array(),
-    'blank_ad' => 0,
+    'blank_ad' => array(),
     );
   }
   
@@ -81,6 +82,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
   $copy = $copy[0];
   if (trim($copy) == NULL || $copy == '') {
     $context['results']['blank_ad'][] = 'No ad copy. Possibly a blank line.';  
+    // watchdog('Preflight', 'Blank line detected.');
   }
   else {
 
@@ -91,6 +93,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
     $image = $image[0];
   
     if ($image) {
+      // watchdog('Preflight', 'Image required.');
       $context['results']['image_count']++;
    
       // Check for image in FILES
@@ -99,15 +102,26 @@ function _adworks_pre_flight_ads($ad, &$context) {
       $options = array ('key' => 'filename');
       $found = file_scan_directory('public://', '$' . $image . '$', $options);
       $image_file = array_shift($found);
+      //dpm($image_file);
       
       if($image_file) {
+        // watchdog('Preflight', 'Image found.');
         $context['results']['image_found']++;
+              
+        // Determine file location.
+        // watchdog('Preflight', 'About to test folder location.');
+        $image_filepath = explode('/', $image_file->uri);
+        if ($image_filepath[2] == 'classified_ad_images') {
+          $context['results']['image_already_uploaded']++;
+          $context['results']['image_replaced'][] = $image_file->filename;
+        }
       }
       else {
         // log missing images.
         //$images_missing[] = $image_name;
         $context['results']['image_missing']++;
-        $context['results']['image_missing_files'][] = $image_file;
+        // watchdog('Preflight', 'No Image found.');
+        $context['results']['image_missing_files'][] = $image_name;
      }
     }
 
@@ -192,6 +206,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       'image_count' => 0,
       'image_found' => 0,
       'image_already_uploaded' => 0,
+      'image_replaced' => array(),
       'image_missing' => 0,
       'image_missing_files' => array(),
       'phone_count' => 0,
@@ -199,7 +214,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       'area_count' => 0,
       'error_count' => 0,
       'error_messages' => array(),
-      'blank_ad' => 0,
+      'blank_ad' => array(),
     );
   }
 
@@ -268,27 +283,38 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       $image_name = $image . '.jpg';
       $options = array ('key' => 'filename');
       $found = file_scan_directory('public://', '$' . $image . '$', $options);
-      $image_file = array_shift($found);
+      $image_filepath = array_shift($found);
       
-      #dpm('FILE FOUND');
-      #dpm($found);
       // If Image present prepare it for saving.
-      if($image_file && $check_images) {
-  
-        // Take image object file and save to permanent directory
-        $destination = 'public://classified_ad_images/' . $image_file->filename;
-        $replace = FILE_EXISTS_REPLACE;
-   
-        $file = file_save_data($image_file->uri, $destination, $replace);
-        #dpm('FILE SAVE DATA');
-        #dpm($file);
-    
-        // Set Status
-        $file->status = FILE_STATUS_PERMANENT;
-    
+      if($image_filepath && $check_images) {
         // Prepare Classified Node Object
         // - Convert to ARRAY!
-        $new_ad->field_image[$new_ad->language][0] = (array) $file;
+        $file = (object) array(
+          'uid' => 1,
+          'uri' => $image_filepath->uri,
+          'filemime' => file_get_mimetype($image_filepath->uri),
+          'status' => 1,
+          'filename' => $new_ad->title . '...',
+        );
+
+        // Determine file location.
+        // watchdog('Adworks', 'Created image FILE object).');
+        $image_folder = explode('/', $image_filepath->uri);
+        if ($image_folder[2] == 'classified_ad_images') {
+          // watchdog('Adworks', 'File already exisist.');
+          $context['results']['image_already_uploaded']++;
+          $context['results']['image_replaced'][] = $image_filepath->filename . ': ' . $file->filename;
+        }
+
+        
+        $destination = 'public://classified_ad_images/' . $image_filepath->filename;
+        $replace = FILE_EXISTS_RENAME;        
+        $file = file_copy($file, $destination, $replace);
+        //$file = file_save_data($image_filepath->uri, $destination, $replace);
+        // watchdog('Adworks', 'File Save data successfull.');
+//        $file = file_copy($file, 'public://classified_ad_images/', FILE_EXISTS_REPLACE);
+        $new_ad->field_image[$new_ad->language][0] = (array)$file;
+        // watchdog('Adworks', 'File oject added to node.');
         
         //$images_found[] = $image_name;
         $context['results']['image_found']++;
@@ -296,8 +322,9 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       else {
         // log missing images.
         //$images_missing[] = $image_name;
+        // watchdog('Adworks', 'Image not found (or not checking for images).');
         $context['results']['image_missing']++;
-        $context['results']['image_missing_files'][] = $image_file;
+        $context['results']['image_missing_files'][] = $image_name;
      }
       
     }
@@ -422,34 +449,24 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
       $new_ad->unpublish_on = $publish_dates['end'];
     }
   
-    // AD COUNTER
-    // Returns ad count even if ads aren't save to database.
-    if(!$create_ads) {
-      $results['ad_count'] = $ad_count;
-      $context['progress']++;
-    }
-
-   // Return if any images missing.
-   //$create_ads = TRUE;
-  
     if (count($images_missing) > 0 || $image_check == TRUE) {
       return $results;
     }
     elseif (!$images_missing || count($images_missing) == 0 || !$errors) {
       if ($create_ads && $save_ad) {
         // AD SAVE
-        $ad_count += 1;
         node_submit($new_ad);
         node_save($new_ad);
-        $context['results']['ad_count']++;
       }
       else {
-        // log results
-        $watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id .
-        watchdog($watchdog_message, 'error message');
+        // IF NOT SAVING ADS --> log results
+        //$watchdog_message = "Ad Created: " . $term->name . ' ' . $term_id;
+        //watchdog($watchdog_message, 'error message');
       }
+    // Record total batch results.
+    $context['results']['ad_count']++;
     }
-  
+    // Progress not tied to ad creation (will count blank lines).
     $context['progress']++;
   }
 }
@@ -489,21 +506,24 @@ function adworks_batch_finished($success, $results, $operations) {
     // If images detected
     if ($results['image_count']) { 
       $image_message = t('@images images required - @found found', array('@images' => $results['image_count'], '@found' => $results['image_found'])); 
-      // $processed[] = t('@found images found', array('@found' => $results['image_found'])); 
       
       // already uploaded
       if ($results['image_already_uploaded']) { 
-        $image_message .= t('@previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
+        $image_message .= t(' - @previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
+        $image_message .= ($results['image_replaced']) ? theme('item_list', array('items' => $results['image_replaced'], 'title' => 'Images Already Uploaded (will not be be replaced)')) : '' ;
       }
+      $processed[] .= $image_message;
+    }
       
-      // missing image output
-      if ($results['image_missing']) {
-        $image_message .= t(' <strong> @missing MISSING </strong>', array('@missing' => $results['image_missing'])); 
-        $missing_message = t('############### @missing MISSING IMAGES: ##################', array('@missing' => $results['image_missing'])); 
-        $error_message .= theme('item_list', array('items' => $results['image_missing_file'], 'title' => $missing_message));
-        
-        $status = 'warning';
-      }
+    // missing image output
+    if ($results['image_missing']) {
+      $image_message .= t(' - <strong> @missing MISSING </strong>', array('@missing' => $results['image_missing'])); 
+      $missing_message = t('############### @missing MISSING IMAGES: ##################', array('@missing' => $results['image_missing'])); 
+      rsort($results['image_missing_files']);
+      $error_message = theme('item_list', array('items' => $results['image_missing_files'], 'title' => $missing_message));
+
+      $status = 'warning';
+
       $processed[] = $image_message;
     }
     else {
@@ -527,7 +547,7 @@ function adworks_batch_finished($success, $results, $operations) {
   else {
     // MAJOR ERRORS -- unable to process.
     $error_operation = reset($operations);
-    $error_message = t('<strong>##############    ALERT ADMINSITRATION IMMEDIATELY #####################</strong> <br><br> 
+    $error_message .= t('<strong>##############    ALERT ADMINSITRATION IMMEDIATELY    #####################</strong> <br><br> 
       An error occured while processing   <strong> %error_op </strong>   on ad: <br><br>@arguments', 
       array('%error_op' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
     $status = 'error';
