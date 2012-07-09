@@ -15,7 +15,7 @@ $plugin = array(
 );
 
 
-function context_admin_node_edit_menu_content_form($form, $form_state, $cache = NULL) {
+function context_admin_node_edit_menu_content_form($form, $form_state) {
   $conf = $form_state['conf'];
   if (module_exists('panels')) {
     if (isset($conf['context_admin_use_node_edit'])) {

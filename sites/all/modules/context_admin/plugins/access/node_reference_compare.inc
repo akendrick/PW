@@ -17,7 +17,6 @@ $plugin = array(
   'settings form' => 'context_access_node_reference_compare_access_contexts',
   'settings form submit' => 'context_access_node_reference_compare_access_settings_submit',
   'summary' => 'context_access_node_reference_compare_access_summary',
-  'restrictions' => 'context_access_node_reference_compare_access_restrictions',
   'required context' => array(
     new ctools_context_required(t('Node'), 'node'),
     new ctools_context_required(t('Node'), 'node')
@@ -93,37 +92,33 @@ function context_access_node_reference_compare_access_check($conf, $context) {
       return FALSE;
     }
   }
+  $keys = array_keys($context);
   if (!isset($conf['ref_options']['node_types'])) {
-    return ($context[0]->data->nid == $context[1]->data->nid);
+    return ($context[$keys[0]]->data->nid == $context[$keys[1]]->data->nid);
   }
   else {
-    if ($context[1]->data->type != $conf['ref_options']['node_types']) {
+    if ($context[$keys[1]]->data->type != $conf['ref_options']['node_types']) {
       return FALSE;
     }
     else {
-      $ref = field_get_items('node', $context[1]->data, $conf['ref_options']['type_fields'][$conf['ref_options']['node_types']]);
-      $ref_node = node_load($ref[0]['nid']);
-      return ($context[0]->data->nid == $ref_node->nid);
+      $ref = field_get_items('node', $context[$keys[1]]->data, $conf['ref_options']['type_fields'][$conf['ref_options']['node_types']]);
+      if ($ref) {
+        $ref_node = node_load($ref[0]['nid']);
+        return ($context[$keys[0]]->data->nid == $ref_node->nid);
+      }
     }
   }
   return FALSE;
 }
 
 /**
- * Inform the UI that we've eliminated a bunch of possibilities for this
- * context.
- */
-function context_access_node_reference_compare_access_restrictions($conf, &$context) {
-  
-}
-
-/**
  * Provide a summary description based upon the checked node_types.
  */
 function context_access_node_reference_compare_access_summary($conf, $context) {
+  $keys = array_keys($context);
   if (!isset($conf['ref_options']['node_types'])) {
-    return t('@node1 is equal to @node2', array('@node1' => $context[0]->identifier, '@node2' => $context[1]->identifier));
+    return t('@node1 is equal to @node2', array('@node1' => $context[$keys[0]]->identifier, '@node2' => $context[$keys[1]]->identifier));
   }
 
-  return t('@node1 is equal to the @field node reference on @node2', array('@node1' => $context[0]->identifier, '@field' => $conf['ref_options']['type_fields'][$conf['ref_options']['node_types']], '@node2' => $context[1]->identifier));
+  return t('@node1 is equal to the @field node reference on @node2', array('@node1' => $context[$keys[0]]->identifier, '@field' => $conf['ref_options']['type_fields'][$conf['ref_options']['node_types']], '@node2' => $context[$keys[1]]->identifier));
 }

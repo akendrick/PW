@@ -14,7 +14,7 @@ $plugin = array(
   'render' => 'context_admin_node_view_menu_render_page',
 );
 
-function context_admin_node_view_menu_content_form($form, $form_state, $cache = NULL) {
+function context_admin_node_view_menu_content_form($form, $form_state) {
   $conf = $form_state['conf'];
   if (module_exists('panels')) {
     $form['context_admin_use_node_view'] = array(

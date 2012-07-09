@@ -15,7 +15,7 @@ $plugin = array(
 );
 
 
-function context_admin_user_create_menu_content_form($form, $form_state, $cache = NULL) {
+function context_admin_user_create_menu_content_form($form, $form_state) {
   $conf = $form_state['conf'];
   $default = isset($conf['context_admin_user_roles']) ? $conf['context_admin_user_roles'] : NULL;
   $default_alter = isset($conf['context_admin_user_roles_alter']) ? $conf['context_admin_user_roles_alter'] : NULL;

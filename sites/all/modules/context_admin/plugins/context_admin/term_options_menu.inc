@@ -15,7 +15,7 @@ $plugin = array(
   'form alter' => 'context_admin_term_options_menu_form_alter',
 );
 
-function context_admin_term_options_menu_content_form($form, &$form_state, $cache = NULL) {
+function context_admin_term_options_menu_content_form($form, &$form_state) {
   if (isset($form_state['conf']['context_admin_term_options'])) {
     $default_options = $form_state['conf']['context_admin_term_options'];
   }

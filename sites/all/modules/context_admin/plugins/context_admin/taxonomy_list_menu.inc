@@ -14,7 +14,7 @@ $plugin = array(
   'form alter' => 'context_admin_taxonomy_list_menu_form_alter',
 );
 
-function context_admin_taxonomy_list_menu_content_form($form, &$form_state, $cache = NULL) {
+function context_admin_taxonomy_list_menu_content_form($form, &$form_state) {
   if (isset($form_state['conf']['context_admin_vocabulary'])) {
     $default = $form_state['conf']['context_admin_vocabulary'];
   }
@@ -55,7 +55,6 @@ function context_admin_taxonomy_list_menu_content_form($form, &$form_state, $cac
 }
 
 function context_admin_taxonomy_list_menu_content_form_submit($form, &$form_state) {
-  $cache = context_admin_get_page_cache($form_state['page']->subtask_id);
   $form_state['conf']['context_admin_vocabulary'] = $form_state['values']['context_admin_vocabulary'];
   $form_state['conf']['context_admin_vocabulary_options'] = $form_state['values']['context_admin_vocabulary_options'];
 }

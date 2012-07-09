@@ -16,7 +16,7 @@ $plugin = array(
 );
 
 
-function context_admin_node_create_menu_content_form($form, $form_state, $cache = NULL) {
+function context_admin_node_create_menu_content_form($form, $form_state) {
   $conf = $form_state['conf'];
   ctools_include('dependent');
   $context_options = $form['context']['#options'];

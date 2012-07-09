@@ -273,28 +273,21 @@ function context_admin_menu_context_edit_settings(&$form, &$form_state) {
 }
 
 function context_admin_menu_context_edit_content($form, &$form_state) {
-  ctools_include('context');
   ctools_include('context-task-handler');
-  $cache = context_admin_get_page_cache($form_state['page']->subtask_id);
-  $cache2 = page_manager_get_page_cache('page-'. $form_state['page']->subtask_id);
-  $arguments = $cache2->subtask['subtask']->arguments;
-  
-  $handler_id = $form_state['page']->task_id .'_'. $form_state['page']->subtask_id .'_menu_context';
-  module_load_include('inc', 'page_manager', 'plugins/tasks/page');
-  // Get the base contexts for this subtask
-  $base_contexts = page_manager_page_get_contexts($form_state['task'], $form_state['subtask']);
-  // Get the fully formed context for this handler.
-  $contexts = ctools_context_handler_get_handler_contexts($base_contexts, $form_state['page']->handlers[$handler_id]);
-  $plugins = context_admin_get_contextual_plugins($contexts);
-  
-  if (isset($form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'])) {
-    $default =  $form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'];
-  }
-  elseif (isset($cache->handlers[$form_state['handler_id']]->conf['context_admin_options'])) {
-    $default = $cache->handlers[$form_state['handler_id']]->conf['context_admin_options'];
+  if (!isset($form_state['handler_id'])) {
+    $handler = $form_state['page']->new_handler;
   }
   else {
-    $default = '';
+    $handler = $form_state['page']->handlers[$form_state['handler_id']];
+  }
+  $contexts = ctools_context_handler_get_all_contexts($form_state['page']->task, $form_state['page']->subtask, $handler);
+  $plugins = context_admin_get_contextual_plugins($contexts);
+  
+  if (isset($handler->conf['context_admin_options'])) {
+    $default =  $handler->conf['context_admin_options'];
+  }
+  else {
+    $default = NULL;
   }
 
   $options = array();
@@ -312,47 +305,29 @@ function context_admin_menu_context_edit_content($form, &$form_state) {
 }
 
 function context_admin_menu_context_edit_content_submit(&$form, &$form_state) {
-  $cache = context_admin_get_page_cache($form_state['page']->subtask_id);
-  if (!is_null($form_state['handler_id'])) {
-    $form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'] = $form_state['values']['context_admin_options'];
-  }
-  else {
-    $form_state['page']->new_handler->conf['context_admin_options'] = $form_state['values']['context_admin_options'];
-  }
-  context_admin_set_page_cache($form_state['page']->subtask_id, $form_state['page']);
+  $form_state['handler']->conf['context_admin_options'] = $form_state['values']['context_admin_options'];
 }
 
 function context_admin_menu_context_edit_content_settings($form, &$form_state) {
-  ctools_include('context');
   ctools_include('context-task-handler');
-  $cache = context_admin_get_page_cache($form_state['page']->subtask_id);
-  $handler_id = $form_state['page']->task_id .'_'. $form_state['page']->subtask_id .'_menu_context';
-  $plugin = context_admin_get_plugins('context_admin', array('id' => $form_state['page']->handlers[$handler_id]->conf['context_admin_options']));
-  $form_state['conf'] = $form_state['page']->handlers[$handler_id]->conf;
-  module_load_include('inc', 'page_manager', 'plugins/tasks/page');
-  // Get the base contexts for this subtask
-  $base_contexts = page_manager_page_get_contexts($form_state['task'], $form_state['subtask']);
-  // Get the fully formed context for this handler.
-  $contexts = ctools_context_handler_get_handler_contexts($base_contexts, $form_state['page']->handlers[$handler_id]);
+  if (!isset($form_state['handler_id'])) {
+    $handler = $form_state['page']->new_handler;
+  }
+  else {
+    $handler = $form_state['page']->handlers[$form_state['handler_id']];
+  }
+  $contexts = ctools_context_handler_get_all_contexts($form_state['page']->task, $form_state['page']->subtask, $handler);
+  $plugin = context_admin_get_plugins('context_admin', array('id' => $handler->conf['context_admin_options']));
+  $form_state['conf'] = $handler->conf;
 
-  if (isset($form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'])) {
-    $callback = $form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'];
-  }
-  elseif (isset($cache->handlers[$form_state['handler_id']]->conf['context_admin_options'])) {
-    $callback = $cache->handlers[$form_state['handler_id']]->conf['context_admin_options'];
-  }
-  if (isset($form_state['page']->handlers[$form_state['handler_id']]->conf['submitted_context'])) {
-    $submitted_context = $form_state['page']->handlers[$form_state['handler_id']]->conf['submitted_context'];
-  }
-  elseif (isset($cache->handlers[$form_state['handler_id']]->conf['submitted_context'])) {
-    $submitted_context = $cache->handlers[$form_state['handler_id']]->conf['submitted_context'];
-  }
-  
+  $callback = isset($handler->conf['context_admin_options']) ? $handler->conf['context_admin_options'] : NULL;
+  $submitted_context = isset($handler->conf['submitted_context']) ? $handler->conf['submitted_context'] : array();
+
   if (!empty($plugin['required context']) && is_array($contexts)) {
-    $form['context'] = ctools_context_selector($contexts, $plugin['required context'], isset($submitted_context) ? $submitted_context : array());
+    $form['context'] = ctools_context_selector($contexts, $plugin['required context'], $submitted_context);
   }
   if (isset($callback) && $callback = ctools_plugin_load_function('context_admin', 'context_admin', $callback, 'content form')) {
-    $form = $callback($form, $form_state, $cache, $contexts);
+    $form = $callback($form, $form_state, $contexts);
   }
   return $form;
 }
@@ -364,46 +339,29 @@ function context_admin_menu_context_edit_content_settings($form, &$form_state) {
  */
 
 function context_admin_menu_context_edit_content_settings_submit($form, &$form_state) {
-  $cache = context_admin_get_page_cache($form_state['page']->subtask_id);
-  if (!is_null($form_state['handler_id'])) {
-    $plugin = $form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'] ? $form_state['page']->handlers[$form_state['handler_id']]->conf['context_admin_options'] : $cache->handlers[$form_state['handler_id']]->conf['context_admin_options'];
-    if(isset($form_state['values']['context'])) {
-      $form_state['page']->handlers[$form_state['handler_id']]->conf['submitted_context'] = isset($form_state['values']['context']) ? $form_state['values']['context'] : '';
-    }
-  }
-  else {
-    $plugin = $form_state['page']->new_handler->conf['context_admin_options'];
-    $form_state['page']->new_handler->conf['submitted_context'] = isset($form_state['values']['context']) ? $form_state['values']['context'] : '';
-  }
+  $plugin = $form_state['handler']->conf['context_admin_options'];
+
   if ($callback = ctools_plugin_load_function('context_admin', 'context_admin', $plugin, 'content form submit')) {
     $callback($form, $form_state);
   }
   if (isset($form_state['values']['context'])) {
     $form_state['conf']['submitted_context'] = $form_state['values']['context'];
   }
-  if (!is_null($form_state['handler_id'])) {
-    $form_state['page']->handlers[$form_state['handler_id']]->conf = $form_state['conf'];
-  }
-  else {
-    $form_state['page']->new_handler->conf['submitted_context'] = $form_state['conf'];
-  }
-  context_admin_set_page_cache($form_state['page']->subtask_id, $form_state['page']);
+  $form_state['handler']->conf = $form_state['conf'];
 }
 
 function context_admin_menu_context_save(&$handler, $update) {
   $plugin = $handler->conf['context_admin_options'];
   if ($callback = ctools_plugin_load_function('context_admin', 'context_admin', $plugin, 'save')) {
     $callback($handler, $update);
-  } 
-  context_admin_clear_page_cache('context_admin', $handler->subtask);
+  }
 }
 
 function context_admin_menu_context_delete(&$handler) {
   $plugin = $handler->conf['context_admin_options'];
   if ($callback = ctools_plugin_load_function('context_admin', 'context_admin', $plugin, 'delete')) {
     $callback($handler);
-  } 
-  context_admin_clear_page_cache('context_admin', $handler->subtask);
+  }
 }
 
 function context_admin_menu_context_clone(&$handler) {
