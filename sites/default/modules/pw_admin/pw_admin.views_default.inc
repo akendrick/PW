@@ -1211,8 +1211,8 @@ function pw_admin_views_default_views() {
   );
   $handler->display->display_options['style_options']['columns'] = array(
     'nid' => 'nid',
-    'field_image' => 'field_image',
     'field_tags' => 'field_tags',
+    'field_image' => 'field_tags',
     'field_area' => 'field_area',
     'field_promote' => 'field_promote',
     'field_ad_copy' => 'field_ad_copy',
@@ -1240,8 +1240,8 @@ function pw_admin_views_default_views() {
     'name_1' => 'name_1',
     'uid' => 'uid',
     'nothing_3' => 'nothing_3',
-    'edit_node_1' => 'edit_node_1',
-    'ccid' => 'ccid',
+    'edit_node_1' => 'nid',
+    'ccid' => 'nid',
     'views_bulk_operations' => 'views_bulk_operations',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -1250,17 +1250,17 @@ function pw_admin_views_default_views() {
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_image' => array(
-      'align' => '',
-      'separator' => '',
+      'separator' => '<br>',
       'empty_column' => 0,
     ),
     'field_tags' => array(
       'align' => '',
-      'separator' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'field_image' => array(
+      'align' => '',
+      'separator' => '<br>',
       'empty_column' => 0,
     ),
     'field_area' => array(
@@ -1499,6 +1499,32 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_tags']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
@@ -1534,32 +1560,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_image']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_image']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
-  /* Field: Content: Section */
-  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
-  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
-  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
-  $handler->display->display_options['fields']['field_tags']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_tags']['group_rows'] = 1;
-  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
-  $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
-  $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Content: Area */
   $handler->display->display_options['fields']['field_area']['id'] = 'field_area';
   $handler->display->display_options['fields']['field_area']['table'] = 'field_data_field_area';
@@ -2228,7 +2228,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node_1']['id'] = 'edit_node_1';
   $handler->display->display_options['fields']['edit_node_1']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node_1']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node_1']['label'] = '';
   $handler->display->display_options['fields']['edit_node_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['absolute'] = 0;
@@ -2237,15 +2237,16 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node_1']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['edit_node_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node_1']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['edit_node_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node_1']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['edit_node_1']['hide_empty'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['edit_node_1']['text'] = 'Edit Submission';
+  $handler->display->display_options['fields']['edit_node_1']['text'] = 'EDIT';
   /* Field: External NETIDEA Link */
   $handler->display->display_options['fields']['ccid']['id'] = 'ccid';
   $handler->display->display_options['fields']['ccid']['table'] = 'adp';

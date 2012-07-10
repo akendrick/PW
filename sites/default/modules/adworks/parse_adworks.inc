@@ -505,30 +505,31 @@ function adworks_batch_finished($success, $results, $operations) {
         
     // If images detected
     if ($results['image_count']) { 
-      $image_message = t('@images images required - @found found', array('@images' => $results['image_count'], '@found' => $results['image_found'])); 
+      $image_message_header = t('@images images required - @found found', array('@images' => $results['image_count'], '@found' => $results['image_found'])); 
       
       // already uploaded
       if ($results['image_already_uploaded']) { 
-        $image_message .= t(' - @previous images previously uploaded', array('@previous' => $results['image_already_uploaded'])); 
-        $image_message .= ($results['image_replaced']) ? theme('item_list', array('items' => $results['image_replaced'], 'title' => 'Images Already Uploaded (will not be be replaced)')) : '' ;
+        $image_message_header .= t(' - @previous from previous weeks', array('@previous' => $results['image_already_uploaded'])); 
+        asort($results['image_replaced']);
+        $image_message .= ($results['image_replaced']) ? theme('item_list', array('items' => $results['image_replaced'], 'title' => 'Images Already Uploaded (will not be replaced)')) : '' ;
       }
-      $processed[] .= $image_message;
+     }
+    else {
+      $image_message_header = '0 images';
     }
       
     // missing image output
     if ($results['image_missing']) {
-      $image_message .= t(' - <strong> @missing MISSING </strong>', array('@missing' => $results['image_missing'])); 
+      $image_message_header .= t(' - <strong> @missing MISSING </strong>', array('@missing' => $results['image_missing'])); 
       $missing_message = t('############### @missing MISSING IMAGES: ##################', array('@missing' => $results['image_missing'])); 
-      rsort($results['image_missing_files']);
+      asort($results['image_missing_files']);
       $error_message = theme('item_list', array('items' => $results['image_missing_files'], 'title' => $missing_message));
 
       $status = 'warning';
+    }
 
-      $processed[] = $image_message;
-    }
-    else {
-      $processed[] = '0 images';
-    }
+    $processed[] = $image_message_header;
+    $processed[] = $image_message;
     
     // Set Message OUTPUT
     $title = strtoupper( t('Classified ads @batch_type', array( '@batch_type' => $results['batch_type'])) );
