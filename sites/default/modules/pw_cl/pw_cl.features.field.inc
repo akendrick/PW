@@ -205,7 +205,7 @@ function pw_cl_field_default_fields() {
   $fields['node-ad_s-field_area'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_area',

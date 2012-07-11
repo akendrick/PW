@@ -1,15 +1,1 @@
-.form-feedback-step {
-  padding: 2px 20px;
-  size: 2em;
-}
-.form-feedback-step-highlight {
-  background-color: yellow;
-}
-.element-error {
-  background-repeat: no-repeat;
-  background-position-x: 5px;
-  background-position-y: 5px;
-  padding-left: 40px;
-  color: #fff;
-  background-color: #fff;
-}
+.form-feedback-step{padding:2px 20px;size:2em}.form-feedback-step-highlight{background-color:yellow}.element-error{background-repeat:no-repeat;background-position-x:5px;background-position-y:5px;padding-left:40px;color:#fff;background-color:#fff}#ad-s-node-form .multipage-controls-list input.form-submit{background-color:#fc4021}

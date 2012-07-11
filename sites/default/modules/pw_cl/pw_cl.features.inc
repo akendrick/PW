@@ -53,6 +53,75 @@ function pw_cl_image_default_styles() {
     ),
   );
 
+  // Exported image style: classified_list_nocrop.
+  $styles['classified_list_nocrop'] = array(
+    'name' => 'classified_list_nocrop',
+    'effects' => array(
+      27 => array(
+        'label' => 'Scale',
+        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
+        'effect callback' => 'image_scale_effect',
+        'dimensions callback' => 'image_scale_dimensions',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'image',
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => '265',
+          'height' => '145',
+          'upscale' => 0,
+        ),
+        'weight' => '-10',
+      ),
+      26 => array(
+        'label' => 'Overlay (watermark)',
+        'help' => 'Choose the file image you wish to use as an overlay, and position it in a layer on top of the canvas.',
+        'effect callback' => 'canvasactions_file2canvas_image',
+        'dimensions passthrough' => TRUE,
+        'form callback' => 'canvasactions_file2canvas_form',
+        'summary theme' => 'canvasactions_file2canvas_summary',
+        'module' => 'imagecache_canvasactions',
+        'name' => 'canvasactions_file2canvas',
+        'data' => array(
+          'xpos' => 'right',
+          'ypos' => 'bottom',
+          'alpha' => '100',
+          'path' => 'public://attachments/mag-glass_0.png',
+        ),
+        'weight' => '-9',
+      ),
+      28 => array(
+        'label' => 'Define canvas',
+        'help' => 'Define the size of the working canvas and background color, this controls the dimensions of the output image.',
+        'effect callback' => 'canvasactions_definecanvas_effect',
+        'dimensions callback' => 'canvasactions_definecanvas_dimensions',
+        'form callback' => 'canvasactions_definecanvas_form',
+        'summary theme' => 'canvasactions_definecanvas_summary',
+        'module' => 'imagecache_canvasactions',
+        'name' => 'canvasactions_definecanvas',
+        'data' => array(
+          'RGB' => array(
+            'HEX' => 'f0f0f0',
+          ),
+          'under' => 1,
+          'exact' => array(
+            'width' => '265',
+            'height' => '145',
+            'xpos' => 'center',
+            'ypos' => 'center',
+          ),
+          'relative' => array(
+            'leftdiff' => '',
+            'rightdiff' => '',
+            'topdiff' => '',
+            'bottomdiff' => '',
+          ),
+        ),
+        'weight' => '-8',
+      ),
+    ),
+  );
+
   // Exported image style: classified_page_style.
   $styles['classified_page_style'] = array(
     'name' => 'classified_page_style',

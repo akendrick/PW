@@ -493,10 +493,14 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_image_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_image_1']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image_1']['settings'] = array(
-    'image_style' => 'classified-list-style',
+    'image_style' => 'classified_list_nocrop',
     'image_link' => 'content',
   );
-  $handler->display->display_options['fields']['field_image_1']['delta_limit'] = 'all';
+  $handler->display->display_options['fields']['field_image_1']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_image_1']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_image_1']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_image_1']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_image_1']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_image_1']['field_api_classes'] = 0;
   /* Field: Content: Publish link */
   $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';

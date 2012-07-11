@@ -1,3 +1,41 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@highlight: lighten(#900, 20);
+
+
+
+/* CSS */
 .form-feedback-step {
   padding: 2px 20px;
   size: 2em;
@@ -13,3 +51,20 @@
   color: #fff;
   background-color: #fff;
 }
+#ad-s-node-form {
+  .multipage-controls-list input.form-submit{
+        background-color: @other;
+  }
+}
+//#ad-s-node-form {
+//  .multipage-controls-list {
+//    input.form-submit.multipage-link-next a {
+//      margin-left: auto;
+//      margin-right: auto;
+//      background-color: @other;
+//      color: @white;
+//      font-size: 14em;
+//      display: block;
+//    }
+//  }
+//}

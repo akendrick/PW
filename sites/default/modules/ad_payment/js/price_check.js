@@ -322,11 +322,15 @@ Drupal.adPayment.displayMsg = function() {
   // SHow save on AGREE
   if (jQuery('#edit-field-agree-und-confirm').is(':checked')) {
     jQuery('#edit-submit, #edit-preview').show();
+    jQuery('.multipage-button').hide();
   }
   else {
     jQuery('#edit-submit, #edit-preview').hide();
   }
-
+  if (jQuery('#edit-field-agree-und-not-yet').is(':checked')) {
+    jQuery('#edit-submit, #edit-preview').hide();
+    jQuery('.multipage-button').show();
+  }
   // Error Messages
   ad.msg.error = '';
   if (ad.errorMsg) {
