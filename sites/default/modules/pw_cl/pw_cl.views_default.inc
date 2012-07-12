@@ -486,6 +486,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_image_1']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_image_1']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_image_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_image_1']['element_class'] = 'center';
   $handler->display->display_options['fields']['field_image_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image_1']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_image_1']['hide_empty'] = 0;

@@ -19,6 +19,7 @@ function pw_la_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
+        '~admin/*' => '~admin/*',
         '<front>' => '<front>',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
@@ -43,35 +44,23 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_breadcrumb' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_breadcrumb',
-          'region' => 'content',
-          'weight' => '-30',
-        ),
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-29',
+          'weight' => '-10',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-28',
+          'weight' => '-9',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-27',
-        ),
-        'megamenu-menu-pw-super-menu' => array(
-          'module' => 'megamenu',
-          'delta' => 'menu-pw-super-menu',
-          'region' => 'super_menu',
-          'weight' => '-10',
+          'weight' => '-8',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
@@ -378,6 +367,11 @@ function pw_la_context_default_contexts() {
   $context->description = 'All pages - site wide header';
   $context->tag = 'layout';
   $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '~admin/*' => '~admin/*',
+      ),
+    ),
     'sitewide' => array(
       'values' => array(
         1 => 1,
@@ -391,13 +385,13 @@ function pw_la_context_default_contexts() {
           'module' => 'pennywise',
           'delta' => 'pw_breadcrumb',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'views-display_ad_blocks-block_1' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-block_1',
           'region' => 'splash_one',
-          'weight' => '-10',
+          'weight' => '-30',
         ),
         'views-display_ad_blocks-splash_block' => array(
           'module' => 'views',
@@ -411,10 +405,22 @@ function pw_la_context_default_contexts() {
           'region' => 'menu',
           'weight' => '-28',
         ),
-        'megamenu-menu-pw-super-menu' => array(
-          'module' => 'megamenu',
-          'delta' => 'menu-pw-super-menu',
-          'region' => 'super_menu',
+        'views-a5485957d52c1b7fa13be85b553da932' => array(
+          'module' => 'views',
+          'delta' => 'a5485957d52c1b7fa13be85b553da932',
+          'region' => 'preface_first',
+          'weight' => '-31',
+        ),
+        'views-taxonomy_listing-block_1' => array(
+          'module' => 'views',
+          'delta' => 'taxonomy_listing-block_1',
+          'region' => 'preface_first',
+          'weight' => '-10',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'preface_third',
           'weight' => '-10',
         ),
       ),
@@ -455,12 +461,6 @@ function pw_la_context_default_contexts() {
           'module' => 'pennywise',
           'delta' => 'pw_contact',
           'region' => 'menu',
-          'weight' => '-10',
-        ),
-        'megamenu-menu-pw-super-menu' => array(
-          'module' => 'megamenu',
-          'delta' => 'menu-pw-super-menu',
-          'region' => 'super_menu',
           'weight' => '-10',
         ),
       ),

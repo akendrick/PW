@@ -1,0 +1,113 @@
+<?php
+/**
+* Standard Install file.
+*/
+
+function ad_payment_schema() {
+  $schema['adp'] = array(
+    'description' => t('Created by `ad_submission` module. For the storage of CC data'),
+    'fields' => array(
+      'ccid' => array(
+        'description' => t('Submitted node id number.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => t('ID of user who submitted ad.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => t('Node to which this field applies.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'cc_type' => array(
+        'description' => t('Type of CC.'),
+        'type' => 'varchar',
+        'length' => '1024',
+        'not null' => TRUE,
+      ),
+      'exp_m' => array(
+        'description' => t('Month'),
+        'type' => 'varchar',
+        'length' => '1024',
+        'not null' => TRUE,
+      ),
+      'exp_y' => array(
+        'description' => t('Year'),
+        'type' => 'varchar',
+        'length' => '1024',
+        'not null' => TRUE,
+      ),
+      'cc_num' => array(
+        'description' => t('Last four digits.'),
+        'type' => 'varchar',
+        'length' => '1024',
+        'not null' => TRUE,
+      ),
+      'notes' => array(
+        'description' => t('Any submitted notes - references Node notes.'),
+        'type' => 'varchar',
+        'length' => '1024',
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => t('UNIX timestamp: date created.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'price_total' => array(
+        'description' => t('Total payment, including taxes and discounts.'),
+        'type' => 'float',
+        'not null' => TRUE,
+        'precision' => '4',
+        'scale' => '2',
+      ),
+      'price_taxes' => array(
+        'description' => t('Taxes.'),
+        'type' => 'float',
+        'not null' => TRUE,
+        'precision' => '4',
+        'scale' => '2',
+      ),
+      'price_subtotal' => array(
+        'description' => t('Price of ad determined by word count, areas, rate, duration and optional images & liveload.'),
+        'type' => 'float',
+        'not null' => TRUE,
+        'precision' => '4',
+        'scale' => '2',
+      ),
+      'word_count' => array(
+        'description' => t('Word count - for determining ad base price.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'areas' => array(
+        'description' => t('Total number of publication areas - for determining ad base price.'),
+        'type' => 'varchar',
+        'length' => '256',
+        'not null' => TRUE,
+      ),
+      'duration' => array(
+        'description' => t('Number of weeks is set for publication - for determining ad base price.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'liveload' => array(
+        'description' => t('Liveload status of ad - for determining ad base price.'),
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+      ),
+      'image' => array(
+        'description' => t('If ad contains image - for determining ad base price.'),
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+  return $schema;
+}

@@ -386,8 +386,28 @@ body {
 
 }
 
+/******* MOBILE NAVIGATION ********/
+#region-preface-first {
+  .block {
+    width: 48%;
+/*     .center; */
+/*     margin: 10px; */
+  }
+}
+
+#region-preface-third {
+  width: 75%;
+  .center;
+  
+}
+
 /********** HIDE ON MOBILE *****************/
-#zone-postscript, #zone-threeup, #region-header-second, region-splash-one, #region-splash-two {
+#zone-postscript, 
+#zone-threeup, 
+#region-header-second, 
+#region-splash-one, 
+#region-splash-two, 
+#block-feedback-form {
   display: none;
   height: 0px;
 }
@@ -469,20 +489,6 @@ body {
   padding: 0;
   margin: 0;
   h2 { display: none; }
-/*
-  #ad-submission-link-wrapper {
-    width: 100%;
-    .button(@other, @white, @other_light, @black, 0);
-    .center;
-    margin: 0;
-    padding: 0;
-    a {
-      width: 100%;
-      font-size: 1.4em;
-      padding: 10px;
-    }
-  }
-*/
 }
 
 .contact-button, #ad-submission-link-wrapper {
@@ -511,58 +517,6 @@ body {
 }
 
 
-/* Super Menu */
-ul#megamenu-menu-pw-super-menu {
-/*
-  background-color: @classified_dark;
-  a { color: @white; }
-  ul.megamenu-bin {
-    .box-shadow;
-    li {
-      padding: 0; margin: 0;
-      .border-radius(0);
-    }
-    li.megamenu-slot {
-      margin-top: 3px;
-      background-color: @classified_light;
-      h3 a{
-        .border-radius(0);
-        font-size: 100%;
-        line-height: .6em;
-        color: @white;
-      }
-      a:hover {
-        background-color: @classified_med;
-        color: @white
-      }
-    }
-    li.megamenu-slot-title {
-      font-size: .8em;
-    }
-*/
-/*
-    ul.megamenu-items {
-      li.megamenu-item {
-        background-color: @white;
-        line-height: .8em;
-        a {
-          .border-radius(0);
-          font-size: .9em;
-          color: @classified_dark;
-        }
-        a:hover {
-          background-color: darken(@classified_light, 5);
-          color: @black;
-        }
-      }
-      li.even {
-        background-color: @sand;
-      }
-    }
-*/
-
-/*   } */
-}
 
 /*****************  DISPLAY ADS  *****************/
 
@@ -683,77 +637,11 @@ ul#megamenu-menu-pw-super-menu {
 
 }
 
-/*
-  ul.menu {
-    width: 100%;
-    li {
-      width: 100%;
-    }
-    li.active-trail {
-      background-color: @sand;
-    }
-    ul.menu li{
-      background-color: @sand;
-    }
-    a {
-      padding: 2px;
-      width: 100px;
-    }
-    a.expanded {
-      background-color: @classified_light;
-    }
-    a.active-trail {
-      background-color: @classified_dark;
-      width: 100%;
-      color: @white;
-    }
-    a.active {
-      background-color: @sunlight;
-    }
-*/
-
-
-
 #block-views-editorial-views-editorial-block {
   display: none;
+  height: 0;
 }
 
-
-
-/** feedback form JS (not technically a block) **/
-#block-feedback-form {
-  padding: 0;
-  margin: 10px;
-  h2 {
-    text-align: center;
-    border: 2pt solid @white;
-    margin: 10px;
-    background-color: @alert;
-    .box-shadow;
-    .border-radius;
-    padding: 0 10px 10px 10px;
-    .feedback-link {
-      #feedback-form-toggle { margin: auto; padding: 0;}
-      letter-spacing: .1em;
-      font-size: .5em;
-      line-height: .3em;
-      font-weight: bold;
-      color: @white;
-/*       padding: 0 10px 5px 10px ; */
-    }
-  }
-  .feedback-form {
-    .drop-shadow;
-    .border-radius;
-    background-color: @status;
-    color: @white;
-    border: 2pt solid @white;
-  }
-
-  .description {
-    color: @white;
-  }
-}
 
 
 /** User Login **/
@@ -1008,13 +896,29 @@ ul#megamenu-menu-pw-super-menu {
     text-align: center;
     .border-radius(0);
   }
-  ul.classified-sub_section-links {
-    padding: 10px 30px 0px 30px;
-    /* .cols; */
-    li.classified-sub-section-link-row a {
-      font-size: .8 em;
-      width: 75%;
-      padding: 0 0 0 10px;
+  .classified-sub_section-links {
+    ul {
+      padding: 10px 30px 0px 30px;
+      li {
+        list-style: none;
+        text-align: left;
+        line-height: 10pt;
+        font-size: 8pt;
+        padding-bottom: 5px;
+      }
+      /* .cols; */
+      .classified-sub-section-link-row a{
+        width: 75%;
+        padding: 2px 10px;
+        border-left: 5pt solid @lightsand;
+/*         border-right: 5pt solid @lightsand; */
+      }
+      .classified-sub-section-link-row a:hover{
+        border-left: 5pt solid @classified_light;
+/*         border-right: 5pt solid @classified_light; */
+        background-color: @white;
+      }
+      
     }
   }
 }
@@ -1048,6 +952,9 @@ ul#megamenu-menu-pw-super-menu {
       .views-row {
         padding: 5px;
         margin: 0 0 5px 0;
+        a img {
+          .center;
+        }
       }
       .classified-ad-copy:first-line {
         font-weight: bolder;

@@ -1,5 +1,148 @@
 /* This file will hold styles that are loaded using the same media query as the normal grid. */
 /* center block */
+/****************  VARIABLES  ***********/
+
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@highlight: lighten(#900, 20);
+
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
+
+
+/*****************  MIXIN'  *****************/
+/* isolate box -- for debuging */
+.border{
+    border: 1pt solid @alert;
+}
+
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/* center block */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* drop shadow */
+.text-drop-shadow (@colour: @black) {
+  text-shadow: 1px 1px 0px #fff, 2px 2px 6px @colour;
+}
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+	-webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow-off () {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+
+/* opacity */
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
+/* cols */
+.cols (@cols: 2, @width: 1em) {
+	-moz-column-count: @cols;
+	-moz-column-gap: @width;
+	-webkit-column-count: @cols;
+	-webkit-column-gap: @width;
+	column-count: @cols;
+	column-gap: @width;
+
+ -webkit-column-span:1; /* Chrome */
+ column-span:1;
+
+	widows: 8;
+	orphans: 8;
+}
+
+
+/* rotate */
+.rotate(@deg: 90deg) {
+  transform:rotate(@deg);
+  -ms-transform:rotate(@deg); /* IE 9 */
+  -moz-transform:rotate(@deg); /* Firefox */
+  -webkit-transform:rotate(@deg); /* Safari and Chrome */
+  -o-transform:rotate(@deg); /* Opera */
+}
+
+.button (@background: @highlight, @link_text: @white, @hover: @warning, @link_hover: @white, @padding: 5px) {
+  a {
+    .border-radius;
+    background-color: @background;
+    color: @link_text;
+    padding: @padding;
+  }
+  a:hover {
+    background-color: @hover;
+    color: @link_hover;
+  }
+}
+
+
 .center {
   display: block;
   margin-left: auto;
@@ -27,11 +170,58 @@
 
 
 /************ UNHIDE MOBILE REGIONS ************/
-#zone-postscript, #zone-threeup, #zone-header, #region-header-second {
+#zone-postscript, 
+#zone-threeup, 
+#zone-header, 
+#region-header-second,
+#block-feedback-form {
   visibility: visible;
+  display: block;
   height: auto;
 }
 
+/************* HIDE MOBILE NAVIGATION ************/
+#zone-preface-wrapper, 
+#region-preface-first, 
+#region-preface-second, 
+#region-preface-third {
+  display: none;
+}
+
+/** feedback form JS (not technically a block) **/
+#block-feedback-form {
+  padding: 0;
+  margin: 10px;
+  h2 {
+    text-align: center;
+    border: 2pt solid @white;
+    margin: 10px;
+    background-color: @alert;
+    .box-shadow;
+    .border-radius;
+    padding: 0 10px 10px 10px;
+    .feedback-link {
+      #feedback-form-toggle { margin: auto; padding: 0;}
+      letter-spacing: .1em;
+      font-size: .5em;
+      line-height: .3em;
+      font-weight: bold;
+      color: @white;
+/*       padding: 0 10px 5px 10px ; */
+    }
+  }
+  .feedback-form {
+    .drop-shadow;
+    .border-radius;
+    background-color: @status;
+    color: @white;
+    border: 2pt solid @white;
+  }
+
+  .description {
+    color: @white;
+  }
+}
 
 /********** DEFAULT *********/
 body {

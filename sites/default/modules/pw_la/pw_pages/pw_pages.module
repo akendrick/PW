@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PW Editorial Related feature.
+ */
+
+include_once 'pw_pages.features.inc';
