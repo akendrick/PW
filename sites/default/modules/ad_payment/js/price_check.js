@@ -446,11 +446,14 @@ jQuery(document).ready(function() {
       var reviewBox = Drupal.adPayment.displayMsg().review;
       jQuery(reviewLocation).html(reviewBox).show();
 
-      console.log(reviewBox);
+      //console.log(reviewBox);
       jQuery('#ad-review').html(summaryBox);
 
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
+
+      // Reinterpret SUBMIT, NEXT & PREVIOUS button's CSS
+      console.log('Gotcha');
 
       // var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
       // console.log('Page state: ' + pageState);

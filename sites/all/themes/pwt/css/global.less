@@ -386,14 +386,6 @@ body {
 
 }
 
-/******* MOBILE NAVIGATION ********/
-#region-preface-first {
-  .block {
-    width: 48%;
-/*     .center; */
-/*     margin: 10px; */
-  }
-}
 
 #region-preface-third {
   width: 75%;
@@ -420,7 +412,13 @@ body {
 }
 
 #region-branding {
-  width: 460px; /* Grid 6 */
+/*   width: 460px; /* Grid 6 */ 
+  .logo-img {
+    a { 
+      .center;
+/*       padding: 10px; */
+    }
+  }
 }
 
 /**************** Contextual Links ***/
@@ -442,6 +440,34 @@ body {
     display: none;
   }
 }
+
+/******* MOBILE NAVIGATION BLOCKS ********/
+#region-preface-first {
+  .region-preface-first-inner {
+    background-color: @classified_light;
+    margin: 10px;
+    padding: 10px;
+    .border-radius;
+    .form-item {
+      margin: 8px;
+    }
+    #edit-jump, #edit-jump--2 {
+/*       margin: 20px; */
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+  }
+}
+/*
+  .form-item-jump {
+    margin: 10px;
+    width: 48%;
+*/
+/*     .center; */
+/*     margin: 10px; */
+/*   } */
+/* } */
+
 
 /*****************  BLOCKS  *****************/
 
@@ -480,6 +506,17 @@ body {
     padding: 0px;
     margin: 0px;
     float: none;
+  }
+}
+
+/* Mobile Search */
+.zone-preface #views-exposed-form-search-ads-search-page {
+  /* Search box in preface */
+  background-color: @other;
+  color: @white;
+  margin-bottom: 20px;
+  .form-item, input {
+    width: 100%;
   }
 }
 

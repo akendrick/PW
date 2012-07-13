@@ -33,7 +33,40 @@
 
 @highlight: lighten(#900, 20);
 
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
 
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/* center block */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+/******************** !PAYMENT CSS ********/
 
 /* CSS */
 .form-feedback-step {
@@ -56,15 +89,25 @@
         background-color: @other;
   }
 }
-//#ad-s-node-form {
-//  .multipage-controls-list {
-//    input.form-submit.multipage-link-next a {
-//      margin-left: auto;
-//      margin-right: auto;
-//      background-color: @other;
-//      color: @white;
-//      font-size: 14em;
-//      display: block;
-//    }
-//  }
-//}
+
+/*
+ #ad-s-node-form {
+   .multipage-controls-list {
+   }
+   .multipage-button {
+     margin: 10px;
+     padding: 20px;
+     .border-radius;
+     background-color: @darksand;
+     .center;
+     .drop-shadow;
+     .multipage-link-previous, .multipage-link-next {
+       margin: 200px;
+       padding: 10px;
+       background-color: @lightsand;
+       color: @darksand;
+       .border-radius;
+     }
+   }
+ }
+*/
