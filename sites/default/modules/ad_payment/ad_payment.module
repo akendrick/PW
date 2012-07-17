@@ -43,9 +43,12 @@ function ad_payment_menu() {
 */
 function thankyou_page() {
 
-  $content = "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
+  $content .= "<div id='adsubmission-thank-you'>";
+  $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
   $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
   $content .= '<p>' . l('Return to classifieds', '<front>') . '<p>';
+  $content .= '</div>';
+  
   return $content;
 }
 
@@ -202,6 +205,104 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+* Implementation of drupal_mail()
+*
+* Custom email to client and Info@pennywiseads.com upon ad submission.
+*
+*/
+function _ad_payment_notify($node, $details) {
+  $values = array('current_conditions' => $data);
+  $to = 'k2@pennywiseads.com'; // multiple emails ===> 'k2@pennywiseads.com, info@pennywiseads.com';
+  $form = 'no-reply@pennywiseads.com';
+  $send = TRUE;
+  
+  $message['subject'] = t('E-mail sent from @site-name', array('@site-name' => variable_get('site_name', 'Drupal')), $options);
+  // Note that the message body is an array, not a string.
+  $message['body'][] = 'Classified ad submitted to PennywiseAds.com ' . "/n" 
+    . 'Ad Copy: ' . $node->field_ad_copy['und'][0]['value'] . "/n"
+    . 'Section' . $node->field_tags['und'][0]['tid'] . "/n"
+    . 'Rate' . $node->field_rate['und'][0]['value'] . "/n"
+    . 'Type' . $node->field_promote['und'][0]['value'] . "/n"
+    . 'Duration' . $node->field_duration['und'][0]['value'] . "/n"
+    . 'Areas: ' . $details['areas'] . "/n"
+    . 'Duration: ' . $details['options']['liveload'] . "/n"
+    . 'Word Count: ' . $details['count']['count'] . "/n"
+    . 'Image: ' . $details['options']['image'] . "/n"
+    . 'Price: ' . $details['total'] . "/n"
+    . 'Notes: ' . $details['note'] . "/n"
+    . 'NID#: ' . $node->nid . "/n"
+    . 'Duration: ' . $details['duration']['actual'] . "/n";
+
+  // Because this is just user-entered text, we do not need to translate it.
+
+  // Since user-entered text may have unintentional HTML entities in it like
+  // '<' or '>', we need to make sure these entities are properly escaped,
+  // as the body will later be transformed from HTML to text, meaning
+  // that a normal use of '<' will result in truncation of the message.
+  $message['body'][] = check_plain($params['message']);
+
+  $result = drupal_mail('ad_payment', 'notify', $to, $language, $values, $from, $send);
+
+  drupal_set_message(t('Ready to send.'));
+
+  if ($result['result'] == TRUE) {
+    drupal_set_message(t('A confirmation message has been sent.'));
+  }
+  else {
+    drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+  }
+
+  
+}
+
+function ad_payment_mail_send($values) {
+  $module = 'ad_payment';
+  $key = 'backup_ad_notification';
+  
+  $to = 'k2@pennywiseads.com';
+  $from = 'auto_reply@pennywiseads.com';
+  
+  $params = $values;
+  
+  $language = language_default();
+  
+  $send = TRUE;
+  
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  
+  if ($result['result'] == TRUE) {
+    drupal_set_message(t('Your message has been set.'));
+  }
+  else {
+    drupal_set_message(t('There was a problem sending your message.'), 'error');
+  }
+}
+
+/**
+* Implementation of hook_mail
+*/
+function ad_payment_mail($key, &$message, $params) {
+  dpm($params);
+    $message['body'][] = 'The following ad was received by PennywiseADS: ';
+
+    $ad_received .= 'Ad Copy: ' . $params['ad_copy'] . "/n";
+    $ad_received .= 'Ad Copy Word Count: ' . $params['count']['count'] . "/n";
+    $ad_received .= 'Section: ' . $params['section']['term']. "/n";
+    $ad_received .= 'Area: ' . $params['areas'] . "/n";
+    $ad_received .= 'Rate: ' . $params['rate'] . "/n";
+    $ad_received .= 'Image: ' . $params['image'] . "/n";
+    $ad_received .= ($params['options']['liveload']) ? 'Liveload: YES' . "/n";
+    $ad_received .= ($params['options']['image']) ? 'Image: YES' . "/n";
+    $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "/n";
+    $ad_received .= 'Notes: ' . $params['duration'] . "/n";
+ 
+    $ad_received .= 'Price: ' . $params['total'] . "/n";
+    
+
+    $message['body'][] = check_plain($ad_received);
+}
+
 
 /**
 * Custom CC Validation.
@@ -324,11 +425,16 @@ function ad_payment_node_insert($node) {
       'price_subtotal' => $details['subtotal'],
       ))->execute();
 
+      // Send Email upon Completion.
+      ad_payment_mail_send($details);
+
     // SET CCID
 
     // Becuase Life isn't just.
     // You need to update the newly created node with correct data.
   }
+
+
 }
 
 
@@ -403,6 +509,10 @@ function _ad_payment_form_price_display($form_state) {
 
 /**
  * Implementation of HOOK_page
+ *
+ * TODO 
+ * - Make DB call and get list of Business Rated listings.
+ * _ ! Dont' hardcode it!!
  */
 function ad_payment_init() {
 

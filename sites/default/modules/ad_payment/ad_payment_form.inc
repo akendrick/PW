@@ -7,22 +7,20 @@
 */
 
 function ad_payment_form(&$form, $form_state) {
-  // Get User Name
-  global $user;
-  $user_data = user_load($user->uid);
-  // To get the 'realname'
-  // $user_data->realname 
+//  // Get User Name
+//  global $user;
+//  $user_data = user_load($user->uid);
 
-  // Determine User Role
-  if (user_access('edit any ad_s content') && !DEBUG){
-    $access = FALSE;
-    $required = FALSE;
-    dpm(' Access removed your need to enter CC data.');
-  }
-  else {
+//  // Determine User Role
+//  if (user_access('edit any ad_s content') && !DEBUG){
+//    $access = FALSE;
+//    $required = FALSE;
+//    dpm(' Access removed your need to enter CC data.');
+//  }
+//  else {
     $access = TRUE;
     $required = TRUE;
-  }
+//  }
   
   // Get Form State data - if any
   if ($form_state['values']) {

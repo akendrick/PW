@@ -87,6 +87,9 @@ Drupal.adPayment.validate = function(ad) {
 
     //var validationBox = '<h2 class="element-invisible">Error Message</h2><ul>' + errorMsg + '</ul>';
     jQuery('#validation-box').html(validationBoxes);
+    // Make sure the "NEXT" button is visable.
+    jQuery('.multipage-button').show();
+;
   }
   else {
     jQuery('#validation-box').html('').removeClass('messages error');
@@ -339,6 +342,8 @@ Drupal.adPayment.displayMsg = function() {
     });
     ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
     jQuery('#edit-submit, #edit-preview').hide();
+    // Make sure the "NEXT" button is visable.
+    jQuery('.multipage-button').show();
 
   }
   else {
