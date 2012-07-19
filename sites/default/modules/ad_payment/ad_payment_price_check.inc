@@ -73,30 +73,37 @@ function _ad_payment_get_payment_variables($type, $data){
       $form_state = $data;
       $values = array(
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
-        'section' => $form_state['values']['field_tags']['und'][0]['tid'],
+        //'section' => $form_state['values']['field_tags']['und'][0]['tid'],
         'area'    => $form_state['values']['field_area']['und'],
         'image'   => $form_state['values']['field_image']['und'][0]['fid'],
         'rate'    => $form_state['values']['field_rate']['und'][0]['value'],
         'ad_type' => $form_state['values']['field_promote']['und'][0]['value'],
         'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
       );
+      foreach( $form_state['values']['field_tags']['und'] as $term ) {
+        $section .= $term['tid'] . ' ';
+      }
       break;
     case 'node':
       $node = $data;
       $values = array(
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
-        'section' => $node->field_tags['und'][0]['tid'],
+        //'section' => $node->field_tags['und'][0]['tid'],
         'area'    => $node->field_area['und'],
         'image'   => $node->field_image['und'][0]['fid'],
         'rate'    => $node->field_rate['und'][0]['value'],
         'ad_type' => $node->field_promote['und'][0]['value'],
         'duration'=> $node->field_duration['und'][0]['value'],
       );
+      foreach( $values->field_tags['und'] as $term ) {
+        $section .= $term['tid'] . ' ';
+      }
       break;
     default:
       return;
   }
   
+  $values['section'] = $section;
   return $values;
 }
 
@@ -177,6 +184,7 @@ function ad_payment_price_check(&$var, $data_type) {
     
   // Set Price Variables
   $storage = array(
+    'values' => $storage['values'],
     'rate' => $rate,
     'count' => $count,
     'duration' => $duration,

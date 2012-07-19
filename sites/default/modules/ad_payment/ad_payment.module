@@ -11,6 +11,16 @@
 *  Add custom jQuery price checker with a PHP price check.
 *   - the PHP is the absolute truth and the one that is saved.
 *
+*  Send EMails
+*    - ad_payment_mail_send
+*      - Prepopulates the email with to and from...
+*    - ad_payment_mail
+*      - Prepares the body of the email.
+*    - _ad_payment_notify
+*      - Discontinued email notification
+*
+*  - Redirect to thank you upon completion.
+*
 * @TODO
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
@@ -211,52 +221,58 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 * Custom email to client and Info@pennywiseads.com upon ad submission.
 *
 */
-function _ad_payment_notify($node, $details) {
-  $values = array('current_conditions' => $data);
-  $to = 'k2@pennywiseads.com'; // multiple emails ===> 'k2@pennywiseads.com, info@pennywiseads.com';
-  $form = 'no-reply@pennywiseads.com';
-  $send = TRUE;
-  
-  $message['subject'] = t('E-mail sent from @site-name', array('@site-name' => variable_get('site_name', 'Drupal')), $options);
-  // Note that the message body is an array, not a string.
-  $message['body'][] = 'Classified ad submitted to PennywiseAds.com ' . "/n" 
-    . 'Ad Copy: ' . $node->field_ad_copy['und'][0]['value'] . "/n"
-    . 'Section' . $node->field_tags['und'][0]['tid'] . "/n"
-    . 'Rate' . $node->field_rate['und'][0]['value'] . "/n"
-    . 'Type' . $node->field_promote['und'][0]['value'] . "/n"
-    . 'Duration' . $node->field_duration['und'][0]['value'] . "/n"
-    . 'Areas: ' . $details['areas'] . "/n"
-    . 'Duration: ' . $details['options']['liveload'] . "/n"
-    . 'Word Count: ' . $details['count']['count'] . "/n"
-    . 'Image: ' . $details['options']['image'] . "/n"
-    . 'Price: ' . $details['total'] . "/n"
-    . 'Notes: ' . $details['note'] . "/n"
-    . 'NID#: ' . $node->nid . "/n"
-    . 'Duration: ' . $details['duration']['actual'] . "/n";
-
-  // Because this is just user-entered text, we do not need to translate it.
-
-  // Since user-entered text may have unintentional HTML entities in it like
-  // '<' or '>', we need to make sure these entities are properly escaped,
-  // as the body will later be transformed from HTML to text, meaning
-  // that a normal use of '<' will result in truncation of the message.
-  $message['body'][] = check_plain($params['message']);
-
-  $result = drupal_mail('ad_payment', 'notify', $to, $language, $values, $from, $send);
-
-  drupal_set_message(t('Ready to send.'));
-
-  if ($result['result'] == TRUE) {
-    drupal_set_message(t('A confirmation message has been sent.'));
-  }
-  else {
-    drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
-  }
-
-  
-}
+//function _ad_payment_notify($node, $details) {
+//
+//  $values = array('current_conditions' => $data);
+//  $to = 'k2@pennywiseads.com'; // multiple emails ===> 'k2@pennywiseads.com, info@pennywiseads.com';
+//  $form = 'no-reply@pennywiseads.com';
+//  $send = TRUE;
+//  
+//  $message['subject'] = t('E-mail sent from @site-name', array('@site-name' => variable_get('site_name', 'Drupal')), $options);
+//  // Note that the message body is an array, not a string.
+//  $message['body'][] = 'Classified ad submitted to PennywiseAds.com ' . "/n" 
+//    . 'Ad Copy: ' . $node->field_ad_copy['und'][0]['value'] . "/n"
+//    . 'Section' . $node->field_tags['und'][0]['tid'] . "/n"
+//    . 'Rate' . $node->field_rate['und'][0]['value'] . "/n"
+//    . 'Type' . $node->field_promote['und'][0]['value'] . "/n"
+//    . 'Duration' . $node->field_duration['und'][0]['value'] . "/n"
+//    . 'Areas: ' . $details['areas'] . "/n"
+//    . 'Duration: ' . $details['options']['liveload'] . "/n"
+//    . 'Word Count: ' . $details['count']['count'] . "/n"
+//    . 'Image: ' . $details['options']['image'] . "/n"
+//    . 'Price: ' . $details['total'] . "/n"
+//    . 'Notes: ' . $details['note'] . "/n"
+//    . 'NID#: ' . $node->nid . "/n"
+//    . 'Duration: ' . $details['duration']['actual'] . "/n";
+//
+//  // Because this is just user-entered text, we do not need to translate it.
+//
+//  // Since user-entered text may have unintentional HTML entities in it like
+//  // '<' or '>', we need to make sure these entities are properly escaped,
+//  // as the body will later be transformed from HTML to text, meaning
+//  // that a normal use of '<' will result in truncation of the message.
+//  $message['body'][] = check_plain($params['message']);
+//
+//  $result = drupal_mail('ad_payment', 'notify', $to, $language, $values, $from, $send);
+//
+//  drupal_set_message(t('Ready to send.'));
+//
+//  if ($result['result'] == TRUE) {
+//    drupal_set_message(t('A confirmation message has been sent.'));
+//  }
+//  else {
+//    drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+//  }
+//
+//  
+//}
 
 function ad_payment_mail_send($values) {
+  if (DEBUG) {
+    dpm('MAIL SEND - VALUES');
+    dpm($values);
+  }
+
   $module = 'ad_payment';
   $key = 'backup_ad_notification';
   
@@ -283,21 +299,26 @@ function ad_payment_mail_send($values) {
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-  dpm($params);
+  if (DEBUG) {
+    dpm('MAIL - PARAMS');
+    dpm($params);
+    dpm('MAIL - MESSAGE');
+    dpm($message);
+  }
+
     $message['body'][] = 'The following ad was received by PennywiseADS: ';
 
-    $ad_received .= 'Ad Copy: ' . $params['ad_copy'] . "/n";
-    $ad_received .= 'Ad Copy Word Count: ' . $params['count']['count'] . "/n";
-    $ad_received .= 'Section: ' . $params['section']['term']. "/n";
-    $ad_received .= 'Area: ' . $params['areas'] . "/n";
-    $ad_received .= 'Rate: ' . $params['rate'] . "/n";
-    $ad_received .= 'Image: ' . $params['image'] . "/n";
-    $ad_received .= ($params['options']['liveload']) ? 'Liveload: YES' . "/n";
-    $ad_received .= ($params['options']['image']) ? 'Image: YES' . "/n";
-    $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "/n";
-    $ad_received .= 'Notes: ' . $params['duration'] . "/n";
+    $ad_received .= 'Ad Copy: ' . $params['values']['ad_copy'] . "\n";
+    $ad_received .= 'Ad Copy Word Count: ' . $params['count']['count'] . "\n";
+    $ad_received .= 'Section: ' . $params['section']. "\n";
+    $ad_received .= 'Area (' . $params['areas'] . ")" . $params['area'][0]['value'] . "\n";
+    $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
+    $ad_received .= ($params['options']['liveload']) ? 'Liveload: YES' : "\n";
+    $ad_received .= ($params['options']['image']) ? 'Image: YES' : "\n";
+    $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
+/*     $ad_received .= 'Notes: ' . $params['duration'] . "\n"; */
  
-    $ad_received .= 'Price: ' . $params['total'] . "/n";
+    $ad_received .= 'Price: ' . $params['total'] . "\n";
     
 
     $message['body'][] = check_plain($ad_received);
@@ -355,6 +376,9 @@ function _ad_payment_cc_submit($form, $form_state) {
     dpm($form_state);
   }
 
+  $form_state['redirect'] = 'ad/thank-you';
+  
+  
   // // Submit Data to Netidea
   // // Commented Out Until Live test
 
