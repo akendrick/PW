@@ -30,7 +30,7 @@ function _ad_payment_pricing_details($node) {
   // Get RAW DATA for processing
   $storage['values'] = _ad_payment_get_payment_variables($node);
 
-  $rate = _ad_payment_validate_rate($storage);
+  $rate = ad_payment_validate_rate($storage);
 
   $details = array(
     'Ad Rate' => $rate['rate_name'],
@@ -82,9 +82,6 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'section_default' => $form_state['values']['field_tags']['und'][0]['value'],
         'section' => ad_payment_parse_array($form_state['values']['field_tags']),
       );
-      foreach( $form_state['values']['field_tags']['und'] as $term ) {
-        $section .= $term['tid'] . ' ';
-      }
       break;
     case 'node':
       $node = $data;
@@ -166,12 +163,6 @@ function ad_payment_parse_array($array_to_parse = NULL) {
 */
 function ad_payment_price_check(&$var, $data_type) {
 
-  /* ONLY USED ON MULTI PAGE FORM */
-  // If this is the first page then there are no values. So return empty.
-  // if (!$var['values']) {
-  //   return;
-  // }
-
   // Clear $form_state storage price.
   $storage = array();
 
@@ -179,7 +170,7 @@ function ad_payment_price_check(&$var, $data_type) {
   $storage['values'] = _ad_payment_get_payment_variables($var, $data_type);
 
   // Validate Rate
-  $rate = _ad_payment_validate_rate($storage['values']['section_default'], $storage['values']['rate']);
+  $rate = ad_payment_validate_rate($storage['values']['section_default'], $storage['values']['rate']);
 
   // Count Sections
   $areas = count($storage['values']['area']);
@@ -198,10 +189,7 @@ function ad_payment_price_check(&$var, $data_type) {
     'image' => $image,
   );
   
-  //  
-  // Get Prices
-  //
-
+  // DETERMINE PRICE
   // Base rate + overflow word count
   $base_price = $rate['base_rate'] + ($rate['word_rate'] * $count['over']);
   
@@ -226,16 +214,16 @@ function ad_payment_price_check(&$var, $data_type) {
     
   // Set Price Variables
   $form_variable_storage = array(
-    'values' => $storage['values'],
-    'rate' => $rate,
-    'count' => $count,
+    'values'   => $storage['values'],
+    'rate'     => $rate,
+    'count'    => $count,
     'duration' => $duration,
-    'areas' => $areas,
-    'options' => $options,
+    'areas'    => $areas,
+    'options'  => $options,
     'discount' => $discount,
     'subtotal' => $sub_total,
-    'taxes' => $taxes,
-    'total' => $total,
+    'taxes'    => $taxes,
+    'total'    => $total,
   );
 
   // Parse data into legible reciept.
@@ -276,19 +264,6 @@ function ad_payment_price_check(&$var, $data_type) {
 *
 */
 function ad_payment_format_ad_submission_receipt($data = NULL) {
-  $output .= "  " . '<div class="ad-submission-reciept">';
-  $output .= "\n" . '<h2> Pennywise Receipt</h2>';
-  $output .= "\n" . '<p>Print this page as your receipt.</p>';
-  $output .= "\n" . 'Ad Copy:';
-  $output .= "\n" . $data['ad_copy'];
-  $output .= "\n" . '<br>';
-  $output .= "\n" . '<table class="submission-receipt">Price: ';
-  $output .= "\n" . '';
-  $output .= "\n" . '';
-  $output .= "\n" . '';
-  $output .= "\n" . '';
-  $output .= "\n" . '';
-
 $receipt = <<<HTML
 <div class="ad-submission-reciept">
 <table class='submission-receipt">
@@ -321,60 +296,61 @@ return $receipt;
 * Determine current form Rate and Classification.
 *
 * $tid - a numerical term id.
-* $suggested_rate -  rate selected by client
+* $submitted_rate -  rate selected by client
 *
 * @return
 *   array of price points to determine ad price.
 *
 */
-function _ad_payment_validate_rate($tid = NULL, $suggested_rate = NULL) {
-
-  // Get Section Rating
-  $term = taxonomy_term_load($tid);
-
-  // Get Form Rating
-  $form_rate = ($suggested_rate == 'Personal') ? 0 : 1;
-
-  // Store Rate Data
-  $rate = array(
-    'term' => $term->name,
-    'term_rate'  => $term->field_business_rated['und'][0]['value'],
-    'form_rate'  => $form_rate,
-  );
-
-  // IF Business Rated Term and Personal Rate Selected
-  if ($rate['term_rate'] == TRUE) {
-    if ($rate['term_rate'] != $rate['form_rate']) {
-      form_set_error('field_tags', 
-        (t('%term is a Business Rated classification.<br>To update your ad:<ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.<li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>', 
-        array('%term' => $term->name))));
-    }
-  }
-
-  // Set Prices
-  switch($rate['term_rate']) {
-    case 0: // Personal
-      $pricing = array(
-        'rate_name' => 'Personal',
-        'base_rate' => 3.5,
-        'word_rate' => .2,
-        'image_rate' => 1.99,
-        'liveload_rate' => 5,
-      );
-      break;
-    case 1: // Business
-      $pricing = array(
-        'rate_name' => 'Business',
-        'base_rate' => 5,
-        'word_rate' => .4,
-        'image_rate' => 2.99,
-        'liveload_rate' => 5,
-      );
-      break;
-  }
-  $rate = array_merge($rate, $pricing);
+function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
   
-  return $rate;
+  // Get Section Rating
+  if ( $tax_term = taxonomy_term_load($tid) ) {
+    $get_rate = array(
+      'term_rate' => $tax_term->field_business_rated['und'][0]['value'],
+      'term_name' => $tax_term->name,
+      'form_rate' => ($submitted_rate == 'Personal') ? 0 : 1,
+    );
+
+    // IF Business Rated Term and Personal Rate Selected
+    if ({$get_rate['term_rate']}) {
+      if ({$get_rate['term_rate']} != {$get_rate['form_rate']}) {
+        $error_messege = $term_name . 'is a Business Rated classification.<br>To update your ad:
+           <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
+           <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
+         $error_messege = t('%term is a Business Rated classification.<br>To update your ad:
+             <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
+             <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>', 
+             array('%term' => $term_name));
+        form_set_error('field_tags', $error_messege);
+      }
+    }
+  
+    // Set Prices
+    switch({$get_rate['term_rate']}) {
+      case 0: // Personal
+        $pricing = array(
+          'rate_name' => 'Personal',
+          'base_rate' => 3.5,
+          'word_rate' => .2,
+          'image_rate' => 1.99,
+          'liveload_rate' => 5,
+        );
+        break;
+      case 1: // Business
+        $pricing = array(
+          'rate_name' => 'Business',
+          'base_rate' => 5,
+          'word_rate' => .4,
+          'image_rate' => 2.99,
+          'liveload_rate' => 5,
+        );
+        break;
+    }
+    $rate = array_merge($get_rate, $pricing);
+    
+    return $rate;
+  }    
 }
 
 /**
@@ -388,7 +364,7 @@ function _ad_payment_validate_rate($tid = NULL, $suggested_rate = NULL) {
 * - Cache business rated Terms
 */
 function _ad_payment_business_rating($storage) {
-  $term_id = $storage['values']['section'];
+  $term_id = {$storage['values']['section']};
   $term = taxonomy_term_load($term_id);
   if($term->field_business_rated['und'][0]['value'] == FALSE) {
     return FALSE;
@@ -398,7 +374,6 @@ function _ad_payment_business_rating($storage) {
   }
   
 }
-
 
 
 /**
@@ -498,4 +473,3 @@ function _ad_payment_dollar_format($amount)  	{
   $new_amount = sprintf("%.2f",$amount);
   return $new_amount;
 }
-

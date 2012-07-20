@@ -419,7 +419,10 @@ jQuery(document).ready(function() {
   if (formID == 'ad-s-node-form'){
 
     // Hide Edit/Submit & image AJAX uploader -  unless on page 4
-  //  jQuery('#edit-submit, #edit-preview, #edit-field-image-und-0-upload-button').hide();
+  //  jQuery('#edit-submit, #edit-preview').hide();
+
+    // Hide Image Upload Button (uploading images always produces an error.
+    jQuery('#edit-field-image-und-0-upload-button').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
