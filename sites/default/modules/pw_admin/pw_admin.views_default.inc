@@ -1216,6 +1216,10 @@ function pw_admin_views_default_views() {
     'field_area' => 'field_area',
     'field_promote' => 'field_promote',
     'field_ad_copy' => 'field_ad_copy',
+    'field_rate' => 'field_rate',
+    'field_notes' => 'field_notes',
+    'field_duration' => 'field_duration',
+    'field_promote_1' => 'field_promote_1',
     'name' => 'name',
     'mail' => 'mail',
     'field_phone' => 'field_phone',
@@ -1223,26 +1227,24 @@ function pw_admin_views_default_views() {
     'exp_m' => 'exp_m',
     'exp_y' => 'exp_y',
     'cc_num' => 'cc_num',
-    'nothing_2' => 'nothing_2',
-    'field_rate' => 'field_rate',
-    'notes' => 'notes',
     'areas' => 'areas',
     'word_count' => 'word_count',
     'image' => 'image',
     'liveload' => 'liveload',
-    'nothing' => 'nothing',
     'price_subtotal' => 'price_subtotal',
     'price_taxes' => 'price_taxes',
     'price_total' => 'price_total',
-    'nothing_1' => 'nothing_1',
     'field_first_name' => 'field_first_name',
     'field_last_name' => 'field_last_name',
     'name_1' => 'name_1',
     'uid' => 'uid',
+    'nothing' => 'nothing',
     'nothing_3' => 'nothing_3',
+    'nothing_2' => 'nothing_2',
     'edit_node_1' => 'nid',
     'ccid' => 'nid',
     'views_bulk_operations' => 'views_bulk_operations',
+    'contextual_links' => 'views_bulk_operations',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -1264,8 +1266,6 @@ function pw_admin_views_default_views() {
       'empty_column' => 0,
     ),
     'field_area' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1278,6 +1278,34 @@ function pw_admin_views_default_views() {
       'empty_column' => 0,
     ),
     'field_ad_copy' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_rate' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_notes' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_duration' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_promote_1' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1333,25 +1361,6 @@ function pw_admin_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'nothing_2' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_rate' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'notes' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'areas' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -1380,11 +1389,6 @@ function pw_admin_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'nothing' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'price_subtotal' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -1402,11 +1406,6 @@ function pw_admin_views_default_views() {
     'price_total' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'nothing_1' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1437,7 +1436,17 @@ function pw_admin_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'nothing' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'nothing_3' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nothing_2' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1455,6 +1464,11 @@ function pw_admin_views_default_views() {
       'empty_column' => 0,
     ),
     'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'contextual_links' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1478,6 +1492,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['ui_name'] = 'PROMOTE AD';
   $handler->display->display_options['fields']['nid']['label'] = 'PROMOTE';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
   $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
   $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
@@ -1512,6 +1527,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
@@ -1524,6 +1540,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_tags']['multi_type'] = 'ol';
   $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
@@ -1573,6 +1590,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_area']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_area']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_area']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_area']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_area']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_area']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_area']['alter']['html'] = 0;
@@ -1586,13 +1604,14 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_area']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_area']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_area']['delta_first_last'] = 0;
-  $handler->display->display_options['fields']['field_area']['multi_type'] = 'ul';
+  $handler->display->display_options['fields']['field_area']['multi_type'] = 'ol';
   $handler->display->display_options['fields']['field_area']['field_api_classes'] = 0;
   /* Field: Content: Liveload Your Ad */
   $handler->display->display_options['fields']['field_promote']['id'] = 'field_promote';
   $handler->display->display_options['fields']['field_promote']['table'] = 'field_data_field_promote';
   $handler->display->display_options['fields']['field_promote']['field'] = 'field_promote';
   $handler->display->display_options['fields']['field_promote']['label'] = 'Ad Type';
+  $handler->display->display_options['fields']['field_promote']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_promote']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['absolute'] = 0;
@@ -1602,6 +1621,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_promote']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_promote']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_promote']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_promote']['alter']['html'] = 0;
@@ -1615,7 +1635,9 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['table'] = 'field_data_field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['field'] = 'field_ad_copy';
-  $handler->display->display_options['fields']['field_ad_copy']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_ad_copy']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['text'] = '<div class=\'strong-stuff field-ad-copy box-stuff\'>[field_ad_copy]</div>';
   $handler->display->display_options['fields']['field_ad_copy']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['external'] = 0;
@@ -1625,16 +1647,120 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['alter']['max_length'] = '40';
   $handler->display->display_options['fields']['field_ad_copy']['alter']['word_boundary'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_ad_copy']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_ad_copy']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['type'] = 'text_plain';
   $handler->display->display_options['fields']['field_ad_copy']['field_api_classes'] = 0;
+  /* Field: Content: Rate */
+  $handler->display->display_options['fields']['field_rate']['id'] = 'field_rate';
+  $handler->display->display_options['fields']['field_rate']['table'] = 'field_data_field_rate';
+  $handler->display->display_options['fields']['field_rate']['field'] = 'field_rate';
+  $handler->display->display_options['fields']['field_rate']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_rate']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_rate']['alter']['text'] = '<div class=\'italic-stuff field-rate\'>Rate: [field_rate]</div>';
+  $handler->display->display_options['fields']['field_rate']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_rate']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_rate']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_rate']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_rate']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_rate']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['field_rate']['element_wrapper_class'] = 'field-rate italic-stuff';
+  $handler->display->display_options['fields']['field_rate']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_rate']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_rate']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_rate']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_rate']['field_api_classes'] = 0;
+  /* Field: Content: Notes */
+  $handler->display->display_options['fields']['field_notes']['id'] = 'field_notes';
+  $handler->display->display_options['fields']['field_notes']['table'] = 'field_data_field_notes';
+  $handler->display->display_options['fields']['field_notes']['field'] = 'field_notes';
+  $handler->display->display_options['fields']['field_notes']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_notes']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_notes']['alter']['text'] = '<dl class=\'field-notes\'>
+<dt class=\'less-strong-stuff\'>Notes:</dt>
+<dd class=\'italic-stuff\'>[field_notes]</dd>';
+  $handler->display->display_options['fields']['field_notes']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_notes']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_notes']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_notes']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_notes']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_notes']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_notes']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['field_notes']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_notes']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_notes']['field_api_classes'] = 0;
+  /* Field: Content: Duration */
+  $handler->display->display_options['fields']['field_duration']['id'] = 'field_duration';
+  $handler->display->display_options['fields']['field_duration']['table'] = 'field_data_field_duration';
+  $handler->display->display_options['fields']['field_duration']['field'] = 'field_duration';
+  $handler->display->display_options['fields']['field_duration']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_duration']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['text'] = '<div class=\'field-\'>Duration: [field_duration]</div>';
+  $handler->display->display_options['fields']['field_duration']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_duration']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_duration']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_duration']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_duration']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_duration']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_duration']['field_api_classes'] = 0;
+  /* Field: Content: Liveload Your Ad */
+  $handler->display->display_options['fields']['field_promote_1']['id'] = 'field_promote_1';
+  $handler->display->display_options['fields']['field_promote_1']['table'] = 'field_data_field_promote';
+  $handler->display->display_options['fields']['field_promote_1']['field'] = 'field_promote';
+  $handler->display->display_options['fields']['field_promote_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_promote_1']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_promote_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_promote_1']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_promote_1']['field_api_classes'] = 0;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -1808,79 +1934,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['cc_num']['empty_zero'] = 0;
   $handler->display->display_options['fields']['cc_num']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['cc_num']['decrypt_aes'] = 1;
-  /* Field: GLOBAL: Payment Details */
-  $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
-  $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'GLOBAL: Payment Details';
-  $handler->display->display_options['fields']['nothing_2']['label'] = 'Payment';
-  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<div class=\'payment-option\'>
-<div class=\'payment-option payment-cc-type\'>[cc_type_1]</div>
-<div class=\'payment-option payment-expiry\'>Expiry: [exp_m]/[exp_y]</div>
-<div class=\'payment-option payment-digits\'>CC: [cc_num]</div>
-</div>';
-  $handler->display->display_options['fields']['nothing_2']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nothing_2']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nothing_2']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['nothing_2']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nothing_2']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nothing_2']['hide_alter_empty'] = 0;
-  /* Field: Content: Rate */
-  $handler->display->display_options['fields']['field_rate']['id'] = 'field_rate';
-  $handler->display->display_options['fields']['field_rate']['table'] = 'field_data_field_rate';
-  $handler->display->display_options['fields']['field_rate']['field'] = 'field_rate';
-  $handler->display->display_options['fields']['field_rate']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_rate']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_rate']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_rate']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_rate']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_rate']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_rate']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_rate']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_rate']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_rate']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_rate']['field_api_classes'] = 0;
-  /* Field: Ad Payment: Notes */
-  $handler->display->display_options['fields']['notes']['id'] = 'notes';
-  $handler->display->display_options['fields']['notes']['table'] = 'adp';
-  $handler->display->display_options['fields']['notes']['field'] = 'notes';
-  $handler->display->display_options['fields']['notes']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['notes']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['notes']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['notes']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['notes']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['notes']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['notes']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['notes']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['notes']['empty_zero'] = 1;
-  $handler->display->display_options['fields']['notes']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['notes']['link_to_node'] = 0;
   /* Field: Ad Payment: Areas */
   $handler->display->display_options['fields']['areas']['id'] = 'areas';
   $handler->display->display_options['fields']['areas']['table'] = 'adp';
@@ -1909,7 +1962,8 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['word_count']['table'] = 'adp';
   $handler->display->display_options['fields']['word_count']['field'] = 'word_count';
   $handler->display->display_options['fields']['word_count']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['word_count']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['word_count']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['word_count']['alter']['text'] = '<div class=\'adp-word-count\'>Word count: [word_count]</div>';
   $handler->display->display_options['fields']['word_count']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['external'] = 0;
@@ -1918,11 +1972,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['word_count']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['word_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['word_count']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['word_count']['alter']['html'] = 0;
   $handler->display->display_options['fields']['word_count']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['word_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['word_count']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['word_count']['hide_empty'] = 0;
   $handler->display->display_options['fields']['word_count']['empty_zero'] = 0;
   $handler->display->display_options['fields']['word_count']['hide_alter_empty'] = 1;
@@ -1932,7 +1987,8 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['image']['table'] = 'adp';
   $handler->display->display_options['fields']['image']['field'] = 'image';
   $handler->display->display_options['fields']['image']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['image']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['image']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['image']['alter']['text'] = '<div class=\'adp-image\'>Image: [image]</div>';
   $handler->display->display_options['fields']['image']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['image']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['image']['alter']['external'] = 0;
@@ -1941,12 +1997,13 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['image']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['image']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['image']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['image']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['image']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['image']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['image']['alter']['html'] = 0;
   $handler->display->display_options['fields']['image']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['image']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['image']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['image']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['image']['hide_empty'] = 1;
   $handler->display->display_options['fields']['image']['empty_zero'] = 0;
   $handler->display->display_options['fields']['image']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['image']['not'] = 0;
@@ -1973,36 +2030,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['liveload']['empty_zero'] = 0;
   $handler->display->display_options['fields']['liveload']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['liveload']['not'] = 1;
-  /* Field: Ad Payment: GLOBAL: Ad Details */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Ad Payment: GLOBAL: Ad Details';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Details';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'details-info\'>
-<div class=\'details-info details-rate\'>Rate: [field_rate]</div>
-<div class=\'details-info details-word-count\'>Word count: [word_count]</div>
-<div class=\'details-info details-word-image\'>Image: [image]</div>
-<div class=\'details-info details-word-areas\'>Areas: [areas]</div>
-<div class=\'details-info details-word-liveload\'>Liveload: [liveload]</div>
-<div class=\'details-info details-word-count\'>Notes: <br>[notes]</div>
-</div>';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nothing']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nothing']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['nothing']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nothing']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nothing']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 0;
   /* Field: Ad Payment: Price Subtotal */
   $handler->display->display_options['fields']['price_subtotal']['id'] = 'price_subtotal';
   $handler->display->display_options['fields']['price_subtotal']['table'] = 'adp';
@@ -2072,33 +2099,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['price_total']['empty_zero'] = 0;
   $handler->display->display_options['fields']['price_total']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['price_total']['format_plural'] = 0;
-  /* Field: Ad Payment: GLOBAL: Price Details */
-  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
-  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_1']['ui_name'] = 'Ad Payment: GLOBAL: Price Details';
-  $handler->display->display_options['fields']['nothing_1']['label'] = 'Price';
-  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<div class=\'details-price\'>
-<div class=\'details-price details-price-subtotal\'>Subtotal: [price_subtotal]</div>
-<div class=\'details-price details-price-tax\'>Tax: [price_taxes]</div>
-<div class=\'details-price details-price-total\'>Total: [price_total]</div>
-</div>';
-  $handler->display->display_options['fields']['nothing_1']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nothing_1']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nothing_1']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['nothing_1']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nothing_1']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nothing_1']['hide_alter_empty'] = 0;
   /* Field: Field: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
@@ -2196,6 +2196,39 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['uid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['uid']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['uid']['link_to_user'] = 1;
+  /* Field: Ad Payment: GLOBAL: Ad Details */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Ad Payment: GLOBAL: Ad Details';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Ad Details';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'details-info\'>
+[field_ad_copy]
+<table class=\'admin-ad-details-info\'>
+<tr>
+<td>[field_rate]<td>
+<td>[word_count]<td>
+<td>[image]</td>
+</table>
+[field_notes]
+</div>';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nothing']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nothing']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nothing']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nothing']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 0;
   /* Field: Ad Payment: GLOBAL: Client Data */
   $handler->display->display_options['fields']['nothing_3']['id'] = 'nothing_3';
   $handler->display->display_options['fields']['nothing_3']['table'] = 'views';
@@ -2224,11 +2257,45 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing_3']['hide_empty'] = 0;
   $handler->display->display_options['fields']['nothing_3']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nothing_3']['hide_alter_empty'] = 0;
+  /* Field: GLOBAL: Payment Details */
+  $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
+  $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'GLOBAL: Payment Details';
+  $handler->display->display_options['fields']['nothing_2']['label'] = 'Payment';
+  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<div class=\'details-price\'>
+<div class=\'details-price details-price-subtotal\'>Subtotal: [price_subtotal]</div>
+<div class=\'details-price details-price-tax\'>Tax: [price_taxes]</div>
+<div class=\'details-price details-price-total\'>Total: [price_total]</div>
+</div>
+<div class=\'payment-option\'>
+<div class=\'payment-option payment-cc-type\'>[cc_type_1]</div>
+<div class=\'payment-option payment-expiry\'>Expiry: [exp_m]/[exp_y]</div>
+<div class=\'payment-option payment-digits\'>CC: [cc_num]</div>
+</div>';
+  $handler->display->display_options['fields']['nothing_2']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nothing_2']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nothing_2']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['nothing_2']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nothing_2']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nothing_2']['hide_alter_empty'] = 0;
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node_1']['id'] = 'edit_node_1';
   $handler->display->display_options['fields']['edit_node_1']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node_1']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node_1']['label'] = '';
+  $handler->display->display_options['fields']['edit_node_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['edit_node_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['edit_node_1']['alter']['absolute'] = 0;
@@ -2419,6 +2486,49 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
+  /* Field: Global: Contextual Links */
+  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
+  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['label'] = '';
+  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
+    'nid' => 'nid',
+    'edit_node_1' => 'edit_node_1',
+    'ccid' => 'ccid',
+    'field_tags' => 0,
+    'field_image' => 0,
+    'field_area' => 0,
+    'field_promote' => 0,
+    'field_ad_copy' => 0,
+    'field_rate' => 0,
+    'field_notes' => 0,
+    'field_duration' => 0,
+    'field_promote_1' => 0,
+    'name' => 0,
+    'mail' => 0,
+    'field_phone' => 0,
+    'cc_type_1' => 0,
+    'exp_m' => 0,
+    'exp_y' => 0,
+    'cc_num' => 0,
+    'areas' => 0,
+    'word_count' => 0,
+    'image' => 0,
+    'liveload' => 0,
+    'price_subtotal' => 0,
+    'price_taxes' => 0,
+    'price_total' => 0,
+    'field_first_name' => 0,
+    'field_last_name' => 0,
+    'name_1' => 0,
+    'uid' => 0,
+    'nothing' => 0,
+    'nothing_3' => 0,
+    'nothing_2' => 0,
+    'views_bulk_operations' => 0,
+  );
+  $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Ad Type */
   $handler->display->display_options['sorts']['field_promote_value']['id'] = 'field_promote_value';
@@ -2426,10 +2536,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['field_promote_value']['field'] = 'field_promote_value';
   $handler->display->display_options['sorts']['field_promote_value']['ui_name'] = 'Ad Type';
   $handler->display->display_options['sorts']['field_promote_value']['order'] = 'DESC';
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -2990,10 +3096,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -3525,7 +3627,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['filter_groups']['operator'] = 'OR';
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -3600,7 +3701,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['title'] = 'Expired';
   $handler->display->display_options['display_description'] = 'ads that have run their course';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  $handler->display->display_options['filter_groups']['operator'] = 'OR';
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -4190,10 +4290,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['uid']['not'] = 0;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -4625,10 +4721,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['arguments']['ccid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['ccid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['ccid']['not'] = 0;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -8531,10 +8623,6 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Full List Page */
   $handler = $view->new_display('page', 'Full List Page', 'full_list_page');
   $handler->display->display_options['display_description'] = 'Listing of only child terms (PAGE).';
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -8597,10 +8685,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = 0;
   $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['tid']['not'] = 0;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -8698,10 +8782,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -8800,10 +8880,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -8922,10 +8998,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = 0;
   $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['tid']['not'] = 0;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';

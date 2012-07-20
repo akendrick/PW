@@ -325,14 +325,14 @@ Drupal.adPayment.displayMsg = function() {
   // SHow save on AGREE
   if (jQuery('#edit-field-agree-und-confirm').is(':checked')) {
     jQuery('#edit-submit, #edit-preview').show();
-    jQuery('.multipage-button').hide();
+   // jQuery('.multipage-button').hide();
   }
   else {
-    jQuery('#edit-submit, #edit-preview').hide();
+   // jQuery('#edit-submit, #edit-preview').hide();
   }
   if (jQuery('#edit-field-agree-und-not-yet').is(':checked')) {
-    jQuery('#edit-submit, #edit-preview').hide();
-    jQuery('.multipage-button').show();
+   // jQuery('#edit-submit, #edit-preview').hide();
+   // jQuery('.multipage-button').show();
   }
   // Error Messages
   ad.msg.error = '';
@@ -341,7 +341,7 @@ Drupal.adPayment.displayMsg = function() {
       ad.msg.error += '<li>' + value + '</li>';
     });
     ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
-    jQuery('#edit-submit, #edit-preview').hide();
+  //  jQuery('#edit-submit, #edit-preview').hide();
     // Make sure the "NEXT" button is visable.
     jQuery('.multipage-button').show();
 
@@ -419,7 +419,7 @@ jQuery(document).ready(function() {
   if (formID == 'ad-s-node-form'){
 
     // Hide Edit/Submit & image AJAX uploader -  unless on page 4
-    jQuery('#edit-submit, #edit-preview, #edit-field-image-und-0-upload-button').hide();
+  //  jQuery('#edit-submit, #edit-preview, #edit-field-image-und-0-upload-button').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';

@@ -6,6 +6,30 @@
   text-align: center;
 }
 /*************************** GENERAL Form Style */
+.less-strong-stuff {
+  font-weight: 800;
+  font-size: 1em;
+}
+.strong-stuff {
+  font-weight: 500;
+  font-size: 1.2em;
+}
+.strong-stuff:first-line {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+.italic-stuff {
+  font-style: italic;
+}
+.box-stuff {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  background-color: #e5e0dc;
+  border-width: thin;
+}
 .ds-form-3col-stacked {
   border-radius: 10px;
   -moz-border-radius: 10px;

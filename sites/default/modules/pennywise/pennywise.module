@@ -253,6 +253,8 @@ function pennywise_block_save($delta = '', $edit = array()) {
  * - Breadcrumb block
  */
 function pennywise_block_view($delta = '') {
+  global $base_url;
+  
   switch($delta) {
     case 'pw_logo':
       $subject    = '';
@@ -311,7 +313,7 @@ function pennywise_block_view($delta = '') {
 
       $home = "<a href='$site_path'>  Classifieds >> </a>";
 
-      if ($term->tid) {
+      if ($term && $term->tid) {
         // If taxonomy term load current page into breadcrumbs.
         $child = "<a href='$site_path/taxonomy/term/" . $term->tid . "'> " . $term->name . " </a>";
         $ancestor = db_query('SELECT parent FROM {taxonomy_term_hierarchy} WHERE tid = :tid', array(':tid' => $term->tid))->fetchField();
@@ -321,6 +323,8 @@ function pennywise_block_view($delta = '') {
             $parent = taxonomy_term_load($ancestor);
             $parent = "<a href='$site_path/taxonomy/term/" . $parent->tid . "'>  " . $parent->name . " >> </a>";
         }
+        else { $parent = ''; }
+        
         $content = "<div id='pw-breadcrumb' >$home $parent $child </div>";
       }
       else {

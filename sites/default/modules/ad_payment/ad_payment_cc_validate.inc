@@ -87,7 +87,7 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name)
   
   // Check for VISA DEBIT card number
   $visa_debit = strpos($credit_card_number, "4506");
-  if ($form_state['values']['field_card_type'][0]['value'] == 'VISA' && $visa_debit === 0) {
+  if ($form_state['values']['field_card_type'][0]['value'] && $form_state['values']['field_card_type'][0]['value'] == 'VISA' && $visa_debit === 0) {
     $error_msg = t('<strong>We cannot accept VISA DEBIT cards at this time.</strong><br>
        - Please use another card for this transaction.<br> - Or call toll free 1-800-663-4619');
     form_set_error('field_cc_number', $error_msg );

@@ -65,20 +65,22 @@ function _ad_payment_pricing_details($node) {
  * @return
  *  array of form/node values
  */
-function _ad_payment_get_payment_variables($type, $data){
+function _ad_payment_get_payment_variables($data, $type = NULL){
 
 
   switch ($type) {
     case 'form_state':
       $form_state = $data;
-      $values = array(
+      $form_values = array(
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
-        //'section' => $form_state['values']['field_tags']['und'][0]['tid'],
-        'area'    => $form_state['values']['field_area']['und'],
+        'area_default' => $form_state['values']['field_area']['und'][0]['value'],
+        'area'    => ad_payment_parse_array($form_state['values']['field_area']),
         'image'   => $form_state['values']['field_image']['und'][0]['fid'],
         'rate'    => $form_state['values']['field_rate']['und'][0]['value'],
         'ad_type' => $form_state['values']['field_promote']['und'][0]['value'],
         'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
+        'section_default' => $form_state['values']['field_tags']['und'][0]['value'],
+        'section' => ad_payment_parse_array($form_state['values']['field_tags']),
       );
       foreach( $form_state['values']['field_tags']['und'] as $term ) {
         $section .= $term['tid'] . ' ';
@@ -86,26 +88,66 @@ function _ad_payment_get_payment_variables($type, $data){
       break;
     case 'node':
       $node = $data;
-      $values = array(
+      $form_values = array(
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
-        //'section' => $node->field_tags['und'][0]['tid'],
-        'area'    => $node->field_area['und'],
+        'area_default' => $node->field_area['und'][0]['value'],
+        'area'    => ad_payment_parse_array($node->field_area['und']),
         'image'   => $node->field_image['und'][0]['fid'],
         'rate'    => $node->field_rate['und'][0]['value'],
         'ad_type' => $node->field_promote['und'][0]['value'],
+        'ccid'    => $node->field_ad_details['und'][0]['value'],
         'duration'=> $node->field_duration['und'][0]['value'],
+        'section_default' => $node->field_tags['und'][0]['tid'],
+        'section' => ad_payment_parse_array($node->field_tage['und']),
       );
-      foreach( $values->field_tags['und'] as $term ) {
-        $section .= $term['tid'] . ' ';
-      }
       break;
     default:
       return;
   }
-  
-  $values['section'] = $section;
-  return $values;
+
+  return $form_values;
 }
+
+/**
+* Implementation of custom taxonomy term name getter
+*/
+function ad_payment_get_term_name($tid) {
+  if (is_numeric($tid)) {
+    $term = taxonomy_term_load($tid);
+    $term_name = $term->name;
+  }
+  return $term_name;
+}
+
+/**
+* Implementation of custom array value parser
+*
+* @array_to_parse
+*   - search this array for 'value'
+* @return
+*   - return string of all found 'value' tags.
+*/
+function ad_payment_parse_array($array_to_parse = NULL) {
+  if (!is_array($array_to_parse)) {
+    return $array_to_parse;
+  }
+  
+  foreach ($array_to_parse as $item) {
+    if (is_array($item)) {
+      foreach ($item as $sub_item) {
+        if (is_numeric($sub_item)) {
+          $sub_item = ad_payment_get_term_name($sub_item);
+        }
+        $value .= $sub_item . ' ';
+      }
+    }
+    else {
+      $value .= item . ' ';
+    }
+  }
+  return $value;
+}
+
 
 
 /**
@@ -134,10 +176,10 @@ function ad_payment_price_check(&$var, $data_type) {
   $storage = array();
 
   // Get RAW DATA for processing
-  $storage['values'] = _ad_payment_get_payment_variables($data_type, $var);
+  $storage['values'] = _ad_payment_get_payment_variables($var, $data_type);
 
   // Validate Rate
-  $rate = _ad_payment_validate_rate($storage);
+  $rate = _ad_payment_validate_rate($storage['values']['section_default'], $storage['values']['rate']);
 
   // Count Sections
   $areas = count($storage['values']['area']);
@@ -183,7 +225,7 @@ function ad_payment_price_check(&$var, $data_type) {
   $total = _ad_payment_dollar_format($total);
     
   // Set Price Variables
-  $storage = array(
+  $form_variable_storage = array(
     'values' => $storage['values'],
     'rate' => $rate,
     'count' => $count,
@@ -196,12 +238,16 @@ function ad_payment_price_check(&$var, $data_type) {
     'total' => $total,
   );
 
+  // Parse data into legible reciept.
+  $form_variable_storage['receipt'] = ad_payment_format_ad_submission_receipt($form_variable_storage);
+
+
   // TEST PRICES
   if(DEBUG) {
     // Base
     drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over']))); 
     // Adjusted with duration and areas
-    drupal_set_message(t('Adj Price: @adj = $@base * @duration weeks * @sect sections', array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $duration['adjusted'], '@sect' => $areas))); 
+    drupal_set_message(t('Adj Price: @adj = $@base * @duration weeks * @sect sections', array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas))); 
     // All four areas are booked add discount.
     // If optional perks
     drupal_set_message(t('With Options (if present): @sub = $@adj + $@live (liveload) + $@image (image) + @discount discount', array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount))); 
@@ -213,20 +259,60 @@ function ad_payment_price_check(&$var, $data_type) {
 
   
   // Determine which vales are returned.
-  //If form_state save date for future reference.
-  
+  //If form_state save payment data for future reference & return price for immediate use.
   if ($data_type == 'form_state') {
-    $form_state['storage']['price'] = $storage['price'];
-    $form_state['storage']['values'] = $storage['values'];
-    return $storage['total'];
+    $form_state['storage']['price'] = $form_variable_storage['total'];
+    $form_state['storage']['values'] = $form_variable_storage['values'];
+    return $form_variable_storage['total'];
   }
   else {
-    return $storage;
+    return $form_variable_storage;
   }
   
 }
 
+/**
+* Custom script to make a themed output of ad_submission data.
+*
+*/
+function ad_payment_format_ad_submission_receipt($data = NULL) {
+  $output .= "  " . '<div class="ad-submission-reciept">';
+  $output .= "\n" . '<h2> Pennywise Receipt</h2>';
+  $output .= "\n" . '<p>Print this page as your receipt.</p>';
+  $output .= "\n" . 'Ad Copy:';
+  $output .= "\n" . $data['ad_copy'];
+  $output .= "\n" . '<br>';
+  $output .= "\n" . '<table class="submission-receipt">Price: ';
+  $output .= "\n" . '';
+  $output .= "\n" . '';
+  $output .= "\n" . '';
+  $output .= "\n" . '';
+  $output .= "\n" . '';
 
+$receipt = <<<HTML
+<div class="ad-submission-reciept">
+<table class='submission-receipt">
+  <tr class='receipt-ad-copy'>
+    <td colsapn='2'>{$data['ad_copy']}</td>
+  </tr>
+  <tr class='receipt-ad-subtotal'>
+    <td>Sub-total:</td>
+    <td>{$data['subtotal']}</td>
+  </tr>
+  <tr class='receipt-ad-taxes'>
+    <td>Sub-total:</td>
+    <td>{$data['taxes']}</td>
+  </tr>
+  <tr class='receipt-ad-price'>
+    <td>Sub-total:</td>
+    <td>{$data['total']}</td>
+  </tr>
+</table>
+</div>
+HTML;  
+
+return $receipt;
+}
 
 
 /**
@@ -234,17 +320,20 @@ function ad_payment_price_check(&$var, $data_type) {
 *
 * Determine current form Rate and Classification.
 *
+* $tid - a numerical term id.
+* $suggested_rate -  rate selected by client
+*
 * @return
 *   array of price points to determine ad price.
 *
 */
-function _ad_payment_validate_rate($storage) {
+function _ad_payment_validate_rate($tid = NULL, $suggested_rate = NULL) {
 
   // Get Section Rating
-  $term = taxonomy_term_load($storage['values']['section']);
+  $term = taxonomy_term_load($tid);
 
   // Get Form Rating
-  $form_rate = ($storage['values']['rate'] == 'Personal') ? 0 : 1;
+  $form_rate = ($suggested_rate == 'Personal') ? 0 : 1;
 
   // Store Rate Data
   $rate = array(
@@ -321,6 +410,10 @@ function _ad_payment_business_rating($storage) {
 *
 */
 function _ad_payment_set_ad_duration($weeks) {
+  if (!$weeks) {
+    watchdog('Ad Payment', 'Unable to set duration. _ad_payment_set_ad_duration() No data to process. _ad_payment_set_ad_duration :: ad_payment_price_check.php LINE 323');  
+  }
+  
   $duration = array();
   
   switch($weeks) {
@@ -354,6 +447,14 @@ function _ad_payment_set_ad_duration($weeks) {
         'actual'   => 12,
       );
       break;
+
+    default: 
+      $duration = array(
+        'adjusted' => 2,
+        'actual'   => 3,
+      );
+      break;
+      
   }
   
   return $duration;

@@ -37,10 +37,11 @@ function ad_payment_menu() {
     'type'            => MENU_NORMAL_ITEM,
   );
 
-  $items['ad/thank-you'] = array(
+  $items['ad/%/thank-you'] = array(
     'access callback' => TRUE,
     'title' => 'Your ad has been submitted.',
     'page callback' => 'thankyou_page',
+    'page arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
 
@@ -51,13 +52,27 @@ function ad_payment_menu() {
 * Thank You Page
 *
 */
-function thankyou_page() {
-
-  $content .= "<div id='adsubmission-thank-you'>";
-  $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
-  $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
-  $content .= '<p>' . l('Return to classifieds', '<front>') . '<p>';
-  $content .= '</div>';
+function thankyou_page($temp_id = NULL) {
+  if (!$temp_id) {
+    $content .= "<div id='adsubmission-thank-you'>";
+    $content .= "<h3 class='thank-you thank-you-header'>There are no submitted ads at this time.</h3>";
+    $content .= "<p class='thank-you thank-you-body'>.";
+    $content .= '<p>' . l('Submit new classifed ad.', 'ad/submit') . '<p>';
+    $content .= '</div>';
+  }
+  else {
+    $ad_receipt = variable_get('ad_submission_' . $temp_id);
+    $content .= "<div id='adsubmission-thank-you'>";
+    $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
+    $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
+    $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
+    $content .= '<p>Please print this page for your receipt.</p>';
+    $content .= $ad_receipt;
+    $content .= '<p>' . l('Return to classifieds', '<front>') . '<p>';
+    $content .= '</div>';
+ 
+    variable_del('ad_submission_' . $temp_id);
+  }
   
   return $content;
 }
@@ -190,7 +205,7 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
   //  Ad Price
   //  - Check only if submitted/in preview.
-  if ($form_state['values']) {
+  if ($form_state && $form_state['values']) {
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
     $total_price = ad_payment_price_check($form_state, 'form_state');
     $form['field_price']['#default_value'] = $total_price;
@@ -308,13 +323,13 @@ function ad_payment_mail($key, &$message, $params) {
 
     $message['body'][] = 'The following ad was received by PennywiseADS: ';
 
-    $ad_received .= 'Ad Copy: ' . $params['values']['ad_copy'] . "\n";
-    $ad_received .= 'Ad Copy Word Count: ' . $params['count']['count'] . "\n";
+    $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
+    $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
     $ad_received .= 'Section: ' . $params['section']. "\n";
     $ad_received .= 'Area (' . $params['areas'] . ")" . $params['area'][0]['value'] . "\n";
     $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
-    $ad_received .= ($params['options']['liveload']) ? 'Liveload: YES' : "\n";
-    $ad_received .= ($params['options']['image']) ? 'Image: YES' : "\n";
+    $ad_received .= ($params['options']['liveload']) ? "Liveload: YES \n " : "\n";
+    $ad_received .= ($params['options']['image']) ? "Image: Received \n" : "\n";
     $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
 /*     $ad_received .= 'Notes: ' . $params['duration'] . "\n"; */
  
@@ -362,22 +377,38 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
 * - If already exists link to node.
 * - Send email comfirmation.
 */
-function _ad_payment_cc_submit($form, $form_state) {
+function _ad_payment_cc_submit($form, &$form_state) {
 
 
-  $values = $form_state['values'];
-  $node   = $form_state['node'];
-  $price  = $form_state['storage']['price'];
-
-  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
-
+//  $values = $form_state['values'];
+//  $node   = $form_state['node'];
+//  $price  = $form_state['storage']['price'];
+//
+//  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
+//
   if (DEBUG) {
+    dpm('Submit - FORM ');
     dpm($form);
+    dpm('Submit - FORM STATE');
     dpm($form_state);
   }
 
-  $form_state['redirect'] = 'ad/thank-you';
+  // Test the Node Form_state
+  $temp_id = time();
+  //dpm('Temp ID = ' . $temp_id);
+  // Store TempID
+  //$form_state['values']['field_ad_details']['und'][0]['value'] = $temp_id;
+  $form_state['node']->title = 'ads_' . $temp_id;
+  //module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  //$submission_vars = ad_payment_price_check($form_state, 'form_state');
+
   
+//  $form_state['redirect'] = 'ad/' . $temp_id . '/thank-you';
+  
+  //$form_state['redirect'] = array('ad/' . $temp_id . '/thank-you');
+  
+   //dpm('Redirect = ' . $form_state['redirect']);
+ 
   
   // // Submit Data to Netidea
   // // Commented Out Until Live test
@@ -421,16 +452,18 @@ function ad_payment_node_insert($node) {
 
     // Get Price
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-
     $details = ad_payment_price_check($node, 'node');
 
     if (DEBUG) {
+      dpm('Node Insert Data');
+      dpm($node);
       dpm('Data for DATABASE');
       dpm($details);
     }
 
     $nid = db_insert('adp')->fields(array(
-      'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
+      'ccid'    => $node->title,
+      //'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
       'uid'     => $node->uid,
       'nid'     => $node->nid,
       'cc_type' => aes_encrypt(($node->field_card_type == 0) ? 'MasterCard' : 'Visa'),
@@ -452,6 +485,10 @@ function ad_payment_node_insert($node) {
       // Send Email upon Completion.
       ad_payment_mail_send($details);
 
+      // Set up on screen receipt.
+      variable_set('ad_submission_' . $node->title, 'This is the temp stuff.');
+
+      drupal_goto('ad/' . $node->title . '/thank-you');
     // SET CCID
 
     // Becuase Life isn't just.
