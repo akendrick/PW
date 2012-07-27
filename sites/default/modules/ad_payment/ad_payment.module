@@ -49,8 +49,6 @@ function ad_payment_menu() {
 }
 
 
-function render
-
 /**
 * Thank You Page
 *
