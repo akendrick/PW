@@ -48,6 +48,9 @@ function ad_payment_menu() {
   return $items;
 }
 
+
+function render
+
 /**
 * Thank You Page
 *
@@ -61,17 +64,124 @@ function thankyou_page($temp_id = NULL) {
     $content .= '</div>';
   }
   else {
-    $ad_receipt = variable_get('ad_submission_' . $temp_id);
+    $data = variable_get('ad_submission_' . $temp_id);
+    
+    if (DEBUG) {
+      dpm('Submitted Data');
+      dpm($data);
+
+      if(isset($data['variables']['image'])){
+        dpm('Image Fid Data');
+        dpm($data['variables']['image']);
+      }
+    }
+
+    // AD Details
+    $details = "
+        <div class='reciept-details grid-8 alpha'>
+          <h3 class='receipt-details-title'>Ad Details</h3>
+          <dl class='receipt-copy'>
+            <dt class='receipt-copy'>Ad:</dt>
+            <dd class='receipt-copy'>" . $data['values']['ad_copy'] . "</dd>
+          </dl>
+          <dl class='receipt-area'>
+            <dt class='receipt-area'>Publication Area:</dt>
+            <dd class='receipt-area'>" . $data['values']['area'] . "</dd>
+          </dl>
+          <dl>
+            <dt class='receipt-classification'>Classification:</dt>
+            <dd class='receipt-copy'>" . $data['rate']['term_name'] . "</dd>
+          </dl>
+          <dl class='receipt-rate'>
+            <dt class='receipt-rate'>Rate:</dt>
+            <dd class='receipt-copy'>" . $data['rate']['rate_name'] . "</dd>
+          </dl>
+          <dl class='receipt-duration'>
+            <dt class='receipt-duration'>Duration:</dt>
+            <dd class='receipt-copy'>" . $data['duration']['actual'] . " weeks</dd>
+          </dl>";
+      if ($data['variables']['ad_type']) {
+        $details .= "
+          <dl class='receipt-liveload'>
+            <dt class='receipt-liveload'>Liveload:</dt>
+            <dd class='receipt-copy'>" . $data['values']['ad_type'] . "</dd>
+          </dl>";
+      }
+      if ($data['variables']['image']) {
+          $details .= "
+            <dl class='receipt-image'>
+              <dt class='receipt-image'>Image:</dt>
+              <dd class='receipt-copy'>Image received (fid: " . $data['values']['image'] . ")</dd>
+            </dl>";
+      }
+      if ($data['variables']['notes']) {
+          $details .= "
+            <dl class='receipt-notes'>
+              <dt class='receipt-notes'>Notes:</dt>
+              <dd class='receipt-copy'>" . $data['values']['notes'] . "</dd>
+            </dl>";
+      }
+      $details .= "\t </div>";  
+      
+    $price = "
+        <div class='small-receipt receipt-price grid-8 omega'>
+          <h4 class='receipt-price-title'>Price</h3>
+        <div class='small-receipt receipt-price-inner'>
+          <dl class='receipt-price-subtotal'>
+            <dt class='receipt-price-subtotal'>Sub-total:</dt>
+            <dd class='receipt-price-subtotal'>$" . $data['subtotal'] . "</dt>
+          </dl>
+          <dl class='receipt-price-taxes'>
+            <dt class='receipt-price-taxes'>Taxes:</dt>
+            <dd class='receipt-price-taxes'>$" . $data['taxes'] . "</dt>
+          </dl>
+          <dl class='receipt-price-total'>
+            <dt class='receipt-price-total'>Total:</dt>
+            <dd class='receipt-price-total'>$" . $data['total'] . "</dt>
+          </dl>
+        </div>
+        </div>
+      ";
+
+    $contact = "
+        <div class='small-receipt receipt-contact grid-8 omega'>
+          <h4 class='receipt-contact'>Contact Information</h3>
+          <div class='small-receipt receipt-contact-inner'>
+          <dl class='receipt-contact-name'>
+            <dt class='receipt-contact-name'>Name:</dt>
+            <dd class='receipt-contact-name'>" . $data['values']['user']['real-name'] . "</dt>
+          </dl>
+          <dl class='receipt-contact-phone'>
+            <dt class='receipt-contact-phone'>Phone:</dt>
+            <dd class='receipt-contact-phone'>" . $data['values']['user']['phone'] . "</dt>
+          </dl>
+          <dl class='receipt-contact-email'>
+            <dt class='receipt-contact-email'>Email:</dt>
+            <dd class='receipt-contact-email'>" . $data['values']['user']['email'] . "</dt>
+          </dl>
+          <dl class='receipt-contact-card'>
+            <dt class='receipt-contact-card'>Card type:</dt>
+            <dd class='receipt-contact-card'>" . $data['values']['user']['card-type'] . "</dt>
+          </dl>
+        </div>
+      </div>
+      ";
+
+
+    #$receipt = $details . $price . $contact;
+    $receipt = theme('ad_payment_receipt', $ad_id);
     $content .= "<div id='adsubmission-thank-you'>";
     $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
     $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
-    $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
+    $content .= '<div class="logo"><img src="sites/default/files/pwlogo.gif"></div>';
     $content .= '<p>Please print this page for your receipt.</p>';
-    $content .= $ad_receipt;
-    $content .= '<p>' . l('Return to classifieds', '<front>') . '<p>';
+    $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
+    $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $receipt . '</div>';
+    $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
+    $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
     $content .= '</div>';
  
-    variable_del('ad_submission_' . $temp_id);
+    //variable_del('ad_submission_' . $temp_id);
   }
   
   return $content;
@@ -326,14 +436,15 @@ function ad_payment_mail($key, &$message, $params) {
     $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
     $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
     $ad_received .= 'Section: ' . $params['section']. "\n";
-    $ad_received .= 'Area (' . $params['areas'] . ")" . $params['area'][0]['value'] . "\n";
+    $ad_received .= 'Area (' . $params['areas'] . ")" . $params['values']['area'] . "\n";
     $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
-    $ad_received .= ($params['options']['liveload']) ? "Liveload: YES \n " : "\n";
-    $ad_received .= ($params['options']['image']) ? "Image: Received \n" : "\n";
+    $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
+    $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
+    $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
     $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
 /*     $ad_received .= 'Notes: ' . $params['duration'] . "\n"; */
  
-    $ad_received .= 'Price: ' . $params['total'] . "\n";
+    $ad_received .= 'Price: $' . $params['total'] . "\n";
     
 
     $message['body'][] = check_plain($ad_received);
@@ -486,7 +597,7 @@ function ad_payment_node_insert($node) {
       ad_payment_mail_send($details);
 
       // Set up on screen receipt.
-      variable_set('ad_submission_' . $node->title, 'This is the temp stuff.');
+      variable_set('ad_submission_' . $node->title, $details);
 
       drupal_goto('ad/' . $node->title . '/thank-you');
     // SET CCID

@@ -81,6 +81,13 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
         'section_default' => $form_state['values']['field_tags']['und'][0]['value'],
         'section' => ad_payment_parse_array($form_state['values']['field_tags']),
+        'notes'   => $form_state['values']['field_notes']['und'][0]['value'],
+        'user'    => array(
+          'real-name' => $form_state['values']['field_first_name'] . ' ' . $form_state['values']['field_last_name'],
+          'card-type' => $form_state['values']['field_card_type'],
+          'phone'     => $form_state['values']['field_phone'],
+          'email'     => $form_state['values']['field_email'],
+        ),
       );
       break;
     case 'node':
@@ -96,6 +103,13 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'duration'=> $node->field_duration['und'][0]['value'],
         'section_default' => $node->field_tags['und'][0]['tid'],
         'section' => ad_payment_parse_array($node->field_tage['und']),
+        'notes'   => $node->field_notes['und'][0]['value'],
+        'user'    => array(
+          'real-name' => $node->field_first_name . ' ' . $node->field_last_name,
+          'card-type' => ($node->field_first_name) ? 'Mastercard' : 'VISA',
+          'phone'     => ($node->field_first_phone) ? $node->field_phone : 'No phone given.',
+          'email'     => ($node->field_email) ? $node->email : 'No email given.',
+        ),
       );
       break;
     default:
@@ -227,7 +241,7 @@ function ad_payment_price_check(&$var, $data_type) {
   );
 
   // Parse data into legible reciept.
-  $form_variable_storage['receipt'] = ad_payment_format_ad_submission_receipt($form_variable_storage);
+  //$form_variable_storage['receipt'] = ad_payment_format_ad_submission_receipt($form_variable_storage);
 
 
   // TEST PRICES
@@ -263,31 +277,46 @@ function ad_payment_price_check(&$var, $data_type) {
 * Custom script to make a themed output of ad_submission data.
 *
 */
-function ad_payment_format_ad_submission_receipt($data = NULL) {
-$receipt = <<<HTML
-<div class="ad-submission-reciept">
-<table class='submission-receipt">
-  <tr class='receipt-ad-copy'>
-    <td colsapn='2'>{$data['ad_copy']}</td>
-  </tr>
-  <tr class='receipt-ad-subtotal'>
-    <td>Sub-total:</td>
-    <td>{$data['subtotal']}</td>
-  </tr>
-  <tr class='receipt-ad-taxes'>
-    <td>Sub-total:</td>
-    <td>{$data['taxes']}</td>
-  </tr>
-  <tr class='receipt-ad-price'>
-    <td>Sub-total:</td>
-    <td>{$data['total']}</td>
-  </tr>
-</table>
-</div>
-HTML;  
-
-return $receipt;
-}
+//function ad_payment_format_ad_submission_receipt($data = NULL) {
+//$details = "
+//  <div class='reciept-details'>
+//    <h3 class='receipt-title'>Ad Details</h3>
+//    <dd>
+//      <dt class='receipt-copy'>Ad:</dt>
+//      <dd class='receipt-copy'>" . $data['ad_copy'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-area'>Publication Area:</dt>
+//      <dd class='receipt-area'>" . $data['areas'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-classification'>Classification:</dt>
+//      <dd class='receipt-copy'>" . $data['variables']['section'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-rate'>Rate:</dt>
+//      <dd class='receipt-copy'>" . $data['rate'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-duration'>Duration:</dt>
+//      <dd class='receipt-copy'>" . $data['variables']['area'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-liveload'>Ad Type:</dt>
+//      <dd class='receipt-copy'>" . $data['variables']['ad_type'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-image'>Image:</dt>
+//      <dd class='receipt-copy'>" . $data['variables']['image'] . "</dd>
+//    </dd>
+//    <dd>
+//      <dt class='receipt-notes'>Notes:</dt>
+//      <dd class='receipt-copy'>" . $data['variables']['notes'] . "</dd>
+//    </dd>
+//  </div>";  
+//
+//return $details . $receipt;
+//}
 
 
 /**
@@ -313,8 +342,8 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
     );
 
     // IF Business Rated Term and Personal Rate Selected
-    if ({$get_rate['term_rate']}) {
-      if ({$get_rate['term_rate']} != {$get_rate['form_rate']}) {
+    if ($get_rate['term_rate']) {
+      if ($get_rate['term_rate'] != $get_rate['form_rate']) {
         $error_messege = $term_name . 'is a Business Rated classification.<br>To update your ad:
            <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
            <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
@@ -327,7 +356,7 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
     }
   
     // Set Prices
-    switch({$get_rate['term_rate']}) {
+    switch($get_rate['term_rate']) {
       case 0: // Personal
         $pricing = array(
           'rate_name' => 'Personal',
@@ -337,7 +366,7 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
           'liveload_rate' => 5,
         );
         break;
-      case 1: // Business
+      default: // Business
         $pricing = array(
           'rate_name' => 'Business',
           'base_rate' => 5,
@@ -364,7 +393,7 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
 * - Cache business rated Terms
 */
 function _ad_payment_business_rating($storage) {
-  $term_id = {$storage['values']['section']};
+  $term_id = $storage['values']['section'];
   $term = taxonomy_term_load($term_id);
   if($term->field_business_rated['und'][0]['value'] == FALSE) {
     return FALSE;
