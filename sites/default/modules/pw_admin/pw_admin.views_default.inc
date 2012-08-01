@@ -1210,7 +1210,6 @@ function pw_admin_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['columns'] = array(
-    'nid' => 'nid',
     'field_tags' => 'field_tags',
     'field_image' => 'field_tags',
     'field_area' => 'field_area',
@@ -1245,16 +1244,10 @@ function pw_admin_views_default_views() {
     'ccid' => 'nid',
     'views_bulk_operations' => 'views_bulk_operations',
     'contextual_links' => 'views_bulk_operations',
+    'nid' => 'views_bulk_operations',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'nid' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '<br>',
-      'empty_column' => 0,
-    ),
     'field_tags' => array(
       'align' => '',
       'separator' => '<br>',
@@ -1473,6 +1466,13 @@ function pw_admin_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'nid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 0;
@@ -1486,34 +1486,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: PROMOTE AD */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'node';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['ui_name'] = 'PROMOTE AD';
-  $handler->display->display_options['fields']['nid']['label'] = 'PROMOTE';
-  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['path'] = 'admin/pennywise/promote_ad/[nid]';
-  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['nid']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
   /* Field: Content: Section */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
@@ -1547,6 +1519,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['label'] = 'Image';
+  $handler->display->display_options['fields']['field_image']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_image']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['absolute'] = 0;
@@ -1662,6 +1635,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_rate']['id'] = 'field_rate';
   $handler->display->display_options['fields']['field_rate']['table'] = 'field_data_field_rate';
   $handler->display->display_options['fields']['field_rate']['field'] = 'field_rate';
+  $handler->display->display_options['fields']['field_rate']['label'] = '';
   $handler->display->display_options['fields']['field_rate']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_rate']['alter']['alter_text'] = 1;
   $handler->display->display_options['fields']['field_rate']['alter']['text'] = '<div class=\'italic-stuff field-rate\'>Rate: [field_rate]</div>';
@@ -1677,7 +1651,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_rate']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_rate']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_rate']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_rate']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_rate']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_rate']['element_wrapper_type'] = 'div';
   $handler->display->display_options['fields']['field_rate']['element_wrapper_class'] = 'field-rate italic-stuff';
   $handler->display->display_options['fields']['field_rate']['element_default_classes'] = 0;
@@ -1685,6 +1659,33 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_rate']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_rate']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_rate']['field_api_classes'] = 0;
+  /* Field: Content: Duration */
+  $handler->display->display_options['fields']['field_duration']['id'] = 'field_duration';
+  $handler->display->display_options['fields']['field_duration']['table'] = 'field_data_field_duration';
+  $handler->display->display_options['fields']['field_duration']['field'] = 'field_duration';
+  $handler->display->display_options['fields']['field_duration']['label'] = '';
+  $handler->display->display_options['fields']['field_duration']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_duration']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['text'] = '<div class=\'field-duration\'>Duration: <br />[field_duration] weeks</div>
+';
+  $handler->display->display_options['fields']['field_duration']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_duration']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_duration']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_duration']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_duration']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['field_duration']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['field_duration']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_duration']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_duration']['field_api_classes'] = 0;
   /* Field: Content: Notes */
   $handler->display->display_options['fields']['field_notes']['id'] = 'field_notes';
   $handler->display->display_options['fields']['field_notes']['table'] = 'field_data_field_notes';
@@ -1712,31 +1713,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_notes']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_notes']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_notes']['field_api_classes'] = 0;
-  /* Field: Content: Duration */
-  $handler->display->display_options['fields']['field_duration']['id'] = 'field_duration';
-  $handler->display->display_options['fields']['field_duration']['table'] = 'field_data_field_duration';
-  $handler->display->display_options['fields']['field_duration']['field'] = 'field_duration';
-  $handler->display->display_options['fields']['field_duration']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_duration']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['field_duration']['alter']['text'] = '<div class=\'field-\'>Duration: [field_duration]</div>';
-  $handler->display->display_options['fields']['field_duration']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_duration']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_duration']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_duration']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_duration']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_duration']['element_default_classes'] = 0;
-  $handler->display->display_options['fields']['field_duration']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_duration']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_duration']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_duration']['field_api_classes'] = 0;
   /* Field: Content: Liveload Your Ad */
   $handler->display->display_options['fields']['field_promote_1']['id'] = 'field_promote_1';
   $handler->display->display_options['fields']['field_promote_1']['table'] = 'field_data_field_promote';
@@ -2208,7 +2184,8 @@ function pw_admin_views_default_views() {
 <tr>
 <td>[field_rate]<td>
 <td>[word_count]<td>
-<td>[image]</td>
+<td>[field_image]</td>
+<td>[field_duration]</td>
 </table>
 [field_notes]
 </div>';
@@ -2290,6 +2267,33 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing_2']['hide_empty'] = 0;
   $handler->display->display_options['fields']['nothing_2']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nothing_2']['hide_alter_empty'] = 0;
+  /* Field: PROMOTE AD */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['ui_name'] = 'PROMOTE AD';
+  $handler->display->display_options['fields']['nid']['label'] = 'PROMOTE';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'admin/pennywise/promote_ad/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node_1']['id'] = 'edit_node_1';
   $handler->display->display_options['fields']['edit_node_1']['table'] = 'views_entity_node';
@@ -3271,6 +3275,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
   $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
@@ -3280,6 +3285,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
@@ -3449,6 +3455,33 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['publish_on']['empty_zero'] = 0;
   $handler->display->display_options['fields']['publish_on']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['publish_on']['date_format'] = 'medium';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = 'EDIT';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'node/[nid]/edit?destination=admin/pennywise/classified/upcoming';
+  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'edit-link button';
+  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
   /* Field: Bulk operations: Content */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
