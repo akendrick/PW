@@ -85,14 +85,14 @@ function _taxonomy_menu_get_node_terms($node) {
   $result = db_query("SELECT field_name FROM {field_config} WHERE type = 'taxonomy_term_reference'");
   foreach ($result as $field) {
     $field_name = $field->field_name;
-    
+
     if (isset($node->$field_name)) {
       $tid_field = $node->$field_name;
       // Loop through all the languages.
-      
+
       foreach ($tid_field as $tid_field_languages) {
         // Loop through all the tids
-        
+
         foreach ($tid_field_languages as $tid) {
           $tids[] = $tid['tid'];
         }
@@ -137,7 +137,7 @@ function _taxonomy_menu_delete_item($vid, $tid) {
 function _taxonomy_menu_get_terms($vid) {
   $result = db_select('taxonomy_term_data', 'td')
     ->condition('vid', $vid)
-    ->addField('td', 'tid')
+    ->fields('td', array('tid'))
     ->execute();
   return $result->fetchAll();
 }
@@ -149,14 +149,15 @@ function _taxonomy_menu_get_terms($vid) {
  *
  * @param $tid
  */
-/*function _taxonomy_menu_term_count($tid) {
-  $result = db_select('term_node', 'tn');
+function _taxonomy_menu_term_count($tid) {
+  $result = db_select('taxonomy_index', 'tn');
   $result->condition('tid', $tid);
   $result->join('node', 'n', 'n.nid = tn.nid AND n.status = 1');
   $result->addExpression('COUNT(n.nid)', 'term_count');
-  $result->execute();
-  return $result->fetchField();
-}*/
+  $temp = $result->execute();
+  $temp = $temp->fetchObject();
+  return $temp->term_count;
+}
 
 /**
  * Get tid for a given mlid
@@ -194,7 +195,7 @@ function _taxonomy_menu_get_vid_by_tid($tids) {
   if ($tids) {
     $result = db_select('term_data')
       ->condition('tid', $tids, 'IN')
-      ->addField('vid')
+      ->fields('term_data', array('vid'))
       ->distinct()
       ->execute();
     $vids = array();
@@ -205,3 +206,40 @@ function _taxonomy_menu_get_vid_by_tid($tids) {
 /**
  * Options functions
  */
+
+/**
+ * Callback for generating the menu link exportable identifier.
+ * Copied from features.menu.inc
+ */
+function taxonomy_menu_link_identifier($menu_name, $mlid) {
+  if ($mlid) {
+    $link = menu_link_load($mlid);
+    return isset($link['menu_name'], $link['link_path']) ? "{$link['menu_name']}:{$link['link_path']}" : FALSE;
+  }
+  elseif ($menu_name) {
+    return "{$menu_name}:0";
+  }
+  return FALSE;
+}
+
+/**
+ * Load a menu link by its menu_name:link_path identifier.
+ * Copied from features.menu.inc
+ */
+function taxonomy_menu_link_load_identifier($identifier) {
+  if ($identifier) {
+    list($menu_name, $link_path) = explode(':', $identifier, 2);
+    if ($menu_name && $link_path) {
+      $link = db_select('menu_links')
+        ->fields('menu_links', array('mlid'))
+        ->condition('menu_name', $menu_name)
+        ->condition('link_path', $link_path)
+        ->execute()
+        ->fetchAssoc();
+      if ($link) {
+        return $link['mlid'];
+      }
+    }
+  }
+  return 0;
+}
