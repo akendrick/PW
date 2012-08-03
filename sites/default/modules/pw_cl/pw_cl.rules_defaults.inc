@@ -41,7 +41,7 @@ function pw_cl_default_rules_configuration() {
           }
         }
       ],
-      "DO" : [ { "redirect" : { "url" : "ad\\u002Fthank-you" } } ]
+      "DO" : [ { "redirect" : { "url" : "ad\\/thank-you" } } ]
     }
   }');
   return $items;

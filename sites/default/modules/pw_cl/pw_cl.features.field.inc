@@ -1163,7 +1163,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
-        'text_processing' => '0',
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(

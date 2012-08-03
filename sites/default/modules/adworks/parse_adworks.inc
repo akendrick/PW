@@ -194,6 +194,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
 function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL, &$context) {
   global $base_path;
   $save_ad = TRUE;
+  $image = array();
 
   // Prepare Batch Output Reporting
   //$context['results'][] = $results;
@@ -236,46 +237,23 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
   preg_match('/(?<=\<begad>)(.+)(?=<endad>)/', $ad, $copy);
   $copy = $copy[0];
 
-  if ($image) {
-    // Remove PICAD reference from copy.
-    $copy_pic = explode('PICAD', $copy);
-    $copy = $copy_pic[0];
-  }
   if (trim($copy) == NULL || $copy == '') {
     $context['results']['blank_ad'][] = 'No ad copy. Possibly a blank line.';  
     $save_ad = FALSE;
   }
   else {
-    $new_ad->field_ad_copy = array(
-      $new_ad->language => array(
-        0 => array(
-          'value' => $copy,
-  #        'summary' => text_summary($copy),  
-  #        'format' => filter_default_format(),
-          'format' => 'filtered_html',
-  #        'value' => $copy, // was 'safe_value'
-        ),
-      ),
-    );
-    // Ad Title
-    $new_ad->title = substr($copy, 0, 45);
-
-
-//    // Use Title to label uploaded image (if any)
-//    if ($image) {
-//      $new_ad->field_image[$new_ad->language] = array(
-//        0 => array(
-//          'description' => $new_ad->title,
-//          )
-//      );
-//    }
-//
-
+    
     // Image
     preg_match('/(?<=PICAD)[0-9]{4,20}(?:[-_]*[0-9]{1,3})/', $ad, $image);
     $image = $image[0];
+
+    // Check for images in body copy first.
+    // Remove PICAD reference from copy.
+    $copy_pic = explode('PICAD', $copy);
+    $copy = $copy_pic[0];
   
     if ($image  && $check_images) {
+
       $context['results']['image_count']++;
    
       // Check for image in FILES
@@ -294,7 +272,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
           'uri' => $image_filepath->uri,
           'filemime' => file_get_mimetype($image_filepath->uri),
           'status' => 1,
-          'filename' => $new_ad->title . '...',
+          'filename' => substr($copy, 0, 45) . '...',
         );
 
         // Determine file location.
@@ -328,6 +306,33 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
      }
       
     }
+
+    // Establish     
+    $new_ad->field_ad_copy = array(
+    $new_ad->language => array(
+        0 => array(
+          'value' => $copy,
+          'format' => 'filtered_html',
+  #        'summary' => text_summary($copy),  
+  #        'format' => filter_default_format(),
+  #        'value' => $copy, // was 'safe_value'
+        ),
+      ),
+    );
+    // Ad Title
+    //$new_ad->title = substr($copy, 0, 45);
+
+
+//    // Use Title to label uploaded image (if any)
+//    if ($image) {
+//      $new_ad->field_image[$new_ad->language] = array(
+//        0 => array(
+//          'description' => $new_ad->title,
+//          )
+//      );
+//    }
+//
+
   
     // Link
     $link = ad_url($copy, 'link');
