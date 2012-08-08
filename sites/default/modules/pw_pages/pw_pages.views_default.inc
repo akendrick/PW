@@ -973,8 +973,12 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['footer']['php']['table'] = 'views';
   $handler->display->display_options['footer']['php']['field'] = 'php';
   $handler->display->display_options['footer']['php']['empty'] = FALSE;
-  $handler->display->display_options['footer']['php']['php_output'] = '<?php GLOBAL $base_path; GLOBAL $base_root; ?>
-<a href=\'<?php echo $base_root . $base_path; ?>/editorial\' class=\' editorial-slideshow-link editorial-slideshow-header-link\'>Community Editorials</a>';
+  $handler->display->display_options['footer']['php']['php_output'] = '<?php 
+GLOBAL $base_path; GLOBAL $base_root; 
+$footer = "<a href=\'<?php echo $base_root . $base_path; ?>/editorial\' class=\' editorial-slideshow-link editorial-slideshow-header-link\'>Community Editorials</a>";
+// echo $footer;
+?>
+';
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
