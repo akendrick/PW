@@ -8782,6 +8782,8 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
+  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['style_options']['row_class'] = 'classified-full_section-link-row';
@@ -8906,7 +8908,7 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Sub List Block */
   $handler = $view->new_display('block', 'Sub List Block', 'tax_sub_list');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Sections';
+  $handler->display->display_options['title'] = ' ';
   $handler->display->display_options['display_description'] = 'List ';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'list';
@@ -9063,14 +9065,14 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['block_description'] = 'Headers JUMP List';
 
   /* Display: ALL Jump */
-  $handler = $view->new_display('block', 'ALL Jump', 'block_1');
+  $handler = $view->new_display('block', 'ALL Jump', 'all_classified_listing_jump_list');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['display_description'] = 'List ';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'jump_menu';
   $handler->display->display_options['style_options']['hide'] = 1;
   $handler->display->display_options['style_options']['path'] = 'tid';
-  $handler->display->display_options['style_options']['choose'] = '- Browse All Classified Sections -';
+  $handler->display->display_options['style_options']['choose'] = 'Browse Classifieds';
   $handler->display->display_options['style_options']['default_value'] = 0;
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;

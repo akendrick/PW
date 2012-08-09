@@ -48,19 +48,25 @@ function pw_la_context_default_contexts() {
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-9',
+          'weight' => '-8',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-7',
+        ),
+        'menu_block-4' => array(
+          'module' => 'menu_block',
+          'delta' => 4,
+          'region' => 'sidebar_first',
+          'weight' => '-31',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
@@ -74,29 +80,23 @@ function pw_la_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-29',
         ),
-        'menu_block-4' => array(
-          'module' => 'menu_block',
-          'delta' => 4,
-          'region' => 'sidebar_first',
-          'weight' => '-28',
-        ),
         'menu-menu-advertising-links' => array(
           'module' => 'menu',
           'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
-          'weight' => '-27',
+          'weight' => '-28',
         ),
         'views-editorial_views-editorial_block' => array(
           'module' => 'views',
           'delta' => 'editorial_views-editorial_block',
           'region' => 'sidebar_first',
-          'weight' => '-26',
+          'weight' => '-27',
         ),
         'menu_block-5' => array(
           'module' => 'menu_block',
           'delta' => 5,
           'region' => 'sidebar_first',
-          'weight' => '-6',
+          'weight' => '-26',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -381,12 +381,6 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_breadcrumb' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_breadcrumb',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
         'views-display_ad_blocks-block_1' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-block_1',
@@ -405,16 +399,10 @@ function pw_la_context_default_contexts() {
           'region' => 'menu',
           'weight' => '-28',
         ),
-        'views-a5485957d52c1b7fa13be85b553da932' => array(
+        'views-20eeba41cb621b5fc7f09165eda65f99' => array(
           'module' => 'views',
-          'delta' => 'a5485957d52c1b7fa13be85b553da932',
-          'region' => 'preface_first',
-          'weight' => '-31',
-        ),
-        'views-taxonomy_listing-block_1' => array(
-          'module' => 'views',
-          'delta' => 'taxonomy_listing-block_1',
-          'region' => 'preface_first',
+          'delta' => '20eeba41cb621b5fc7f09165eda65f99',
+          'region' => 'header_second',
           'weight' => '-10',
         ),
         'views--exp-search_ads-search_page' => array(
