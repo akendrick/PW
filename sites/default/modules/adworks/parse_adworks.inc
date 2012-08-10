@@ -192,7 +192,7 @@ function _adworks_pre_flight_ads($ad, &$context) {
 *   Scheduler data is now handled on node_save();
 */
 function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = NULL, $check_images = NULL, &$context) {
-  global $base_path;
+//  global $base_path;
   $save_ad = TRUE;
   $image = array();
 
@@ -313,25 +313,25 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
         0 => array(
           'value' => $copy,
           'format' => 'filtered_html',
-  #        'summary' => text_summary($copy),  
+          'summary' => text_summary($copy, 'plain_text', 55),  
   #        'format' => filter_default_format(),
   #        'value' => $copy, // was 'safe_value'
         ),
       ),
     );
+
     // Ad Title
-    //$new_ad->title = substr($copy, 0, 45);
+    $new_ad->title = text_summary($copy, 'plain_text', 55);
 
 
-//    // Use Title to label uploaded image (if any)
-//    if ($image) {
-//      $new_ad->field_image[$new_ad->language] = array(
-//        0 => array(
-//          'description' => $new_ad->title,
-//          )
-//      );
-//    }
-//
+    // Use Title to label uploaded image (if any)
+    if ($image) {
+      $new_ad->field_image[$new_ad->language] = array(
+        0 => array(
+          'description' => $new_ad->title,
+          )
+      );
+    }
 
   
     // Link
@@ -560,7 +560,8 @@ function adworks_batch_finished($success, $results, $operations) {
   }
   
   if ($results['batch_type'] == 'tested') {
-    form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
+    //form_set_error('field_ad_creation_override');
+    drupal_set_message('<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.', 'warning');
   }
   if ($error_message) {
     drupal_set_message($error_message, $status);  

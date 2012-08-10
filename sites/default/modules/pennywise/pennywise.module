@@ -24,6 +24,22 @@ define ('VALIDATION_TEST_MODE', FALSE);
 
 
 
+/**
+* Implementation of HOOK_email_registration_name
+*
+* If Email Registration module enabled - hook and rename.
+* - Email registration uses the email field
+* - PW module uses the real_name module
+*
+*/
+function pennywise_email_registration_name($edit, $account) {
+  if (module_exists('email_registration') && module_exists('realname') ) {
+    $real_name = $account->field_first_name['und'][0]['value'] . '_' . $account->field_last_name['und'][0]['value'];
+    return $real_name;
+  }
+}
+
+
 
 /**
  * Implementation of HOOK_page

@@ -69,6 +69,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_editorial_redirect_'] = entity_import('rules_config', '{ "rules_editorial_redirect_" : {
       "LABEL" : "Editorial - Redirect Admin",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "editorial", "login", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "user_login" ],
@@ -141,6 +142,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_redirect_admin_adworks_upload'] = entity_import('rules_config', '{ "rules_redirect_admin_adworks_upload" : {
       "LABEL" : "Classified - Redirect Admin",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "classifieds", "pw", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert", "node_update" ],
@@ -196,6 +198,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_redirect_admin_classifieds'] = entity_import('rules_config', '{ "rules_redirect_admin_classifieds" : {
       "LABEL" : "Classifieds - Redirect Admin",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "classified", "login", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "user_login" ],
@@ -213,6 +216,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_redirect_admin_display_ad_create'] = entity_import('rules_config', '{ "rules_redirect_admin_display_ad_create" : {
       "LABEL" : "Display - Admin Redirect on Save",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "display", "pw", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert", "node_update" ],
@@ -243,6 +247,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_redirect_display_admin'] = entity_import('rules_config', '{ "rules_redirect_display_admin" : {
       "LABEL" : "Display - Admin Login Redirect",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "display", "login", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "user_login" ],
