@@ -325,13 +325,13 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
 
 
     // Use Title to label uploaded image (if any)
-    if ($image) {
-      $new_ad->field_image[$new_ad->language] = array(
-        0 => array(
-          'description' => $new_ad->title,
-          )
-      );
-    }
+    // if ($image) {
+    //   $new_ad->field_image[$new_ad->language] = array(
+    //     0 => array(
+    //       'description' => $new_ad->title,
+    //       )
+    //   );
+    // }
 
   
     // Link
