@@ -124,9 +124,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'image_style' => 'display_ad_banner',
-    'image_link' => '',
+    'file_view_mode' => 'media_original',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
@@ -354,9 +354,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'image_style' => 'display_ad_poster',
-    'image_link' => '',
+    'file_view_mode' => 'media_original',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
@@ -615,9 +615,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'image_style' => 'display_ad_splash',
-    'image_link' => '',
+    'file_view_mode' => 'media_original',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
@@ -731,6 +731,29 @@ function pw_display_views_default_views() {
   $handler->display->display_options['row_options']['default_field_elements'] = 0;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Link */
+  $handler->display->display_options['fields']['view_node']['id'] = 'view_node';
+  $handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['view_node']['field'] = 'view_node';
+  $handler->display->display_options['fields']['view_node']['label'] = '';
+  $handler->display->display_options['fields']['view_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['view_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['view_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['view_node']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['view_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_node']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['view_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['view_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['view_node']['hide_alter_empty'] = 1;
   /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
@@ -802,7 +825,8 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['field'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['label'] = '';
   $handler->display->display_options['fields']['field_ad_copy']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_ad_copy']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['path'] = '[view_node]';
   $handler->display->display_options['fields']['field_ad_copy']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['replace_spaces'] = 0;
@@ -810,6 +834,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_ad_copy']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['html'] = 0;
@@ -951,9 +976,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'image_style' => 'display_ad_poster',
-    'image_link' => '',
+    'file_view_mode' => 'media_original',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
@@ -1189,9 +1214,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'image_style' => 'display_ad_splash',
-    'image_link' => '',
+    'file_view_mode' => 'media_original',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['field_api_classes'] = 0;
