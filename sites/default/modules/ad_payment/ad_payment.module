@@ -186,20 +186,72 @@ function thankyou_page($temp_id = NULL) {
 }
 
 /**
- *  Implements hook_theme
+ * Implemenation of hook_theme().
  *
- *  Set up for custom page node form theming.
+ * @based on logintoboggan
  */
-// function ad_payment_theme($existing, $type, $theme, $path) {
-//   return array(
-//     'ad_s_node_form' => array(
-//       'render element' => 'form',
-//       'template' => 'ad-submission-node-form',
-//       // set default path:
-//       'path' => drupal_get_path('module', 'ad_payment'),
-//     ),
-//   );
-// }
+function ad_payment_theme($existing, $type, $theme, $path) {
+  return array(
+   // 'ap_access_denied' => array(
+   //   'variables' => array(),
+   // ),
+   // 'ap_loggedinblock' => array(
+   //   'variables' => array('account' => NULL),
+   // ),
+   // 'ap_login_successful_message' => array(
+   //   'variables' => array('account' => NULL),
+   // ),
+    'ap_unified_login_page' => array(
+      'variables' => array(
+        'login_form' => NULL,
+        'register_form' => NULL,
+        'active_form' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Theme function for unified login page.
+ *
+ * @based on LoginToboggan
+ */
+function theme_ap_unified_login_page($variables) {
+
+  $login_form = $variables['login_form'];
+  $register_form = $variables['register_form'];
+  $active_form = $variables['active_form'];
+  $output = '';
+
+  $output .= '<div id="user-register-form" class="ad-submission-unified grid-12' . $active_form . '">';
+
+  // Create the initial message and links that people can click on.
+  $output .= '<div id="login-message">' . t('Please tell us about yourself before we begin.') . '</div>';
+
+
+  // Add the login and registration forms in.
+  $output .= '<div id="login-form">' . $login_form . '</div>';
+  $output .= '<div id="register-form">' . $register_form . '</div>';
+
+  $output .= '<div id="login-links">';
+  $output .= l(t('I have created an ad before.'), 'user/login', array(
+    'query' => array('destination' => 'ad/submit'),
+    'attributes' => array(
+      'class' => array(
+        'login-link', 'submit', 'button'), 
+        'id' => 'login-link',
+      ), // end attributes
+    ) // end t()
+  );
+  // $output .= ' ';
+  // $output .= l(t('I want to create an account'), 'user/register', array('attributes' => array('class' => array('login-link'), 'id' => 'register-link')));
+  $output .= '</div>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
 
 /**
 * Implementation of custom page.
@@ -229,14 +281,20 @@ function ad_payment_ad_submit_form_page() {
 
     // Cut and paste from LoginToboggan.
     $register_form = drupal_get_form('user_register_form');
-    $rendered_login_form = drupal_render($login_form);
-    $rendered_register_form = drupal_render($register_form);
+    $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
+    $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number in case of disconnection or for verification purposes.';
+    
+    if (DEBUG) {
+      dpm ('Register_form');
+      dpm ($register_form);
+    }
+    
     $variables = array(
       'login_form'    => $rendered_login_form,
-      'register_form' => $rendered_register_form,
+      'register_form' => drupal_render($register_form),
       'active_form'   => $active_form,
     );
-    $content = theme('lt_unified_login_page', $variables);
+    $content = theme('ap_unified_login_page', $variables);
   }
   elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
     // Get Node Creation Form.

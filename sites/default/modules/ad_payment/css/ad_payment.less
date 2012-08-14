@@ -22,7 +22,7 @@
 
 @sand: #e5e0dc;
 @lightsand: lighten(@sand, 10%);
-@darksand: darken(@sand, 5);
+@darksand: darken(@sand, 5%);
 
 @sunlight: rgb(255, 248, 221);
 @darklight: darken(@sunlight, 5);
@@ -65,6 +65,57 @@
   text-align: center;
 }
 
+.button (@background: @darksand, @link_text: @white, @hover: @warning, @link_hover: @classified_dark, @padding: 5px) {
+  a {
+    text-decoration: none;
+    .border-radius;
+    background-color: @background;
+    color: @link_text;
+    padding: @padding;
+  }
+  a:hover {
+    background-color: @hover;
+    color: @link_hover;
+  }
+}
+
+/***************** Registration Unified Form ********/
+.ad-submission-unified {
+  #login-message {
+    .center;
+    .border-radius;
+    background-color: @status;
+    color: @white;
+    font-size: large;
+    font-weight: 900;
+    padding: 5px;
+  }
+  .border-radius;
+  background-color: @sunlight;
+  border: 3pt solid @darksand;
+  padding: 10px;
+  margin: 20px;
+  #edit-submit {
+    .center
+  }
+  #login-links {
+    .center;
+    .button;
+    padding: 5px;
+    
+  }
+}
+#user_user_form_group_sales {
+  legend {
+    display: none;
+  }
+  .fieldset-wrapper {
+    padding: 0;
+  }
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+}
 
 /******************** !PAYMENT CSS ********/
 /***** thank-you page ***/
