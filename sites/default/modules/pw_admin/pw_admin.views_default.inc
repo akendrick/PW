@@ -4909,11 +4909,14 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['grouping'] = array(
     0 => array(
-      'field' => 'field_display_ad_type',
+      'field' => 'field_tags',
       'rendered' => 1,
       'rendered_strip' => 0,
     ),
@@ -4972,37 +4975,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['field_display_ad_type']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_display_ad_type']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_display_ad_type']['field_api_classes'] = 0;
-  /* Field: Content: Section */
-  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
-  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
-  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
-  $handler->display->display_options['fields']['field_tags']['label'] = '';
-  $handler->display->display_options['fields']['field_tags']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_tags']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_tags']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_tags']['type'] = 'taxonomy_term_reference_plain';
-  $handler->display->display_options['fields']['field_tags']['group_rows'] = 1;
-  $handler->display->display_options['fields']['field_tags']['delta_limit'] = '3';
-  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
-  $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
-  $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Content: Client */
   $handler->display->display_options['fields']['field_ad_client']['id'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['table'] = 'field_data_field_ad_client';
@@ -5082,6 +5054,37 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['label'] = '';
+  $handler->display->display_options['fields']['field_tags']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_tags']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_tags']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_tags']['element_type'] = 'em';
+  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_tags']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_tags']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_tags']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_tags']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_tags']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_tags']['delta_limit'] = '3';
+  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_tags']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_tags']['field_api_classes'] = 0;
   /* Field: Scheduler: Publish on */
   $handler->display->display_options['fields']['publish_on']['id'] = 'publish_on';
   $handler->display->display_options['fields']['publish_on']['table'] = 'scheduler';
@@ -6237,6 +6240,22 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Display Page */
   $handler = $view->new_display('page', 'Display Page', 'all_display');
   $handler->display->display_options['display_description'] = 'All ads';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_display_ad_type',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['row_class'] = ' display-col field-promote-status-[promote] ';
+  $handler->display->display_options['style_options']['columns'] = '6';
+  $handler->display->display_options['style_options']['fill_single_line'] = 1;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/all';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Ads';
@@ -6250,6 +6269,20 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Banner */
   $handler = $view->new_display('page', 'Banner', 'banner');
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['required'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -6257,7 +6290,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -6265,24 +6298,42 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'banner' => 'banner',
   );
-  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
+  /* Filter criterion: Content: Section (field_tags) */
+  $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'classification';
+  $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['error_message'] = 1;
   /* Filter criterion: Content: Client (field_ad_client) */
   $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
   $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
   $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/banner';
@@ -6295,6 +6346,20 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Poster */
   $handler = $view->new_display('page', 'Poster', 'poster');
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['required'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -6302,7 +6367,23 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Section (field_tags) */
+  $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Section (field_tags)';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['reduce'] = 0;
+  $handler->display->display_options['filters']['field_tags_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'classification';
+  $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['error_message'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -6310,7 +6391,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'poster' => 'poster',
   );
-  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
@@ -6321,14 +6402,17 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
   $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['reduce'] = 0;
   $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['hierarchy'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/poster';
   $handler->display->display_options['menu']['type'] = 'tab';
@@ -6339,43 +6423,22 @@ Un-Published: [unpublish_on]<br>';
 
   /* Display: Print */
   $handler = $view->new_display('page', 'Print', 'print');
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'display_ads' => 'display_ads',
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_tags',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
-  /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
-  $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
-    'print' => 'print',
-  );
-  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
-  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
-  /* Filter criterion: Content: Client (field_ad_client) */
-  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
-  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
-  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
-  $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
+  $handler->display->display_options['style_options']['row_class'] = ' display-col field-promote-status-[promote] ';
+  $handler->display->display_options['style_options']['columns'] = '6';
+  $handler->display->display_options['style_options']['fill_single_line'] = 1;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/print';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Print';
@@ -6386,6 +6449,20 @@ Un-Published: [unpublish_on]<br>';
   /* Display: Splash */
   $handler = $view->new_display('page', 'Splash', 'splash');
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['required'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -6393,7 +6470,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['type']['value'] = array(
     'display_ads' => 'display_ads',
   );
-  $handler->display->display_options['filters']['type']['group'] = 0;
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -6401,25 +6478,44 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
     'splash' => 'splash',
   );
-  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = '0';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['reduce'] = 0;
+  /* Filter criterion: Content: Section (field_tags) */
+  $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'classification';
+  $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['error_message'] = 1;
   /* Filter criterion: Content: Client (field_ad_client) */
   $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
   $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
   $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
   $handler->display->display_options['filters']['field_ad_client_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['hierarchy'] = 1;
   $handler->display->display_options['filters']['field_ad_client_tid']['error_message'] = 1;
   $handler->display->display_options['path'] = 'admin/pennywise/display_ads/splash';
   $handler->display->display_options['menu']['type'] = 'tab';
