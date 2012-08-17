@@ -5,24 +5,6 @@
  *  Settings Page/Form and form validation.
  *
  */
-function pw_greetings_page() {
-  $output = t('<h2>Pennywise Settings.</h2>');
-  $output .= t('<p><strong> Classified Settings: </strong> From here you can change the default greetings, place holiday messages and change the default email address.');
-  $output .= t('<p><strong> Display Settings: </strong> From here you can change ... nothing at this time.');
-  #$output = drupal_get_form('classified_settingsform');
-  
-  return $output;
-  
-}
-function pw_general_settings_page() {
-  $output = t('Pennywise Website General Settings.');
-  #$output = drupal_get_form('classified_settingsform');
-  $output = drupal_get_form('pennywise_general_settingsform');
- 
-  return $output;
-  
-}
-
 
 function pw_classified_settings_page() {
   $output = t('Settings for classifieds.');

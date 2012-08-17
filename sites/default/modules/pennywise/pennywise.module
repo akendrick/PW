@@ -71,16 +71,16 @@ function pennywise_menu() {
   // Settings
   $items['admin/pennywise/settings'] = array(
     'title' => 'Pennywise Settings',
-    'page callback'    => 'pw_greetings_page',
+    'page callback'    => 'pw_general_settings_page',
     'access arguments' => array('Administer content'),
-    'file'             => 'settings.inc',
+    'file'             => 'settings_default.inc',
     'type'             => MENU_NORMAL_ITEM,
   );
   $items['admin/pennywise/settings/general'] = array(
     'title' => 'General Settings',
     'page callback'    => 'pw_general_settings_page',
     'access arguments' => array('Administer content'),
-    'file'             => 'settings.inc',
+    'file'             => 'settings_default.inc',
     'type'             => MENU_DEFAULT_LOCAL_TASK,
     'weight'           => -10,
   );
@@ -223,6 +223,12 @@ function pennywise_block_info() {
     'visibility' => 0,
     'cache' => 8,
   );
+  $blocks['pw_holiday_message'] = array(
+    'info'    => t('PW Holiday Message'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
 
   return $blocks;
 }
@@ -236,44 +242,56 @@ function pennywise_block_configure($delta) {
   $form = array();
   switch($delta) {
     case 'pw_contact':
-      $form['pennywise_contact_information']['pw_phone_toll_free'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Toll free phone number.'),
-        '#size' => 15,
-        '#default_value' => variable_get('pw_phone_toll_free', '1-800-663-4619'),
-      );
-      $form['pennywise_contact_information']['pw_phone_local'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Local phone number.'),
-        '#size' => 15,
-        '#default_value' => variable_get('pw_phone_local', '250-353-2602'),
-      );
-      $form['pennywise_contact_information']['pw_phone_fax'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Fax number.'),
-        '#size' => 15,
-/*         '#description' => t('This is the main contact information for Pennywise.'), */
-        '#default_value' => variable_get('pw_phone_fax', '250-353-7444'),
-      );
-      $form['pennywise_contact_information']['pw_mailing_address'] = array(
-        '#type' => 'textfield',
-        '#title' => t('General email address.'),
-        '#size' => 80,
-        '#default_value' => variable_get('pw_mailing_address', 'Box 430, Kaslo, BC Canada, V0G 1M0'),
-      );
-      $form['pennywise_contact_information']['pw_email'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Mailing address.'),
-        '#size' => 45,
-        '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),
-      );
-      $form['pennywise_contact_information']['pw_facebook_link'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Facebook link.'),
-        '#size' => 50,
-        '#description' => t('Include full link address. This means <strong>http://</strong>. '),
-        '#default_value' => variable_get('pw_facebook_link', 'http://www.facebook.com/profile.php?id=728375773'),
-      );
+//      $form['pennywise_contact_information']['pw_phone_toll_free'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Toll free phone number.'),
+//        '#size' => 15,
+//        '#default_value' => variable_get('pw_phone_toll_free', '1-800-663-4619'),
+//      );
+//      $form['pennywise_contact_information']['pw_phone_local'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Local phone number.'),
+//        '#size' => 15,
+//        '#default_value' => variable_get('pw_phone_local', '250-353-2602'),
+//      );
+//      $form['pennywise_contact_information']['pw_phone_fax'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Fax number.'),
+//        '#size' => 15,
+///*         '#description' => t('This is the main contact information for Pennywise.'), */
+//        '#default_value' => variable_get('pw_phone_fax', '250-353-7444'),
+//      );
+//      $form['pennywise_contact_information']['pw_mailing_address'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('General email address.'),
+//        '#size' => 80,
+//        '#default_value' => variable_get('pw_mailing_address', 'Box 430, Kaslo, BC Canada, V0G 1M0'),
+//      );
+//      $form['pennywise_contact_information']['pw_email'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Mailing address.'),
+//        '#size' => 45,
+//        '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),
+//      );
+//      $form['pennywise_contact_information']['pw_facebook_link'] = array(
+//        '#type' => 'textfield',
+//        '#title' => t('Facebook link.'),
+//        '#size' => 50,
+//        '#description' => t('Include full link address. This means <strong>http://</strong>. '),
+//        '#default_value' => variable_get('pw_facebook_link', 'http://www.facebook.com/profile.php?id=728375773'),
+//      );
+        // Link to settings
+        $form['ling_group'] = array(
+          '#type' => 'fieldset',
+          '#title' => 'Pennywise Contact Settings',
+          '#collapsible' => FALSE,
+        );
+        // OUtput
+        $form['ling_group']['link'] = array(
+          '#type'         => 'item',
+          '#description'  => l('Admistrative Default Settings', 'admin/pennywise/settings'),
+        );
+
       break;
   }
 
@@ -286,17 +304,17 @@ function pennywise_block_configure($delta) {
 */
 function pennywise_block_save($delta = '', $edit = array()) {
 
-  switch($delta) {
-    case 'pw_contact':
-      variable_set('pw_title', $edit['pw_contact_title']);
-      variable_set('pw_phone_toll_free', $edit['pw_phone_toll_free']);
-      variable_set('pw_phone_local', $edit['pw_phone_local']);
-      variable_set('pw_phone_fax', $edit['pw_phone_fax']);
-      variable_set('pw_mailing_address', $edit['pw_mailing_address']);
-      variable_set('pw_email', $edit['pw_email']);
-      variable_set('pw_facebook_link',   $edit['pw_facebook_link']);
-      break;
-  }
+//  switch($delta) {
+//    case 'pw_contact':
+//      variable_set('pw_title', $edit['pw_contact_title']);
+//      variable_set('pw_phone_toll_free', $edit['pw_phone_toll_free']);
+//      variable_set('pw_phone_local', $edit['pw_phone_local']);
+//      variable_set('pw_phone_fax', $edit['pw_phone_fax']);
+//      variable_set('pw_mailing_address', $edit['pw_mailing_address']);
+//      variable_set('pw_email', $edit['pw_email']);
+//      variable_set('pw_facebook_link',   $edit['pw_facebook_link']);
+//      break;
+//  }
 }
 
 /**
