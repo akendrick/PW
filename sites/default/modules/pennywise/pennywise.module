@@ -55,6 +55,7 @@ function pennywise_init() {
  * Implementation of HOOK_menu
  *
  *  - Callback page for ad_submission to classified ad conversion (promotion).
+ *  - Default settings pages
  */
 function pennywise_menu() {
 
@@ -65,6 +66,44 @@ function pennywise_menu() {
     'access arguments' => array('Adworks File: Create new content'),
     'file'             => 'promote_classifieds.inc',
     'type'             => MENU_CALLBACK,
+  );
+
+  // Settings
+  $items['admin/pennywise/settings'] = array(
+    'title' => 'Pennywise Settings',
+    'page callback'    => 'pw_greetings_page',
+    'access arguments' => array('Administer content'),
+    'file'             => 'settings.inc',
+    'type'             => MENU_NORMAL_ITEM,
+  );
+  $items['admin/pennywise/settings/general'] = array(
+    'title' => 'General Settings',
+    'page callback'    => 'pw_general_settings_page',
+    'access arguments' => array('Administer content'),
+    'file'             => 'settings.inc',
+    'type'             => MENU_DEFAULT_LOCAL_TASK,
+    'weight'           => -10,
+  );
+  $items['admin/pennywise/settings/holiday'] = array(
+    'title' => 'Holiday Settings',
+    'page callback'    => 'pw_holiday_settings_page',
+    'access arguments' => array('Administer content'),
+    'file'             => 'settings_holiday.inc',
+    'type'             => MENU_LOCAL_TASK,
+  );
+  $items['admin/pennywise/settings/classified'] = array(
+    'title' => 'Classified Settings',
+    'page callback'    => 'pw_classified_settings_page',
+    'access arguments' => array('Classified Ads: Edit any content'),
+    'file'             => 'settings.inc',
+    'type'             => MENU_LOCAL_TASK,
+  );
+  $items['admin/pennywise/settings/display'] = array(
+    'title' => 'Display Settings',
+    'page callback'    => 'pw_display_settings_page',
+    'access arguments' => array('Display ads: Edit any content'),
+    'file'             => 'settings.inc',
+    'type'             => MENU_LOCAL_TASK,
   );
   return $items;
  }

@@ -1,0 +1,11 @@
+<?php
+
+/**
+* Installation of default variable tables.
+*/
+// variable_get('pennywise_holiday_settings', 'Regular Hours'),
+// variable_get('pennywise_holiday', $holiday_message),
+// variable_get('pennywise_holiday_hours', $holiday_hours),
+
+// variable_set('ad_submission_email_verification_to', 'info@pennywiseads.com'),
+// variable_get('ad_submission_email_from_verification_from', 'auto_reply@pennywiseads.com');
