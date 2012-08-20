@@ -23,7 +23,6 @@ define ('DEBUG', FALSE);
 define ('VALIDATION_TEST_MODE', FALSE);
 
 
-
 /**
 * Implementation of HOOK_email_registration_name
 *
@@ -242,52 +241,14 @@ function pennywise_block_configure($delta) {
   $form = array();
   switch($delta) {
     case 'pw_contact':
-//      $form['pennywise_contact_information']['pw_phone_toll_free'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('Toll free phone number.'),
-//        '#size' => 15,
-//        '#default_value' => variable_get('pw_phone_toll_free', '1-800-663-4619'),
-//      );
-//      $form['pennywise_contact_information']['pw_phone_local'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('Local phone number.'),
-//        '#size' => 15,
-//        '#default_value' => variable_get('pw_phone_local', '250-353-2602'),
-//      );
-//      $form['pennywise_contact_information']['pw_phone_fax'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('Fax number.'),
-//        '#size' => 15,
-///*         '#description' => t('This is the main contact information for Pennywise.'), */
-//        '#default_value' => variable_get('pw_phone_fax', '250-353-7444'),
-//      );
-//      $form['pennywise_contact_information']['pw_mailing_address'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('General email address.'),
-//        '#size' => 80,
-//        '#default_value' => variable_get('pw_mailing_address', 'Box 430, Kaslo, BC Canada, V0G 1M0'),
-//      );
-//      $form['pennywise_contact_information']['pw_email'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('Mailing address.'),
-//        '#size' => 45,
-//        '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),
-//      );
-//      $form['pennywise_contact_information']['pw_facebook_link'] = array(
-//        '#type' => 'textfield',
-//        '#title' => t('Facebook link.'),
-//        '#size' => 50,
-//        '#description' => t('Include full link address. This means <strong>http://</strong>. '),
-//        '#default_value' => variable_get('pw_facebook_link', 'http://www.facebook.com/profile.php?id=728375773'),
-//      );
-        // Link to settings
-        $form['ling_group'] = array(
+        // Link to default settings page.
+        $form['link_group'] = array(
           '#type' => 'fieldset',
           '#title' => 'Pennywise Contact Settings',
           '#collapsible' => FALSE,
         );
         // OUtput
-        $form['ling_group']['link'] = array(
+        $form['link_group']['link'] = array(
           '#type'         => 'item',
           '#description'  => l('Admistrative Default Settings', 'admin/pennywise/settings'),
         );
@@ -299,23 +260,6 @@ function pennywise_block_configure($delta) {
 }
 
 
-/**
-* Implementation of HOOK_block_save
-*/
-function pennywise_block_save($delta = '', $edit = array()) {
-
-//  switch($delta) {
-//    case 'pw_contact':
-//      variable_set('pw_title', $edit['pw_contact_title']);
-//      variable_set('pw_phone_toll_free', $edit['pw_phone_toll_free']);
-//      variable_set('pw_phone_local', $edit['pw_phone_local']);
-//      variable_set('pw_phone_fax', $edit['pw_phone_fax']);
-//      variable_set('pw_mailing_address', $edit['pw_mailing_address']);
-//      variable_set('pw_email', $edit['pw_email']);
-//      variable_set('pw_facebook_link',   $edit['pw_facebook_link']);
-//      break;
-//  }
-}
 
 /**
  * Implementation of HOOK_block_view
