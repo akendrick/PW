@@ -9320,28 +9320,21 @@ Un-Published: [unpublish_on]<br>';
     'classification' => 'classification',
   );
   $handler->display->display_options['filters']['machine_name']['group'] = 1;
-  /* Filter criterion: Parent should not exist */
-  $handler->display->display_options['filters']['field_classified_id_value']['id'] = 'field_classified_id_value';
-  $handler->display->display_options['filters']['field_classified_id_value']['table'] = 'field_data_field_classified_id';
-  $handler->display->display_options['filters']['field_classified_id_value']['field'] = 'field_classified_id_value';
-  $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
-  $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should not exist';
-  $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_classified_id_value']['group'] = 1;
   $handler->display->display_options['block_description'] = 'ALL JUMP List';
+  $handler->display->display_options['block_caching'] = '8';
 
-  /* Display: Sub List Jump Block */
-  $handler = $view->new_display('block', 'Sub List Jump Block', 'sub_list_jump_block');
+  /* Display: Header List */
+  $handler = $view->new_display('block', 'Header List', 'header_list_nav_block');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Classified Sections';
   $handler->display->display_options['display_description'] = 'List ';
   $handler->display->display_options['defaults']['cache'] = FALSE;
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'jump_menu';
-  $handler->display->display_options['style_options']['hide'] = 1;
-  $handler->display->display_options['style_options']['path'] = 'tid';
-  $handler->display->display_options['style_options']['choose'] = '- Sections -';
-  $handler->display->display_options['style_options']['default_value'] = 0;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['row_class'] = 'pw-classified-nav-row';
+  $handler->display->display_options['style_options']['class'] = 'pw-classified-nav-list';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'pw-classified-nav-wrapper';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -9407,28 +9400,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Taxonomy term: Term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['relationship'] = 'parent';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['term_page'] = 1;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['node'] = 0;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['limit'] = 0;
-  $handler->display->display_options['arguments']['tid']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['specify_validation'] = 1;
-  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
-    'classification' => 'classification',
-  );
-  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = 0;
-  $handler->display->display_options['arguments']['tid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['tid']['not'] = 0;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
@@ -9444,9 +9415,10 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['filters']['field_classified_id_value']['field'] = 'field_classified_id_value';
   $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
   $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should not exist';
-  $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'empty';
   $handler->display->display_options['filters']['field_classified_id_value']['group'] = 1;
-  $handler->display->display_options['block_description'] = 'Classification JUMP SUB List';
+  $handler->display->display_options['block_description'] = 'Classification HEADERS List';
+  $handler->display->display_options['block_caching'] = '8';
   $export['taxonomy_listing'] = $view;
 
   return $export;

@@ -120,6 +120,7 @@ function pw_admin_default_rules_configuration() {
   $items['rules_redirect_admin_adworks'] = entity_import('rules_config', '{ "rules_redirect_admin_adworks" : {
       "LABEL" : "Adworks - Admin Redirect",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "admin", "pw", "redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert" ],

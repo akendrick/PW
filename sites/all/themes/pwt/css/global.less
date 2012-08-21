@@ -279,7 +279,7 @@ body {
   font-size: 2em;
 
 }
-/***************** contact bar ********/
+/***************** HEADER :: CONTACT BAR  ********/
 #block-pennywise-pw-contact {
   background-color: transparent;
   margin: 10px 0;
@@ -458,16 +458,6 @@ body {
     }
   }
 }
-/*
-  .form-item-jump {
-    margin: 10px;
-    width: 48%;
-*/
-/*     .center; */
-/*     margin: 10px; */
-/*   } */
-/* } */
-
 
 /*****************  BLOCKS  *****************/
 
@@ -623,28 +613,34 @@ body {
 
 /*****************  BLOCKS  *****************/
 /**** Classified DHTML Link Block ******/
-.menu-name-menu-pw-super-menu {
-  .content {
-    background-color: @white;
-    width: 100%
+ul.pw-classified-nav-list {
+  width: 95%;
+  .border-radius-custom(0,0,10px,10px);
+  background-color: @white;
+  padding: 5px;
+  li.views-row-even {
+    background-color: @lightsand;
+    line-height: .9em;
   }
-  li {
-    width: 90%;
-    line-height: 1em;
-    a { width: 89%; }
+  li.pw-classified-nav-row {
+    border-top: @darksand 1pt solid;
+    list-style: none;    
+    padding: 2px 5px;
+  }
+  li.pw-classified-nav-row a:hover {
+    width: 100%;
+    background-color: @sand;
+    .border-radius;
+  }
+  li.views-row-1 {
+    border: none;
+    padding-top: 0;
   }
   li:hover {
-    background-color: @lightsand;
-    .border-radius;
+    background-color: @darksand;
   }
-  li.expanded {
-    background-color: @white;
-    .border-radius;
-    margin: 2px;
-    a {
-      color: @plum;
-    }
-  }
+}
+/*
   menu.expanded {
     background-color: @sand;
   }
@@ -675,8 +671,9 @@ body {
       }
     }
   }
+*/
 
-}
+/* } */
 
 #block-views-editorial-views-editorial-block {
   display: none;
