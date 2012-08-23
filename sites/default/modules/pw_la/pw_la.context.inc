@@ -33,6 +33,8 @@ function pw_la_context_default_contexts() {
         'user' => 'user',
         'user/*' => 'user/*',
         'contact/*' => 'contact/*',
+        'search' => 'search',
+        'search?*' => 'search?*',
       ),
     ),
     'sitewide' => array(

@@ -279,6 +279,10 @@ body {
   font-size: 2em;
 
 }
+/***************** LAYOUT ***********************/
+#zone-header {
+  padding-bottom: 8px;
+}
 /***************** HEADER :: CONTACT BAR  ********/
 #block-pennywise-pw-contact {
   background-color: transparent;
@@ -390,15 +394,15 @@ body {
 #region-preface-third {
   width: 75%;
   .center;
-  
+
 }
 
 /********** HIDE ON MOBILE *****************/
-#zone-postscript, 
-#zone-threeup, 
-#region-header-second, 
-#region-splash-one, 
-#region-splash-two, 
+#zone-postscript,
+#zone-threeup,
+#region-header-second,
+#region-splash-one,
+#region-splash-two,
 #block-feedback-form {
   display: none;
   height: 0px;
@@ -412,9 +416,9 @@ body {
 }
 
 #region-branding {
-/*   width: 460px; /* Grid 6 */ 
+/*   width: 460px; /* Grid 6 */
   .logo-img {
-    a { 
+    a {
       .center;
 /*       padding: 10px; */
     }
@@ -462,7 +466,7 @@ body {
 /*****************  BLOCKS  *****************/
 
 .region-sidebar-first #edit-jump {
-  width: 136px;  
+  width: 136px;
 }
 
 #region-sidebar-first .block {
@@ -624,7 +628,7 @@ ul.pw-classified-nav-list {
   }
   li.pw-classified-nav-row {
     border-top: @darksand 1pt solid;
-    list-style: none;    
+    list-style: none;
     padding: 2px 5px;
   }
   li.pw-classified-nav-row a:hover {
@@ -956,7 +960,7 @@ ul.pw-classified-nav-list {
 /*         border-right: 5pt solid @classified_light; */
         background-color: @white;
       }
-      
+
     }
   }
 }
@@ -1038,6 +1042,7 @@ ul.pw-classified-nav-list {
   border: 1pt solid @classified_light;
   .border-radius;
 }
+
 .classified-more-link a:link:hover {
   color: @white;
   background-color: @classified_dark;
@@ -1053,18 +1058,24 @@ ul.pw-classified-nav-list {
       width: 100%;
     }
     .group-right {
-      width: 100%;
+      width: 90%;
     }
   }
   .classified-detail-box {
     margin: 0 10px;
   }
   .field-name-field-ad-copy {
-    font-size: 1.6em;
+    font-size: 1.4em;
   }
   .field-name-field-ad-copy :first-line {
     font-weight: bold;
   }
+  .field-name-field-link {
+    word-wrap: break-word;
+  }
+}
+#node_classified_full_group_details {
+  width: 190px;
 }
 
 /*****************  ADMIN  *****************/

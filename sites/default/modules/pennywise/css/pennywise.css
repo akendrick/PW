@@ -204,8 +204,9 @@
   -moz-border-radius: 10px 10px 0 0;
   -webkit-border-radius: 10px 10px 0 0;
   padding: 3pt;
-  width: 80%;
-  height: 38px;
+  width: 180px;
+  /*       height: 38px; */
+
   border: 1pt solid #ffff00;
 }
 .view-display-admin-v2 td.editorial-col .Enabled,
@@ -325,7 +326,7 @@
 .view-display-admin-v2 td .new-marker .marker,
 .view-id-editorial_administration td .new-marker .marker,
 .view-id-page_administration td .new-marker .marker {
-  width: 83%;
+  width: 95%;
   border-radius: 0 0 8px 8px;
   -moz-border-radius: 0 0 8px 8px;
   -webkit-border-radius: 0 0 8px 8px;
@@ -353,26 +354,119 @@
 }
 .view-display-admin-v2 .field-publish-link,
 .view-id-editorial_administration .field-publish-link,
-.view-id-page_administration .field-publish-link {
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
+.view-id-page_administration .field-publish-link,
+.view-display-admin-v2 .views-editorial-link,
+.view-id-editorial_administration .views-editorial-link,
+.view-id-page_administration .views-editorial-link,
+.view-display-admin-v2 .views-admin-display-link,
+.view-id-editorial_administration .views-admin-display-link,
+.view-id-page_administration .views-admin-display-link {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.view-display-admin-v2 .field-publish-link a,
+.view-id-editorial_administration .field-publish-link a,
+.view-id-page_administration .field-publish-link a,
+.view-display-admin-v2 .views-editorial-link a,
+.view-id-editorial_administration .views-editorial-link a,
+.view-id-page_administration .views-editorial-link a,
+.view-display-admin-v2 .views-admin-display-link a,
+.view-id-editorial_administration .views-admin-display-link a,
+.view-id-page_administration .views-admin-display-link a {
+  text-decoration: none;
+  background-color: #d1e5ff;
+  color: #003366;
+  width: 60px;
+  font-size: .6em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 5px 0 0 5px;
+  -moz-border-radius: 5px 0 0 5px;
+  -webkit-border-radius: 5px 0 0 5px;
   margin-left: auto;
   margin-right: auto;
   display: block;
   text-align: center;
+  padding: 2px 4px;
+  margin: 2px 4px;
+  width: 100%;
+}
+.view-display-admin-v2 .field-publish-link a:hover,
+.view-id-editorial_administration .field-publish-link a:hover,
+.view-id-page_administration .field-publish-link a:hover,
+.view-display-admin-v2 .views-editorial-link a:hover,
+.view-id-editorial_administration .views-editorial-link a:hover,
+.view-id-page_administration .views-editorial-link a:hover,
+.view-display-admin-v2 .views-admin-display-link a:hover,
+.view-id-editorial_administration .views-admin-display-link a:hover,
+.view-id-page_administration .views-admin-display-link a:hover {
+  background-color: #fe4e4e;
   color: #ffffff;
-  background-color: #d1e5ff;
-  width: 60%;
-  font-size: .8em;
-  line-height: 1em;
-  padding: 2pt;
-  text-transform: uppercase;
+}
+.view-display-admin-v2 .field-clone-link a,
+.view-id-editorial_administration .field-clone-link a,
+.view-id-page_administration .field-clone-link a {
+  border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0 0 0 0;
+  margin-right: 0;
+  width: 35px;
+}
+.view-display-admin-v2 .field-edit-link a,
+.view-id-editorial_administration .field-edit-link a,
+.view-id-page_administration .field-edit-link a {
+  margin-left: 0;
+  border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -webkit-border-radius: 0 3px 3px 0;
+  color: #ffffff;
+  background-color: #09c900;
 }
 .view-display-admin-v2 .field-unpublish-link,
 .view-id-editorial_administration .field-unpublish-link,
 .view-id-page_administration .field-unpublish-link {
   background-color: #ffffff;
+}
+.view-display-admin-v2 .views-fields-clear-all,
+.view-id-editorial_administration .views-fields-clear-all,
+.view-id-page_administration .views-fields-clear-all {
+  clear: both;
+  float: none;
+  line-height: 0px;
+}
+/* specific admin display quick link button tweaks */
+.views-dispaly-admin-status-links {
+  border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0 0 0 0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.views-dispaly-admin-status-links .field-publish-link a {
+  border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  -webkit-border-radius: 3px 0 0 3px;
+  margin: 0;
+  margin-right: 4px;
+}
+.views-dispaly-admin-status-links .field-edit-link a {
+  margin: 0;
+  margin-left: 4px;
+  /*     margin-right: 6px; */
+
+}
+.views-dispaly-admin-status-links .field-clone-link a {
+  margin: 0;
+  margin-left: 10px;
+  padding-right: 2px;
+}
+.views-dispaly-admin-status-links .field-link-link a {
+  margin: 0;
+  border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -webkit-border-radius: 0 3px 3px 0;
 }
 /* page admin */
 .view-id-page_administration.view-display-id-page table td {

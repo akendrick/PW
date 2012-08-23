@@ -436,9 +436,9 @@ function pw_cl_views_default_views() {
   $view = new view;
   $view->name = 'section_pages';
   $view->description = 'Using default Drupal taxonomy/term [override] pages for Classified Ad layout.';
-  $view->tag = 'default';
+  $view->tag = 'default, classified';
   $view->base_table = 'node';
-  $view->human_name = 'Section Pages';
+  $view->human_name = 'Classified Pages - Section';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -530,6 +530,33 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['publishcontent']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'X';
   $handler->display->display_options['fields']['publishcontent']['publish'] = 'O';
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['text'] = '<span class=\'edit-link edit-link-small\'>edit</span>';
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
+  $handler->display->display_options['fields']['edit_node']['element_class'] = 'edit-link edit-link-small';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
   /* Field: Content: Link */
   $handler->display->display_options['fields']['view_node']['id'] = 'view_node';
   $handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
@@ -702,33 +729,6 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['nothing']['hide_empty'] = 1;
   $handler->display->display_options['fields']['nothing']['empty_zero'] = 1;
   $handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 0;
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = '';
-  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['text'] = '<span class=\'edit-link edit-link-small\'>edit</span>';
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
-  $handler->display->display_options['fields']['edit_node']['element_class'] = 'edit-link edit-link-small';
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
   /* Field: Content: Delete link */
   $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
@@ -761,14 +761,15 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['contextual_links']['fields'] = array(
     'edit_node' => 'edit_node',
-    'delete_node' => 'delete_node',
-    'field_image' => 0,
+    'field_image_1' => 0,
+    'publishcontent' => 0,
+    'view_node' => 0,
     'field_ad_copy' => 0,
     'field_tags' => 0,
     'field_ad_type' => 0,
     'field_ad_type_1' => 0,
-    'publishcontent' => 0,
     'nothing' => 0,
+    'delete_node' => 0,
   );
   $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Sort criterion: Content: Section (field_tags) */

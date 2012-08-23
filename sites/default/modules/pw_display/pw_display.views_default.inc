@@ -85,10 +85,9 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_link']['element_default_classes'] = 0;
-  $handler->display->display_options['fields']['field_link']['empty'] = 'http://pennywiseads.com/node/[nid]';
-  $handler->display->display_options['fields']['field_link']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_link']['hide_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['empty_zero'] = 1;
-  $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_link']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_link']['type'] = 'link_plain';
   $handler->display->display_options['fields']['field_link']['group_column'] = 'url';
@@ -1079,8 +1078,8 @@ function pw_display_views_default_views() {
   $handler->display->display_options['filters']['field_ad_client_tid']['hierarchy'] = 1;
   $handler->display->display_options['block_description'] = 'Poster Filler Block';
 
-  /* Display: Banner Default */
-  $handler = $view->new_display('block', 'Banner Default', 'banner_default_filler');
+  /* Display: Banner filler */
+  $handler = $view->new_display('block', 'Banner filler', 'banner_default_filler');
   $handler->display->display_options['display_description'] = 'for all areas - no taxonomy restriction';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';

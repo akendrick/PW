@@ -5487,16 +5487,22 @@ Un-Published: [unpublish_on]<br>';
     'views_bulk_operations' => 0,
   );
   $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
-  /* Field: Global: Custom text */
+  /* Field: Content: Quick Links */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Content: Quick Links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = ' <div class=\'views-field-item views-field-status [status] [timestamp]\'>
-<div class=\'field-publish\'>
-<span class=\'views-field-item field-unpublish-on\'>[unpublish_on] </span>
-<span class=\'views-field-item field-publish-link\'>[publishcontent]</span>
-</div>
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = ' <div class=\'views-field-item views-dispaly-admin-status-links views-field-status [status] [timestamp]\'>
+   <div class=\'field-publish\'>
+     <div class=\'views-field-item views-admin-display-link field-unpublish-on\'>[unpublish_on] </div>
+     <div class=\'views-fields-clear-all\'>&nbsp;</div>
+     <div class=\'views-field-item views-admin-display-link field-publish-link\'>[publishcontent]</div>
+     <div class=\'views-field-item views-admin-display-link field-edit-link\'>[edit_node]</div>
+     <div class=\'views-field-item views-admin-display-link field-clone-link\'>[nid]</div>
+     <div class=\'views-field-item views-admin-display-link  field-link-link\'>[view_node]</div>
+     <div class=\'views-fields-clear-all\'>&nbsp;</div>
+  </div>
 </div>';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
@@ -6653,17 +6659,17 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-  /* Field: Link: Clone */
+  $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
+  /* Field: Node: nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['ui_name'] = 'Link: Clone';
+  $handler->display->display_options['fields']['nid']['ui_name'] = 'Node: nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['nid']['alter']['text'] = 'Clone';
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'node/[nid]/clone';
   $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
@@ -6678,7 +6684,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
   $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
@@ -6921,6 +6927,32 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['field_link']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_link']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_link']['field_api_classes'] = 0;
+  /* Field: Node: Clone Link */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['ui_name'] = 'Node: Clone Link';
+  $handler->display->display_options['fields']['nothing_1']['label'] = '';
+  $handler->display->display_options['fields']['nothing_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = 'CLONE';
+  $handler->display->display_options['fields']['nothing_1']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['nothing_1']['alter']['path'] = 'node/[nid]/clone';
+  $handler->display->display_options['fields']['nothing_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nothing_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nothing_1']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing_1']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nothing_1']['hide_alter_empty'] = 0;
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
@@ -7006,8 +7038,20 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['contextual_links']['fields'] = array(
     'edit_node' => 'edit_node',
-    'nid' => 'nid',
     'delete_node' => 'delete_node',
+    'nid' => 0,
+    'status' => 0,
+    'promote' => 0,
+    'title' => 0,
+    'field_image' => 0,
+    'field_submitter' => 0,
+    'field_area_taxonomy' => 0,
+    'field_email' => 0,
+    'field_link' => 0,
+    'nothing_1' => 0,
+    'body' => 0,
+    'unpublish_on' => 0,
+    'publish_on' => 0,
   );
   $handler->display->display_options['fields']['contextual_links']['destination'] = '1';
   /* Field: Bulk operations: Content */
@@ -7197,17 +7241,21 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['publishcontent']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'Unpublish';
   $handler->display->display_options['fields']['publishcontent']['publish'] = 'Publish';
-  /* Field: Global: Custom text */
+  /* Field: Content: Quick Links */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Content: Quick Links';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'views-field-item admin-display-info-block views-field-status [status] field-promote-status-[promote]\'>
 <div class=\'views-field-bulk-actions\'>[views_bulk_operations]</div>
   <div class=\'field-publish\'>
-    <span class=\'views-field-item field-promote\'>[promote]</span>
-    <span class=\'views-field-item field-unpublish-on\'>[unpublish_on]</span>
-    <span class=\'views-field-item field-publish-link publish-link-status\'>[publishcontent]</span>
+    <div class=\'views-field-item  field-promote\'>[promote]</div>
+    <div class=\'views-field-item  field-unpublish-on\'>[unpublish_on]</div>
+    <div class=\'views-field-item  field-publish-link publish-link-status\'>[publishcontent]</div>
+    <div class=\'views-field-item views-editorial-link field-clone-link\'>[nothing_1]</div>
+    <div class=\'views-field-item views-editorial-link field-edit-link\'>[edit_node]</div>
+    <div class=\'views-fields-clear-all\'>&nbsp;</div>
   </div>
 </div>';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
@@ -7260,6 +7308,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   /* Sort criterion: Content: Published */
   $handler->display->display_options['sorts']['status']['id'] = 'status';
   $handler->display->display_options['sorts']['status']['table'] = 'node';
@@ -7269,6 +7318,7 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['sorts']['unpublish_on']['id'] = 'unpublish_on';
   $handler->display->display_options['sorts']['unpublish_on']['table'] = 'scheduler';
   $handler->display->display_options['sorts']['unpublish_on']['field'] = 'unpublish_on';
+  $handler->display->display_options['sorts']['unpublish_on']['order'] = 'DESC';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';

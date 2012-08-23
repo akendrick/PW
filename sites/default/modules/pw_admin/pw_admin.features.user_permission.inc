@@ -283,6 +283,10 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute views_bulk_operations_argument_selector_action',
     'roles' => array(
       0 => 'administrator',
+      1 => 'classified editor',
+      2 => 'display ad editor',
+      3 => 'editorial editor',
+      4 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
