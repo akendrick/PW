@@ -5470,19 +5470,19 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['contextual_links']['label'] = '';
   $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['contextual_links']['fields'] = array(
-    'nid' => 'nid',
     'edit_node' => 'edit_node',
     'view_node' => 'view_node',
     'delete_node' => 'delete_node',
     'status' => 0,
     'field_display_ad_type' => 0,
-    'field_tags' => 0,
     'field_ad_client' => 0,
     'field_display_ad' => 0,
     'title' => 0,
+    'field_tags' => 0,
     'publish_on' => 0,
     'unpublish_on' => 0,
     'nid_1' => 0,
+    'nid' => 0,
     'publishcontent' => 0,
     'views_bulk_operations' => 0,
   );
@@ -6632,7 +6632,6 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['row_class'] = ' editorial-col field-promote-status-[promote] ';
-  $handler->display->display_options['style_options']['columns'] = '6';
   $handler->display->display_options['style_options']['fill_single_line'] = 1;
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Edit link */
@@ -6802,14 +6801,17 @@ Un-Published: [unpublish_on]<br>';
   $handler->display->display_options['fields']['field_image']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_image']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_image']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_image']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_image']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_image']['element_class'] = 'views-field-editorial-header-image';
   $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_image']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_image']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_image']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_image']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['type'] = 'lightbox2__lightbox__editorial_small__large';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
@@ -6817,7 +6819,11 @@ Un-Published: [unpublish_on]<br>';
     'image_link' => 'file',
   );
   $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
-  $handler->display->display_options['fields']['field_image']['delta_limit'] = 'all';
+  $handler->display->display_options['fields']['field_image']['group_rows'] = 0;
+  $handler->display->display_options['fields']['field_image']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_image']['delta_reversed'] = 0;
+  $handler->display->display_options['fields']['field_image']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_image']['field_api_classes'] = 0;
   /* Field: Content: Submitted by */
   $handler->display->display_options['fields']['field_submitter']['id'] = 'field_submitter';
