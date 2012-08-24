@@ -6604,7 +6604,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '15';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
@@ -7288,6 +7288,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['timestamp']['link_to_node'] = 0;
   $handler->display->display_options['fields']['timestamp']['comments'] = 0;
+  /* Sort criterion: Content: Promoted to front page */
+  $handler->display->display_options['sorts']['promote']['id'] = 'promote';
+  $handler->display->display_options['sorts']['promote']['table'] = 'node';
+  $handler->display->display_options['sorts']['promote']['field'] = 'promote';
+  $handler->display->display_options['sorts']['promote']['order'] = 'DESC';
   /* Sort criterion: Content: Updated date */
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
@@ -7298,11 +7303,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['status']['table'] = 'node';
   $handler->display->display_options['sorts']['status']['field'] = 'status';
   $handler->display->display_options['sorts']['status']['order'] = 'DESC';
-  /* Sort criterion: Scheduler: Unpublish on */
-  $handler->display->display_options['sorts']['unpublish_on']['id'] = 'unpublish_on';
-  $handler->display->display_options['sorts']['unpublish_on']['table'] = 'scheduler';
-  $handler->display->display_options['sorts']['unpublish_on']['field'] = 'unpublish_on';
-  $handler->display->display_options['sorts']['unpublish_on']['order'] = 'DESC';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';

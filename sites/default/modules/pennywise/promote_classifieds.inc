@@ -21,7 +21,6 @@
  */
 function promote_to_classified_ad($nid) {
   //watchdog('Promote', $nid . ' NID');
-  //dpm($nid);
   $submitted = node_load($nid);
 
   $data = array(
@@ -130,7 +129,6 @@ function promote_to_classified_ad($nid) {
     )
   );
 
-  //watchdog('Promote', 'Set Ad Status - Liveload/Reg.');
   // LIVELOAD // by default
   $ad->field_ad_type = array(
     $ad->language => array(
@@ -156,18 +154,17 @@ function promote_to_classified_ad($nid) {
   node_submit($ad);
 
   //watchdog('Promote', 'Node Save --> not yet.');
-  node_save($ad);
+  if (node_save($ad)) {
+    node_delete($nid);
+  }
+  else {
 
+  }
 
-
+  // Redirect to new node Edit page
   $path = 'node/'. $ad->nid . '/edit';
-  //watchdog('Promote', 'Redirect page - ' . $path);
   drupal_goto($path);
-
-  //watchdog('Promote', 'Load Page - ' . $path);
   module_load_include('inc', 'node', 'node.pages');
-
-  //watchdog('Promote', 'Load Node Form Page');
   $edit_ad = node_form($form, $form_state, $ad->nid);
 
   return $edit_ad;

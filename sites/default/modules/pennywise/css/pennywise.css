@@ -436,6 +436,10 @@
   line-height: 0px;
 }
 /*** editorial admin *****/
+.view-id-editorial_administration .col-2,
+.view-id-editorial_administration .col-4 {
+  background-color: #fbfaf9;
+}
 .views-field-editorial-header-image {
   height: 180px;
 }
