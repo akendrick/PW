@@ -12,8 +12,8 @@
  * - Node id to load node for conversion.
  * - Create new `classified_ad` based on data from `ad_s` submission.
  *
- * NOTE: 
- *  This function deletes the database entry from `adp`. 
+ * NOTE:
+ *  This function deletes the database entry from `adp`.
  *  Erasing payment related data.
  *
  * @return
@@ -44,7 +44,7 @@ function promote_to_classified_ad($nid) {
         'filemime' => $submitted->field_image['und'][0]['filemime'],
         'status' => 1,
         'uid' => $submitted->uid,
-      ); 
+      );
     }
 
   //watchdog('Promote', 'Load data from node.');
@@ -56,10 +56,10 @@ function promote_to_classified_ad($nid) {
 
   //watchdog('Promote', 'Prepare node');
   node_object_prepare($ad);
-  
+
   // Attache AD SUBMISSION UID to new NODE
   $ad->uid = $submitted->uid;
- 
+
   $ad->language = 'und';
 
   watchdog('Promote', 'Starting Image Processing.');
@@ -72,18 +72,18 @@ function promote_to_classified_ad($nid) {
     );
   }
 
-  // SCAN AD FOR DATA 
+  // SCAN AD FOR DATA
   // LINK
-  $regex = "/((https?|ftp)\:\/\/)?"; // SCHEME 
-  $regex .= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass 
-  $regex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP 
-  $regex .= "(\:[0-9]{2,5})?"; // Port 
-  $regex .= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path 
-  $regex .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query 
-  $regex .= "(#[a-z_.-][a-z0-9+\$_.-]*)?/"; // Anchor 
+  $regex = "/((https?|ftp)\:\/\/)?"; // SCHEME
+  $regex .= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass
+  $regex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP
+  $regex .= "(\:[0-9]{2,5})?"; // Port
+  $regex .= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path
+  $regex .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query
+  $regex .= "(#[a-z_.-][a-z0-9+\$_.-]*)?/"; // Anchor
 
   preg_match($regex, $ad_copy, $found);
-  
+
   // SET EMAIL FLAG
   $email = strstr($found[0], '@');
 
@@ -101,29 +101,6 @@ function promote_to_classified_ad($nid) {
     );
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
-//  watchdog('Promote', 'Searching for Links (!check_url).');
-//  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $data['safe_copy'], $link);
-//  $link = check_url($link[0]);
-//  $link = $link[0];
-//  if($link){
-//    //drupal_set_message( t('Embedded link detected - @link', array('@link' => $link)));
-//    $ad->field_link = array(
-//      $ad->laguage => array(
-//        0 => array(
-//          'url' => $link,
-//        ),
-//      ),
-//    );
-//  }
-
   // PHONE
   watchdog('Promote', 'Prepping Phone.');
   preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $data['copy'], $phone);
@@ -140,7 +117,7 @@ function promote_to_classified_ad($nid) {
       ),
     );
   }
-  
+
 
   //watchdog('Promote', 'Setting Defaults.');
   $ad->title = $data['title'];
@@ -173,7 +150,7 @@ function promote_to_classified_ad($nid) {
     ),
   );
 
-  
+
   // Proces ad
   //watchdog('Promote', 'Node Submit.');
   node_submit($ad);
@@ -186,108 +163,13 @@ function promote_to_classified_ad($nid) {
   $path = 'node/'. $ad->nid . '/edit';
   //watchdog('Promote', 'Redirect page - ' . $path);
   drupal_goto($path);
-  
+
   //watchdog('Promote', 'Load Page - ' . $path);
   module_load_include('inc', 'node', 'node.pages');
 
   //watchdog('Promote', 'Load Node Form Page');
   $edit_ad = node_form($form, $form_state, $ad->nid);
-  
+
   return $edit_ad;
-  //$ad = node_add('classified');
 
 }
-##  
-##  // SCAN AD FOR DATA 
-##  // LINK
-##  //watchdog('Promote', 'Searching for Links (!check_url).');
-##  preg_match('/([www]{3}([\.|\/][a-zA-Z0-9_?\-=]+)+)/', $data['safe_copy'], $link);
-##  #$link = check_url($link[0]);
-##  $link = $link[0];
-##  if($link){
-##    drupal_set_message( t('Embedded link detected - @link', array('@link' => $link)));
-##    $ad->field_link = array(
-##      $ad->laguage => array(
-##        0 => array(
-##          'url' => $link,
-##        ),
-##      ),
-##    );
-##  }
-##  // PHONE
-##  //watchdog('Promote', 'Preping Phone.');
-##  preg_match('/((\d)?(\s|-)?(\()?(\d){3}(\))?(\s|-){1}(\d){3}(\s|-){1}(\d){4})/', $data['safe_copy'], $phone);
-##  $phone = $phone[0];
-##  if ($phone) {
-##    drupal_set_message( t('Embedded phone number detected - @phone', array('@phone' => $phone)));
-##    $ad->field_phone = array(
-##      $ad->language => array(
-##        0 => array(
-##          'number' => $phone,
-##          'country_codes' => 'ca',
-##          'extension' => '',
-##        ),
-##      ),
-##    );
-##  }
-##  
-##  //watchdog('Promote', 'Set Ad Status - Liveload/Reg.');
-##  // LIVELOAD // by default
-##  $ad->field_ad_type = array(
-##    $ad->language => array(
-##      0 => array(
-##        'value' => 1, // 1 for liveload
-##      ),
-##    ),
-##  );
-##
-##  $ad->field_tags = array(
-##    $ad->language => array(
-##      0 => array(
-##        'tid' => $data['tid'],
-##        'taxonomy_term' => $data['term'],
-##      ),
-##    ),
-##  );
-##  
-##  
-##    // Proces ad
-##//      dpm($ad)
-##//      //watchdog('Promote', 'Node Submit.');
-##//    node_submit($ad);
-##          //watchdog('Promote', 'Node Save.');
-##
-##//    node_save($ad);
-##    
-##    // UPDATE `adp` database with new NID
-##    ## Edit Newly created Classified Ad **
-##    
-##    if (DEBUG) {  
-##      dpm('Submitted');
-##      dpm($submitted);
-##      dpm('Data');
-##      dpm($data);
-##      dpm('NEW AD');
-##      dpm($ad);
-##      dpm($ad->nid);
-##    // Testing Redirect
-##      $options = array(
-##        'query' => 'destination=pwadmin/classified/incoming'
-##      );
-##      $destination = drupal_get_destination();
-##      //?destination=pwadmin/classified/incoming
-##    }    
-## //   $path = 'node/'. $ad->nid . '/edit';
-## //   dpm('NEW PATH: ' . $path);
-## //   drupal_goto($path);
-##    
-##     #module_load_include('inc', 'node', 'node.pages');
-##     #$edit_ad = node_form($form, $form_state, $ad->nid);
-##     
-## //    return $edit_ad;
-##    //$ad = node_add('classified');
-##
-##
-##
-##}
- 
