@@ -19,7 +19,7 @@ function pw_display_user_default_roles() {
   // Exported role: display ad editor.
   $roles['display ad editor'] = array(
     'name' => 'display ad editor',
-    'weight' => '4',
+    'weight' => '7',
   );
 
   return $roles;

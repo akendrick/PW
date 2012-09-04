@@ -73,6 +73,15 @@ function pw_pages_field_default_fields() {
           'type' => 'text_default',
           'weight' => '5',
         ),
+        'editorial_slideshow' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => '85',
+          ),
+          'type' => 'text_trimmed',
+          'weight' => '2',
+        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -189,6 +198,12 @@ function pw_pages_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '12',
         ),
+        'editorial_slideshow' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
+        ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -267,6 +282,12 @@ function pw_pages_field_default_fields() {
           'settings' => array(),
           'type' => 'email_default',
           'weight' => '8',
+        ),
+        'editorial_slideshow' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'simple_teaser' => array(
           'label' => 'above',
@@ -383,6 +404,12 @@ function pw_pages_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '9',
         ),
+        'editorial_slideshow' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
+        ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -489,6 +516,16 @@ function pw_pages_field_default_fields() {
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightbox__editorial_header__original',
+          'weight' => '0',
+        ),
+        'editorial_slideshow' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => 'content',
+            'image_style' => 'editorial_block_list_header',
+          ),
+          'type' => 'image',
           'weight' => '0',
         ),
         'simple_teaser' => array(
@@ -622,6 +659,12 @@ function pw_pages_field_default_fields() {
           'type' => 'lightbox2__lightshow__editorial_small__original',
           'weight' => '3',
         ),
+        'editorial_slideshow' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
+        ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -750,6 +793,12 @@ function pw_pages_field_default_fields() {
           'type' => 'link_default',
           'weight' => '7',
         ),
+        'editorial_slideshow' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '9',
+        ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -851,6 +900,12 @@ function pw_pages_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '11',
+        ),
+        'editorial_slideshow' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '12',
         ),
         'simple_teaser' => array(
           'label' => 'above',

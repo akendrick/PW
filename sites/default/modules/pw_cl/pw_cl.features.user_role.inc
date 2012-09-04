@@ -13,7 +13,7 @@ function pw_cl_user_default_roles() {
   // Exported role: classified editor.
   $roles['classified editor'] = array(
     'name' => 'classified editor',
-    'weight' => '5',
+    'weight' => '6',
   );
 
   // Exported role: submit ad.

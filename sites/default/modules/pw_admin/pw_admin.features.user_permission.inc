@@ -10,17 +10,117 @@
 function pw_admin_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: access contextual links.
+  $permissions['access contextual links'] = array(
+    'name' => 'access contextual links',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'classified editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
+      6 => 'sales',
+    ),
+    'module' => 'contextual',
+  );
+
+  // Exported permission: access dashboard.
+  $permissions['access dashboard'] = array(
+    'name' => 'access dashboard',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'dashboard',
+  );
+
+  // Exported permission: access devel information.
+  $permissions['access devel information'] = array(
+    'name' => 'access devel information',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'devel',
+  );
+
+  // Exported permission: access site-wide contact form.
+  $permissions['access site-wide contact form'] = array(
+    'name' => 'access site-wide contact form',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'classified editor',
+      4 => 'digital edition editor',
+      5 => 'display ad client',
+      6 => 'display ad editor',
+      7 => 'editorial editor',
+      8 => 'page editor',
+      9 => 'sales',
+      10 => 'submit ad',
+    ),
+    'module' => 'contact',
+  );
+
+  // Exported permission: access user contact forms.
+  $permissions['access user contact forms'] = array(
+    'name' => 'access user contact forms',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
+      3 => 'classified editor',
+      4 => 'digital edition editor',
+      5 => 'display ad client',
+      6 => 'display ad editor',
+      7 => 'editorial editor',
+      8 => 'page editor',
+      9 => 'sales',
+      10 => 'submit ad',
+    ),
+    'module' => 'contact',
+  );
+
   // Exported permission: administer add another.
   $permissions['administer add another'] = array(
     'name' => 'administer add another',
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'addanother',
+  );
+
+  // Exported permission: administer aes.
+  $permissions['administer aes'] = array(
+    'name' => 'administer aes',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'aes',
+  );
+
+  // Exported permission: administer contact forms.
+  $permissions['administer contact forms'] = array(
+    'name' => 'administer contact forms',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'page editor',
+    ),
+    'module' => 'contact',
+  );
+
+  // Exported permission: administer delta.
+  $permissions['administer delta'] = array(
+    'name' => 'administer delta',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'delta_ui',
   );
 
   // Exported permission: execute comment_publish_action.
@@ -29,9 +129,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -42,9 +143,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -55,9 +157,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -68,9 +171,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -80,10 +184,6 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute node_assign_owner_action',
     'roles' => array(
       0 => 'administrator',
-      1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -94,9 +194,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -107,9 +208,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -120,9 +222,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -133,9 +236,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -146,9 +250,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -159,9 +264,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -172,9 +278,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -185,9 +292,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -197,9 +305,10 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute pathauto_node_update_action',
     'roles' => array(
       0 => 'administrator',
-      1 => 'display ad editor',
-      2 => 'editorial editor',
-      3 => 'page editor',
+      1 => 'classified editor',
+      2 => 'display ad editor',
+      3 => 'editorial editor',
+      4 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -209,6 +318,10 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute pathauto_taxonomy_term_update_action',
     'roles' => array(
       0 => 'administrator',
+      1 => 'classified editor',
+      2 => 'display ad editor',
+      3 => 'editorial editor',
+      4 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -218,6 +331,15 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute pathauto_user_update_action',
     'roles' => array(),
     'module' => 'actions_permissions',
+  );
+
+  // Exported permission: execute php code.
+  $permissions['execute php code'] = array(
+    'name' => 'execute php code',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: execute realname_action_realname_update.
@@ -284,9 +406,10 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -297,9 +420,11 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
+      6 => 'sales',
     ),
     'module' => 'actions_permissions',
   );
@@ -309,6 +434,11 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute views_bulk_operations_modify_action',
     'roles' => array(
       0 => 'administrator',
+      1 => 'classified editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -331,17 +461,45 @@ function pw_admin_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
+  // Exported permission: grant content access.
+  $permissions['grant content access'] = array(
+    'name' => 'grant content access',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'content_access',
+  );
+
+  // Exported permission: grant own content access.
+  $permissions['grant own content access'] = array(
+    'name' => 'grant own content access',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'content_access',
+  );
+
   // Exported permission: use add another.
   $permissions['use add another'] = array(
     'name' => 'use add another',
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'display ad editor',
-      3 => 'editorial editor',
-      4 => 'page editor',
+      2 => 'digital edition editor',
+      3 => 'display ad editor',
+      4 => 'editorial editor',
+      5 => 'page editor',
     ),
     'module' => 'addanother',
+  );
+
+  // Exported permission: view passwords.
+  $permissions['view passwords'] = array(
+    'name' => 'view passwords',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'aes',
   );
 
   return $permissions;

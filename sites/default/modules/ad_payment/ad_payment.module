@@ -63,7 +63,7 @@ function thankyou_page($temp_id = NULL) {
   }
   else {
     $data = variable_get('ad_submission_' . $temp_id);
-    
+
     if (DEBUG) {
       dpm('Submitted Data');
       dpm($data);
@@ -119,8 +119,8 @@ function thankyou_page($temp_id = NULL) {
               <dd class='receipt-copy'>" . $data['values']['notes'] . "</dd>
             </dl>";
       }
-      $details .= "\t </div>";  
-      
+      $details .= "\t </div>";
+
     $price = "
         <div class='small-receipt receipt-price grid-8 omega'>
           <h4 class='receipt-price-title'>Price</h3>
@@ -178,10 +178,10 @@ function thankyou_page($temp_id = NULL) {
     $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
     $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
     $content .= '</div>';
- 
+
     //variable_del('ad_submission_' . $temp_id);
   }
-  
+
   return $content;
 }
 
@@ -238,7 +238,7 @@ function theme_ap_unified_login_page($variables) {
     'query' => array('destination' => 'ad/submit'),
     'attributes' => array(
       'class' => array(
-        'login-link', 'submit', 'button'), 
+        'login-link', 'submit', 'button'),
         'id' => 'login-link',
       ), // end attributes
     ) // end t()
@@ -269,7 +269,7 @@ function theme_ap_unified_login_page($variables) {
 function ad_payment_ad_submit_form_page() {
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
-  
+
   if (!$ad_submsision) {
       // If Module -- Persistant Dismissable Messages Present
    # if (module_exists('pdm')) {
@@ -304,12 +304,12 @@ function ad_payment_ad_submit_form_page() {
     $register_form = drupal_get_form('user_register_form');
     $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
     $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
-    
+
     if (DEBUG) {
       dpm ('Register_form');
       dpm ($register_form);
     }
-    
+
     $variables = array(
       'login_form'    => $rendered_login_form,
       'register_form' => drupal_render($register_form),
@@ -432,18 +432,18 @@ function ad_payment_mail_send($values) {
 
   $module = 'ad_payment';
   $key = 'backup_ad_notification';
-  
+
   $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
   $from = variable_get('pw_email', 'info@pennywiseads.com');
-  
+
   $params = $values;
-  
+
   $language = language_default();
-  
+
   $send = TRUE;
-  
+
   $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
-  
+
   if ($result['result'] == TRUE) {
     drupal_set_message(t('Your message has been set.'));
   }
@@ -468,16 +468,16 @@ function ad_payment_mail($key, &$message, $params) {
     $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
     $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
     $ad_received .= 'Section: ' . $params['section']. "\n";
-    $ad_received .= 'Area (' . $params['areas'] . ")" . $params['values']['area'] . "\n";
+    $ad_received .= 'Area (' . count($params['areas']) . ")" . $params['values']['area'] . "\n";
     $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
     $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
     $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
     $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
     $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
 /*     $ad_received .= 'Notes: ' . $params['duration'] . "\n"; */
- 
+
     $ad_received .= 'Price: $' . $params['total'] . "\n";
-    
+
 
     $message['body'][] = check_plain($ad_received);
 }
@@ -545,14 +545,14 @@ function _ad_payment_cc_submit($form, &$form_state) {
   //module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   //$submission_vars = ad_payment_price_check($form_state, 'form_state');
 
-  
+
 //  $form_state['redirect'] = 'ad/' . $temp_id . '/thank-you';
-  
+
   //$form_state['redirect'] = array('ad/' . $temp_id . '/thank-you');
-  
+
    //dpm('Redirect = ' . $form_state['redirect']);
- 
-  
+
+
   // // Submit Data to Netidea
   // // Commented Out Until Live test
 
@@ -714,7 +714,7 @@ function _ad_payment_form_price_display($form_state) {
 /**
  * Implementation of HOOK_page
  *
- * TODO 
+ * TODO
  * - Make DB call and get list of Business Rated listings.
  * _ ! Dont' hardcode it!!
  */

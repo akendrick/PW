@@ -57,6 +57,14 @@ function pennywise_init() {
  *  - Default settings pages
  */
 function pennywise_menu() {
+#  $items['admin/pennywise'] = array(
+#    'title' => 'Promote',
+#    'page callback'    => 'pw_dashboard',
+#    'page arguments'   => array(3),
+#    'access arguments' => array('Administer content'),
+#    'file'             => 'dashboard.inc',
+#    'type'             => MENU_CALLBACK,
+#  );
 
   $items['admin/pennywise/promote_ad/%'] = array(
     'title' => 'Promote',
@@ -69,36 +77,36 @@ function pennywise_menu() {
 
   // Settings
   $items['admin/pennywise/settings'] = array(
-    'title' => 'Pennywise Settings',
+    'title'            => 'Pennywise Settings',
     'page callback'    => 'pw_general_settings_page',
-    'access arguments' => array('Administer content'),
+    'access arguments' => array('Classified Ads: Edit any content'),
     'file'             => 'settings_default.inc',
     'type'             => MENU_NORMAL_ITEM,
   );
   $items['admin/pennywise/settings/general'] = array(
-    'title' => 'General Settings',
+    'title'            => 'General Settings',
     'page callback'    => 'pw_general_settings_page',
-    'access arguments' => array('Administer content'),
+    'access arguments' => array('Classified Ads: Edit any content'),
     'file'             => 'settings_default.inc',
     'type'             => MENU_DEFAULT_LOCAL_TASK,
     'weight'           => -10,
   );
   $items['admin/pennywise/settings/holiday'] = array(
-    'title' => 'Holiday Settings',
+    'title'            => 'Holiday Settings',
     'page callback'    => 'pw_holiday_settings_page',
-    'access arguments' => array('Administer content'),
+    'access arguments' => array('Classified Ads: Edit any content'),
     'file'             => 'settings_holiday.inc',
     'type'             => MENU_LOCAL_TASK,
   );
   $items['admin/pennywise/settings/classified'] = array(
-    'title' => 'Classified Settings',
+    'title'            => 'Classified Settings',
     'page callback'    => 'pw_classified_settings_page',
     'access arguments' => array('Classified Ads: Edit any content'),
     'file'             => 'settings.inc',
     'type'             => MENU_LOCAL_TASK,
   );
   $items['admin/pennywise/settings/display'] = array(
-    'title' => 'Display Settings',
+    'title'            => 'Display Settings',
     'page callback'    => 'pw_display_settings_page',
     'access arguments' => array('Display ads: Edit any content'),
     'file'             => 'settings.inc',
@@ -271,7 +279,7 @@ function pennywise_block_configure($delta) {
  */
 function pennywise_block_view($delta = '') {
   global $base_url;
-  
+
   switch($delta) {
     case 'pw_logo':
       $subject    = '';
@@ -341,7 +349,7 @@ function pennywise_block_view($delta = '') {
             $parent = "<a href='$site_path/taxonomy/term/" . $parent->tid . "'>  " . $parent->name . " >> </a>";
         }
         else { $parent = ''; }
-        
+
         $content = "<div id='pw-breadcrumb' >$home $parent $child </div>";
       }
       else {

@@ -745,16 +745,55 @@ ul.pw-classified-nav-list {
 }
 
 /*  Slideshow BLOCK */
-.view-editorial-slideshow  {
+ .view-editorial-slideshow  {
   #views_slideshow_cycle_main_editorial_slideshow-editorial_slideshow_block {
-    width: 340px;
+/*     width: 340px; */
     background-color: @lightsand;
   }
-  .field-item, .even, .odd {
+  .view-header {
+    text-align: center;
+    .border-radius-custom (5px, 5px, 0, 0);
+    background-color: @editorial_dark;
+    a {
+      width: 100%;
+      color: @white;
+      padding: 2px 50px;
+      p { line-height: 1 em; margin: 0;}
+    }
+    a:hover {
+      color: @warning;
+    }
+  }
+  .group-left {
+    width: 140px;
+  }
+  .group-right {
+    width: 195px;
+  }
+  .field field-name-body {
+    height: 120px;
+    overflow: hidden;
+    display: block;
+
+  }
+  .field-name-node-link {
+    text-transform: uppercase;
+    font-size: .9em;
+    display: block;
+    width: 140px;
+  }
+/*  .field-item, .even, .odd {
     background-color: @lightsand;
   }
-  .view-header, .view-footer {
-    p { line-height: 1 em; margin: 0;}
+  .editorial-slideshow-title {
+    h6 {
+      margin: 0;
+      padding: 2px 4px;
+      font-size: 1.2em;
+      line-height: 1.1em;
+      letter-spacing: -0.08em;
+      a { color: @black; }
+    }
   }
   a.editorial-slideshow-link{
     .center;
@@ -764,8 +803,15 @@ ul.pw-classified-nav-list {
     padding: 1px;
     background-color: @editorial_dark;
   }
-  .view-header a{
-    .border-radius-custom (5px, 5px, 0, 0);
+  .view-header, .view-footer {
+  }
+  a.editorial-slideshow-link{
+    .center;
+    margin: 0; padding: 0;
+    text-transform: uppercase;
+    color: @white;
+    padding: 1px;
+    background-color: @editorial_dark;
   }
   .view-footer a {
     .border-radius-custom (0, 0, 5px, 5px);
@@ -783,26 +829,12 @@ ul.pw-classified-nav-list {
       padding: 0 10px 0 0;
     }
   }
-  .field-name-title {
-    h6 {
-      margin: 0;
-      padding: 2px 4px;
-      font-size: 1.2em;
-      line-height: 1.1em;
-      letter-spacing: -0.08em;
-      a { color: @black; }
-    }
-  }
   .field-name-body, .field-type-text-with-summary {
     margin: 0;
     letter-spacing: -0.08em;
     font-size: .9em;
   }
-  .field-name-node-link {
-    text-transform: uppercase;
-    font-size: .9em;
-    a { padding: 5px; }
-  }
+*/
 }
 /************ Main Editorial PAGE */
 .node-article.view-mode-full, .view-editorial-views  {

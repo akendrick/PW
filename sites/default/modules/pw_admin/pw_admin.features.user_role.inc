@@ -13,13 +13,13 @@ function pw_admin_user_default_roles() {
   // Exported role: administrator.
   $roles['administrator'] = array(
     'name' => 'administrator',
-    'weight' => '7',
+    'weight' => '10',
   );
 
   // Exported role: sales.
   $roles['sales'] = array(
     'name' => 'sales',
-    'weight' => '8',
+    'weight' => '4',
   );
 
   return $roles;
