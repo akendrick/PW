@@ -39,7 +39,7 @@ function user_role_field_field_access($op, $field, $obj_type, $object, $account)
     return true;
 
   // If the object type is profile2, we need to load the user owning profile2 object
-  if ($obj_type == 'profile2' && empty($object->uid))
+  if ($obj_type == 'profile2' && !empty($object->uid))
     $object = user_load ($object->uid);
 
   // Ignore the request if roles have not been enabled for this field.

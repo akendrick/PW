@@ -1,5 +1,8 @@
 (function ($) {
-$(document).ready(function() {
+    
+Drupal.behaviors.megamenu = { 
+    attach:function(context) {    
+    
 	var timeout			= Drupal.settings.megamenu.timeout;
 	var sizewait		=  Drupal.settings.megamenu.sizewait;
 	var hoverwait		=  Drupal.settings.megamenu.hoverwait;
@@ -184,5 +187,6 @@ $(document).ready(function() {
 
 	$(window).bind('resize', megamenu_sizer);
 	megamenu_sizetimer();
-});
+}
+}
 })(jQuery);
