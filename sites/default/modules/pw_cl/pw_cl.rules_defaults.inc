@@ -23,7 +23,7 @@ function pw_cl_default_rules_configuration() {
           }
         }
       ],
-      "DO" : [ { "redirect" : { "url" : "submit-ad" } } ]
+      "DO" : []
     }
   }');
   $items['rules_ad_submission_submission_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_submission_redirect" : {

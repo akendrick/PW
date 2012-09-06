@@ -25,7 +25,6 @@ dependencies[] = masquerade
 dependencies[] = media
 dependencies[] = menu
 dependencies[] = options
-dependencies[] = rules
 dependencies[] = scribd_filter
 dependencies[] = taxonomy
 dependencies[] = views
