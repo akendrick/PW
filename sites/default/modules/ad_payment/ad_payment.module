@@ -54,6 +54,10 @@ function ad_payment_menu() {
 *
 */
 function thankyou_page($temp_id = NULL) {
+  global $user;
+  $client = user_load($user->uid);
+  $phone = theme('cck_phone_formatter_local_phone_number', $client->field_phone['und'][0]);
+
   if (!$temp_id) {
     $content .= "<div id='adsubmission-thank-you'>";
     $content .= "<h3 class='thank-you thank-you-header'>There are no submitted ads at this time.</h3>";
@@ -137,6 +141,10 @@ function thankyou_page($temp_id = NULL) {
             <dt class='receipt-price-total'>Total:</dt>
             <dd class='receipt-price-total'>$" . $data['total'] . "</dt>
           </dl>
+          <dl class='receipt-contact-card'>
+            <dt class='receipt-contact-card'>Payment:</dt>
+            <dd class='receipt-contact-card'>" . $data['values']['user']['card-type'] . "</dt>
+          </dl>
         </div>
         </div>
       ";
@@ -144,42 +152,53 @@ function thankyou_page($temp_id = NULL) {
     $contact = "
         <div class='small-receipt receipt-contact grid-8 omega'>
           <h4 class='receipt-contact'>Contact Information</h3>
+          <em>If you wish to edit this information you must first register your account. An email has been sent to your address with the details.</em>
           <div class='small-receipt receipt-contact-inner'>
           <dl class='receipt-contact-name'>
             <dt class='receipt-contact-name'>Name:</dt>
-            <dd class='receipt-contact-name'>" . $data['values']['user']['real-name'] . "</dt>
+            <dd class='receipt-contact-name'>" . $data['values']['user']['real-name']  . "</dt>
           </dl>
           <dl class='receipt-contact-phone'>
             <dt class='receipt-contact-phone'>Phone:</dt>
-            <dd class='receipt-contact-phone'>" . $data['values']['user']['phone'] . "</dt>
+            <dd class='receipt-contact-phone'>" . $phone . "</dt>
           </dl>
           <dl class='receipt-contact-email'>
             <dt class='receipt-contact-email'>Email:</dt>
-            <dd class='receipt-contact-email'>" . $data['values']['user']['email'] . "</dt>
-          </dl>
-          <dl class='receipt-contact-card'>
-            <dt class='receipt-contact-card'>Card type:</dt>
-            <dd class='receipt-contact-card'>" . $data['values']['user']['card-type'] . "</dt>
+            <dd class='receipt-contact-email'>" . $user->mail . "</dt>
           </dl>
         </div>
       </div>
       ";
 
-
     #$receipt = $details . $price . $contact;
-    $receipt = theme('ad_payment_receipt', $ad_id);
+    // theme it here.
+    //$receipt = theme('ad_payment_receipt', $ad_id);
     $content .= "<div id='adsubmission-thank-you'>";
     $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
     $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
     $content .= '<div class="logo"><img src="sites/default/files/pwlogo.gif"></div>';
     $content .= '<p>Please print this page for your receipt.</p>';
     $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
-    $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $receipt . '</div>';
+    $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $details . $price . $contact . $receipt . '</div>';
     $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
     $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
     $content .= '</div>';
 
     //variable_del('ad_submission_' . $temp_id);
+  }
+
+  // Email receipt.
+  $to = $user->mail;
+  $from = variable_get('pw_email', 'k2@pennywiseads.com');
+  $send = TRUE;
+  $language = language_default();
+  $result = drupal_mail('ad_payment', 'receipt', $to, $language, $data, $from, $send);
+
+  if ($result['result'] == TRUE) {
+    drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+  }
+  else {
+    watchdog('Ad Payment', 'Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
   }
 
   return $content;
@@ -418,68 +437,39 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
-* Implementation of hook_mail_send()
-*
-* Custom email to client and Info@pennywiseads.com upon ad submission.
-*
-*/
-
-function ad_payment_mail_send($values) {
-  if (DEBUG) {
-    dpm('MAIL SEND - VALUES');
-    dpm($values);
-  }
-
-  $module = 'ad_payment';
-  $key = 'backup_ad_notification';
-
-  $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
-  $from = variable_get('pw_email', 'info@pennywiseads.com');
-
-  $params = $values;
-
-  $language = language_default();
-
-  $send = TRUE;
-
-  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
-
-  if ($result['result'] == TRUE) {
-    drupal_set_message(t('Your message has been set.'));
-  }
-  else {
-    drupal_set_message(t('There was a problem sending your message.'), 'error');
-  }
-}
-
-/**
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-  if (DEBUG) {
-    dpm('MAIL - PARAMS');
-    dpm($params);
-    dpm('MAIL - MESSAGE');
-    dpm($message);
+  dpm('Call made to ad_payment_mail');
+  dpm('KEY: ' . $key);
+
+  switch($key) {
+    case 'receipt':
+      $message['body'][] = $message;
+      $message['subject'] = 'Pennywise Classified Ad Receipt';
+      dpm('RECEIPT EMAIL: ');
+      break;
+    case 'inhouse':
+      $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
+      $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
+      $ad_received .= 'Section: ' . $params['section']. "\n";
+      $ad_received .= 'Area (' . count($params['areas']) . ")" . $params['values']['area'] . "\n";
+      $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
+      $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
+      $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
+      $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
+      $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
+      $ad_received .= 'Notes: ' . $params['duration'] . "\n";
+
+      $ad_received .= 'Price: $' . $params['total'] . "\n";
+
+      $message['body'][] = 'inhouse backup email test';
+      $message['subject'] = 'Pennywise Ad In House Receipt';
+
+      dpm('INHOUSE EMAIL: ' . $message['body']);
+      break;
   }
 
-    $message['body'][] = 'The following ad was received by PennywiseADS: ';
-
-    $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
-    $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
-    $ad_received .= 'Section: ' . $params['section']. "\n";
-    $ad_received .= 'Area (' . count($params['areas']) . ")" . $params['values']['area'] . "\n";
-    $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
-    $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
-    $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
-    $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
-    $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
-/*     $ad_received .= 'Notes: ' . $params['duration'] . "\n"; */
-
-    $ad_received .= 'Price: $' . $params['total'] . "\n";
-
-
-    $message['body'][] = check_plain($ad_received);
 }
 
 
@@ -626,7 +616,14 @@ function ad_payment_node_insert($node) {
       ))->execute();
 
       // Send Email upon Completion.
-      ad_payment_mail_send($details);
+      $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
+      $from = variable_get('pw_email', 'k2@pennywiseads.com');
+      $send = TRUE;
+      $result = drupal_mail('ad_payment', 'inhouse', $to, language_default(), $details, $from, $send);
+
+      if ($result['result'] != TRUE) {
+        watchdog('Ad Payment', 'Inhouse Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+      }
 
       // Set up on screen receipt.
       variable_set('ad_submission_' . $node->title, $details);

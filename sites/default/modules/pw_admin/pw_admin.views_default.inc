@@ -1595,6 +1595,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['field_promote_value']['field'] = 'field_promote_value';
   $handler->display->display_options['sorts']['field_promote_value']['ui_name'] = 'Ad Type';
   $handler->display->display_options['sorts']['field_promote_value']['order'] = 'DESC';
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['operator'] = 'OR';
   $handler->display->display_options['defaults']['filters'] = FALSE;

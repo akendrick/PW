@@ -9,6 +9,7 @@ dependencies[] = ad_payment
 dependencies[] = context
 dependencies[] = ctools
 dependencies[] = delta
+dependencies[] = menu
 dependencies[] = menu_block
 dependencies[] = pennywise
 dependencies[] = views

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the pw_clients feature.
+ */
+
+include_once 'pw_clients.features.inc';

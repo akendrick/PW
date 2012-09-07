@@ -51,7 +51,6 @@ function promote_to_classified_ad($nid) {
 // Create New Classified Ad
   $ad = new StdClass();
   $ad->type = 'classified';
-  //watchdog('Promote', 'Starting Node.');
 
   //watchdog('Promote', 'Prepare node');
   node_object_prepare($ad);
@@ -61,9 +60,7 @@ function promote_to_classified_ad($nid) {
 
   $ad->language = 'und';
 
-  watchdog('Promote', 'Starting Image Processing.');
   if (array_key_exists('image', $data)) {
-    drupal_set_message( t('Image detected - @image', array('@image' => $data['image']['filename'])));
     $ad->field_image = array(
       $ad->language => array(
         0 => $data['image'],
@@ -154,18 +151,20 @@ function promote_to_classified_ad($nid) {
   node_submit($ad);
 
   //watchdog('Promote', 'Node Save --> not yet.');
-  if (node_save($ad)) {
-    node_delete($nid);
-  }
-  else {
-
-  }
+  node_save($ad);
+  node_delete($nid);
+  watchdog('PW - Promote Ad', 'Created new classified ad ('. $ad->nid . ') from deleted Ad Submission (' . $nid . ') by user: ' . $submitted->uid . '.' );
 
   // Redirect to new node Edit page
   $path = 'node/'. $ad->nid . '/edit';
   drupal_goto($path);
   module_load_include('inc', 'node', 'node.pages');
   $edit_ad = node_form($form, $form_state, $ad->nid);
+
+/*   if (node_save($ad)) { */
+
+/* } */
+
 
   return $edit_ad;
 
