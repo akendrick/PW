@@ -1518,7 +1518,7 @@ function pw_pages_field_default_fields() {
       'settings' => array(
         'custom_add_another' => '',
         'display_summary' => 1,
-        'text_processing' => '0',
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1529,7 +1529,7 @@ function pw_pages_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
