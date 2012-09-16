@@ -3,13 +3,22 @@ description = Provides price calculations, CC# validation, jQuery interactivity 
 package = "Pennywise"
 core = 7.x
 
-files[] = ad_payment.module
 files[] = ad_payment_cc_validate.inc
-files[] = ad_payment_price_check.inc
-files[] = ad_payment_install.inc
 files[] = ad_payment_form.inc
+files[] = ad_payment_mail.inc
+files[] = ad_payment_price_check.inc
+files[] = ad_payment_reciept.inc
+files[] = ad_payment_install.inc
+files[] = ad_payment.module
+
+; Views Files
 files[] = views/ad_payment_views.inc
 files[] = views/ad_payment_handler_aes_decrypt.inc
 files[] = views/views-view-table--classified-ad-administration--incoming-ads.tpl
 
+;CSS Files
+files[] = css/ad_payment.css
+files[] = css/ad_payment.less
+
+;jQuery
 scripts[] = js/price_check.js

@@ -143,33 +143,36 @@
   color: #fff;
   background-color: #fff;
 }
+/************* THEME NEXT/SUBMIT buttons *********/
 #ad-s-node-form {
-  .multipage-controls-list input.form-submit{
-        background-color: @other;
+  .multipage-controls-list {
+    .multipage-button {
+      width: 100%;
+      text-align: right;
+      input.multipage-link-next {
+        float: right;
+        background-color: @other_light;
+        margin: 5px;
+        font-size: 2em;
+      }
+      a.multipage-link-previous {
+        padding: 10px;
+        margin: 10px;
+        background-color: @classified_light;
+      }
+    }
+    #edit-actions {
+      width: 90%;
+      #edit-submit {
+        width: 100%;
+        background-color: @alert;
+      }
+    }
+  }
+  #active-multipage-control {
+    background-color: @other_light;
   }
 }
-
-/*
- #ad-s-node-form {
-   .multipage-controls-list {
-   }
-   .multipage-button {
-     margin: 10px;
-     padding: 20px;
-     .border-radius;
-     background-color: @darksand;
-     .center;
-     .drop-shadow;
-     .multipage-link-previous, .multipage-link-next {
-       margin: 200px;
-       padding: 10px;
-       background-color: @lightsand;
-       color: @darksand;
-       .border-radius;
-     }
-   }
- }
-*/
 
 /************************ THANK-YOU PAGE/RECEIPT **************/
 #ad-submission-receipt {

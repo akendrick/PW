@@ -21,10 +21,31 @@
 *
 *  - Redirect to thank you upon completion.
 *
+* CUSTOM TAXONOMY --> CLASSIFICATION
+* Custom Database Queries
+* - ad_payment_get_business_rated()
+*     caches to variable table `ad_payment_business_rated`
+*     @return
+*       - array of business rated Taxonomy/Classification listings
+* - ad_payment_get_classification_headers()
+*     caches to variable table `ad_payment_classification_headers`
+*     @return
+*       - array of Taxonomy/Classification headers
+* Custom HOOK_TAXONOMY
+*   Deletes variable data: `ad_payment_business_rated` & `ad_payment_classification_headers`
+*
+*
 * @TODO
 * - Live test CC Submit Handler!
 * - Take over or give up and let LoginToboggan take over the login.
 */
+
+// FORM DEBUG
+// Displays Ad Payment Data
+define ('DEBUG_ADP', FALSE);
+define ('DEBUG_FORM', FALSE);
+define ('DEBUG_EMAIL', FALSE);
+define ('DEBUG_PAYMENT', TRUE);
 
 /**
 * Implementation of HOOK_menu
@@ -40,169 +61,15 @@ function ad_payment_menu() {
   $items['ad/%/thank-you'] = array(
     'access callback' => TRUE,
     'title' => 'Your ad has been submitted.',
-    'page callback' => 'thankyou_page',
+    'page callback' => 'thankyou_page2',
     'page arguments' => array(1),
+    'file' => 'ad_payment_receipt.inc',
     'type' => MENU_CALLBACK,
   );
 
   return $items;
 }
 
-
-/**
-* Thank You Page
-*
-*/
-function thankyou_page($temp_id = NULL) {
-  global $user;
-  $client = user_load($user->uid);
-  $phone = theme('cck_phone_formatter_local_phone_number', $client->field_phone['und'][0]);
-
-  if (!$temp_id) {
-    $content .= "<div id='adsubmission-thank-you'>";
-    $content .= "<h3 class='thank-you thank-you-header'>There are no submitted ads at this time.</h3>";
-    $content .= "<p class='thank-you thank-you-body'>.";
-    $content .= '<p>' . l('Submit new classifed ad.', 'ad/submit') . '<p>';
-    $content .= '</div>';
-  }
-  else {
-    $data = variable_get('ad_submission_' . $temp_id);
-
-    if (DEBUG) {
-      dpm('Submitted Data');
-      dpm($data);
-
-      if(isset($data['variables']['image'])){
-        dpm('Image Fid Data');
-        dpm($data['variables']['image']);
-      }
-    }
-
-    // AD Details
-    $details = "
-        <div class='reciept-details grid-8 alpha'>
-          <h3 class='receipt-details-title'>Ad Details</h3>
-          <dl class='receipt-copy'>
-            <dt class='receipt-copy'>Ad:</dt>
-            <dd class='receipt-copy'>" . $data['values']['ad_copy'] . "</dd>
-          </dl>
-          <dl class='receipt-area'>
-            <dt class='receipt-area'>Publication Area:</dt>
-            <dd class='receipt-area'>" . $data['values']['area'] . "</dd>
-          </dl>
-          <dl>
-            <dt class='receipt-classification'>Classification:</dt>
-            <dd class='receipt-copy'>" . $data['rate']['term_name'] . "</dd>
-          </dl>
-          <dl class='receipt-rate'>
-            <dt class='receipt-rate'>Rate:</dt>
-            <dd class='receipt-copy'>" . $data['rate']['rate_name'] . "</dd>
-          </dl>
-          <dl class='receipt-duration'>
-            <dt class='receipt-duration'>Duration:</dt>
-            <dd class='receipt-copy'>" . $data['duration']['actual'] . " weeks</dd>
-          </dl>";
-      if ($data['variables']['ad_type']) {
-        $details .= "
-          <dl class='receipt-liveload'>
-            <dt class='receipt-liveload'>Liveload:</dt>
-            <dd class='receipt-copy'>" . $data['values']['ad_type'] . "</dd>
-          </dl>";
-      }
-      if ($data['variables']['image']) {
-          $details .= "
-            <dl class='receipt-image'>
-              <dt class='receipt-image'>Image:</dt>
-              <dd class='receipt-copy'>Image received (fid: " . $data['values']['image'] . ")</dd>
-            </dl>";
-      }
-      if ($data['variables']['notes']) {
-          $details .= "
-            <dl class='receipt-notes'>
-              <dt class='receipt-notes'>Notes:</dt>
-              <dd class='receipt-copy'>" . $data['values']['notes'] . "</dd>
-            </dl>";
-      }
-      $details .= "\t </div>";
-
-    $price = "
-        <div class='small-receipt receipt-price grid-8 omega'>
-          <h4 class='receipt-price-title'>Price</h3>
-        <div class='small-receipt receipt-price-inner'>
-          <dl class='receipt-price-subtotal'>
-            <dt class='receipt-price-subtotal'>Sub-total:</dt>
-            <dd class='receipt-price-subtotal'>$" . $data['subtotal'] . "</dt>
-          </dl>
-          <dl class='receipt-price-taxes'>
-            <dt class='receipt-price-taxes'>Taxes:</dt>
-            <dd class='receipt-price-taxes'>$" . $data['taxes'] . "</dt>
-          </dl>
-          <dl class='receipt-price-total'>
-            <dt class='receipt-price-total'>Total:</dt>
-            <dd class='receipt-price-total'>$" . $data['total'] . "</dt>
-          </dl>
-          <dl class='receipt-contact-card'>
-            <dt class='receipt-contact-card'>Payment:</dt>
-            <dd class='receipt-contact-card'>" . $data['values']['user']['card-type'] . "</dt>
-          </dl>
-        </div>
-        </div>
-      ";
-
-    $contact = "
-        <div class='small-receipt receipt-contact grid-8 omega'>
-          <h4 class='receipt-contact'>Contact Information</h3>
-          <em>If you wish to edit this information you must first register your account. An email has been sent to your address with the details.</em>
-          <div class='small-receipt receipt-contact-inner'>
-          <dl class='receipt-contact-name'>
-            <dt class='receipt-contact-name'>Name:</dt>
-            <dd class='receipt-contact-name'>" . $data['values']['user']['real-name']  . "</dt>
-          </dl>
-          <dl class='receipt-contact-phone'>
-            <dt class='receipt-contact-phone'>Phone:</dt>
-            <dd class='receipt-contact-phone'>" . $phone . "</dt>
-          </dl>
-          <dl class='receipt-contact-email'>
-            <dt class='receipt-contact-email'>Email:</dt>
-            <dd class='receipt-contact-email'>" . $user->mail . "</dt>
-          </dl>
-        </div>
-      </div>
-      ";
-
-    #$receipt = $details . $price . $contact;
-    // theme it here.
-    //$receipt = theme('ad_payment_receipt', $ad_id);
-    $content .= "<div id='adsubmission-thank-you'>";
-    $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
-    $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
-    $content .= '<div class="logo"><img src="sites/default/files/pwlogo.gif"></div>';
-    $content .= '<p>Please print this page for your receipt.</p>';
-    $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
-    $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $details . $price . $contact . $receipt . '</div>';
-    $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
-    $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
-    $content .= '</div>';
-
-    //variable_del('ad_submission_' . $temp_id);
-  }
-
-  // Email receipt.
-  $to = $user->mail;
-  $from = variable_get('pw_email', 'k2@pennywiseads.com');
-  $send = TRUE;
-  $language = language_default();
-  $result = drupal_mail('ad_payment', 'receipt', $to, $language, $data, $from, $send);
-
-  if ($result['result'] == TRUE) {
-    drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
-  }
-  else {
-    watchdog('Ad Payment', 'Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
-  }
-
-  return $content;
-}
 
 /**
  * Implemenation of hook_theme().
@@ -286,6 +153,7 @@ function theme_ap_unified_login_page($variables) {
 * The login protion is commented out.
 */
 function ad_payment_ad_submit_form_page() {
+
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
 
@@ -324,7 +192,7 @@ function ad_payment_ad_submit_form_page() {
     $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
     $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
 
-    if (DEBUG) {
+    if (DEBUG_ADP || DEBUG_FORM) {
       dpm ('Register_form');
       dpm ($register_form);
     }
@@ -393,6 +261,8 @@ function ad_payment_block_view($delta = '') {
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
+
+
   // Change Save to Submit.
   $form['actions']['save']['#value']  = 'Submit Ad';
 
@@ -418,7 +288,13 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   }
 
-  if (DEBUG) {
+//  // Alter Display of Taxonomy Classification Section
+  $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
+
+  $form['field_tags']['und']['#options'] = $pw_list;
+
+
+  if (DEBUG_ADP || DEBUG_FORM) {
     global $user;
     dpm('USER');
     dpm($user);
@@ -436,47 +312,13 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-/**
-* Implementation of hook_mail
-*/
-function ad_payment_mail($key, &$message, $params) {
-  dpm('Call made to ad_payment_mail');
-  dpm('KEY: ' . $key);
-
-  switch($key) {
-    case 'receipt':
-      $message['body'][] = $message;
-      $message['subject'] = 'Pennywise Classified Ad Receipt';
-      dpm('RECEIPT EMAIL: ');
-      break;
-    case 'inhouse':
-      $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
-      $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
-      $ad_received .= 'Section: ' . $params['section']. "\n";
-      $ad_received .= 'Area (' . count($params['areas']) . ")" . $params['values']['area'] . "\n";
-      $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
-      $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
-      $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
-      $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
-      $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
-      $ad_received .= 'Notes: ' . $params['duration'] . "\n";
-
-      $ad_received .= 'Price: $' . $params['total'] . "\n";
-
-      $message['body'][] = 'inhouse backup email test';
-      $message['subject'] = 'Pennywise Ad In House Receipt';
-
-      dpm('INHOUSE EMAIL: ' . $message['body']);
-      break;
-  }
-
-}
 
 
 /**
 * Custom CC Validation.
 */
 function _ad_payment_cc_validate(&$form, &$form_state) {
+
   // Check CC Data
   module_load_include('inc', 'ad_payment', 'ad_payment_cc_validate');
   _ad_payment_validate_cc_data($form_state);
@@ -484,7 +326,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   // Get Price
   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   $price_total = ad_payment_price_check($form_state, 'form_state');
-  // form_set_value($form['field_price'], $ad_price, &$form_state);
+
   $updated_price = array(
     'und' => array(
       0 => array(
@@ -519,7 +361,7 @@ function _ad_payment_cc_submit($form, &$form_state) {
 //
 //  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
 //
-  if (DEBUG) {
+  if (DEBUG_ADP || DEBUG_FORM) {
     dpm('Submit - FORM ');
     dpm($form);
     dpm('Submit - FORM STATE');
@@ -528,7 +370,7 @@ function _ad_payment_cc_submit($form, &$form_state) {
 
   // Test the Node Form_state
   $temp_id = time();
-  //dpm('Temp ID = ' . $temp_id);
+
   // Store TempID
   //$form_state['values']['field_ad_details']['und'][0]['value'] = $temp_id;
   $form_state['node']->title = 'ads_' . $temp_id;
@@ -587,7 +429,7 @@ function ad_payment_node_insert($node) {
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
     $details = ad_payment_price_check($node, 'node');
 
-    if (DEBUG) {
+    if (DEBUG_ADP || DEBUG_FORM) {
       dpm('Node Insert Data');
       dpm($node);
       dpm('Data for DATABASE');
@@ -596,9 +438,9 @@ function ad_payment_node_insert($node) {
 
     $nid = db_insert('adp')->fields(array(
       'ccid'    => $node->title,
-      //'ccid'    => ($node->field_ccid['und'][0]['value']) ? $node->field_ccid['und'][0]['value'] : rand(),
       'uid'     => $node->uid,
       'nid'     => $node->nid,
+      'card_name' => aes_encrypt($node->field_first_name . ' ' . $node->field_last_name),
       'cc_type' => aes_encrypt(($node->field_card_type == 0) ? 'MasterCard' : 'Visa'),
       'exp_m'   => aes_encrypt($node->field_exp_month),
       'exp_y'   => aes_encrypt($node->field_exp_year),
@@ -618,12 +460,18 @@ function ad_payment_node_insert($node) {
       // Send Email upon Completion.
       $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
       $from = variable_get('pw_email', 'k2@pennywiseads.com');
+      $language = language_default();
       $send = TRUE;
-      $result = drupal_mail('ad_payment', 'inhouse', $to, language_default(), $details, $from, $send);
+      $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
 
-      if ($result['result'] != TRUE) {
-        watchdog('Ad Payment', 'Inhouse Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+      if ($result['result'] == TRUE) {
+        // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
       }
+      else {
+        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+      }
+
+
 
       // Set up on screen receipt.
       variable_set('ad_submission_' . $node->title, $details);
@@ -659,6 +507,9 @@ function ad_payment_node_delete($node) {
 *
 * @return
 *   HTML output for form display.
+*
+* @TODO
+*   Create/register THEME
 */
 function _ad_payment_form_price_display($form_state) {
   $price = $form_state['storage']['price'];
@@ -707,6 +558,89 @@ function _ad_payment_form_price_display($form_state) {
 
 }
 
+/**
+ * Custom Database query.
+ *
+ * Searches Taxonomy -> classification database for Business Rated ads.
+ * @return
+ *  array( TID => TERM Name)
+ */
+function ad_payment_get_business_rated() {
+  $taxonomy_type = 'classification';
+  $business_rated_term = 1;
+  $result = db_query("SELECT * FROM {field_data_field_business_rated} WHERE field_business_rated_value = :rated", array(':rated' => $business_rated_term));
+
+  foreach ($result as $record) {
+    $term = taxonomy_term_load($record->entity_id);
+    $business_rated[$term->tid] = $term->name;
+  }
+
+  variable_set('ad_payment_business_rated', $business_rated);
+
+  return $business_rated;
+}
+
+/**
+ * Custom Database query.
+ *
+ * Searches Taxonomy -> classification database for Business Listing Group Headers.
+ * @return
+ *  array( TID => TERM Name)
+ */
+function ad_payment_get_classification_headers() {
+
+  $result = db_query(
+    "SELECT taxonomy_term_data.name AS taxonomy_term_data_name, taxonomy_term_data.vid AS taxonomy_term_data_vid, taxonomy_term_data.tid AS tid, taxonomy_vocabulary.machine_name AS taxonomy_vocabulary_machine_name
+    FROM {taxonomy_term_data} taxonomy_term_data
+    LEFT JOIN {taxonomy_term_hierarchy} taxonomy_term_hierarchy ON taxonomy_term_data.tid = taxonomy_term_hierarchy.tid
+    LEFT JOIN {taxonomy_term_data} taxonomy_term_data_taxonomy_term_hierarchy ON taxonomy_term_hierarchy.parent = taxonomy_term_data_taxonomy_term_hierarchy.tid
+    LEFT JOIN {taxonomy_vocabulary} taxonomy_vocabulary ON taxonomy_term_data.vid = taxonomy_vocabulary.vid
+    LEFT JOIN {taxonomy_term_hierarchy} taxonomy_term_data_taxonomy_term_hierarchy__taxonomy_term_hierarchy ON taxonomy_term_data_taxonomy_term_hierarchy.tid = taxonomy_term_data_taxonomy_term_hierarchy__taxonomy_term_hierarchy.tid
+    WHERE (( (taxonomy_vocabulary.machine_name IN ('classification')) AND (taxonomy_term_data_taxonomy_term_hierarchy__taxonomy_term_hierarchy.parent IS NULL ) ))
+    ORDER BY taxonomy_term_data_name ASC
+    ");
+
+   foreach ($result as $record) {
+     $headers[$record->tid] = $record->taxonomy_term_data_name;
+   }
+
+  variable_set('ad_payment_classification_headers', $headers);
+
+  return $headers;
+}
+
+
+/**
+* Implementation of HOOK_TAXONOMY
+*/
+function ad_payment_taxonomy($op, $type, $array = array()) {
+  $name = check_plain($array['name']);
+
+  switch ($type) {
+    case 'term':
+      variable_del('ad_payment_business_rated');
+//      variable_del('ad_payment_classification_headers');
+      break;
+  }
+}
+
+/**
+* Cuastom function
+*
+* Returns a nested array of classifieds with header and children.
+*/
+function ad_payment_get_classified_list() {
+
+  $parents = ad_payment_get_classification_headers();
+  foreach ($parents as $tid => $term) {
+    $children = taxonomy_get_children($tid);
+      foreach ($children as $child) {
+        $pw_list[$term][$child->tid] = $child->name;
+      }
+  }
+  return $pw_list;
+}
+
 
 /**
  * Implementation of HOOK_page
@@ -714,32 +648,18 @@ function _ad_payment_form_price_display($form_state) {
  * TODO
  * - Make DB call and get list of Business Rated listings.
  * _ ! Dont' hardcode it!!
+ *
  */
 function ad_payment_init() {
 
   drupal_add_css(drupal_get_path('module', 'ad_payment') . '/css/ad_payment.css', array('type' => 'file'));
 
-  $business_rated = array(
-    7  => 'Firewood',
-    22 => 'Business Opportunities',
-    23 => 'Employment Opportunities',
-    38 => 'Commercial Rentals',
-    39 => 'Rentals',
-    43 => 'Commercial Real Estate',
-    44 => 'Vacation Rentals',
-    49 => 'Contractors/Tradesperson',
-    52 => 'Health/Personal Care',
-    69 => 'Farmers Market',
-  );
-  $headers = array(
-    14 => 1,
-    20 => 23,
-    32 => 34,
-    35 => 36,
-    37 => 47,
-    48 => 50,
-    54 => 57,
-  );
+  // Get Business rated taxonomy sections.
+  $business_rated = variable_get('ad_payment_business_rated', ad_payment_get_business_rated());
+
+  // Get Business rated taxonomy section headers.
+  $headers = variable_get('ad_payment_classification_headers', ad_payment_get_classification_headers());
+
   drupal_add_js(array('adPaymentBiz' => $business_rated), 'setting');
   drupal_add_js(array('adPaymentHead' => $headers), 'setting');
 

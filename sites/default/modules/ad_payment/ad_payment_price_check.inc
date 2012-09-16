@@ -22,7 +22,7 @@
  * Returns the details of the pricing model used to determine the final price.
  *
  * Used for double checking price data.
- * 
+ *
  * @return
  *  Human readable array of ad submission data.
  */
@@ -60,12 +60,19 @@ function _ad_payment_pricing_details($node) {
  *  This function is called from different points in the life of the form.
  *  So different variables need to be consulted at different points.
  *   - FORM_STATE - called during the creation of the node.
- *   - NODE - called after the creation of the node or during the INSERT node function. 
+ *   - NODE - called after the creation of the node or during the INSERT node function.
  *
  * @return
  *  array of form/node values
  */
 function _ad_payment_get_payment_variables($data, $type = NULL){
+  if (DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('Ad Payment - Get Payment Variables');
+    dpm('TYPE');
+    dpm($type);
+    dpm('DATA');
+    dpm($data);
+  }
 
 
   switch ($type) {
@@ -95,6 +102,7 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
       $form_values = array(
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
         'area_default' => $node->field_area['und'][0]['value'],
+        'area_count'   => count($node->field_area['und']),
         'area'    => ad_payment_parse_array($node->field_area['und']),
         'image'   => $node->field_image['und'][0]['fid'],
         'rate'    => $node->field_rate['und'][0]['value'],
@@ -102,6 +110,7 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'ccid'    => $node->field_ad_details['und'][0]['value'],
         'duration'=> $node->field_duration['und'][0]['value'],
         'section_default' => $node->field_tags['und'][0]['tid'],
+        'section_count' => count($node->field_tags['und'][0]['tid']),
         'section' => ad_payment_parse_array($node->field_tage['und']),
         'notes'   => $node->field_notes['und'][0]['value'],
         'user'    => array(
@@ -114,6 +123,11 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
       break;
     default:
       return;
+  }
+  if (DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('Ad Payment - RETURN Variables');
+    dpm('FORM_VALUES');
+    dpm($form_values);
   }
 
   return $form_values;
@@ -142,7 +156,7 @@ function ad_payment_parse_array($array_to_parse = NULL) {
   if (!is_array($array_to_parse)) {
     return $array_to_parse;
   }
-  
+
   foreach ($array_to_parse as $item) {
     if (is_array($item)) {
       foreach ($item as $sub_item) {
@@ -156,6 +170,11 @@ function ad_payment_parse_array($array_to_parse = NULL) {
       $value .= item . ' ';
     }
   }
+
+  if (DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('Number of areas is ' . $value);
+  }
+
   return $value;
 }
 
@@ -163,9 +182,9 @@ function ad_payment_parse_array($array_to_parse = NULL) {
 
 /**
 * Process ad price depending on returned form values.
-* 
+*
 * This function the authoritative source of ad pricing
-* @param $data_type 
+* @param $data_type
 *   Alter the output depending on this variable.
 *   - Possible options:
 *     - form_state -> @return massage data for future use in $form_state and elsewhere.
@@ -186,15 +205,18 @@ function ad_payment_price_check(&$var, $data_type) {
   // Validate Rate
   $rate = ad_payment_validate_rate($storage['values']['section_default'], $storage['values']['rate']);
 
+  // Count Areas
+  $areas = $storage['values']['area_count'];
+
   // Count Sections
-  $areas = count($storage['values']['area']);
-  
+  $sections = $storage['values']['section_count'];
+
   // Validate Duration
   $duration = _ad_payment_set_ad_duration($storage['values']['duration']);
 
   // Word Count
   $count = _ad_payment_word_counter($storage['values']['ad_copy']);
-  
+
   // Options
   $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? 1 : 0;
   $image = ($storage['values']['image']) ? 1 : 0;
@@ -202,16 +224,16 @@ function ad_payment_price_check(&$var, $data_type) {
     'liveload' => $liveload,
     'image' => $image,
   );
-  
+
   // DETERMINE PRICE
   // Base rate + overflow word count
   $base_price = $rate['base_rate'] + ($rate['word_rate'] * $count['over']);
-  
+
   // Adjusted with duration and areas
-  $adj_price = $base_price * $duration['adjusted'] * $areas;
+  $adj_price = $base_price * $duration['adjusted'] * $areas * $sections;
   // If booking all 4 areas get $1 off.
   $discount = ($areas == 4) ?  -2 : 0;
-  
+
   // If optional perks
   $img_price = ($image) ? $rate['image_rate'] : 0;
   $live_price = ($liveload == TRUE) ? $rate['liveload_rate'] : 0;
@@ -220,12 +242,12 @@ function ad_payment_price_check(&$var, $data_type) {
   // Get Taxes
   $tax_rate = .12;
   $taxes    = $sub_total * $tax_rate;
-  
+
   // Total Cost
   $total = $sub_total + $taxes;
   // Round Total
   $total = _ad_payment_dollar_format($total);
-    
+
   // Set Price Variables
   $form_variable_storage = array(
     'values'   => $storage['values'],
@@ -245,21 +267,22 @@ function ad_payment_price_check(&$var, $data_type) {
 
 
   // TEST PRICES
-  if(DEBUG) {
+  if(DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm($form_variable_storage);
     // Base
-    drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over']))); 
+    drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));
     // Adjusted with duration and areas
-    drupal_set_message(t('Adj Price: @adj = $@base * @duration weeks * @sect sections', array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas))); 
+    drupal_set_message(t('Adj Price: @adj = $@base * @duration weeks * @sect sections * @areas areas', array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas, '@areas' => $areas)));
     // All four areas are booked add discount.
     // If optional perks
-    drupal_set_message(t('With Options (if present): @sub = $@adj + $@live (liveload) + $@image (image) + @discount discount', array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount))); 
+    drupal_set_message(t('With Options (if present): @sub = $@adj + $@live (liveload) + $@image (image) + @discount discount', array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount)));
     // Taxes
-    drupal_set_message(t('Taxes: $@tax', array('@tax' => $taxes))); 
+    drupal_set_message(t('Taxes: $@tax', array('@tax' => $taxes)));
     // TOTAL
-    drupal_set_message(t('Total Price: $@total', array('@total' => $total))); 
+    drupal_set_message(t('Total Price: $@total', array('@total' => $total)));
   }
 
-  
+
   // Determine which vales are returned.
   //If form_state save payment data for future reference & return price for immediate use.
   if ($data_type == 'form_state') {
@@ -270,7 +293,7 @@ function ad_payment_price_check(&$var, $data_type) {
   else {
     return $form_variable_storage;
   }
-  
+
 }
 
 /**
@@ -313,7 +336,7 @@ function ad_payment_price_check(&$var, $data_type) {
 //      <dt class='receipt-notes'>Notes:</dt>
 //      <dd class='receipt-copy'>" . $data['variables']['notes'] . "</dd>
 //    </dd>
-//  </div>";  
+//  </div>";
 //
 //return $details . $receipt;
 //}
@@ -332,7 +355,7 @@ function ad_payment_price_check(&$var, $data_type) {
 *
 */
 function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
-  
+
   // Get Section Rating
   if ( $tax_term = taxonomy_term_load($tid) ) {
     $get_rate = array(
@@ -349,12 +372,12 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
            <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
          $error_messege = t('%term is a Business Rated classification.<br>To update your ad:
              <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
-             <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>', 
+             <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>',
              array('%term' => $term_name));
         form_set_error('field_tags', $error_messege);
       }
     }
-  
+
     // Set Prices
     switch($get_rate['term_rate']) {
       case 0: // Personal
@@ -377,9 +400,9 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
         break;
     }
     $rate = array_merge($get_rate, $pricing);
-    
+
     return $rate;
-  }    
+  }
 }
 
 /**
@@ -401,7 +424,7 @@ function _ad_payment_business_rating($storage) {
   else {
     return TRUE;
   }
-  
+
 }
 
 
@@ -415,52 +438,52 @@ function _ad_payment_business_rating($storage) {
 */
 function _ad_payment_set_ad_duration($weeks) {
   if (!$weeks) {
-    watchdog('Ad Payment', 'Unable to set duration. _ad_payment_set_ad_duration() No data to process. _ad_payment_set_ad_duration :: ad_payment_price_check.php LINE 323');  
+    watchdog('Ad Payment', 'Unable to set duration. _ad_payment_set_ad_duration() No data to process. _ad_payment_set_ad_duration :: ad_payment_price_check.php LINE 323');
   }
-  
+
   $duration = array();
-  
+
   switch($weeks) {
-    case 1: 
+    case 1:
       $duration = array(
         'adjusted' => 1,
         'actual'   => 1,
       );
       break;
-    case 2: 
+    case 2:
       $duration = array(
         'adjusted' => 2,
         'actual'   => 3,
       );
       break;
-    case 6: 
+    case 6:
       $duration = array(
         'adjusted' => 4,
         'actual'   => 6,
       );
       break;
-    case 9: 
+    case 9:
       $duration = array(
         'adjusted' => 6,
         'actual'   => 9,
       );
       break;
-    case 12: 
+    case 12:
       $duration = array(
         'adjusted' => 8,
         'actual'   => 12,
       );
       break;
 
-    default: 
+    default:
       $duration = array(
         'adjusted' => 2,
         'actual'   => 3,
       );
       break;
-      
+
   }
-  
+
   return $duration;
 }
 

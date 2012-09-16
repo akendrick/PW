@@ -135,7 +135,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['label'] = '';
-  /* Field: Field: First Name */
+  /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
@@ -1166,19 +1166,18 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['ccid']['table'] = 'adp';
   $handler->display->display_options['fields']['ccid']['field'] = 'ccid';
   $handler->display->display_options['fields']['ccid']['ui_name'] = 'Link: Netidea (External)';
-  $handler->display->display_options['fields']['ccid']['label'] = 'LINK';
+  $handler->display->display_options['fields']['ccid']['label'] = '';
   $handler->display->display_options['fields']['ccid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['ccid']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['ccid']['alter']['text'] = 'Link to Netidea';
-  $handler->display->display_options['fields']['ccid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['ccid']['alter']['path'] = 'https://www.pennywiseads.com/admin/orders.php?action=view&id=[ccid]';
   $handler->display->display_options['fields']['ccid']['alter']['target'] = '_blank';
+  $handler->display->display_options['fields']['ccid']['element_label_colon'] = FALSE;
   /* Field: Link: Promote */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['ui_name'] = 'Link: Promote';
-  $handler->display->display_options['fields']['nid']['label'] = 'PROMOTE';
+  $handler->display->display_options['fields']['nid']['label'] = 'PUBLISH';
   $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
   $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
@@ -1309,6 +1308,22 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
+  /* Field: Ad Payment: CCID. */
+  $handler->display->display_options['fields']['ccid_1']['id'] = 'ccid_1';
+  $handler->display->display_options['fields']['ccid_1']['table'] = 'adp';
+  $handler->display->display_options['fields']['ccid_1']['field'] = 'ccid';
+  $handler->display->display_options['fields']['ccid_1']['label'] = '';
+  $handler->display->display_options['fields']['ccid_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['ccid_1']['element_label_colon'] = FALSE;
+  /* Field: Ad Payment: Card Name */
+  $handler->display->display_options['fields']['card_name']['id'] = 'card_name';
+  $handler->display->display_options['fields']['card_name']['table'] = 'adp';
+  $handler->display->display_options['fields']['card_name']['field'] = 'card_name';
+  $handler->display->display_options['fields']['card_name']['label'] = '';
+  $handler->display->display_options['fields']['card_name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['card_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['card_name']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['card_name']['decrypt_aes'] = 1;
   /* Field: Ad Payment: CC Type */
   $handler->display->display_options['fields']['cc_type_1']['id'] = 'cc_type_1';
   $handler->display->display_options['fields']['cc_type_1']['table'] = 'adp';
@@ -1340,6 +1355,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['areas']['table'] = 'adp';
   $handler->display->display_options['fields']['areas']['field'] = 'areas';
   $handler->display->display_options['fields']['areas']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['areas']['separator'] = '';
   /* Field: Ad Payment: Word Count */
   $handler->display->display_options['fields']['word_count']['id'] = 'word_count';
   $handler->display->display_options['fields']['word_count']['table'] = 'adp';
@@ -1379,7 +1395,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['price_total']['table'] = 'adp';
   $handler->display->display_options['fields']['price_total']['field'] = 'price_total';
   $handler->display->display_options['fields']['price_total']['exclude'] = TRUE;
-  /* Field: Field: First Name */
+  /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
@@ -1427,21 +1443,26 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing_3']['label'] = 'Client Data';
   $handler->display->display_options['fields']['nothing_3']['alter']['text'] = '<div class=\'client-data\'>
 <dl class=\'client-data client-name\'>
-<dt>Name:</dt><dd> [field_first_name] [field_last_name] </dd></dl>
-<dl class=\'client-data client-id\'>
-<dt>Short Name:</dt><dd> [name]</dd></dl>
+<dt>Name:</dt><dd> [field_first_name] [field_last_name]</dd></dl>
 <dl class=\'client-data client-email\'>
 <dt>Email:</dt><dd>[mail]</dd></dl>
 <dl class=\'client-data client-phone\'>
-<dt>Phone:</dt></dd> [field_phone]</dd></dl>
-</div>';
+<dt>Phone:</dt><dd> [field_phone]</dd></dl>
+<dt>Mailing Address:</dt>
+<dd></dd></dl>
+</div>
+';
   /* Field: GLOBAL: Payment Details */
   $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
   $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
   $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'GLOBAL: Payment Details';
   $handler->display->display_options['fields']['nothing_2']['label'] = 'Payment';
-  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<table class=\'details-price\'>
+  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<strong class=\'details-recipt-number\'>Receipt #[ccid]</strong>
+<dl><dt>Name as is appears on the card:</dt>
+<dd> [card_name]</dd>
+
+<table class=\'details-price\'>
 <tr class=\'details-price details-price-subtotal\'>
   <td><strong>Subtotal:</strong></td> 
   <td>$[price_subtotal]</td></tr>
@@ -3006,7 +3027,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'adp';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Field: First Name */
+  /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';

@@ -8,7 +8,7 @@
 function ad_payment_views_data() {
   // AD PAYMENT TABLE
   $data['adp']['table']['group'] = t('Ad Payment');
-  
+
   // Linking to other tables.
   $data['adp']['table']['join']['node'] = array(
     'left_field' => 'nid',
@@ -161,6 +161,20 @@ function ad_payment_views_data() {
     ),
   );
 
+  //NAME
+  $data['adp']['card_name'] = array(
+    'title' => t('Card Name'),
+    'help' => t('Name as it appears on the card.'),
+    'field' => array(
+      'handler' => 'ad_payment_handler_aes_decrypt',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+
   //CARD
   $data['adp']['cc_type'] = array(
     'title' => t('CC Type'),
@@ -186,7 +200,7 @@ function ad_payment_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  
+
 
   //Exp MONTH
   $data['adp']['exp_m'] = array(
@@ -200,7 +214,7 @@ function ad_payment_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  
+
   //Exp YEAR
   $data['adp']['exp_y'] = array(
     'title' => t('Expiry Year'),
@@ -213,7 +227,7 @@ function ad_payment_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  
+
   // UID
   // copied on Node - UID field
   $data['adp']['uid'] = array(
@@ -288,10 +302,10 @@ function ad_payment_views_data() {
       'handler' => 'views_handler_filter_date',
     ),
   );
- 
+
   //END
   // AD PAYMENT TABLE
 
-  
+
   return $data;
 }
