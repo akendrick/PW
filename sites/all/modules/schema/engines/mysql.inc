@@ -1,5 +1,4 @@
 <?php
-// $Id: mysql.inc,v 1.1.2.3 2010/02/25 04:08:19 mikeryan Exp $
 
 /**
  * @file

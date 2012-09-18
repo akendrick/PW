@@ -1,5 +1,4 @@
 <?php
-// $Id: schema_regression.test,v 1.1.2.1.2.2 2010/02/25 04:08:19 mikeryan Exp $
 /**
  * @file
  * Regression tests for the Schema module
@@ -7,11 +6,11 @@
  */
 
 class SchemaRegressionTest extends DrupalWebTestCase {
-  function getInfo() {
+  public static function getInfo() {
     return array(
-      'name' => t('Schema Regression Tests'),
-      'description' => t('Schema Regression Tests'),
-      'group' => t('Schema'),
+      'name' => 'Schema Regression Tests',
+      'description' => 'Schema Regression Tests',
+      'group' => 'Schema',
     );
   }
 

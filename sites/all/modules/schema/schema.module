@@ -1,5 +1,4 @@
 <?php
-// $Id: schema.module,v 1.43.2.9.2.10 2010/03/20 22:26:53 mikeryan Exp $
 
 /**
  * @file
@@ -162,6 +161,14 @@ function schema_unprefix_table($name) {
   }
   elseif (!empty($db_prefix) && preg_match('@^' . $db_prefix . '(.*)@', $name, $m)) {
       return $m[1];
+  }
+  elseif (empty($_db_prefix)) {
+    $info = Database::getConnectionInfo($connection = 'default'); // FIXME: obtain the correct connection
+    $_db_prefix = empty($info['default']['prefix'])
+      ? ''
+      : reset($info['default']['prefix']);
+    $db_prefix = $_db_prefix;
+    $name = drupal_substr($name, drupal_strlen($_db_prefix));
   }
   return $name;
 }
@@ -611,16 +618,17 @@ function schema_compare() {
   // The info array is keyed by state (same/different/missing/extra/warn). For missing,
   // the value is a simple array of table names. For warn, it is a simple array of warnings.
   // Get those out of the way first
-  $warnings = $info['warn'];
-  foreach ($warnings as $message) {
-    drupal_set_message($message, 'warning');
+  if (isset($info['warn'])) {
+    foreach ($info['warn'] as $message) {
+      drupal_set_message($message, 'warning');
+    }
+    unset($info['warn']);
   }
-  unset($info['warn']);
 
   $form['extra'] = array(
     '#type' => 'fieldset',
     '#title' => t('Extra (@count)',
-        array('@count' => count($info['extra']))),
+        array('@count' => isset($info['extra']) ? count($info['extra']) : 0)),
     '#description' => t('Tables in the database that are not present in the schema.  This
         indicates previously installed modules that are disabled but not un-installed or
         modules that do not use the Schema API.'),
@@ -630,7 +638,7 @@ function schema_compare() {
   );
   $form['extra']['tablelist'] = array(
     '#theme' => 'item_list',
-    '#items' => $info['extra'],
+    '#items' => isset($info['extra']) ? $info['extra'] : array(),
   );
   unset($info['extra']);
 
@@ -653,7 +661,7 @@ function schema_compare() {
       $counts[$state] += count($tables);
       $form[$state][$module] = array(
         '#type' => 'fieldset',
-        '#title' => t($module),
+        '#title' => $module,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );

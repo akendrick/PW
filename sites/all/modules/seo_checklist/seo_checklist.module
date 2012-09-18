@@ -1,0 +1,650 @@
+<?php
+
+/**
+ * @file
+ * Track important SEO techniques on the website.
+ */
+
+/**
+ * Checks whether the Volacci footer link is enabled.
+ *
+ * @return bool
+ *   Returns TRUE if the footer link is enabled or FALSE if not.
+ */
+function _seo_checklist_volacci_link_is_enabled() {
+  $link_is_enabled = &drupal_static(__FUNCTION__);
+  if (!isset($link_is_enabled)) {
+    $saved_progress = variable_get('checklistapi_checklist_seo_checklist', array());
+    $link_is_enabled = !empty($saved_progress['link_to_volacci']);
+  }
+  return $link_is_enabled;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function seo_checklist_form_checklistapi_checklist_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#checklist']->id == 'seo_checklist') {
+    $form['checklistapi']['#attached']['js'][] = drupal_get_path('module', 'seo_checklist') . '/seo_checklist.js';
+    $form['checklistapi']['#attached']['css'][] = drupal_get_path('module', 'seo_checklist') . '/seo_checklist.css';
+  }
+}
+
+/**
+ * Implements hook_checklistapi_checklist_info().
+ */
+function seo_checklist_checklistapi_checklist_info() {
+  $modules_page = array('#text' => t('Enable'), '#path' => 'admin/modules');
+
+  $definitions = array();
+  $definitions['seo_checklist'] = array(
+    '#title' => t('SEO checklist'),
+    '#description' => t('Keep track of your Drupal Search Engine Optimization tasks.'),
+    '#path' => 'admin/config/search/seo-checklist',
+    '#help' => t("<p>Check off each SEO-related task as you complete it. Don't forget to click the <em>Save</em> button!</p>"),
+
+    // Introduction.
+    'introduction' => array(
+      '#title' => t('Introduction'),
+      '#description' => theme('seo_checklist_intro_tab'),
+    ),
+
+    // Tools.
+    'tools' => array(
+      '#title' => t('Tools'),
+      '#description' => t('<p>While not strictly necessary for SEO, these modules will accelerate your work.</p>'),
+      'install_admin_menu' => array(
+        '#title' => t('Install Administration menu module.'),
+        '#default_value' => module_exists('admin_menu'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/admin_menu',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_elements' => array(
+        '#title' => t('Install Elements module.'),
+        '#default_value' => module_exists('elements'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/elements',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_security_review' => array(
+        '#title' => t('Install Security Review module.'),
+        '#default_value' => module_exists('security_review'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/security_review',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_module_filter' => array(
+        '#title' => t('Install Module Filter module.'),
+        '#default_value' => module_exists('module_filter'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/module_filter',
+        ),
+        'modules_page' => $modules_page,
+      ),
+    ),
+
+    // Page titles.
+    'page_titles' => array(
+      '#title' => t('Page titles'),
+      '#description' => t('<p>The single most important thing you can do for on-site SEO.</p>'),
+      'install_page_title' => array(
+        '#title' => t('Install Page Title module.'),
+        '#default_value' => module_exists('page_title'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/page_title',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_page_title' => array(
+        '#title' => t('Configure Page Title module.'),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/search/page-title',
+        ),
+      ),
+    ),
+
+    // URL paths.
+    'url_paths' => array(
+      '#title' => t('URL paths'),
+      '#description' => t('<p>The second most important thing you can do.</p>'),
+      'enable_clean_urls' => array(
+        '#title' => t('Enable clean URLs.'),
+        '#default_value' => variable_get('clean_url', 0),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/search/clean-urls',
+        ),
+        'more_info' => array(
+          '#text' => t('More info'),
+          '#path' => 'http://drupal.org/getting-started/clean-urls',
+        ),
+      ),
+      'install_pathauto' => array(
+        '#title' => t('Install Pathauto module.'),
+        '#default_value' => module_exists('pathauto'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/pathauto',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_pathauto' => array(
+        '#title' => t('Configure Pathauto module.'),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/search/path/patterns',
+        ),
+      ),
+      'install_globalredirect' => array(
+        '#title' => t('Install Global Redirect module.'),
+        '#default_value' => module_exists('globalredirect'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/globalredirect',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_redirect' => array(
+        '#title' => t('Install Redirect module.'),
+        '#default_value' => module_exists('redirect'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/redirect',
+        ),
+        'modules_page' => $modules_page,
+      ),
+    ),
+
+    // Create search engine accounts.
+    'search_engine_accounts' => array(
+      '#title' => t('Create search engine accounts'),
+      '#description' => t("<p>Set yourself up with the search engines. You'll need these accounts for later steps.</p>"),
+      'get_google_account' => array(
+        '#title' => t('Get a Google account.'),
+        'create_account' => array(
+          '#text' => t('Create account'),
+          '#path' => 'https://www.google.com/accounts/NewAccount',
+        ),
+      ),
+      'get_windows_live_id' => array(
+        '#title' => t('Get a Windows Live ID.'),
+        'create_account' => array(
+          '#text' => t('Create account'),
+          '#path' => 'https://signup.live.com/',
+        ),
+      ),
+    ),
+
+    // Track your visitors.
+    'track_visitors' => array(
+      '#title' => t('Track your visitors'),
+      '#description' => t('<p>Know where your visitors are coming from and what they do while visiting your site.</p>'),
+      'install_google_analytics' => array(
+        '#title' => t('Install Google Analytics module.'),
+        '#default_value' => module_exists('googleanalytics'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/google_analytics',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'create_google_analytics_analytics' => array(
+        '#title' => t('Sign in to your Google Analytics account and create an Analytics for your website.'),
+        '#default_value' => $googleanalytics_account = (bool) variable_get('googleanalytics_account', 0),
+        'web_site' => array(
+          '#text' => t('Google Analytics'),
+          '#path' => 'http://www.google.com/analytics',
+        ),
+      ),
+      'input_google_analytics_code' => array(
+        '#title' => t('Copy and paste your new Google Analytics code into the Google Analytics module.'),
+        '#default_value' => $googleanalytics_account = (bool) variable_get('googleanalytics_account', 0),
+        'project_page' => array(
+          '#text' => t('Module settings'),
+          '#path' => 'admin/config/system/googleanalytics',
+        ),
+      ),
+      'authenticate_with_google_analytics' => array(
+        '#title' => t('Authenticate your site with Google Analytics.'),
+        'web_site' => array(
+          '#text' => t('Google Analytics'),
+          '#path' => 'http://www.google.com/analytics',
+        ),
+      ),
+      'install_ga_tokenizer' => array(
+        '#title' => t('Install Google Analytics Tokenizer module.'),
+        '#default_value' => module_exists('ga_tokenizer'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/ga_tokenizer',
+        ),
+      ),
+      'install_contact_google_analytics' => array(
+        '#title' => t('Install Google Analytics Contact Form, Webform, Rules Email module.'),
+        '#default_value' => module_exists('contact_google_analytics'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/contact_google_analytics',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_contact_google_analytics' => array(
+        '#title' => t('Configure Google Analytics Contact Form, Webform, Rules Email module.'),
+        '#default_value' => variable_get('contact_google_analytics_allowed_recipients', 'all') != 'all',
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/contact-google-analytics',
+        ),
+      ),
+      'install_context_keywords' => array(
+        '#title' => t('Install Context Keywords module.'),
+        '#default_value' => module_exists('context_keywords'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/context_keywords',
+        ),
+      ),
+    ),
+
+    // Page content.
+    'page_content' => array(
+      '#title' => t('Page content'),
+      '#description' => t('<p>Take control of your page content.</p>'),
+      'install_metatag' => array(
+        '#title' => t('Install Meta tags module.'),
+        '#default_value' => module_exists('metatag'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/metatag',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_metatag' => array(
+        '#title' => t('Configure Meta tags module.'),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/search/metatags',
+        ),
+      ),
+      'install_metatags_quick' => array(
+        '#title' => t('Install Meta tags quick module.'),
+        '#default_value' => module_exists('metatags_quick'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/metatags_quick',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_metatags_quick' => array(
+        '#title' => t('Configure Meta tags quick module.'),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/search/metatags_quick',
+        ),
+      ),
+      'install_scheduler' => array(
+        '#title' => t('Install Scheduler module.'),
+        '#default_value' => module_exists('scheduler'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/scheduler',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_htmlpurifier' => array(
+        '#title' => t('Install HTML Purifier module.'),
+        '#description' => t('Follow the README!'),
+        '#default_value' => module_exists('htmlpurifier'),
+        'readme' => array(
+          '#text' => t('README.txt'),
+          '#path' => 'http://drupalcode.org/project/htmlpurifier.git/blob/refs/heads/7.x-1.x:/INSTALL.txt',
+        ),
+        'project_page' => array(
+          '#text' => t('Download module'),
+          '#path' => 'http://drupal.org/project/htmlpurifier',
+        ),
+        'library_page' => array(
+          '#text' => t('Download library'),
+          '#path' => 'http://htmlpurifier.org/download',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_search404' => array(
+        '#title' => t('Install Search 404 module.'),
+        '#default_value' => module_exists('search404'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/search404',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_seo_checker' => array(
+        '#title' => t('Install SEO Compliance Checker module.'),
+        '#default_value' => module_exists('seo_checker'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/seo_checker',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_read_more' => array(
+        '#title' => t('Install Read More Link module.'),
+        '#default_value' => module_exists('read_more'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/read_more',
+        ),
+        'modules_page' => $modules_page,
+      ),
+    ),
+
+    // Clean code.
+    'clean_code' => array(
+      '#title' => t('Clean code'),
+      '#description' => t('<p>Well written markup is very important to the search engine spiders.</p>'),
+      'validate_html' => array(
+        '#title' => t('Validate your markup.'),
+        'w3c_validator' => array(
+          '#text' => t('W3C Markup Validation Service'),
+          '#path' => 'http://validator.w3.org/',
+        ),
+      ),
+      'check_links' => array(
+        '#title' => t('Check for broken links.'),
+        'w3c_link_checker' => array(
+          '#text' => t('W3C Link Checker'),
+          '#path' => 'http://validator.w3.org/checklink',
+        ),
+      ),
+    ),
+
+    // Submit your site to the search engines.
+    'submit_to_search_engines' => array(
+      '#title' => t('Submit your site to the search engines'),
+      '#description' => t("<p>Now that you've got your site ready for the search engines, tell them about it!</p>"),
+      'install_site_verify' => array(
+        '#title' => t('Install Site verification module.'),
+        '#default_value' => module_exists('site_verify'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/site_verify',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'add_verifications' => array(
+        '#title' => t('Add verifications.'),
+        'config_page' => array(
+          '#text' => t('Verifications'),
+          '#path' => 'admin/config/search/verifications',
+        ),
+      ),
+      'install_xmlsitemap' => array(
+        '#title' => t('Install XML Sitemap module.'),
+        '#default_value' => module_exists('xmlsitemap'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/xmlsitemap',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_site_map' => array(
+        '#title' => t('Install Site map module.'),
+        '#default_value' => module_exists('site_map'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/site_map',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'authenticate_with_google' => array(
+        '#title' => t('Authenticate with Google.'),
+        'webmaster_tools' => array(
+          '#text' => t('Webmaster Tools'),
+          '#path' => 'http://www.google.com/webmasters/tools',
+        ),
+      ),
+      'submit_xml_sitemap_to_google' => array(
+        '#title' => t('Submit your XML sitemap to Google.'),
+        'webmaster_tools' => array(
+          '#text' => t('Webmaster Tools'),
+          '#path' => 'http://www.google.com/webmasters/tools',
+        ),
+        'help_page' => array(
+          '#text' => t('Help page'),
+          '#path' => 'http://support.google.com/webmasters/bin/answer.py?hl=en&answer=183669&topic=8476&ctx=topic',
+        ),
+      ),
+      'authenticate_with_bing' => array(
+        '#title' => t('Authenticate with Bing.'),
+        'webmaster_tools' => array(
+          '#text' => t('Webmaster Tools'),
+          '#path' => 'http://www.bing.com/webmaster/',
+        ),
+      ),
+      'submit_xml_sitemap_to_bing' => array(
+        '#title' => t('Submit your XML sitemap to Bing.'),
+        'webmaster_tools' => array(
+          '#text' => t('Submission page'),
+          '#path' => 'http://www.bing.com/webmaster/submitsitepage.aspx',
+        ),
+      ),
+      'add_to_google_places' => array(
+        '#title' => t('Add your business to Google Places, if appropriate.'),
+        'google_places' => array(
+          '#text' => t('Google Places'),
+          '#path' => 'http://www.google.com/local/add/',
+        ),
+      ),
+    ),
+
+    // Social media.
+    'social_media' => array(
+      '#title' => t('Social media'),
+      '#description' => t('<p>Using Social news sites, blogs, etc? Consider these:</p>'),
+      'install_addthis' => array(
+        '#title' => t('Install AddThis module.'),
+        '#default_value' => module_exists('addthis'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/addthis',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_service_links' => array(
+        '#title' => t('Install Service links module.'),
+        '#default_value' => module_exists('service_links'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/service_links',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_addtoany' => array(
+        '#title' => t('Install Share Buttons (AddToAny) module.'),
+        '#default_value' => module_exists('addtoany'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/addtoany',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_fb_social' => array(
+        '#title' => t('Install Facebook social plugins integration module.'),
+        '#default_value' => module_exists('fb_social'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/fb_social',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'install_follow' => array(
+        '#title' => t('Install Follow module.'),
+        '#default_value' => module_exists('follow'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/follow',
+        ),
+        'modules_page' => $modules_page,
+      ),
+    ),
+
+    // Use Mollom to prevent spam.
+    'prevent_spam' => array(
+      '#title' => t('Use Mollom to prevent spam'),
+      '#description' => t('<p>If your site will get heavy use from visitors creating accounts, commenting and/or creating content then use Mollom. If, for some reason, Mollom does not work for you, consider the <a href="http://drupal.org/project/captcha">CAPTCHA</a> or <a href="http://drupal.org/project/antispam">AntiSpam</a> modules.</p>'),
+      'sign_up_for_mollom_account' => array(
+        '#title' => t('Sign up for a free mollom account.'),
+        'register_page' => array(
+          '#text' => t('Create account'),
+          '#path' => 'http://mollom.com/user/register',
+        ),
+      ),
+      'install_mollom' => array(
+        '#title' => t('Install Mollom module.'),
+        '#default_value' => module_exists('mollom'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/mollom',
+        ),
+        'modules_page' => $modules_page,
+      ),
+      'configure_mollom_api_keys' => array(
+        '#title' => t('Configure Mollom API keys.'),
+        '#default_value' => variable_get('mollom_public_key', '') && variable_get('mollom_private_key', ''),
+        'config_page' => array(
+          '#text' => t('Configure'),
+          '#path' => 'admin/config/content/mollom/settings',
+        ),
+      ),
+    ),
+
+    // Geographic.
+    'geographic' => array(
+      '#title' => t('Geographic'),
+      'add_geo_meta_tags' => array(
+        '#title' => t('Add geo meta tags with the Meta Tags module.'),
+      ),
+    ),
+
+    // Performance.
+    'performance' => array(
+      '#title' => t('Performance'),
+      'enable_drupal_caching' => array(
+        '#title' => t("Turn on Drupal's built-in caching."),
+        '#default_value' => variable_get('cache', FALSE) && variable_get('block_cache', FALSE),
+        'config_page' => array(
+          '#text' => t('Performance page'),
+          '#path' => 'admin/config/development/performance',
+        ),
+      ),
+      'install_boost' => array(
+        '#title' => t('Install Boost module.'),
+        '#default_value' => module_exists('boost'),
+        'project_page' => array(
+          '#text' => t('Download'),
+          '#path' => 'http://drupal.org/project/boost',
+        ),
+        'modules_page' => $modules_page,
+        'more_info' => array(
+          '#text' => t('More info'),
+          '#path' => 'http://drupal.org/node/1434362',
+        ),
+      ),
+    ),
+
+    // Extras.
+    'extras' => array(
+      '#title' => t('Extras'),
+      'download_internet_marketing_whitepapers' => array(
+        '#title' => t('Download <a href="http://www.volacci.com/resources/whitepapers">free internet marketing whitepapers</a> from Volacci.'),
+      ),
+      'link_to_volacci' => array(
+        '#title' => t('Link to <a href="http://www.volacci.com/">Volacci</a> to thank them for this awesome module.'),
+        '#description' => t('Checking this item will cause a small link to appear at the very bottom of your website. You can disable it at any time by un-checking this box. We really appreciate it!'),
+      ),
+      'send_feedback' => array(
+        '#title' => t("Send feedback on the Drupal 7 SEO Checklist or just say <em>Thanks!</em>, and we'll link to your web site from volacci.com."),
+        '#description' => t("Remember to include your link information in your email. If you don't know why you should link with other websites, read <a href=\"http://www.volacci.com/why-links-help-seo\">Why links help SEO</a>."),
+        'email_link' => array(
+          '#text' => t('seochecklist@volacci.com'),
+          '#path' => 'mailto:seochecklist@volacci.com',
+        ),
+      ),
+      'listen_to_volacci_podcast' => array(
+        '#title' => t('Listen to the <a href="http://www.volacci.com/podcast">Volacci Drupal SEO Podcast</a> for more tips and tricks about Drupal SEO. '),
+      ),
+      'read_drupal_6_seo_book' => array(
+        '#title' => t('Read Drupal 6 Search Engine Optimization by Ben Finklea.'),
+        'buy_from_amazon' => array(
+          '#text' => t('Buy from Amazon'),
+          '#path' => 'http://www.amazon.com/gp/product/1847198228?ie=UTF8&tag=dvdcentral02&linkCode=as2&camp=1789&creative=390957&creativeASIN=1847198228',
+        ),
+        'buy_from_packt' => array(
+          '#text' => t('Buy from Packt'),
+          '#path' => 'https://www.packtpub.com/drupal-6-search-engine-optimization-seo/book?mid/170909568gh3',
+        ),
+      ),
+      'watch_drupalize_me_video' => array(
+        '#title' => t('Watch the free <a href="http://drupalize.me/videos/introduction-drupal-seo">Introduction to Drupal SEO</a> video from Lullabot.'),
+      ),
+    ),
+
+  );
+  return $definitions;
+}
+
+/**
+ * Implements hook_init().
+ */
+function seo_checklist_init() {
+  if (_seo_checklist_volacci_link_is_enabled()) {
+    drupal_add_css(drupal_get_path('module', 'seo_checklist') . '/seo_checklist.css');
+  }
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function seo_checklist_page_alter(&$page) {
+  if (_seo_checklist_volacci_link_is_enabled()) {
+    $page['page_bottom']['seo_checklist_volacci_link'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div id="seo-checklist-volacci-link"><a href="http://www.volacci.com/">Drupal SEO</a></div>',
+    );
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for seo_checklist_intro_tab.tpl.php.
+ */
+function template_preprocess_seo_checklist_intro_tab(&$variables) {
+  $variables['volacci_logo'] = theme('image', array(
+    'path' => drupal_get_path('module', 'seo_checklist') . '/volacci-logo.png',
+    'alt' => t('Volacci'),
+    'title' => t('Volacci'),
+  ));
+}
+
+/**
+ * Implements hook_theme().
+ */
+function seo_checklist_theme($existing, $type, $theme, $path) {
+  return array(
+    'seo_checklist_intro_tab' => array(
+      'template' => 'seo_checklist_intro_tab',
+      'variables' => array(
+        'volacci_logo' => t('Volacci'),
+      ),
+    ),
+  );
+}

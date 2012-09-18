@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.2.4.1 2010/02/25 04:08:19 mikeryan Exp $
 
 Schema module
 
