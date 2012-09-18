@@ -174,6 +174,10 @@ Drupal.adPayment.formData = function(ad) {
     ad.type = 'Not Set';
   };
 
+  // Section
+  if(jQuery('#edit-field-tags-und').val()) {
+    ad.section = jQuery('#edit-field-tags-und').val().length;
+  }
 
   // Validate Form Data
   ad = Drupal.adPayment.validate(ad);
@@ -201,7 +205,7 @@ Drupal.adPayment.getPrice = function(ad) {
     price.rate = 'Personal';
     price.base = 3.5;
     price.word = .2;
-    price.img  = 1.99;
+    price.img  = 1.49;
     price.promote = 5;
   }
   else if (ad.formRate == 'Business'){
@@ -212,39 +216,82 @@ Drupal.adPayment.getPrice = function(ad) {
     price.promote = 5;
   };
 
-  // CALCULATE PRICE
+  //  // CALCULATE PRICE
   // If no area selected use default one.
-  ad.area = (ad.area == 0) ? 1 : ad.area;
+  price.area = (ad.area == 0) ? 1 : ad.area;
 
-  // Base rate + overflow word count
-  price.overCount = (ad.wordCount > 15) ? ad.countOver * price.word : 0 ;
-  price.basePrice = price.base + price.overCount;
+  // Word Rate
+  price.overCount = (ad.wordCount > 15) ? (ad.countOver * price.word) : 0;
+  // Total Word count
+  price.adWordCount = price.base + price.overCount;
 
-  // Adjusted with duration and areas
-  price.adjPrice = price.basePrice * ad.duration * ad.area;
+  // Area Multiplyer
+  price.basePrice = price.adWordCount * price.area;
 
-  // If booking all 4 areas get $1 off.
-  price.discount = ( ad.area == 4 ) ?  -2 : 0 ;
+  // Section Multiplyer
+  if(jQuery('#edit-field-tags-und').val()) {
+    price.section = jQuery('#edit-field-tags-und').val().length;
+  }
+  else {
+    price.section = 1;
+  }
+  price.subTotal1 = price.basePrice * price.section;
 
-  // If optional perks
-  price.imagePrice = 0;
-  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.img : 0 ;
-  price.optional = price.imagePrice + price.liveload;
+  // Duration ( Image price here... if any)
+  price.image = (ad.image == 1) ? price.img : 0;
+  price.subTotal = (price.subTotal1 + price.image) * ad.duration;
 
-  // SubTotal
-  price.subTotal = price.adjPrice + price.discount + price.optional;
+  // Determine options and if discount
+  price.discount = (ad.area == 4) ? -2 * ad.duration : 0;
+  // Determine Liveload (if any)
+  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.promote : 0;
+  price.subTotal  = price.subTotal + price.discount + price.liveload;
 
-  // Get Taxes
-  price.taxeRate = .12;
-  price.taxes = price.subTotal * price.taxeRate;
 
-  // Total
-  price.total = price.subTotal +  price.taxes;
+  // Determine taxes
+  price.taxRate = .12;
+  price.taxes   = price.subTotal * price.taxRate;
 
-  // Round prices for output
-  price.subTotalRound =  Drupal.adPayment.formatCurrency(price.subTotal);
+  // Total Price
+  price.total = price.subTotal + price.taxes;
+
+//  // If no area selected use default one.
+//  ad.area = (ad.area == 0) ? 1 : ad.area;
+//
+//  // Base rate + overflow word count
+//  price.overCount = (ad.wordCount > 15) ? ad.countOver * price.word : 0 ;
+//  price.basePrice = price.base + price.overCount;
+//
+//  // Adjusted with duration and areas
+//  price.adjPrice = price.basePrice * ad.duration * ad.area;
+//
+//  // If booking all 4 areas get $1 off.
+//  price.discount = ( ad.area == 4 ) ?  -2 : 0 ;
+//
+//  // If optional perks
+//  price.imagePrice = 0;
+//  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.img : 0 ;
+//  price.optional = price.imagePrice + price.liveload;
+//
+//  // SubTotal
+//  price.subTotal = price.adjPrice + price.discount + price.optional;
+//
+//  // Get Taxes
+//  price.taxeRate = .12;
+//  price.taxes = price.subTotal * price.taxeRate;
+//
+//  // Total
+//  price.total = price.subTotal +  price.taxes;
+//
+//  // Round prices for output
+  price.subTotalRound = Drupal.adPayment.formatCurrency(price.subTotal);
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
+
+  console.log('Price');
+  console.log(price);
+  console.log('Ad');
+  console.log(ad);
 
   return price;
 };
@@ -341,7 +388,7 @@ Drupal.adPayment.displayMsg = function() {
       ad.msg.error += '<li>' + value + '</li>';
     });
     ad.msg.error = '<ul class="error">' + ad.msg.error + '</ul>';
-  //  jQuery('#edit-submit, #edit-preview').hide();
+    //  jQuery('#edit-submit, #edit-preview').hide();
     // Make sure the "NEXT" button is visable.
     jQuery('.multipage-button').show();
 

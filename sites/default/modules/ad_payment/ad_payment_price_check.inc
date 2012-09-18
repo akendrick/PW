@@ -226,18 +226,20 @@ function ad_payment_price_check(&$var, $data_type) {
   );
 
   // DETERMINE PRICE
-  // Base rate + overflow word count
-  $base_price = $rate['base_rate'] + ($rate['word_rate'] * $count['over']);
-
-  // Adjusted with duration and areas
-  $adj_price = $base_price * $duration['adjusted'] * $areas * $sections;
-  // If booking all 4 areas get $1 off.
-  $discount = ($areas == 4) ?  -2 : 0;
-
   // If optional perks
   $img_price = ($image) ? $rate['image_rate'] : 0;
   $live_price = ($liveload == TRUE) ? $rate['liveload_rate'] : 0;
-  $sub_total = $adj_price + $discount + $img_price + $live_price;
+  // If booking all 4 areas get $2 off per week.
+  $discount = ($areas == 4) ?  -2 * $duration['adjusted'] : 0;
+ // $sub_total = $adj_price + $discount + $img_price + $live_price;
+
+  // Base rate + overflow word count
+  $base_price = ($rate['base_rate'] + ($rate['word_rate'] * $count['over']) + $img_price );
+
+  // Adjusted with duration and areas
+  $adj_price = $base_price * $duration['adjusted'] * $areas * $sections;
+
+  $adj_price = $adj_price + $live_price;
 
   // Get Taxes
   $tax_rate = .12;
