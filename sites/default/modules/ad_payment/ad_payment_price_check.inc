@@ -79,15 +79,17 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
     case 'form_state':
       $form_state = $data;
       $form_values = array(
+        'parse'   => 'Form State Values',
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
         'area_default' => $form_state['values']['field_area']['und'][0]['value'],
-        'area'    => ad_payment_parse_array($form_state['values']['field_area']),
+        'area'    => ad_payment_parse_array($form_state['values']['field_area']['und'], 'form > area'),
         'image'   => $form_state['values']['field_image']['und'][0]['fid'],
         'rate'    => $form_state['values']['field_rate']['und'][0]['value'],
         'ad_type' => $form_state['values']['field_promote']['und'][0]['value'],
         'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
         'section_default' => $form_state['values']['field_tags']['und'][0]['value'],
-        'section' => ad_payment_parse_array($form_state['values']['field_tags']),
+        'section_count' => count($form_state['values']['field_tags']['und']),
+        'section' => ad_payment_parse_array($form_state['values']['field_tags']['und'], 'form > section'),
         'notes'   => $form_state['values']['field_notes']['und'][0]['value'],
         'user'    => array(
           'real-name' => $form_state['values']['field_first_name'] . ' ' . $form_state['values']['field_last_name'],
@@ -100,10 +102,11 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
     case 'node':
       $node = $data;
       $form_values = array(
+        'parse'   => 'Node Values',
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
         'area_default' => $node->field_area['und'][0]['value'],
         'area_count'   => count($node->field_area['und']),
-        'area'    => ad_payment_parse_array($node->field_area['und']),
+        'area'    => ad_payment_parse_array($node->field_area['und'], 'node > area'),
         'image'   => $node->field_image['und'][0]['fid'],
         'rate'    => $node->field_rate['und'][0]['value'],
         'ad_type' => $node->field_promote['und'][0]['value'],
@@ -111,7 +114,7 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'duration'=> $node->field_duration['und'][0]['value'],
         'section_default' => $node->field_tags['und'][0]['tid'],
         'section_count' => count($node->field_tags['und'][0]['tid']),
-        'section' => ad_payment_parse_array($node->field_tage['und']),
+        'section' => ad_payment_parse_array($node->field_tage['und'], 'node > section'),
         'notes'   => $node->field_notes['und'][0]['value'],
         'user'    => array(
           'real-name' => $node->field_first_name . ' ' . $node->field_last_name,
@@ -152,27 +155,27 @@ function ad_payment_get_term_name($tid) {
 * @return
 *   - return string of all found 'value' tags.
 */
-function ad_payment_parse_array($array_to_parse = NULL) {
+function ad_payment_parse_array($array_to_parse = NULL, $call = NULL) {
   if (!is_array($array_to_parse)) {
+    dpm('Not Array!');
     return $array_to_parse;
   }
 
-  foreach ($array_to_parse as $item) {
-    if (is_array($item)) {
-      foreach ($item as $sub_item) {
-        if (is_numeric($sub_item)) {
-          $sub_item = ad_payment_get_term_name($sub_item);
-        }
-        $value .= $sub_item . ' ';
-      }
-    }
-    else {
-      $value .= item . ' ';
-    }
+  if (is_array($array_to_parse)) {
+    $value = count($array_to_parse);
+  }
+  else {
+      dpm('SUb item parse - ELSE');
+    $value .= item . ' ';
   }
 
+  // If ZERO assume 1.
+  $value = ($value == FALSE) ? 1 : $value;
+
   if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Number of areas is ' . $value);
+    dpm('Array counted from ' . $call);
+    dpm($array_to_parse);
+    dpm($value);
   }
 
   return $value;
@@ -230,19 +233,23 @@ function ad_payment_price_check(&$var, $data_type) {
   $img_price = ($image) ? $rate['image_rate'] : 0;
   $live_price = ($liveload == TRUE) ? $rate['liveload_rate'] : 0;
   // If booking all 4 areas get $2 off per week.
-  $discount = ($areas == 4) ?  -2 * $duration['adjusted'] : 0;
- // $sub_total = $adj_price + $discount + $img_price + $live_price;
+  $area_discount = ($areas == 4) ?  -(2 * $duration['adjusted']) : 0;
+  //$sub_total = $adj_price + $discount + $img_price + $live_price;
 
   // Base rate + overflow word count
-  $base_price = ($rate['base_rate'] + ($rate['word_rate'] * $count['over']) + $img_price );
+  $base_price = ($rate['word_rate'] * $count['over']) + $rate['base_rate'] + $img_price ;
 
   // Adjusted with duration and areas
-  $adj_price = $base_price * $duration['adjusted'] * $areas * $sections;
+  $adj_price_A = $base_price * $duration['adjusted'] * $areas;
 
-  $adj_price = $adj_price + $live_price;
+  // Adjusted with duration and sections
+  $adj_price_B = $adj_price_area * $areas;
+
+  // Liveload - one time price.
+  $adj_price = $adj_price_B + $live_price;
 
   // Get Taxes
-  $tax_rate = .12;
+  $tax_rate = variable_get('ad_payment_taxrate', '.12');
   $taxes    = $sub_total * $tax_rate;
 
   // Total Cost
@@ -270,6 +277,9 @@ function ad_payment_price_check(&$var, $data_type) {
 
   // TEST PRICES
   if(DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('RAW DATA Gotten from form.');
+    dpm($storage);
+    dpm('Data Being Saved.');
     dpm($form_variable_storage);
     // Base
     drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));

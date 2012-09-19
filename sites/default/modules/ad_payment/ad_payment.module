@@ -42,10 +42,10 @@
 
 // FORM DEBUG
 // Displays Ad Payment Data
-define ('DEBUG_ADP', FALSE);
-define ('DEBUG_FORM', FALSE);
-define ('DEBUG_EMAIL', FALSE);
-define ('DEBUG_PAYMENT', TRUE);
+define ('DEBUG_ADP', FALSE); // DEBUG ALL!
+define ('DEBUG_FORM', FALSE); // Check form inputs.
+define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
+define ('DEBUG_PAYMENT', TRUE); // Debug ad payment stuff. Does not include jQuery!
 
 /**
 * Implementation of HOOK_menu

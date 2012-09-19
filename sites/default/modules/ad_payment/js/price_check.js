@@ -288,10 +288,10 @@ Drupal.adPayment.getPrice = function(ad) {
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
 
-  console.log('Price');
-  console.log(price);
-  console.log('Ad');
-  console.log(ad);
+//  console.log('Price');
+//  console.log(price);
+//  console.log('Ad');
+//  console.log(ad);
 
   return price;
 };
