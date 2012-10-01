@@ -222,29 +222,31 @@ Drupal.adPayment.getPrice = function(ad) {
 
   // Word Rate
   price.overCount = (ad.wordCount > 15) ? (ad.countOver * price.word) : 0;
-  // Total Word count
+  // 1. Base Price - Total Word count
   price.adWordCount = price.base + price.overCount;
 
-  // Area Multiplyer
+  // 2. Area Multiplyer
   price.basePrice = price.adWordCount * price.area;
 
-  // Section Multiplyer
-  if(jQuery('#edit-field-tags-und').val()) {
-    price.section = jQuery('#edit-field-tags-und').val().length;
-  }
-  else {
-    price.section = 1;
-  }
+  // 3. Section Multiplyer
+    if(jQuery('#edit-field-tags-und').val()) {
+      price.section = jQuery('#edit-field-tags-und').val().length;
+    }
+    else {
+      price.section = 1;
+    }
   price.subTotal1 = price.basePrice * price.section;
 
-  // Duration ( Image price here... if any)
+  // 4. Duration ( Image price here... if any)
   price.image = (ad.image == 1) ? price.img : 0;
   price.subTotal = (price.subTotal1 + price.image) * ad.duration;
 
-  // Determine options and if discount
-  price.discount = (ad.area == 4) ? -2 * ad.duration : 0;
-  // Determine Liveload (if any)
-  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.promote : 0;
+    // Determine options and if discount
+    price.discount = (ad.area == 4) ? -2 * ad.duration : 0;
+    // Determine Liveload (if any)
+    price.liveload = (ad.type == 'Liveload Classified Ad') ? price.promote : 0;
+
+  // 5. Add up options
   price.subTotal  = price.subTotal + price.discount + price.liveload;
 
 
@@ -252,7 +254,7 @@ Drupal.adPayment.getPrice = function(ad) {
   price.taxRate = .12;
   price.taxes   = price.subTotal * price.taxRate;
 
-  // Total Price
+  // 6. Total Price
   price.total = price.subTotal + price.taxes;
 
 //  // If no area selected use default one.
@@ -288,10 +290,10 @@ Drupal.adPayment.getPrice = function(ad) {
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
 
-//  console.log('Price');
-//  console.log(price);
-//  console.log('Ad');
-//  console.log(ad);
+  console.log('Price');
+  console.log(price);
+  console.log('Ad');
+  console.log(ad);
 
   return price;
 };

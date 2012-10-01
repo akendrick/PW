@@ -45,7 +45,8 @@
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
 define ('DEBUG_FORM', FALSE); // Check form inputs.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
-define ('DEBUG_PAYMENT', TRUE); // Debug ad payment stuff. Does not include jQuery!
+define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
+define ('DEBUG_REDIRECT', FALSE); // False will keep the ad on the submit page.
 
 /**
 * Implementation of HOOK_menu
@@ -288,7 +289,7 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
   }
 
-//  // Alter Display of Taxonomy Classification Section
+  // Alter Display of Taxonomy Classification Section
   $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
 
   $form['field_tags']['und']['#options'] = $pw_list;
@@ -340,6 +341,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   //$ccid = rand();
   //form_set_value($form['field_ccid'], $ccid, &$form_state);
 }
+
 
 /**
 * Custom CC Submit Handler.
@@ -417,8 +419,14 @@ function _ad_payment_cc_submit($form, &$form_state) {
  * Save Form data to ADP table.
  * Encrypt CC Data before storing.
  *
+ * @DEBUG
+ * - Form is NOT submitted!
+ * - Print out FIELDS being submitted.
+ * - Email receipt and http receipt redirect is not done!
+ *
  * @TODO
  * - This currently doesn't reference or receive any CCID numbers from Netidea.
+ * - - This may have to be set after node creation
  * - So all the CCID data is rand().
  */
 function ad_payment_node_insert($node) {
@@ -436,7 +444,7 @@ function ad_payment_node_insert($node) {
       dpm($details);
     }
 
-    $nid = db_insert('adp')->fields(array(
+    $fields = array(
       'ccid'    => $node->title,
       'uid'     => $node->uid,
       'nid'     => $node->nid,
@@ -450,12 +458,21 @@ function ad_payment_node_insert($node) {
       'word_count'  => $details['count']['count'],
       'areas'    => $details['areas'],
       'duration' => $details['duration']['actual'],
-      'liveload' => $details['options']['liveload'],
-      'image'    => $details['options']['image'],
+      'liveload' => ($details['options']['liveload'] == NULL) ? 0 : $details['options']['liveload'],
+      'image'    => ($details['options']['image'] == NULL) ? 0 : $details['options']['image'],
       'price_total' => $details['total'],
       'price_taxes' => $details['taxes'],
       'price_subtotal' => $details['subtotal'],
-      ))->execute();
+    );
+
+    // IF debuging do not submit or send email.
+    if (DEBUG_ADP || DEBUG_FORM) {
+      drupal_set_message('This Ad NOT submitted! DEBUG is active.', 'alert');
+      dpm('############## SUBMIT FIELDS!!!!');
+      dpm($fields);
+    }
+    else {
+      $nid = db_insert('adp')->fields($fields)->execute();
 
       // Send Email upon Completion.
       $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
@@ -472,15 +489,17 @@ function ad_payment_node_insert($node) {
       }
 
 
-
-      // Set up on screen receipt.
-      variable_set('ad_submission_' . $node->title, $details);
-
-      drupal_goto('ad/' . $node->title . '/thank-you');
-    // SET CCID
-
-    // Becuase Life isn't just.
-    // You need to update the newly created node with correct data.
+      // Debug Redirect
+      if (DEBUG_REDIRECT) {
+        dpm ('Page redirect should be inactive.');
+        drupal_goto('ad/submit');
+      }
+      else {
+        // Set up on screen receipt and page redirect.
+        variable_set('ad_submission_' . $node->title, $details);
+        drupal_goto('ad/' . $node->title . '/thank-you');
+      }
+    }
   }
 
 

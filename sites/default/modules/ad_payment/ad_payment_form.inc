@@ -7,21 +7,21 @@
 */
 
 function ad_payment_form(&$form, $form_state) {
-//  // Get User Name
-//  global $user;
-//  $user_data = user_load($user->uid);
+  // Get User Name
+  global $user;
+  $user_data = user_load($user->uid);
 
-//  // Determine User Role
+  // Determine User Role
 //  if (user_access('edit any ad_s content') && !DEBUG){
 //    $access = FALSE;
 //    $required = FALSE;
 //    dpm(' Access removed your need to enter CC data.');
 //  }
 //  else {
-    $access = TRUE;
-    $required = TRUE;
+  $access = TRUE;
+  $required = TRUE;
 //  }
-  
+
   // Get Form State data - if any
   if ($form_state && $form_state['values']) {
     $cc_number = $form_state['values']['field_cc_number'];
@@ -76,7 +76,7 @@ function ad_payment_form(&$form, $form_state) {
     '#title' => t('Credit Card'),
     '#description' => t('Select your credit card'),
     '#options' => array('Master Card', 'Visa'),
-#    '#required' => TRUE,
+    '#required' => TRUE,
     '#access' => $access,
   );
   $form['field_cc_number'] = array(

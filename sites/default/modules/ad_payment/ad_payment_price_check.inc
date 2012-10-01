@@ -157,7 +157,6 @@ function ad_payment_get_term_name($tid) {
 */
 function ad_payment_parse_array($array_to_parse = NULL, $call = NULL) {
   if (!is_array($array_to_parse)) {
-    dpm('Not Array!');
     return $array_to_parse;
   }
 
@@ -165,7 +164,6 @@ function ad_payment_parse_array($array_to_parse = NULL, $call = NULL) {
     $value = count($array_to_parse);
   }
   else {
-      dpm('SUb item parse - ELSE');
     $value .= item . ' ';
   }
 
@@ -203,70 +201,110 @@ function ad_payment_price_check(&$var, $data_type) {
   $storage = array();
 
   // Get RAW DATA for processing
-  $storage['values'] = _ad_payment_get_payment_variables($var, $data_type);
+  $values = _ad_payment_get_payment_variables($var, $data_type);
 
   // Validate Rate
-  $rate = ad_payment_validate_rate($storage['values']['section_default'], $storage['values']['rate']);
+  $rate = ad_payment_validate_rate($values['section_default'], $values['rate']);
 
   // Count Areas
-  $areas = $storage['values']['area_count'];
+  $areas = $values['area_count'];
 
   // Count Sections
-  $sections = $storage['values']['section_count'];
+  $sections = $values['section_count'];
 
   // Validate Duration
-  $duration = _ad_payment_set_ad_duration($storage['values']['duration']);
+  $duration = _ad_payment_set_ad_duration($values['duration']);
 
   // Word Count
-  $count = _ad_payment_word_counter($storage['values']['ad_copy']);
+  $count = _ad_payment_word_counter($values['ad_copy']);
 
   // Options
-  $liveload = ($storage['values']['ad_type'] == 'Liveload Your Ad!') ? 1 : 0;
-  $image = ($storage['values']['image']) ? 1 : 0;
+  $liveload = ($values['ad_type'] == 'Liveload Your Ad!') ? 1 : 0;
+  $image = ($values['image']) ? 1 : 0;
   $options = array(
     'liveload' => $liveload,
     'image' => $image,
   );
 
   // DETERMINE PRICE
+
+
   // If optional perks
   $img_price = ($image) ? $rate['image_rate'] : 0;
   $live_price = ($liveload == TRUE) ? $rate['liveload_rate'] : 0;
-  // If booking all 4 areas get $2 off per week.
-  $area_discount = ($areas == 4) ?  -(2 * $duration['adjusted']) : 0;
-  //$sub_total = $adj_price + $discount + $img_price + $live_price;
 
-  // Base rate + overflow word count
-  $base_price = ($rate['word_rate'] * $count['over']) + $rate['base_rate'] + $img_price ;
+  // Get basics
+  $words_over_price = ($count['over'] > 0) ? $rate['word_rate'] * ($count['over'] -1) : 0;
 
-  // Adjusted with duration and areas
-  $adj_price_A = $base_price * $duration['adjusted'] * $areas;
+  // If booking all 4 areas get $2 off (per week).
+  $area_discount = ($areas == 4) ? -2 * $duration['adjusted'] : 0;
 
-  // Adjusted with duration and sections
-  $adj_price_B = $adj_price_area * $areas;
+  // 1. Base Rate = ad_rate + word over count
+  $base_rate = $rate['base_rate'] + $words_over_price;
 
-  // Liveload - one time price.
-  $adj_price = $adj_price_B + $live_price;
+  // 2. Area Multiplyer
+  $sub_total_1 = $base_rate * $areas;
 
-  // Get Taxes
+  // 3. Section Multiplyer
+  $sub_total_2 = $sub_total_1 * $sections;
+
+  // 4. Duration['adjusted'] - (Image price here)
+  $sub_total_3 = ($sub_total_2 + $img_price) * $duration['adjusted'];
+
+  // 5. Options
+  $sub_total_4 = $sub_total_3 + $live_price + $area_discount;
+
+  // Taxes
   $tax_rate = variable_get('ad_payment_taxrate', '.12');
-  $taxes    = $sub_total * $tax_rate;
+  $taxes = _ad_payment_dollar_format($sub_total_4 * $tax_rate);
 
-  // Total Cost
-  $total = $sub_total + $taxes;
-  // Round Total
-  $total = _ad_payment_dollar_format($total);
+  // 6. Total Cost
+  $total = $sub_total_4 + $taxes;
+    // Round Total
+    $total = _ad_payment_dollar_format($total);
+
+//
+//  // Base rate + overflow word count
+//  $base_price = ($rate['word_rate'] * $count['over']) + $rate['base_rate'] + $img_price ;
+//      $feedback .= t('<p>Base price $@base =($@word_rate (word rate) * @words_over (words over 15)) + @base_rate (base rate) + $@img_price (image price)</p>',
+//        array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@words_over' => $count['over'], '@img_price' => $img_price));
+//
+//  // Adjusted with duration and areas
+//  $sub_total_1 = $base_price * $areas * $duration['adjusted'];
+//      $feedback .= t('<p>Subtotal_1 $@sub1 = $@base (base rate) * @duration (duration) * @areas (# areas)</p>',
+//        array('@sub1' => $sub_total_1, '@base' => $base_price, '@duration' => $duration['adjusted'], '@areas' => $areas));
+//
+//  // Adjusted with duration and sections
+//  $sub_total_2 = $sub_total_1 * $sections;
+//      $feedback .= t('<p>Subtotal_2 $@sub2 = $@sub1 (subtotal_1) * @sections (# of sections) </p>',
+//        array('@sub2' => $sub_total_2, '@sub1' => $sub_total_1, '@sections' => $sections));
+//
+//  // Liveload - one time price.
+//  $sub_total_3 = _ad_payment_dollar_format($sub_total_2 + $live_price);
+//      $feedback .= t('<p>Subtotal_3 $@sub3 = $@sub2 (subtotal_2) + $@liveload (live load price)</p>',
+//        array('@sub3' => $sub_total_3, '@sub2' => $sub_total_2, '@liveload' => $live_price));
+//
+//  // Get Taxes
+//  $tax_rate = variable_get('ad_payment_taxrate', '.12');
+//
+//  // Total Cost
+//  $total = $sub_total_3 + $taxes;
+//  // Round Total
+//  $total = _ad_payment_dollar_format($total);
+//  $taxes = _ad_payment_dollar_format($sub_total_3 * $tax_rate);
+//      $feedback .= t('<p>FINAL PRICE $@total = $@sub3 (subtotal_3) + $@tax (taxes at @tax_rate)</p>',
+//        array('@total' => $total, '@sub3' => $sub_total_3, '@tax' => $taxes, '@tax_rate' => $tax_rate));
 
   // Set Price Variables
-  $form_variable_storage = array(
-    'values'   => $storage['values'],
+  $storage = array(
+    'values'   => $values,
     'rate'     => $rate,
     'count'    => $count,
     'duration' => $duration,
     'areas'    => $areas,
-    'options'  => $options,
-    'discount' => $discount,
-    'subtotal' => $sub_total,
+    'options'  => $img_price + $live_price,
+    'discount' => $area_discount,
+    'subtotal' => $sub_total_4,
     'taxes'    => $taxes,
     'total'    => $total,
   );
@@ -277,33 +315,55 @@ function ad_payment_price_check(&$var, $data_type) {
 
   // TEST PRICES
   if(DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('RAW DATA Gotten from form.');
-    dpm($storage);
     dpm('Data Being Saved.');
-    dpm($form_variable_storage);
+    dpm($storage);
+
+    dpm('FEEDBACK');
+    $feedback = array(
+      'Image Price' => $img_price,
+      'Liveload Price' => $live_price,
+      'Words Over 15 price' => $words_over_price,
+      'Area Discount' => $area_discount,
+      'Base Rate' => $base_rate,
+      'Section Subtotal' => $sub_total_1,
+      'Area Subtototal' => $sub_total_2,
+      'Duration Subtotal' => $sub_total_3,
+      'Options Subtotal' => $sub_total_4,
+      'Tax Rate' => $tax_rate,
+      'Taxes' => $taxes,
+      'Total (rounded)' => $total,
+    );
+    dpm($feedback);
     // Base
-    drupal_set_message(t('Base Price: @base = $@base_rate base price + (@over words over @ $@word_rate word)', array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));
-    // Adjusted with duration and areas
-    drupal_set_message(t('Adj Price: @adj = $@base * @duration weeks * @sect sections * @areas areas', array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas, '@areas' => $areas)));
-    // All four areas are booked add discount.
-    // If optional perks
-    drupal_set_message(t('With Options (if present): @sub = $@adj + $@live (liveload) + $@image (image) + @discount discount', array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount)));
-    // Taxes
-    drupal_set_message(t('Taxes: $@tax', array('@tax' => $taxes)));
-    // TOTAL
-    drupal_set_message(t('Total Price: $@total', array('@total' => $total)));
+//    drupal_set_message(t('Base Price: $@base = $@base_rate base price + @image_price (if any) + (@over words over @ $@word_rate word)',
+//      array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@image_price' => $img_price, '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));
+//
+//    // Adjusted with duration and areas
+//    drupal_set_message(t('Adj Price: $@adj = $@base * @duration weeks * @sect sections * @areas areas',
+//      array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas, '@areas' => $areas)));
+//
+//    // All four areas are booked add discount.
+//    // If optional perks
+//    drupal_set_message(t('With Options (if present): $@sub = $@adj + $@live (liveload) + $@image (image) + @discount discount',
+//      array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount)));
+//
+//    // Taxes
+//    drupal_set_message(t('Taxes: $@tax', array('@tax' => $taxes)));
+//
+//    // TOTAL
+//    drupal_set_message(t('Total Price: $@total', array('@total' => $total)));
   }
 
 
   // Determine which vales are returned.
   //If form_state save payment data for future reference & return price for immediate use.
   if ($data_type == 'form_state') {
-    $form_state['storage']['price'] = $form_variable_storage['total'];
-    $form_state['storage']['values'] = $form_variable_storage['values'];
-    return $form_variable_storage['total'];
+    $form_state['storage']['price'] = $storage['total'];
+    $form_state['storage']['values'] = $storage['values'];
+    return $storage['total'];
   }
   else {
-    return $form_variable_storage;
+    return $storage;
   }
 
 }
@@ -367,6 +427,10 @@ function ad_payment_price_check(&$var, $data_type) {
 *
 */
 function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
+  if (DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('RATE');
+    dpm('$submitted_rate = ' . $submitted_rate);
+  }
 
   // Get Section Rating
   if ( $tax_term = taxonomy_term_load($tid) ) {
@@ -375,46 +439,62 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
       'term_name' => $tax_term->name,
       'form_rate' => ($submitted_rate == 'Personal') ? 0 : 1,
     );
-
-    // IF Business Rated Term and Personal Rate Selected
-    if ($get_rate['term_rate']) {
-      if ($get_rate['term_rate'] != $get_rate['form_rate']) {
-        $error_messege = $term_name . 'is a Business Rated classification.<br>To update your ad:
-           <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
-           <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
-         $error_messege = t('%term is a Business Rated classification.<br>To update your ad:
-             <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
-             <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>',
-             array('%term' => $term_name));
-        form_set_error('field_tags', $error_messege);
-      }
-    }
-
-    // Set Prices
-    switch($get_rate['term_rate']) {
-      case 0: // Personal
-        $pricing = array(
-          'rate_name' => 'Personal',
-          'base_rate' => 3.5,
-          'word_rate' => .2,
-          'image_rate' => 1.99,
-          'liveload_rate' => 5,
-        );
-        break;
-      default: // Business
-        $pricing = array(
-          'rate_name' => 'Business',
-          'base_rate' => 5,
-          'word_rate' => .4,
-          'image_rate' => 2.99,
-          'liveload_rate' => 5,
-        );
-        break;
-    }
-    $rate = array_merge($get_rate, $pricing);
-
-    return $rate;
   }
+
+  if ($submitted_rate == 'Business'){
+    $get_rate['rate'] = 1;
+  }
+  else {
+      // IF Business Rated Term and Personal Rate Selected
+      if ($get_rate['term_rate']) {
+        if ($get_rate['term_rate'] != $get_rate['form_rate']) {
+          $error_messege = $term_name . 'is a Business Rated classification.<br>To update your ad:
+             <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
+             <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
+           $error_messege = t('%term is a Business Rated classification.<br>To update your ad:
+               <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
+               <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>',
+               array('%term' => $term_name));
+          form_set_error('field_tags', $error_messege);
+        }
+      }
+
+    if (DEBUG_ADP || DEBUG_PAYMENT) {
+      dpm('Taxonomy Rate - After error checking.');
+      dpm($get_rate);
+    }
+  }
+
+
+  // Set Prices
+  switch($get_rate['rate']) {
+    case 0: // Personal
+      $pricing = array(
+        'rate_name' => 'Personal',
+        'base_rate' => 3.5,
+        'word_rate' => .2,
+        'image_rate' => 1.99,
+        'liveload_rate' => 5,
+      );
+      break;
+    case 1: // Business
+      $pricing = array(
+        'rate_name' => 'Business',
+        'base_rate' => 5,
+        'word_rate' => .4,
+        'image_rate' => 2.99,
+        'liveload_rate' => 5,
+      );
+      break;
+  }
+  $rate = array_merge($get_rate, $pricing);
+
+  if (DEBUG_ADP || DEBUG_PAYMENT) {
+    dpm('Returned Rate');
+    dpm($rate);
+  }
+
+  return $rate;
 }
 
 /**
