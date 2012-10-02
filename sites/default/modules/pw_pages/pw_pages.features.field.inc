@@ -612,6 +612,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => array(
             0 => 'auto',
@@ -745,6 +746,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => array(
             0 => 'auto',
@@ -1240,6 +1242,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -1379,6 +1382,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -1791,6 +1795,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -1911,6 +1916,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 1,
+          'insert_absolute' => FALSE,
           'insert_class' => 'inserted-image-style',
           'insert_default' => 'image_medium',
           'insert_styles' => array(
@@ -2269,6 +2275,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -2464,6 +2471,7 @@ function pw_pages_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
