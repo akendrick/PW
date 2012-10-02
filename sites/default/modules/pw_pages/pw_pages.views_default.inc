@@ -802,11 +802,9 @@ $footer = "<a href=\'<?php echo $base_root . $base_path; ?>/editorial\' class=\'
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
   $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['body']['alter']['nl2br'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['max_length'] = '80';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['body']['alter']['preserve_tags'] = '<br>';
   $handler->display->display_options['fields']['body']['element_type'] = 'p';
   $handler->display->display_options['fields']['body']['element_class'] = 'grid-5 omega views-slideshow-editorial-body views-slideshow-editorial-body-trimmed';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
