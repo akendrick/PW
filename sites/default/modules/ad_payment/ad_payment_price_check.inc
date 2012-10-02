@@ -252,14 +252,14 @@ function ad_payment_price_check(&$var, $data_type) {
   $sub_total_3 = ($sub_total_2 + $img_price) * $duration['adjusted'];
 
   // 5. Options
-  $sub_total_4 = $sub_total_3 + $live_price + $area_discount;
+  $sub_total = $sub_total_3 + $live_price + $area_discount;
 
   // Taxes
   $tax_rate = variable_get('ad_payment_taxrate', '.12');
-  $taxes = _ad_payment_dollar_format($sub_total_4 * $tax_rate);
+  $taxes = _ad_payment_dollar_format($sub_total * $tax_rate);
 
   // 6. Total Cost
-  $total = $sub_total_4 + $taxes;
+  $total = $sub_total + $taxes;
     // Round Total
     $total = _ad_payment_dollar_format($total);
 
@@ -304,7 +304,7 @@ function ad_payment_price_check(&$var, $data_type) {
     'areas'    => $areas,
     'options'  => $img_price + $live_price,
     'discount' => $area_discount,
-    'subtotal' => $sub_total_4,
+    'subtotal' => $sub_total,
     'taxes'    => $taxes,
     'total'    => $total,
   );

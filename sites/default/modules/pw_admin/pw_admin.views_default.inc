@@ -145,8 +145,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 1,
       'use_queue' => 0,
@@ -275,11 +279,6 @@ function pw_admin_views_default_views() {
       'label' => '',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -610,8 +609,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Bulk Action';
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '30';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -740,11 +743,6 @@ function pw_admin_views_default_views() {
       'label' => 'Unpublish Multiple By Keyword',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Field: Content: Link */
   $handler->display->display_options['fields']['view_node']['id'] = 'view_node';
   $handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
@@ -779,11 +777,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
   $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
   $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
   $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
-  $handler->display->display_options['filters']['status']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
   /* Filter criterion: Content: Classified Ad Type (field_ad_type) */
   $handler->display->display_options['filters']['field_ad_type_value']['id'] = 'field_ad_type_value';
   $handler->display->display_options['filters']['field_ad_type_value']['table'] = 'field_data_field_ad_type';
@@ -823,6 +822,76 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['operator'] = 'OR';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'classified' => 'classified',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    8 => 0,
+    9 => 0,
+    11 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+    12 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Classified Ad Type (field_ad_type) */
+  $handler->display->display_options['filters']['field_ad_type_value']['id'] = 'field_ad_type_value';
+  $handler->display->display_options['filters']['field_ad_type_value']['table'] = 'field_data_field_ad_type';
+  $handler->display->display_options['filters']['field_ad_type_value']['field'] = 'field_ad_type_value';
+  $handler->display->display_options['filters']['field_ad_type_value']['value'] = array(
+    0 => '0',
+  );
+  $handler->display->display_options['filters']['field_ad_type_value']['group'] = 1;
+  /* Filter criterion: Content: Has taxonomy terms (with depth) */
+  $handler->display->display_options['filters']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['table'] = 'node';
+  $handler->display->display_options['filters']['term_node_tid_depth']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['group'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'section';
+  $handler->display->display_options['filters']['term_node_tid_depth']['type'] = 'select';
+  $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'classification';
+  $handler->display->display_options['filters']['term_node_tid_depth']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '3';
+  /* Filter criterion: Content: Ad Copy (field_ad_copy) */
+  $handler->display->display_options['filters']['field_ad_copy_value']['id'] = 'field_ad_copy_value';
+  $handler->display->display_options['filters']['field_ad_copy_value']['table'] = 'field_data_field_ad_copy';
+  $handler->display->display_options['filters']['field_ad_copy_value']['field'] = 'field_ad_copy_value';
+  $handler->display->display_options['filters']['field_ad_copy_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_ad_copy_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_ad_copy_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Keyword Search';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator'] = 'field_ad_copy_value_op';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'ad_copy_search';
   $handler->display->display_options['path'] = 'admin/pennywise/classified/all';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Classifieds';
@@ -1487,8 +1556,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Bulk Action';
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '30';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -1604,11 +1677,6 @@ function pw_admin_views_default_views() {
       'label' => 'Unpublish Multiple By Keyword',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Ad Type */
   $handler->display->display_options['sorts']['field_promote_value']['id'] = 'field_promote_value';
@@ -1836,8 +1904,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Bulk Action';
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '30';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -1966,11 +2038,6 @@ function pw_admin_views_default_views() {
       'label' => 'Unpublish Multiple By Keyword',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Section (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
@@ -2203,8 +2270,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Bulk Action';
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '30';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -2340,11 +2411,6 @@ function pw_admin_views_default_views() {
       'label' => 'Unpublish Multiple By Keyword',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Section (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
@@ -2647,8 +2713,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Bulk Action';
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '30';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '30';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -2757,11 +2827,6 @@ function pw_admin_views_default_views() {
       'label' => 'Unpublish Multiple By Keyword',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Field: Ad Payment: CCID. */
   $handler->display->display_options['fields']['ccid']['id'] = 'ccid';
   $handler->display->display_options['fields']['ccid']['table'] = 'adp';
@@ -3364,8 +3429,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -3501,11 +3570,6 @@ function pw_admin_views_default_views() {
       'label' => '',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
@@ -3812,8 +3876,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -3956,11 +4024,6 @@ function pw_admin_views_default_views() {
       'label' => '',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Field: Global: Contextual Links */
   $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
   $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
@@ -4951,8 +5014,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
   $handler->display->display_options['fields']['views_bulk_operations']['exclude'] = TRUE;
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
     'action::node_assign_owner_action' => array(
       'selected' => 0,
       'use_queue' => 0,
@@ -5081,11 +5148,6 @@ function pw_admin_views_default_views() {
       'label' => '',
     ),
   );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
   /* Field: Content: Publish link */
   $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';
   $handler->display->display_options['fields']['publishcontent']['table'] = 'node';
