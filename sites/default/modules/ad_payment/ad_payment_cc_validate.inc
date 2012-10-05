@@ -6,7 +6,7 @@
 *
 * @TODO
 * - Pass data along to server.
-* - Create DB and save price/sub-total/taxes and optionals (incl word count etc) 
+* - Create DB and save price/sub-total/taxes and optionals (incl word count etc)
 *   for future error checking.
 *
 */
@@ -18,15 +18,15 @@
 *
 * @return
 *   array of cc data.
-*   - $cc_data['number'] 
-*   - $cc_data['type'] 
-*   - $cc_data['expiry'] 
-*   - $cc_data['name'] 
+*   - $cc_data['number']
+*   - $cc_data['type']
+*   - $cc_data['expiry']
+*   - $cc_data['name']
 */
 
 function _ad_payment_get_cc_data($form_state) {
   $cc_data = array();
-  // 
+  //
   // VARIABLES
   // CARD NUMBER - clear all spaces.
   $cc_data['number'] = $form_state['values']['field_cc_number'];
@@ -65,17 +65,17 @@ function _ad_payment_validate_cc_data($form_state) {
   if(!$cc_data['last_name']) {
     form_set_error('field_last_name', 'Please fill in your last name');
   }
-  
+
   if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
-      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type']) ) {
+      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
     return(TRUE);
   }
   return(FALSE);
-  
+
 }
 
 
-function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name) {
+function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name, $form_state = NULL) {
 
   // Remove non-digits from $credit_card_number.
   $credit_card_number = strrev (preg_replace ('[^([[:digit:]])]', '', $credit_card_number));
@@ -84,29 +84,32 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name)
 
   // Make card type upper case for comparisons.
   $credit_card_name = strtoupper ($credit_card_name) +1;
-  
+
   // Check for VISA DEBIT card number
   $visa_debit = strpos($credit_card_number, "4506");
-  if ($form_state && $form_state['values']['field_card_type'][0]['value'] && $form_state['values']['field_card_type'][0]['value'] == 'VISA' && $visa_debit === 0) {
-    $error_msg = t('<strong>We cannot accept VISA DEBIT cards at this time.</strong><br>
-       - Please use another card for this transaction.<br> - Or call toll free 1-800-663-4619');
-    form_set_error('field_cc_number', $error_msg );
+  //if ($form_state['values']['field_card_type'][0]['value'] == 'VISA' && $visa_debit === 0) {
+  if ($form_state['input']['field_card_type'] == 1 && $visa_debit === 0) {
+   // dpm('VISA CARD CHECK');
+   // dpm($form_state['values']);
+     $error_msg = t('<strong>We cannot accept VISA DEBIT cards at this time.</strong><br>
+        - Please use another card for this transaction.<br> - Or call toll free 1-800-663-4619');
+     form_set_error('field_cc_number', $error_msg );
   }
 
   // Check for correct number of digits for each credit card type.
   if($credit_card_name == "VISA" && ($credit_card_number_length != 13 && $credit_card_number_length != 15)) {
     form_set_error('field_cc_number', 'Wrong number of digits for Visa!');
-    return(FALSE);   
-  } 
+    return(FALSE);
+  }
   elseif ($credit_card_name == "MASTER CARD" && $credit_card_number_length != 16 ) {
     form_set_error('field_cc_number', 'Wrong number of digits for Master Card! -- ' . $credit_card_number_length);
-    return(FALSE); 
-  } 
-    
+    return(FALSE);
+  }
+
   // Step 2:LUHN check digit calculations
 //  for($digit_position = 1; $digit_position < $credit_card_number_length; $digit_position += 2) {
 //    $digit_times_two = ($credit_card_number[$digit_position] * 2);
-//    
+//
 //    if($digit_times_two > 9) {
 //        $credit_card_number[$digit_position] = ($digit_times_two - 9);
 //    } else {
@@ -123,7 +126,7 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name)
 //  // Step 4.
 //  if (($validation_number % 10) == 0) {
 //	 return (TRUE);
-//  } 
+//  }
 //  else {
 //   form_set_error('field_cc_number', 'Invalid credit card number.');
 //   return (FALSE);
@@ -134,9 +137,9 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name)
 function _ad_payment_validate_cc_expiry ($cc_expiry) {
   if (preg_match('/(^[0-9]{1,2})[- \/]([0-9]{1,2})/', $cc_expiry, $expiry)) {
 //  if (ereg('([0-9]{1,2})[-\\/ ]?([0-9]{2})', $cc_expiry, $expiry)) {
-  	// Use date windowing to determine current century. 
+  	// Use date windowing to determine current century.
   	if ($expiry[2] > 90) {
-  	  $expiry[2] += 1900; 
+  	  $expiry[2] += 1900;
   	} else {
   	  $expiry[2] += 2000;
   	}
@@ -144,7 +147,7 @@ function _ad_payment_validate_cc_expiry ($cc_expiry) {
       form_set_error('field_exp_month', 'Invalid expiry month.');
   	  // validation_error("Invalid expiry month: $expiry[1]", $errorList);
       return FALSE;
-  	} 
+  	}
   	if ($expiry[2] < date ('Y') ) {
       form_set_error('field_exp_year', 'Your card has expired.');
   	    return FALSE;
@@ -152,49 +155,49 @@ function _ad_payment_validate_cc_expiry ($cc_expiry) {
   	if (($expiry[1] < date ('m') ) && ($expiry[2] == date ('Y') )) {
       form_set_error('field_exp_year', 'Your card has expired.');
   	    return FALSE;
-  	}	
-  } 
-   else { 
+  	}
+  }
+   else {
      //invalid date format
      form_set_error('field_exp_year', 'Invalid expiry format should be in MM-YY format.');
      return FALSE;
    }
   return TRUE;
-} // END: function validate_cc_expiry 
+} // END: function validate_cc_expiry
 
 
 function _ad_payment_submit_cc_data($form_state) {
   $cc_data = _ad_payment_get_cc_data($form_state);
   //
-  
+
   # require_once ('CreditCardValidate.inc.php');
   # require_once ('classifieds.db.php');
-  
+
   // NETIDEA CODE
   // VALIDATION_TEST_MODE: set to TRUE to allow any card number for testing purposes.
-  // Must be set before loading the CreditCardValidate.inc.php library! 
+  // Must be set before loading the CreditCardValidate.inc.php library!
   // define ('VALIDATION_TEST_MODE', TRUE);
 
-  /* Check card number and expiry date */    
+  /* Check card number and expiry date */
   if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
-      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type']) ) {
-    
+      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
+
     #dsm('Prepare to SUBMIT!!!');
     // The CVVID is optional and can be omitted
 //  $id = updateDatabase(
-//    $credit_card_name, 
-//    '', //$_POST['email'], 
+//    $credit_card_name,
+//    '', //$_POST['email'],
 //    $credit_card_type,
-//    $credit_card_number, 
-//    $credit_card_expiry, 
-//    //#credit_card_cvvid,   
+//    $credit_card_number,
+//    $credit_card_expiry,
+//    //#credit_card_cvvid,
 //    '',//$phone,
-//  );   
-    
+//  );
+
     /* You'll probably want to just email this link instead. */
-    // $url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $id);    
+    // $url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $id);
     #print "Order <a href='$url'>#$id</a> saved.";
-    
+
     /* email the form, etc */
     // $id is the affirmation of the Database entry. Used for creating a link.
     $id = 13;

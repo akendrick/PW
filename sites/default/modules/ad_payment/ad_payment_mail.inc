@@ -11,14 +11,13 @@
 */
 function ad_payment_mail($key, &$message, $params) {
   if (DEBUG_ADP || DEBUG_EMAIL) {
-    dpm('Call made to ad_payment_mail');
-    dpm('KEY: ' . $key);
+    $debug_info = array(
+      'KEY' => $key,
+      'message' => $message,
+      'params' => $params,
+    );
+    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
 
-    dpm('MESSAGE');
-    dpm($message);
-
-    dpm('PARAMS');
-    dpm($params);
   }
 
   switch($key) {
@@ -91,8 +90,11 @@ function email_receipt_body($message = NULL) {
   $body = 'Oh Bother!';
 
   if (DEBUG_ADP || DEBUG_EMAIL) {
-    dpm('eMail Body - Customer Receipt');
-    dpm($body);
+    $debug_info = array(
+      'Email Body' => $body,
+    );
+    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+
   }
 
   return $body;

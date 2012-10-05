@@ -45,7 +45,7 @@
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
 define ('DEBUG_FORM', FALSE); // Check form inputs.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
-define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
+define ('DEBUG_PAYMENT', TRUE); // Debug ad payment stuff. Does not include jQuery!
 define ('DEBUG_REDIRECT', FALSE); // False will keep the ad on the submit page.
 
 /**
@@ -194,8 +194,10 @@ function ad_payment_ad_submit_form_page() {
     $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
 
     if (DEBUG_ADP || DEBUG_FORM) {
-      dpm ('Register_form');
-      dpm ($register_form);
+      $debug_info = array(
+        'Register_form' => $register_form,
+      );
+      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
     }
 
     $variables = array(
@@ -296,20 +298,11 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
 
   if (DEBUG_ADP || DEBUG_FORM) {
-    global $user;
-    dpm('USER');
-    dpm($user);
-    dpm('FORM');
-    dpm($form);
-    dpm('FORM :: #FIELDGROUPS');
-    dpm($form['#fieldgroups']['group_ad']);
-    dpm('FORM STATE');
-    dpm($form_state);
-    dpm('FORM-STATE : NODE');
-    dpm($form_state['node']);
-
-    dpm('Access Check:');
-    dpm(user_access('submit_ad'));
+    $debug_info = array(
+      'form' => $form,
+      'form_state' => $form_state,
+    );
+    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
   }
 }
 
@@ -364,10 +357,12 @@ function _ad_payment_cc_submit($form, &$form_state) {
 //  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
 //
   if (DEBUG_ADP || DEBUG_FORM) {
-    dpm('Submit - FORM ');
-    dpm($form);
-    dpm('Submit - FORM STATE');
-    dpm($form_state);
+    $debug_info = array(
+      'submitted_form' => $form,
+      'submitted_form_state' => $form_state,
+    );
+    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+
   }
 
   // Test the Node Form_state
@@ -384,7 +379,6 @@ function _ad_payment_cc_submit($form, &$form_state) {
 
   //$form_state['redirect'] = array('ad/' . $temp_id . '/thank-you');
 
-   //dpm('Redirect = ' . $form_state['redirect']);
 
 
   // // Submit Data to Netidea
@@ -438,10 +432,12 @@ function ad_payment_node_insert($node) {
     $details = ad_payment_price_check($node, 'node');
 
     if (DEBUG_ADP || DEBUG_FORM) {
-      dpm('Node Insert Data');
-      dpm($node);
-      dpm('Data for DATABASE');
-      dpm($details);
+      $debug_info = array(
+        'Node_Insert_Data' => $node,
+        'data_for_database' => $details,
+      );
+      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+
     }
 
     $fields = array(
@@ -468,8 +464,11 @@ function ad_payment_node_insert($node) {
     // IF debuging do not submit or send email.
     if (DEBUG_ADP || DEBUG_FORM) {
       drupal_set_message('This Ad NOT submitted! DEBUG is active.', 'alert');
-      dpm('############## SUBMIT FIELDS!!!!');
-      dpm($fields);
+      $debug_info = array(
+        'database_fields' => $fields,
+      );
+      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+
     }
     else {
       $nid = db_insert('adp')->fields($fields)->execute();
@@ -485,13 +484,12 @@ function ad_payment_node_insert($node) {
         // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
       }
       else {
-        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+        #watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
       }
 
 
       // Debug Redirect
       if (DEBUG_REDIRECT) {
-        dpm ('Page redirect should be inactive.');
         drupal_goto('ad/submit');
       }
       else {

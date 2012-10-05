@@ -187,16 +187,12 @@ function ad_payment_receipt($temp_id = NULL) {
   }
 
   if (DEBUG_ADP || DEBUG_PAYMENT || DEBUG_EMAIL) {
-    dpm('Receipt Submitted Data');
-    dpm($data);
+    $debug_info = array(
+      'Reseipt Submitted Data' => $data,
+      'User Data' => $user,
+    );
+    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
 
-    if(isset($data['variables']['image'])){
-      dpm('Image Fid Data');
-      dpm($data['variables']['image']);
-    }
-
-    dpm('User');
-    dpm($user);
   }
 
 

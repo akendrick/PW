@@ -66,15 +66,6 @@ function _ad_payment_pricing_details($node) {
  *  array of form/node values
  */
 function _ad_payment_get_payment_variables($data, $type = NULL){
-  if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Ad Payment - Get Payment Variables');
-    dpm('TYPE');
-    dpm($type);
-    dpm('DATA');
-    dpm($data);
-  }
-
-
   switch ($type) {
     case 'form_state':
       $form_state = $data;
@@ -128,9 +119,16 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
       return;
   }
   if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Ad Payment - RETURN Variables');
-    dpm('FORM_VALUES');
-    dpm($form_values);
+    if ($form_values) {
+      $debug_var = array(
+        '@type' => $form_values['parse'],
+        '@nid' => $form_values['ccid'],
+        '@user' => $form_values['user']['real-name'],
+        '@copy' => substr($form_values['ad_copy'], 0, 80) . '...',
+      );
+      $debug_msg = "@type data: @user submitted ad @nid ::<br> @copy";
+      watchdog('Ad Payment', $debug_msg, $debug_vars, WATCHDOG_INFO);
+    }
   }
 
   return $form_values;
@@ -171,9 +169,12 @@ function ad_payment_parse_array($array_to_parse = NULL, $call = NULL) {
   $value = ($value == FALSE) ? 1 : $value;
 
   if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Array counted from ' . $call);
-    dpm($array_to_parse);
-    dpm($value);
+    $debug_message = 'Called from: @array -- values detected: @values';
+    $debug_info = array(
+      '@array' => $call,
+      '@values' => $value,
+    );
+    watchdog('Ad Payment', $debug_message, $debug_info, WATCHDOG_INFO);
   }
 
   return $value;
@@ -234,25 +235,17 @@ function ad_payment_price_check(&$var, $data_type) {
   $live_price = ($liveload == TRUE) ? $rate['liveload_rate'] : 0;
 
   // Get basics
-  $words_over_price = ($count['over'] > 0) ? $rate['word_rate'] * ($count['over'] -1) : 0;
+  $price_over = ($count['over'] > 0) ? ($rate['word_rate'] -1) * $count['over'] : 0;
+  dpm('COUNT');
+  dpm($count);
+
 
   // If booking all 4 areas get $2 off (per week).
-  $area_discount = ($areas == 4) ? -2 * $duration['adjusted'] : 0;
+  $area_discount = ($areas == 4) ? -2 : 0;
 
-  // 1. Base Rate = ad_rate + word over count
-  $base_rate = $rate['base_rate'] + $words_over_price;
-
-  // 2. Area Multiplyer
-  $sub_total_1 = $base_rate * $areas;
-
-  // 3. Section Multiplyer
-  $sub_total_2 = $sub_total_1 * $sections;
-
-  // 4. Duration['adjusted'] - (Image price here)
-  $sub_total_3 = ($sub_total_2 + $img_price) * $duration['adjusted'];
-
-  // 5. Options
-  $sub_total = $sub_total_3 + $live_price + $area_discount;
+  // One line calculations.
+  // (( Base price with word count pricing) multiply by #AREA then by #SECTIONS add DISCOUNT then add IMAGE-Price ) multiply the whole thing by DURATION and add a LIVELOAD (if applicable)
+  $sub_total = (($rate['word_rate'] * $count['over'] + $rate['base_rate']) * $areas * $sections + $area_discount + $img_price) * $duration['adjusted'] + $live_price;
 
   // Taxes
   $tax_rate = variable_get('ad_payment_taxrate', '.12');
@@ -263,37 +256,6 @@ function ad_payment_price_check(&$var, $data_type) {
     // Round Total
     $total = _ad_payment_dollar_format($total);
 
-//
-//  // Base rate + overflow word count
-//  $base_price = ($rate['word_rate'] * $count['over']) + $rate['base_rate'] + $img_price ;
-//      $feedback .= t('<p>Base price $@base =($@word_rate (word rate) * @words_over (words over 15)) + @base_rate (base rate) + $@img_price (image price)</p>',
-//        array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@word_rate' => $rate['word_rate'], '@words_over' => $count['over'], '@img_price' => $img_price));
-//
-//  // Adjusted with duration and areas
-//  $sub_total_1 = $base_price * $areas * $duration['adjusted'];
-//      $feedback .= t('<p>Subtotal_1 $@sub1 = $@base (base rate) * @duration (duration) * @areas (# areas)</p>',
-//        array('@sub1' => $sub_total_1, '@base' => $base_price, '@duration' => $duration['adjusted'], '@areas' => $areas));
-//
-//  // Adjusted with duration and sections
-//  $sub_total_2 = $sub_total_1 * $sections;
-//      $feedback .= t('<p>Subtotal_2 $@sub2 = $@sub1 (subtotal_1) * @sections (# of sections) </p>',
-//        array('@sub2' => $sub_total_2, '@sub1' => $sub_total_1, '@sections' => $sections));
-//
-//  // Liveload - one time price.
-//  $sub_total_3 = _ad_payment_dollar_format($sub_total_2 + $live_price);
-//      $feedback .= t('<p>Subtotal_3 $@sub3 = $@sub2 (subtotal_2) + $@liveload (live load price)</p>',
-//        array('@sub3' => $sub_total_3, '@sub2' => $sub_total_2, '@liveload' => $live_price));
-//
-//  // Get Taxes
-//  $tax_rate = variable_get('ad_payment_taxrate', '.12');
-//
-//  // Total Cost
-//  $total = $sub_total_3 + $taxes;
-//  // Round Total
-//  $total = _ad_payment_dollar_format($total);
-//  $taxes = _ad_payment_dollar_format($sub_total_3 * $tax_rate);
-//      $feedback .= t('<p>FINAL PRICE $@total = $@sub3 (subtotal_3) + $@tax (taxes at @tax_rate)</p>',
-//        array('@total' => $total, '@sub3' => $sub_total_3, '@tax' => $taxes, '@tax_rate' => $tax_rate));
 
   // Set Price Variables
   $storage = array(
@@ -309,31 +271,34 @@ function ad_payment_price_check(&$var, $data_type) {
     'total'    => $total,
   );
 
-  // Parse data into legible reciept.
-  //$form_variable_storage['receipt'] = ad_payment_format_ad_submission_receipt($form_variable_storage);
-
-
   // TEST PRICES
   if(DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Data Being Saved.');
-    dpm($storage);
-
-    dpm('FEEDBACK');
-    $feedback = array(
-      'Image Price' => $img_price,
-      'Liveload Price' => $live_price,
-      'Words Over 15 price' => $words_over_price,
-      'Area Discount' => $area_discount,
-      'Base Rate' => $base_rate,
-      'Section Subtotal' => $sub_total_1,
-      'Area Subtototal' => $sub_total_2,
-      'Duration Subtotal' => $sub_total_3,
-      'Options Subtotal' => $sub_total_4,
-      'Tax Rate' => $tax_rate,
-      'Taxes' => $taxes,
-      'Total (rounded)' => $total,
+    $feedback_message = "
+      Word Rate: @word_rate<br>
+      Count (over): @count_over<br>
+      Price over 15: @price_over<br>
+      Area Discount (if any): @area_discount<br>
+      Base Rate: @base_rate<br>
+      Optional Sub: @options_subtotal<br>
+      Image price: @image_price<br>
+      Live price: @liveload_price<br>
+      Tax Rate: @tax_rate<br>
+      Taxes: @taxes<br>
+      Total(rounded): @total_rounded<br>
+      ";
+    $feedback_vars = array(
+      '@image_price' => $img_price,
+      '@liveload_price' => $live_price,
+      '@word_rate' => $rate['word_rate'],
+      '@count_over' => $count['over'],
+      '@price_over' => $price_over,
+      '@area_discount' => $area_discount,
+      '@base_rate' => $base_rate,
+      '@tax_rate' => $tax_rate,
+      '@taxes' => $taxes,
+      '@total_rounded' => $total,
     );
-    dpm($feedback);
+    watchdog('Ad Payment', $feedback_message, $feedback_vars, WATCHDOG_INFO);
     // Base
 //    drupal_set_message(t('Base Price: $@base = $@base_rate base price + @image_price (if any) + (@over words over @ $@word_rate word)',
 //      array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@image_price' => $img_price, '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));
@@ -427,11 +392,6 @@ function ad_payment_price_check(&$var, $data_type) {
 *
 */
 function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
-  if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('RATE');
-    dpm('$submitted_rate = ' . $submitted_rate);
-  }
-
   // Get Section Rating
   if ( $tax_term = taxonomy_term_load($tid) ) {
     $get_rate = array(
@@ -459,10 +419,6 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
         }
       }
 
-    if (DEBUG_ADP || DEBUG_PAYMENT) {
-      dpm('Taxonomy Rate - After error checking.');
-      dpm($get_rate);
-    }
   }
 
 
@@ -490,8 +446,11 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
   $rate = array_merge($get_rate, $pricing);
 
   if (DEBUG_ADP || DEBUG_PAYMENT) {
-    dpm('Returned Rate');
-    dpm($rate);
+    $debug_var = array(
+      '@rate' => $pricing['rate_name'],
+    );
+    $debug_msg = "@rate rated ad.";
+    watchdog('Ad Payment', $debug_msg, $debug_vars, WATCHDOG_INFO);
   }
 
   return $rate;
@@ -530,7 +489,7 @@ function _ad_payment_business_rating($storage) {
 */
 function _ad_payment_set_ad_duration($weeks) {
   if (!$weeks) {
-    watchdog('Ad Payment', 'Unable to set duration. _ad_payment_set_ad_duration() No data to process. _ad_payment_set_ad_duration :: ad_payment_price_check.php LINE 323');
+    watchdog('Ad Payment', 'Unable to set duration. Number of weeks selected --> @weeks <--', array('@weeks' => $weeks));
   }
 
   $duration = array();
@@ -588,7 +547,8 @@ function _ad_payment_set_ad_duration($weeks) {
 */
 function _ad_payment_word_counter($copy) {
   // Make sure all periods are followed by a space.
-  $copy = str_replace('.', '. ', $copy);
+
+  // $copy = str_replace('.', '. ', $copy);
 
   // Clear Paragraph Returns or New Lines and Double Spaces
   // replace with single space

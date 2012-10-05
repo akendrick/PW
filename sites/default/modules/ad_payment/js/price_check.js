@@ -257,43 +257,15 @@ Drupal.adPayment.getPrice = function(ad) {
   // 6. Total Price
   price.total = price.subTotal + price.taxes;
 
-//  // If no area selected use default one.
-//  ad.area = (ad.area == 0) ? 1 : ad.area;
-//
-//  // Base rate + overflow word count
-//  price.overCount = (ad.wordCount > 15) ? ad.countOver * price.word : 0 ;
-//  price.basePrice = price.base + price.overCount;
-//
-//  // Adjusted with duration and areas
-//  price.adjPrice = price.basePrice * ad.duration * ad.area;
-//
-//  // If booking all 4 areas get $1 off.
-//  price.discount = ( ad.area == 4 ) ?  -2 : 0 ;
-//
-//  // If optional perks
-//  price.imagePrice = 0;
-//  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.img : 0 ;
-//  price.optional = price.imagePrice + price.liveload;
-//
-//  // SubTotal
-//  price.subTotal = price.adjPrice + price.discount + price.optional;
-//
-//  // Get Taxes
-//  price.taxeRate = .12;
-//  price.taxes = price.subTotal * price.taxeRate;
-//
-//  // Total
-//  price.total = price.subTotal +  price.taxes;
-//
 //  // Round prices for output
   price.subTotalRound = Drupal.adPayment.formatCurrency(price.subTotal);
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
 
-  console.log('Price');
-  console.log(price);
-  console.log('Ad');
-  console.log(ad);
+//  console.log('Price');
+//  console.log(price);
+//  console.log('Ad');
+//  console.log(ad);
 
   return price;
 };
