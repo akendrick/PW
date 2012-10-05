@@ -44,8 +44,8 @@
 // Displays Ad Payment Data
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
 define ('DEBUG_FORM', FALSE); // Check form inputs.
-define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
-define ('DEBUG_PAYMENT', TRUE); // Debug ad payment stuff. Does not include jQuery!
+define ('DEBUG_EMAIL', TRUE); // Check receipt and email features.
+define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
 define ('DEBUG_REDIRECT', FALSE); // False will keep the ad on the submit page.
 
 /**
@@ -473,20 +473,23 @@ function ad_payment_node_insert($node) {
     else {
       $nid = db_insert('adp')->fields($fields)->execute();
 
-      // Send Email upon Completion.
-      $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
-      $from = variable_get('pw_email', 'k2@pennywiseads.com');
-      $language = language_default();
-      $send = TRUE;
-      $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
+      if ($nid) {
+        // Send Email upon Completion.
+        dpm('Get Inhouse receipt');
 
-      if ($result['result'] == TRUE) {
-        // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
-      }
-      else {
-        #watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
-      }
+        $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
+        $from = variable_get('pw_email', 'k2@pennywiseads.com');
+        $language = language_default();
+        $send = TRUE;
+        $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
 
+        if ($result['result'] == TRUE) {
+          // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+        }
+        else {
+          #watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+        }
+      }
 
       // Debug Redirect
       if (DEBUG_REDIRECT) {

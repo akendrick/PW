@@ -1654,6 +1654,7 @@ function pw_pages_field_default_fields() {
           'label' => 'hidden',
           'module' => 'entityreference',
           'settings' => array(
+            'links' => TRUE,
             'view_mode' => 'teaser',
           ),
           'type' => 'entityreference_entity_view',

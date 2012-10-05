@@ -73,14 +73,16 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'parse'   => 'Form State Values',
         'ad_copy' => $form_state['values']['field_ad_copy']['und'][0]['value'],
         'area_default' => $form_state['values']['field_area']['und'][0]['value'],
-        'area'    => ad_payment_parse_array($form_state['values']['field_area']['und'], 'form > area'),
+        'area'    => ad_payment_parse_array($form_state['values']['field_area']['und']),
+        'areas'   => ad_payment_parse_array($form_state['values']['field_area']['und'], 'area'),
         'image'   => $form_state['values']['field_image']['und'][0]['fid'],
         'rate'    => $form_state['values']['field_rate']['und'][0]['value'],
         'ad_type' => $form_state['values']['field_promote']['und'][0]['value'],
         'duration'=> $form_state['values']['field_duration']['und'][0]['value'],
         'section_default' => $form_state['values']['field_tags']['und'][0]['value'],
         'section_count' => count($form_state['values']['field_tags']['und']),
-        'section' => ad_payment_parse_array($form_state['values']['field_tags']['und'], 'form > section'),
+        'section' => ad_payment_parse_array($form_state['values']['field_tags']['und']),
+        'sections'=> ad_payment_parse_array($form_state['values']['field_tags']['und'], 'term'),
         'notes'   => $form_state['values']['field_notes']['und'][0]['value'],
         'user'    => array(
           'real-name' => $form_state['values']['field_first_name'] . ' ' . $form_state['values']['field_last_name'],
@@ -97,15 +99,18 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'ad_copy' => $node->field_ad_copy['und'][0]['value'],
         'area_default' => $node->field_area['und'][0]['value'],
         'area_count'   => count($node->field_area['und']),
-        'area'    => ad_payment_parse_array($node->field_area['und'], 'node > area'),
+        'area'    => ad_payment_parse_array($node->field_area['und']),
+        'areas'   => ad_payment_parse_array($node->field_area['und'], 'area'),
         'image'   => $node->field_image['und'][0]['fid'],
         'rate'    => $node->field_rate['und'][0]['value'],
         'ad_type' => $node->field_promote['und'][0]['value'],
         'ccid'    => $node->field_ad_details['und'][0]['value'],
         'duration'=> $node->field_duration['und'][0]['value'],
         'section_default' => $node->field_tags['und'][0]['tid'],
+        'section_name' => ad_payment_get_term_name($node->field_tags['und'][0]['tid']),
         'section_count' => count($node->field_tags['und'][0]['tid']),
-        'section' => ad_payment_parse_array($node->field_tage['und'], 'node > section'),
+        'section' => ad_payment_parse_array($node->field_tags['und']),
+        'sections'=> ad_payment_parse_array($node->field_tags['und'], 'term'),
         'notes'   => $node->field_notes['und'][0]['value'],
         'user'    => array(
           'real-name' => $node->field_first_name . ' ' . $node->field_last_name,
@@ -145,38 +150,48 @@ function ad_payment_get_term_name($tid) {
   return $term_name;
 }
 
+
 /**
 * Implementation of custom array value parser
 *
 * @array_to_parse
 *   - search this array for 'value'
+*   - if KEY then parse for name else parse for value
+*   - KEY determines name output. (either term or section).
 * @return
 *   - return string of all found 'value' tags.
 */
-function ad_payment_parse_array($array_to_parse = NULL, $call = NULL) {
-  if (!is_array($array_to_parse)) {
-    return $array_to_parse;
-  }
+function ad_payment_parse_array($array_to_parse = NULL, $key = NULL) {
+  if(!$key){
+    if (!is_array($array_to_parse)) {
+      return $array_to_parse;
+    }
 
-  if (is_array($array_to_parse)) {
-    $value = count($array_to_parse);
+    if (is_array($array_to_parse)) {
+      $value = count($array_to_parse);
+    }
+    else {
+      $value .= item . ' ';
+    }
+
+    // If ZERO assume 1.
+    $value = ($value == FALSE) ? 1 : $value;
   }
   else {
-    $value .= item . ' ';
+    $spacer = (count($array_to_parse) > 1) ? ', ' : '';
+    switch($key) {
+      case 'term':
+        foreach($array_to_parse as $term) {
+          $value .= ad_payment_get_term_name($term['tid']) . $spacer;
+        }
+        break;
+      case 'area':
+        foreach($array_to_parse as $area) {
+          $value .= $area['value'] . $spacer;
+        }
+       break;
+    }
   }
-
-  // If ZERO assume 1.
-  $value = ($value == FALSE) ? 1 : $value;
-
-  if (DEBUG_ADP || DEBUG_PAYMENT) {
-    $debug_message = 'Called from: @array -- values detected: @values';
-    $debug_info = array(
-      '@array' => $call,
-      '@values' => $value,
-    );
-    watchdog('Ad Payment', $debug_message, $debug_info, WATCHDOG_INFO);
-  }
-
   return $value;
 }
 
@@ -236,9 +251,6 @@ function ad_payment_price_check(&$var, $data_type) {
 
   // Get basics
   $price_over = ($count['over'] > 0) ? ($rate['word_rate'] -1) * $count['over'] : 0;
-  dpm('COUNT');
-  dpm($count);
-
 
   // If booking all 4 areas get $2 off (per week).
   $area_discount = ($areas == 4) ? -2 : 0;
@@ -255,7 +267,6 @@ function ad_payment_price_check(&$var, $data_type) {
   $total = $sub_total + $taxes;
     // Round Total
     $total = _ad_payment_dollar_format($total);
-
 
   // Set Price Variables
   $storage = array(

@@ -186,12 +186,15 @@ function ad_payment_receipt($temp_id = NULL) {
       array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $data), WATCHDOG_NOTICE);
   }
 
-  if (DEBUG_ADP || DEBUG_PAYMENT || DEBUG_EMAIL) {
-    $debug_info = array(
-      'Reseipt Submitted Data' => $data,
-      'User Data' => $user,
+  if (DEBUG_ADP || DEBUG_EMAIL) {
+    $debug_var = array(
+      '@key' => 'Customer Receipt',
+      '@to'  => $to,
+      '@from' => $from,
+
     );
-    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+    $debug_msg = "@key -- To: @to;From: @from";
+    watchdog('Ad Payment', $debug_msg, $debug_vars, WATCHDOG_INFO);
 
   }
 

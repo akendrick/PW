@@ -160,6 +160,7 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     switch ($match[2]) {
       case 'display_ads':
         $data['actions']['output'][] = pennywise_custom_action_links('display-ads', 'Add Display Ad');
+        $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add File Attachment');
         break;
       case 'article':
         $data['actions']['output'][] = pennywise_custom_action_links('article', 'Add Editorial');
