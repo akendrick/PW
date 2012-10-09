@@ -18,6 +18,9 @@ function pw_display_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_ad_client',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -48,7 +51,13 @@ function pw_display_field_default_fields() {
       'bundle' => 'display_ads',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'The following are considered clients
+<ul>
+<li>Pennywise
+<li>Obituaries
+<li>Birth Announcements
+<li>Wedding Announcements
+</ul>',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -246,6 +255,7 @@ function pw_display_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -456,15 +466,17 @@ function pw_display_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'field_ad_copy:value',
-            'property' => 'nid',
-            'type' => 'none',
+            'property' => 'title',
+            'type' => 'property',
           ),
           'target_bundles' => array(
             'article' => 'article',
             'attachment' => 'attachment',
+            'classified' => 'classified',
             'display_ads' => 'display_ads',
             'page' => 'page',
+            'pw_digital' => 'pw_digital',
+            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -490,7 +502,8 @@ function pw_display_field_default_fields() {
       'bundle' => 'display_ads',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Link this display ad to a PDF attachment, another display ad or even a classified ad. Link to a specific PW web page, or even an online web submission form. You can also create the attachment right here.
+<strong>Display ads can only be linked. Do not create another display ad here!</strong>',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -510,18 +523,21 @@ function pw_display_field_default_fields() {
       'label' => 'File Attach',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => '',
+        'custom_add_another' => 'Attach another',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'entityreference',
+        'module' => 'inline_entity_form',
         'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => '60',
+          'fields' => array(),
+          'type_settings' => array(
+            'allow_existing' => 1,
+            'delete_references' => 0,
+            'match_operator' => 'CONTAINS',
+          ),
         ),
-        'type' => 'entityreference_autocomplete',
+        'type' => 'inline_entity_form',
         'weight' => '6',
       ),
     ),
@@ -613,6 +629,7 @@ function pw_display_field_default_fields() {
             ),
           ),
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -640,7 +657,7 @@ function pw_display_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -649,7 +666,7 @@ function pw_display_field_default_fields() {
   $fields['node-display_ads-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -682,11 +699,11 @@ function pw_display_field_default_fields() {
       'bundle' => 'display_ads',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '<strong>NOTE: YOU must include HTTP://</strong>
-Title tag allows you to shorten very long and complex web links with a concise title.
-Eg. You can replace:
-<em>http://www.example.com/book_1/chapt-3/page_30</em>
-with <strong>Page 30</strong>.
+      'description' => 'Title tag allows you to shorten very long and complex web links with a concise title.<br>
+Eg. You can replace:<br>
+<em>http://www.example.com/book_1/chapt-3/page_30</em><br>
+with <strong>Page 30</strong>.<br>
+<p><strong>NOTE: YOU must include HTTP://</strong><br>if the URL is not located at http://PennywiseAds.com
 ',
       'display' => array(
         'default' => array(
@@ -949,12 +966,6 @@ with <strong>Page 30</strong>.
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('<strong>NOTE: YOU must include HTTP://</strong>
-Title tag allows you to shorten very long and complex web links with a concise title.
-Eg. You can replace:
-<em>http://www.example.com/book_1/chapt-3/page_30</em>
-with <strong>Page 30</strong>.
-');
   t('Client');
   t('Description');
   t('Display Ad');
@@ -962,6 +973,8 @@ with <strong>Page 30</strong>.
   t('Email');
   t('File Attach');
   t('Link');
+  t('Link this display ad to a PDF attachment, another display ad or even a classified ad. Link to a specific PW web page, or even an online web submission form. You can also create the attachment right here.
+<strong>Display ads can only be linked. Do not create another display ad here!</strong>');
   t('Optional email contact for business.');
   t('Publishing Date');
   t('Related File');
@@ -969,6 +982,19 @@ with <strong>Page 30</strong>.
   t('Section Selector');
   t('Select the ad type. This will affect the ads placement and thumbnail size. <br>
 <strong>ALL ADS ARE FORCED RESIZED TO THE AD TYPE.</strong>.');
+  t('The following are considered clients
+<ul>
+<li>Pennywise
+<li>Obituaries
+<li>Birth Announcements
+<li>Wedding Announcements
+</ul>');
+  t('Title tag allows you to shorten very long and complex web links with a concise title.<br>
+Eg. You can replace:<br>
+<em>http://www.example.com/book_1/chapt-3/page_30</em><br>
+with <strong>Page 30</strong>.<br>
+<p><strong>NOTE: YOU must include HTTP://</strong><br>if the URL is not located at http://PennywiseAds.com
+');
   t('Upload (or select) display ad.');
   t('Upload related document.');
 

@@ -61,7 +61,6 @@ function pw_display_field_group_info() {
     'children' => array(
       0 => 'field_email',
       1 => 'field_link',
-      2 => 'field_entity_reference',
     ),
     'format_type' => 'div',
     'format_settings' => array(

@@ -14,6 +14,7 @@ dependencies[] = features
 dependencies[] = field_group
 dependencies[] = file
 dependencies[] = image
+dependencies[] = inline_entity_form
 dependencies[] = link
 dependencies[] = list
 dependencies[] = options

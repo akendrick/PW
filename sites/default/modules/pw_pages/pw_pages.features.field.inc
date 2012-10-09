@@ -374,15 +374,17 @@ function pw_pages_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'field_ad_copy:value',
-            'property' => 'nid',
-            'type' => 'none',
+            'property' => 'title',
+            'type' => 'property',
           ),
           'target_bundles' => array(
             'article' => 'article',
             'attachment' => 'attachment',
+            'classified' => 'classified',
             'display_ads' => 'display_ads',
             'page' => 'page',
+            'pw_digital' => 'pw_digital',
+            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -768,7 +770,7 @@ function pw_pages_field_default_fields() {
   $fields['node-article-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -1085,15 +1087,17 @@ function pw_pages_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'field_ad_copy:value',
-            'property' => 'nid',
-            'type' => 'none',
+            'property' => 'title',
+            'type' => 'property',
           ),
           'target_bundles' => array(
             'article' => 'article',
             'attachment' => 'attachment',
+            'classified' => 'classified',
             'display_ads' => 'display_ads',
             'page' => 'page',
+            'pw_digital' => 'pw_digital',
+            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1119,7 +1123,7 @@ function pw_pages_field_default_fields() {
       'bundle' => 'attachment',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'If the attachment is several pages or files you can reference the other items here.',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -1420,7 +1424,7 @@ function pw_pages_field_default_fields() {
   $fields['node-attachment-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -1453,7 +1457,7 @@ function pw_pages_field_default_fields() {
       'bundle' => 'attachment',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -1614,15 +1618,17 @@ function pw_pages_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'field_ad_copy:value',
-            'property' => 'nid',
-            'type' => 'none',
+            'property' => 'title',
+            'type' => 'property',
           ),
           'target_bundles' => array(
             'article' => 'article',
             'attachment' => 'attachment',
+            'classified' => 'classified',
             'display_ads' => 'display_ads',
             'page' => 'page',
+            'pw_digital' => 'pw_digital',
+            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1955,7 +1961,7 @@ function pw_pages_field_default_fields() {
   $fields['node-page-field_link'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_link',
@@ -2599,6 +2605,7 @@ function pw_pages_field_default_fields() {
   t('Attach pages, display ads, editorials or downloadable files to this page.');
   t('Attachment');
   t('Body');
+  t('By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>');
   t('Cover');
   t('Description');
   t('Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]');
@@ -2607,6 +2614,7 @@ function pw_pages_field_default_fields() {
   t('Extra Images');
   t('Header Image');
   t('Highlighted Link');
+  t('If the attachment is several pages or files you can reference the other items here.');
   t('Inserted Images');
   t('Link');
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
