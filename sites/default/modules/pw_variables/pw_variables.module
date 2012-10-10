@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Pennywise Variables feature.
+ */
+
+include_once 'pw_variables.features.inc';

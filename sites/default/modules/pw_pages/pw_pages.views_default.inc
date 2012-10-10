@@ -801,8 +801,10 @@ $footer = "<a href=\'<?php echo $base_root . $base_path; ?>/editorial\' class=\'
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
-  $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['body']['alter']['text'] = '[body] ...more.';
+  $handler->display->display_options['fields']['body']['alter']['path'] = '[view_node]';
   $handler->display->display_options['fields']['body']['alter']['max_length'] = '80';
+  $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['body']['element_type'] = 'p';
@@ -812,16 +814,6 @@ $footer = "<a href=\'<?php echo $base_root . $base_path; ?>/editorial\' class=\'
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '180',
   );
-  /* Field: Content: Link */
-  $handler->display->display_options['fields']['view_node']['id'] = 'view_node';
-  $handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['view_node']['field'] = 'view_node';
-  $handler->display->display_options['fields']['view_node']['label'] = '';
-  $handler->display->display_options['fields']['view_node']['element_label_type'] = 'div';
-  $handler->display->display_options['fields']['view_node']['element_label_class'] = 'grid-4 omega field-name-node-link views-slideshow-link';
-  $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['view_node']['text'] = 'More';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

@@ -79,7 +79,7 @@ function pw_pages_image_default_styles() {
   $styles['editorial_small'] = array(
     'name' => 'editorial_small',
     'effects' => array(
-      17 => array(
+      1 => array(
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
@@ -90,7 +90,7 @@ function pw_pages_image_default_styles() {
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => '134',
-          'height' => '180',
+          'height' => '150',
         ),
         'weight' => '1',
       ),

@@ -55,7 +55,7 @@ function ad_payment_menu() {
   $items['ad/submit'] = array(
     'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
-    'page callback'   => 'ad_payment_ad_submit_form_page',
+    'page callback'   => 'ap_submit_form_page',
     'type'            => MENU_NORMAL_ITEM,
   );
 
@@ -103,38 +103,51 @@ function ad_payment_theme($existing, $type, $theme, $path) {
  *
  * @based on LoginToboggan
  */
-function theme_ap_unified_login_page($variables) {
+function theme_ap_unified_login_page() {
+  // Modify Default Forms
+  $login_form = drupal_get_form('user_login');
+  $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
+  $login_form['#attached']['js'][] = array(
+    'data' => array(
+      'LoginToboggan' => array(
+        'unifiedLoginActiveForm' => $active_form,
+      ),
+    ),
+    'type' => 'setting',
+  );
+  // Registration Form
+  $register_form = drupal_get_form('user_register_form');
+  $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
+  $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
 
-  $login_form = $variables['login_form'];
-  $register_form = $variables['register_form'];
-  $active_form = $variables['active_form'];
-  $output = '';
+  $login_form = drupal_render($login_form);
+  $register_form = drupal_render($register_form);
 
-  $output .= '<div id="user-register-form" class="ad-submission-unified grid-12' . $active_form . '">';
+  // NEW USERS
+  $register .= '<div id="user-register-form" class="ad-submission-unified ad-submission-register">';
 
   // Create the initial message and links that people can click on.
-  $output .= '<div id="login-message">' . t('Please tell us about yourself before we begin.') . '</div>';
+  $register .= '<div id="login-message">' . t('New Users begin here.') . '</div>';
 
 
   // Add the login and registration forms in.
-  $output .= '<div id="login-form">' . $login_form . '</div>';
-  $output .= '<div id="register-form">' . $register_form . '</div>';
+  //$register .= '<div id="login-form">' . $login_form . '</div>';
+  $register .= '<div id="register-form">' . $register_form . '</div>';
 
-  $output .= '<div id="login-links">';
-  $output .= l(t('I have created an ad before.'), 'user/login', array(
-    'query' => array('destination' => 'ad/submit'),
-    'attributes' => array(
-      'class' => array(
-        'login-link', 'submit', 'button'),
-        'id' => 'login-link',
-      ), // end attributes
-    ) // end t()
-  );
+  $register .= '<div id="login-links">';
   // $output .= ' ';
   // $output .= l(t('I want to create an account'), 'user/register', array('attributes' => array('class' => array('login-link'), 'id' => 'register-link')));
-  $output .= '</div>';
+  $register .= '</div>';
+  $register .= '</div>';
 
-  $output .= '</div>';
+  $login = '<div id="user-login-form" class="ad-submission-unified ad-submission-login">';
+  $login .= '<div id="login-message">' . t('Returning users login here.') . '</div>';
+  $login .= '<div id="user-login-form">' . $login_form . '</div>';
+  $login .= '</div>';
+
+
+
+  $output = "<div class='alpha grid-12'>$register</div><div class='omega grid-12'>$login</div>";
 
   return $output;
 }
@@ -153,65 +166,60 @@ function theme_ap_unified_login_page($variables) {
 *
 * The login protion is commented out.
 */
-function ad_payment_ad_submit_form_page() {
+function ap_submit_form_page() {
 
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
 
   if (!$ad_submsision) {
-      // If Module -- Persistant Dismissable Messages Present
-   # if (module_exists('pdm')) {
-   #   $message = 'Classified ad submission is currently disabled.';
-   #   $options = array(
-   #     'type' => 'alert',
-   #     'pdm_type' => 'PW Classified Settings',
-   #     'repeat' => TRUE,
-   #   );
-   #   pdm_create_message($message, $options);
-   # }
-   # else {
-      drupal_set_message( t('Classified ad submission is currently disabled.') );
-      $link = l('Return to PennywiseADS.com.', '<front>', array('attributes' => array('class' => 'button', 'id' => 'block-ad-payment-ad-payment-create-ad')));
-   # }
+    drupal_set_message( t('Classified ad submission is currently disabled.') );
+    $link = l('Return to PennywiseADS.com.', '<front>', array('attributes' => array('class' => 'button', 'id' => 'block-ad-payment-ad-payment-create-ad')));
     return $link;
   }
-
 
   global $user;
 
   if (!$user->uid) {
-    // Use this code if you want LoginToboggan
-    //  to take over completely the login process.
-    // This will result in the login form
-    //  defaulting to 'login' rather than 'register'.
-
-    // module_load_include('logintoboggan', 'logintoboggan');
-    // $content = logintoboggan_unified_login_page('login');
-
-    // Cut and paste from LoginToboggan.
-    $register_form = drupal_get_form('user_register_form');
-    $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
-    $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
-
-    if (DEBUG_ADP || DEBUG_FORM) {
-      $debug_info = array(
-        'Register_form' => $register_form,
-      );
-      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
-    }
-
-    $variables = array(
-      'login_form'    => $rendered_login_form,
-      'register_form' => drupal_render($register_form),
-      'active_form'   => $active_form,
-    );
-    $content = theme('ap_unified_login_page', $variables);
+    $active_form = 'register';
   }
   elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
-    // Get Node Creation Form.
-    module_load_include('inc', 'node', 'node.pages');
-    $content = node_add('ad_s');
+    $active_form = 'login';
   }
+
+ //$content = theme('ap_unified_login_page');
+  $login_form = drupal_get_form('user_login');
+  $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
+  $login_form['#attached']['js'][] = array(
+    'data' => array(
+      'LoginToboggan' => array(
+        'unifiedLoginActiveForm' => $active_form,
+      ),
+    ),
+    'type' => 'setting',
+  );
+
+  $register_form = drupal_get_form('user_register_form');
+  $register_form['actions']['submit']['#value'] = 'Start a classified ad.';
+  dpm($register_form);
+
+
+
+  $rendered_login_form = drupal_render($login_form);
+  $rendered_register_form = drupal_render($register_form);
+  $variables = array(
+    'login_form' => $rendered_login_form,
+    'register_form' => $rendered_register_form,
+    'active_form' => $active_form,
+  );
+  $unified_login = theme('lt_unified_login_page', $variables);
+
+  $content = <<<LOGIN
+<div id="user-register-form" class="toboggan-unified toboggan-outer register grid-14 prefix-5 suffix-5">
+  <div id="toboggan-unified toboggan-inner">
+    $unified_login
+  </div>
+</div>
+LOGIN;
 
   return $content;
 }
