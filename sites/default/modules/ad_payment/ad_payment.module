@@ -52,11 +52,12 @@ define ('DEBUG_REDIRECT', FALSE); // False will keep the ad on the submit page.
 * Implementation of HOOK_menu
 */
 function ad_payment_menu() {
-  $items['ad/submit'] = array(
+  $items['ad/submit/%'] = array(
     'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
     'page callback'   => 'ap_submit_form_page',
     'type'            => MENU_NORMAL_ITEM,
+    'page arguments' => array(1),
   );
 
   $items['ad/%/thank-you'] = array(
@@ -77,79 +78,98 @@ function ad_payment_menu() {
  *
  * @based on logintoboggan
  */
-function ad_payment_theme($existing, $type, $theme, $path) {
-  return array(
-   // 'ap_access_denied' => array(
-   //   'variables' => array(),
-   // ),
-   // 'ap_loggedinblock' => array(
-   //   'variables' => array('account' => NULL),
-   // ),
-   // 'ap_login_successful_message' => array(
-   //   'variables' => array('account' => NULL),
-   // ),
-    'ap_unified_login_page' => array(
-      'variables' => array(
-        'login_form' => NULL,
-        'register_form' => NULL,
-        'active_form' => NULL,
-      ),
-    ),
-  );
-}
+// function ad_payment_theme($existing, $type, $theme, $path) {
+//   return array(
+//    // 'ap_access_denied' => array(
+//    //   'variables' => array(),
+//    // ),
+//    // 'ap_loggedinblock' => array(
+//    //   'variables' => array('account' => NULL),
+//    // ),
+//    // 'ap_login_successful_message' => array(
+//    //   'variables' => array('account' => NULL),
+//    // ),
+//     'ap_unified_login_page' => array(
+//       'variables' => array(
+//         'login_form' => NULL,
+//         'register_form' => NULL,
+//         'active_form' => NULL,
+//       ),
+//     ),
+//   );
+// }
 
 /**
  * Theme function for unified login page.
  *
  * @based on LoginToboggan
  */
-function theme_ap_unified_login_page() {
-  // Modify Default Forms
-  $login_form = drupal_get_form('user_login');
-  $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
-  $login_form['#attached']['js'][] = array(
-    'data' => array(
-      'LoginToboggan' => array(
-        'unifiedLoginActiveForm' => $active_form,
-      ),
-    ),
-    'type' => 'setting',
-  );
-  // Registration Form
-  $register_form = drupal_get_form('user_register_form');
-  $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
-  $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
+// function theme_ap_unified_login_page() {
+//   // Modify Default Forms
+//   $login_form = drupal_get_form('user_login');
+//   $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
+//   $login_form['#attached']['js'][] = array(
+//     'data' => array(
+//       'LoginToboggan' => array(
+//         'unifiedLoginActiveForm' => $active_form,
+//       ),
+//     ),
+//     'type' => 'setting',
+//   );
+//
+//   // Registration Form
+//   $register_form = drupal_get_form('user_register_form');
+//   $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
+//   $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
+//
+//   $login_form = drupal_render($login_form);
+//   $register_form = drupal_render($register_form);
+//
+//   // NEW USERS
+//   $register .= '<div id="user-register-form" class="ad-submission-unified ad-submission-register">';
+//
+//   // Create the initial message and links that people can click on.
+//   $register .= '<div id="login-message">' . t('New Users begin here.') . '</div>';
+//
+//
+//   // Add the login and registration forms in.
+//   //$register .= '<div id="login-form">' . $login_form . '</div>';
+//   $register .= '<div id="register-form">' . $register_form . '</div>';
+//
+//   $register .= '<div id="login-links">';
+//   // $output .= ' ';
+//   // $output .= l(t('I want to create an account'), 'user/register', array('attributes' => array('class' => array('login-link'), 'id' => 'register-link')));
+//   $register .= '</div>';
+//   $register .= '</div>';
+//
+//   $login = '<div id="user-login-form" class="ad-submission-unified ad-submission-login">';
+//   $login .= '<div id="login-message">' . t('Returning users login here.') . '</div>';
+//   $login .= '<div id="user-login-form">' . $login_form . '</div>';
+//   $login .= '</div>';
+//
+//
+//
+//   $output = "<div class='alpha grid-12'>$register</div><div class='omega grid-12'>$login</div>";
+//
+//   return $output;
+// }
 
-  $login_form = drupal_render($login_form);
-  $register_form = drupal_render($register_form);
 
-  // NEW USERS
-  $register .= '<div id="user-register-form" class="ad-submission-unified ad-submission-register">';
-
-  // Create the initial message and links that people can click on.
-  $register .= '<div id="login-message">' . t('New Users begin here.') . '</div>';
-
-
-  // Add the login and registration forms in.
-  //$register .= '<div id="login-form">' . $login_form . '</div>';
-  $register .= '<div id="register-form">' . $register_form . '</div>';
-
-  $register .= '<div id="login-links">';
-  // $output .= ' ';
-  // $output .= l(t('I want to create an account'), 'user/register', array('attributes' => array('class' => array('login-link'), 'id' => 'register-link')));
-  $register .= '</div>';
-  $register .= '</div>';
-
-  $login = '<div id="user-login-form" class="ad-submission-unified ad-submission-login">';
-  $login .= '<div id="login-message">' . t('Returning users login here.') . '</div>';
-  $login .= '<div id="user-login-form">' . $login_form . '</div>';
-  $login .= '</div>';
-
-
-
-  $output = "<div class='alpha grid-12'>$register</div><div class='omega grid-12'>$login</div>";
-
-  return $output;
+/**
+* Implementation of HOOK_email_registration_name
+*
+* If Email Registration module enabled - hook and rename.
+* - Email registration uses the email field
+* - PW module uses the real_name module
+*
+*/
+function ad_payment_email_registration_name($edit, $account) {
+  dpm('Ad Payment Email Registration');
+  if (module_exists('email_registration') && module_exists('realname') ) {
+    $real_name = $account->field_first_name['und'][0]['value'] . '_' . $account->field_last_name['und'][0]['value'];
+    return $real_name;
+  }
+  dpm($real_name);
 }
 
 
@@ -166,7 +186,8 @@ function theme_ap_unified_login_page() {
 *
 * The login protion is commented out.
 */
-function ap_submit_form_page() {
+function ap_submit_form_page($uid = NULL) {
+
 
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
@@ -176,6 +197,14 @@ function ap_submit_form_page() {
     $link = l('Return to PennywiseADS.com.', '<front>', array('attributes' => array('class' => 'button', 'id' => 'block-ad-payment-ad-payment-create-ad')));
     return $link;
   }
+
+  // If user is registered go to ad. Else carry on to login/register.
+//  if ($uid) {
+//    $ad = drupal_get_form('ad_s_node_form');
+//    $ad_rendered = drupal_render($ad);
+//    dpm($ad);
+//    return 'ad goes here';
+//  }
 
   global $user;
 
@@ -200,7 +229,7 @@ function ap_submit_form_page() {
 
   $register_form = drupal_get_form('user_register_form');
   $register_form['actions']['submit']['#value'] = 'Start a classified ad.';
-  dpm($register_form);
+  //dpm($register_form);
 
 
 
@@ -483,7 +512,7 @@ function ad_payment_node_insert($node) {
 
       if ($nid) {
         // Send Email upon Completion.
-        dpm('Get Inhouse receipt');
+        //dpm('Get Inhouse receipt');
 
         $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
         $from = variable_get('pw_email', 'k2@pennywiseads.com');

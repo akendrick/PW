@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * pw_variables.strongarm.inc
+ * pw_vars.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function pw_variables_strongarm() {
+function pw_vars_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
@@ -266,7 +266,7 @@ function pw_variables_strongarm() {
   $strongarm->value = array(
     32 => 'Animals & Livestock',
     24 => 'Announcements',
-    14 => 'Bulletin Boards',
+    14 => 'Community Boards',
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
@@ -2281,7 +2281,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_confirm_email_at_registration';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['logintoboggan_confirm_email_at_registration'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2329,22 +2329,15 @@ admin/*
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_purge_unvalidated_user_interval';
-  $strongarm->value = '15379200';
-  $export['logintoboggan_purge_unvalidated_user_interval'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_confirm';
-  $strongarm->value = 'ad/submit';
+  $strongarm->value = '';
   $export['logintoboggan_redirect_on_confirm'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_register';
-  $strongarm->value = 'ad/submit';
+  $strongarm->value = 'ad/submit/%uid';
   $export['logintoboggan_redirect_on_register'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2388,48 +2381,49 @@ admin/*
   $strongarm->value = array(
     0 => 501,
     1 => 493,
-    2 => 250,
-    3 => 247,
-    4 => 246,
-    5 => 245,
-    6 => 127,
-    7 => 125,
-    8 => 124,
-    9 => 123,
-    10 => 122,
-    11 => 121,
-    12 => 117,
-    13 => 112,
-    14 => 63,
-    15 => 62,
-    16 => 61,
-    17 => 60,
-    18 => 59,
-    19 => 58,
-    20 => 56,
-    21 => 44,
-    22 => 31,
-    23 => 30,
-    24 => 29,
-    25 => 28,
-    26 => 27,
-    27 => 25,
-    28 => 24,
-    29 => 23,
-    30 => 21,
-    31 => 15,
-    32 => 14,
-    33 => 13,
-    34 => 11,
-    35 => 10,
-    36 => 8,
-    37 => 7,
-    38 => 6,
-    39 => 5,
-    40 => 4,
-    41 => 3,
-    42 => 2,
-    43 => 1,
+    2 => 251,
+    3 => 250,
+    4 => 247,
+    5 => 246,
+    6 => 245,
+    7 => 127,
+    8 => 126,
+    9 => 125,
+    10 => 124,
+    11 => 123,
+    12 => 122,
+    13 => 121,
+    14 => 117,
+    15 => 112,
+    16 => 63,
+    17 => 62,
+    18 => 61,
+    19 => 60,
+    20 => 59,
+    21 => 58,
+    22 => 56,
+    23 => 44,
+    24 => 31,
+    25 => 30,
+    26 => 29,
+    27 => 28,
+    28 => 25,
+    29 => 24,
+    30 => 23,
+    31 => 21,
+    32 => 15,
+    33 => 14,
+    34 => 13,
+    35 => 11,
+    36 => 10,
+    37 => 8,
+    38 => 7,
+    39 => 6,
+    40 => 5,
+    41 => 4,
+    42 => 3,
+    43 => 2,
+    44 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
