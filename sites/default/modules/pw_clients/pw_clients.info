@@ -1,4 +1,4 @@
-name = pw_clients
+name = PW Clients
 description = Administration of users and such like
 core = 7.x
 package = Pennywise

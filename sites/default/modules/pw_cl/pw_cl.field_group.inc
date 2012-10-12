@@ -119,8 +119,7 @@ function pw_cl_field_group_info() {
     'children' => array(
       0 => 'field_image_override',
       1 => 'field_ad_creation_override',
-      2 => 'field_bulk_image_upload',
-      3 => 'title',
+      2 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
