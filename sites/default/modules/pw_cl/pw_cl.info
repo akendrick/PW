@@ -20,6 +20,7 @@ dependencies[] = link
 dependencies[] = list
 dependencies[] = multiupload_filefield_widget
 dependencies[] = number
+dependencies[] = path
 dependencies[] = pw_admin
 dependencies[] = pw_vars
 dependencies[] = rules

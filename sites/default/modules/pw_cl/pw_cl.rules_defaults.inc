@@ -12,23 +12,18 @@ function pw_cl_default_rules_configuration() {
   $items['rules_ad_submission_login_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_login_redirect" : {
       "LABEL" : "Anon - Ad Submission Login Redirect ",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "ad_submission", "login", "redirect" ],
-      "REQUIRES" : [ "rules" ],
+      "REQUIRES" : [ "path", "rules" ],
       "ON" : [ "user_login" ],
-      "IF" : [
-        { "user_has_role" : {
-            "account" : [ "account" ],
-            "roles" : { "value" : { "1" : "1", "4" : "4", "2" : "2" } },
-            "operation" : "OR"
-          }
-        }
-      ],
+      "IF" : [ { "path_has_alias" : { "source" : "ad\\/submit" } } ],
       "DO" : []
     }
   }');
   $items['rules_ad_submission_submission_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_submission_redirect" : {
       "LABEL" : "Anon - Ad Submission Thank you",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "TAGS" : [ "ad_submission redirect" ],
       "REQUIRES" : [ "rules" ],
       "ON" : [ "node_insert" ],

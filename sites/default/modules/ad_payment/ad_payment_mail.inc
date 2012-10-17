@@ -10,10 +10,12 @@
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-  dpm('KEY - MESSAGE - PARAMS');
-  dpm($key);
-  dpm($message);
-  dpm($params);
+  if (DEBUG || DEBUG_EMAIL) {
+    dpm('KEY - MESSAGE - PARAMS');
+    dpm($key);
+    dpm($message);
+    dpm($params);
+  }
 
   switch($key) {
     case 'customer_receipt':
@@ -175,9 +177,9 @@ RECEIPT;
       <p>BODY: <br>
       @body</p>";
     watchdog('Ad Payment - eMail', $debug_msg, $debug_vars, WATCHDOG_INFO);
-  }
-
   dpm('receipt');
   dpm($reciept);
+  }
+
   return $reciept;
 }

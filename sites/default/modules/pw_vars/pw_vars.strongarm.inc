@@ -189,7 +189,7 @@ function pw_vars_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_ad_s';
-  $strongarm->value = 'edit-comment';
+  $strongarm->value = '';
   $export['additional_settings__active_tab_ad_s'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -266,7 +266,7 @@ function pw_vars_strongarm() {
   $strongarm->value = array(
     32 => 'Animals & Livestock',
     24 => 'Announcements',
-    14 => 'Community Boards',
+    14 => 'Bulletin Boards',
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
@@ -1004,18 +1004,6 @@ echo date(\'now\');
         8 => 10,
         9 => 3,
       ),
-      'ad_s' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
       'display_ads' => array(
         0 => 1,
         1 => 4,
@@ -1052,6 +1040,20 @@ echo date(\'now\');
         8 => 3,
         9 => 10,
       ),
+      'ad_s' => array(
+        0 => 1,
+        1 => 4,
+        2 => 2,
+        3 => 8,
+        4 => 9,
+        5 => 11,
+        6 => 5,
+        7 => 6,
+        8 => 7,
+        9 => 10,
+        10 => 12,
+        11 => 3,
+      ),
     ),
     'view_own' => array(
       'adworks_file' => array(
@@ -1087,10 +1089,6 @@ echo date(\'now\');
         1 => 10,
         2 => 3,
       ),
-      'ad_s' => array(
-        0 => 5,
-        1 => 3,
-      ),
       'display_ads' => array(
         0 => 6,
         1 => 3,
@@ -1108,6 +1106,10 @@ echo date(\'now\');
         5 => 3,
         6 => 10,
       ),
+      'ad_s' => array(
+        0 => 5,
+        1 => 3,
+      ),
     ),
     'per_node' => array(
       'adworks_file' => 0,
@@ -1115,10 +1117,10 @@ echo date(\'now\');
       'classified' => 0,
       'page' => 0,
       'webform' => 0,
-      'ad_s' => 0,
       'display_ads' => 0,
       'article' => 0,
       'pw_digital' => 0,
+      'ad_s' => 0,
     ),
     'priority' => array(
       'adworks_file' => '0',
@@ -1126,10 +1128,10 @@ echo date(\'now\');
       'classified' => '0',
       'page' => '0',
       'webform' => '0',
-      'ad_s' => '0',
       'display_ads' => '0',
       'article' => '0',
       'pw_digital' => '0',
+      'ad_s' => '0',
     ),
   );
   $export['content_access_settings'] = $strongarm;
@@ -2302,7 +2304,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_login_with_email';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['logintoboggan_login_with_email'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2316,7 +2318,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_override_destination_parameter';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['logintoboggan_override_destination_parameter'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2330,14 +2332,14 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_confirm';
-  $strongarm->value = '';
+  $strongarm->value = 'ad/submit';
   $export['logintoboggan_redirect_on_confirm'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_redirect_on_register';
-  $strongarm->value = 'ad/submit/%uid';
+  $strongarm->value = 'ad/submit';
   $export['logintoboggan_redirect_on_register'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2379,51 +2381,55 @@ admin/*
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_masks';
   $strongarm->value = array(
-    0 => 501,
-    1 => 493,
-    2 => 251,
-    3 => 250,
-    4 => 247,
-    5 => 246,
-    6 => 245,
-    7 => 127,
-    8 => 126,
-    9 => 125,
-    10 => 124,
-    11 => 123,
-    12 => 122,
-    13 => 121,
-    14 => 117,
-    15 => 112,
-    16 => 63,
-    17 => 62,
-    18 => 61,
-    19 => 60,
-    20 => 59,
-    21 => 58,
-    22 => 56,
-    23 => 44,
-    24 => 31,
-    25 => 30,
-    26 => 29,
-    27 => 28,
-    28 => 25,
-    29 => 24,
-    30 => 23,
-    31 => 21,
-    32 => 15,
-    33 => 14,
-    34 => 13,
-    35 => 11,
-    36 => 10,
-    37 => 8,
-    38 => 7,
-    39 => 6,
-    40 => 5,
-    41 => 4,
-    42 => 3,
-    43 => 2,
-    44 => 1,
+    0 => 507,
+    1 => 506,
+    2 => 501,
+    3 => 493,
+    4 => 253,
+    5 => 252,
+    6 => 250,
+    7 => 247,
+    8 => 246,
+    9 => 245,
+    10 => 127,
+    11 => 126,
+    12 => 125,
+    13 => 124,
+    14 => 123,
+    15 => 122,
+    16 => 121,
+    17 => 117,
+    18 => 112,
+    19 => 63,
+    20 => 62,
+    21 => 61,
+    22 => 60,
+    23 => 59,
+    24 => 58,
+    25 => 56,
+    26 => 44,
+    27 => 31,
+    28 => 30,
+    29 => 29,
+    30 => 28,
+    31 => 27,
+    32 => 25,
+    33 => 24,
+    34 => 23,
+    35 => 21,
+    36 => 15,
+    37 => 14,
+    38 => 13,
+    39 => 11,
+    40 => 10,
+    41 => 8,
+    42 => 7,
+    43 => 6,
+    44 => 5,
+    45 => 4,
+    46 => 3,
+    47 => 2,
+    48 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -3917,7 +3923,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_403';
-  $strongarm->value = 'toboggan/denied';
+  $strongarm->value = '';
   $export['site_403'] = $strongarm;
 
   $strongarm = new stdClass();

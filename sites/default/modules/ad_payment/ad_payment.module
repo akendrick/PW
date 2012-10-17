@@ -44,115 +44,36 @@
 // Displays Ad Payment Data
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
 define ('DEBUG_FORM', FALSE); // Check form inputs.
-define ('DEBUG_EMAIL', TRUE); // Check receipt and email features.
+define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
 define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
-define ('DEBUG_REDIRECT', FALSE); // False will keep the ad on the submit page.
 
 /**
 * Implementation of HOOK_menu
 */
 function ad_payment_menu() {
-  $items['ad/submit/%'] = array(
-    'title'           => 'Submit Classified Ad',
+  $items['ad/submit'] = array(
+//    'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
-    'page callback'   => 'ap_submit_form_page',
+//    'page callback'   => 'ap_submit_form_page',
+//    'type'            => MENU_NORMAL_ITEM,
+//  );
+    'title'           => 'Submit Classified Ad',
+    //'access callback' => 'Ad Submission: Create new content',
+    'page callback'   => '_ap_submit_ad_page',
     'type'            => MENU_NORMAL_ITEM,
-    'page arguments' => array(1),
   );
 
   $items['ad/%/thank-you'] = array(
     'access callback' => TRUE,
-    'title' => 'Your ad has been submitted.',
-    'page callback' => 'thankyou_page2',
-    'page arguments' => array(1),
-    'file' => 'ad_payment_receipt.inc',
-    'type' => MENU_CALLBACK,
+    'title'           => 'Your ad has been submitted.',
+    'page callback'   => 'thankyou_page2',
+    'page arguments'  => array(1),
+    'file'            => 'ad_payment_receipt.inc',
+    'type'            => MENU_CALLBACK,
   );
 
   return $items;
 }
-
-
-/**
- * Implemenation of hook_theme().
- *
- * @based on logintoboggan
- */
-// function ad_payment_theme($existing, $type, $theme, $path) {
-//   return array(
-//    // 'ap_access_denied' => array(
-//    //   'variables' => array(),
-//    // ),
-//    // 'ap_loggedinblock' => array(
-//    //   'variables' => array('account' => NULL),
-//    // ),
-//    // 'ap_login_successful_message' => array(
-//    //   'variables' => array('account' => NULL),
-//    // ),
-//     'ap_unified_login_page' => array(
-//       'variables' => array(
-//         'login_form' => NULL,
-//         'register_form' => NULL,
-//         'active_form' => NULL,
-//       ),
-//     ),
-//   );
-// }
-
-/**
- * Theme function for unified login page.
- *
- * @based on LoginToboggan
- */
-// function theme_ap_unified_login_page() {
-//   // Modify Default Forms
-//   $login_form = drupal_get_form('user_login');
-//   $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
-//   $login_form['#attached']['js'][] = array(
-//     'data' => array(
-//       'LoginToboggan' => array(
-//         'unifiedLoginActiveForm' => $active_form,
-//       ),
-//     ),
-//     'type' => 'setting',
-//   );
-//
-//   // Registration Form
-//   $register_form = drupal_get_form('user_register_form');
-//   $register_form['actions']['submit']['#value'] = 'Create Classified Ad';
-//   $register_form['field_phone']['und'][0]['#description'] = 'Please provide your phone number for verification.';
-//
-//   $login_form = drupal_render($login_form);
-//   $register_form = drupal_render($register_form);
-//
-//   // NEW USERS
-//   $register .= '<div id="user-register-form" class="ad-submission-unified ad-submission-register">';
-//
-//   // Create the initial message and links that people can click on.
-//   $register .= '<div id="login-message">' . t('New Users begin here.') . '</div>';
-//
-//
-//   // Add the login and registration forms in.
-//   //$register .= '<div id="login-form">' . $login_form . '</div>';
-//   $register .= '<div id="register-form">' . $register_form . '</div>';
-//
-//   $register .= '<div id="login-links">';
-//   // $output .= ' ';
-//   // $output .= l(t('I want to create an account'), 'user/register', array('attributes' => array('class' => array('login-link'), 'id' => 'register-link')));
-//   $register .= '</div>';
-//   $register .= '</div>';
-//
-//   $login = '<div id="user-login-form" class="ad-submission-unified ad-submission-login">';
-//   $login .= '<div id="login-message">' . t('Returning users login here.') . '</div>';
-//   $login .= '<div id="user-login-form">' . $login_form . '</div>';
-//   $login .= '</div>';
-//
-//
-//
-//   $output = "<div class='alpha grid-12'>$register</div><div class='omega grid-12'>$login</div>";
-//
-//   return $output;
-// }
 
 
 /**
@@ -164,12 +85,10 @@ function ad_payment_menu() {
 *
 */
 function ad_payment_email_registration_name($edit, $account) {
-  dpm('Ad Payment Email Registration');
   if (module_exists('email_registration') && module_exists('realname') ) {
     $real_name = $account->field_first_name['und'][0]['value'] . '_' . $account->field_last_name['und'][0]['value'];
     return $real_name;
   }
-  dpm($real_name);
 }
 
 
@@ -186,8 +105,7 @@ function ad_payment_email_registration_name($edit, $account) {
 *
 * The login protion is commented out.
 */
-function ap_submit_form_page($uid = NULL) {
-
+function _ap_submit_ad_page() {
 
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
@@ -198,24 +116,22 @@ function ap_submit_form_page($uid = NULL) {
     return $link;
   }
 
-  // If user is registered go to ad. Else carry on to login/register.
-//  if ($uid) {
-//    $ad = drupal_get_form('ad_s_node_form');
-//    $ad_rendered = drupal_render($ad);
-//    dpm($ad);
-//    return 'ad goes here';
-//  }
-
   global $user;
 
-  if (!$user->uid) {
+  // If user is registered go to ad. Else carry on to login/register.
+
+  if ($user->uid) {
+    module_load_include('inc', 'node', 'node.pages');
+    $form = node_add('ad_s');
+    return drupal_render($form);
+  }
+  elseif (!$user->uid) {
     $active_form = 'register';
   }
-  elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
-    $active_form = 'login';
-  }
+  //elseif (in_array('submit ad', $user->roles) || in_array('authenticated user', $user->roles)) {
+  //  $active_form = 'login';
+  //}
 
- //$content = theme('ap_unified_login_page');
   $login_form = drupal_get_form('user_login');
   $login_form['#attached']['js'][] = drupal_get_path('module', 'logintoboggan') .'/logintoboggan.unifiedlogin.js';
   $login_form['#attached']['js'][] = array(
@@ -229,9 +145,6 @@ function ap_submit_form_page($uid = NULL) {
 
   $register_form = drupal_get_form('user_register_form');
   $register_form['actions']['submit']['#value'] = 'Start a classified ad.';
-  //dpm($register_form);
-
-
 
   $rendered_login_form = drupal_render($login_form);
   $rendered_register_form = drupal_render($register_form);
@@ -240,15 +153,16 @@ function ap_submit_form_page($uid = NULL) {
     'register_form' => $rendered_register_form,
     'active_form' => $active_form,
   );
-  $unified_login = theme('lt_unified_login_page', $variables);
+  $form = theme('lt_unified_login_page', $variables);
 
   $content = <<<LOGIN
 <div id="user-register-form" class="toboggan-unified toboggan-outer register grid-14 prefix-5 suffix-5">
   <div id="toboggan-unified toboggan-inner">
-    $unified_login
+    $form
   </div>
 </div>
 LOGIN;
+
 
   return $content;
 }
@@ -300,9 +214,6 @@ function ad_payment_block_view($delta = '') {
 *
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
-
-
-
   // Change Save to Submit.
   $form['actions']['save']['#value']  = 'Submit Ad';
 
@@ -315,24 +226,32 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $form['#fieldgroups']['group_upgrade']->weight = -10;
 
 
-  // Load CC form
+  // Load CC external form
   module_load_include('inc', 'ad_payment', 'ad_payment_form');
   ad_payment_form($form, $form_state);
 
   //  Ad Price
   //  - Check only if submitted/in preview.
-  if ($form_state && $form_state['values']) {
-    module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
-    $total_price = ad_payment_price_check($form_state, 'form_state');
-    $form['field_price']['#default_value'] = $total_price;
-    $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
-  }
+  // if ($form_state && $form_state['values']) {
+  //   module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
+  //   $total_price = ad_payment_price_check($form_state, 'form_state');
+  //   $form['field_price']['#default_value'] = $total_price;
+  //   $ad_price = ($total_price == '0.00') ? 'Current Price: $0' : _ad_payment_form_price_display($form_state);
+  // }
 
   // Alter Display of Taxonomy Classification Section
   $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
 
   $form['field_tags']['und']['#options'] = $pw_list;
 
+  // Store TempID
+  //if (!isset($form_state['redirect'])) {
+  //  $temp_id = time();
+  //  $form_state['node']->title = 'ad_' . $temp_id;
+  //  // Update Form page
+  //  $form_state['redirect']     = 'ad/' . $temp_id . '/thank-you';
+  //  $form['#action'] =  $temp_id . '/thank-you';
+  //}
 
   if (DEBUG_ADP || DEBUG_FORM) {
     $debug_info = array(
@@ -367,11 +286,7 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   );
   form_set_value($form['field_price'], $updated_price, $form_state);
 
-  // Set CCID
-  //$ccid = rand();
-  //form_set_value($form['field_ccid'], $ccid, &$form_state);
 }
-
 
 /**
 * Custom CC Submit Handler.
@@ -393,30 +308,25 @@ function _ad_payment_cc_submit($form, &$form_state) {
 //
 //  $card_type = ($values['field_card_type'] == 0) ? 'Visa' : 'Mastercard';
 //
-  if (DEBUG_ADP || DEBUG_FORM) {
-    $debug_info = array(
-      'submitted_form' => $form,
-      'submitted_form_state' => $form_state,
-    );
-    #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
-
-  }
-
-  // Test the Node Form_state
-  $temp_id = time();
 
   // Store TempID
-  //$form_state['values']['field_ad_details']['und'][0]['value'] = $temp_id;
-  $form_state['node']->title = 'ads_' . $temp_id;
+  if (!isset($form_state['redirect'])) {
+    $temp_id = time();
+    $form_state['node']->title = 'ad_' . $temp_id;
+    $form_state['redirect']     = 'ad/' . $temp_id . '/thank-you';
+    // Update Form
+    $form['#action'] =  $temp_id . '/thank-you';
+  }
+
   //module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
   //$submission_vars = ad_payment_price_check($form_state, 'form_state');
 
-
-//  $form_state['redirect'] = 'ad/' . $temp_id . '/thank-you';
-
-  //$form_state['redirect'] = array('ad/' . $temp_id . '/thank-you');
-
-
+  if ($submit) {
+    watchdog('Ad Payment', 'Ad submitted: ' . $temp_id);
+  }
+  else {
+    watchdog('Ad Payment', 'Unsuccessful ad submission: ' . $temp_id);
+  }
 
   // // Submit Data to Netidea
   // // Commented Out Until Live test
@@ -462,20 +372,12 @@ function _ad_payment_cc_submit($form, &$form_state) {
  */
 function ad_payment_node_insert($node) {
 
+
   if($node->type == 'ad_s') {
 
-    // Get Price
+    // Double Check Price
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
     $details = ad_payment_price_check($node, 'node');
-
-    if (DEBUG_ADP || DEBUG_FORM) {
-      $debug_info = array(
-        'Node_Insert_Data' => $node,
-        'data_for_database' => $details,
-      );
-      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
-
-    }
 
     $fields = array(
       'ccid'    => $node->title,
@@ -497,50 +399,35 @@ function ad_payment_node_insert($node) {
       'price_taxes' => $details['taxes'],
       'price_subtotal' => $details['subtotal'],
     );
+    $nid = db_insert('adp')->fields($fields)->execute();
 
-    // IF debuging do not submit or send email.
-    if (DEBUG_ADP || DEBUG_FORM) {
-      drupal_set_message('This Ad NOT submitted! DEBUG is active.', 'alert');
-      $debug_info = array(
-        'database_fields' => $fields,
-      );
-      #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
+    if ($node->nid) {
+      // Send Email upon Completion.
+
+      $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
+      $from = variable_get('pw_email', 'k2@pennywiseads.com');
+      $language = language_default();
+      $send = TRUE;
+      $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
+
+      if ($result['result'] == TRUE) {
+        // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+      }
+      else {
+        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+      }
+    variable_set('ad_submission_' . $node->title, $details);
+    drupal_goto('ad/' . $node->title . '/thank-you');
 
     }
     else {
-      $nid = db_insert('adp')->fields($fields)->execute();
-
-      if ($nid) {
-        // Send Email upon Completion.
-        //dpm('Get Inhouse receipt');
-
-        $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
-        $from = variable_get('pw_email', 'k2@pennywiseads.com');
-        $language = language_default();
-        $send = TRUE;
-        $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
-
-        if ($result['result'] == TRUE) {
-          // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
-        }
-        else {
-          #watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
-        }
-      }
-
-      // Debug Redirect
-      if (DEBUG_REDIRECT) {
-        drupal_goto('ad/submit');
-      }
-      else {
-        // Set up on screen receipt and page redirect.
-        variable_set('ad_submission_' . $node->title, $details);
-        drupal_goto('ad/' . $node->title . '/thank-you');
-      }
+      watchdog('Ad Payment', 'Ad submission has encountered some errors in saving CC data for nid: @nid - ccid: @ccid',
+        array('@nid' => $node->nid, '@ccid' => $node-title), WATCHDOG_ALERT);
+      return FALSE;
     }
+    // Set up on screen receipt and page redirect.
+  return TRUE;
   }
-
-
 }
 
 

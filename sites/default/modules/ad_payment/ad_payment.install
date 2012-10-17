@@ -129,11 +129,11 @@ $schema['adp'] = array(
 * Adds a Card Name field to the ADP table.
 */
 
-function ad_payment_update_7100() {
-  db_add_field('adp', 'card_name', array(
-    'type' => 'varchar',
-    'length' => 256,
-    'not null' => TRUE,
-    'description' => 'Name as it appears on card.')
-  );
-}
+//function ad_payment_update_7100() {
+//  db_add_field('adp', 'card_name', array(
+//    'type' => 'varchar',
+//    'length' => 256,
+//    'not null' => TRUE,
+//    'description' => 'Name as it appears on card.')
+//  );
+//}

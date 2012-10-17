@@ -33,33 +33,30 @@ function pw_clients_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
-  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_plugin'] = 'table_grouped_relationship';
   $handler->display->display_options['style_options']['columns'] = array(
     'realname' => 'realname',
+    'rid' => 'realname',
     'edit_node' => 'realname',
-    'rid' => 'rid',
-    'created' => 'created',
-    'access' => 'access',
-    'nothing' => 'nothing',
+    'contextual_links' => 'realname',
     'mail' => 'mail',
     'field_phone' => 'mail',
-    'type' => 'nid',
-    'field_ad_copy' => 'field_ad_copy',
+    'created' => 'mail',
+    'access' => 'mail',
+    'nothing' => 'nothing',
+    'field_ad_type' => 'field_ad_type',
+    'term_node_tid' => 'field_ad_type',
+    'field_ad_copy' => 'field_ad_type',
     'nid' => 'nid',
     'views_bulk_operations' => 'views_bulk_operations',
   );
-  $handler->display->display_options['style_options']['default'] = 'access';
+  $handler->display->display_options['style_options']['default'] = 'realname';
   $handler->display->display_options['style_options']['info'] = array(
     'realname' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '<br />',
-      'empty_column' => 0,
-    ),
-    'edit_node' => array(
-      'align' => '',
-      'separator' => '',
+      'separator' => '<br>',
       'empty_column' => 0,
     ),
     'rid' => array(
@@ -67,21 +64,12 @@ function pw_clients_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'created' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+    'edit_node' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'access' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'nothing' => array(
+    'contextual_links' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -90,7 +78,7 @@ function pw_clients_views_default_views() {
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '<br />',
+      'separator' => '<br>',
       'empty_column' => 0,
     ),
     'field_phone' => array(
@@ -100,9 +88,33 @@ function pw_clients_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'type' => array(
+    'created' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'access' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nothing' => array(
+      'align' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'field_ad_type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'term_node_tid' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -111,7 +123,7 @@ function pw_clients_views_default_views() {
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '<br />',
+      'separator' => '',
       'empty_column' => 0,
     ),
     'nid' => array(
@@ -127,6 +139,11 @@ function pw_clients_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  $handler->display->display_options['style_options']['grouped_relationships'] = array(
+    'base' => 'base',
+    'uid' => 0,
+  );
   /* Relationship: User: Content authored */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'users';
@@ -135,27 +152,79 @@ function pw_clients_views_default_views() {
   $handler->display->display_options['fields']['realname']['id'] = 'realname';
   $handler->display->display_options['fields']['realname']['table'] = 'realname';
   $handler->display->display_options['fields']['realname']['field'] = 'realname';
+  $handler->display->display_options['fields']['realname']['label'] = 'Name';
+  $handler->display->display_options['fields']['realname']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['realname']['element_wrapper_type'] = 'h2';
+  $handler->display->display_options['fields']['realname']['element_default_classes'] = FALSE;
+  /* Field: User: Roles */
+  $handler->display->display_options['fields']['rid']['id'] = 'rid';
+  $handler->display->display_options['fields']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['fields']['rid']['field'] = 'rid';
+  $handler->display->display_options['fields']['rid']['label'] = '';
+  $handler->display->display_options['fields']['rid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['rid']['element_label_colon'] = FALSE;
   /* Field: User: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'users';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['element_type'] = 'div';
+  $handler->display->display_options['fields']['edit_node']['element_class'] = 'button';
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-  /* Field: User: Roles */
-  $handler->display->display_options['fields']['rid']['id'] = 'rid';
-  $handler->display->display_options['fields']['rid']['table'] = 'users_roles';
-  $handler->display->display_options['fields']['rid']['field'] = 'rid';
-  $handler->display->display_options['fields']['rid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit Client Data';
+  /* Field: Global: Contextual Links */
+  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
+  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['label'] = '';
+  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
+    'edit_node' => 'edit_node',
+    'realname' => 0,
+    'rid' => 0,
+    'mail' => 0,
+    'field_phone' => 0,
+    'created' => 0,
+    'access' => 0,
+    'nothing' => 0,
+    'field_ad_type' => 0,
+    'term_node_tid' => 0,
+    'field_ad_copy' => 0,
+    'nid' => 0,
+    'views_bulk_operations' => 0,
+  );
+  /* Field: User: E-mail */
+  $handler->display->display_options['fields']['mail']['id'] = 'mail';
+  $handler->display->display_options['fields']['mail']['table'] = 'users';
+  $handler->display->display_options['fields']['mail']['field'] = 'mail';
+  $handler->display->display_options['fields']['mail']['label'] = 'Details';
+  $handler->display->display_options['fields']['mail']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['mail']['alter']['text'] = 'Email: [mail]';
+  $handler->display->display_options['fields']['mail']['element_label_colon'] = FALSE;
+  /* Field: Field: Phone Number */
+  $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
+  $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
+  $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';
+  $handler->display->display_options['fields']['field_phone']['label'] = '';
+  $handler->display->display_options['fields']['field_phone']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_phone']['alter']['text'] = 'Phone: [field_phone]';
+  $handler->display->display_options['fields']['field_phone']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_phone']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_phone']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
+  $handler->display->display_options['fields']['field_phone']['type'] = 'local_phone_number';
   /* Field: User: Created date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'users';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = '';
-  $handler->display->display_options['fields']['created']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['created']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['created']['alter']['text'] = 'Registered: [created]';
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['created']['date_format'] = 'medium';
+  $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
   /* Field: User: Last access */
   $handler->display->display_options['fields']['access']['id'] = 'access';
   $handler->display->display_options['fields']['access']['table'] = 'users';
@@ -169,31 +238,36 @@ function pw_clients_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'GLOBAL - Access Details';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Details';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<p> <strong>Created:</strong> [created] <br />
-<strong>Last Accessed:</strong> [access] </p>';
-  /* Field: User: E-mail */
-  $handler->display->display_options['fields']['mail']['id'] = 'mail';
-  $handler->display->display_options['fields']['mail']['table'] = 'users';
-  $handler->display->display_options['fields']['mail']['field'] = 'mail';
-  $handler->display->display_options['fields']['mail']['label'] = 'Contact';
-  /* Field: Field: Phone Number */
-  $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
-  $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
-  $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';
-  $handler->display->display_options['fields']['field_phone']['label'] = 'Phone';
-  $handler->display->display_options['fields']['field_phone']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_phone']['empty_zero'] = TRUE;
-  $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
-  $handler->display->display_options['fields']['field_phone']['type'] = 'local_phone_number';
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['element_type'] = 'strong';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<strong>Registered:</strong> [created] <br />
+<strong>Last Accessed:</strong> [access]
+';
+  $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
+  $handler->display->display_options['fields']['nothing']['element_class'] = 'smaller emphasis';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
+  /* Field: Content: Classified Ad Type */
+  $handler->display->display_options['fields']['field_ad_type']['id'] = 'field_ad_type';
+  $handler->display->display_options['fields']['field_ad_type']['table'] = 'field_data_field_ad_type';
+  $handler->display->display_options['fields']['field_ad_type']['field'] = 'field_ad_type';
+  $handler->display->display_options['fields']['field_ad_type']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['field_ad_type']['label'] = 'Ad Type';
+  $handler->display->display_options['fields']['field_ad_type']['element_label_colon'] = FALSE;
+  /* Field: Content: All taxonomy terms */
+  $handler->display->display_options['fields']['term_node_tid']['id'] = 'term_node_tid';
+  $handler->display->display_options['fields']['term_node_tid']['table'] = 'node';
+  $handler->display->display_options['fields']['term_node_tid']['field'] = 'term_node_tid';
+  $handler->display->display_options['fields']['term_node_tid']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['term_node_tid']['label'] = '';
+  $handler->display->display_options['fields']['term_node_tid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['term_node_tid']['link_to_taxonomy'] = FALSE;
+  $handler->display->display_options['fields']['term_node_tid']['vocabularies'] = array(
+    'area' => 0,
+    'classification' => 0,
+    'client' => 0,
+    'tags' => 0,
+  );
   /* Field: Content: Ad Copy */
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['table'] = 'field_data_field_ad_copy';
@@ -211,9 +285,10 @@ function pw_clients_views_default_views() {
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['nid']['label'] = 'Ads';
+  $handler->display->display_options['fields']['nid']['label'] = 'Ad';
   $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['text'] = '[field_ad_copy] ';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nid']['link_to_node'] = TRUE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -320,10 +395,6 @@ function pw_clients_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: User: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'users';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
@@ -386,7 +457,7 @@ function pw_clients_views_default_views() {
     10 => 0,
     3 => 0,
   );
-  /* Filter criterion: Field: Email (field_email) */
+  /* Filter criterion: Content: Email (field_email) */
   $handler->display->display_options['filters']['field_email_email']['id'] = 'field_email_email';
   $handler->display->display_options['filters']['field_email_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['filters']['field_email_email']['field'] = 'field_email_email';
