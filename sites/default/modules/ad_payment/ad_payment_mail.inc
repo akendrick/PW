@@ -7,40 +7,60 @@
 */
 
 /**
+* Implementation of custom email implementor.
+*/
+function ad_payment_send_email($email_type, $details = NULL) {
+  // Set defaults
+  $language = language_default();
+  $send = TRUE;
+
+  switch ($email_type) {
+    case 'receipt':  // Customer Receipt
+      $to = $user->mail;
+      $from = variable_get('pw_email', 'k2@pennywiseads.com');
+      $result = drupal_mail('ad_payment', 'receipt', $to, $language, $details, $from, $send);
+
+      if ($result['result'] == TRUE) {
+        drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+      }
+      else {
+        watchdog('Ad Payment', 'Receipt Email Error',
+          array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $data), WATCHDOG_NOTICE);
+      }
+      break;
+
+    case 'inhouse': // Inhouse Receipt
+    default:
+       #$to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
+      $to = 'k2@pennywiseads.com';
+      $from = variable_get('pw_email', 'k2@pennywiseads.com');
+      $result = drupal_mail('ad_payment', 'inhouse', $to, $language, $details, $from, $send);
+
+      if ($result['result'] == TRUE) {
+        // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+      }
+      else {
+        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+      }
+
+      break;
+  }
+}
+
+
+/**
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-  if (DEBUG || DEBUG_EMAIL) {
-    dpm('KEY - MESSAGE - PARAMS');
-    dpm($key);
-    dpm($message);
-    dpm($params);
-  }
 
   switch($key) {
-    case 'customer_receipt':
+    case 'receipt':
       $message['body'][] = email_receipt_body($message);;
       $message['subject'] = 'Pennywise Ad Submission';
-     // email_receipt_body(&$message);
       break;
-    case 'inhouse_receipt':
+    case 'inhouse':
       $message['body'][] = email_receipt_body($message);;
       $message['subject'] = 'Pennywise Ad IN HOUSE';
-//      $ad_received .= "Ad Copy: \n" . $params['values']['ad_copy'] . "\n\n";
-//      $ad_received .= 'Word Count: ' . $params['count']['count'] . "\n";
-//      $ad_received .= 'Section: ' . $params['section']. "\n";
-//      $ad_received .= 'Area (' . count($params['areas']) . ")" . $params['values']['area'] . "\n";
-//      $ad_received .= 'Rate: ' . $params['rate']['rate_name'] . "\n";
-//      $ad_received .= ($params['values']['ad_type']) ? "Liveload: YES \n " : "";
-//      $ad_received .= ($params['values']['image']) ? "Image: Received \n" : " ";
-//      $ad_received .= ($params['values']['notes']) ? $params['values']['notes'] . " \n " : "";
-//      $ad_received .= 'Duration: ' . $params['duration']['actual'] . ' weeks' . "\n";
-//      $ad_received .= 'Notes: ' . $params['duration'] . "\n";
-//
-//      $ad_received .= 'Price: $' . $params['total'] . "\n";
-//
-//      $message['body'][] = 'inhouse backup email test';
-//      $message['subject'] = 'Pennywise Ad In House Receipt';
       break;
   }
 
@@ -49,18 +69,12 @@ function ad_payment_mail($key, &$message, $params) {
       '@key' => $key,
       '@subject' => $message['subject'],
       '@body' => $message['body'][0],
-      '@ad' => $ad_received,
     );
-    $debug_msg = "@key - triggered in ad_payment_mail.<br>
+    $debug_msg = "KEY: @key <br> Triggered in ad_payment_mail.<br>
       SUBJECT: @subject<br>
       <p>BODY: <br>
-      @body</p>
-      AD RECIEVED:<br>
-      @ad";
+      @body</p>";
     watchdog('Ad Payment - eMail', $debug_msg, $debug_vars, WATCHDOG_INFO);
-
-    dpm('MESSAGE - POST');
-    dpm($message);
   }
 }
 
@@ -104,43 +118,49 @@ function email_receipt_body($message = NULL) {
   $ad = $message['params']['values'];
   $rate = $message['params']['rate'];
 
-  $ad_copy = $ad['ad_copy'];
-  $areas = $message['params']['values']['areas'];
-  $image = $ad['image'];
-  $rate = $message['params']['values']['rate'];
+  // Basic Details
   $duration = $message['params']['duration']['actual'];
-  $name = $ad['user']['real-name'];
-  $rate_name = $rate['rate_name'];
-  $section = $rate['term_name'];
-  $receipt_id = $message['params']['receipt'];
-  $card = $ad['user']['card-type'];
+  $image = (isset($ad['image']))? 'Image: Received.' : '';
+  $ad_copy = $ad['ad_copy'];
 
-  $discount = $message['params']['discount'] * $message['params']['duration']['adjusted'];
+  $areas = $message['params']['values']['areas'];
+  $area_count = $ad['area_count'];
+
+  $rate = $ad['rate'];
+  $rate_name = $rate['rate_name'];
+
+  $section_count = $ad['section_count'];
+  $section = $ad['sections'];
+
+  // Payment Details
+  $receipt_id = $message['params']['receipt'];
+  $name = $ad['user']['real-name'];
+  $card = $ad['user']['card-type'];
+  $discount = (isset($message['params']['discount']))? ' (all area discount $' . abs($message['params']['discount'] * $message['params']['duration']['adjusted']) . ')' : '';
   $subtotal = $message['params']['subtotal'];
   $taxes = $message['params']['taxes'];
   $total = $message['params']['total'];
 
 $reciept = <<<RECEIPT
 Classified Ad Receipt #$receipt_id
-Your ad has been submitted.
 
-Thank you for submitting an ad to PennywiseAds.com.
-Here is an email receipt for you records.
+Thank you for submitting your ad to PennywiseAds.com.
+This email is your receipt and should be kept for your records.
 
 DETAILS
-Areas: $areas
-Section: $section
-Duration: $duration
+Areas ($area_count): $areas
+Section ($section_count): $section
+Duration: $duration weeks
+$image
 
-Ad copy:
+AD COPY
 $ad_copy
 
 PAYMENT INFO
 Submitted by: $name
 Rate: $rate_name
 
-Subtotal: $$subtotal
-Discount: $$discount
+Subtotal: $$subtotal $discount
 Taxes:    $$taxes
 Total:    $$total
 Billed to $card.
@@ -177,8 +197,6 @@ RECEIPT;
       <p>BODY: <br>
       @body</p>";
     watchdog('Ad Payment - eMail', $debug_msg, $debug_vars, WATCHDOG_INFO);
-  dpm('receipt');
-  dpm($reciept);
   }
 
   return $reciept;

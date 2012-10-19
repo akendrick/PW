@@ -43,7 +43,7 @@
 // FORM DEBUG
 // Displays Ad Payment Data
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
-define ('DEBUG_FORM', FALSE); // Check form inputs.
+define ('DEBUG_FORM', TRUE); // Check form inputs.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
 define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
 
@@ -220,6 +220,8 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $form['#fieldgroups']['group_ad']->weight = -20;
   $form['#fieldgroups']['group_upgrade']->weight = -10;
 
+  // Rename File upload to 'image'
+  $form['field_image']['und']['#file_upload_title'] = 'Click here to select an image.';
 
   // Load CC external form
   module_load_include('inc', 'ad_payment', 'ad_payment_form');
@@ -398,21 +400,11 @@ function ad_payment_node_insert($node) {
 
     if ($node->nid) {
       // Send Email upon Completion.
+      module_load_include('inc', 'ad_payment', 'ad_payment_mail');
+      ad_payment_send_email('inhouse', $details);
 
-      $to = variable_get('pennywise_classified_settings_email', 'k2@pennywiseads.com');
-      $from = variable_get('pw_email', 'k2@pennywiseads.com');
-      $language = language_default();
-      $send = TRUE;
-      $result = drupal_mail('ad_payment', 'inhouse_receipt', $to, $language, $details, $from, $send);
-
-      if ($result['result'] == TRUE) {
-        // drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
-      }
-      else {
-        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
-      }
-    variable_set('ad_submission_' . $node->title, $details);
-    drupal_goto('ad/' . $node->title . '/thank-you');
+      variable_set('ad_submission_' . $node->title, $details);
+      drupal_goto('ad/' . $node->title . '/thank-you');
 
     }
     else {

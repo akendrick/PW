@@ -182,7 +182,6 @@ function _ad_payment_submit_cc_data($form_state) {
   if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
       _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
 
-    #dsm('Prepare to SUBMIT!!!');
     // The CVVID is optional and can be omitted
 //  $id = updateDatabase(
 //    $credit_card_name,

@@ -29,16 +29,6 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
   array_push($form['#submit'], 'adworks_adworks_file_form_submit');
   //$form['#submit'] = 'adworks_adworks_file_form_submit';
 
-
-  if (DEBUG) {
-   dpm('FORM ALTER');
-   dpm('FORM');
-   dpm($form);
-   dpm('FORM STATE');
-   dpm($form_state);
-   dpm('FORM STATE -- Node');
-   dpm($form_state['node']);
-  }
 }
 
 
@@ -53,9 +43,9 @@ function adworks_form_validate(&$form, &$form_state) {
   if ($form_state['input']['field_ad_creation_override']['und']) {
     return;
   }
-  
 
-  
+
+
   // Load & Run Preflight script -- checks images
   //module_load_include('inc', 'adworks', 'parse_adworks');
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
@@ -80,7 +70,7 @@ function adworks_form_validate(&$form, &$form_state) {
   batch_process();
 
   $form_state['batch_preview']['adworks'] = $adworks_data;
-  
+
   // Preflight message
   // if ( $adworks_preflight['status'] == FALSE) {
   //   drupal_set_message($adworks_preflight['message'], 'warning' );
@@ -88,7 +78,7 @@ function adworks_form_validate(&$form, &$form_state) {
   // else {
   //   drupal_set_message($adworks_preflight['message'], 'status' );
   // }
-  // 
+  //
   // // Node Creation Override.
   // if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
   //   form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
@@ -132,7 +122,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
 
   // Get Parser
   module_load_include('inc', 'adworks', 'parse_adworks');
-  
+
   // Get Adworks copy
   $adworks_data = $form_state['values']['body']['und'][0]['value'];
 
@@ -157,9 +147,9 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
     'finished' => 'adworks_batch_finished',
     'operations' => $batch_ads,
     'file' => drupal_get_path('module', 'adworks') .'/parse_adworks.inc',
-  ); 
+  );
   batch_set($batch);
-  
+
   $redirect = 'admin/pennywise/classified/upcomming';
   batch_process($redirect);
 }
