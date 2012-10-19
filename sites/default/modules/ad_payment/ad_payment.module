@@ -52,14 +52,9 @@ define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQu
 */
 function ad_payment_menu() {
   $items['ad/submit'] = array(
-//    'title'           => 'Submit Classified Ad',
     'access callback' => TRUE,
-//    'page callback'   => 'ap_submit_form_page',
-//    'type'            => MENU_NORMAL_ITEM,
-//  );
     'title'           => 'Submit Classified Ad',
-    //'access callback' => 'Ad Submission: Create new content',
-    'page callback'   => '_ap_submit_ad_page',
+    'page callback'   => 'ap_submit_form_page',
     'type'            => MENU_NORMAL_ITEM,
   );
 
@@ -105,7 +100,7 @@ function ad_payment_email_registration_name($edit, $account) {
 *
 * The login protion is commented out.
 */
-function _ap_submit_ad_page() {
+function ap_submit_form_page() {
 
   // Abort Submission if Admin has disabled submissions.
   $ad_submsision = variable_get('pennywise_classified_settings_submissions', 1);
