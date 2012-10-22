@@ -30,6 +30,7 @@ function pw_admin_user_default_permissions() {
     'name' => 'access dashboard',
     'roles' => array(
       0 => 'administrator',
+      1 => 'digital edition editor',
     ),
     'module' => 'dashboard',
   );
@@ -78,10 +79,9 @@ function pw_admin_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'classified editor',
-      2 => 'digital edition editor',
-      3 => 'display ad editor',
-      4 => 'editorial editor',
-      5 => 'page editor',
+      2 => 'display ad editor',
+      3 => 'editorial editor',
+      4 => 'page editor',
     ),
     'module' => 'addanother',
   );
@@ -175,6 +175,7 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute node_assign_owner_action',
     'roles' => array(
       0 => 'administrator',
+      1 => 'digital edition editor',
     ),
     'module' => 'actions_permissions',
   );
@@ -347,6 +348,7 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute system_goto_action',
     'roles' => array(
       0 => 'administrator',
+      1 => 'digital edition editor',
     ),
     'module' => 'actions_permissions',
   );
