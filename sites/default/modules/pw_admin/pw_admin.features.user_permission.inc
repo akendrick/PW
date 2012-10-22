@@ -34,17 +34,6 @@ function pw_admin_user_default_permissions() {
     'module' => 'dashboard',
   );
 
-  // Exported permission: access devel information.
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
-    'roles' => array(
-      0 => 'administrator',
-      1 => 'anonymous user',
-      2 => 'submit ad',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: access site-wide contact form.
   $permissions['access site-wide contact form'] = array(
     'name' => 'access site-wide contact form',
@@ -333,15 +322,6 @@ function pw_admin_user_default_permissions() {
     'name' => 'execute pathauto_user_update_action',
     'roles' => array(),
     'module' => 'actions_permissions',
-  );
-
-  // Exported permission: execute php code.
-  $permissions['execute php code'] = array(
-    'name' => 'execute php code',
-    'roles' => array(
-      0 => 'administrator',
-    ),
-    'module' => 'devel',
   );
 
   // Exported permission: execute realname_action_realname_update.

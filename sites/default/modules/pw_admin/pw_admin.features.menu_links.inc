@@ -20,9 +20,9 @@ function pw_admin_menu_default_menu_links() {
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
-    'has_children' => '0',
+    'has_children' => '1',
     'expanded' => '0',
-    'weight' => '-50',
+    'weight' => '0',
   );
   // Exported menu link: management:admin/pennywise/settings
   $menu_links['management:admin/pennywise/settings'] = array(
@@ -32,7 +32,7 @@ function pw_admin_menu_default_menu_links() {
     'link_title' => 'Pennywise Settings',
     'options' => array(),
     'module' => 'system',
-    'hidden' => '1',
+    'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
