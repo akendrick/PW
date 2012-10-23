@@ -512,15 +512,11 @@ function pw_pages_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'title',
-        1 => 'field_image',
-        2 => 'body',
-        3 => 'field_high_res_ad',
+        1 => 'field_high_res_ad',
       ),
     ),
     'fields' => array(
       'title' => 'ds_content',
-      'field_image' => 'ds_content',
-      'body' => 'ds_content',
       'field_high_res_ad' => 'ds_content',
     ),
     'classes' => array(),

@@ -1016,11 +1016,8 @@ function pw_pages_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => '200',
-          ),
-          'type' => 'text_summary_or_trimmed',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '2',
         ),
       ),
@@ -1200,9 +1197,11 @@ function pw_pages_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
+          'module' => 'file_entity',
+          'settings' => array(
+            'file_view_mode' => 'media_preview',
+          ),
+          'type' => 'file_rendered',
           'weight' => '3',
         ),
       ),
@@ -1333,12 +1332,8 @@ function pw_pages_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => 'content',
-            'image_style' => 'medium',
-          ),
-          'type' => 'image',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '1',
         ),
       ),
@@ -2471,7 +2466,7 @@ function pw_pages_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_entity_reference',
-      'label' => 'Special Feature Reference',
+      'label' => 'Special Feature',
       'required' => 0,
       'settings' => array(
         'custom_add_another' => 'Attach another special feature.',
@@ -2821,7 +2816,7 @@ function pw_pages_field_default_fields() {
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
   t('Reference Other');
   t('References');
-  t('Special Feature Reference');
+  t('Special Feature');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');

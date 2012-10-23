@@ -178,7 +178,7 @@ function pw_pages_node_info() {
       'help' => '',
     ),
     'pw_digital' => array(
-      'name' => t('PW Digital Edition'),
+      'name' => t('Digital Edition'),
       'base' => 'node_content',
       'description' => t('Digital editions of the Pennywise paper. Using PDF with Scribd or other variation to display it.'),
       'has_title' => '1',

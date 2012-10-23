@@ -111,6 +111,10 @@
   width: 100%;
 }
 /* Digital Edition - 2 col */
+#pw-digital-node-form {
+  /* turn off help display to simplify layout */
+
+}
 #pw-digital-node-form .group-left {
   width: 60%;
 }
@@ -120,7 +124,11 @@
 #pw-digital-node-form #edit-field-trail-und-0-format-guidelines,
 #pw-digital-node-form #edit-field-nelson-edition-und-0-format-guidelines,
 #pw-digital-node-form #edit-field-castlegar-edition-und-0-format-guidelines,
-#pw-digital-node-form #edit-field-kootenay-lake-edition-und-0-format-guidelines {
+#pw-digital-node-form #edit-field-kootenay-lake-edition-und-0-format-guidelines,
+#pw-digital-node-form #edit-field-trail-und-0-format-help,
+#pw-digital-node-form #edit-field-nelson-edition-und-0-format-help,
+#pw-digital-node-form #edit-field-castlegar-edition-und-0-format-help,
+#pw-digital-node-form #edit-field-kootenay-lake-edition-und-0-format-help {
   display: none;
 }
 /* Editorial (Article) & Classified Node Form Style */
