@@ -32,13 +32,8 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'field_area' => 'field_area',
-    'field_publish' => 'field_publish',
-  );
-  $handler->display->display_options['row_options']['separator'] = ',';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'nelson_edition_view';
   /* Field: Content: Edition Date */
   $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
@@ -53,19 +48,6 @@ function pw_pages_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Scribd */
-  $handler->display->display_options['fields']['field_scribd']['id'] = 'field_scribd';
-  $handler->display->display_options['fields']['field_scribd']['table'] = 'field_data_field_scribd';
-  $handler->display->display_options['fields']['field_scribd']['field'] = 'field_scribd';
-  $handler->display->display_options['fields']['field_scribd']['label'] = '';
-  $handler->display->display_options['fields']['field_scribd']['element_label_colon'] = FALSE;
-  /* Field: Content: Area */
-  $handler->display->display_options['fields']['field_area']['id'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['table'] = 'field_data_field_area';
-  $handler->display->display_options['fields']['field_area']['field'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['label'] = '';
-  $handler->display->display_options['fields']['field_area']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_area']['element_label_colon'] = FALSE;
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -77,6 +59,31 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Castlegar Edition */
+  $handler->display->display_options['fields']['field_castlegar_edition']['id'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['table'] = 'field_data_field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['field'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_default_classes'] = FALSE;
+  /* Field: Content: Kootenay Lake Edition */
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['id'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['table'] = 'field_data_field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['field'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Nelson Edition */
+  $handler->display->display_options['fields']['field_nelson_edition']['id'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['table'] = 'field_data_field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['field'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_nelson_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Trail Edition */
+  $handler->display->display_options['fields']['field_trail']['id'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['table'] = 'field_data_field_trail';
+  $handler->display->display_options['fields']['field_trail']['field'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['label'] = '';
+  $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
   /* Field: Global: Custom Text: Link to Archive */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -108,22 +115,6 @@ function pw_pages_views_default_views() {
     'pw_digital' => 'pw_digital',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Area (field_area) */
-  $handler->display->display_options['filters']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['filters']['field_area_value']['field'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['value'] = array(
-    'Trail' => 'Trail',
-  );
-  /* Filter criterion: Content: Edition Date (field_edition_date) */
-  $handler->display->display_options['filters']['field_edition_date_value']['id'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
-  $handler->display->display_options['filters']['field_edition_date_value']['field'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_edition_date_value']['form_type'] = 'date_text';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_date'] = '-1 Tuesday';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_to_date'] = '12am Today';
-  $handler->display->display_options['filters']['field_edition_date_value']['year_range'] = '-3:+1';
 
   /* Display: archive */
   $handler = $view->new_display('page', 'archive', 'edition_archive');
@@ -131,44 +122,37 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['title'] = 'Pennywise Digital Archive';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '12';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['tags']['first'] = '« Current';
+  $handler->display->display_options['pager']['options']['tags']['previous'] = '';
+  $handler->display->display_options['pager']['options']['tags']['next'] = '';
+  $handler->display->display_options['pager']['options']['tags']['last'] = 'Oldest »';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['style_options']['grouping'] = array(
-    0 => array(
-      'field' => 'field_area',
-      'rendered' => 1,
-      'rendered_strip' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['row_class'] = 'row-class grid-4 alpha omega';
-  $handler->display->display_options['style_options']['class'] = 'list-class';
-  $handler->display->display_options['style_options']['wrapper_class'] = 'item-list wrapper-head grid-4 alpha omega';
+  $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
-    'field_area' => 'field_area',
+    'field_edition_date' => 'field_edition_date',
+    'field_castlegar_edition' => 'field_castlegar_edition',
+    'field_kootenay_lake_edition' => 'field_kootenay_lake_edition',
+    'field_nelson_edition' => 'field_nelson_edition',
+    'field_trail' => 'field_trail',
+    'field_entity_reference' => 'field_entity_reference',
   );
-  $handler->display->display_options['row_options']['separator'] = ',';
+  $handler->display->display_options['row_options']['separator'] = '<br>';
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
-  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Area */
-  $handler->display->display_options['fields']['field_area']['id'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['table'] = 'field_data_field_area';
-  $handler->display->display_options['fields']['field_area']['field'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['label'] = '';
-  $handler->display->display_options['fields']['field_area']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_area']['element_label_colon'] = FALSE;
   /* Field: Content: Edition Date */
   $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['label'] = '';
-  $handler->display->display_options['fields']['field_edition_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
     'format_type' => 'medium',
@@ -177,15 +161,61 @@ function pw_pages_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Link */
-  $handler->display->display_options['fields']['view_node']['id'] = 'view_node';
-  $handler->display->display_options['fields']['view_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['view_node']['field'] = 'view_node';
-  $handler->display->display_options['fields']['view_node']['label'] = '';
-  $handler->display->display_options['fields']['view_node']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['view_node']['alter']['text'] = '[field_edition_date]';
-  $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_node']['text'] = 'Link';
+  /* Field: Content: Castlegar Edition */
+  $handler->display->display_options['fields']['field_castlegar_edition']['id'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['table'] = 'field_data_field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['field'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['text'] = 'Castlegar & Slocan Valley';
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['path'] = 'edition/castlegar-slocan-valley/[field_edition_date] ';
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Kootenay Lake Edition */
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['id'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['table'] = 'field_data_field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['field'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['text'] = 'Kootenay Lake';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['path'] = 'edition/kootenay-lake/[field_edition_date]';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Nelson Edition */
+  $handler->display->display_options['fields']['field_nelson_edition']['id'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['table'] = 'field_data_field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['field'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['text'] = 'Nelson';
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['path'] = 'edition/nelson-salmo/[field_edition_date]';
+  $handler->display->display_options['fields']['field_nelson_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Trail Edition */
+  $handler->display->display_options['fields']['field_trail']['id'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['table'] = 'field_data_field_trail';
+  $handler->display->display_options['fields']['field_trail']['field'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['label'] = '';
+  $handler->display->display_options['fields']['field_trail']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_trail']['alter']['text'] = 'Trail & Area';
+  $handler->display->display_options['fields']['field_trail']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_trail']['alter']['path'] = 'edition/trail-salmo-beaver-valley/[field_edition_date]';
+  $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
+  /* Field: Content: References */
+  $handler->display->display_options['fields']['field_entity_reference']['id'] = 'field_entity_reference';
+  $handler->display->display_options['fields']['field_entity_reference']['table'] = 'field_data_field_entity_reference';
+  $handler->display->display_options['fields']['field_entity_reference']['field'] = 'field_entity_reference';
+  $handler->display->display_options['fields']['field_entity_reference']['label'] = '';
+  $handler->display->display_options['fields']['field_entity_reference']['alter']['text'] = 'Special Insert';
+  $handler->display->display_options['fields']['field_entity_reference']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_entity_reference']['alter']['path'] = 'node/[field_entity_reference-target_id]';
+  $handler->display->display_options['fields']['field_entity_reference']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_entity_reference']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_entity_reference']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_entity_reference']['group_rows'] = FALSE;
+  $handler->display->display_options['fields']['field_entity_reference']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -215,212 +245,21 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Trail & Area Pennywise';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['path'] = 'edition/trail-beaver-valley-rossland';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Trail & Area';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
-  $handler->display->display_options['menu']['context'] = 0;
-
-  /* Display: N */
-  $handler = $view->new_display('page_with_page_title', 'N', 'nelson_edition');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Nelson & Salmo Pennywise';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'pw_digital' => 'pw_digital',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Area (field_area) */
-  $handler->display->display_options['filters']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['filters']['field_area_value']['field'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['value'] = array(
-    'Nelson' => 'Nelson',
-  );
-  $handler->display->display_options['filters']['field_area_value']['group'] = 1;
-  /* Filter criterion: Content: Edition Date (field_edition_date) */
-  $handler->display->display_options['filters']['field_edition_date_value']['id'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
-  $handler->display->display_options['filters']['field_edition_date_value']['field'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_edition_date_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator_id'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['label'] = 'Edition Date (field_edition_date)';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['identifier'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['form_type'] = 'date_text';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_date'] = '-1 Tuesday';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_to_date'] = '12 PM Today';
-  $handler->display->display_options['filters']['field_edition_date_value']['year_range'] = '-3:+1';
-  $handler->display->display_options['path'] = 'edition/nelson-salmo';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Nelson';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
-  $handler->display->display_options['menu']['context'] = 0;
-
-  /* Display: C */
-  $handler = $view->new_display('page_with_page_title', 'C', 'castlegar_editiion');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Castlegar & Slocan Valley Pennywise';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'pw_digital' => 'pw_digital',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Area (field_area) */
-  $handler->display->display_options['filters']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['filters']['field_area_value']['field'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['value'] = array(
-    'Castlegar' => 'Castlegar',
-  );
-  $handler->display->display_options['filters']['field_area_value']['group'] = 1;
-  /* Filter criterion: Content: Edition Date (field_edition_date) */
-  $handler->display->display_options['filters']['field_edition_date_value']['id'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
-  $handler->display->display_options['filters']['field_edition_date_value']['field'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_edition_date_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator_id'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['label'] = 'Edition Date (field_edition_date)';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['identifier'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['form_type'] = 'date_text';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_date'] = '-1 Tuesday';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_to_date'] = '12 PM Today';
-  $handler->display->display_options['filters']['field_edition_date_value']['year_range'] = '-3:+1';
-  $handler->display->display_options['path'] = 'edition/castlegar-slocan-valley';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Castlegar, Slocan Valley';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
-  $handler->display->display_options['menu']['context'] = 0;
-
-  /* Display: K */
-  $handler = $view->new_display('page_with_page_title', 'K', 'kootenay_lake_edition');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Kootenay Lake Pennywise';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'pw_digital' => 'pw_digital',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Area (field_area) */
-  $handler->display->display_options['filters']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['filters']['field_area_value']['field'] = 'field_area_value';
-  $handler->display->display_options['filters']['field_area_value']['value'] = array(
-    'Kootenay Lake' => 'Kootenay Lake',
-  );
-  $handler->display->display_options['filters']['field_area_value']['group'] = 1;
-  /* Filter criterion: Content: Edition Date (field_edition_date) */
-  $handler->display->display_options['filters']['field_edition_date_value']['id'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
-  $handler->display->display_options['filters']['field_edition_date_value']['field'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['operator'] = 'between';
-  $handler->display->display_options['filters']['field_edition_date_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator_id'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['label'] = 'Edition Date (field_edition_date)';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['operator'] = 'field_edition_date_value_op';
-  $handler->display->display_options['filters']['field_edition_date_value']['expose']['identifier'] = 'field_edition_date_value';
-  $handler->display->display_options['filters']['field_edition_date_value']['form_type'] = 'date_text';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_date'] = '-1 Tuesday';
-  $handler->display->display_options['filters']['field_edition_date_value']['default_to_date'] = '12 PM Today';
-  $handler->display->display_options['filters']['field_edition_date_value']['year_range'] = '-3:+1';
-  $handler->display->display_options['path'] = 'edition/kootenay-lake';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Kootenay Lake';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
-  $handler->display->display_options['menu']['context'] = 0;
-
-  /* Display: Attachment */
-  $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '8';
-  $handler->display->display_options['pager']['options']['offset'] = '4';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'grid';
-  $handler->display->display_options['style_options']['grouping'] = array(
-    0 => array(
-      'field' => 'field_edition_date',
-      'rendered' => 1,
-      'rendered_strip' => 0,
-    ),
-  );
+  $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'field_area' => 'field_area',
-    'field_publish' => 'field_publish',
-  );
-  $handler->display->display_options['row_options']['separator'] = ',';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'trail_edition_view';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Area */
-  $handler->display->display_options['fields']['field_area']['id'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['table'] = 'field_data_field_area';
-  $handler->display->display_options['fields']['field_area']['field'] = 'field_area';
-  $handler->display->display_options['fields']['field_area']['label'] = '';
-  $handler->display->display_options['fields']['field_area']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_area']['element_label_colon'] = FALSE;
   /* Field: Content: Edition Date */
   $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['label'] = '';
-  $handler->display->display_options['fields']['field_edition_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
   $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
     'format_type' => 'medium',
     'fromto' => 'both',
@@ -439,16 +278,79 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
   $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Edition Date (field_edition_date) */
-  $handler->display->display_options['sorts']['field_edition_date_value']['id'] = 'field_edition_date_value';
-  $handler->display->display_options['sorts']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
-  $handler->display->display_options['sorts']['field_edition_date_value']['field'] = 'field_edition_date_value';
-  $handler->display->display_options['sorts']['field_edition_date_value']['order'] = 'DESC';
-  /* Sort criterion: Content: Area (field_area) */
-  $handler->display->display_options['sorts']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['sorts']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['sorts']['field_area_value']['field'] = 'field_area_value';
+  /* Field: Content: Trail Edition */
+  $handler->display->display_options['fields']['field_trail']['id'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['table'] = 'field_data_field_trail';
+  $handler->display->display_options['fields']['field_trail']['field'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['label'] = '';
+  $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_trail']['element_default_classes'] = FALSE;
+  /* Field: Global: Custom Text: Link to Archive */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Custom Text: Link to Archive';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View Entire Pennywise Digital Archive';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
+  $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['path'] = 'edition/trail-beaver-valley-rossland';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Trail & Area';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: N */
+  $handler = $view->new_display('page_with_page_title', 'N', 'nelson_edition');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Nelson & Salmo Pennywise';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '[field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Nelson Edition */
+  $handler->display->display_options['fields']['field_nelson_edition']['id'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['table'] = 'field_data_field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['field'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_nelson_edition']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom Text: Link to Archive */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Custom Text: Link to Archive';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View Entire Pennywise Digital Archive';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
+  $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -466,14 +368,295 @@ function pw_pages_views_default_views() {
     'pw_digital' => 'pw_digital',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['path'] = 'edition/nelson-salmo';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Nelson';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: C */
+  $handler = $view->new_display('page_with_page_title', 'C', 'castlegar_editiion');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Castlegar & Slocan Valley Pennywise';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'castlegar_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '[field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Castlegar Edition */
+  $handler->display->display_options['fields']['field_castlegar_edition']['id'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['table'] = 'field_data_field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['field'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_default_classes'] = FALSE;
+  /* Field: Global: Custom Text: Link to Archive */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Custom Text: Link to Archive';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View Entire Pennywise Digital Archive';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
+  $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['path'] = 'edition/castlegar-slocan-valley';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Castlegar, Slocan Valley';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: K */
+  $handler = $view->new_display('page_with_page_title', 'K', 'kootenay_lake_edition');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Kootenay Lake Pennywise';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'kootenay_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '[field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Kootenay Lake Edition */
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['id'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['table'] = 'field_data_field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['field'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom Text: Link to Archive */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Custom Text: Link to Archive';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View Entire Pennywise Digital Archive';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
+  $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['path'] = 'edition/kootenay-lake';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Kootenay Lake';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Previous PW List */
+  $handler = $view->new_display('attachment', 'Previous PW List', 'attachment_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Previous Pennywise Editions';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '1';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_edition_date' => 'field_edition_date',
+    'field_castlegar_edition' => 'field_castlegar_edition',
+    'field_kootenay_lake_edition' => 'field_kootenay_lake_edition',
+    'field_nelson_edition' => 'field_nelson_edition',
+    'field_trail' => 'field_trail',
+  );
+  $handler->display->display_options['style_options']['default'] = 'field_edition_date';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_edition_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_castlegar_edition' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_kootenay_lake_edition' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_nelson_edition' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_trail' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Castlegar Edition */
+  $handler->display->display_options['fields']['field_castlegar_edition']['id'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['table'] = 'field_data_field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['field'] = 'field_castlegar_edition';
+  $handler->display->display_options['fields']['field_castlegar_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['text'] = 'Castlegar';
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['path'] = 'edition/castlegar-slocan-valley/[field_edition_date] ';
+  $handler->display->display_options['fields']['field_castlegar_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Kootenay Lake Edition */
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['id'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['table'] = 'field_data_field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['field'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['text'] = 'Kootenay Lake';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['path'] = 'edition/kootenay-lake/[field_edition_date] ';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Nelson Edition */
+  $handler->display->display_options['fields']['field_nelson_edition']['id'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['table'] = 'field_data_field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['field'] = 'field_nelson_edition';
+  $handler->display->display_options['fields']['field_nelson_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['text'] = 'Nelson & Salmo';
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['path'] = 'edition/nelson-salmo/[field_edition_date]';
+  $handler->display->display_options['fields']['field_nelson_edition']['element_label_colon'] = FALSE;
+  /* Field: Content: Trail Edition */
+  $handler->display->display_options['fields']['field_trail']['id'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['table'] = 'field_data_field_trail';
+  $handler->display->display_options['fields']['field_trail']['field'] = 'field_trail';
+  $handler->display->display_options['fields']['field_trail']['label'] = '';
+  $handler->display->display_options['fields']['field_trail']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_trail']['alter']['text'] = 'Trail & Salmo';
+  $handler->display->display_options['fields']['field_trail']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_trail']['alter']['path'] = 'edition/trail-beaver-valley-rossland/[field_edition_date]';
+  $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
   $handler->display->display_options['displays'] = array(
-    'default' => 'default',
-    't_area_digial_edition' => 't_area_digial_edition',
-    'n_area_digial_edition' => 'n_area_digial_edition',
-    'c_area_digial_edition' => 'c_area_digial_edition',
-    'k_area_digial_edition' => 'k_area_digial_edition',
+    'trail_edition' => 'trail_edition',
+    'nelson_edition' => 'nelson_edition',
+    'castlegar_editiion' => 'castlegar_editiion',
+    'kootenay_lake_edition' => 'kootenay_lake_edition',
+    'default' => 0,
+    'edition_archive' => 0,
   );
   $handler->display->display_options['attachment_position'] = 'after';
+  $handler->display->display_options['render_pager'] = TRUE;
   $export['digital_edition_pages'] = $view;
 
   $view = new view();

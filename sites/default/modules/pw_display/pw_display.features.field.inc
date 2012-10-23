@@ -470,13 +470,9 @@ function pw_display_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'article' => 'article',
             'attachment' => 'attachment',
-            'classified' => 'classified',
-            'display_ads' => 'display_ads',
             'page' => 'page',
             'pw_digital' => 'pw_digital',
-            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',

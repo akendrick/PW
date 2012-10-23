@@ -306,6 +306,36 @@ function pw_pages_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|article|editorial_slideshow';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'article';
+  $ds_layout->view_mode = 'editorial_slideshow';
+  $ds_layout->layout = 'ds_2col';
+  $ds_layout->settings = array(
+    'hide_empty_regions' => 0,
+    'hide_sidebars' => 0,
+    'regions' => array(
+      'left' => array(
+        0 => 'field_image',
+      ),
+      'right' => array(
+        0 => 'title',
+        1 => 'body',
+        2 => 'node_link',
+      ),
+    ),
+    'fields' => array(
+      'field_image' => 'left',
+      'title' => 'right',
+      'body' => 'right',
+      'node_link' => 'right',
+    ),
+    'classes' => array(),
+  );
+  $export['node|article|editorial_slideshow'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'node|article|form';
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
@@ -600,6 +630,137 @@ function pw_pages_ds_layout_settings_info() {
     'classes' => array(),
   );
   $export['node|page|teaser'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|pw_digital|form';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'pw_digital';
+  $ds_layout->view_mode = 'form';
+  $ds_layout->layout = 'ds_form';
+  $ds_layout->settings = array(
+    'hide_empty_regions' => 0,
+    'hide_sidebars' => FALSE,
+    'regions' => array(
+      'right' => array(
+        0 => 'group_info',
+        1 => 'field_edition_date',
+      ),
+      'left' => array(
+        0 => 'group_edition',
+        1 => 'field_trail',
+        2 => 'field_nelson_edition',
+        3 => 'field_castlegar_edition',
+        4 => 'field_kootenay_lake_edition',
+      ),
+      'hidden' => array(
+        0 => 'path',
+        1 => 'title',
+        2 => 'body',
+        3 => '_add_existing_field',
+      ),
+      'footer' => array(
+        0 => 'field_entity_reference',
+      ),
+    ),
+    'fields' => array(
+      'group_info' => 'right',
+      'group_edition' => 'left',
+      'field_trail' => 'left',
+      'field_nelson_edition' => 'left',
+      'path' => 'hidden',
+      'field_castlegar_edition' => 'left',
+      'field_kootenay_lake_edition' => 'left',
+      'title' => 'hidden',
+      'body' => 'hidden',
+      'field_edition_date' => 'right',
+      'field_entity_reference' => 'footer',
+      '_add_existing_field' => 'hidden',
+    ),
+    'classes' => array(),
+  );
+  $export['node|pw_digital|form'] = $ds_layout;
+
+  return $export;
+}
+
+/**
+ * Implements hook_ds_view_modes_info().
+ */
+function pw_pages_ds_view_modes_info() {
+  $export = array();
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'block_list_header';
+  $ds_view_mode->label = 'Block List Header';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['block_list_header'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'block_list_item';
+  $ds_view_mode->label = 'Block List Item';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['block_list_item'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'castlegar_edition_view';
+  $ds_view_mode->label = 'Castlegar Edition View';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['castlegar_edition_view'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'editorial_slideshow';
+  $ds_view_mode->label = 'Editorial Slideshow';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['editorial_slideshow'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'kootenay_edition_view';
+  $ds_view_mode->label = 'Kootenay Edition View';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['kootenay_edition_view'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'nelson_edition_view';
+  $ds_view_mode->label = 'Nelson Edition View';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['nelson_edition_view'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'simple_teaser';
+  $ds_view_mode->label = 'Simple Teaser';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['simple_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'trail_edition_view';
+  $ds_view_mode->label = 'Trail Edition View';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['trail_edition_view'] = $ds_view_mode;
 
   return $export;
 }

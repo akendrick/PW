@@ -30,21 +30,25 @@
   background-color: #e5e0dc;
   border-width: thin;
 }
-.ds-form-3col-stacked {
+.ds-form-3col-stacked,
+#pw-digital-node-form {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   width: 1160px;
   background-color: #d1e5ff;
 }
-.ds-form-3col-stacked .tabledrag-toggle-weight {
+.ds-form-3col-stacked .tabledrag-toggle-weight,
+#pw-digital-node-form .tabledrag-toggle-weight {
   visibility: hidden;
   height: 0;
 }
-.ds-form-3col-stacked table.tableheader-processed {
+.ds-form-3col-stacked table.tableheader-processed,
+#pw-digital-node-form table.tableheader-processed {
   width: 200px;
 }
-.ds-form-3col-stacked h3 {
+.ds-form-3col-stacked h3,
+#pw-digital-node-form h3 {
   /*     border-bottom: 2pt groove @plum; */
 
   text-transform: uppercase;
@@ -61,13 +65,16 @@
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-.ds-form-3col-stacked .form-wrapper {
+.ds-form-3col-stacked .form-wrapper,
+#pw-digital-node-form .form-wrapper {
   width: 90%;
 }
-.ds-form-3col-stacked .form-item {
+.ds-form-3col-stacked .form-item,
+#pw-digital-node-form .form-item {
   width: 100%;
 }
-.ds-form-3col-stacked .group-left {
+.ds-form-3col-stacked .group-left,
+#pw-digital-node-form .group-left {
   padding: 10px;
   width: 380px;
   background-color: #ffcc99;
@@ -77,15 +84,18 @@
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-.ds-form-3col-stacked .group-middle {
+.ds-form-3col-stacked .group-middle,
+#pw-digital-node-form .group-middle {
   width: 280px;
   padding: 10px;
   height: 100%;
 }
-.ds-form-3col-stacked .group-middle div {
+.ds-form-3col-stacked .group-middle div,
+#pw-digital-node-form .group-middle div {
   width: 100%;
 }
-.ds-form-3col-stacked .group-right {
+.ds-form-3col-stacked .group-right,
+#pw-digital-node-form .group-right {
   width: 280px;
   padding: 10px;
   border-left: solid 1pt #ffffff;
@@ -96,8 +106,22 @@
   -webkit-border-radius: 10px;
   margin: 4px;
 }
-.ds-form-3col-stacked .form-item {
+.ds-form-3col-stacked .form-item,
+#pw-digital-node-form .form-item {
   width: 100%;
+}
+/* Digital Edition - 2 col */
+#pw-digital-node-form .group-left {
+  width: 60%;
+}
+#pw-digital-node-form .group-right {
+  width: 25%;
+}
+#pw-digital-node-form #edit-field-trail-und-0-format-guidelines,
+#pw-digital-node-form #edit-field-nelson-edition-und-0-format-guidelines,
+#pw-digital-node-form #edit-field-castlegar-edition-und-0-format-guidelines,
+#pw-digital-node-form #edit-field-kootenay-lake-edition-und-0-format-guidelines {
+  display: none;
 }
 /* Editorial (Article) & Classified Node Form Style */
 .node-article-form .ds-form-3col-stacked .group-left,

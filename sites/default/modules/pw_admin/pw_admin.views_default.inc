@@ -3169,14 +3169,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['style_plugin'] = 'grid';
-  $handler->display->display_options['style_options']['grouping'] = array(
-    0 => array(
-      'field' => 'field_edition_date',
-      'rendered' => 1,
-      'rendered_strip' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['row_class'] = 'grid-4';
   $handler->display->display_options['style_options']['columns'] = '6';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
@@ -3377,9 +3369,10 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '24';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Has new content */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
@@ -3402,11 +3395,10 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
   $handler->display->display_options['fields']['field_edition_date']['label'] = '';
-  $handler->display->display_options['fields']['field_edition_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h4';
   $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
-    'format_type' => 'medium',
+    'format_type' => 'short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -3755,7 +3747,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -4253,7 +4245,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';

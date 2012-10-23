@@ -378,13 +378,9 @@ function pw_pages_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'article' => 'article',
             'attachment' => 'attachment',
-            'classified' => 'classified',
-            'display_ads' => 'display_ads',
             'page' => 'page',
             'pw_digital' => 'pw_digital',
-            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1091,13 +1087,9 @@ function pw_pages_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'article' => 'article',
             'attachment' => 'attachment',
-            'classified' => 'classified',
-            'display_ads' => 'display_ads',
             'page' => 'page',
             'pw_digital' => 'pw_digital',
-            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1622,13 +1614,9 @@ function pw_pages_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'article' => 'article',
             'attachment' => 'attachment',
-            'classified' => 'classified',
-            'display_ads' => 'display_ads',
             'page' => 'page',
             'pw_digital' => 'pw_digital',
-            'webform' => 'webform',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -2088,20 +2076,41 @@ function pw_pages_field_default_fields() {
 <li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list] </em></li>
 </ol>',
       'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
         'default' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '2',
         ),
+        'kootenay_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
         'teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => 600,
-          ),
-          'type' => 'text_summary_or_trimmed',
-          'weight' => 0,
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'node',
@@ -2127,36 +2136,37 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_area'.
-  $fields['node-pw_digital-field_area'] = array(
+  // Exported field: 'node-pw_digital-field_castlegar_edition'.
+  $fields['node-pw_digital-field_castlegar_edition'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_area',
+      'field_name' => 'field_castlegar_edition',
       'field_permissions' => array(
         'type' => '0',
       ),
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
       'indexes' => array(
-        'value' => array(
-          0 => 'value',
+        'format' => array(
+          0 => 'format',
         ),
       ),
       'locked' => '0',
-      'module' => 'list',
+      'module' => 'text',
       'settings' => array(
-        'allowed_values' => array(
-          'Trail' => 'Trail, Beaver Valley & Rossland',
-          'Nelson' => 'Nelson & Salmo',
-          'Castlegar' => 'Castlegar & Slocan Valley',
-          'Kootenay Lake' => 'Kootenay Lake',
-        ),
-        'allowed_values_function' => '',
+        'max_length' => '80',
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'text',
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
@@ -2164,150 +2174,63 @@ function pw_pages_field_default_fields() {
       'deleted' => '0',
       'description' => '',
       'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
         'default' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '8',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '4',
         ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_area',
-      'label' => 'Area',
-      'required' => 1,
-      'settings' => array(
-        'custom_add_another' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '12',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-pw_digital-field_display_ad'.
-  $fields['node-pw_digital-field_display_ad'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_display_ad',
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'image',
-      'settings' => array(
-        'default_image' => '993',
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'image',
-    ),
-    'field_instance' => array(
-      'bundle' => 'pw_digital',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
+        'nelson_edition_view' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '5',
+          'weight' => '3',
         ),
         'teaser' => array(
-          'label' => 'above',
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_plain',
+          'weight' => '8',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_display_ad',
-      'label' => 'Cover',
-      'required' => 0,
+      'field_name' => 'field_castlegar_edition',
+      'label' => 'Castlegar Edition',
+      'required' => 1,
       'settings' => array(
-        'alt_field' => 0,
         'custom_add_another' => '',
-        'default_image' => 0,
-        'file_directory' => 'images/cover',
-        'file_extensions' => 'png gif jpg jpeg',
-        'max_filesize' => '100 KB',
-        'max_resolution' => '900x900',
-        'min_resolution' => '100x100',
-        'title_field' => 0,
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'image',
+        'module' => 'text',
         'settings' => array(
-          'filefield_sources' => array(
-            'filefield_sources' => array(
-              'attach' => 0,
-              'reference' => 'reference',
-              'remote' => 0,
-            ),
-            'source_attach' => array(
-              'absolute' => '0',
-              'attach_mode' => 'copy',
-              'path' => 'file_attach',
-            ),
-            'source_reference' => array(
-              'autocomplete' => '1',
-            ),
-          ),
-          'insert' => 0,
-          'insert_absolute' => FALSE,
-          'insert_class' => '',
-          'insert_default' => 'auto',
-          'insert_styles' => array(
-            'auto' => 'auto',
-            'image' => 0,
-            'image_classified-list-style' => 0,
-            'image_classified_page_style' => 0,
-            'image_display_ad_print_thumbnail' => 0,
-            'image_editorial_block_list_header' => 0,
-            'image_editorial_header' => 0,
-            'image_editorial_small' => 0,
-            'image_editorial_teaser' => 0,
-            'image_editorial_thumbnail' => 0,
-            'image_large' => 0,
-            'image_medium' => 0,
-            'image_square_thumbnail' => 0,
-            'image_thumbnail' => 0,
-            'link' => 0,
-          ),
-          'insert_width' => '',
-          'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
+          'size' => '60',
         ),
-        'type' => 'image_image',
-        'weight' => '3',
+        'type' => 'text_textfield',
+        'weight' => '4',
       ),
     ),
   );
@@ -2350,17 +2273,41 @@ function pw_pages_field_default_fields() {
       'deleted' => '0',
       'description' => '',
       'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
+        ),
         'default' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '3',
         ),
-        'teaser' => array(
-          'label' => 'above',
+        'kootenay_edition_view' => array(
+          'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '6',
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
+        ),
+        'teaser' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'node',
@@ -2393,128 +2340,168 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_pdf'.
-  $fields['node-pw_digital-field_pdf'] = array(
+  // Exported field: 'node-pw_digital-field_entity_reference'.
+  $fields['node-pw_digital-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_pdf',
+      'field_name' => 'field_entity_reference',
       'field_permissions' => array(
         'type' => '0',
       ),
       'foreign keys' => array(
-        'fid' => array(
+        'node' => array(
           'columns' => array(
-            'fid' => 'fid',
+            'target_id' => 'nid',
           ),
-          'table' => 'file_managed',
+          'table' => 'node',
         ),
       ),
       'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
+        'target_id' => array(
+          0 => 'target_id',
         ),
       ),
       'locked' => '0',
-      'module' => 'file',
+      'module' => 'entityreference',
       'settings' => array(
-        'display_default' => 1,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 1,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'property' => 'title',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'attachment' => 'attachment',
+            'page' => 'page',
+            'pw_digital' => 'pw_digital',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+        'user_role_field' => array(
+          1 => 0,
+          2 => 0,
+          3 => 0,
+          4 => 0,
+          5 => 0,
+          6 => 0,
+          7 => 0,
+          8 => 0,
+          9 => '9',
+          10 => 0,
+          11 => 0,
+        ),
       ),
       'translatable' => '0',
-      'type' => 'file',
+      'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
       'deleted' => '0',
-      'description' => 'Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]',
+      'description' => 'Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.',
       'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'links' => 1,
+            'view_mode' => 'teaser',
+          ),
+          'type' => 'entityreference_entity_view',
+          'weight' => '1',
+        ),
         'default' => array(
           'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
+          'module' => 'entityreference',
+          'settings' => array(
+            'links' => 1,
+            'view_mode' => 'teaser',
+          ),
+          'type' => 'entityreference_entity_view',
+          'weight' => '10',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'links' => 1,
+            'view_mode' => 'teaser',
+          ),
+          'type' => 'entityreference_entity_view',
+          'weight' => '1',
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'links' => 1,
+            'view_mode' => 'teaser',
+          ),
+          'type' => 'entityreference_entity_view',
           'weight' => '1',
         ),
         'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'links' => 1,
+            'view_mode' => 'teaser',
+          ),
+          'type' => 'entityreference_entity_view',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_pdf',
-      'label' => 'PDF',
+      'field_name' => 'field_entity_reference',
+      'label' => 'Special Feature Reference',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => '',
-        'description_field' => 0,
-        'file_directory' => 'pdf',
-        'file_extensions' => 'pdf zip rar',
-        'max_filesize' => '12MB',
+        'custom_add_another' => 'Attach another special feature.',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'file',
+        'module' => 'inline_entity_form',
         'settings' => array(
-          'filefield_sources' => array(
-            'filefield_sources' => array(
-              'attach' => 0,
-              'reference' => 'reference',
-              'remote' => 'remote',
-            ),
-            'source_attach' => array(
-              'absolute' => '0',
-              'attach_mode' => 'copy',
-              'path' => 'file_attach',
-            ),
-            'source_reference' => array(
-              'autocomplete' => '1',
-            ),
+          'fields' => array(),
+          'type_settings' => array(
+            'allow_existing' => 1,
+            'delete_references' => 1,
+            'match_operator' => 'CONTAINS',
           ),
-          'insert' => 0,
-          'insert_absolute' => FALSE,
-          'insert_class' => '',
-          'insert_default' => 'auto',
-          'insert_styles' => array(
-            'auto' => 'auto',
-            'image' => 0,
-            'image_classified-list-style' => 0,
-            'image_classified_page_style' => 0,
-            'image_display_ad_print_thumbnail' => 0,
-            'image_editorial_block_list_header' => 0,
-            'image_editorial_header' => 0,
-            'image_editorial_small' => 0,
-            'image_editorial_teaser' => 0,
-            'image_editorial_thumbnail' => 0,
-            'image_large' => 0,
-            'image_medium' => 0,
-            'image_square_thumbnail' => 0,
-            'image_thumbnail' => 0,
-            'link' => 0,
-          ),
-          'insert_width' => '',
-          'progress_indicator' => 'throbber',
         ),
-        'type' => 'file_generic',
-        'weight' => '2',
+        'type' => 'inline_entity_form',
+        'weight' => '12',
       ),
     ),
   );
 
-  // Exported field: 'node-pw_digital-field_scribd'.
-  $fields['node-pw_digital-field_scribd'] = array(
+  // Exported field: 'node-pw_digital-field_kootenay_lake_edition'.
+  $fields['node-pw_digital-field_kootenay_lake_edition'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_scribd',
+      'field_name' => 'field_kootenay_lake_edition',
       'field_permissions' => array(
         'type' => '0',
       ),
@@ -2541,42 +2528,56 @@ function pw_pages_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
-      'default_value' => array(
-        0 => array(
-          'value' => '[scribd id=pub-18673738874898982461 key=yy mode=list]',
-          'format' => 'edition_editor',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'You can also copy and paste the whole text from Scribd.
-<ol>
-<li>Navigate to the edition you want to embed.
-<li>Select Embed
-<li>Choose option WordPress
-<li>copy and paste the whole line into the body of the text.
-<li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list]</em>
-',
+      'description' => '',
       'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '9',
+        ),
+        'kootenay_edition_view' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '0',
         ),
-        'teaser' => array(
-          'label' => 'above',
+        'nelson_edition_view' => array(
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '4',
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_plain',
+          'weight' => '9',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_scribd',
-      'label' => 'Scribd',
+      'field_name' => 'field_kootenay_lake_edition',
+      'label' => 'Kootenay Lake Edition',
       'required' => 1,
       'settings' => array(
-        'custom_add_another' => 'Add another edition',
+        'custom_add_another' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -2584,10 +2585,208 @@ function pw_pages_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '80',
+          'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-pw_digital-field_nelson_edition'.
+  $fields['node-pw_digital-field_nelson_edition'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_nelson_edition',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '80',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_plain',
+          'weight' => '7',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_nelson_edition',
+      'label' => 'Nelson Edition',
+      'required' => 1,
+      'settings' => array(
+        'custom_add_another' => '',
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-pw_digital-field_trail'.
+  $fields['node-pw_digital-field_trail'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_trail',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '80',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_plain',
+          'weight' => '6',
+        ),
+        'trail_edition_view' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_trail',
+      'label' => 'Trail Edition',
+      'required' => 1,
+      'settings' => array(
+        'custom_add_another' => '',
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '2',
       ),
     ),
   );
@@ -2606,9 +2805,9 @@ function pw_pages_field_default_fields() {
   t('Attachment');
   t('Body');
   t('By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>');
-  t('Cover');
+  t('Castlegar Edition');
+  t('Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.');
   t('Description');
-  t('Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]');
   t('Edition Date');
   t('Email');
   t('Extra Images');
@@ -2616,25 +2815,19 @@ function pw_pages_field_default_fields() {
   t('Highlighted Link');
   t('If the attachment is several pages or files you can reference the other items here.');
   t('Inserted Images');
+  t('Kootenay Lake Edition');
   t('Link');
+  t('Nelson Edition');
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
-  t('PDF');
   t('Reference Other');
   t('References');
-  t('Scribd');
+  t('Special Feature Reference');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');
   t('This link field is for expressly highlighting a specific link. It will be displayed in large type.');
   t('Thumbnail');
-  t('You can also copy and paste the whole text from Scribd.
-<ol>
-<li>Navigate to the edition you want to embed.
-<li>Select Embed
-<li>Choose option WordPress
-<li>copy and paste the whole line into the body of the text.
-<li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list]</em>
-');
+  t('Trail Edition');
 
   return $fields;
 }
