@@ -122,10 +122,10 @@ function pw_pages_field_group_info() {
     'label' => 'Edition',
     'weight' => '1',
     'children' => array(
-      0 => 'field_trail',
-      1 => 'field_nelson_edition',
-      2 => 'field_castlegar_edition',
-      3 => 'field_kootenay_lake_edition',
+      0 => 'field_castlegar_edition',
+      1 => 'field_kootenay_lake_edition',
+      2 => 'field_nelson_edition',
+      3 => 'field_trail',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

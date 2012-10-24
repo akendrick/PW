@@ -13,6 +13,87 @@ function pw_la_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = '403';
+  $context->description = 'If page restricted';
+  $context->tag = 'admin';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'admin' => 'admin',
+        'admin/*' => 'admin/*',
+      ),
+    ),
+    'user' => array(
+      'values' => array(
+        'anonymous user' => 'anonymous user',
+        'authenticated user' => 'authenticated user',
+        'display ad client' => 'display ad client',
+        'submit ad' => 'submit ad',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+        'views-20eeba41cb621b5fc7f09165eda65f99' => array(
+          'module' => 'views',
+          'delta' => '20eeba41cb621b5fc7f09165eda65f99',
+          'region' => 'sidebar_first',
+          'weight' => '-9',
+        ),
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
+          'region' => 'sidebar_first',
+          'weight' => '-8',
+        ),
+        'menu-menu-pennywise-digital-edition' => array(
+          'module' => 'menu',
+          'delta' => 'menu-pennywise-digital-edition',
+          'region' => 'sidebar_first',
+          'weight' => '-7',
+        ),
+        'views-02990d644d7eb62daab6d080d86a23b7' => array(
+          'module' => 'views',
+          'delta' => '02990d644d7eb62daab6d080d86a23b7',
+          'region' => 'sidebar_first',
+          'weight' => '-6',
+        ),
+        'menu-menu-advertising-links' => array(
+          'module' => 'menu',
+          'delta' => 'menu-advertising-links',
+          'region' => 'sidebar_first',
+          'weight' => '-5',
+        ),
+        'menu_block-5' => array(
+          'module' => 'menu_block',
+          'delta' => '5',
+          'region' => 'sidebar_first',
+          'weight' => '-4',
+        ),
+      ),
+    ),
+    'delta' => array(
+      'delta_template' => 'traditional',
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('If page restricted');
+  t('admin');
+  $export['403'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'classified_ad_layout';
   $context->description = 'layout for PW site';
   $context->tag = 'layout';
@@ -64,21 +145,21 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-7',
         ),
-        'views-20eeba41cb621b5fc7f09165eda65f99' => array(
+        'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
           'module' => 'views',
-          'delta' => '20eeba41cb621b5fc7f09165eda65f99',
+          'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
           'region' => 'sidebar_first',
-          'weight' => '-32',
+          'weight' => '-30',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
           'delta' => 'ad_payment_create_ad',
           'region' => 'sidebar_first',
-          'weight' => '-31',
+          'weight' => '-30',
         ),
-        'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
+        'views-20eeba41cb621b5fc7f09165eda65f99' => array(
           'module' => 'views',
-          'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
+          'delta' => '20eeba41cb621b5fc7f09165eda65f99',
           'region' => 'sidebar_first',
           'weight' => '-30',
         ),
@@ -105,6 +186,18 @@ function pw_la_context_default_contexts() {
           'delta' => '5',
           'region' => 'sidebar_first',
           'weight' => '-26',
+        ),
+        'user-login' => array(
+          'module' => 'user',
+          'delta' => 'login',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+        'logintoboggan-logintoboggan_logged_in' => array(
+          'module' => 'logintoboggan',
+          'delta' => 'logintoboggan_logged_in',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -335,6 +428,12 @@ function pw_la_context_default_contexts() {
           'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
           'weight' => '-23',
+        ),
+        'user-login' => array(
+          'module' => 'user',
+          'delta' => 'login',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',

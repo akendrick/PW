@@ -16,7 +16,7 @@ function pw_admin_filter_default_formats() {
     'name' => 'Edition Editor',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-6',
+    'weight' => '-10',
     'filters' => array(
       'filter_url' => array(
         'weight' => '0',
@@ -42,7 +42,7 @@ function pw_admin_filter_default_formats() {
     'name' => 'Filtered HTML',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-9',
+    'weight' => '-7',
     'filters' => array(
       'filter_url' => array(
         'weight' => '0',
@@ -79,7 +79,7 @@ function pw_admin_filter_default_formats() {
     'name' => 'Full HTML',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-8',
+    'weight' => '-6',
     'filters' => array(
       'lightbox2_filter' => array(
         'weight' => '-49',
@@ -132,7 +132,7 @@ function pw_admin_filter_default_formats() {
     'name' => 'Markdown Filter',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-7',
+    'weight' => '-8',
     'filters' => array(
       'filter_autop' => array(
         'weight' => '0',
@@ -168,7 +168,7 @@ function pw_admin_filter_default_formats() {
     'name' => 'Plain text',
     'cache' => '1',
     'status' => '1',
-    'weight' => '-10',
+    'weight' => '-9',
     'filters' => array(
       'filter_html_escape' => array(
         'weight' => '0',

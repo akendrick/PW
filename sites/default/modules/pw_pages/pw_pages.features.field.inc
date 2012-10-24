@@ -2230,6 +2230,147 @@ function pw_pages_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-pw_digital-field_display_ad'.
+  $fields['node-pw_digital-field_display_ad'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_display_ad',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => '993',
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'trail_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_display_ad',
+      'label' => 'Cover',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'custom_add_another' => '',
+        'default_image' => 0,
+        'file_directory' => 'images/cover',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '100 KB',
+        'max_resolution' => '900x900',
+        'min_resolution' => '100x100',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'filefield_sources' => array(
+            'filefield_sources' => array(
+              'attach' => 0,
+              'reference' => 'reference',
+              'remote' => 0,
+            ),
+            'source_attach' => array(
+              'absolute' => '0',
+              'attach_mode' => 'copy',
+              'path' => 'file_attach',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '1',
+            ),
+          ),
+          'insert' => 0,
+          'insert_absolute' => FALSE,
+          'insert_class' => '',
+          'insert_default' => 'auto',
+          'insert_styles' => array(
+            'auto' => 'auto',
+            'image' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_page_style' => 0,
+            'image_display_ad_print_thumbnail' => 0,
+            'image_editorial_block_list_header' => 0,
+            'image_editorial_header' => 0,
+            'image_editorial_small' => 0,
+            'image_editorial_teaser' => 0,
+            'image_editorial_thumbnail' => 0,
+            'image_large' => 0,
+            'image_medium' => 0,
+            'image_square_thumbnail' => 0,
+            'image_thumbnail' => 0,
+            'link' => 0,
+          ),
+          'insert_width' => '',
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'image_image',
+        'weight' => '3',
+      ),
+    ),
+  );
+
   // Exported field: 'node-pw_digital-field_edition_date'.
   $fields['node-pw_digital-field_edition_date'] = array(
     'field_config' => array(
@@ -2687,6 +2828,253 @@ function pw_pages_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-pw_digital-field_pdf'.
+  $fields['node-pw_digital-field_pdf'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_pdf',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 1,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'deleted' => '0',
+      'description' => 'Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '1',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'trail_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_pdf',
+      'label' => 'PDF',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'description_field' => 0,
+        'file_directory' => 'pdf',
+        'file_extensions' => 'pdf zip rar',
+        'max_filesize' => '12MB',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'filefield_sources' => array(
+            'filefield_sources' => array(
+              'attach' => 0,
+              'reference' => 'reference',
+              'remote' => 'remote',
+            ),
+            'source_attach' => array(
+              'absolute' => '0',
+              'attach_mode' => 'copy',
+              'path' => 'file_attach',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '1',
+            ),
+          ),
+          'insert' => 0,
+          'insert_absolute' => FALSE,
+          'insert_class' => '',
+          'insert_default' => 'auto',
+          'insert_styles' => array(
+            'auto' => 'auto',
+            'image' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_page_style' => 0,
+            'image_display_ad_print_thumbnail' => 0,
+            'image_editorial_block_list_header' => 0,
+            'image_editorial_header' => 0,
+            'image_editorial_small' => 0,
+            'image_editorial_teaser' => 0,
+            'image_editorial_thumbnail' => 0,
+            'image_large' => 0,
+            'image_medium' => 0,
+            'image_square_thumbnail' => 0,
+            'image_thumbnail' => 0,
+            'link' => 0,
+          ),
+          'insert_width' => '',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-pw_digital-field_scribd'.
+  $fields['node-pw_digital-field_scribd'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_scribd',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '80',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'default_value' => array(
+        0 => array(
+          'value' => '[scribd id=pub-18673738874898982461 key=yy mode=list]',
+          'format' => 'edition_editor',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => 'You can also copy and paste the whole text from Scribd.
+<ol>
+<li>Navigate to the edition you want to embed.
+<li>Select Embed
+<li>Choose option WordPress
+<li>copy and paste the whole line into the body of the text.
+<li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list]</em>
+',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'trail_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_scribd',
+      'label' => 'Scribd',
+      'required' => 1,
+      'settings' => array(
+        'custom_add_another' => 'Add another edition',
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '80',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'node-pw_digital-field_trail'.
   $fields['node-pw_digital-field_trail'] = array(
     'field_config' => array(
@@ -2801,8 +3189,10 @@ function pw_pages_field_default_fields() {
   t('Body');
   t('By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>');
   t('Castlegar Edition');
+  t('Cover');
   t('Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.');
   t('Description');
+  t('Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]');
   t('Edition Date');
   t('Email');
   t('Extra Images');
@@ -2814,8 +3204,10 @@ function pw_pages_field_default_fields() {
   t('Link');
   t('Nelson Edition');
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
+  t('PDF');
   t('Reference Other');
   t('References');
+  t('Scribd');
   t('Special Feature');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
@@ -2823,6 +3215,14 @@ function pw_pages_field_default_fields() {
   t('This link field is for expressly highlighting a specific link. It will be displayed in large type.');
   t('Thumbnail');
   t('Trail Edition');
+  t('You can also copy and paste the whole text from Scribd.
+<ol>
+<li>Navigate to the edition you want to embed.
+<li>Select Embed
+<li>Choose option WordPress
+<li>copy and paste the whole line into the body of the text.
+<li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list]</em>
+');
 
   return $fields;
 }

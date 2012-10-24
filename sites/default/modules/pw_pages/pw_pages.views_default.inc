@@ -95,11 +95,12 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
   $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Edition Date (field_edition_date) */
+  $handler->display->display_options['sorts']['field_edition_date_value']['id'] = 'field_edition_date_value';
+  $handler->display->display_options['sorts']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['sorts']['field_edition_date_value']['field'] = 'field_edition_date_value';
+  $handler->display->display_options['sorts']['field_edition_date_value']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['field_edition_date_value']['expose']['label'] = 'Edition Date (field_edition_date)';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
