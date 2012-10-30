@@ -29,7 +29,7 @@ function pw_display_settings_page() {
 
 function pennywise_classified_settingsform() {
   $form['default_email'] = array(
-    '#title' => t('Default Email'),
+    '#title' => t('Inhouse Email Receipts'),
     '#type'  => 'textfield',
     '#description' => t('A default email address to which a copy of all submitted classified ads will be sent to in addition to being saved on the server.'),
     '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),

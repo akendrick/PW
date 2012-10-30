@@ -3172,13 +3172,13 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'timestamp' => 'timestamp',
     'status' => 'timestamp',
-    'publishcontent' => 'publishcontent',
+    'publishcontent' => 'timestamp',
     'edit_node' => 'edit_node',
     'nid' => 'nid',
     'view_node' => 'view_node',
     'revert_revision' => 'revert_revision',
     'delete_node' => 'delete_node',
-    'contextual_links' => 'publishcontent',
+    'contextual_links' => 'contextual_links',
     'title' => 'title',
     'field_castlegar_edition' => 'field_castlegar_edition',
     'field_kootenay_lake_edition' => 'field_kootenay_lake_edition',
@@ -3189,7 +3189,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['style_options']['info'] = array(
     'timestamp' => array(
       'align' => '',
-      'separator' => '<br>',
+      'separator' => ' ',
       'empty_column' => 0,
     ),
     'status' => array(
@@ -3297,8 +3297,8 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['publishcontent']['element_type'] = 'div';
   $handler->display->display_options['fields']['publishcontent']['element_class'] = 'field-publish-link';
   $handler->display->display_options['fields']['publishcontent']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'Unpublish Now';
-  $handler->display->display_options['fields']['publishcontent']['publish'] = 'Publish Now';
+  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'X';
+  $handler->display->display_options['fields']['publishcontent']['publish'] = 'Publish';
   /* Field: Link: Edit */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
@@ -3417,14 +3417,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_trail']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_trail']['empty_zero'] = TRUE;
-  /* Sort criterion: Scheduler: Unpublish on */
-  $handler->display->display_options['sorts']['unpublish_on']['id'] = 'unpublish_on';
-  $handler->display->display_options['sorts']['unpublish_on']['table'] = 'scheduler';
-  $handler->display->display_options['sorts']['unpublish_on']['field'] = 'unpublish_on';
-  /* Sort criterion: Content: Area (field_area) */
-  $handler->display->display_options['sorts']['field_area_value']['id'] = 'field_area_value';
-  $handler->display->display_options['sorts']['field_area_value']['table'] = 'field_data_field_area';
-  $handler->display->display_options['sorts']['field_area_value']['field'] = 'field_area_value';
+  /* Sort criterion: Content: Edition Date (field_edition_date) */
+  $handler->display->display_options['sorts']['field_edition_date_value']['id'] = 'field_edition_date_value';
+  $handler->display->display_options['sorts']['field_edition_date_value']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['sorts']['field_edition_date_value']['field'] = 'field_edition_date_value';
+  $handler->display->display_options['sorts']['field_edition_date_value']['order'] = 'DESC';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';

@@ -19,8 +19,8 @@
  * @return
  *  Redirects user to the edit page for the new node.
  */
-function promote_to_classified_ad($nid) {
-  //watchdog('Promote', $nid . ' NID');
+function promote_to_classified_ad($nid = NULL) {
+
   $submitted = node_load($nid);
 
   $data = array(

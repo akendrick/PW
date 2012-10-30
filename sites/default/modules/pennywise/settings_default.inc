@@ -8,9 +8,9 @@
 function pw_general_settings_page() {
   $output .= t('Pennywise Website General Settings.');
   $output = drupal_get_form('pennywise_general_settingsform');
- 
+
   return $output;
-  
+
 }
 
 
@@ -41,13 +41,13 @@ function pennywise_general_settingsform() {
   );
   $form['pennywise_contact_information']['pw_mailing_address'] = array(
     '#type' => 'textfield',
-    '#title' => t('General email address.'),
+    '#title' => t(' Mailing address.'),
     '#size' => 80,
     '#default_value' => variable_get('pw_mailing_address', 'Box 430, Kaslo, BC Canada, V0G 1M0'),
   );
   $form['pennywise_contact_information']['pw_email'] = array(
     '#type' => 'textfield',
-    '#title' => t('Mailing address.'),
+    '#title' => t('Default Email address.'),
     '#size' => 45,
     '#default_value' => variable_get('pw_email', 'info@pennywiseads.com'),
   );
@@ -58,12 +58,12 @@ function pennywise_general_settingsform() {
     '#description' => t('Include full link address. This means <strong>http://</strong>. '),
     '#default_value' => variable_get('pw_facebook_link', 'http://www.facebook.com/profile.php?id=728375773'),
   );
- 
+
   $form['submit'] = array(
     '#type'  => 'submit',
     '#value' => t('Submit'),
   );
-  
+
   return $form;
 }
 
@@ -87,7 +87,7 @@ function pennywise_classified_settingsform_submit($form, &$form_state) {
 
   variable_set('pennywise_classified_settings_email', $email);
   variable_set('pennywise_classified_settings_submissions', $disable_submission);
-  
+
   drupal_set_message( t('Your settings have been updated.') );
 
 }

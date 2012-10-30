@@ -49,6 +49,18 @@ function pennywise_init() {
 
 }
 
+/**
+* Implementation of hook_permissions
+*/
+function pennywise_permission() {
+  return array(
+    'edit pennywise settings' => array(
+      'title' => t('Edit Pennywise General Settings'),
+      'description' => t('Allow users to edit general settings such as holiday messages, and default email address.'),
+    ),
+  );
+}
+
 
 /**
  * Implementation of HOOK_menu
@@ -70,7 +82,8 @@ function pennywise_menu() {
     'title' => 'Promote',
     'page callback'    => 'promote_to_classified_ad',
     'page arguments'   => array(3),
-    'access arguments' => array('Adworks File: Create new content'),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit any classified content'),
     'file'             => 'promote_classifieds.inc',
     'type'             => MENU_CALLBACK,
   );
@@ -79,14 +92,16 @@ function pennywise_menu() {
   $items['admin/pennywise/settings'] = array(
     'title'            => 'Pennywise Settings',
     'page callback'    => 'pw_general_settings_page',
-    'access arguments' => array('Classified Ads: Edit any content'),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit any classified content'),
     'file'             => 'settings_default.inc',
     'type'             => MENU_NORMAL_ITEM,
   );
   $items['admin/pennywise/settings/general'] = array(
     'title'            => 'General Settings',
     'page callback'    => 'pw_general_settings_page',
-    'access arguments' => array('Classified Ads: Edit any content'),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
     'file'             => 'settings_default.inc',
     'type'             => MENU_DEFAULT_LOCAL_TASK,
     'weight'           => -10,
@@ -94,24 +109,27 @@ function pennywise_menu() {
   $items['admin/pennywise/settings/holiday'] = array(
     'title'            => 'Holiday Settings',
     'page callback'    => 'pw_holiday_settings_page',
-    'access arguments' => array('Classified Ads: Edit any content'),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
     'file'             => 'settings_holiday.inc',
     'type'             => MENU_LOCAL_TASK,
   );
   $items['admin/pennywise/settings/classified'] = array(
     'title'            => 'Classified Settings',
     'page callback'    => 'pw_classified_settings_page',
-    'access arguments' => array('Classified Ads: Edit any content'),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
     'file'             => 'settings.inc',
     'type'             => MENU_LOCAL_TASK,
   );
-  $items['admin/pennywise/settings/display'] = array(
-    'title'            => 'Display Settings',
-    'page callback'    => 'pw_display_settings_page',
-    'access arguments' => array('Display ads: Edit any content'),
-    'file'             => 'settings.inc',
-    'type'             => MENU_LOCAL_TASK,
-  );
+//  $items['admin/pennywise/settings/display'] = array(
+//    'title'            => 'Display Settings',
+//    'page callback'    => 'pw_display_settings_page',
+//    'access callback'  => 'user_access',
+//    'access arguments' => array('edit pennywise settings'),
+//    'file'             => 'settings.inc',
+//    'type'             => MENU_LOCAL_TASK,
+//  );
   return $items;
  }
 
@@ -176,6 +194,8 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         $data['actions']['output'][] = pennywise_custom_action_links('classified', 'Create Classified Ad');
         $data['actions']['output'][] = pennywise_custom_action_links('adworks-file', 'Upload Adworks File');
         break;
+      case 'settings':
+        break;
       default:
         $data['actions']['output'][] = pennywise_custom_action_links('display-ads', 'Create Display Ad');
         $data['actions']['output'][] = pennywise_custom_action_links('article', 'Add Editorial');
@@ -192,6 +212,9 @@ function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add file attachment');
         break;
     }
+  }
+  elseif ($match[0] == 'edition') {
+    $data['actions']['output'][] = pennywise_custom_action_links('pw-digital', 'Add Digital Edition');
   }
 }
 

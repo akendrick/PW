@@ -266,7 +266,7 @@ function pw_vars_strongarm() {
   $strongarm->value = array(
     32 => 'Animals & Livestock',
     24 => 'Announcements',
-    14 => 'Community Boards',
+    14 => 'Bulletin Boards',
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
@@ -527,7 +527,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_php_pw_digital';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['ant_php_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1164,7 +1164,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'date_first_day';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['date_first_day'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2031,7 +2031,7 @@ admin/*
         'custom_settings' => TRUE,
       ),
       'full' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'rss' => array(
         'custom_settings' => FALSE,
@@ -2403,32 +2403,32 @@ admin/*
     3 => 493,
     4 => 253,
     5 => 252,
-    6 => 251,
-    7 => 250,
-    8 => 247,
-    9 => 246,
-    10 => 245,
-    11 => 127,
-    12 => 126,
-    13 => 125,
-    14 => 124,
-    15 => 123,
-    16 => 122,
-    17 => 121,
-    18 => 117,
-    19 => 112,
-    20 => 63,
-    21 => 62,
-    22 => 61,
-    23 => 60,
-    24 => 59,
-    25 => 58,
-    26 => 56,
-    27 => 44,
-    28 => 31,
-    29 => 30,
-    30 => 29,
-    31 => 28,
+    6 => 250,
+    7 => 247,
+    8 => 246,
+    9 => 245,
+    10 => 127,
+    11 => 126,
+    12 => 125,
+    13 => 124,
+    14 => 123,
+    15 => 122,
+    16 => 121,
+    17 => 117,
+    18 => 112,
+    19 => 63,
+    20 => 62,
+    21 => 61,
+    22 => 60,
+    23 => 59,
+    24 => 58,
+    25 => 56,
+    26 => 44,
+    27 => 31,
+    28 => 30,
+    29 => 29,
+    30 => 28,
+    31 => 27,
     32 => 25,
     33 => 24,
     34 => 23,
@@ -2906,7 +2906,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital';
-  $strongarm->value = '[node:field-edition-date:short] Pennywise';
+  $strongarm->value = '';
   $export['page_title_type_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
