@@ -266,7 +266,7 @@ function pw_vars_strongarm() {
   $strongarm->value = array(
     32 => 'Animals & Livestock',
     24 => 'Announcements',
-    14 => 'Bulletin Boards',
+    14 => 'Community Boards',
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
@@ -1004,18 +1004,6 @@ echo date(\'now\');
         8 => 10,
         9 => 3,
       ),
-      'display_ads' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
       'article' => array(
         0 => 1,
         1 => 4,
@@ -1041,6 +1029,20 @@ echo date(\'now\');
         9 => 10,
       ),
       'ad_s' => array(
+        0 => 1,
+        1 => 4,
+        2 => 2,
+        3 => 8,
+        4 => 9,
+        5 => 11,
+        6 => 5,
+        7 => 6,
+        8 => 7,
+        9 => 10,
+        10 => 12,
+        11 => 3,
+      ),
+      'display_ads' => array(
         0 => 1,
         1 => 4,
         2 => 2,
@@ -1089,10 +1091,6 @@ echo date(\'now\');
         1 => 10,
         2 => 3,
       ),
-      'display_ads' => array(
-        0 => 6,
-        1 => 3,
-      ),
       'article' => array(
         0 => 7,
         1 => 3,
@@ -1110,6 +1108,11 @@ echo date(\'now\');
         0 => 5,
         1 => 3,
       ),
+      'display_ads' => array(
+        0 => 8,
+        1 => 6,
+        2 => 3,
+      ),
     ),
     'per_node' => array(
       'adworks_file' => 0,
@@ -1117,10 +1120,10 @@ echo date(\'now\');
       'classified' => 0,
       'page' => 0,
       'webform' => 0,
-      'display_ads' => 0,
       'article' => 0,
       'pw_digital' => 0,
       'ad_s' => 0,
+      'display_ads' => 0,
     ),
     'priority' => array(
       'adworks_file' => '0',
@@ -1128,10 +1131,10 @@ echo date(\'now\');
       'classified' => '0',
       'page' => '0',
       'webform' => '0',
-      'display_ads' => '0',
       'article' => '0',
       'pw_digital' => '0',
       'ad_s' => '0',
+      'display_ads' => '-10',
     ),
   );
   $export['content_access_settings'] = $strongarm;
@@ -1148,8 +1151,8 @@ echo date(\'now\');
     'mobile_theme' => TRUE,
     'mobile_theme_v2' => TRUE,
     'classifieds_singlular' => TRUE,
-    'editorial_layout' => TRUE,
     'general_layout' => TRUE,
+    'editorial_layout' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -1856,6 +1859,21 @@ admin/*
       'simple_teaser' => array(
         'custom_settings' => FALSE,
       ),
+      'castlegar_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'editorial_slideshow' => array(
+        'custom_settings' => FALSE,
+      ),
+      'kootenay_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'nelson_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'trail_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -2190,7 +2208,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ga_stats_email';
-  $strongarm->value = 'k2@pennywiseads.com';
+  $strongarm->value = 'hatdow@gmail.com';
   $export['ga_stats_email'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2199,8 +2217,8 @@ admin/*
   $strongarm->name = 'ga_stats_enabled_metrics';
   $strongarm->value = array(
     'pageviews' => 'pageviews',
+    'avgTimeOnPage' => 'avgTimeOnPage',
     'uniquePageviews' => 0,
-    'avgTimeOnPage' => 0,
     'entrances' => 0,
   );
   $export['ga_stats_enabled_metrics'] = $strongarm;
@@ -2223,14 +2241,14 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ga_stats_max_results';
-  $strongarm->value = '100';
+  $strongarm->value = '500';
   $export['ga_stats_max_results'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ga_stats_password';
-  $strongarm->value = '@8G@26fXNfgL6MiyzJ';
+  $strongarm->value = 'kKsuck13';
   $export['ga_stats_password'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2403,32 +2421,32 @@ admin/*
     3 => 493,
     4 => 253,
     5 => 252,
-    6 => 250,
-    7 => 247,
-    8 => 246,
-    9 => 245,
-    10 => 127,
-    11 => 126,
-    12 => 125,
-    13 => 124,
-    14 => 123,
-    15 => 122,
-    16 => 121,
-    17 => 117,
-    18 => 112,
-    19 => 63,
-    20 => 62,
-    21 => 61,
-    22 => 60,
-    23 => 59,
-    24 => 58,
-    25 => 56,
-    26 => 44,
-    27 => 31,
-    28 => 30,
-    29 => 29,
-    30 => 28,
-    31 => 27,
+    6 => 251,
+    7 => 250,
+    8 => 247,
+    9 => 246,
+    10 => 245,
+    11 => 127,
+    12 => 126,
+    13 => 125,
+    14 => 124,
+    15 => 123,
+    16 => 122,
+    17 => 121,
+    18 => 117,
+    19 => 112,
+    20 => 63,
+    21 => 62,
+    22 => 61,
+    23 => 60,
+    24 => 59,
+    25 => 58,
+    26 => 56,
+    27 => 44,
+    28 => 31,
+    29 => 30,
+    30 => 29,
+    31 => 28,
     32 => 25,
     33 => 24,
     34 => 23,

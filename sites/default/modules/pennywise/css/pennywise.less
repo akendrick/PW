@@ -223,7 +223,19 @@
 }
 
 /*************************** ADMIN Interface */
-.view-display-admin-v2, .view-id-editorial_administration, .view-id-page_administration  {
+/**** dashboard ****/
+#block-views-admin-dashboard-display-dash {
+  .view-id-admin_dashboard {
+    table.views-table {
+      tr.Promoted {
+        margin-left: solid 5pt @status;
+      }
+    }
+  }
+}
+
+
+.view-display-admin-v2, .view-id-editorial_administration, .view-id-page_administration {
   table { border: none; }
   td.editorial-col, td.display-col, td {
     width: 15%;

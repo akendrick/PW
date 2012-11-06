@@ -16,13 +16,17 @@ function pw_admin_menu_default_menu_links() {
     'link_path' => 'admin/pennywise',
     'router_path' => 'admin/pennywise',
     'link_title' => 'Pennywise',
-    'options' => array(),
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '1',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-49',
   );
   // Exported menu link: management:admin/pennywise/settings
   $menu_links['management:admin/pennywise/settings'] = array(
@@ -61,7 +65,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/article'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/article',
-    'router_path' => 'admin/pennywise',
+    'router_path' => 'admin',
     'link_title' => 'Editorial',
     'options' => array(
       'attributes' => array(
@@ -79,7 +83,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/classified'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/classified',
-    'router_path' => 'admin/pennywise/classified',
+    'router_path' => 'admin',
     'link_title' => 'Classifieds',
     'options' => array(
       'attributes' => array(
@@ -116,7 +120,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/classified/liveload'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/classified/liveload',
-    'router_path' => 'admin/pennywise/classified/liveload',
+    'router_path' => 'admin',
     'link_title' => 'Liveload',
     'options' => array(
       'attributes' => array(
@@ -135,7 +139,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads',
-    'router_path' => 'admin/pennywise/display_ads',
+    'router_path' => 'admin',
     'link_title' => 'Display',
     'options' => array(
       'attributes' => array(
@@ -153,7 +157,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads/all'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads/all',
-    'router_path' => 'admin/pennywise/display_ads/all',
+    'router_path' => 'admin',
     'link_title' => 'All Display',
     'options' => array(
       'attributes' => array(
@@ -172,7 +176,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads/banner'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads/banner',
-    'router_path' => 'admin/pennywise/display_ads/banner',
+    'router_path' => 'admin',
     'link_title' => 'Banner',
     'options' => array(
       'attributes' => array(
@@ -191,7 +195,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads/poster'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads/poster',
-    'router_path' => 'admin/pennywise/display_ads/poster',
+    'router_path' => 'admin',
     'link_title' => 'Poster',
     'options' => array(
       'attributes' => array(
@@ -210,7 +214,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads/print'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads/print',
-    'router_path' => 'admin/pennywise/display_ads/print',
+    'router_path' => 'admin',
     'link_title' => 'Print Ads',
     'options' => array(
       'attributes' => array(
@@ -229,7 +233,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/display_ads/splash'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/display_ads/splash',
-    'router_path' => 'admin/pennywise/display_ads/splash',
+    'router_path' => 'admin',
     'link_title' => 'Splash',
     'options' => array(
       'attributes' => array(
@@ -248,7 +252,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/edition/digital'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/edition/digital',
-    'router_path' => 'admin/pennywise/edition',
+    'router_path' => 'admin',
     'link_title' => 'Edition',
     'options' => array(
       'attributes' => array(
@@ -266,7 +270,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/pages'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/pages',
-    'router_path' => 'admin/pennywise/pages',
+    'router_path' => 'admin',
     'link_title' => 'Pages',
     'options' => array(
       'attributes' => array(
@@ -284,7 +288,7 @@ function pw_admin_menu_default_menu_links() {
   $menu_links['menu-pw-admin:admin/pennywise/pages/attachments'] = array(
     'menu_name' => 'menu-pw-admin',
     'link_path' => 'admin/pennywise/pages/attachments',
-    'router_path' => 'admin/pennywise/pages/attachments',
+    'router_path' => 'admin',
     'link_title' => 'Attachments',
     'options' => array(
       'attributes' => array(

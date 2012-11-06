@@ -148,7 +148,7 @@ function pw_pages_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -511,13 +511,15 @@ function pw_pages_ds_layout_settings_info() {
     'hide_sidebars' => 0,
     'regions' => array(
       'ds_content' => array(
-        0 => 'title',
+        0 => 'field_image',
         1 => 'field_high_res_ad',
+        2 => 'title',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
+      'field_image' => 'ds_content',
       'field_high_res_ad' => 'ds_content',
+      'title' => 'ds_content',
     ),
     'classes' => array(),
   );

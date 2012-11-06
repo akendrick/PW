@@ -156,7 +156,7 @@
 	-webkit-column-gap: @col-gap;
 	column-count: @col-count;
 	column-gap: @col-gap;
-	
+
  -webkit-column-span:1; /* Chrome */
  column-span:1;
 
@@ -164,15 +164,10 @@
 	orphans: 8;
 }
 
-@editorial: #339a00;
-@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
-@editorial_dark: #060; /* darken(@editorial, 10); */
-
-
 /************ UNHIDE MOBILE REGIONS ************/
-#zone-postscript, 
-#zone-threeup, 
-#zone-header, 
+#zone-postscript,
+#zone-threeup,
+#zone-header,
 #region-header-second,
 #block-feedback-form {
   visibility: visible;
@@ -181,8 +176,8 @@
 }
 
 /************* HIDE MOBILE NAVIGATION ************/
-#zone-preface-wrapper, 
-#region-preface-second, 
+#zone-preface-wrapper,
+#region-preface-second,
 #region-preface-third {
   display: none;
 }
@@ -385,11 +380,12 @@ body.page-ad-submit {
 
 
 /********* Editorial ******/
+
 /* editorial */
 .view-display-id-editorial_highlight {
   .views-field-body {
     .field-content {
-      .col(2, .5em);
+/*       .col(2, .5em); */
     }
   }
 }

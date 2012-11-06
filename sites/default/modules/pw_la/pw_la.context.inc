@@ -104,8 +104,6 @@ function pw_la_context_default_contexts() {
         '<front>' => '<front>',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
-        'editorial' => 'editorial',
-        'editorial/*' => 'editorial/*',
         'sales/*' => 'sales/*',
         'browse/*' => 'browse/*',
         'online/*' => 'online/*',
@@ -116,6 +114,7 @@ function pw_la_context_default_contexts() {
         'contact/*' => 'contact/*',
         'search' => 'search',
         'search?*' => 'search?*',
+        'search/*' => 'search/*',
       ),
     ),
     'sitewide' => array(
@@ -145,45 +144,45 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-7',
         ),
-        'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
-          'module' => 'views',
-          'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
-          'region' => 'sidebar_first',
-          'weight' => '-30',
-        ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
           'delta' => 'ad_payment_create_ad',
           'region' => 'sidebar_first',
-          'weight' => '-30',
+          'weight' => '-32',
         ),
         'views-20eeba41cb621b5fc7f09165eda65f99' => array(
           'module' => 'views',
           'delta' => '20eeba41cb621b5fc7f09165eda65f99',
           'region' => 'sidebar_first',
-          'weight' => '-30',
+          'weight' => '-31',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
           'region' => 'sidebar_first',
+          'weight' => '-30',
+        ),
+        'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
+          'module' => 'views',
+          'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
+          'region' => 'sidebar_first',
           'weight' => '-29',
+        ),
+        'menu_block-5' => array(
+          'module' => 'menu_block',
+          'delta' => '5',
+          'region' => 'sidebar_first',
+          'weight' => '-28',
         ),
         'menu-menu-advertising-links' => array(
           'module' => 'menu',
           'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
-          'weight' => '-28',
+          'weight' => '-27',
         ),
         'views-editorial_views-editorial_block' => array(
           'module' => 'views',
           'delta' => 'editorial_views-editorial_block',
-          'region' => 'sidebar_first',
-          'weight' => '-27',
-        ),
-        'menu_block-5' => array(
-          'module' => 'menu_block',
-          'delta' => '5',
           'region' => 'sidebar_first',
           'weight' => '-26',
         ),
@@ -191,7 +190,7 @@ function pw_la_context_default_contexts() {
           'module' => 'user',
           'delta' => 'login',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-25',
         ),
         'logintoboggan-logintoboggan_logged_in' => array(
           'module' => 'logintoboggan',
@@ -223,7 +222,7 @@ function pw_la_context_default_contexts() {
       'delta_template' => 'traditional',
     ),
   );
-  $context->condition_mode = 1;
+  $context->condition_mode = 0;
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -375,6 +374,8 @@ function pw_la_context_default_contexts() {
         'attachments/*' => 'attachments/*',
         'search/*' => 'search/*',
         'user/*' => 'user/*',
+        'search/node/' => 'search/node/',
+        'search/node/*' => 'search/node/*',
       ),
     ),
   );
@@ -399,41 +400,41 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-7',
         ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
           'region' => 'sidebar_first',
-          'weight' => '-27',
+          'weight' => '-32',
         ),
         'views-02990d644d7eb62daab6d080d86a23b7' => array(
           'module' => 'views',
           'delta' => '02990d644d7eb62daab6d080d86a23b7',
           'region' => 'sidebar_first',
-          'weight' => '-26',
+          'weight' => '-31',
         ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
           'region' => 'sidebar_first',
-          'weight' => '-25',
+          'weight' => '-30',
         ),
         'views-editorial_views-editorial_block' => array(
           'module' => 'views',
           'delta' => 'editorial_views-editorial_block',
           'region' => 'sidebar_first',
-          'weight' => '-24',
+          'weight' => '-29',
         ),
         'menu-menu-advertising-links' => array(
           'module' => 'menu',
           'delta' => 'menu-advertising-links',
           'region' => 'sidebar_first',
-          'weight' => '-23',
+          'weight' => '-28',
         ),
         'user-login' => array(
           'module' => 'user',
           'delta' => 'login',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-27',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',

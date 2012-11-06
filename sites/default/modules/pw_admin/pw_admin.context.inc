@@ -17,25 +17,38 @@ function pw_admin_context_default_contexts() {
   $context->description = 'Admin special features';
   $context->tag = 'admin';
   $context->conditions = array(
-    'path' => array(
+    'sitewide' => array(
       'values' => array(
-        'admin/*' => 'admin/*',
+        1 => 1,
       ),
     ),
     'user' => array(
       'values' => array(
         'administrator' => 'administrator',
+        'classified editor' => 'classified editor',
+        'digital edition editor' => 'digital edition editor',
+        'display ad editor' => 'display ad editor',
+        'editorial editor' => 'editorial editor',
+        'page editor' => 'page editor',
+        'sales' => 'sales',
+        'user editor' => 'user editor',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'context_ui-editor' => array(
+          'module' => 'context_ui',
+          'delta' => 'editor',
+          'region' => 'sidebar_first',
+          'weight' => '-7',
+        ),
         'masquerade-masquerade' => array(
           'module' => 'masquerade',
           'delta' => 'masquerade',
-          'region' => 'content',
-          'weight' => '-10',
+          'region' => 'sidebar_first',
+          'weight' => '-6',
         ),
       ),
     ),
