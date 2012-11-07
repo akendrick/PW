@@ -470,6 +470,7 @@ function pw_admin_user_default_permissions() {
     'name' => 'grant content access',
     'roles' => array(
       0 => 'administrator',
+      1 => 'digital edition editor',
     ),
     'module' => 'content_access',
   );

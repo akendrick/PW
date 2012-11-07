@@ -119,7 +119,7 @@ function pw_pages_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -536,12 +536,9 @@ function pw_pages_field_default_fields() {
         ),
         'default' => array(
           'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
+          'module' => 'lightbox2',
+          'settings' => array(),
+          'type' => 'lightbox2__lightbox__classified_page_style__original',
           'weight' => '0',
         ),
         'editorial_slideshow' => array(

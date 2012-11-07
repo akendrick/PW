@@ -1811,6 +1811,18 @@ admin/*
       'editorial_slideshow' => array(
         'custom_settings' => TRUE,
       ),
+      'castlegar_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'kootenay_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'nelson_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'trail_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'display' => array(),
@@ -4723,20 +4735,19 @@ password: Your password
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_mail_register_no_approval_required_body';
-  $strongarm->value = '[user:name],
+  $strongarm->value = 'Hello [user:name],
 
-Thank you for submitting an ad at [site:name]. 
-Clicking this link or copying and pasting it to your browser, if you wish to make your account permanent to speed up the process in the future.
+Thank you for signing up at [site:name]. 
 
+Should you wish to make your account permanent please consider registering your email.
 [user:one-time-login-url]
+This link can only be used once to log in and will lead you to a page where you can register your email.
 
-This link can only be used once to log in and will lead you to a page where you can set your password.
-After setting your password, you will be able to log in at [site:login-url] in the future using:
+Once you register your email you can then set your password.
+From that point you will be able to log in at [site:login-url] in the future using:
 
 username: [user:name]
 password: Your password
-
-Keeping your account information up to date will allow you to access the benefits of [site:name].
 
 --  [site:name] team';
   $export['user_mail_register_no_approval_required_body'] = $strongarm;

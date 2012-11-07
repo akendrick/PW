@@ -117,11 +117,6 @@ function pw_la_context_default_contexts() {
         'search/*' => 'search/*',
       ),
     ),
-    'sitewide' => array(
-      'values' => array(
-        1 => 1,
-      ),
-    ),
   );
   $context->reactions = array(
     'block' => array(
@@ -537,18 +532,14 @@ function pw_la_context_default_contexts() {
         'submit-ad' => 'submit-ad',
         'user/*' => 'user/*',
         'search/*' => 'search/*',
+        'ad/submit' => 'ad/submit',
+        'ad/submit/*' => 'ad/submit/*',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_breadcrumb' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_breadcrumb',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'pennywise-pw_contact' => array(
           'module' => 'pennywise',
           'delta' => 'pw_contact',

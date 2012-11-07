@@ -247,11 +247,12 @@
       width: 180px;
 /*       height: 38px; */
       border: 1pt solid @warning;
-    }
-    .Enabled {
-      background-color: lighten(@warning, 40);
+      text-align: center;
     }
     .Disabled {
+      background-color: lighten(@warning, 40);
+    }
+    .Enabled {
       background-color: lighten(@status, 20);
     }
     .field-promote-status-Promoted {
@@ -292,7 +293,9 @@
       .center;
     }
     .no-marker {
-      display: none;
+    background-color: @white;
+    border: 1pt solid @gray;
+/*       display: none; */
     }
   }
   .field-publish-link, .views-editorial-link, .views-admin-display-link {

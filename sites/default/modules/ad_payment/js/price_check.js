@@ -481,8 +481,18 @@ jQuery(document).ready(function() {
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
+      // Hide 'Next Page' upon 'Save' option
+      var SaveButton = jQuery('#edit-submit').is(':visible');
+      if (SaveButton == true) {
+        console.log('Save button is visible');
+        jQuery('.multipage-link-next').hide();
+      }
+      else {
+        // console.log('No save visible.');
+      }
+
       // Reinterpret SUBMIT, NEXT & PREVIOUS button's CSS
-      console.log('Gotcha');
+      // console.log('Gotcha');
 
       // var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
       // console.log('Page state: ' + pageState);
