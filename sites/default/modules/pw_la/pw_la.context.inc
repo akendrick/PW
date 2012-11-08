@@ -79,9 +79,6 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'delta' => array(
-      'delta_template' => 'traditional',
-    ),
   );
   $context->condition_mode = 1;
 
@@ -90,6 +87,47 @@ function pw_la_context_default_contexts() {
   t('If page restricted');
   t('admin');
   $export['403'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'admin_dashboard';
+  $context->description = 'Dashboard layout';
+  $context->tag = 'admin';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'admin/dashboard' => 'admin/dashboard',
+        'admin/dashboard*' => 'admin/dashboard*',
+        'admin/dashboard/*' => 'admin/dashboard/*',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'pennywise-pw_logo' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_logo',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-10',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Dashboard layout');
+  t('admin');
+  $export['admin_dashboard'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
@@ -213,9 +251,6 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'delta' => array(
-      'delta_template' => 'traditional',
-    ),
   );
   $context->condition_mode = 0;
 
@@ -255,9 +290,6 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'delta' => array(
-      'delta_template' => 'traditional',
-    ),
   );
   $context->condition_mode = 0;
 
@@ -266,202 +298,6 @@ function pw_la_context_default_contexts() {
   t('Contact block');
   t('layout');
   $export['contact_block'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'editorial_layout';
-  $context->description = 'Layout for the editorial page';
-  $context->tag = 'layout';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'editorial' => 'editorial',
-        'editorial/*' => 'editorial/*',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'system-main' => array(
-          'module' => 'system',
-          'delta' => 'main',
-          'region' => 'content',
-          'weight' => '-19',
-        ),
-        'pennywise-pw_contact' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_contact',
-          'region' => 'menu',
-          'weight' => '-10',
-        ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'sidebar_first',
-          'weight' => '-26',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'sidebar_first',
-          'weight' => '-25',
-        ),
-        'menu-menu-advertising-links' => array(
-          'module' => 'menu',
-          'delta' => 'menu-advertising-links',
-          'region' => 'sidebar_first',
-          'weight' => '-24',
-        ),
-        'views-c315909adc26bde14b5aef5a95966ac1' => array(
-          'module' => 'views',
-          'delta' => 'c315909adc26bde14b5aef5a95966ac1',
-          'region' => 'sidebar_first',
-          'weight' => '-23',
-        ),
-        'views-display_ad_blocks-poster_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-poster_block',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'views-display_ad_blocks-banner_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-banner_block',
-          'region' => 'header_first',
-          'weight' => '-10',
-        ),
-        'views-deba537d237e294b8f1a706f5b8291e0' => array(
-          'module' => 'views',
-          'delta' => 'deba537d237e294b8f1a706f5b8291e0',
-          'region' => 'header_second',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-    'delta' => array(
-      'delta_template' => 'content_left',
-    ),
-  );
-  $context->condition_mode = 1;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Layout for the editorial page');
-  t('layout');
-  $export['editorial_layout'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'general_layout';
-  $context->description = 'General layout for blocks';
-  $context->tag = 'layout';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        '<front>' => '<front>',
-        'section/*' => 'section/*',
-        'sales/*' => 'sales/*',
-        'ad/*' => 'ad/*',
-        'area/*' => 'area/*',
-        'attachments/*' => 'attachments/*',
-        'search/*' => 'search/*',
-        'user/*' => 'user/*',
-        'search/node/' => 'search/node/',
-        'search/node/*' => 'search/node/*',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-taxonomy_listing-tax_sub_list' => array(
-          'module' => 'views',
-          'delta' => 'taxonomy_listing-tax_sub_list',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
-        'views-display_ad_blocks-print_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-print_block',
-          'region' => 'content',
-          'weight' => '-8',
-        ),
-        'system-main' => array(
-          'module' => 'system',
-          'delta' => 'main',
-          'region' => 'content',
-          'weight' => '-7',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'sidebar_first',
-          'weight' => '-32',
-        ),
-        'views-02990d644d7eb62daab6d080d86a23b7' => array(
-          'module' => 'views',
-          'delta' => '02990d644d7eb62daab6d080d86a23b7',
-          'region' => 'sidebar_first',
-          'weight' => '-31',
-        ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'sidebar_first',
-          'weight' => '-30',
-        ),
-        'views-editorial_views-editorial_block' => array(
-          'module' => 'views',
-          'delta' => 'editorial_views-editorial_block',
-          'region' => 'sidebar_first',
-          'weight' => '-29',
-        ),
-        'menu-menu-advertising-links' => array(
-          'module' => 'menu',
-          'delta' => 'menu-advertising-links',
-          'region' => 'sidebar_first',
-          'weight' => '-28',
-        ),
-        'user-login' => array(
-          'module' => 'user',
-          'delta' => 'login',
-          'region' => 'sidebar_first',
-          'weight' => '-27',
-        ),
-        'views-display_ad_blocks-poster_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-poster_block',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-        'views-display_ad_blocks-banner_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-banner_block',
-          'region' => 'header_first',
-          'weight' => '-10',
-        ),
-        'views-deba537d237e294b8f1a706f5b8291e0' => array(
-          'module' => 'views',
-          'delta' => 'deba537d237e294b8f1a706f5b8291e0',
-          'region' => 'header_second',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-    'delta' => array(
-      'delta_template' => 'content_left',
-    ),
-  );
-  $context->condition_mode = 1;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('General layout for blocks');
-  t('layout');
-  $export['general_layout'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
@@ -484,6 +320,12 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'pennywise-pw_logo' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_logo',
+          'region' => 'branding',
+          'weight' => '-10',
+        ),
         'views-display_ad_blocks-block_1' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-block_1',
@@ -511,13 +353,48 @@ function pw_la_context_default_contexts() {
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
   t('All pages - site wide header');
   t('layout');
   $export['header_all'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'search';
+  $context->description = 'Search layout';
+  $context->tag = 'layout';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'search?' => 'search?',
+        'search*' => 'search*',
+        'search?*' => 'search?*',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Search layout');
+  t('layout');
+  $export['search'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
@@ -548,9 +425,6 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'delta' => array(
-      'delta_template' => 'content_left',
-    ),
   );
   $context->condition_mode = 0;
 
@@ -559,32 +433,6 @@ function pw_la_context_default_contexts() {
   t('No side bars just header and footer.');
   t('layout');
   $export['simple_page'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'trad_classified_layout';
-  $context->description = 'Traditional layout for classified ad blocks content surrounded by side bars.';
-  $context->tag = 'traditional';
-  $context->conditions = array(
-    'sitewide' => array(
-      'values' => array(
-        1 => 1,
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'delta' => array(
-      'delta_template' => 'traditional',
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Traditional layout for classified ad blocks content surrounded by side bars.');
-  t('traditional');
-  $export['trad_classified_layout'] = $context;
 
   return $export;
 }

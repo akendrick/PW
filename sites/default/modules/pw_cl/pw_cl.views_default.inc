@@ -140,7 +140,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
-  /* Field: Content: Email */
+  /* Field: Field: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -262,20 +262,29 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '0';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['style_options']['grouping'] = array(
-    0 => array(
-      'field' => 'field_tags',
-      'rendered' => 0,
-      'rendered_strip' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['row_class'] = 'row-type-[field_ad_type]';
-  $handler->display->display_options['style_options']['class'] = 'classified-ad-section';
-  $handler->display->display_options['style_options']['wrapper_class'] = 'classified-ad-header';
+  $handler->display->display_options['style_plugin'] = 'masonry_views_grid';
+  $handler->display->display_options['style_options']['row_class'] = 'classified-ad-row';
+  $handler->display->display_options['style_options']['masonry_width'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_animated'] = FALSE;
+  $handler->display->display_options['style_options']['masonry_animated_duration'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_resizable'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_center'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_gutter'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_rtl'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'field_image_1' => 'field_image_1',
+    'publishcontent' => 'publishcontent',
+    'edit_node' => 'edit_node',
+    'view_node' => 'view_node',
+    'field_ad_copy' => 'field_ad_copy',
+    'field_tags' => 'field_tags',
+    'field_ad_type' => 'field_ad_type',
+    'field_ad_type_1' => 'field_ad_type_1',
+    'nothing' => 'nothing',
+    'delete_node' => 'delete_node',
+  );
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
-  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image_1']['id'] = 'field_image_1';
   $handler->display->display_options['fields']['field_image_1']['table'] = 'field_data_field_image';
@@ -330,7 +339,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['field'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['ui_name'] = 'Content: Ad Copy [Rewrite]';
   $handler->display->display_options['fields']['field_ad_copy']['label'] = '';
-  $handler->display->display_options['fields']['field_ad_copy']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_ad_copy']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_copy']['alter']['text'] = '[field_ad_copy] <span class=\'classified-more-link\'>[view_node]</span>';
   $handler->display->display_options['fields']['field_ad_copy']['element_type'] = 'div';
   $handler->display->display_options['fields']['field_ad_copy']['element_class'] = 'classified-ad-copy';
@@ -368,21 +377,22 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type_1']['field'] = 'field_ad_type';
   $handler->display->display_options['fields']['field_ad_type_1']['ui_name'] = 'Content: Ad Type: Liveload Footer';
   $handler->display->display_options['fields']['field_ad_type_1']['label'] = '';
+  $handler->display->display_options['fields']['field_ad_type_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_ad_type_1']['alter']['text'] = '<div class="[field_ad_type]-footer">LIVELOAD AD</div>';
+  $handler->display->display_options['fields']['field_ad_type_1']['alter']['text'] = '<div class="[field_ad_type]-footer classified-footer">LIVELOAD AD</div>';
   $handler->display->display_options['fields']['field_ad_type_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ad_type_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_ad_type_1']['empty'] = '<span class=\'footer\'></span>';
+  $handler->display->display_options['fields']['field_ad_type_1']['empty'] = '<span class=\'classified-footer\'></span>';
   $handler->display->display_options['fields']['field_ad_type_1']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_ad_type_1']['hide_alter_empty'] = FALSE;
   /* Field: Global: Rewrite Classified Ad Output */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Rewrite Classified Ad Output';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'classified-ad ad-type-[field_ad_type] section-%1\'>
-[field_image]
+[field_image_1]
 <div class=\'classified-ad-copy\'><!-- [edit_node]--> [field_ad_copy]</div>
 [field_ad_type_1]
 </div>

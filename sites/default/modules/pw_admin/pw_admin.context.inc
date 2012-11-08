@@ -119,10 +119,12 @@ function pw_admin_context_default_contexts() {
         'administrator' => 'administrator',
         'classified editor' => 'classified editor',
         'digital edition editor' => 'digital edition editor',
+        'display ad client' => 'display ad client',
         'display ad editor' => 'display ad editor',
         'editorial editor' => 'editorial editor',
         'page editor' => 'page editor',
         'sales' => 'sales',
+        'user editor' => 'user editor',
       ),
     ),
   );

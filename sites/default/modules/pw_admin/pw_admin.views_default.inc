@@ -360,18 +360,8 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['title'] = 'Display Ads Online';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'role';
-  $handler->display->display_options['access']['role'] = array(
-    5 => '5',
-    11 => '11',
-    8 => '8',
-    6 => '6',
-    7 => '7',
-    10 => '10',
-    9 => '9',
-    4 => '4',
-    12 => '12',
-  );
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access dashboard';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -450,6 +440,13 @@ function pw_admin_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '##No results found at this time.';
+  $handler->display->display_options['empty']['area']['format'] = 'edition_editor';
   /* Relationship: Content: Taxonomy terms on node */
   $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
   $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
@@ -544,8 +541,8 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
 
-  /* Display: Display Dash */
-  $handler = $view->new_display('block', 'Display Dash', 'display_dash');
+  /* Display: DASH Display Ads */
+  $handler = $view->new_display('block', 'DASH Display Ads', 'display_dash');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Display Ads Online';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
@@ -572,6 +569,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['row_options']['separator'] = '-';
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
@@ -642,6 +640,14 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['unpublish_on']['element_class'] = 'small';
   $handler->display->display_options['fields']['unpublish_on']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'short';
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['label'] = '';
+  $handler->display->display_options['fields']['field_tags']['element_type'] = 'em';
+  $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
@@ -649,6 +655,20 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['title']['field'] = 'title';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'display_ads' => 'display_ads',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
   $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
   $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
@@ -682,23 +702,9 @@ function pw_admin_views_default_views() {
     12 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'display_ads' => 'display_ads',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['filters']['status']['group'] = 1;
 
-  /* Display: Classifieds Dash */
-  $handler = $view->new_display('block', 'Classifieds Dash', 'classified_dash');
+  /* Display: DASH Classifieds */
+  $handler = $view->new_display('block', 'DASH Classifieds', 'classified_dash');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Classified Ads Overview';
   $handler->display->display_options['display_description'] = 'Over view of classifieds online';
@@ -811,8 +817,8 @@ function pw_admin_views_default_views() {
   );
   $handler->display->display_options['block_description'] = 'Classified Ads Online';
 
-  /* Display: Editorial Dash */
-  $handler = $view->new_display('block', 'Editorial Dash', 'block_1');
+  /* Display: DASH Editorial */
+  $handler = $view->new_display('block', 'DASH Editorial', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Editorials';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
@@ -900,10 +906,9 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_image']['label'] = '';
   $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_image']['type'] = 'lightbox2__lightbox__miniature_square__original';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
+    'image_style' => 'editorial_teaser',
+    'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
   /* Field: Content: Title */
@@ -964,14 +969,13 @@ function pw_admin_views_default_views() {
     'article' => 'article',
   );
 
-  /* Display: Analytic Dash */
-  $handler = $view->new_display('block', 'Analytic Dash', 'google_analytic_dash');
+  /* Display: DASH Analytic */
+  $handler = $view->new_display('block', 'DASH Analytic', 'google_analytic_dash');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Page Views';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -993,10 +997,10 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['count_1']['label'] = 'Past 31 days';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  $handler->display->display_options['block_description'] = 'Analytics Dash';
+  $handler->display->display_options['block_description'] = 'Analytics Dashboard';
 
-  /* Display: Ad Submissions Dash */
-  $handler = $view->new_display('block', 'Ad Submissions Dash', 'block_2');
+  /* Display: DASH Submissions */
+  $handler = $view->new_display('block', 'DASH Submissions', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Ad Submission Overview';
   $handler->display->display_options['display_description'] = 'Overview of ad submissions';
@@ -1128,7 +1132,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'ad_s' => 'ad_s',
   );
-  $handler->display->display_options['block_description'] = 'Classified Ads Online';
+  $handler->display->display_options['block_description'] = 'Submissions Dashboard';
   $export['admin_dashboard'] = $view;
 
   $view = new view();
@@ -5660,7 +5664,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_area_taxonomy']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_area_taxonomy']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_area_taxonomy']['delta_offset'] = '0';
-  /* Field: Content: Email */
+  /* Field: Field: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';

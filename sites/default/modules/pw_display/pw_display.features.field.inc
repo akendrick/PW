@@ -134,7 +134,16 @@ function pw_display_field_default_fields() {
         'default' => array(
           'label' => 'above',
           'module' => 'text',
-          'settings' => array(),
+          'settings' => array(
+            'masonry' => 0,
+            'masonry_animated' => 1,
+            'masonry_animated_duration' => '500',
+            'masonry_center' => 0,
+            'masonry_gutter' => '0',
+            'masonry_resizable' => 1,
+            'masonry_rtl' => 0,
+            'masonry_width' => '200',
+          ),
           'type' => 'text_default',
           'weight' => '2',
         ),
