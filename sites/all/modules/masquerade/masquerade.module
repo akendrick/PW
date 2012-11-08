@@ -227,7 +227,7 @@ function masquerade_menu_access($type, $uid = NULL) {
       break;
     case 'user':
       global $user;
-      return db_query("SELECT TRUE FROM {masquerade_users} WHERE uid_from = :uid_from", array(':uid_from' => $user->uid))->fetchField();
+      return db_query("SELECT 1 FROM {masquerade_users} WHERE uid_from = :uid_from", array(':uid_from' => $user->uid))->fetchField();
       break;
     case 'switch':
       $switch_to_account = FALSE;
@@ -236,11 +236,12 @@ function masquerade_menu_access($type, $uid = NULL) {
         if (!is_numeric($uid)) {
           return FALSE;
         }
-        $account = user_load($uid);
-        $switch_to_account = db_query("SELECT TRUE FROM {masquerade_users} WHERE uid_from = :uid_from AND uid_to = :uid_to", array(
-          ':uid_from' => $user->uid,
-          ':uid_to' => $account->uid
-        ))->fetchField();
+        if ($account = user_load($uid)) {
+          $switch_to_account = db_query("SELECT 1 FROM {masquerade_users} WHERE uid_from = :uid_from AND uid_to = :uid_to", array(
+            ':uid_from' => $user->uid,
+            ':uid_to' => $account->uid
+          ))->fetchField();
+        }
       }
       return !isset($_SESSION['masquerading']) && (user_access('masquerade as user') || user_access('masquerade as admin') || $switch_to_account);
       break;
@@ -633,8 +634,8 @@ function masquerade_block_1_validate($form, &$form_state) {
   elseif ($masq_user->uid == $user->uid) {
     form_set_error('masquerade_user_field', t('You cannot masquerade as yourself. Please choose a different user to masquerade as.'));
   }
-  elseif (variable_get('maintenance_mode', 0) && !user_access('administer site configuration', $masq_user)) {
-    form_set_error('masquerade_user_field', t('It is not possible to masquerade in off-line mode as !user does not have the %config-perm permission. Please <a href="@site-maintenance">set the site status</a> to "online" to masquerade as !user.', array('!user' => theme('username', array('account' => $masq_user)), '%config-perm' => 'administer site configuration', '@site-maintenance' => url('admin/settings/site-maintenance'))));
+  elseif (variable_get('maintenance_mode', 0) && !user_access('access site in maintenance mode', $masq_user)) {
+    form_set_error('masquerade_user_field', t('It is not possible to masquerade in off-line mode as !user does not have the %config-perm permission. Please <a href="@site-maintenance">set the site status</a> to "online" to masquerade as !user.', array('!user' => theme('username', array('account' => $masq_user)), '%config-perm' => 'use the site in maintenance mode', '@site-maintenance' => url('admin/settings/site-maintenance'))));
   }
   else {
     $form_state['values']['masquerade_user_field'] = $name;
@@ -781,10 +782,14 @@ function masquerade_switch_user($uid) {
     return FALSE;
   }
 
-  if (variable_get('maintenance_mode', 0) && !user_access('administer site configuration', $new_user)) {
-    drupal_set_message(t('It is not possible to masquerade in off-line mode as %user does not have the %config-perm permission. Please <a href="@site-maintenance">set the site status</a> to "online" to masquerade as %user.', array('%user' => $new_user->name, '%config-perm' => 'administer site configuration', '@site-maintenance' => url('admin/settings/site-maintenance'))));
+  if (variable_get('maintenance_mode', 0) && !user_access('access site in maintenance mode', $new_user)) {
+    drupal_set_message(t('It is not possible to masquerade in off-line mode as %user does not have the %config-perm permission. Please <a href="@site-maintenance">set the site status</a> to "online" to masquerade as %user.', array('%user' => $new_user->name, '%config-perm' => 'use the site in maintenance mode', '@site-maintenance' => url('admin/settings/site-maintenance'))));
     return FALSE;
   }
+
+  // Call logout hooks when switching from original user.
+  module_invoke_all('user_logout', $user);
+  drupal_session_regenerate();
 
   $query = db_insert('masquerade');
   $query->fields(array(
@@ -799,6 +804,11 @@ function masquerade_switch_user($uid) {
   drupal_set_message(t('You are now masquerading as !masq_as.', array('!masq_as' => theme('username', array('account' => $new_user)))));
   $user->masquerading = $new_user->uid;
   $user = $new_user;
+
+  // Call all login hooks when switching to masquerading user.
+  $edit = array(); // Passed by reference.
+  user_module_invoke('login', $edit, $user);
+
   return TRUE;
 }
 
@@ -837,6 +847,16 @@ function masquerade_switch_back() {
   $query->condition($conditions);
   $query->execute();
   $oldname = ($user->uid == 0 ? variable_get('anonymous', t('Anonymous')) : $user->name);
+
+  // Call logout hooks when switching from masquerading user.
+  module_invoke_all('user_logout', $user);
+  drupal_session_regenerate();
+
   $user = user_load($uid);
+
+  // Call all login hooks when switching back to original user.
+  $edit = array(); // Passed by reference.
+  user_module_invoke('login', $edit, $user);
+
   watchdog('masquerade', 'User %user no longer masquerading as %masq_as.', array('%user' => $user->name, '%masq_as' => $oldname), WATCHDOG_INFO);
 }

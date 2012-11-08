@@ -27,6 +27,7 @@ function multiupload_filefield_widget_element_info() {
     '#upload_validators' => array(),
     '#upload_location' => NULL,
     '#extended' => FALSE,
+    '#size' => 22,
     '#attached' => array(
       'css' => array($file_path . '/file.css'),
       'js' => array($mfw_path . '/mfw.js', $file_path . '/file.js'),
@@ -44,8 +45,10 @@ function multiupload_filefield_widget_element_info() {
 function mfw_managed_file_process($element, &$form_state, &$form) {
   $element = file_managed_file_process($element, $form_state, $form);
   $element['upload']['#attributes'] = array('multiple' => 'multiple');
-  $element['upload']['#name'] = 'files_' . implode('_', $element['#parents']) . '[]';
-  $element['upload']['#attached']['js'][0]['data']['mfw'] = $element['upload']['#attached']['js'][0]['data']['file'];
+  $element['upload']['#name'] .= '[]';
+  if (!empty($element['upload']['#attached']['js'][0]['data']['file'])) {
+    $element['upload']['#attached']['js'][0]['data']['mfw'] = $element['upload']['#attached']['js'][0]['data']['file'];
+  }
   unset($element['upload']['#attached']['js'][0]['data']['file']);
   return $element;
 }
@@ -132,13 +135,13 @@ function mfw_managed_file_value(&$element, $input = FALSE, $form_state = NULL) {
  */
 function mfw_managed_file_save_upload($element) {
   $last_parent = array_pop($element['#parents']);
-  $upload_name = 'files_' . implode('_', $element['#parents']) . '_' . $element['#file_upload_delta_original'];
+  $upload_name = implode('_', $element['#parents']) . '_' . $element['#file_upload_delta_original'];
   array_push($element['#parents'], $last_parent);
 
   $file_number = $last_parent - $element['#file_upload_delta_original'];
 
-  if (isset($_FILES[$upload_name]['name'][$file_number])) {
-    $name = $_FILES[$upload_name]['name'][$file_number];
+  if (isset($_FILES['files']['name'][$upload_name][$file_number])) {
+    $name = $_FILES['files']['name'][$upload_name][$file_number];
     if (empty($name)) {
       return FALSE;
     }
@@ -177,7 +180,7 @@ function mfw_managed_file_save_upload($element) {
  * @param $source
  *   A string specifying the filepath or URI of the uploaded file to save.
  * @param  $file_number
- *   The array key of the file to save in $_FILES[$source]['name'].
+ *   The array key of the file to save in $_FILES['files']['name'][$source].
  * @param $validators
  *   An optional, associative array of callback functions used to validate the
  *   file. See file_validate() for a full discussion of the array format.
@@ -219,34 +222,34 @@ function mfw_file_save_upload($source, $file_number, $validators = array(), $des
   }
 
   // Make sure there's an upload to process.
-  if (empty($_FILES[$source]['name'][$file_number])) {
+  if (empty($_FILES['files']['name'][$source][$file_number])) {
     return NULL;
   }
 
   // Check for file upload errors and return FALSE if a lower level system
   // error occurred. For a complete list of errors:
   // See http://php.net/manual/en/features.file-upload.errors.php.
-  switch ($_FILES[$source]['error'][$file_number]) {
+  switch ($_FILES['files']['error'][$source][$file_number]) {
     case UPLOAD_ERR_INI_SIZE:
     case UPLOAD_ERR_FORM_SIZE:
-      drupal_set_message(t('The file %file could not be saved, because it exceeds %maxsize, the maximum allowed size for uploads.', array('%file' => $_FILES['files']['name'][$source], '%maxsize' => format_size(file_upload_max_size()))), 'error');
+      drupal_set_message(t('The file %file could not be saved, because it exceeds %maxsize, the maximum allowed size for uploads.', array('%file' => $_FILES['files']['name'][$source][$file_number], '%maxsize' => format_size(file_upload_max_size()))), 'error');
       return FALSE;
 
     case UPLOAD_ERR_PARTIAL:
     case UPLOAD_ERR_NO_FILE:
-      drupal_set_message(t('The file %file could not be saved, because the upload did not complete.', array('%file' => $_FILES['files']['name'][$source])), 'error');
+      drupal_set_message(t('The file %file could not be saved, because the upload did not complete.', array('%file' => $_FILES['files']['name'][$source][$file_number])), 'error');
       return FALSE;
 
     case UPLOAD_ERR_OK:
       // Final check that this is a valid upload, if it isn't, use the
       // default error handler.
-      if (is_uploaded_file($_FILES[$source]['tmp_name'][$file_number])) {
+      if (is_uploaded_file($_FILES['files']['tmp_name'][$source][$file_number])) {
         break;
       }
 
-      // Unknown error
+    // Unknown error
     default:
-      drupal_set_message(t('The file %file could not be saved. An unknown error has occurred.', array('%file' => $_FILES['files']['name'][$source])), 'error');
+      drupal_set_message(t('The file %file could not be saved. An unknown error has occurred.', array('%file' => $_FILES['files']['name'][$source][$file_number])), 'error');
       return FALSE;
   }
 
@@ -254,10 +257,10 @@ function mfw_file_save_upload($source, $file_number, $validators = array(), $des
   $file = new stdClass();
   $file->uid      = $user->uid;
   $file->status   = 0;
-  $file->filename = trim(basename($_FILES[$source]['name'][$file_number]), '.');
-  $file->uri      = $_FILES[$source]['tmp_name'][$file_number];
+  $file->filename = trim(drupal_basename($_FILES['files']['name'][$source][$file_number]), '.');
+  $file->uri      = $_FILES['files']['tmp_name'][$source][$file_number];
   $file->filemime = file_get_mimetype($file->filename);
-  $file->filesize = $_FILES[$source]['size'][$file_number];
+  $file->filesize = $_FILES['files']['size'][$source][$file_number];
 
   $extensions = '';
   if (isset($validators['file_validate_extensions'])) {
@@ -350,7 +353,7 @@ function mfw_file_save_upload($source, $file_number, $validators = array(), $des
   // directory. This overcomes open_basedir restrictions for future file
   // operations.
   $file->uri = $file->destination;
-  if (!drupal_move_uploaded_file($_FILES[$source]['tmp_name'][$file_number], $file->uri)) {
+  if (!drupal_move_uploaded_file($_FILES['files']['tmp_name'][$source][$file_number], $file->uri)) {
     form_set_error($source, t('File upload error. Could not move uploaded file.'));
     watchdog('file', 'Upload error. Could not move uploaded file %file to destination %destination.', array('%file' => $file->filename, '%destination' => $file->uri));
     return FALSE;
@@ -376,3 +379,19 @@ function mfw_file_save_upload($source, $file_number, $validators = array(), $des
   }
   return FALSE;
 }
+
+/**
+ * Implements hook_insert_widgets().
+ */
+function multiupload_filefield_widget_insert_widgets() {
+  return array(
+    'file_mfw' => array(
+      'element_type' => 'mfw_managed_file',
+      'wrapper' => '.file-widget',
+      'fields' => array(
+        'description' => 'input[name$="[description]"]',
+      ),
+    ),
+  );
+}
+

@@ -37,46 +37,30 @@ function multiupload_filefield_widget_field_widget_form(&$form, &$form_state, $f
     'description' => '',
   );
 
-  // Retrieve any values set in $form_state, as will be the case during AJAX
-  // rebuilds of this form.
-  if (isset($form_state['values'])) {
-    $path = array_merge($element['#field_parents'], array($field['field_name'], $langcode));
-    $path_exists = FALSE;
-    $values = drupal_array_get_nested_value($form_state['values'], $path, $path_exists);
-    if ($path_exists) {
-      $items = $values;
-      drupal_array_set_nested_value($form_state['values'], $path, NULL);
-    }
+  // Load the items for form rebuilds from the field state as they might not be
+  // in $form_state['values'] because of validation limitations. Also, they are
+  // only passed in as $items when editing existing entities.
+  $field_state = field_form_get_state($element['#field_parents'], $field['field_name'], $langcode, $form_state);
+  if (isset($field_state['items'])) {
+    $items = $field_state['items'];
   }
-
-  foreach ($items as $delta => $item) {
-    $items[$delta] = array_merge($defaults, $items[$delta]);
-    // Remove any items from being displayed that are not needed.
-    if ($items[$delta]['fid'] == 0) {
-      unset($items[$delta]);
-    }
-  }
-
-  // Re-index deltas after removing empty items.
-  $items = array_values($items);
-
-  // Update order according to weight.
-  $items = _field_sort_items($field, $items);
 
   // Essentially we use the mfw_managed_file type, extended with some enhancements.
   $element_info = element_info('mfw_managed_file');
   $element += array(
     '#type' => 'mfw_managed_file',
-    '#default_value' => isset($items[$delta]) ? $items[$delta] : $defaults,
     '#upload_location' => file_field_widget_uri($field, $instance),
     '#upload_validators' => file_field_widget_upload_validators($field, $instance),
     '#value_callback' => 'mfw_field_widget_value',
     '#process' => array_merge($element_info['#process'], array('mfw_field_widget_process')),
-  // Allows this field to return an array instead of a single value.
+    '#progress_indicator' => $instance['widget']['settings']['progress_indicator'],
+    // Allows this field to return an array instead of a single value.
     '#extended' => TRUE,
   );
 
   if ($field['cardinality'] == 1) {
+    // Set the default value.
+    $element['#default_value'] = !empty($items) ? $items[0] : $defaults;
     // If there's only one field, return it as delta 0.
     if (empty($element['#default_value']['fid'])) {
       $element['#description'] = theme('file_upload_help', array('description' => $element['#description'], 'upload_validators' => $element['#upload_validators']));
@@ -85,15 +69,15 @@ function multiupload_filefield_widget_field_widget_form(&$form, &$form_state, $f
   }
   else {
     // If there are multiple values, add an element for each existing one.
-    $delta = -1;
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $elements[$delta] = $element;
       $elements[$delta]['#default_value'] = $item;
       $elements[$delta]['#weight'] = $delta;
+      $delta++;
     }
-    // And then add one more empty row for new uploads.
-    $delta++;
-    if ($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED || $delta < $field['cardinality']) {
+    // And then add one more empty row for new uploads except when this is a
+    // programmed form as it is not necessary.
+    if (($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED || $delta < $field['cardinality']) && empty($form_state['programmed'])) {
       $elements[$delta] = $element;
       $elements[$delta]['#default_value'] = $defaults;
       $elements[$delta]['#weight'] = $delta;
@@ -191,9 +175,9 @@ function mfw_field_widget_process($element, &$form_state, &$form) {
  * wrapper around the entire group so it can be replaced all at once.
  */
 function mfw_field_widget_process_multiple($element, &$form_state, $form) {
-  $upload_name = 'files_' . implode('_', $element['#parents']) . '_' . $element['#file_upload_delta'];
-  if (array_key_exists($upload_name, $_FILES)) {
-    $count = count($_FILES[$upload_name]['name']);
+  $upload_name = implode('_', $element['#parents']) . '_' . $element['#file_upload_delta'];
+  if (isset($_FILES['files']['name']) && array_key_exists($upload_name, $_FILES['files']['name'])) {
+    $count = count($_FILES['files']['name'][$upload_name]);
     //Supposing #file_upload_delta is always the last delta this will work
     for ($i = 1; $i < $count; $i++) {
       $element[] = $element[$element['#file_upload_delta']];
