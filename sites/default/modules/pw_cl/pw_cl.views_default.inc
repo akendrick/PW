@@ -140,7 +140,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
-  /* Field: Field: Email */
+  /* Field: Content: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -290,6 +290,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_image_1']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image_1']['field'] = 'field_image';
   $handler->display->display_options['fields']['field_image_1']['label'] = '';
+  $handler->display->display_options['fields']['field_image_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_image_1']['element_class'] = 'center';
   $handler->display->display_options['fields']['field_image_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image_1']['click_sort_column'] = 'fid';

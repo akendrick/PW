@@ -98,25 +98,65 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         'admin/dashboard' => 'admin/dashboard',
-        'admin/dashboard*' => 'admin/dashboard*',
-        'admin/dashboard/*' => 'admin/dashboard/*',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'views-admin_dashboard-display_dash' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-display_dash',
+          'region' => 'dashboard_main',
+          'weight' => '-32',
+        ),
+        'views-admin_dashboard-block_1' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-block_1',
+          'region' => 'dashboard_main',
+          'weight' => '-31',
+        ),
+        'views-admin_dashboard-block_2' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-block_2',
+          'region' => 'dashboard_main',
+          'weight' => '-30',
+        ),
+        'comment-recent' => array(
+          'module' => 'comment',
+          'delta' => 'recent',
+          'region' => 'dashboard_main',
+          'weight' => '-29',
+        ),
         'pennywise-pw_logo' => array(
           'module' => 'pennywise',
           'delta' => 'pw_logo',
           'region' => 'dashboard_sidebar',
-          'weight' => '-10',
+          'weight' => '-32',
+        ),
+        'user-online' => array(
+          'module' => 'user',
+          'delta' => 'online',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-31',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
           'region' => 'dashboard_sidebar',
-          'weight' => '-9',
+          'weight' => '-30',
+        ),
+        'views-admin_dashboard-classified_dash' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-classified_dash',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-29',
+        ),
+        'menu_block-5' => array(
+          'module' => 'menu_block',
+          'delta' => '5',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-28',
         ),
       ),
     ),
@@ -139,6 +179,7 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
+        '~ad/*' => '~ad/*',
         '<front>' => '<front>',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
@@ -147,6 +188,8 @@ function pw_la_context_default_contexts() {
         'online/*' => 'online/*',
         'edition' => 'edition',
         'edition/*' => 'edition/*',
+        'editorial' => 'editorial',
+        'editorial/*' => 'editorial/*',
         'user' => 'user',
         'user/*' => 'user/*',
         'contact/*' => 'contact/*',
@@ -251,6 +294,9 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
+    'delta' => array(
+      'delta_template' => 'traditional',
+    ),
   );
   $context->condition_mode = 0;
 
@@ -320,24 +366,6 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_logo' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_logo',
-          'region' => 'branding',
-          'weight' => '-10',
-        ),
-        'views-display_ad_blocks-block_1' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-block_1',
-          'region' => 'splash_one',
-          'weight' => '-30',
-        ),
-        'views-display_ad_blocks-splash_block' => array(
-          'module' => 'views',
-          'delta' => 'display_ad_blocks-splash_block',
-          'region' => 'splash_two',
-          'weight' => '-10',
-        ),
         'pennywise-pw_contact' => array(
           'module' => 'pennywise',
           'delta' => 'pw_contact',
@@ -352,8 +380,11 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
+    'delta' => array(
+      'delta_template' => 'traditional',
+    ),
   );
-  $context->condition_mode = 1;
+  $context->condition_mode = 0;
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -424,6 +455,9 @@ function pw_la_context_default_contexts() {
           'weight' => '-10',
         ),
       ),
+    ),
+    'delta' => array(
+      'delta_template' => 'traditional',
     ),
   );
   $context->condition_mode = 0;

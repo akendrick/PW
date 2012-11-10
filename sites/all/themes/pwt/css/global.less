@@ -738,12 +738,15 @@ ul.pw-classified-nav-list {
       float: right;
     }
   }
+/*
   .pager ul, .pager li.pager-next, .pager li.pager-current, .pager li a{
     background-color: @editorial_dark;
     color: @white;
     background-image: none;
     height: 12px;
+    margin: 0;
   }
+*/
 }
 
 /*  Slideshow BLOCK */
@@ -810,7 +813,8 @@ ul.pw-classified-nav-list {
       text-align: justify;
     }
   }
-  .views-field-view-node a {
+  /*  Editorial More Links -- MAIN  */
+  .views-field-view-node a, a.views-more-link {
     margin: 10px auto;
     display: block;
     padding: 2px 10px;
@@ -820,6 +824,14 @@ ul.pw-classified-nav-list {
     .border-radius;
     text-align: center;
     border: 1pt solid @other_light;
+  }
+  /*  Editorial More Links -- MINOR  */
+  a.views-more-link {
+    width: 50px;
+    display: inline-block;
+    padding: 1px 5px;
+    margin: 2px;
+    background-color: lighten(@other_light, 10%);
   }
   .views-field-view-node a:hover {
     background-color: @other;
@@ -839,7 +851,42 @@ ul.pw-classified-nav-list {
       max-height: 400px;
     }
   }
-  /* details and info boxes */
+  .views-field-field-submitter {
+    text-align: center;
+    color: @editorial;
+  }
+  /* rounded image boxes */
+  img {
+    .border-radius;
+  }
+  /* masonry boxes */
+  .view-id-editorial_views {
+    .masonry-item.views-row {
+      padding: 6px;
+      .border-radius;
+      background-color: @lightsand;
+      border: 1pt solid @lightsand;
+      margin: 5px 3px;
+    }
+    .views-field-title {
+      margin: 2px 0 1px 0;
+      font-weight: bold;
+      font-size: large;
+      text-align: center;
+      color: @editorial_dark;
+      a {
+        text-decoration: none;
+        margin: 0;
+      }
+    }
+  }
+  /*   PAGER */
+  ul.pager {
+    width: auto;
+    li.pager-item {
+      margin: 0;
+    }
+  }
 }
 #node_article_full_group_editorial_details {
   float: left;
@@ -1057,7 +1104,7 @@ ul.pw-classified-nav-list {
 }
 */
 /* read-more link */
-.classified-more-link a {
+.classified-more-link a, {
   font-size: .7em;
   color: @plum;
   background-color: @classified_light;

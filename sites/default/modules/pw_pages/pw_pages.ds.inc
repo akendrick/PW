@@ -24,7 +24,7 @@ function pw_pages_ds_field_settings_info() {
       'formatter_settings' => array(
         'link' => '1',
         'wrapper' => 'h6',
-        'class' => 'field-editorial-title',
+        'class' => 'field-editorial-title grid-6',
       ),
     ),
     'node_link' => array(

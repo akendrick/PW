@@ -1119,6 +1119,7 @@ function pw_pages_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['css_class'] = 'editorial-slideshow-header-slidey-widey-block';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -1128,6 +1129,7 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'slideshow';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'item-list grid-9 omega';
   $handler->display->display_options['style_options']['slideshow_type'] = 'views_slideshow_cycle';
   $handler->display->display_options['style_options']['slideshow_skin'] = 'default';
   $handler->display->display_options['style_options']['skin_info'] = array(
@@ -1143,7 +1145,6 @@ function pw_pages_views_default_views() {
     'field_image' => 0,
     'title' => 0,
     'body' => 0,
-    'view_node' => 0,
   );
   $handler->display->display_options['style_options']['widgets']['top']['views_slideshow_controls']['weight'] = '1';
   $handler->display->display_options['style_options']['widgets']['top']['views_slideshow_controls']['type'] = 'views_slideshow_controls_text';
@@ -1154,12 +1155,12 @@ function pw_pages_views_default_views() {
     'field_image' => 0,
     'title' => 0,
     'body' => 0,
-    'view_node' => 0,
   );
   $handler->display->display_options['style_options']['widgets']['bottom']['views_slideshow_controls']['weight'] = '1';
   $handler->display->display_options['style_options']['widgets']['bottom']['views_slideshow_controls']['hide_on_single_slide'] = 1;
   $handler->display->display_options['style_options']['widgets']['bottom']['views_slideshow_controls']['type'] = 'views_slideshow_controls_text';
   $handler->display->display_options['style_options']['widgets']['bottom']['views_slideshow_slide_counter']['weight'] = '1';
+  $handler->display->display_options['style_options']['views_slideshow_cycle']['effect'] = 'scrollLeft';
   $handler->display->display_options['style_options']['views_slideshow_cycle']['transition_advanced'] = 1;
   $handler->display->display_options['style_options']['views_slideshow_cycle']['timeout'] = '30000';
   $handler->display->display_options['style_options']['views_slideshow_cycle']['speed'] = '900';
@@ -1336,6 +1337,16 @@ function pw_pages_views_default_views() {
     'unpublish_on' => 0,
     'new_comments' => 0,
   );
+  /* Field: Content: Publish link */
+  $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['table'] = 'node';
+  $handler->display->display_options['fields']['publishcontent']['field'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['label'] = '';
+  $handler->display->display_options['fields']['publishcontent']['element_type'] = 'div';
+  $handler->display->display_options['fields']['publishcontent']['element_class'] = 'field-publish-link inline-x-delete-link';
+  $handler->display->display_options['fields']['publishcontent']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'X';
+  $handler->display->display_options['fields']['publishcontent']['publish'] = 'O';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1374,16 +1385,6 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['fields']['new_comments']['field'] = 'new_comments';
   $handler->display->display_options['fields']['new_comments']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['new_comments']['empty_zero'] = TRUE;
-  /* Field: Content: Publish link */
-  $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';
-  $handler->display->display_options['fields']['publishcontent']['table'] = 'node';
-  $handler->display->display_options['fields']['publishcontent']['field'] = 'publishcontent';
-  $handler->display->display_options['fields']['publishcontent']['label'] = '';
-  $handler->display->display_options['fields']['publishcontent']['element_type'] = 'div';
-  $handler->display->display_options['fields']['publishcontent']['element_class'] = 'field-publish-link inline-x-delete-link';
-  $handler->display->display_options['fields']['publishcontent']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'X';
-  $handler->display->display_options['fields']['publishcontent']['publish'] = 'O';
   /* Sort criterion: Content: Published */
   $handler->display->display_options['sorts']['status']['id'] = 'status';
   $handler->display->display_options['sorts']['status']['table'] = 'node';
@@ -1440,7 +1441,7 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '1';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '5';
@@ -1766,7 +1767,7 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'masonry_views_grid';
   $handler->display->display_options['style_options']['masonry_width'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_animated'] = TRUE;
+  $handler->display->display_options['style_options']['masonry_animated'] = FALSE;
   $handler->display->display_options['style_options']['masonry_animated_duration'] = TRUE;
   $handler->display->display_options['style_options']['masonry_resizable'] = TRUE;
   $handler->display->display_options['style_options']['masonry_center'] = TRUE;
@@ -1775,6 +1776,10 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'publishcontent' => 'publishcontent',
+    'title' => 'title',
+  );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Field: Header Image (field_image:fid) */

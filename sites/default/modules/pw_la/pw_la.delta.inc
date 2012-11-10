@@ -208,6 +208,7 @@ function pw_la_delta_default_templates() {
   $delta->parent = '';
   $delta->settings = array(
     'theme_pwt_settings' => array(
+      'toggle_logo' => 1,
       'toggle_comment_user_verification' => 1,
       'toggle_favicon' => 1,
       'alpha_layouts_alpha_default_normal_media' => 'all and (min-width: 600px) and (min-device-width: 600px), all and (max-device-width: 1024px) and (min-width: 800px) and (orientation:landscape)',
