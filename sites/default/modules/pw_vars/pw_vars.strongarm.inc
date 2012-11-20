@@ -1251,62 +1251,6 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_adworks_file';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_adworks_file'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_ad_s';
-  $strongarm->value = 0;
-  $export['enable_revisions_page_ad_s'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_article';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_article'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_attachment';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_attachment'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_classified';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_classified'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_display_ads';
-  $strongarm->value = 0;
-  $export['enable_revisions_page_display_ads'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_page';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_pw_digital';
-  $strongarm->value = 0;
-  $export['enable_revisions_page_pw_digital'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'exclude_node_title_content_type_modes_adworks_file';
   $strongarm->value = array(
     'full' => 'full',
@@ -2019,10 +1963,10 @@ admin/*
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '7',
         ),
       ),
       'display' => array(),
@@ -2349,32 +2293,32 @@ admin/*
     3 => 493,
     4 => 253,
     5 => 252,
-    6 => 251,
-    7 => 250,
-    8 => 247,
-    9 => 246,
-    10 => 245,
-    11 => 127,
-    12 => 126,
-    13 => 125,
-    14 => 124,
-    15 => 123,
-    16 => 122,
-    17 => 121,
-    18 => 117,
-    19 => 112,
-    20 => 63,
-    21 => 62,
-    22 => 61,
-    23 => 60,
-    24 => 59,
-    25 => 58,
-    26 => 56,
-    27 => 44,
-    28 => 31,
-    29 => 30,
-    30 => 29,
-    31 => 28,
+    6 => 250,
+    7 => 247,
+    8 => 246,
+    9 => 245,
+    10 => 127,
+    11 => 126,
+    12 => 125,
+    13 => 124,
+    14 => 123,
+    15 => 122,
+    16 => 121,
+    17 => 117,
+    18 => 112,
+    19 => 63,
+    20 => 62,
+    21 => 61,
+    22 => 60,
+    23 => 59,
+    24 => 58,
+    25 => 56,
+    26 => 44,
+    27 => 31,
+    28 => 30,
+    29 => 29,
+    30 => 28,
+    31 => 27,
     32 => 25,
     33 => 24,
     34 => 23,
@@ -3768,118 +3712,6 @@ ad/*';
   $strongarm->name = 'securepages_switch';
   $strongarm->value = 0;
   $export['securepages_switch'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_adworks_file';
-  $strongarm->value = 0;
-  $export['show_diff_inline_adworks_file'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_ad_s';
-  $strongarm->value = 0;
-  $export['show_diff_inline_ad_s'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_article';
-  $strongarm->value = 1;
-  $export['show_diff_inline_article'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_attachment';
-  $strongarm->value = 0;
-  $export['show_diff_inline_attachment'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_classified';
-  $strongarm->value = 0;
-  $export['show_diff_inline_classified'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_display_ads';
-  $strongarm->value = 0;
-  $export['show_diff_inline_display_ads'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_page';
-  $strongarm->value = 1;
-  $export['show_diff_inline_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_pw_digital';
-  $strongarm->value = 0;
-  $export['show_diff_inline_pw_digital'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_adworks_file';
-  $strongarm->value = 1;
-  $export['show_preview_changes_adworks_file'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_ad_s';
-  $strongarm->value = 0;
-  $export['show_preview_changes_ad_s'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_article';
-  $strongarm->value = 1;
-  $export['show_preview_changes_article'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_attachment';
-  $strongarm->value = 1;
-  $export['show_preview_changes_attachment'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_classified';
-  $strongarm->value = 1;
-  $export['show_preview_changes_classified'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_display_ads';
-  $strongarm->value = 0;
-  $export['show_preview_changes_display_ads'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_page';
-  $strongarm->value = 1;
-  $export['show_preview_changes_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_pw_digital';
-  $strongarm->value = 0;
-  $export['show_preview_changes_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

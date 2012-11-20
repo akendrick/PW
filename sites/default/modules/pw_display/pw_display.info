@@ -41,6 +41,7 @@ features[field][] = node-display_ads-field_high_res_ad
 features[field][] = node-display_ads-field_link
 features[field][] = node-display_ads-field_publish_date
 features[field][] = node-display_ads-field_section_all_select
+features[field][] = node-display_ads-field_special_feature_link
 features[field][] = node-display_ads-field_tags
 features[field_group][] = group_basics|node|display_ads|form
 features[field_group][] = group_options|node|display_ads|form

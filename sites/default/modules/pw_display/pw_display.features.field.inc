@@ -203,7 +203,11 @@ function pw_display_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => '993',
-        'uri_scheme' => 'public',
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
+        'uri_scheme' => 'storage-field-display-ad',
       ),
       'translatable' => '0',
       'type' => 'image',
@@ -251,6 +255,7 @@ function pw_display_field_default_fields() {
           'filefield_sources' => array(
             'filefield_sources' => array(
               'attach' => 0,
+              'clipboard' => 0,
               'reference' => 'reference',
               'remote' => 0,
             ),
@@ -259,24 +264,25 @@ function pw_display_field_default_fields() {
               'attach_mode' => 'copy',
               'path' => 'display-ads',
             ),
+            'source_imce' => array(
+              'imce_mode' => 0,
+            ),
             'source_reference' => array(
               'autocomplete' => '1',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
             'auto' => 'auto',
+            'icon_link' => 0,
             'image' => 0,
-            'image_classified_ad_image_small' => 0,
-            'image_display_ad_banner' => 0,
-            'image_display_ad_poster' => 0,
-            'image_display_ad_print_full' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_list_nocrop' => 0,
+            'image_classified_page_style' => 0,
             'image_display_ad_print_thumbnail' => 0,
-            'image_display_ad_splash' => 0,
-            'image_display_ad_target' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
@@ -284,6 +290,7 @@ function pw_display_field_default_fields() {
             'image_editorial_thumbnail' => 0,
             'image_large' => 0,
             'image_medium' => 0,
+            'image_miniature_square' => 0,
             'image_square_thumbnail' => 0,
             'image_thumbnail' => 0,
             'link' => 0,
@@ -470,7 +477,7 @@ function pw_display_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 1,
+              'status' => 0,
             ),
           ),
           'sort' => array(
@@ -480,8 +487,6 @@ function pw_display_field_default_fields() {
           ),
           'target_bundles' => array(
             'attachment' => 'attachment',
-            'page' => 'page',
-            'pw_digital' => 'pw_digital',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -577,6 +582,10 @@ function pw_display_field_default_fields() {
       'settings' => array(
         'display_default' => 1,
         'display_field' => 1,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
@@ -898,6 +907,96 @@ with <strong>Page 30</strong>.<br>
     ),
   );
 
+  // Exported field: 'node-display_ads-field_special_feature_link'.
+  $fields['node-display_ads-field_special_feature_link'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_special_feature_link',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 1,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'attachment' => 'attachment',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'display_ads',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Link file here by typing the title of the uploaded file name. To upload a file click <a href=\'/node/add/attachment\' target=\'_NEW\'>here.</a>',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 17,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_special_feature_link',
+      'label' => 'Attach File',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '9',
+      ),
+    ),
+  );
+
   // Exported field: 'node-display_ads-field_tags'.
   $fields['node-display_ads-field_tags'] = array(
     'field_config' => array(
@@ -971,6 +1070,7 @@ with <strong>Page 30</strong>.<br>
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Attach File');
   t('Client');
   t('Description');
   t('Display Ad');
@@ -978,6 +1078,7 @@ with <strong>Page 30</strong>.<br>
   t('Email');
   t('File Attach');
   t('Link');
+  t('Link file here by typing the title of the uploaded file name. To upload a file click <a href=\'/node/add/attachment\' target=\'_NEW\'>here.</a>');
   t('Link this display ad to a PDF attachment, another display ad or even a classified ad. Link to a specific PW web page, or even an online web submission form. You can also create the attachment right here.
 <strong>Display ads can only be linked. Do not create another display ad here!</strong>');
   t('Optional email contact for business.');

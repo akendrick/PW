@@ -180,6 +180,7 @@ function pw_la_context_default_contexts() {
       'values' => array(
         '~admin/*' => '~admin/*',
         '~ad/*' => '~ad/*',
+        'ad/*' => 'ad/*',
         '<front>' => '<front>',
         'section/*' => 'section/*',
         'node/*' => 'node/*',

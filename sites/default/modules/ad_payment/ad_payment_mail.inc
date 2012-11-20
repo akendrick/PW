@@ -10,6 +10,8 @@
 * Implementation of custom email implementor.
 */
 function ad_payment_send_email($email_type, $details = NULL) {
+  global $user;
+
   // Set defaults
   $language = language_default();
   $send = TRUE;
@@ -21,7 +23,7 @@ function ad_payment_send_email($email_type, $details = NULL) {
       $result = drupal_mail('ad_payment', 'receipt', $to, $language, $details, $from, $send);
 
       if ($result['result'] == TRUE) {
-        drupal_set_message(t('A copy of this receipt has beed sent to your email address.'), 'status' );
+        drupal_set_message(t('A copy of this receipt has beed sent to your email address: @email.', array('@email' => $to)), 'status' );
       }
       else {
         watchdog('Ad Payment', 'Receipt Email Error',
@@ -53,14 +55,16 @@ function ad_payment_send_email($email_type, $details = NULL) {
 */
 function ad_payment_mail($key, &$message, $params) {
 
+  $receipt_id = $message['params']['receipt'];
+
   switch($key) {
     case 'receipt':
       $message['body'][] = email_receipt_body($message);;
-      $message['subject'] = 'Pennywise Ad Submission';
+      $message['subject'] = 'Pennywise Ad Submission ' . $receipt_id;
       break;
     case 'inhouse':
       $message['body'][] = email_receipt_body($message);;
-      $message['subject'] = 'Pennywise Ad IN HOUSE';
+      $message['subject'] = 'Pennywise Ad IN HOUSE ' . $receipt_id;
       break;
   }
 

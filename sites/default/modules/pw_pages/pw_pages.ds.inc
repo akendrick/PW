@@ -148,7 +148,7 @@ function pw_pages_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '2',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -470,7 +470,7 @@ function pw_pages_ds_layout_settings_info() {
     'regions' => array(
       'left' => array(
         0 => 'title',
-        1 => 'field_high_res_ad',
+        1 => 'field_file',
         2 => 'field_image',
       ),
       'middle' => array(
@@ -482,17 +482,19 @@ function pw_pages_ds_layout_settings_info() {
         2 => 'field_entity_reference',
       ),
       'hidden' => array(
-        0 => '_add_existing_field',
+        0 => 'field_high_res_ad',
+        1 => '_add_existing_field',
       ),
     ),
     'fields' => array(
       'title' => 'left',
-      'field_high_res_ad' => 'left',
+      'field_file' => 'left',
       'field_image' => 'left',
       'body' => 'middle',
       'field_link' => 'right',
       'path' => 'right',
       'field_entity_reference' => 'right',
+      'field_high_res_ad' => 'hidden',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(),
@@ -512,14 +514,14 @@ function pw_pages_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'field_image',
-        1 => 'field_high_res_ad',
-        2 => 'title',
+        1 => 'title',
+        2 => 'field_file',
       ),
     ),
     'fields' => array(
       'field_image' => 'ds_content',
-      'field_high_res_ad' => 'ds_content',
       'title' => 'ds_content',
+      'field_file' => 'ds_content',
     ),
     'classes' => array(),
   );
@@ -640,20 +642,6 @@ function pw_pages_ds_layout_settings_info() {
     'hide_empty_regions' => 0,
     'hide_sidebars' => FALSE,
     'regions' => array(
-      'right' => array(
-        0 => 'group_info',
-        1 => 'field_edition_date',
-      ),
-      'hidden' => array(
-        0 => 'field_scribd',
-        1 => 'field_pdf',
-        2 => 'field_display_ad',
-        3 => 'path',
-        4 => 'title',
-        5 => 'body',
-        6 => 'field_area',
-        7 => '_add_existing_field',
-      ),
       'left' => array(
         0 => 'group_edition',
         1 => 'field_trail',
@@ -661,26 +649,40 @@ function pw_pages_ds_layout_settings_info() {
         3 => 'field_castlegar_edition',
         4 => 'field_kootenay_lake_edition',
       ),
+      'right' => array(
+        0 => 'group_info',
+        1 => 'field_edition_date',
+      ),
       'footer' => array(
+        0 => 'field_pdf',
+        1 => 'field_special_feature_link',
+      ),
+      'hidden' => array(
         0 => 'field_entity_reference',
+        1 => 'field_scribd',
+        2 => 'field_display_ad',
+        3 => 'path',
+        4 => 'title',
+        5 => 'body',
+        6 => '_add_existing_field',
       ),
     ),
     'fields' => array(
-      'group_info' => 'right',
-      'field_scribd' => 'hidden',
       'group_edition' => 'left',
-      'field_pdf' => 'hidden',
+      'group_info' => 'right',
       'field_trail' => 'left',
+      'field_pdf' => 'footer',
+      'field_special_feature_link' => 'footer',
       'field_nelson_edition' => 'left',
-      'field_display_ad' => 'hidden',
+      'field_entity_reference' => 'hidden',
       'field_castlegar_edition' => 'left',
+      'field_kootenay_lake_edition' => 'left',
+      'field_scribd' => 'hidden',
+      'field_display_ad' => 'hidden',
       'path' => 'hidden',
       'title' => 'hidden',
-      'field_kootenay_lake_edition' => 'left',
       'body' => 'hidden',
       'field_edition_date' => 'right',
-      'field_entity_reference' => 'footer',
-      'field_area' => 'hidden',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(),

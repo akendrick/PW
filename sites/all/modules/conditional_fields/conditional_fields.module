@@ -690,7 +690,7 @@ function conditional_fields_dependent_validate($element, &$form_state, $form) {
     return;
   }
 
-  // Mark submitted values for removal. We have to remove the after all fields
+  // Mark submitted values for removal. We have to remove them after all fields
   // have been validated to avoid collision between dependencies.
   $form_state_addition['parents'] = $dependent['#array_parents'];
 
@@ -1014,12 +1014,20 @@ function conditional_fields_evaluate_dependencies($dependent, $form, $form_state
 
   foreach ($dependencies as $dependency_id => $dependency) {
     // Extract field values from submitted values.
-    $values = NULL;
     $dependee = $dependency['dependee'];
-    $dependee_form_field = drupal_array_get_nested_value($form, $form['#conditional_fields'][$dependee]['parents']);
-    $dependee_values_location = conditional_fields_form_field_get_values($form[$dependee_form_field['#parents'][0]], $form_state);
-    if (isset($dependee_values_location)) {
-      $values = $dependee_values_location[$dependee_form_field['#language']];
+    $dependee_parents = $form['#conditional_fields'][$dependee]['parents'];
+
+    // We have the parents of the field, but depending on the entity type and
+    // the widget type, they may include additional elements that are actually
+    // part of the value. So we find the depth of the field inside the form
+    // structure and use the parents only up to that depth.
+    $dependee_parents_keys = array_flip($dependee_parents);
+    $dependee_parent = drupal_array_get_nested_value($form, array_slice($dependee_parents, 0, $dependee_parents_keys[$dependee]));
+    $values = conditional_fields_form_field_get_values($dependee_parent[$dependee], $form_state);
+
+    // Remove the language key.
+    if (isset($dependee_parent[$dependee]['#language'], $values[$dependee_parent[$dependee]['#language']])) {
+      $values = $values[$dependee_parent[$dependee]['#language']];
     }
 
     $evaluated_dependees[$dependent['#field_name']][$dependency['options']['grouping']][] = conditional_fields_evaluate_dependency('edit', $values, $dependency['options']);
@@ -1910,36 +1918,16 @@ function conditional_fields_dependency_description($dependee_name, $dependent_na
         }
         $values = implode(', ', $value_array);
       case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND:
-        return t('%dependent_name is !state when %dependee_name has all the values: @values.', array(
-          '%dependent_name' => $dependent_name,
-          '!state' => drupal_strtolower($states[$options['state']]),
-          '%dependee_name' => $dependee_name,
-          '@values' => $values,
-        ));
+        $description = '%dependent_name is !state when %dependee_name has all the values: @values.';
         break;
       case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_OR:
-        return t('%dependent_name is !state when %dependee_name has at least one of the values: @values.', array(
-          '%dependent_name' => $dependent_name,
-          '!state' => drupal_strtolower($states[$options['state']]),
-          '%dependee_name' => $dependee_name,
-          '@values' => $values,
-        ));
+        $description = '%dependent_name is !state when %dependee_name has at least one of the values: @values.';
         break;
       case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR:
-        return t('%dependent_name is !state when %dependee_name has only one of the values: @values.', array(
-          '%dependent_name' => $dependent_name,
-          '!state' => drupal_strtolower($states[$options['state']]),
-          '%dependee_name' => $dependee_name,
-          '@values' => $values,
-        ));
+        $description = '%dependent_name is !state when %dependee_name has only one of the values: @values.';
         break;
       case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_NOT:
-        return t('%dependent_name is !state when %dependee_name has none of the values: @values.', array(
-          '%dependent_name' => $dependent_name,
-          '!state' => drupal_strtolower($states[$options['state']]),
-          '%dependee_name' => $dependee_name,
-          '@values' => $values,
-        ));
+        $description = '%dependent_name is !state when %dependee_name has none of the values: @values.';
         break;
       case CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX:
         return t('%dependent_name is !state when %dependee_name values match the regular expression: @regex.', array(
@@ -1950,6 +1938,13 @@ function conditional_fields_dependency_description($dependee_name, $dependent_na
         ));
         break;
     }
+
+    return t($description, array(
+      '%dependent_name' => $dependent_name,
+      '!state' => drupal_strtolower($states[$options['state']]),
+      '%dependee_name' => $dependee_name,
+      '@values' => $values,
+    ));
   }
   else {
     $conditions = conditional_fields_conditions();

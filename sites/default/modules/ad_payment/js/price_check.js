@@ -29,6 +29,7 @@ Drupal.adPayment.countWords = function(cleanedWordString) {
  * Form Validation
  */
 Drupal.adPayment.validate = function(ad) {
+       //console.log('Payment validation script.');
   ad.errorMsg = {};
   var state = false;
 
@@ -109,7 +110,8 @@ Drupal.adPayment.validate = function(ad) {
  */
 Drupal.adPayment.formData = function(ad) {
 
-  // Ad Copy
+        //console.log('Form Data script.');
+ // Ad Copy
   ad.copy = jQuery('#edit-field-ad-copy-und-0-value').val();
 
   // Word Counter
@@ -198,7 +200,8 @@ Drupal.adPayment.formatCurrency = function(num) {
  * Determine Price
  */
 Drupal.adPayment.getPrice = function(ad) {
-  var price = {};
+        //console.log('Get Price script.');
+ var price = {};
 
   // Get Rate
   if (ad.formRate == 'Personal') {
@@ -277,13 +280,14 @@ Drupal.adPayment.getPrice = function(ad) {
  * Determine form data and configure display.
  */
 Drupal.adPayment.displayMsg = function() {
+       //console.log('Message Display script.');
   var ad = {};
   ad = Drupal.adPayment.formData(ad);
 
   var price = {};
   price = Drupal.adPayment.getPrice(ad);
 
-  // Ad Message
+    // Ad Message
   ad.msg = {};
   ad.msg.wordcount   = Drupal.t("<dt>Word count:</dt><dd>@count </dd>", {'@count': ad.wordCount});
 
@@ -436,8 +440,17 @@ Drupal.adPayment.displayMsg = function() {
  * Content Review - hidden until submitting
  */
 jQuery(document).ready(function() {
-  var formID = jQuery("form").attr('id');
-  if (formID == 'ad-s-node-form'){
+
+       //console.log('Document jQuery Loaded');
+
+
+ // var formID = jQuery("form").attr('id');
+ // if (formID == 'ad-s-node-form'){
+
+ // New form validation in case of multiple forms detected.
+  if (jQuery('#ad-s-node-form').length) {
+
+       // console.log('FOrm Id detected and prepared.');
 
     // Hide Edit/Submit & image AJAX uploader -  unless on page 4
   //  jQuery('#edit-submit, #edit-preview').hide();
@@ -464,7 +477,9 @@ jQuery(document).ready(function() {
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
 
-    jQuery('#ad-s-node-form').bind('click keypress keyup change', function() { //click change keypress keyup
+    jQuery('#ad-s-node-form').bind('click keypress keyup change mouseup', function() { //click change keypress keyup
+       // console.log('Action Detected.');
+
 
       var sideBox = '#ad-summary';
       var summaryBox = Drupal.adPayment.displayMsg().summary;
@@ -482,17 +497,35 @@ jQuery(document).ready(function() {
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
       // Hide 'Next Page' upon 'Save' option
-      var SaveButton = jQuery('#edit-submit').is(':visible');
-      if (SaveButton == true) {
-        console.log('Save button is visible');
-        jQuery('.multipage-link-next').hide();
-      }
-      else {
-        // console.log('No save visible.');
-      }
+      var ConfirmForm = jQuery('#node_ad_s_form_group_ad_review').is(':visible');
 
+
+      var ConfirmButton = jQuery('#edit-field-agree-und-confirm:checked').val();
+      // var SaveButton = jQuery('#edit-submit').is(':visible');
+      if (ConfirmForm) {
+
+      }
+       //console.log('Save button is visible');
+       jQuery('.multipage-button').hide();
+       jQuery('#edit-submit').show();
+     }
+     else {
+        jQuery('#edit-submit').hide();
+        jQuery('.multipage-button').show();
+        //console.log('No save visible.');
+        var ConfirmPage = jQuery('#edit-field-agree-und-not-yet:checked').val();
+        if (!ConfirmPage) {
+         jQuery('.multipage-link-next').hide();
+        }
+        else {
+         jQuery('.multipage-link-next').show();
+        }
+
+    }
+
+     // If on the confirmation page --> hide "Next Page" button.
       // Reinterpret SUBMIT, NEXT & PREVIOUS button's CSS
-      // console.log('Gotcha');
+       //console.log('Action detected - end of script.');
 
       // var pageState = jQuery('#node_ad_s_form_group_ad_review').attr('style');
       // console.log('Page state: ' + pageState);

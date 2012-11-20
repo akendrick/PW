@@ -120,7 +120,7 @@ function pw_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Edition',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_castlegar_edition',
       1 => 'field_kootenay_lake_edition',
@@ -209,7 +209,7 @@ function pw_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Info',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
       0 => 'field_edition_date',
     ),

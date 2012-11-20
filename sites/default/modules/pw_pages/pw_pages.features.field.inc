@@ -408,7 +408,7 @@ function pw_pages_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 1,
+              'status' => 0,
             ),
           ),
           'sort' => array(
@@ -418,8 +418,6 @@ function pw_pages_field_default_fields() {
           ),
           'target_bundles' => array(
             'attachment' => 'attachment',
-            'page' => 'page',
-            'pw_digital' => 'pw_digital',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -537,6 +535,10 @@ function pw_pages_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
         'user_role_field' => array(
           1 => 0,
@@ -1160,7 +1162,7 @@ function pw_pages_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 1,
+              'status' => 0,
             ),
           ),
           'sort' => array(
@@ -1170,8 +1172,6 @@ function pw_pages_field_default_fields() {
           ),
           'target_bundles' => array(
             'attachment' => 'attachment',
-            'page' => 'page',
-            'pw_digital' => 'pw_digital',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1234,14 +1234,14 @@ function pw_pages_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-attachment-field_high_res_ad'.
-  $fields['node-attachment-field_high_res_ad'] = array(
+  // Exported field: 'node-attachment-field_file'.
+  $fields['node-attachment-field_file'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_high_res_ad',
+      'field_name' => 'field_file',
       'field_permissions' => array(
         'type' => '0',
       ),
@@ -1263,7 +1263,11 @@ function pw_pages_field_default_fields() {
       'settings' => array(
         'display_default' => 1,
         'display_field' => 1,
-        'uri_scheme' => 'public',
+        'storage_class' => array(
+          'class_id' => '2',
+          'current_class_id' => '2',
+        ),
+        'uri_scheme' => 'storage-field-file',
       ),
       'translatable' => '0',
       'type' => 'file',
@@ -1274,30 +1278,30 @@ function pw_pages_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '4',
+          'weight' => 11,
         ),
         'teaser' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'file',
           'settings' => array(),
-          'type' => 'file_default',
-          'weight' => '1',
+          'type' => 'file_url_plain',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_high_res_ad',
-      'label' => 'Attachment',
+      'field_name' => 'field_file',
+      'label' => 'File',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
         'description_field' => 0,
-        'file_directory' => 'attachments',
-        'file_extensions' => 'txt pdf jpg tiff gif png',
-        'max_filesize' => '5MB',
+        'file_directory' => 'storage/attachments',
+        'file_extensions' => 'txt pdf doc tif psd jpg png ind exl',
+        'max_filesize' => '10 MB',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1306,33 +1310,35 @@ function pw_pages_field_default_fields() {
         'settings' => array(
           'filefield_sources' => array(
             'filefield_sources' => array(
-              'attach' => 0,
+              'attach' => 'attach',
+              'clipboard' => 0,
               'reference' => 'reference',
               'remote' => 0,
             ),
             'source_attach' => array(
               'absolute' => '0',
-              'attach_mode' => 'copy',
-              'path' => 'attachments',
+              'attach_mode' => 'move',
+              'path' => 'storage/attachments',
+            ),
+            'source_imce' => array(
+              'imce_mode' => 0,
             ),
             'source_reference' => array(
               'autocomplete' => '1',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
             'auto' => 'auto',
+            'icon_link' => 0,
             'image' => 0,
-            'image_classified_ad_image_small' => 0,
-            'image_display_ad_banner' => 0,
-            'image_display_ad_poster' => 0,
-            'image_display_ad_print_full' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_list_nocrop' => 0,
+            'image_classified_page_style' => 0,
             'image_display_ad_print_thumbnail' => 0,
-            'image_display_ad_splash' => 0,
-            'image_display_ad_target' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
@@ -1340,6 +1346,7 @@ function pw_pages_field_default_fields() {
             'image_editorial_thumbnail' => 0,
             'image_large' => 0,
             'image_medium' => 0,
+            'image_miniature_square' => 0,
             'image_square_thumbnail' => 0,
             'image_thumbnail' => 0,
             'link' => 0,
@@ -1381,6 +1388,10 @@ function pw_pages_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
         'user_role_field' => array(
           1 => 0,
@@ -1425,16 +1436,8 @@ function pw_pages_field_default_fields() {
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
-            'image_link' => 'content',
+            'image_link' => '',
             'image_style' => 'medium',
-            'masonry' => 0,
-            'masonry_animated' => 1,
-            'masonry_animated_duration' => '500',
-            'masonry_center' => 0,
-            'masonry_gutter' => '0',
-            'masonry_resizable' => 1,
-            'masonry_rtl' => 0,
-            'masonry_width' => '200',
           ),
           'type' => 'image',
           'weight' => '0',
@@ -1443,7 +1446,7 @@ function pw_pages_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_image',
       'label' => 'Thumbnail',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
@@ -1463,6 +1466,7 @@ function pw_pages_field_default_fields() {
           'filefield_sources' => array(
             'filefield_sources' => array(
               'attach' => 0,
+              'clipboard' => 0,
               'reference' => 'reference',
               'remote' => 0,
             ),
@@ -1471,24 +1475,25 @@ function pw_pages_field_default_fields() {
               'attach_mode' => 'copy',
               'path' => 'file_attach',
             ),
+            'source_imce' => array(
+              'imce_mode' => 0,
+            ),
             'source_reference' => array(
               'autocomplete' => '1',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
             'auto' => 0,
+            'icon_link' => 0,
             'image' => 'image',
-            'image_classified_ad_image_small' => 0,
-            'image_display_ad_banner' => 0,
-            'image_display_ad_poster' => 0,
-            'image_display_ad_print_full' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_list_nocrop' => 0,
+            'image_classified_page_style' => 0,
             'image_display_ad_print_thumbnail' => 0,
-            'image_display_ad_splash' => 0,
-            'image_display_ad_target' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
@@ -1496,6 +1501,7 @@ function pw_pages_field_default_fields() {
             'image_editorial_thumbnail' => 0,
             'image_large' => 'image_large',
             'image_medium' => 'image_medium',
+            'image_miniature_square' => 0,
             'image_square_thumbnail' => 'image_square_thumbnail',
             'image_thumbnail' => 'image_thumbnail',
             'link' => 0,
@@ -1712,7 +1718,7 @@ function pw_pages_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 1,
+              'status' => 0,
             ),
           ),
           'sort' => array(
@@ -1722,8 +1728,6 @@ function pw_pages_field_default_fields() {
           ),
           'target_bundles' => array(
             'attachment' => 'attachment',
-            'page' => 'page',
-            'pw_digital' => 'pw_digital',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -1818,6 +1822,10 @@ function pw_pages_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
         'user_role_field' => array(
           1 => 0,
@@ -2260,7 +2268,7 @@ function pw_pages_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '6',
+        'weight' => '9',
       ),
     ),
   );
@@ -2435,7 +2443,11 @@ function pw_pages_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => '993',
-        'uri_scheme' => 'public',
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
+        'uri_scheme' => 'storage-field-display-ad',
       ),
       'translatable' => '0',
       'type' => 'image',
@@ -2549,7 +2561,7 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '3',
+        'weight' => '6',
       ),
     ),
   );
@@ -2696,7 +2708,7 @@ function pw_pages_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 1,
+              'status' => 0,
             ),
           ),
           'sort' => array(
@@ -2706,8 +2718,6 @@ function pw_pages_field_default_fields() {
           ),
           'target_bundles' => array(
             'attachment' => 'attachment',
-            'page' => 'page',
-            'pw_digital' => 'pw_digital',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -2824,7 +2834,7 @@ function pw_pages_field_default_fields() {
           ),
         ),
         'type' => 'inline_entity_form',
-        'weight' => '12',
+        'weight' => '4',
       ),
     ),
   );
@@ -3117,7 +3127,7 @@ function pw_pages_field_default_fields() {
   $fields['node-pw_digital-field_pdf'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_pdf',
@@ -3142,7 +3152,11 @@ function pw_pages_field_default_fields() {
       'settings' => array(
         'display_default' => 1,
         'display_field' => 0,
-        'uri_scheme' => 'public',
+        'storage_class' => array(
+          'class_id' => '2',
+          'current_class_id' => '1',
+        ),
+        'uri_scheme' => 'storage-field-pdf',
       ),
       'translatable' => '0',
       'type' => 'file',
@@ -3150,7 +3164,7 @@ function pw_pages_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'pw_digital',
       'deleted' => '0',
-      'description' => 'Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]',
+      'description' => 'Direct link to pdf for download purposes. <strong>Label the file with the AREA.</strong><br><em>eg. Pennywise_Castlegar_Nov13-2021.pdf</em>',
       'display' => array(
         'castlegar_edition_view' => array(
           'label' => 'above',
@@ -3203,10 +3217,10 @@ function pw_pages_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
-        'description_field' => 0,
+        'description_field' => 1,
         'file_directory' => 'pdf',
-        'file_extensions' => 'pdf zip rar',
-        'max_filesize' => '12MB',
+        'file_extensions' => 'pdf',
+        'max_filesize' => '10MB',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -3216,26 +3230,32 @@ function pw_pages_field_default_fields() {
           'filefield_sources' => array(
             'filefield_sources' => array(
               'attach' => 0,
-              'reference' => 'reference',
-              'remote' => 'remote',
+              'clipboard' => 0,
+              'reference' => 0,
+              'remote' => 0,
             ),
             'source_attach' => array(
               'absolute' => '0',
               'attach_mode' => 'copy',
               'path' => 'file_attach',
             ),
+            'source_imce' => array(
+              'imce_mode' => 0,
+            ),
             'source_reference' => array(
               'autocomplete' => '1',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
             'auto' => 'auto',
+            'icon_link' => 0,
             'image' => 0,
             'image_classified-list-style' => 0,
+            'image_classified_list_nocrop' => 0,
             'image_classified_page_style' => 0,
             'image_display_ad_print_thumbnail' => 0,
             'image_editorial_block_list_header' => 0,
@@ -3245,6 +3265,7 @@ function pw_pages_field_default_fields() {
             'image_editorial_thumbnail' => 0,
             'image_large' => 0,
             'image_medium' => 0,
+            'image_miniature_square' => 0,
             'image_square_thumbnail' => 0,
             'image_thumbnail' => 0,
             'link' => 0,
@@ -3387,7 +3408,129 @@ function pw_pages_field_default_fields() {
           'size' => '80',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-pw_digital-field_special_feature_link'.
+  $fields['node-pw_digital-field_special_feature_link'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_special_feature_link',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 1,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'attachment' => 'attachment',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pw_digital',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Link special feature here by typing the name of the file.<br>
+If you have not uploaded the special feature <a href=\'/node/add/attachment\' target=\'_NEW\'>click here.</a><br>
+NOTE: Thumbnail image required.',
+      'display' => array(
+        'castlegar_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 11,
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'kootenay_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'nelson_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'trail_edition_view' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_special_feature_link',
+      'label' => 'Special Feature Link',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '3',
       ),
     ),
   );
@@ -3545,23 +3688,26 @@ function pw_pages_field_default_fields() {
 </ol>');
   t('Area');
   t('Attach pages, display ads, editorials or downloadable files to this page.');
-  t('Attachment');
   t('Body');
   t('By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>');
   t('Castlegar Edition');
   t('Cover');
   t('Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.');
   t('Description');
-  t('Direct link to pdf for download purposes. Usually starts with --> http://www.scribd.com/doc/ [file_name]');
+  t('Direct link to pdf for download purposes. <strong>Label the file with the AREA.</strong><br><em>eg. Pennywise_Castlegar_Nov13-2021.pdf</em>');
   t('Edition Date');
   t('Email');
   t('Extra Images');
+  t('File');
   t('Header Image');
   t('Highlighted Link');
   t('If the attachment is several pages or files you can reference the other items here.');
   t('Inserted Images');
   t('Kootenay Lake Edition');
   t('Link');
+  t('Link special feature here by typing the name of the file.<br>
+If you have not uploaded the special feature <a href=\'/node/add/attachment\' target=\'_NEW\'>click here.</a><br>
+NOTE: Thumbnail image required.');
   t('Nelson Edition');
   t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
   t('PDF');
@@ -3569,6 +3715,7 @@ function pw_pages_field_default_fields() {
   t('References');
   t('Scribd');
   t('Special Feature');
+  t('Special Feature Link');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');

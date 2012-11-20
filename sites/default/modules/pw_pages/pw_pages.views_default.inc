@@ -149,7 +149,9 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'edit_node' => 'field_edition_date_1',
     'field_edition_date_1' => 'field_edition_date_1',
+    'contextual_links' => 'field_edition_date_1',
     'field_edition_date' => 'field_edition_date_1',
     'field_castlegar_edition' => 'field_castlegar_edition',
     'field_kootenay_lake_edition' => 'field_kootenay_lake_edition',
@@ -159,11 +161,21 @@ function pw_pages_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'edit_node' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_edition_date_1' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'contextual_links' => array(
+      'align' => '',
+      'separator' => '',
       'empty_column' => 0,
     ),
     'field_edition_date' => array(
@@ -214,6 +226,30 @@ function pw_pages_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
+  /* Field: Global: Contextual Links */
+  $handler->display->display_options['fields']['contextual_links']['id'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['table'] = 'views';
+  $handler->display->display_options['fields']['contextual_links']['field'] = 'contextual_links';
+  $handler->display->display_options['fields']['contextual_links']['label'] = '';
+  $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['contextual_links']['fields'] = array(
+    'edit_node' => 'edit_node',
+    'field_edition_date_1' => 0,
+    'field_edition_date' => 0,
+    'field_castlegar_edition' => 0,
+    'field_kootenay_lake_edition' => 0,
+    'field_nelson_edition' => 0,
+    'field_trail' => 0,
+    'field_entity_reference' => 0,
+  );
   /* Field: Content: Edition Date - Human Readable */
   $handler->display->display_options['fields']['field_edition_date_1']['id'] = 'field_edition_date_1';
   $handler->display->display_options['fields']['field_edition_date_1']['table'] = 'field_data_field_edition_date';

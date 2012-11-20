@@ -375,6 +375,10 @@ function pw_cl_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
         'user_role_field' => array(
           1 => 0,
@@ -1558,6 +1562,10 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'storage_class' => array(
+          'class_id' => '1',
+          'current_class_id' => '1',
+        ),
         'uri_scheme' => 'public',
         'user_role_field' => array(
           1 => 0,

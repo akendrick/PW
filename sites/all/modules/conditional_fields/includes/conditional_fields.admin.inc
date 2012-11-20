@@ -64,24 +64,31 @@ function conditional_fields_dependencies_overview_page($bundle_name = NULL, $ent
       );
     }
 
-    foreach ($entity_info['bundles'] as $bundle_info_name => $bundle_info) {
-      if ($bundle_name && $bundle_name != $bundle_info_name) {
-        continue;
-      }
+    if (empty($entity_info['bundles'])) {
+      $build[$entity_name]['no_bundles'] = array(
+        '#markup' => $entity_name == 'node' ? t('No content types available.') : t('No bundles available.'),
+      );
+    }
+    else {
+      foreach ($entity_info['bundles'] as $bundle_info_name => $bundle_info) {
+        if ($bundle_name && $bundle_name != $bundle_info_name) {
+          continue;
+        }
 
-      $build[$entity_name][$bundle_info_name] = array();
+        $build[$entity_name][$bundle_info_name] = array();
 
-      if (!$bundle_name && count($entity_info['bundles']) > 1) {
-        $build[$entity_name][$bundle_info_name]['title'] = array(
-          '#markup' => '<h4 class="conditional-fields-bundles-list clearfix">' . $bundle_info['label'] . '</h4>',
-        );
-      }
+        if (!$bundle_name && count($entity_info['bundles']) > 1) {
+          $build[$entity_name][$bundle_info_name]['title'] = array(
+            '#markup' => '<h4 class="conditional-fields-bundles-list clearfix">' . $bundle_info['label'] . '</h4>',
+          );
+        }
 
-      $build[$entity_name][$bundle_info_name] += drupal_get_form('conditional_fields_dependency_add_form_' . $entity_name . '_' . $bundle_info_name);
+        $build[$entity_name][$bundle_info_name] += drupal_get_form('conditional_fields_dependency_add_form_' . $entity_name . '_' . $bundle_info_name);
 
-      if (!$entity_type && !isset($build[$entity_name][$bundle_info_name]['no_fields'])) {
-        $build[$entity_name]['#collapsed'] = FALSE;
-        $build[$entity_name]['#attributes']['class'] = array('collapsible');
+        if (!$entity_type && !isset($build[$entity_name][$bundle_info_name]['no_fields'])) {
+          $build[$entity_name]['#collapsed'] = FALSE;
+          $build[$entity_name]['#attributes']['class'] = array('collapsible');
+        }
       }
     }
   }
@@ -102,7 +109,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
 
   if (count($instances) < 2) {
     $form['no_fields'] = array(
-      '#markup' => '<p>' . t('Add at least two fields to enable dependencies.') . '</p>',
+      '#markup' => t('Add at least two fields to enable dependencies.'),
     );
 
     return $form;
@@ -145,7 +152,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
         // first row they will appear grouped.
         if ($first_row == TRUE) {
           $form['table']['dependencies'][$id]['dependent'] = array(
-            '#markup' => $dependent,
+            '#markup' => check_plain($instances[$dependent]['label']) . ' (' . $dependent . ')',
             '#rowspan' => $dependee_count,
           );
 
@@ -154,7 +161,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
 
         $row = array(
           'dependee' => array(
-            '#markup' => $dependency['dependee'],
+            '#markup' => check_plain($instances[$dependency['dependee']]['label']) . ' (' . $dependency['dependee'] . ')',
           ),
         );
 
@@ -173,7 +180,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
           $row['description']['#colspan'] = 2;
         }
 
-        $row['description']['#markup'] = conditional_fields_dependency_description($dependency['dependee'], $dependent, $dependency['options']);
+        $row['description']['#markup'] = conditional_fields_dependency_description($instances[$dependency['dependee']]['label'], $instances[$dependent]['label'], $dependency['options']);
 
         $row['edit'] = array(
           '#type' => 'link',
@@ -198,7 +205,7 @@ function conditional_fields_dependency_add_form($form, &$form_state, $entity_typ
   $fields = array();
 
   foreach ($instances as $field) {
-    $fields[$field['id']] = check_plain($field['label']);
+    $fields[$field['id']] = check_plain($field['label'] . ' (' . $field['field_name'] . ')');
   }
 
   asort($fields);
