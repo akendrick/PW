@@ -182,6 +182,7 @@ function pw_la_context_default_contexts() {
         '~ad/*' => '~ad/*',
         'ad/*' => 'ad/*',
         '<front>' => '<front>',
+        'classifieds' => 'classifieds',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
         'sales/*' => 'sales/*',

@@ -906,6 +906,30 @@ ul.pw-classified-nav-list {
 
 /*****************  CLASSIFIEDS  *****************/
 
+/** classified - listings page **/
+.view-display-id-full_list_page {
+  a {
+    text-decoration: none;
+
+  }
+  ul.stem_class {
+    border: 2pt solid @classified_light;
+    background-color: @classified_light;
+    .border-radius;
+/*     width: 100%; */
+    li a{
+      height: 2em;
+      clear: left;
+      margin-left: 5px;
+    }
+  }
+  ul ul.branch_class {
+    float: left;
+    width: 240px;
+    background-color: @white;
+  }
+}
+
 /* Main Sections BLOCK */
 .view-section-pages, .view-search-ads {
    li.views-row-even, .views-row-odd {
@@ -1003,7 +1027,7 @@ ul.pw-classified-nav-list {
   }
 }
 
-
+/*** classified ads with MASONRY blocks ****/
 .view-id-section_pages {
   background-color: @faintsand;
   margin: 0;
@@ -1086,79 +1110,7 @@ ul.pw-classified-nav-list {
     height: 0;
   }
 }
-/*
-.content {
-  .classified-ad-header {
-    background-color: @white;
-    .border-radius;
-    h3 {
-      margin: 25px 0 4px 2px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 1.4em;
-      background-color: @classified_dark;
-      .border-radius-custom;
-      a {
-        color: @white;
-        text-decoration: none;
-      }
-    }
-  }
-  .classified-ad-section, .masonry-item {
-    list-style: none;
-    .cols;
-    li {
-      list-style: none;
-      padding: 4px;
-      margin: 4px 0;
-*/
-      /* Individual Ads */
-/*
-      .views-row {
-        padding: 5px;
-        margin: 0 0 5px 0;
-        a img, img {
-          .center;
-        }
-      }
-      .classified-ad-copy:first-line, .masonry-item {
-        font-weight: bolder;
-      }
-  }
 
-*/
-    /* liveload */
-/*
-    .row-type-Liveload {
-      background-color: @sunlight;
-      border: 2pt dotted @warning;
-    }
-    .row-type-Liveload:first-line {
-      color: @alert;
-    }
-    .views-row-odd.row-type-Liveload {
-      background-color: @darklight;
-    }
-    .views-row .Liveload-footer {
-      text-align: center;
-      padding: 2pt;
-      text-transform: uppercase;
-      font-size: .8em;
-      line-height: .9em;
-      font-weight: bolder;
-      background-color: @warning;
-    }
-    .views-row .Regular-footer {
-      display: none;
-      height: 0px;
-    }
-
-    li:first-line {
-      font-weight: bold;
-    }
-  }
-}
-*/
 /* read-more link */
 .classified-more-link a, {
   font-size: .7em;
@@ -1203,6 +1155,8 @@ ul.pw-classified-nav-list {
 #node_classified_full_group_details {
   width: 190px;
 }
+
+
 
 /*****************  ADMIN  *****************/
 /**********  SEE PENNYWISE MODULE **********/

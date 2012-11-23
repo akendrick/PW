@@ -1,0 +1,64 @@
+=== modified file 'views_tree.module' (properties changed: -x to +x)
+--- views_tree.module	2012-03-29 19:33:44 +0000
++++ views_tree.module	2012-03-29 19:29:20 +0000
+@@ -117,22 +117,33 @@
+  * @param $parent
+  *   The id of the parent entry in the call stack.
+  */
+-function theme_views_tree_inner($variables) {
++function theme_views_tree_inner($variables, $depth = 0) {
+   $view = $variables['view'];
+   $options = $variables['options'];
+   $rows = $variables['rows'];
+   $title = $variables['title'];
+   $result = $variables['result'];
+   $parent = $variables['parent'];
++  $depth++;
++  $class = ($depth == 1) ? $variables['options']['top_class'] : $variables['options']['class'];
++//print(var_dump($variables['options']['class']));
+ 
+   $items = array();
+   foreach ($result as $i => $record) {
+     if ($record->views_tree_parent == $parent) {
+       $variables['parent'] = $record->views_tree_main;
+-      $items[] = $rows[$i] . call_user_func(__FUNCTION__, $variables);
++
++      $items[] = $rows[$i] . call_user_func(__FUNCTION__, $variables, $depth);
+     }
+   }
+-  return count($items) ? theme('item_list', array('items' => $items, 'type' => $options['type'])) : '';
++
++  $theme_variables = array(
++    'items' => $items, 
++    'type' => $options['type'], 
++    'attributes' => array('class' => $class)
++  );
++
++  return count($items) ? theme('item_list', $theme_variables) : '';
+ }
+ 
+ /**
+
+=== modified file 'views_tree_plugin_style_tree.inc' (properties changed: -x to +x)
+--- views_tree_plugin_style_tree.inc	2012-03-29 19:33:44 +0000
++++ views_tree_plugin_style_tree.inc	2012-03-29 19:38:49 +0000
+@@ -17,7 +17,8 @@
+    */
+   function option_definition() {
+     $options = parent::option_definition();
+-    $options['class'] = array('default' => '');
++    $options['top_class'] = array('default' => 'stem_class');
++    $options['class'] = array('default' => 'branch_class');
+     $options['wrapper_class'] = array('default' => 'item-list');
+     $options['main_field'] = array('default' => '');
+     $options['parent_field'] = array('default' => '');
+@@ -48,7 +49,7 @@
+ 
+     // Unused by the views tree module at this time.
+     unset($form['wrapper_class']);
+-    unset($form['class']);
++    //unset($form['class']);
+ 
+     $form['main_field'] = array(
+       '#type' => 'select',
+

@@ -6625,10 +6625,61 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['display_description'] = 'Section Heading List Block';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 
-  /* Display: Full List Page */
-  $handler = $view->new_display('page', 'Full List Page', 'full_list_page');
+  /* Display: Taxonomy Tree Page */
+  $handler = $view->new_display('page', 'Taxonomy Tree Page', 'full_list_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = '<none>';
   $handler->display->display_options['display_description'] = 'Listing of only child terms (PAGE).';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'tree';
+  $handler->display->display_options['style_options']['main_field'] = 'tid';
+  $handler->display->display_options['style_options']['parent_field'] = 'tid_1';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'name' => 'name',
+    'tid' => 'tid',
+    'tid_1' => 'tid_1',
+  );
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: TID - no relation */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['ui_name'] = 'TID - no relation';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  /* Field: TID - relation */
+  $handler->display->display_options['fields']['tid_1']['id'] = 'tid_1';
+  $handler->display->display_options['fields']['tid_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid_1']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['tid_1']['ui_name'] = 'TID - relation';
+  $handler->display->display_options['fields']['tid_1']['label'] = '';
+  $handler->display->display_options['fields']['tid_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid_1']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_class'] = 'classified-section-link';
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Taxonomy term: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
@@ -6639,15 +6690,7 @@ function pw_admin_views_default_views() {
     'classification' => 'classification',
   );
   $handler->display->display_options['filters']['machine_name']['group'] = 1;
-  /* Filter criterion: Parent should exist */
-  $handler->display->display_options['filters']['field_classified_id_value']['id'] = 'field_classified_id_value';
-  $handler->display->display_options['filters']['field_classified_id_value']['table'] = 'field_data_field_classified_id';
-  $handler->display->display_options['filters']['field_classified_id_value']['field'] = 'field_classified_id_value';
-  $handler->display->display_options['filters']['field_classified_id_value']['relationship'] = 'parent';
-  $handler->display->display_options['filters']['field_classified_id_value']['ui_name'] = 'Parent should exist';
-  $handler->display->display_options['filters']['field_classified_id_value']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_classified_id_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'front';
+  $handler->display->display_options['path'] = 'classifieds';
 
   /* Display: Sub List Block */
   $handler = $view->new_display('block', 'Sub List Block', 'tax_sub_list');
