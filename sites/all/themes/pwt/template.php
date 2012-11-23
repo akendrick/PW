@@ -9,8 +9,8 @@
  *
  *
  */
- 
- 
+
+
 
 /**
  * Preprocesses menus being rendered in blocks to add zebra-striping classes to
@@ -26,8 +26,7 @@
  * </ul>
  */
 function pwt_preprocess_menu_advertising_links_block_wrapper(&$variables, $hook) {
-  dpm($variables);
-  
+
   $zebra = 0;
   foreach (element_children($variables['content']) as $mlid){
     $variables['content'][$mlid]['#attributes']['class'][] = ($zebra % 2) ? 'odd' : 'even';
@@ -35,8 +34,3 @@ function pwt_preprocess_menu_advertising_links_block_wrapper(&$variables, $hook)
   }
 }
 
-
-// function pwt_menu_alter(&$items) {
-//   dpm ($items);
-// 
-// }

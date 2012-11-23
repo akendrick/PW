@@ -203,7 +203,7 @@ function pw_vars_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_attachment';
-  $strongarm->value = 'edit-addanother-display';
+  $strongarm->value = 'edit-submission';
   $export['additional_settings__active_tab_attachment'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1153,6 +1153,7 @@ echo date(\'now\');
     'classifieds_singlular' => TRUE,
     'general_layout' => TRUE,
     'editorial_layout' => TRUE,
+    'search' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -1848,6 +1849,24 @@ admin/*
       'mobile' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'castlegar_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'editorial_slideshow' => array(
+        'custom_settings' => FALSE,
+      ),
+      'kootenay_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'nelson_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'trail_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'display' => array(),
@@ -2134,7 +2153,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'genpass_display';
-  $strongarm->value = '1';
+  $strongarm->value = '3';
   $export['genpass_display'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2155,7 +2174,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'genpass_mode';
-  $strongarm->value = '2';
+  $strongarm->value = '1';
   $export['genpass_mode'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2181,6 +2200,7 @@ admin/*
   $strongarm->value = array(
     '' => array(
       'A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.' => 'A validation e-mail has been sent to your e-mail address. If you wish to create another ad in the future, or gain access to other features of this site consider validating your address, by following the instructions in that message.',
+      'You are not logged in.' => 'Welcome to the <br>Pennywise Ad Creation page.',
     ),
   );
   $export['locale_custom_strings_en'] = $strongarm;
@@ -2530,7 +2550,7 @@ admin/*
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_attachment';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['node_preview_attachment'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -4574,7 +4594,7 @@ password: Your password
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_mail_status_activated_notify';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['user_mail_status_activated_notify'] = $strongarm;
 
   $strongarm = new stdClass();

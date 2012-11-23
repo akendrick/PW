@@ -1808,6 +1808,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           8 => 0,
           9 => 0,
           10 => 0,
+          11 => 0,
+          12 => 0,
         ),
       ),
       'translatable' => '0',

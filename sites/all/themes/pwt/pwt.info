@@ -75,6 +75,19 @@ css[global.css][name] = 'PW custom global styles'
 css[global.css][description] = 'Globally active custom CSS of your theme.'
 css[global.css][options][weight] = '-30'
 
+scripts[] = js/jquery.imagesloaded.min.js
+
+;scripts[] = js/pwt.wookmark.js
+;scripts[] = js/jquery.wookmark.min.js
+
+scripts[] = js/jquery.masonry.min.js
+scripts[] = js/pwt.masonry.js
+
+;scripts[] = js/jquery.isotope.min.js
+;scripts[] = js/pwt.isotope.js
+
+;scripts[] = js/jquery.column-1.0.js
+;scripts[] = js/pwt.column.js
 
 settings[alpha_viewport] = '1'
 settings[alpha_viewport_initial_scale] = '1'
@@ -310,7 +323,7 @@ settings[alpha_region_splash_one_columns] = '3'
 settings[alpha_region_splash_one_suffix] = ''
 settings[alpha_region_splash_one_weight] = '2'
 settings[alpha_region_splash_one_css] = ''
-                       
+
 settings[alpha_region_splash_two_equal_height_container] = ''
 settings[alpha_region_splash_two_equal_height_element] = ''
 settings[alpha_region_splash_two_force] = ''
@@ -320,7 +333,7 @@ settings[alpha_region_splash_two_columns] = '3'
 settings[alpha_region_splash_two_suffix] = ''
 settings[alpha_region_splash_two_weight] = '3'
 settings[alpha_region_splash_two_css] = ''
-                              
+
 settings[alpha_region_menu_equal_height_container] = ''
 settings[alpha_region_menu_equal_height_element] = ''
 settings[alpha_region_menu_force] = '1'

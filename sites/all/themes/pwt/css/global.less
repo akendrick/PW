@@ -472,7 +472,7 @@ body {
 #region-sidebar-first .block {
   padding: 3px 3px 10px 3px;
   margin: 0 0 15px 0;
-  h2, #edit-search-ads-wrapper {
+  h2, #edit-search-ads-wrapper, #edit-search-ads--2-wrapper {
     label {
       color: @white;
       text-transform: uppercase;
@@ -490,13 +490,14 @@ body {
 }
 
 /* search block */
-#views-exposed-form-search-ads-search-page {
+#views-exposed-form-search-ads-search-page,
+#views-exposed-form-search-ads-search-page--2 {
     .border-radius;
     background-color: @classified_dark;
     padding: 4px 1px;
   label {
   }
-  #edit-search-ads {
+  #edit-search-ads, #edit-search-ads--2 {
     width: 130px;
     .center;
   }
@@ -508,6 +509,7 @@ body {
 }
 
 /* Mobile Search */
+.zone-preface #views-exposed-form-search-ads-search-page--2,
 .zone-preface #views-exposed-form-search-ads-search-page {
   /* Search box in preface */
   background-color: @other;
@@ -597,7 +599,8 @@ body {
 
 /* display ad pages - simple page */
 #region-user-second {
-  #edit-search-ads-wrapper {
+  #edit-search-ads-wrapper,
+  #edit-search-ads--2-wrapper {
     color: @white;
     text-align: center;
   }
@@ -990,26 +993,79 @@ ul.pw-classified-nav-list {
 }
 
 /* classified ads */
+
+/**** classified ads page *****/
+#block-views-display-ad-blocks-print-block {
+  ul.classified-ad-group-section {
+    li.classified-ad-block {
+      width: 90%;
+    }
+  }
+}
+
+
 .view-id-section_pages {
   background-color: @faintsand;
-  .masonry-item.masonry-brick {
-    border-top: 3pt solid @darklight;
-    padding: 5px;
+  margin: 0;
+  padding: 0;
+  /* section headers */
+  h3 {
+    background-color: @classified_med;
+    color: @white;
+    text-align: center;
+    .border-radius-custom;
     margin: 0;
-    border: 0;
-    p {
-      margin: 0;
-      padding: 5px; }
-    p:first-line {
-      font-weight: bolder;
+  }
+  .classified-item-wrapper {
+    margin: 0;
+    background-color: inherit;
+    clear: both;
+  }
+   /* general sections */
+  ul.classified-ad-group-section {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    li.classified-ad-block {
+/*       float: left; */
+      width: 100%;
+      padding: 5px;
+      margin: 3px 5px;
+      .border-radius;
+      background-color: inherit;
+      border-width: 1pt;
+      p {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      img, a img {
+/*         width: 100%; */
+        margin: 0 auto;
+        display: block;
+      }
+    }
+
+    li.views-row-odd {
+      border: none;
+      background-color: @lightsand;
+    }
+    li.views-row-even {
+      border: none;
+      background-color: @sand;
     }
   }
   .views-row-even, .views-row-odd {
     background-color: inherit;
   }
+  .classified-ad-copy p:first-line {
+    font-weight: bold;
+  }
   .ad-type-Regular {
+/*
     background-color: @lightsand;
     .border-radius(4px);
+*/
   }
   .ad-type-Liveload {
     background-color: @sunlight;
@@ -1027,7 +1083,7 @@ ul.pw-classified-nav-list {
   }
   .Regular-footer {
     display: none;
-    height: 0px;
+    height: 0;
   }
 }
 /*
@@ -1536,6 +1592,21 @@ body.page-ad-submit {
       }
     }
   }
+
+/**** Ad Rates ********/
+.context-advertising-rates-information {
+  .node-attachment.view-mode-teaser {
+    width: 300px;
+    margin: 0;
+    padding: 0;
+    .field-item.odd {
+      float: left;
+    }
+    .field-item.even {
+      float: right;
+    }
+  }
+}
 
 
 /************ Digital Edition ********/

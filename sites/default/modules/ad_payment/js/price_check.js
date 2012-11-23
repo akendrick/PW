@@ -497,22 +497,17 @@ jQuery(document).ready(function() {
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
       // Hide 'Next Page' upon 'Save' option
-      var ConfirmForm = jQuery('#node_ad_s_form_group_ad_review').is(':visible');
-
-
-      var ConfirmButton = jQuery('#edit-field-agree-und-confirm:checked').val();
-      // var SaveButton = jQuery('#edit-submit').is(':visible');
-      if (ConfirmForm) {
-
-      }
-       //console.log('Save button is visible');
+     var ConfirmForm = jQuery('#edit-field-agree-und-confirm:checked').val();
+     // var SaveButton = jQuery('#edit-submit').is(':visible');
+     if (ConfirmForm) {
+       console.log('Save button is visible');
        jQuery('.multipage-button').hide();
        jQuery('#edit-submit').show();
      }
      else {
-        jQuery('#edit-submit').hide();
-        jQuery('.multipage-button').show();
-        //console.log('No save visible.');
+         jQuery('#edit-submit').hide();
+         jQuery('.multipage-button').show();
+        console.log('No save visible.');
         var ConfirmPage = jQuery('#edit-field-agree-und-not-yet:checked').val();
         if (!ConfirmPage) {
          jQuery('.multipage-link-next').hide();

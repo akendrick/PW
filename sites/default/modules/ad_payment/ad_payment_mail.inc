@@ -179,8 +179,8 @@ Address: Box 430,
          Canada V0G 1M0
 
 PLEASE NOTE:
-Your ad will be reviewed by out friendly staff before being placed online and in print.
-If you have chosed the liveload ad feature this will happen within 1/2 hour (during business hours).
+Your ad will be reviewed by our friendly staff before being placed online and in print.
+If you have chosen the liveload ad feature this will happen within 1/2 hour (during business hours).
 Otherwise the ad will wait until our next print edition which is every Tuesday.
 
 We appreciate your business, and look forward to helping you again.

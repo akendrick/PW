@@ -262,15 +262,19 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '0';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'masonry_views_grid';
-  $handler->display->display_options['style_options']['row_class'] = 'classified-ad-row';
-  $handler->display->display_options['style_options']['masonry_width'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_animated'] = FALSE;
-  $handler->display->display_options['style_options']['masonry_animated_duration'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_resizable'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_center'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_gutter'] = TRUE;
-  $handler->display->display_options['style_options']['masonry_rtl'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_tags_1',
+      'rendered' => 0,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['row_class'] = 'classified-ad-block';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_options']['class'] = 'classified-ad-group-section';
+  $handler->display->display_options['style_options']['wrapper_class'] = 'item-list classified-item-wrapper';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
     'field_image_1' => 'field_image_1',
@@ -285,6 +289,16 @@ function pw_cl_views_default_views() {
     'delete_node' => 'delete_node',
   );
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  /* Field: Content: Section */
+  $handler->display->display_options['fields']['field_tags_1']['id'] = 'field_tags_1';
+  $handler->display->display_options['fields']['field_tags_1']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['fields']['field_tags_1']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags_1']['label'] = '';
+  $handler->display->display_options['fields']['field_tags_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_tags_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_tags_1']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_tags_1']['group_rows'] = FALSE;
+  $handler->display->display_options['fields']['field_tags_1']['delta_offset'] = '0';
   /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image_1']['id'] = 'field_image_1';
   $handler->display->display_options['fields']['field_image_1']['table'] = 'field_data_field_image';

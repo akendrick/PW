@@ -86,40 +86,8 @@ function pw_admin_filter_default_formats() {
     'status' => '1',
     'weight' => '-6',
     'filters' => array(
-      'lightbox2_filter' => array(
-        'weight' => '-49',
-        'status' => '1',
-        'settings' => array(),
-      ),
-      'lightbox_modal_filter' => array(
-        'weight' => '-48',
-        'status' => '1',
-        'settings' => array(),
-      ),
-      'lightbox_slideshow_filter' => array(
-        'weight' => '-47',
-        'status' => '1',
-        'settings' => array(),
-      ),
-      'filter_url' => array(
-        'weight' => '-44',
-        'status' => '1',
-        'settings' => array(
-          'filter_url_length' => '72',
-        ),
-      ),
-      'filter_autop' => array(
-        'weight' => '-40',
-        'status' => '1',
-        'settings' => array(),
-      ),
       'filter_htmlcorrector' => array(
         'weight' => '-37',
-        'status' => '1',
-        'settings' => array(),
-      ),
-      'filter_markdown' => array(
-        'weight' => '0',
         'status' => '1',
         'settings' => array(),
       ),
