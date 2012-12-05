@@ -22,3 +22,4 @@ files[] = css/ad_payment.less
 
 ;jQuery
 scripts[] = js/price_check.js
+scripts[] = js/form_themeing.js

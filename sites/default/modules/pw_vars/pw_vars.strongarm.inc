@@ -266,7 +266,7 @@ function pw_vars_strongarm() {
   $strongarm->value = array(
     32 => 'Animals & Livestock',
     24 => 'Announcements',
-    14 => 'Community Boards',
+    14 => 'Bulletin Boards',
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
@@ -1154,6 +1154,9 @@ echo date(\'now\');
     'general_layout' => TRUE,
     'editorial_layout' => TRUE,
     'search' => TRUE,
+    'admin-stuff' => TRUE,
+    'admin-stuff-admin-theme' => TRUE,
+    'admin_boxes' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -1417,16 +1420,6 @@ echo date(\'now\');
   $strongarm->name = 'exclude_node_title_search';
   $strongarm->value = 0;
   $export['exclude_node_title_search'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'feedback_excluded_paths';
-  $strongarm->value = 'admin/reports/feedback
-ad/*
-admin/*
-<front>';
-  $export['feedback_excluded_paths'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1803,10 +1796,10 @@ admin/*
       'display' => array(),
       'form' => array(
         'title' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
         'path' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
     ),
@@ -2288,6 +2281,7 @@ admin/*
     5 => 'menu-pages',
     6 => 'menu-advertising-links',
     8 => 'menu-pennywise-digital-edition',
+    9 => 'menu-header-menu',
   );
   $export['menu_default_active_menus'] = $strongarm;
 
@@ -3744,7 +3738,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_404';
-  $strongarm->value = 'search404';
+  $strongarm->value = 'search';
   $export['site_404'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -3758,7 +3752,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_frontpage';
-  $strongarm->value = 'taxonomy/term/16';
+  $strongarm->value = 'classifieds';
   $export['site_frontpage'] = $strongarm;
 
   $strongarm = new stdClass();

@@ -4,24 +4,54 @@
 
 
 (function ($) {
-  $(document).ready(function() {
-    // Classified Ads with Masonry
+  function doMasonry() {
+
+    var width = $(window).width();
+
+    if (width >= 600) {
+      width = 280;
+    }
+    else {
+      width = width -20;
+    };
+
+
+    // Classifieds
     $('.classified-ad-group-section > img').imagesLoaded(function() {
       $('.classified-ad-group-section').masonry({
         itemSelector : '.classified-ad-block',
-        columnWidth : 285,
+        columnWidth : width, // was 285
         isFitWidth: true
       });
     });
 
     // Classified Section Listings
-    $('.stem_class').masonry({
-      itemSelector : '.branch_class',
-      columnWidth : 285,
-      isFitWidth: true
+    $('ul.stem_class').masonry({
+      itemSelector : 'ul.stem_class > li',
+      columnWidth : 120, // was 270 // 3-col 105
+      isFitWidth: true,
+      gutterWidth: 8
     });
 
+    // Editorials
+    $('.views-field-field-image > .field-content > a > img').imagesLoaded(function() {
+      $('.view-display-id-attachment_1 ').masonry({
+        itemSelector : '.views-row',
+        columnWidth : width, // was 270
+        isFitWidth: true,
+        gutterWidth: 10
+      });
+    });
+  };
+
+  $(document).ready(function() {
+    doMasonry();
   });
+
+  $(window).bind('resize', function() {
+    doMasonry()
+  });
+
 }(jQuery));
 
 

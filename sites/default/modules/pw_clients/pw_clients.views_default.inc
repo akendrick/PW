@@ -457,7 +457,7 @@ function pw_clients_views_default_views() {
     10 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Email (field_email) */
+  /* Filter criterion: Field: Email (field_email) */
   $handler->display->display_options['filters']['field_email_email']['id'] = 'field_email_email';
   $handler->display->display_options['filters']['field_email_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['filters']['field_email_email']['field'] = 'field_email_email';

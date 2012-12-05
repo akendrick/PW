@@ -155,7 +155,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
   $content .= '<div class="logo">' . theme('image', $image_variables) . '</div>';
   $content .= '<p>Please print this page for your receipt.</p>';
-  $content .= '<h3> Ad Receipt #' . $temp_id . '</h3>';
+  $content .= '<h3> Ad Confirmation #' . $temp_id . '</h3>';
   $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $details . $price . $contact . $receipt . '</div>';
   $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
   $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';

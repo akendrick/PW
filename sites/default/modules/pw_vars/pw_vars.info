@@ -166,7 +166,6 @@ features[variable][] = exclude_node_title_content_type_value_page
 features[variable][] = exclude_node_title_content_type_value_pw_digital
 features[variable][] = exclude_node_title_content_type_value_webform
 features[variable][] = exclude_node_title_search
-features[variable][] = feedback_excluded_paths
 features[variable][] = field_bundle_settings_comment__comment_node_pw_digital
 features[variable][] = field_bundle_settings_feedback__feedback
 features[variable][] = field_bundle_settings_file__audio

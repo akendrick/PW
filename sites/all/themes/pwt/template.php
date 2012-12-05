@@ -34,3 +34,34 @@ function pwt_preprocess_menu_advertising_links_block_wrapper(&$variables, $hook)
   }
 }
 
+/**
+* Implementation of template_preprocess_taxonomy_term
+*/
+function pwt_taxonomy_term_view_alter(&$build) {
+  dpm($build);
+}
+
+/**
+* Implementation of HOOK_preprocess_block
+*/
+
+function pwt_preprocess_block(&$variables) {
+ // dpm($variables);
+  if ($variables['elements']['#delta'] == 6) {
+    //dpm('Header');
+    //dpm($variables);
+   // $variables['elements']['#content']['10056']
+  }
+}
+
+
+
+/**
+* Implementation of HOOK_views_exposed_form
+*/
+// function pwt_preprocess_views_exposed_form($vars) {
+//   if ($vars['form']['#id'] == 'views-exposed-form-search-ads-search-page') {
+//     dpm('Views Exposed');
+//     dpm($vars);
+//   }
+// }

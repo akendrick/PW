@@ -43,7 +43,7 @@
 // FORM DEBUG
 // Displays Ad Payment Data
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
-define ('DEBUG_FORM', TRUE); // Check form inputs.
+define ('DEBUG_FORM', FALSE); // Check form inputs.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
 define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
 

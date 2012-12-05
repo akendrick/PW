@@ -66,6 +66,7 @@ features[field][] = node-article-field_submitter
 features[field][] = node-attachment-body
 features[field][] = node-attachment-field_entity_reference
 features[field][] = node-attachment-field_file
+features[field][] = node-attachment-field_high_res_ad
 features[field][] = node-attachment-field_image
 features[field][] = node-attachment-field_link
 features[field][] = node-page-body

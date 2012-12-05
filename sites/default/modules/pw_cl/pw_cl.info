@@ -15,6 +15,7 @@ dependencies[] = email
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = image
+dependencies[] = imagefield_crop
 dependencies[] = lightbox2
 dependencies[] = link
 dependencies[] = list

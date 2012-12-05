@@ -180,6 +180,9 @@ function pw_la_context_default_contexts() {
       'values' => array(
         '~admin/*' => '~admin/*',
         '~ad/*' => '~ad/*',
+        '~classifieds' => '~classifieds',
+        '~ad-submit' => '~ad-submit',
+        '~thank-you' => '~thank-you',
         'ad/*' => 'ad/*',
         '<front>' => '<front>',
         'classifieds' => 'classifieds',
@@ -374,6 +377,12 @@ function pw_la_context_default_contexts() {
           'region' => 'menu',
           'weight' => '-28',
         ),
+        'menu_block-6' => array(
+          'module' => 'menu_block',
+          'delta' => '6',
+          'region' => 'super_menu',
+          'weight' => '-10',
+        ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
@@ -444,6 +453,7 @@ function pw_la_context_default_contexts() {
         'search/*' => 'search/*',
         'ad/submit' => 'ad/submit',
         'ad/submit/*' => 'ad/submit/*',
+        'thank-you/*' => 'thank-you/*',
       ),
     ),
   );

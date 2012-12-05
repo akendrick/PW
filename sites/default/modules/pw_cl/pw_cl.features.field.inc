@@ -419,8 +419,11 @@ function pw_cl_field_default_fields() {
         'default_image' => 0,
         'file_directory' => 'online_ad_submission_images',
         'file_extensions' => 'png gif jpg jpeg',
-        'max_filesize' => '500k',
-        'max_resolution' => '900x900',
+        'imagecrop' => array(
+          'classified_list_js_crop' => 0,
+        ),
+        'max_filesize' => '1MB',
+        'max_resolution' => '1200x1200',
         'min_resolution' => '60x60',
         'title_field' => 0,
         'user_register_form' => FALSE,
@@ -430,27 +433,51 @@ function pw_cl_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'filefield_sources' => array(
-            'filefield_sources' => array(),
+            'filefield_sources' => array(
+              'attach' => 0,
+              'clipboard' => 0,
+              'reference' => 0,
+              'remote' => 0,
+            ),
             'source_attach' => array(
-              'absolute' => 0,
+              'absolute' => '0',
               'attach_mode' => 'move',
               'path' => 'file_attach',
+            ),
+            'source_imce' => array(
+              'imce_mode' => 0,
             ),
             'source_reference' => array(
               'autocomplete' => '0',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
-          'insert_default' => array(
-            0 => 'auto',
-          ),
+          'insert_default' => 'auto',
           'insert_styles' => array(
-            0 => 'auto',
+            'auto' => 'auto',
+            'icon_link' => 0,
+            'image' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_list_js_crop' => 0,
+            'image_classified_list_nocrop' => 0,
+            'image_classified_page_style' => 0,
+            'image_display_ad_print_thumbnail' => 0,
+            'image_editorial_block_list_header' => 0,
+            'image_editorial_header' => 0,
+            'image_editorial_small' => 0,
+            'image_editorial_teaser' => 0,
+            'image_editorial_thumbnail' => 0,
+            'image_editorial_tiny' => 0,
+            'image_large' => 0,
+            'image_medium' => 0,
+            'image_square_thumbnail' => 0,
+            'image_thumbnail' => 0,
+            'link' => 0,
           ),
           'insert_width' => '',
-          'preview_image_style' => 'thumbnail',
+          'preview_image_style' => 'classified_list_nocrop',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
@@ -586,6 +613,9 @@ function pw_cl_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_promote',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -613,7 +643,7 @@ function pw_cl_field_default_fields() {
       ),
       'deleted' => '0',
       'description' => '<em>In a rush? Can\'t wait until Tuesday?</em><br/>
-<strong>For an additional $5 (not incl. taxes)</strong> we can guarantee your ad will go online within 1/2 hour of our receiving it.
+<strong>For an additional $5 (not incl. taxes)</strong> your ad will go online within 1/2 hour of our receiving it.
 Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm).',
       'display' => array(
         'default' => array(
@@ -1638,49 +1668,17 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'image',
+        'module' => 'imagefield_crop',
         'settings' => array(
-          'filefield_sources' => array(
-            'filefield_sources' => array(
-              'attach' => 0,
-              'reference' => 'reference',
-              'remote' => 0,
-            ),
-            'source_attach' => array(
-              'absolute' => '0',
-              'attach_mode' => 'copy',
-              'path' => 'file_attach',
-            ),
-            'source_reference' => array(
-              'autocomplete' => '0',
-            ),
-          ),
-          'insert' => 0,
-          'insert_absolute' => FALSE,
-          'insert_class' => '',
-          'insert_default' => 'auto',
-          'insert_styles' => array(
-            'auto' => 'auto',
-            'image' => 0,
-            'image_classified-list-style' => 0,
-            'image_classified_page_style' => 0,
-            'image_display_ad_print_thumbnail' => 0,
-            'image_editorial_block_list_header' => 0,
-            'image_editorial_header' => 0,
-            'image_editorial_small' => 0,
-            'image_editorial_teaser' => 0,
-            'image_editorial_thumbnail' => 0,
-            'image_large' => 0,
-            'image_medium' => 0,
-            'image_square_thumbnail' => 0,
-            'image_thumbnail' => 0,
-            'link' => 0,
-          ),
-          'insert_width' => '',
-          'preview_image_style' => 'thumbnail',
+          'collapsible' => '3',
+          'croparea' => '500x500',
+          'enforce_minimum' => 0,
+          'enforce_ratio' => 1,
+          'preview_image_style' => 'classified_list_nocrop',
           'progress_indicator' => 'throbber',
+          'resolution' => '240x130',
         ),
-        'type' => 'image_image',
+        'type' => 'imagefield_crop_widget',
         'weight' => '3',
       ),
     ),
@@ -1808,8 +1806,6 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           8 => 0,
           9 => 0,
           10 => 0,
-          11 => 0,
-          12 => 0,
         ),
       ),
       'translatable' => '0',
@@ -2204,7 +2200,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
 
 ');
   t('<em>In a rush? Can\'t wait until Tuesday?</em><br/>
-<strong>For an additional $5 (not incl. taxes)</strong> we can guarantee your ad will go online within 1/2 hour of our receiving it.
+<strong>For an additional $5 (not incl. taxes)</strong> your ad will go online within 1/2 hour of our receiving it.
 Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm).');
   t('<strong class=\'ad-note\'>NOTE: Publication Areas</strong>
 <ul><li><strong>Nelson & Salmo</strong><br>Serving Nelson, RR#2 (Tagham & Blewett), & Ymir
