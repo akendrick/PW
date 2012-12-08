@@ -92,6 +92,7 @@ features[field_group][] = group_edition|node|pw_digital|form
 features[field_group][] = group_editorial_details|node|article|default
 features[field_group][] = group_editorial_more|node|article|default
 features[field_group][] = group_info|node|pw_editions|form
+features[field_group][] = group_optional_features|node|pw_digital|form
 features[image][] = editorial_block_list_header
 features[image][] = editorial_header
 features[image][] = editorial_small

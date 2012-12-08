@@ -122,10 +122,10 @@ function pw_pages_field_group_info() {
     'label' => 'Edition',
     'weight' => '0',
     'children' => array(
-      0 => 'field_castlegar_edition',
-      1 => 'field_kootenay_lake_edition',
-      2 => 'field_nelson_edition',
-      3 => 'field_trail',
+      0 => 'field_trail',
+      1 => 'field_nelson_edition',
+      2 => 'field_castlegar_edition',
+      3 => 'field_kootenay_lake_edition',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -212,6 +212,7 @@ function pw_pages_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_edition_date',
+      1 => 'field_display_ad',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -224,6 +225,35 @@ function pw_pages_field_group_info() {
     ),
   );
   $export['group_info|node|pw_editions|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_optional_features|node|pw_digital|form';
+  $field_group->group_name = 'group_optional_features';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'pw_digital';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Optional Features',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_entity_reference',
+      1 => 'field_scribd',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Optional Features',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'Add a special feature such as Carolling, or Home Town Business Section here. They can be attachment features or extra links to additional Scribd documents.',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_optional_features|node|pw_digital|form'] = $field_group;
 
   return $export;
 }

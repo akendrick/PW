@@ -189,7 +189,7 @@ function pw_vars_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_ad_s';
-  $strongarm->value = '';
+  $strongarm->value = 'edit-inline-registration';
   $export['additional_settings__active_tab_ad_s'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1235,6 +1235,8 @@ echo date(\'now\');
     'group_more|node|ad_s|form' => TRUE,
     'group_info|node|pw_editions|form' => FALSE,
     'group_edition|node|pw_digital|form' => FALSE,
+    'group_optional_features|node|pw_digital|form' => FALSE,
+    'group_name|node|ad_s|form' => TRUE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1975,10 +1977,10 @@ echo date(\'now\');
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '8',
+          'weight' => '7',
         ),
         'path' => array(
-          'weight' => '7',
+          'weight' => '6',
         ),
       ),
       'display' => array(),

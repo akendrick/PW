@@ -501,7 +501,7 @@ jQuery(document).ready(function() {
      // var SaveButton = jQuery('#edit-submit').is(':visible');
      if (ConfirmForm) {
        console.log('Save button is visible');
-       jQuery('.multipage-button').hide();
+       jQuery('.multipage-button').fadeTo(250, 0.25);
        jQuery('#edit-submit').show();
      }
      else {
@@ -510,10 +510,10 @@ jQuery(document).ready(function() {
         console.log('No save visible.');
         var ConfirmPage = jQuery('#edit-field-agree-und-not-yet:checked').val();
         if (!ConfirmPage) {
-         jQuery('.multipage-link-next').hide();
+         jQuery('.multipage-link-next').fadeTo(250, 0.25);
         }
         else {
-         jQuery('.multipage-link-next').show();
+         jQuery('.multipage-link-next').fadeTo(250, 0.25);
         }
 
     }

@@ -179,10 +179,10 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
-        '~ad/*' => '~ad/*',
         '~classifieds' => '~classifieds',
-        '~ad-submit' => '~ad-submit',
+        '~ad/submit' => '~ad/submit',
         '~thank-you' => '~thank-you',
+        '~ad/*/thank-you' => '~ad/*/thank-you',
         'ad/*' => 'ad/*',
         '<front>' => '<front>',
         'classifieds' => 'classifieds',

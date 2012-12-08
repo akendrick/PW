@@ -2241,6 +2241,12 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_duration']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_duration']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_duration']['hide_empty'] = TRUE;
+  /* Field: Ad Payment: Submitted */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'adp';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['created']['date_format'] = 'long';
   /* Field: Content: Notes */
   $handler->display->display_options['fields']['field_notes']['id'] = 'field_notes';
   $handler->display->display_options['fields']['field_notes']['table'] = 'field_data_field_notes';
@@ -2398,14 +2404,18 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = 'Ad Details';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'details-info\'>
 [field_ad_copy]
-<table class=\'admin-ad-details-info\'>
-<tr>
+<table class=\'admin-incoming-ad-info\'>
+<tr class=\'admin-incoming-ad-submitted-row\'>
+<td colspan=\'6\'><span class=\'admin-ad-details-submitted-label\'>Submitted:</span>[created]</td></tr>
+<tr class=\'admin-incoming-ad-details-row\'>
 <td>[field_rate]<td>
 <td>[word_count]<td>
 <td>[field_image]</td>
 <td>[field_duration]</td>
+</tr>
+<tr class=\'admin-incoming-ad-notes-row\'>
+<td colspan=\'6\' class=\'admin-incoming-ad-notes\'>[field_notes]</td></tr>
 </table>
-[field_notes]
 </div>';
   /* Field: GLOBAL: Client Data */
   $handler->display->display_options['fields']['nothing_3']['id'] = 'nothing_3';
@@ -2415,7 +2425,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing_3']['label'] = 'Client Data';
   $handler->display->display_options['fields']['nothing_3']['alter']['text'] = '<div class=\'client-data\'>
 <dl class=\'client-data client-name\'>
-<dt>Name:</dt><dd> [field_first_name] [field_last_name]</dd></dl>
+<dt>Name:</dt><dd>[field_first_name] [field_last_name] [name]</dd></dl>
 <dl class=\'client-data client-email\'>
 <dt>Email:</dt><dd>[mail]</dd></dl>
 <dl class=\'client-data client-phone\'>
@@ -2431,8 +2441,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['nothing_2']['ui_name'] = 'GLOBAL: Payment Details';
   $handler->display->display_options['fields']['nothing_2']['label'] = 'Payment';
   $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<strong class=\'details-recipt-number\'>Receipt #[ccid]</strong>
-<dl><dt>Name as is appears on the card:</dt>
-<dd> [card_name]</dd>
 
 <table class=\'details-price\'>
 <tr class=\'details-price details-price-subtotal\'>

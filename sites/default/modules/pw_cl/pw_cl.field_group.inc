@@ -438,6 +438,8 @@ function pw_cl_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_price',
+      1 => 'field_email',
+      2 => 'field_phone',
     ),
     'format_type' => 'multipage',
     'format_settings' => array(

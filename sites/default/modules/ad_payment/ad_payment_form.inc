@@ -36,22 +36,36 @@ function ad_payment_form(&$form, $form_state) {
 
   // CC Payment Form.
   // Place in correct multistep group.
-  $form['#groups']['group_payment']->children[] = 'field_card_type';
-  $form['#groups']['group_payment']->children[] = 'field_first_name';
-  $form['#groups']['group_payment']->children[] = 'field_last_name';
-  $form['#groups']['group_payment']->children[] = 'field_cc_number';
-  $form['#groups']['group_payment']->children[] = 'field_exp_month';
-  $form['#groups']['group_payment']->children[] = 'field_exp_year';
+  $form['#groups']['group_payment']->children[] = 'form';
+//  $form['#groups']['group_payment']->children[] = 'field_card_type';
+//  $form['#groups']['group_payment']->children[] = 'field_first_name';
+//  $form['#groups']['group_payment']->children[] = 'field_last_name';
+//  $form['#groups']['group_payment']->children[] = 'field_cc_number';
+//  $form['#groups']['group_payment']->children[] = 'field_exp_month';
+//  $form['#groups']['group_payment']->children[] = 'field_exp_year';
 
-  $form['#group_children']['field_card_type']  = 'group_payment';
-  $form['#group_children']['field_first_name'] = 'group_payment';
-  $form['#group_children']['field_last_name']  = 'group_payment';
-  $form['#group_children']['field_cc_number']  = 'group_payment';
-  $form['#group_children']['field_exp_month']  = 'group_payment';
-  $form['#group_children']['field_exp_year']   = 'group_payment';
+  $form['#group_children']['card'] = 'group_payment';
 
-  // Display Form
-  $form['field_first_name'] = array(
+//  $form['#group_children']['field_card_type']  = 'group_payment';
+//  $form['#group_children']['field_first_name'] = 'group_payment';
+//  $form['#group_children']['field_last_name']  = 'group_payment';
+//  $form['#group_children']['field_cc_number']  = 'group_payment';
+//  $form['#group_children']['field_exp_month']  = 'group_payment';
+//  $form['#group_children']['field_exp_year']   = 'group_payment';
+
+// Display Form
+  $form['card'] = array(
+    '#type' => 'fieldset',
+    '#access' => $access,
+    '#required' => TRUE,
+    '#description' => t('This form is encrypted for your protection.'),
+    '#title' => t('Credit Card Information'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#weight' => -40,
+  );
+
+  $form['card']['field_first_name'] = array(
     '#type' => 'textfield',
     '#title' => t('First Name'),
     '#description' => t('Please enter your First Name as it appears on your card'),
@@ -61,7 +75,7 @@ function ad_payment_form(&$form, $form_state) {
     '#required' => $required,
     '#access' => $access,
   );
-  $form['field_last_name'] = array(
+  $form['card']['field_last_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Last Name'),
     '#description' => t('Please enter your Last Name as it appears on your card'),
@@ -71,15 +85,28 @@ function ad_payment_form(&$form, $form_state) {
     '#required' => $required,
     '#access' => $access,
   );
-  $form['field_card_type'] = array(
+
+//  $form['field_email'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Email'),
+//    '#description' => t('Please enter your Last Name as it appears on your card'),
+//    '#default_value' => ($user_data && $user_data->field_last_name && $user_data->field_last_name['und'][0]['value']) ? $user_data->field_last_name['und'][0]['value'] : '',
+//    '#size' => 12,
+//    '#maxlength' => 35,
+//    '#required' => $required,
+//    '#access' => $access,
+//  );
+
+  $form['card']['field_card_type'] = array(
     '#type' => 'radios',
     '#title' => t('Credit Card'),
     '#description' => t('Select your credit card'),
     '#options' => array('Master Card', 'Visa'),
     '#required' => TRUE,
     '#access' => $access,
+    '#weight' => -40,
   );
-  $form['field_cc_number'] = array(
+  $form['card']['field_cc_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Credit Card Number'),
     '#validate' => array('_ad_payment_cc_number_validate'),
@@ -89,6 +116,7 @@ function ad_payment_form(&$form, $form_state) {
     '#attributes' => array('autocomplete' =>'off'),
     '#required' => $required,
     '#access' => $access,
+    '#weight' => -40,
   );
   $months = array(
     '00' => 'Select Month',
@@ -116,20 +144,22 @@ function ad_payment_form(&$form, $form_state) {
     '2017' => 2017,
     '2018' => 2018,
   );
-  $form['field_exp_month'] = array(
+  $form['card']['field_exp_month'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Month'),
     '#options' => $months,
     '#default_value' => $cc_month,
     '#required' => $required,
     '#access' => $access,
+    '#weight' => -40,
   );
-  $form['field_exp_year'] = array(
+  $form['card']['field_exp_year'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Year'),
     '#options' => $years,
     '#default_value' => $cc_year,
     '#required' => $required,
     '#access' => $access,
+    '#weight' => -40,
   );
 }

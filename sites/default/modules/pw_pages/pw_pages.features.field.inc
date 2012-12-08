@@ -2394,7 +2394,7 @@ function pw_pages_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
@@ -2687,7 +2687,7 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '6',
+        'weight' => '11',
       ),
     ),
   );
@@ -2960,7 +2960,7 @@ function pw_pages_field_default_fields() {
           ),
         ),
         'type' => 'inline_entity_form',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -3400,7 +3400,7 @@ function pw_pages_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '2',
+        'weight' => '5',
       ),
     ),
   );
@@ -3534,7 +3534,7 @@ function pw_pages_field_default_fields() {
           'size' => '80',
         ),
         'type' => 'text_textfield',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -3656,7 +3656,7 @@ NOTE: Thumbnail image required.',
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '3',
+        'weight' => '9',
       ),
     ),
   );

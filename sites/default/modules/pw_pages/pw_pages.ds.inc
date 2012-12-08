@@ -639,55 +639,64 @@ function pw_pages_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'pw_digital';
   $ds_layout->view_mode = 'form';
-  $ds_layout->layout = 'ds_form';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => FALSE,
     'regions' => array(
       'left' => array(
         0 => 'group_edition',
-        1 => 'field_trail',
-        2 => 'field_nelson_edition',
-        3 => 'field_castlegar_edition',
-        4 => 'field_kootenay_lake_edition',
+        2 => 'field_trail',
+        4 => 'field_nelson_edition',
+        5 => 'field_castlegar_edition',
+        7 => 'field_kootenay_lake_edition',
       ),
       'right' => array(
-        0 => 'group_info',
-        1 => 'field_edition_date',
+        1 => 'group_info',
+        14 => 'field_edition_date',
+        15 => 'field_display_ad',
       ),
       'footer' => array(
-        0 => 'field_pdf',
-        1 => 'field_special_feature_link',
+        3 => 'group_optional_features',
+        8 => 'field_entity_reference',
+        10 => 'field_scribd',
       ),
       'hidden' => array(
-        0 => 'field_entity_reference',
-        1 => 'field_scribd',
-        2 => 'field_display_ad',
-        3 => 'path',
-        4 => 'title',
-        5 => 'body',
-        6 => '_add_existing_field',
+        6 => 'field_pdf',
+        9 => 'path',
+        11 => 'title',
+        12 => 'body',
+        13 => 'field_special_feature_link',
+        16 => '_add_existing_field',
       ),
     ),
     'fields' => array(
       'group_edition' => 'left',
       'group_info' => 'right',
       'field_trail' => 'left',
-      'field_pdf' => 'footer',
-      'field_special_feature_link' => 'footer',
+      'group_optional_features' => 'footer',
       'field_nelson_edition' => 'left',
-      'field_entity_reference' => 'hidden',
       'field_castlegar_edition' => 'left',
+      'field_pdf' => 'hidden',
       'field_kootenay_lake_edition' => 'left',
-      'field_scribd' => 'hidden',
-      'field_display_ad' => 'hidden',
+      'field_entity_reference' => 'footer',
       'path' => 'hidden',
+      'field_scribd' => 'footer',
       'title' => 'hidden',
       'body' => 'hidden',
+      'field_special_feature_link' => 'hidden',
       'field_edition_date' => 'right',
+      'field_display_ad' => 'right',
       '_add_existing_field' => 'hidden',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
   );
   $export['node|pw_digital|form'] = $ds_layout;
 
