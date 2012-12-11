@@ -113,16 +113,19 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
         'sections'=> ad_payment_parse_array($node->field_tags['und'], 'term'),
         'notes'   => $node->field_notes['und'][0]['value'],
         'user'    => array(
+          'uid'       => $node->uid,
           'real-name' => $node->field_first_name . ' ' . $node->field_last_name,
           'card-type' => ($node->field_first_name) ? 'Mastercard' : 'VISA',
-          'phone'     => ($node->field_first_phone) ? $node->field_phone : 'No phone given.',
-          'email'     => ($node->field_email) ? $node->email : 'No email given.',
+          'phone'     => ($node->field_phone) ? $node->field_phone['und'][0]['number'] : 'No phone given.',
+          'email'     => ($node->field_email) ? $node->field_email['und'][0]['email'] : 'No email given.',
         ),
       );
       break;
     default:
       return;
   }
+      dpm('NODE PARSE');
+      dpm($node);
   if (DEBUG_ADP || DEBUG_PAYMENT) {
     if ($form_values) {
       $debug_var = array(

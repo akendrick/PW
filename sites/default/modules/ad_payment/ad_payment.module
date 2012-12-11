@@ -537,11 +537,14 @@ function ad_payment_node_insert($node) {
       'price_taxes' => $details['taxes'],
       'price_subtotal' => $details['subtotal'],
     );
+    $nid = db_insert('adp')->fields($fields)->execute();
+
     if (DEBUG_FORM) {
-      dpm('Submitted FIELDS');
+      dpm('Received <b>DETAILS</b>  from Ad Payment');
+      dpm($details);
+      dpm('Submitted database FIELDS');
       dpm($fields);
     }
-    $nid = db_insert('adp')->fields($fields)->execute();
 
     if ($node->nid) {
       // Send Email upon Completion.

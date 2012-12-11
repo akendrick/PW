@@ -48,9 +48,7 @@ function thankyou_page2($temp_id = NULL) {
 
 
 function ad_payment_receipt($temp_id, $data = NULL) {
-  global $user;
-  $client = user_load($user->uid);
-
+  global $base_url;
   // AD Details
   $details = "
       <div class='reciept-details grid-8 alpha'>
@@ -125,7 +123,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   $contact = "
       <div class='small-receipt receipt-contact grid-8 omega'>
         <h4 class='receipt-contact'>Contact Information</h3>
-        <em>If you wish to edit this information you must first register your account. An email has been sent to your address with the details.</em>
+        <em>An email has been sent to your address with the details.</em>
         <div class='small-receipt receipt-contact-inner'>
         <dl class='receipt-contact-name'>
           <dt class='receipt-contact-name'>Name:</dt>
@@ -133,13 +131,15 @@ function ad_payment_receipt($temp_id, $data = NULL) {
         </dl>
         <dl class='receipt-contact-phone'>
           <dt class='receipt-contact-phone'>Phone:</dt>
-          <dd class='receipt-contact-phone'>" . $phone . "</dt>
+          <dd class='receipt-contact-phone'>" . $data['values']['user']['phone'] . "</dt>
         </dl>
         <dl class='receipt-contact-email'>
           <dt class='receipt-contact-email'>Email:</dt>
-          <dd class='receipt-contact-email'>" . $user->mail . "</dt>
+          <dd class='receipt-contact-email'>" . $data['values']['user']['email'] . "</dt>
         </dl>
-      </div>
+         <em>If you wish to edit this information or use it for future ad submissions you must can
+           register your account <a href='" . $base_url . '/user' . "'>here</a>.</em>
+     </div>
     </div>
     ";
 

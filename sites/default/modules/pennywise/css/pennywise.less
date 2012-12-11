@@ -4,22 +4,42 @@
 @white: #fff;
 @gray: #e5e0dc;
 
-@darkblue: #036;
-@medblue: #36C;
-@lightblue: #d1e5ff;
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
 
 @plum: #303;
 @peach: #FC9;
+
 @sand: #e5e0dc;
 @lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+@faintsand: lighten(@sand, 20%);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
 
 @alert: #fe4e4e;
 @warning: #ff0;
-@status: #09c900;
+@status: lighten(#060, 10);
 
 @alert_t: rgba(254,78,78,0.2);
 @warning_t: rgba(0,15,240,0.2);
 @status_t: rgba(9,201,0,0.2);
+
+
+@highlight: lighten(#900, 20);
+
+
 
 
 .background-color-lighten(@colour, @amount: 10) {
@@ -45,11 +65,11 @@
   text-align: center;
 }
 
-.button(@colour: @lightblue) {
+.button-colour(@colour: @classified_light, @background: @classifed_dark) {
   .border-radius;
   .center;
-  color: @white;
-  background-color: @colour;
+  color: @colour;
+  background-color: @background;
 }
 
 
@@ -96,7 +116,7 @@
     width: 80%;
     margin: 0 auto 0 auto;
     display: block;
-    background-color: @medblue;
+    background-color: @classified_med;
     color: @white;
 /*     span { padding: 0 15px; background-color: @white;} */
     .border-radius;
@@ -105,7 +125,7 @@
     width: 90%;
   }
   width: 1160px;
-  background-color: @lightblue;
+  background-color: @classified_light;
   .form-item { width: 100%; }
   .group-left {
     padding: 10px;
@@ -125,7 +145,7 @@
     width: 280px;
     padding: 10px;
     border-left: solid 1pt @white;
-    background: lighten(@lightblue, 5%);
+    background: lighten(@classified_light, 5%);
     height: 100%;
     .border-radius;
     margin: 4px;
@@ -224,6 +244,19 @@
 
 /*************************** ADMIN Interface */
 /**** dashboard ****/
+body.page-admin-pennywise {
+  .button a {
+    .button-colour(@white, @classified_dark);
+    text-decoration: none;
+    padding: 4px 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .button a:hover {
+    .button-colour(@classified_dark, @classified_light);
+  }
+}
+
 #block-views-admin-dashboard-display-dash {
   .view-id-admin_dashboard {
     table.views-table {
@@ -304,8 +337,8 @@
     padding: 0;
     a {
       text-decoration: none;
-      background-color: @lightblue;
-      color: @darkblue;
+      background-color: @classified_light;
+      color: @classified_dark;
       width: 60px;
       font-size: .6em;
       text-transform: uppercase;
@@ -392,6 +425,56 @@
 }
 
 /******************* Classifieds Table Layout ADMIN ********/
+/* AD SUBMISION ADMIN */
+body.page-admin-pennywise-classified-ad-s  {
+  /*   section listing */
+  .submission-placement-section, .submission-placement-areas {
+    padding: 5px 20px;
+    text-align: center;
+    background-color: @sunlight;
+    .border-radius;
+    margin-bottom: 20px;
+  }
+  .submission-placement-areas {
+    background-color: @status_t;
+  }
+  /* ad copy info table */
+  table.admin-incoming-ad-info {
+    text-align: center;
+    td {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  /* client data */
+  .client-data {
+    dl.client-data {
+      dt {
+        text-align: center;
+/*         width: 100%; */
+        .border-radius-custom(5px, 5px, 0, 0);
+        background-color: @classified_light;
+        font-size: .6 em;
+      }
+      dd {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  /* details-price */
+  .details-recipt-number, details-reciept-number { text-align: center; }
+  table.details-price {
+    tr { }
+    tr.details-price-subtotal, tr.details-price-total {
+      background-color: @faintsand;
+    }
+    td {
+      margin: 0;
+      padding: 3px 5px;
+    }
+  }
+}
 /* #views-form-classified-ad-administration-classified-pagelink { */
 .vbo-views-form {
   table {
