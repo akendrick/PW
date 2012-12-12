@@ -448,6 +448,7 @@ body {
 }
 
 /******* MOBILE NAVIGATION BLOCKS ********/
+/*
 #region-preface-first {
   .region-preface-first-inner {
     background-color: @classified_light;
@@ -458,39 +459,49 @@ body {
       margin: 8px;
     }
     #edit-jump, #edit-jump--2 {
-/*       margin: 20px; */
       font-size: 1.2em;
       margin: 5px 0;
     }
   }
 }
+*/
+
+/********** ZONE ************/
+/**** POSTSCRIPT FOOTER *********/
+.zone-postscript {
+  padding: 10px 0 0 0;
+  background-color: lighten(@darksand, 10%);
+  .border-radius-custom;
+  h2.block-title, a.editorial-slideshow-link  {
+    font-size: 1.4em;
+    padding: 5px;
+  }
+  .block {
+    background-color: @lightsand;
+  }
+  font-size: .8em;
+}
 
 /*****************  BLOCKS  *****************/
-
-.region-sidebar-first #edit-jump {
-  width: 136px;
-   .block {
-    padding: 3px 3px 10px 3px;
-    margin: 0 0 15px 0;
-/*
-    h2, #edit-search-ads-wrapper, #edit-search-ads--2-wrapper {
-      label {
-        color: @white;
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 1em;
-        line-height: 1.2em;
-        margin: 0 0 5px 0;
+.contextual-links-wrapper {
+  ul.contextual-links {
+    padding: 0;
+  }
+  padding: 2px;
+}
+#region-sidebar-first {
+   #edit-jump {
+    width: 136px;
+     .block {
+      padding: 3px 3px 10px 3px;
+      margin: 0 0 15px 0;
+      ul.menu li {
+        list-style: none;
+        padding: 2pt 4pt;
+        margin: 0;
       }
     }
-*/
-    ul.menu li {
-      list-style: none;
-      padding: 2pt 4pt;
-      margin: 0;
-    }
   }
-
 }
 /* Mobile Search */
 .zone-preface #views-exposed-form-search-ads-search-page--2,
@@ -502,15 +513,13 @@ body {
 }
 
 /* submit ad block */
+
 #block-ad-payment-ad-payment-create-ad {
-  border: 0;
-  padding: 0;
-  margin: 0;
   h2 { display: none; }
 }
 
 .contact-button, #ad-submission-link-wrapper {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   .center;
   a:link {
     color: @white;
@@ -529,6 +538,7 @@ body {
     width: 50%;
   }
 }
+
 #ad-submission-link-wrapper {
   font-size: 1.6em;
   width: 100%;
@@ -599,8 +609,11 @@ body {
 }
 
 /* Poster Block */
-.block-views-display-ad-blocks-poster-block {
-  padding: 0 0 20px 0;
+.view-id-display_ad_blocks {
+  h2.poster-block-title {
+    display: none;
+  }
+  padding: 20px 0;
   .views-row {
     margin-bottom: 20px;
     float: left;
@@ -686,25 +699,26 @@ body {
 
 /******************* SEARCH Blocks *********************/
 /* views exposed classified SEARCH */
-#region-conent #views-exposed-form-search-ads-search-page {
-  width: 140px;
+#region-content #views-exposed-form-search-ads-search-page {
   background-color: @classified_med;
   color: @white;
   .border-radius;
   padding: 3px;
   label {
-    width: 120px;
+    float: left;
+    width: 260px;
     text-align: center;
   }
-  .form-item-search-ads {
-    width: 120px;
-    margin: 2px auto;
-    display: block;
+  input#edit-search-ads {
+    font-size: 2em;
+    width: 300px;
   }
 }
 /* search block */
 #views-exposed-form-search-ads-search-page,
 #views-exposed-form-search-ads-search-page--2 {
+  color: @white;
+  text-align: center;
   .border-radius;
   background-color: @classified_dark;
   padding: 4px 1px;
@@ -718,7 +732,6 @@ body {
     float: none;
   }
 }
-#region-sidebar-first {}
 
 #region-user-second {
   #edit-search-ads-wrapper,
@@ -729,16 +742,11 @@ body {
 }
 
 
-
-
-
-
 .view-display-id-all_classified_listing_jump_list {
   margin: 10px;
 }
-/**** Classified DHTML Link Block ******/
-/*
-ul.pw-classified-nav-list {
+/**** General Block list views ******/
+ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-menu-advertising-links ul {
   width: 95%;
   .border-radius-custom(0,0,10px,10px);
   background-color: @white;
@@ -747,7 +755,7 @@ ul.pw-classified-nav-list {
     background-color: @lightsand;
     line-height: .9em;
   }
-  li.pw-classified-nav-row {
+  li.pw-classified-nav-row, .leaf {
     border-top: @darksand 1pt solid;
     list-style: none;
     padding: 2px 5px;
@@ -757,7 +765,7 @@ ul.pw-classified-nav-list {
     background-color: @sand;
     .border-radius;
   }
-  li.views-row-1 {
+  li.views-row-1, .leaf.first {
     border: none;
     padding-top: 0;
   }
@@ -765,7 +773,6 @@ ul.pw-classified-nav-list {
     background-color: @darksand;
   }
 }
-*/
 /*
   menu.expanded {
     background-color: @sand;

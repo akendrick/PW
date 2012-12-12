@@ -102,10 +102,11 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['contextual_links']['label'] = '';
   $handler->display->display_options['fields']['contextual_links']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['contextual_links']['fields'] = array(
-    'delete_node' => 'delete_node',
-    'edit_node' => 'edit_node',
+    'nid' => 0,
     'field_link' => 0,
     'field_display_ad' => 0,
+    'edit_node' => 0,
+    'delete_node' => 0,
   );
   /* Sort criterion: Content: Section (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';

@@ -353,6 +353,154 @@ function pw_la_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'footer_all';
+  $context->description = 'Footer 4 fold boxe links';
+  $context->tag = 'layout';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '~ad/submit' => '~ad/submit',
+        '~ad/thank-you' => '~ad/thank-you',
+      ),
+    ),
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
+          'module' => 'views',
+          'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
+          'region' => 'postscript_first',
+          'weight' => '-10',
+        ),
+        'views-editorial_slideshow-block_1' => array(
+          'module' => 'views',
+          'delta' => 'editorial_slideshow-block_1',
+          'region' => 'postscript_second',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'postscript_third',
+          'weight' => '-10',
+        ),
+        'menu-menu-advertising-links' => array(
+          'module' => 'menu',
+          'delta' => 'menu-advertising-links',
+          'region' => 'postscript_fourth',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Footer 4 fold boxe links');
+  t('layout');
+  $export['footer_all'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'frontpage_classified_layout';
+  $context->description = 'Front page for PW site';
+  $context->tag = 'layout';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '<front>' => '<front>',
+        'classifieds' => 'classifieds',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'views-taxonomy_listing-tax_sub_list' => array(
+          'module' => 'views',
+          'delta' => 'taxonomy_listing-tax_sub_list',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+        'views-display_ad_blocks-print_block' => array(
+          'module' => 'views',
+          'delta' => 'display_ad_blocks-print_block',
+          'region' => 'content',
+          'weight' => '-8',
+        ),
+        'system-main' => array(
+          'module' => 'system',
+          'delta' => 'main',
+          'region' => 'content',
+          'weight' => '-7',
+        ),
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+        'views-display_ad_blocks-poster_filler' => array(
+          'module' => 'views',
+          'delta' => 'display_ad_blocks-poster_filler',
+          'region' => 'sidebar_first',
+          'weight' => '-9',
+        ),
+        'menu_block-5' => array(
+          'module' => 'menu_block',
+          'delta' => '5',
+          'region' => 'sidebar_first',
+          'weight' => '-8',
+        ),
+        'user-login' => array(
+          'module' => 'user',
+          'delta' => 'login',
+          'region' => 'sidebar_first',
+          'weight' => '-7',
+        ),
+        'views-display_ad_blocks-banner_block' => array(
+          'module' => 'views',
+          'delta' => 'display_ad_blocks-banner_block',
+          'region' => 'header_first',
+          'weight' => '-10',
+        ),
+        'views-deba537d237e294b8f1a706f5b8291e0' => array(
+          'module' => 'views',
+          'delta' => 'deba537d237e294b8f1a706f5b8291e0',
+          'region' => 'header_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+    'delta' => array(
+      'delta_template' => 'clone_of_ad_submission_layout',
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Front page for PW site');
+  t('layout');
+  $export['frontpage_classified_layout'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'header_all';
   $context->description = 'All pages - site wide header';
   $context->tag = 'layout';

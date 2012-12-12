@@ -228,10 +228,24 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['group'] = '0';
   $handler->display->display_options['filters']['field_ad_copy_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
-  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Search classified ads:';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Search Classifieds';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator'] = 'field_ad_copy_value_op';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'search_ads';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['required'] = TRUE;
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    8 => 0,
+    9 => 0,
+    11 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+    12 => 0,
+    3 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'search_page');

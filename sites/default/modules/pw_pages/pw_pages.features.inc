@@ -35,6 +35,12 @@ function pw_pages_views_api() {
 function pw_pages_image_default_styles() {
   $styles = array();
 
+  // Exported image style: classified_list_js_crop.
+  $styles['classified_list_js_crop'] = array(
+    'name' => 'classified_list_js_crop',
+    'effects' => array(),
+  );
+
   // Exported image style: editorial_block_list_header.
   $styles['editorial_block_list_header'] = array(
     'name' => 'editorial_block_list_header',
@@ -141,6 +147,28 @@ function pw_pages_image_default_styles() {
           'height' => '65',
         ),
         'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported image style: editorial_tiny.
+  $styles['editorial_tiny'] = array(
+    'name' => 'editorial_tiny',
+    'effects' => array(
+      3 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '45',
+          'height' => '30',
+          'upscale' => 0,
+        ),
+        'weight' => '2',
       ),
     ),
   );

@@ -17,3 +17,10 @@ function pw_la_ctools_plugin_api() {
     return array("version" => "3");
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function pw_la_views_api() {
+  return array("version" => "3.0");
+}
