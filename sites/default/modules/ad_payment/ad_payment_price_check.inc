@@ -124,8 +124,6 @@ function _ad_payment_get_payment_variables($data, $type = NULL){
     default:
       return;
   }
-      dpm('NODE PARSE');
-      dpm($node);
   if (DEBUG_ADP || DEBUG_PAYMENT) {
     if ($form_values) {
       $debug_var = array(

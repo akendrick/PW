@@ -63,6 +63,21 @@ function pennywise_permission() {
 
 
 /**
+* Implementation of HOOK_page_build
+*
+* Ads holiday message to site when the flag is set.
+*/
+function pennywise_page_build(&$page) {
+ // dpm($page);
+
+  $holiday = variable_get('pennywise_holiday_settings', NULL);
+  if($holiday['setting_flag']) {
+    drupal_set_message($holiday['message'], 'warning');
+  }
+
+}
+
+/**
  * Implementation of HOOK_menu
  *
  *  - Callback page for ad_submission to classified ad conversion (promotion).
@@ -390,5 +405,4 @@ function pennywise_block_view($delta = '') {
 
   return $block;
 }
-
 

@@ -118,7 +118,7 @@ function ad_payment_mail($key, &$message, $params) {
 * - - - (Why pending?) - details as to why.
 */
 function email_receipt_body($message = NULL) {
-
+  // Get ad submission details
   $ad = $message['params']['values'];
   $rate = $message['params']['rate'];
 
@@ -144,6 +144,16 @@ function email_receipt_body($message = NULL) {
   $subtotal = $message['params']['subtotal'];
   $taxes = $message['params']['taxes'];
   $total = $message['params']['total'];
+
+  // Set Message (if holiday)
+  $standard_message = 'PLEASE NOTE:
+    Your ad will be reviewed by our friendly staff before being placed online and in print.
+    Liveload ads are given priority and often processed within 1/2 hour after submission (during regular business hours).
+    Otherwise the ad will wait until our next print edition which is every Tuesday.'
+
+  $holiday = variable_get('pennywise_holiday_settings', NULL);
+  $message = ($holiday['setting_flag']) ? $holiday['message'] : $standard_message;
+
 
 $reciept = <<<RECEIPT
 Classified Ad Receipt #$receipt_id
@@ -178,10 +188,7 @@ Address: Box 430,
          Kaslo BC
          Canada V0G 1M0
 
-PLEASE NOTE:
-Your ad will be reviewed by our friendly staff before being placed online and in print.
-If you have chosen the liveload ad feature this will happen within 1/2 hour (during business hours).
-Otherwise the ad will wait until our next print edition which is every Tuesday.
+$message
 
 We appreciate your business, and look forward to helping you again.
 

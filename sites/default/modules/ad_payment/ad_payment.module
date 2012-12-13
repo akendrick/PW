@@ -43,14 +43,14 @@
 // FORM DEBUG
 // Displays Ad Payment Data
 define ('DEBUG_ADP', FALSE); // DEBUG ALL!
-define ('DEBUG_FORM', TRUE); // Check form inputs.
-define ('DEBUG_USER', TRUE); // Check USER creation data.
+define ('DEBUG_FORM', FALSE); // Check form inputs.
+define ('DEBUG_USER', FALSE); // Check USER creation data.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
 define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
 
 /** --------- ADP_LOGIN -----
  * TRUE -> Go to login form first.
- * FALSE-> go direct to ad submission.
+ * FALSE-> go direct to ad submission, Login in the background.
  */
 define ('ADP_LOGIN', FALSE);
 
@@ -268,10 +268,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
       'form' => $form,
       'form_state' => $form_state,
     );
-    dpm('FORM ');
-    dpm($form);
-    dpm('FORM STATE');
-    dpm($form_state);
     #watchdog('Ad Payment', $debug_info, WATCHDOG_INFO);
   }
 }
@@ -348,7 +344,6 @@ function adp_user_validate($user_name, $phone, $mail) {
     // Register New User
   $user = user_load_by_mail($mail);
   if (!$user) {
-    dpm('register new user');
     require_once DRUPAL_ROOT . '/' . variable_get('password_inc', 'includes/password.inc');
     $account = array(
       'name' => $user_name,
@@ -361,9 +356,6 @@ function adp_user_validate($user_name, $phone, $mail) {
       'signature_format' => 'plain_text',
     );
     $account['roles'] = array(4 => 'submit ad');
-    dpm('ACCOUNT');
-    dpm($account);
-
     $user = user_save('', $account);
 
 
@@ -387,8 +379,6 @@ function adp_user_validate($user_name, $phone, $mail) {
   // $form_state['node']->uid = $user->uid;
   // $form_state['complete form']['uid']['#value'] = $user->uid;
 
-  dpm('VALIDATED & LOADED USER');
-  dpm($user);
   return $user;
 
 }
@@ -487,10 +477,6 @@ function ad_payment_node_presave($node) {
     $user = adp_user_validate($user_name, $phone, $mail);
     $node->uid = $user->uid;
 
-    dpm('PRE-SAVE  LOADED USER DATA');
-    dpm($user);
-    dpm('NODE PRESAVE');
-    dpm($node);
   }
 }
 //<dl><dt>Name as is appears on the card:</dt>
@@ -510,8 +496,8 @@ function ad_payment_node_insert($node) {
 //
 //    dpm('LOADED USER DATA');
 //    dpm($user);
-    dpm('NODE INSERT');
-    dpm($node);
+//    dpm('NODE INSERT');
+//    dpm($node);
 
     // Double Check Price
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
@@ -540,10 +526,10 @@ function ad_payment_node_insert($node) {
     $nid = db_insert('adp')->fields($fields)->execute();
 
     if (DEBUG_FORM) {
-      dpm('Received <b>DETAILS</b>  from Ad Payment');
-      dpm($details);
-      dpm('Submitted database FIELDS');
-      dpm($fields);
+//      dpm('Received <b>DETAILS</b>  from Ad Payment');
+//      dpm($details);
+//      dpm('Submitted database FIELDS');
+//      dpm($fields);
     }
 
     if ($node->nid) {
