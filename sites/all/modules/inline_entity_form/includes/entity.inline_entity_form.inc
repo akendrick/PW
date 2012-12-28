@@ -112,6 +112,19 @@ class EntityInlineEntityFormController {
   }
 
   /**
+   * Returns a setting value.
+   *
+   * @param $name
+   *   The name of the setting value to return.
+   *
+   * @return
+   *   A setting value.
+   */
+  public function getSetting($name) {
+    return $this->settings[$name];
+  }
+
+  /**
    * Returns an array of default settings in the form of key => value.
    */
   public function defaultSettings() {
@@ -168,6 +181,16 @@ class EntityInlineEntityFormController {
   }
 
   /**
+   * Returns the entity type managed by this controller.
+   *
+   * @return
+   *   The entity type.
+   */
+  public function entityType() {
+    return $this->entityType;
+  }
+
+  /**
    * Returns the entity form to be shown through the IEF widget.
    *
    * When adding data to $form_state it should be noted that there can be
@@ -185,7 +208,8 @@ class EntityInlineEntityFormController {
     $entity = $entity_form['#entity'];
 
     if (!empty($info['fieldable'])) {
-      field_attach_form($this->entityType, $entity, $entity_form, $form_state, LANGUAGE_NONE);
+      $langcode = entity_language($this->entityType, $entity);
+      field_attach_form($this->entityType, $entity, $entity_form, $form_state, $langcode);
     }
 
     return $entity_form;
@@ -270,20 +294,62 @@ class EntityInlineEntityFormController {
   }
 
   /**
-   * Returns the delete form to be shown through the IEF widget.
+   * Returns the remove form to be shown through the IEF widget.
    *
-   * @param $delete_form
-   *   The delete form.
+   * @param $remove_form
+   *   The remove form.
    * @param $form_state
    *   The form state of the parent form.
    */
-  public function deleteForm($delete_form, &$form_state) {
-    $entity_label = entity_label($this->entityType, $delete_form['#entity']);
-    $delete_form['message'] = array(
-      '#markup' => '<div>' . t('Are you sure you want to delete %label?', array('%label' => $entity_label)) . '</div>',
-    );
+  public function removeForm($remove_form, &$form_state) {
+    $entity = $remove_form['#entity'];
+    $entity_id = entity_id($this->entityType, $entity);
+    $entity_label = entity_label($this->entityType, $entity);
 
-    return $delete_form;
+    $remove_form['message'] = array(
+      '#markup' => '<div>' . t('Are you sure you want to remove %label?', array('%label' => $entity_label)) . '</div>',
+    );
+    if (!empty($entity_id) && $this->getSetting('allow_existing')) {
+      $access = entity_access('delete', $this->entityType, $entity);
+      if ($access) {
+        $labels = $this->labels();
+        $remove_form['delete'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Delete this @type_singular from the system.', array('@type_singular' => $labels['singular'])),
+        );
+      }
+    }
+
+    return $remove_form;
+  }
+
+  /**
+   * Handles the submission of a remove form.
+   * Decides what should happen to the entity after the removal confirmation.
+   *
+   * @param $remove_form
+   *   The remove form.
+   * @param $form_state
+   *   The form state of the parent form.
+   *
+   * @return
+   *   IEF_ENTITY_UNLINK or IEF_ENTITY_UNLINK_DELETE.
+   */
+  public function removeFormSubmit($remove_form, &$form_state) {
+    $entity = $remove_form['#entity'];
+    $entity_id = entity_id($this->entityType, $entity);
+    $form_values = drupal_array_get_nested_value($form_state['values'], $remove_form['#parents']);
+    // This entity hasn't been saved yet, we can just unlink it.
+    if (empty($entity_id)) {
+      return IEF_ENTITY_UNLINK;
+    }
+    // If existing entities can be referenced, the delete happens only when
+    // specifically requested (the "Permanently delete" checkbox).
+    if ($this->getSetting('allow_existing') && empty($form_values['delete'])) {
+      return IEF_ENTITY_UNLINK;
+    }
+
+    return IEF_ENTITY_UNLINK_DELETE;
   }
 
   /**
