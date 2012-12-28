@@ -499,25 +499,28 @@ jQuery(document).ready(function() {
       // Hide 'Next Page' upon 'Save' option
      var ConfirmForm = jQuery('#edit-field-agree-und-confirm:checked').val();
      // var SaveButton = jQuery('#edit-submit').is(':visible');
+
+
+     // HIDE SUBMIT UNTIL READY
      if (ConfirmForm) {
        console.log('Save button is visible');
-       jQuery('.multipage-button').fadeTo(250, 0.25);
+       // jQuery('.multipage-button').hide();
        jQuery('#edit-submit').show();
      }
-     else {
-         jQuery('#edit-submit').hide();
-         jQuery('.multipage-button').show();
-        console.log('No save visible.');
-        var ConfirmPage = jQuery('#edit-field-agree-und-not-yet:checked').val();
-        if (!ConfirmPage) {
-         jQuery('.multipage-link-next').fadeTo(250, 0.25);
-        }
-        else {
-         jQuery('.multipage-link-next').fadeTo(250, 0.25);
-        }
-
-    }
-
+//     else {
+//         jQuery('#edit-submit').hide();
+//         jQuery('.multipage-button').show();
+//        console.log('No save visible.');
+//        var ConfirmPage = jQuery('#edit-field-agree-und-not-yet:checked').val();
+//        if (!ConfirmPage) {
+//         jQuery('.multipage-link-next').hide();
+//        }
+//        else {
+//         jQuery('.multipage-link-next').hide();
+//        }
+////
+//    }
+//
      // If on the confirmation page --> hide "Next Page" button.
       // Reinterpret SUBMIT, NEXT & PREVIOUS button's CSS
        //console.log('Action detected - end of script.');

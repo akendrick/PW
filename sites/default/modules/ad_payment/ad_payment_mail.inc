@@ -10,6 +10,7 @@
 * Implementation of custom email implementor.
 */
 function ad_payment_send_email($email_type, $details = NULL) {
+  //dpm($details);
   global $user;
 
   // Set defaults
@@ -149,10 +150,11 @@ function email_receipt_body($message = NULL) {
   $standard_message = 'PLEASE NOTE:
     Your ad will be reviewed by our friendly staff before being placed online and in print.
     Liveload ads are given priority and often processed within 1/2 hour after submission (during regular business hours).
-    Otherwise the ad will wait until our next print edition which is every Tuesday.'
+    Otherwise the ad will wait until our next print edition which is every Tuesday.';
 
+  // Check to see is the holiday settings are set and get message.
   $holiday = variable_get('pennywise_holiday_settings', NULL);
-  $message = ($holiday['setting_flag']) ? $holiday['message'] : $standard_message;
+  $message = ($holiday['holiday_settings'] > 1) ? $holiday['holiday_message_plain'] : $standard_message;
 
 
 $reciept = <<<RECEIPT

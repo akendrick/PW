@@ -509,8 +509,6 @@ function pw_pages_ds_layout_settings_info() {
   $ds_layout->view_mode = 'teaser';
   $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => 0,
     'regions' => array(
       'ds_content' => array(
         0 => 'title',
@@ -526,6 +524,12 @@ function pw_pages_ds_layout_settings_info() {
       'field_file' => 'ds_content',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
   );
   $export['node|attachment|teaser'] = $ds_layout;
 
@@ -535,31 +539,31 @@ function pw_pages_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'page';
   $ds_layout->view_mode = 'default';
-  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => 0,
     'regions' => array(
-      'header' => array(
+      'ds_content' => array(
         0 => 'field_image',
-      ),
-      'footer' => array(
-        0 => 'body',
-        1 => 'field_entity_reference',
-        2 => 'comments',
-      ),
-      'right' => array(
-        0 => 'field_link',
+        1 => 'field_link',
+        2 => 'body',
+        3 => 'field_entity_reference',
+        4 => 'comments',
       ),
     ),
     'fields' => array(
-      'field_image' => 'header',
-      'body' => 'footer',
-      'field_entity_reference' => 'footer',
-      'field_link' => 'right',
-      'comments' => 'footer',
+      'field_image' => 'ds_content',
+      'field_link' => 'ds_content',
+      'body' => 'ds_content',
+      'field_entity_reference' => 'ds_content',
+      'comments' => 'ds_content',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
   );
   $export['node|page|default'] = $ds_layout;
 

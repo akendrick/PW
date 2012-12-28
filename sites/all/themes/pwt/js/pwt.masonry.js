@@ -33,6 +33,15 @@
       gutterWidth: 8
     });
 
+    // Multiple Node Attachments
+    $('.field-name-field-entity-reference').masonry({
+      itemSelector : '.node-attachment.view-mode-teaser',
+      columnWidth : 280, // was 270 // 3-col 105
+      isFitWidth: true,
+      gutterWidth: 20
+    });
+
+
     // Editorials
     $('.views-field-field-image > .field-content > a > img').imagesLoaded(function() {
       $('.view-display-id-attachment_1 ').masonry({

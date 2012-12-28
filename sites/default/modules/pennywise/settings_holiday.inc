@@ -4,6 +4,7 @@
  * @file
  *  Settings Page/Form and form validation.
  *
+ *   // USING Absolute_messages as PDM (persistant dismissable messages not working as expected.
  */
 
 function pw_holiday_settings_page() {
@@ -21,33 +22,28 @@ function pw_holiday_settings_page() {
 */
 
 function pennywise_holiday_settingsform() {
-  /* defaults */
+  /* set defaults */
   $holiday_settings = array(
-    'setting_flag' => 0, // 0 is no holiday, 1 is early deadline, 2 is Longweekend/special, 3 is Extended holiday.
-    'setting_hr' => 'No Holiday Message (Regular Hours)',
-    'event' => 'Pennywise will be closed for Christmas.',
-    'hours' => 'Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013',
-    'submission_flag' => 0,
-    'submission_hr' => 'hourly',
-    'message' => '',
-    'receipt_message' => '',
+    'holiday_settings' => 0,
+    'regular_hours'    => t('Open Monday to Thursday 9am - 5pm, Friday 9am - 4pm.'),
+    'holiday_message_type' => 2,
+    'holiday'          => t('Pennywise is closed for Christmas'),
+    'holiday_hours'    => t('Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013'),
+    'holiday_details'  => t(''),
+    'holiday_message'  => t('<h2>@holiday</h2><p>The Pennywise office will be closed @hours.<br> @details.',
+      array('@holiday' => $holiday_settings['holiday'], '@hours' => $holiday_settings['holiday_hours'], '@details' => $holiday_settings['holiday_details'])),
   );
   $holiday = variable_get('pennywise_holiday_settings', $holiday_settings);
 
-//  $holiday_message = t('<h2>@holiday</h2><p>The Pennywise office will be closed @hours.<br> Online submissions will be updated @online.',
-//      array('@holiday' => $holiday_event, '@hours' => $holiday_hours, '@online' => $online));
-
   $form['holiday_settings'] = array(
-    '#title'       => t('Holiday Greeting'),
+    '#title'       => t('Set Holiday Greeting'),
     '#type'        => 'radios',
     '#description' => t('Set holiday messages to display on the site.<br>This greeting will only be visible if <em>Holidays</em> is set to anything other than <strong>Regular Hours</strong>.'),
     '#options'     => array(
-      t('No Holiday Message (Regular Hours)'),
-      t('Early Deadline'),
-      t('Long Weekend/Special Holiday'),
-      t('Extended Holidays'),
+      0 => 'Regular Hours',
+      1 => 'Turn on Holiday message.',
     ),
-    '#default_value' => $holiday['setting_flag'],
+    '#default_value' => $holiday['holiday_settings'],
     '#required'      => TRUE,
   );
 
@@ -55,57 +51,71 @@ function pennywise_holiday_settingsform() {
     '#title'       => t('Regular Hours of Operation'),
     '#description' => t('This is the defacto days of operation. Shown only when holiday hours are not visible.'),
     '#type'        => 'textfield',
-    '#default_value' => 'Open Monday to Thursday 9am - 5pm, Friday 9am - 4pm',
+    '#default_value' => $holiday['regular_hours'],
     '#required'      => TRUE,
   );
 
+
   $form['hm'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Set Holiday Message',
+    '#title' => t('Set Holiday Message'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   );
+
+/*
+  $form['hm']['holiday_message_type'] = array(
+    '#title'       => t('Holiday Message Type'),
+    '#type'        => 'radios',
+    '#description' => t('Specify how the holiday message is shown.<dl><dt>Dismissible</dt><dd>User can dismiss the message or wait for it to automatically disappear after certain amount of time.</dd><dt>Permanent</dt><dd>(Non-dismissible) Message is always present and cannot be removed.</dd></dl>This greeting will only be visible if <em>Holidays</em> is set to anything other than <strong>Regular Hours</strong>.'),
+    '#options'     => array(
+      0 => t('Show message once then nevermore. (Dismissible)'),
+      1 => t('Show message on every page. (Dismissable)'),
+      2 => t('Show message on every pages including emails & reciepts. (Dismissable)'),
+      3 => t('Show message on every pages including emails & reciepts. (Permanent)'),
+    ),
+    '#default_value' => $holiday['holiday_message_type'],
+    '#required'      => TRUE,
+  );
+*/
 
   $form['hm']['holiday'] = array(
     '#title'         => t('Holiday'),
     '#description'   => t('The reason for the change in schedule. <br><em>Eg. Christmas, Ramadan, or Rememberance Day.</em>'),
     '#type'          => 'textfield',
-    '#default_value' => $holiday['event'],
+    '#default_value' => $holiday['holiday'],
     '#required'      => TRUE,
   );
 
   $form['hm']['holiday_hours'] = array(
-    '#title'       => t('Holiday Date/Time'),
-    '#description' => t('This greeting will only be visible if <em>Holidays</em> is set to anything other than <strong>Regular Hours</strong>.<em>Eg. Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013</em>'),
+    '#title'       => t('Holiday Date & Time'),
+    '#description' => t('<em>Eg. Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013</em>'),
     '#type'        => 'textfield',
-    '#default_value' => $holiday['hours'],
+    '#default_value' => $holiday['holiday_hours'],
     '#required'      => TRUE,
   );
 
-  $form['hm']['online_submissions'] = array(
-    '#title'       => t('Online Submissions'),
-    '#type'        => 'radios',
-    '#description' => t('Set online submission updating.'),
-    '#options'     => array(
-      t('hourly'),
-      t('daily'),
-      t('every few days'),
-      t('on the return of regular business hours'),
-    ),
-    '#default_value' => $holiday['submission_flag'],
-    '#required'      => TRUE,
-  );
+  $form['hm']['holiday_details'] = array(
+   '#title'        => t('Special Holiday Message'),
+   '#description'  => t('More details about the holiday ad submission process etc.'),
+   '#type'         => 'textarea',
+   '#required'     => FALSE,
+   '#default_value'=> $holiday['holiday_details'],
+   '#cols'         => 10,
+   '#rows'         => 5,
+   '#resizable'    => FALSE,
+ );
 
-  // Holiday Message
+ // Holiday Message
   $form['hm']['holiday_message'] = array(
     '#type' => 'fieldset',
     '#title' => 'Holiday Message',
     '#collapsible' => FALSE,
   );
   // OUtput
-  $form['hm']['holiday_message']['output'] = array(
+  $form['hm']['holiday_message']['message'] = array(
     '#type'         => 'item',
-    '#description'  => $holiday['message'],
+    '#description'  => $holiday['holiday_message'],
     '#attributes'   => array('message-demo'),
   );
 
@@ -113,6 +123,7 @@ function pennywise_holiday_settingsform() {
     '#type'  => 'submit',
     '#value' => t('Submit'),
   );
+
 
   return $form;
 }
@@ -123,35 +134,23 @@ function pennywise_holiday_settingsform() {
 */
 function pennywise_holiday_settingsform_submit($form, &$form_state) {
 
+
   $holiday = array(
-    'setting_flag' => $form_state['values']['holiday_settings'], // 0 is no holiday, 1 is early deadline, 2 is Longweekend/special, 3 is Extended holiday.
-    'setting_hr' => $form_state['complete form']['holiday_settings'][$holiday_settings]['#title'],
-    'event' => $form_state['values']['holiday'],
-    'hours' => $form_state['values']['holiday_hours'],
-    'reg_hours' => $form_state['values']['regular_hours'],
-    'submission_flag' => $form_state['values']['online_submissions'],
-    'submission_hr' => $form_state['complete form']['online_submissions'][$online]['#title'],
+    'holiday_settings'  => $form_state['values']['holiday_settings'],
+    'regular_hours'     => $form_state['values']['regular_hours'],
+    'holiday_message_type' => $form_state['values']['holiday_message_type'],
+    'holiday'          => $form_state['values']['holiday'],
+    'holiday_hours'    => $form_state['values']['holiday_hours'],
+    'holiday_details'  => $form_state['values']['holiday_details'],
   );
 
 
-  // Create specific message for ad submission receipts.
-  switch($holiday['submission_flag']) {
-    case 0: //Hourly
-      $holiday['receipt_message'] = '';
-      break;
-    case 1: // Daily
-      $holiday['receipt_message'] = 'Online ad submissions are checked daily. Liveload ads are given priority and will be processed within 24 hours the next business day after submission.';
-      break;
-    case 2: // Every Few Days
-      $holiday['receipt_message'] = 'During long holidays the office is closed but online submissions are checked periodically, and all ad submissions will be processed in due course. Liveload ads will be given priority and processed every 3-4 days.';
-      break;
-    case 3: // On the return of regular business hours
-      $holiday['receipt_message'] = 'During long holidays the office is closed but online submissions are checked periodically. All ad submissions will be processed in due course. Liveload ads will be processed online at the return of regular business hours.';
-      break;
-  }
-  $holiday['message'] =
-    t('<h2>@holiday</h2><p class="holiday-hours">The Pennywise office will be closed @hours.</p><p class="holiday-details">@online',
-    array('@holiday' => $holiday['event'], '@hours' => $holiday['hours'], '@online' => $holiday['receipt_message']));
+  $holiday['holiday_message'] =
+    t('<h2>@holiday</h2><p class="holiday-hours">The Pennywise office will be closed @hours.</p><p class="holiday-details">@details',
+    array('@holiday' => $holiday['holiday'], '@hours' => $holiday['holiday_hours'], '@details' => $holiday['holiday_details']));
+  $holiday['holiday_message_plain'] =
+    t('@holiday.\n\r The Pennywise office will be closed @hours. \r\n @details',
+    array('@holiday' => $holiday['holiday'], '@hours' => $holiday['holiday_hours'], '@details' => $holiday['holiday_details']));
 
 //  dpm('FORM STATE');
 //  dpm($form_state);

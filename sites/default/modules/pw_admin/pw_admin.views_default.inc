@@ -1,4 +1,3 @@
-o
 <?php
 /**
  * @file
@@ -2695,6 +2694,14 @@ function pw_admin_views_default_views() {
       'label' => '',
     ),
   );
+  /* Field: Content: Delete link */
+  $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['label'] = '';
+  $handler->display->display_options['fields']['delete_node']['element_type'] = 'div';
+  $handler->display->display_options['fields']['delete_node']['element_class'] = 'button';
+  $handler->display->display_options['fields']['delete_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Ad Type */
   $handler->display->display_options['sorts']['field_promote_value']['id'] = 'field_promote_value';

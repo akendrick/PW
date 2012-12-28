@@ -1910,6 +1910,27 @@ echo date(\'now\');
       'simple_teaser' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'castlegar_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'editorial_slideshow' => array(
+        'custom_settings' => FALSE,
+      ),
+      'kootenay_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'nelson_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'trail_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -2310,48 +2331,49 @@ echo date(\'now\');
     4 => 253,
     5 => 252,
     6 => 250,
-    7 => 247,
-    8 => 246,
-    9 => 245,
-    10 => 127,
-    11 => 126,
-    12 => 125,
-    13 => 124,
-    14 => 123,
-    15 => 122,
-    16 => 121,
-    17 => 117,
-    18 => 112,
-    19 => 63,
-    20 => 62,
-    21 => 61,
-    22 => 60,
-    23 => 59,
-    24 => 58,
-    25 => 56,
-    26 => 44,
-    27 => 31,
-    28 => 30,
-    29 => 29,
-    30 => 28,
-    31 => 27,
-    32 => 25,
-    33 => 24,
-    34 => 23,
-    35 => 21,
-    36 => 15,
-    37 => 14,
-    38 => 13,
-    39 => 11,
-    40 => 10,
-    41 => 8,
-    42 => 7,
-    43 => 6,
-    44 => 5,
-    45 => 4,
-    46 => 3,
-    47 => 2,
-    48 => 1,
+    7 => 248,
+    8 => 247,
+    9 => 246,
+    10 => 245,
+    11 => 127,
+    12 => 126,
+    13 => 125,
+    14 => 124,
+    15 => 123,
+    16 => 122,
+    17 => 121,
+    18 => 117,
+    19 => 112,
+    20 => 63,
+    21 => 62,
+    22 => 61,
+    23 => 60,
+    24 => 59,
+    25 => 58,
+    26 => 56,
+    27 => 44,
+    28 => 31,
+    29 => 30,
+    30 => 29,
+    31 => 28,
+    32 => 27,
+    33 => 25,
+    34 => 24,
+    35 => 23,
+    36 => 21,
+    37 => 15,
+    38 => 14,
+    39 => 13,
+    40 => 11,
+    41 => 10,
+    42 => 8,
+    43 => 7,
+    44 => 6,
+    45 => 5,
+    46 => 4,
+    47 => 3,
+    48 => 2,
+    49 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -3070,34 +3092,16 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pennywise_holiday_event';
-  $strongarm->value = 'Pennywise will be closed for Christmas.';
-  $export['pennywise_holiday_event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'pennywise_holiday_hours';
-  $strongarm->value = 'Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013';
-  $export['pennywise_holiday_hours'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'pennywise_holiday_online';
-  $strongarm->value = array(
-    '#value' => '0',
-    '#title' => 'hourly',
-  );
-  $export['pennywise_holiday_online'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'pennywise_holiday_settings';
   $strongarm->value = array(
-    '#value' => '0',
-    '#title' => 'No Holiday Message (Regular Hours)',
+    'holiday_settings' => '0',
+    'regular_hours' => 'OPEN Monday to Thursday 9am - 5pm, Friday 9am - 4pm.',
+    'holiday_message_type' => NULL,
+    'holiday' => 'Pennywise is closed for Christmas',
+    'holiday_hours' => 'Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013',
+    'holiday_details' => 'The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
+    'holiday_message' => '<h2>Pennywise is closed for Christmas</h2><p class="holiday-hours">The Pennywise office will be closed Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013.</p><p class="holiday-details">The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
+    'holiday_message_plain' => 'Pennywise is closed for Christmas.\\n\\r The Pennywise office will be closed Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013. \\r\\n The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
   );
   $export['pennywise_holiday_settings'] = $strongarm;
 

@@ -4,11 +4,6 @@
 *
 * This page is called from ClassAlter Module # Submission Validation Function.
 *
-* @TODO
-* - Pass data along to server.
-* - Create DB and save price/sub-total/taxes and optionals (incl word count etc)
-*   for future error checking.
-*
 */
 
 // VALIDATION CODE IN PENNYWISE MODULE
@@ -57,6 +52,7 @@ function _ad_payment_get_cc_data($form_state) {
 *
 */
 function _ad_payment_validate_cc_data($form_state) {
+
   $cc_data = _ad_payment_get_cc_data($form_state);
 
   if(!$cc_data['first_name']) {
@@ -68,15 +64,19 @@ function _ad_payment_validate_cc_data($form_state) {
 
   if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
       _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
+      dpm('Card Validate TRUE');
     return(TRUE);
   }
+
   return(FALSE);
 
 }
 
+/**
+* Implementation of Credit Card Number Validation.
+*/
 
 function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name, $form_state = NULL) {
-
   // Remove non-digits from $credit_card_number.
   $credit_card_number = strrev (preg_replace ('[^([[:digit:]])]', '', $credit_card_number));
 //  $credit_card_number = strrev (ereg_replace ('[^([:digit:])]', '', $credit_card_number));

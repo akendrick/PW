@@ -18,11 +18,6 @@
 // Displays Form Data
 define ('DEBUG', FALSE);
 
-// VALIDATION_TEST_MODE: set to TRUE to allow any card number for testing purposes.
-// Must be set before loading the CreditCardValidate.inc.php library!
-define ('VALIDATION_TEST_MODE', FALSE);
-
-
 /**
 * Implementation of HOOK_email_registration_name
 *
@@ -44,7 +39,6 @@ function pennywise_email_registration_name($edit, $account) {
  * Implementation of HOOK_page
  */
 function pennywise_init() {
-
   drupal_add_css(drupal_get_path('module', 'pennywise') . '/css/pennywise.css', array('type' => 'file'));
 
 }
@@ -68,13 +62,65 @@ function pennywise_permission() {
 * Ads holiday message to site when the flag is set.
 */
 function pennywise_page_build(&$page) {
- // dpm($page);
+  pennywise_holiday_message();
+}
 
-  $holiday = variable_get('pennywise_holiday_settings', NULL);
-  if($holiday['setting_flag']) {
-    drupal_set_message($holiday['message'], 'warning');
+
+/**
+* Implementation of custom hook from Persistant Dismissable Message Module
+*
+*  Checks holiday status and outputs holiday message.
+*/
+function pennywise_holiday_message() {
+  $holiday = variable_get('pennywise_holiday_settings', FALSE);
+
+  if($holiday['holiday_settings'] == 0) {
+    return;
   }
 
+  if (module_exists('pdm')) {
+    switch ($holiday['holiday_message_type']) {
+      case 0: // Show message once then nevermore. {Dismissable).
+        $options = array(
+          'type'         => 'status',
+          'pdm_type'     => 'Pennywise Holiday',
+          'repeat'       => FALSE,
+          'persist'      => FALSE,
+        );
+        break;
+      case 1: // Show message on every page. (Dismissable)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'persist_time'  => 15,
+        );
+        break;
+      case 2: // Show message on every pages including emails & reciepts. (Dismissable)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'dismiss_time'  => 15,
+        );
+        break;
+      case 3: // Show message on every pages including emails & reciepts. (Permanent)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'dismissable'   => FALSE,
+          'dismiss_type'  => 1,
+        );
+        break;
+    }
+
+    //dpm($options);
+    pdm_create_message($holiday['holiday_message'], $options);
+  }
+  else {
+    drupal_set_message($holiday['holiday_message'], 'status');
+  }
 }
 
 /**
@@ -84,14 +130,6 @@ function pennywise_page_build(&$page) {
  *  - Default settings pages
  */
 function pennywise_menu() {
-#  $items['admin/pennywise'] = array(
-#    'title' => 'Promote',
-#    'page callback'    => 'pw_dashboard',
-#    'page arguments'   => array(3),
-#    'access arguments' => array('Administer content'),
-#    'file'             => 'dashboard.inc',
-#    'type'             => MENU_CALLBACK,
-#  );
 
   $items['admin/pennywise/promote_ad/%'] = array(
     'title' => 'Promote',
