@@ -48,14 +48,18 @@ define ('DEBUG_USER', FALSE); // Check USER creation data.
 define ('DEBUG_EMAIL', FALSE); // Check receipt and email features.
 define ('DEBUG_PAYMENT', FALSE); // Debug ad payment stuff. Does not include jQuery!
 
-define ('VALIDATION_TEST_MODE', FALSE); // Test Credit card #s
-
-
 /** --------- ADP_LOGIN -----
  * TRUE -> Go to login form first.
  * FALSE-> go direct to ad submission, Login in the background.
  */
 define ('ADP_LOGIN', FALSE);
+
+/** --------- Credit Card Validation -----
+ */
+define ('VALIDATION_TEST_MODE', FALSE);
+
+
+
 
 /**
 * Implementation of HOOK_menu
@@ -251,8 +255,10 @@ function _ad_payment_cc_validate(&$form, &$form_state) {
   // Check CC Data
   module_load_include('inc', 'ad_payment', 'ad_payment_cc_validate');
   $validated = _ad_payment_validate_cc_data($form_state);
-  if (!$validated) {
-    return FALSE;
+  if (is_array($validated)) {
+    //return FALSE;
+    //dpm($validated);
+    form_set_error($validated['field'], $validated['message']);
   }
 
   // Get Price

@@ -62,7 +62,7 @@ function ad_payment_form(&$form, $form_state) {
     '#title' => t('Credit Card Information'),
     '#collapsible' => FALSE,
     '#collapsed' => FALSE,
-    '#weight' => -40,
+    '#weight' => -20,
   );
 
   $form['card']['field_first_name'] = array(
@@ -74,16 +74,18 @@ function ad_payment_form(&$form, $form_state) {
     '#maxlength' => 35,
     '#required' => $required,
     '#access' => $access,
+    '#weight' => -30,
   );
   $form['card']['field_last_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Last Name'),
-    '#description' => t('Please enter your Last Name as it appears on your card'),
+//    '#description' => t('Please enter your Last Name as it appears on your card'),
     '#default_value' => ($user_data && $user_data->field_last_name && $user_data->field_last_name['und'][0]['value']) ? $user_data->field_last_name['und'][0]['value'] : '',
     '#size' => 12,
     '#maxlength' => 35,
     '#required' => $required,
     '#access' => $access,
+    '#weight' => -28,
   );
 
 //  $form['field_email'] = array(
@@ -104,19 +106,19 @@ function ad_payment_form(&$form, $form_state) {
     '#options' => array('Master Card', 'Visa'),
     '#required' => TRUE,
     '#access' => $access,
-    '#weight' => -40,
+    '#weight' => 20,
   );
   $form['card']['field_cc_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Credit Card Number'),
     '#validate' => array('_ad_payment_cc_number_validate'),
-    '#size' => 18,
+    '#size' => 26,
     '#maxlength' => 36,
     '#default_value' => $cc_number,
     '#attributes' => array('autocomplete' =>'off'),
     '#required' => $required,
     '#access' => $access,
-    '#weight' => -40,
+    '#weight' => 30,
   );
   $months = array(
     '00' => 'Select Month',
@@ -151,7 +153,7 @@ function ad_payment_form(&$form, $form_state) {
     '#default_value' => $cc_month,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => -40,
+    '#weight' => 35,
   );
   $form['card']['field_exp_year'] = array(
     '#type' => 'select',
@@ -160,6 +162,6 @@ function ad_payment_form(&$form, $form_state) {
     '#default_value' => $cc_year,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => -40,
+    '#weight' => 40,
   );
 }

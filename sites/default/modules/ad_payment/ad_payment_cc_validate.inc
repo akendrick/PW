@@ -62,13 +62,29 @@ function _ad_payment_validate_cc_data($form_state) {
     form_set_error('field_last_name', 'Please fill in your last name');
   }
 
-  if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
-      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
-      dpm('Card Validate TRUE');
-    return(TRUE);
+
+  $expiry = _ad_payment_validate_cc_expiry($cc_data['expiry']);
+  $cc_num = _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state);
+
+  if ($expiry && $cc_num) { return TRUE; }
+  elseif (is_array($expiry) || !$expiry){
+    return $expiry;
+  }
+  elseif(is_array($cc_num) || !$cc_num) {
+    return $cc_num;
   }
 
-  return(FALSE);
+  return TRUE;
+
+//  dpm('Expiry test: ' . $expiry . '  ---  CC Num test: ' . $cc_num);
+//
+//  if (_ad_payment_validate_cc_expiry($cc_data['expiry']) &&
+//      _ad_payment_validate_cc_number($cc_data['number'], $cc_data['type'], $form_state) ) {
+//      dpm('Card Validate TRUE');
+//    return(TRUE);
+//  }
+//
+//  return(FALSE);
 
 }
 
@@ -77,9 +93,17 @@ function _ad_payment_validate_cc_data($form_state) {
 */
 
 function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name, $form_state = NULL) {
-  // Remove non-digits from $credit_card_number.
-  $credit_card_number = strrev (preg_replace ('[^([[:digit:]])]', '', $credit_card_number));
-//  $credit_card_number = strrev (ereg_replace ('[^([:digit:])]', '', $credit_card_number));
+
+  if (VALIDATION_TEST_MODE === true) {
+    return TRUE;
+  }
+  if (!$credit_card_number) {
+    return (array('field' => 'field_cc_number', 'message' => 'Credit card number is missing.'));
+  }
+//  if (!is_numeric($credit_card_number)) {
+//    return (array('field' => 'field_cc_number', 'message' => 'Credit card number must be integer.'));
+//  }
+  $credit_card_number = strrev (preg_replace ('[^([[:digit:]])]', '', $credit_card_number));  // OLD //  $credit_card_number = strrev (ereg_replace ('[^([:digit:])]', '', $credit_card_number));
   $credit_card_number_length = strlen ($credit_card_number);
 
   // Make card type upper case for comparisons.
@@ -93,50 +117,54 @@ function _ad_payment_validate_cc_number ($credit_card_number, $credit_card_name,
    // dpm($form_state['values']);
      $error_msg = t('<strong>We cannot accept VISA DEBIT cards at this time.</strong><br>
         - Please use another card for this transaction.<br> - Or call toll free 1-800-663-4619');
-     form_set_error('field_cc_number', $error_msg );
+     //form_set_error('field_cc_number', $error_msg );
+     return (array('field' => 'field_cc_number', 'message' => $error_msg));
   }
 
   // Check for correct number of digits for each credit card type.
   if($credit_card_name == "VISA" && ($credit_card_number_length != 13 && $credit_card_number_length != 15)) {
-    form_set_error('field_cc_number', 'Wrong number of digits for Visa!');
-    return(FALSE);
+    return (array('field' => 'field_cc_number', 'message' => 'Credit card number has incorrect number of digits.'));
+    // form_set_error('field_cc_number', 'Wrong number of digits for Visa!');
+    // return(FALSE);
   }
   elseif ($credit_card_name == "MASTER CARD" && $credit_card_number_length != 16 ) {
-    form_set_error('field_cc_number', 'Wrong number of digits for Master Card! -- ' . $credit_card_number_length);
-    return(FALSE);
+    return (array('field' => 'field_cc_number', 'message' => 'Credit card number has incorrect number of digits.'));
+    // form_set_error('field_cc_number', 'Wrong number of digits for Master Card! -- ' . $credit_card_number_length);
+    // return(FALSE);
   }
 
   // Step 2:LUHN check digit calculations
-//  for($digit_position = 1; $digit_position < $credit_card_number_length; $digit_position += 2) {
-//    $digit_times_two = ($credit_card_number[$digit_position] * 2);
-//
-//    if($digit_times_two > 9) {
-//        $credit_card_number[$digit_position] = ($digit_times_two - 9);
-//    } else {
-//        $credit_card_number[$digit_position] = $digit_times_two;
-//    }
-//  }
-//  $validation_number = 0;
-//
-//  // Step 3.
-//  for($digit_position = 0; $digit_position < $credit_card_number_length; $digit_position++) {
-//  	$validation_number += $credit_card_number[$digit_position];
-//  }
-//
-//  // Step 4.
-//  if (($validation_number % 10) == 0) {
-//	 return (TRUE);
-//  }
-//  else {
-//   form_set_error('field_cc_number', 'Invalid credit card number.');
-//   return (FALSE);
-//  }
+  for ($digit_position = 1; $digit_position < $credit_card_number_length; $digit_position += 2) {
+    $digit_times_two = ($credit_card_number[$digit_position] * 2);
 
+    if ($digit_times_two > 9) {
+        $credit_card_number[$digit_position] = ($digit_times_two - 9);
+    } else {
+        $credit_card_number[$digit_position] = $digit_times_two;
+    }
+  }
+  $validation_number = 0;
+
+  // Step 3.
+  for ($digit_position = 0; $digit_position < $credit_card_number_length; $digit_position++) {
+  	$validation_number += $credit_card_number[$digit_position];
+  }
+
+  // Step 4.
+  if (($validation_number % 10) == 0) {
+	 return (TRUE);
+  }
+  else {
+   return (array('field' => 'field_cc_number', 'message' => 'Invalid credit card score: ' . $validation_number));
+   // form_set_error('field_cc_number', 'Invalid credit card number.');
+   // return (FALSE);
+  }
+  return FALSE;
 } // END: function validate_cc_number
 
 function _ad_payment_validate_cc_expiry ($cc_expiry) {
-  if (preg_match('/(^[0-9]{1,2})[- \/]([0-9]{1,2})/', $cc_expiry, $expiry)) {
-//  if (ereg('([0-9]{1,2})[-\\/ ]?([0-9]{2})', $cc_expiry, $expiry)) {
+  if (preg_match('/(^[0-9]{1,2})[- \/]([0-9]{1,2})/', $cc_expiry, $expiry)) {  ////  if (ereg('([0-9]{1,2})[-\\/ ]?([0-9]{2})', $cc_expiry, $expiry)) {
+
   	// Use date windowing to determine current century.
   	if ($expiry[2] > 90) {
   	  $expiry[2] += 1900;
@@ -144,27 +172,34 @@ function _ad_payment_validate_cc_expiry ($cc_expiry) {
   	  $expiry[2] += 2000;
   	}
   	if (($expiry[1] < 0) || ($expiry[1] > 12)) {
-      form_set_error('field_exp_month', 'Invalid expiry month.');
+    	return (array('field' => 'field_exp_month', 'message' => 'Invalid expiry month.'));
+      // form_set_error('field_exp_month', 'Invalid expiry month.');
   	  // validation_error("Invalid expiry month: $expiry[1]", $errorList);
-      return FALSE;
+      // return FALSE;
   	}
   	if ($expiry[2] < date ('Y') ) {
-      form_set_error('field_exp_year', 'Your card has expired.');
-  	    return FALSE;
+    	return (array('field' => 'field_exp_year', 'message' => 'Your card has expired.'));
+      //form_set_error('field_exp_year', 'Your card has expired.');
+  	  //  return FALSE;
   	}
   	if (($expiry[1] < date ('m') ) && ($expiry[2] == date ('Y') )) {
-      form_set_error('field_exp_year', 'Your card has expired.');
-  	    return FALSE;
+    	return (array('field' => 'field_exp_year', 'message' => 'Your card has expired.'));
+      //form_set_error('field_exp_year', 'Your card has expired.');
+  	  //  return FALSE;
   	}
   }
    else {
      //invalid date format
-     form_set_error('field_exp_year', 'Invalid expiry format should be in MM-YY format.');
-     return FALSE;
+    	return (array('field' => 'field_exp_year', 'message' => 'Invalid expiry format should be in MM-YY format.'));
+     // form_set_error('field_exp_year', 'Invalid expiry format should be in MM-YY format.');
+     // return FALSE;
    }
   return TRUE;
 } // END: function validate_cc_expiry
 
+/**
+* Implementation of CUSTOM Netidea code ---- not in use!
+*/
 
 function _ad_payment_submit_cc_data($form_state) {
   $cc_data = _ad_payment_get_cc_data($form_state);
@@ -199,7 +234,7 @@ function _ad_payment_submit_cc_data($form_state) {
 
     /* email the form, etc */
     // $id is the affirmation of the Database entry. Used for creating a link.
-    $id = 13;
+    $id = rand();
   }
   // END NETIDEA CODE
   // return id to create link to CC DATA.

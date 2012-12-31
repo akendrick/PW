@@ -128,7 +128,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['nothing']['element_class'] = 'classified-ad-copy';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
-  /* Field: Field: Phone Number */
+  /* Field: Field: Phone */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';

@@ -406,12 +406,15 @@ function ad_payment_price_check(&$var, $data_type) {
 */
 function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
   // Get Section Rating
-  if ( $tax_term = taxonomy_term_load($tid) ) {
+  if ($tax_term = taxonomy_term_load($tid) ) {
     $get_rate = array(
       'term_rate' => $tax_term->field_business_rated['und'][0]['value'],
       'term_name' => $tax_term->name,
       'form_rate' => ($submitted_rate == 'Personal') ? 0 : 1,
     );
+  }
+  else {
+    $get_rate = array();
   }
 
   if ($submitted_rate == 'Business'){
@@ -456,6 +459,7 @@ function ad_payment_validate_rate($tid = NULL, $submitted_rate = NULL) {
       );
       break;
   }
+
   $rate = array_merge($get_rate, $pricing);
 
   if (DEBUG_ADP || DEBUG_PAYMENT) {
