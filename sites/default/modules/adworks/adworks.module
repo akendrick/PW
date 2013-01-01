@@ -150,7 +150,7 @@ function adworks_adworks_file_form_submit($form, &$form_state) {
   );
   batch_set($batch);
 
-  $redirect = 'admin/pennywise/classified/upcomming';
+  $redirect = 'admin/pennywise/classified/upcoming';
   batch_process($redirect);
 }
 

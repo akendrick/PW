@@ -38,7 +38,7 @@ function pwt_preprocess_menu_advertising_links_block_wrapper(&$variables, $hook)
 * Implementation of template_preprocess_taxonomy_term
 */
 function pwt_taxonomy_term_view_alter(&$build) {
-  dpm($build);
+//  dpm($build);
 }
 
 /**

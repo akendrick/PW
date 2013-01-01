@@ -2535,7 +2535,7 @@ function pw_admin_views_default_views() {
 
 <table class=\'details-price\'>
 <tr class=\'details-price details-price-subtotal\'>
-  <td><strong>Subtotal:</strong></td> 
+  <td><strong>Subtotal:</strong></td>
   <td>$[price_subtotal]</td></tr>
 <tr class=\'details-price details-price-tax\'>
   <td><strong>Tax:</strong></td>
@@ -2543,7 +2543,7 @@ function pw_admin_views_default_views() {
 <tr class=\'details-price details-price-total\'>
   <td><strong>Total:</strong></td>
   <td>$[price_total]</td></tr>
-<tr class=\'payment-option payment-cc-type\'> 
+<tr class=\'payment-option payment-cc-type\'>
   <td colspan=2></td></tr>
 <tr class=\'payment-option payment-digits\'>
   <td class=\'payment-cc-type\'>[cc_type_1]:</td>
@@ -5658,6 +5658,112 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
   $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Target */
+  $handler = $view->new_display('page', 'Target', 'page_1');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['row_class'] = ' display-col field-promote-status-[promote] ';
+  $handler->display->display_options['style_options']['columns'] = '6';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 'All';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    8 => 0,
+    9 => 0,
+    11 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+    12 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'display_ads' => 'display_ads',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Display Ad Type (field_display_ad_type) */
+  $handler->display->display_options['filters']['field_display_ad_type_value']['id'] = 'field_display_ad_type_value';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['table'] = 'field_data_field_display_ad_type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['field'] = 'field_display_ad_type_value';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['value'] = array(
+    'target' => 'target',
+  );
+  $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator_id'] = 'field_display_ad_type_value_op';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['label'] = 'Display Ad Type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
+  $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
+  /* Filter criterion: Content: Section (field_tags) */
+  $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['value'] = array(
+    32 => '32',
+    24 => '24',
+    14 => '14',
+    17 => '17',
+    20 => '20',
+    16 => '16',
+    15 => '15',
+    35 => '35',
+    37 => '37',
+    48 => '48',
+    54 => '54',
+  );
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Section';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['reduce'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'classification';
+  $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['field_tags_tid']['error_message'] = FALSE;
+  /* Filter criterion: Content: Client (field_ad_client) */
+  $handler->display->display_options['filters']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_ad_client_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator_id'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['label'] = 'Client';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['operator'] = 'field_ad_client_tid_op';
+  $handler->display->display_options['filters']['field_ad_client_tid']['expose']['identifier'] = 'field_ad_client_tid';
+  $handler->display->display_options['filters']['field_ad_client_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_ad_client_tid']['vocabulary'] = 'client';
+  $handler->display->display_options['path'] = 'admin/pennywise/display_ads/target';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Target';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pw-admin';
+  $handler->display->display_options['menu']['context'] = 0;
   $export['display_admin_v2'] = $view;
 
   $view = new view();
@@ -5789,7 +5895,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_area_taxonomy']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_area_taxonomy']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['field_area_taxonomy']['delta_offset'] = '0';
-  /* Field: Field: Email */
+  /* Field: Content: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
@@ -6775,12 +6881,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['empty']['php']['field'] = 'php';
   $handler->display->display_options['empty']['php']['label'] = 'Get Parent Taxonomy TID and create Link';
   $handler->display->display_options['empty']['php']['empty'] = TRUE;
-  $handler->display->display_options['empty']['php']['php_output'] = '<?php 
+  $handler->display->display_options['empty']['php']['php_output'] = '<?php
 global $base_path;
-$term_id =  $view->args[0]; 
-$parent = taxonomy_get_parents($term_id); 
+$term_id =  $view->args[0];
+$parent = taxonomy_get_parents($term_id);
 $ptid = array_values($parent);
-dpm($ptid);
 echo "<h4><a href=\'" . $base_path . "/taxonomy/term/" . $ptid[0]->tid . "\'> See more ads in " . $ptid[0]->name . "</a></h4>";
 ?>';
   $handler->display->display_options['defaults']['sorts'] = FALSE;

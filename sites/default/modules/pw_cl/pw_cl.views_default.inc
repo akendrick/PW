@@ -128,7 +128,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['nothing']['element_class'] = 'classified-ad-copy';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
-  /* Field: Field: Phone */
+  /* Field: Field: Phone Number */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';
@@ -140,7 +140,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_phone']['group_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_phone']['delta_offset'] = '0';
-  /* Field: Field: Email */
+  /* Field: Content: Email */
   $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
   $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['fields']['field_email']['field'] = 'field_email';

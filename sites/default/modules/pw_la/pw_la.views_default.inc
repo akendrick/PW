@@ -394,11 +394,10 @@ function pw_la_views_default_views() {
   $handler->display->display_options['fields']['contact']['element_wrapper_class'] = '.contact-button';
   $handler->display->display_options['fields']['contact']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['contact']['text'] = 'Contact';
-  /* Field: Field: Phone */
+  /* Field: Field: Phone Number */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';
-  $handler->display->display_options['fields']['field_phone']['label'] = 'Phone Number';
   $handler->display->display_options['fields']['field_phone']['click_sort_column'] = 'number';
   $handler->display->display_options['fields']['field_phone']['type'] = 'local_phone_number';
   /* Field: User: Fax */
@@ -586,7 +585,7 @@ function pw_la_views_default_views() {
   $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['uid']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: Field: Phone */
+  /* Field: Field: Phone Number */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';

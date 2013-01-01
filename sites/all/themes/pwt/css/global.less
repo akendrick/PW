@@ -141,6 +141,16 @@
 }
 
 /*****************  BASE  *****************/
+.button-link {
+  margin: 2px;
+  .button(@darksand, @white, @peach, @white, 2px);
+  font-size: 1em;
+  text-align: center;
+  a {
+    border: 1pt solid @darksand;
+    .box-shadow;
+  }
+}
 body {
   background-color: @classified_light;
 	background: #FFF url(../images/pw_back1.jpg) no-repeat;
@@ -597,6 +607,24 @@ body {
 
 /*****************  DISPLAY ADS  *****************/
 
+.view-id-display_ad_blocks {
+  h2.poster-block-title {
+    display: none;
+  }
+/*   padding: 20px 0; */
+  .views-row {
+/*     margin-bottom: 20px; */
+/*
+    float: left;
+    padding: 5px 0;
+*/
+    .center;
+  }
+  .view-footer {
+    clear: both;
+  }
+}
+
 
 /* Advertising Links Block */
 #block-menu-menu-advertising-links {
@@ -609,36 +637,22 @@ body {
 }
 
 /* Poster Block */
-.view-id-display_ad_blocks {
-  h2.poster-block-title {
+#block-views-ef0d1e47fd179cf664b200173efd842c {
+  h2 {
     display: none;
   }
-  padding: 20px 0;
   .views-row {
-    margin-bottom: 20px;
-    float: left;
-    padding: 5px 0;
-    .center;
-  }
-  .view-footer {
-    clear: both;
+    margin-bottom: 15px;
   }
 }
 
 /* Banner Block */
-#block-views-display-ad-blocks-x  -block {
-  .views-row {
-    background-color: transparent;
-  }
-  padding: 0; margin: 5px 0;
-  a {
-    .center;
-    .img {
-      margin: 4px auto 20px auto;
-      display: block;
-    }
-  }
+
+/* Print Ads */
+.view-display-id-print_block {
+  .center;
 }
+
 
 /* display ad pages - simple page */
 .node-type-display-ads {
@@ -927,20 +941,48 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
 */
 
 /* contact block footer */
-#block-pennywise-pw-contact--2 {
+#block-pennywise-pw-contact--2, {
   h2.block-title {
     background-color: @other;
   }
-  dt {
-    font-size: smaller;
+  dl {
     display: inline;
-  }
-  dd {
-    margin: 6px;
-    border-bottom: 1pt solid @darksand;
+    text-align: center;
+    padding: 5px;
+    dt {
+      display: inline;
+      width: 25%;
+      text-align: right;
+      font-size: 1em;
+      font-weight: 800;
+    }
+    dd {
+    display: inline;
+    text-align: left;
+    }
   }
   dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
     display: none;
+  }
+  .pw-contact-wrapper {
+    border-bottom: 1pt solid @darksand;
+    margin-top: 5px;
+  }
+  .pw-contact-toll_free-wrapper {
+    font-size: 1.6em;
+    dt, dd {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+  .row-odd {
+    background-color: @white;
+  }
+  .pw-contact-email-wrapper, .pw-contact-facebook-wrapper  {
+    width: 45%;
+    float: left;
+    font-size: 1.4em;
   }
 }
 

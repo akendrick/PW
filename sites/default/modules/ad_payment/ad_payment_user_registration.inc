@@ -67,14 +67,14 @@ function adp_user_registration(&$user, &$form_state) {
     // check_plain(format_username($account))
 
   if (DEBUG_USER) {
-    dpm('ACCOUNT');
-    dpm($account);
-    dpm('Email DB Check');
-    dpm($result);
-    dpm('FORM STATE');
-    dpm($form_state);
-    dpm('USER');
-    dpm($user);
+    // dpm('ACCOUNT');
+    // dpm($account);
+    // dpm('Email DB Check');
+    // dpm($result);
+    // dpm('FORM STATE');
+    // dpm($form_state);
+    // dpm('USER');
+    // dpm($user);
   }
 
 }
