@@ -1,0 +1,139 @@
+<?php
+/**
+* Standard Install file.
+*
+* @TODO
+*   - Uninstall SCHEMA
+*   - Variable Delete
+*       - ad_payment_classification_headers
+*       - ad_payment_business_rated
+*/
+
+function ad_payment_schema() {
+$schema['adp'] = array(
+  'description' => 'Created by `ad_submission` module.',
+  'fields' => array(
+    'ccid' => array(
+      'description' => 'Submitted node id number.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'uid' => array(
+      'description' => 'ID of user who submitted ad.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'nid' => array(
+      'description' => 'Node to which this field applies.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'cc_type' => array(
+      'description' => 'False is V, True is M.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'exp_m' => array(
+      'description' => 'Month',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'exp_y' => array(
+      'description' => 'Year',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'cc_num' => array(
+      'description' => 'Last four digits.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'notes' => array(
+      'description' => 'Serialized array of price elements.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+    'created' => array(
+      'description' => 'UNIX timestamp: date created.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'price_total' => array(
+      'description' => 'Final price (with taxes).',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'price_taxes' => array(
+      'description' => 'Death and taxes.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'price_subtotal' => array(
+      'description' => 'Price before taxes.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'word_count' => array(
+      'description' => 'Total number of words.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'areas' => array(
+      'description' => 'Number of areas.',
+      'type' => 'varchar',
+      'length' => '256',
+      'not null' => TRUE,
+      'default' => '',
+    ),
+    'duration' => array(
+      'description' => 'Number of weeks published.',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'liveload' => array(
+      'description' => 'Is it a liveload?',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+    ),
+    'image' => array(
+      'description' => 'Is there an image?',
+      'type' => 'int',
+      'size' => 'tiny',
+      'not null' => TRUE,
+    ),
+    'card_name' => array(
+      'description' => 'Name as it appears on card.',
+      'type' => 'varchar',
+      'length' => '1024',
+      'not null' => TRUE,
+    ),
+  ),
+  'primary key' => array('nid'),
+);
+  return $schema;
+}
+
+/**
+* Adds a Card Name field to the ADP table.
+*/
+
+//function ad_payment_update_7100() {
+//  db_add_field('adp', 'card_name', array(
+//    'type' => 'varchar',
+//    'length' => 256,
+//    'not null' => TRUE,
+//    'description' => 'Name as it appears on card.')
+//  );
+//}

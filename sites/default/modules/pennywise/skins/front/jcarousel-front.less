@@ -1,0 +1,163 @@
+
+/**
+ * Based on the default jCarousel front skin. Adapted for use with the Mini
+ * Panels module by Wim Leers. GPL icons created by Kaj Heijmans.
+ */
+/* background */
+@background: #fff;
+@colour: #d1e5ff;
+
+.border-radius(@radius: 20px) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.jcarousel-skin-front {
+
+  .jcarousel-skin-front-display-ad {
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+  }
+  .jcarousel-skin-front-wrapper {
+  /*   background-color: #ccc; */
+    z-index: 5;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 157px;
+    padding: 4px;
+/*     .alpha70 { */
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgba(0,0,0,0.7) transparent;
+    /* RGBa with 0.6 opacity */
+    background: rgba(0, 0, 0, 0.7);
+    /* For IE 5.5 - 7*/
+  /*   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000); */
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    .jcarousel-skin-front-details {
+      a {
+        height: 20px;
+        color: white;
+        text-decoration: none;
+        font-weight: 300;
+        overflow: hidden;
+      }
+      a:hover {
+        color: yellow;
+      }
+      a.jcarousel-skin-front-client {
+        color: @colour;
+        font-weight: 800;
+        height: 20px;
+      }
+      a.jcarousel-skin-front-body {
+        font-weight: 300;
+        font-size: .8em;
+        line-height: 1em;
+        width: 20px;
+        overflow: hidden;
+      }
+      a.jcarousel-skin-front-link, {
+        text-transform: uppercase;
+        background: #FFF;
+        width: 80%;
+        margin: 0;
+        padding: 2px;
+        color: #000;
+      }
+    }
+  }
+  .jcarousel-container {
+    margin: auto;
+  }
+
+  .jcarousel-container-horizontal {
+    width: 700px;
+    height: 220px;
+    padding: 10px 40px;
+  }
+
+  .jcarousel-navigation-before {
+    padding-top: 30px;
+  }
+
+  .jcarousel-navigation-after {
+    padding-bottom: 30px;
+  }
+
+  .jcarousel-clip-horizontal {
+    width: 700px;
+    overflow: hidden;
+/*     border: 1pt solid #900; */
+  }
+
+  .jcarousel-item {
+    padding: 0;
+    width: 160px;
+    height: 220px;
+    list-style: none;
+  }
+  .jcarousel-item-horizontal {
+    margin: 0 4px;
+  }
+  .jcarousel-item-placeholder {
+    background: #fff url(throbber.gif) no-repeat center center;
+    color: #000;
+  }
+  .jcarousel-next, .jcarousel-prev {
+    display: block;
+    width: 45px;
+    height: 45px;
+    background-image: url(arrows2.png);
+  }
+
+
+/**
+ * Buttons
+ */
+
+/**
+ *  Horizontal Buttons
+ */
+  .jcarousel-prev-horizontal {
+    position: absolute;
+    top: 55px;
+    left: 5px;
+    background-position: 0 0;
+  }
+ .jcarousel-prev-horizontal:hover {
+    background-position: -45px 0;
+  }
+  .jcarousel-prev-horizontal:active {
+    background-position: -90px 0;
+  }
+  .jcarousel-prev-disabled-horizontal,
+  .jcarousel-prev-disabled-horizontal:hover,
+  .jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+    background-position: -135px 0;
+  }
+
+  .jcarousel-next-horizontal {
+    position: absolute;
+    top: 55px;
+    right: 5px;
+    background-position: 0 -45px;
+  }
+  .jcarousel-next-horizontal:hover {
+    background-position: -45px -45px;
+  }
+  .jcarousel-next-horizontal:active {
+    background-position: -90px -45px;
+  }
+  .jcarousel-next-disabled-horizontal,
+  .jcarousel-next-disabled-horizontal:hover,
+  .jcarousel-next-disabled-horizontal:active {
+    cursor: default;
+    background-position: -135px -45px;
+  }
+}
+

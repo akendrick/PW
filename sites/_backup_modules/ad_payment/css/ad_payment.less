@@ -1,0 +1,490 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5%);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@highlight: lighten(#900, 20);
+
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/* center block */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.button (@background: @darksand, @link_text: @white, @hover: @warning, @link_hover: @classified_dark, @padding: 5px) {
+  a {
+    text-decoration: none;
+    .border-radius;
+    background-color: @background;
+    color: @link_text;
+    padding: @padding;
+  }
+  a:hover {
+    background-color: @hover;
+    color: @link_hover;
+  }
+}
+
+/***************** Registration Unified Form ********/
+.ad-submission-unified {
+  #login-message {
+/*     .center; */
+    text-align: center;
+    .border-radius;
+    background-color: @status;
+    color: @white;
+    font-size: large;
+    font-weight: 900;
+    padding: 5px;
+  }
+  .border-radius;
+  background-color: @sunlight;
+  border: 3pt solid @darksand;
+  padding: 10px;
+  margin: 20px;
+  #edit-submit {
+    .center
+  }
+  #login-links {
+    .center;
+    .button;
+    padding: 5px;
+
+  }
+}
+
+/************* AD FORM *********/
+/*ad submission page */
+body.page-ad-submit {
+  #ad-s-node-form { /*general style*/
+
+      /* mobile stylin' */
+    ul.horizontal-tabs-list {
+      li { width: 23%; }
+      strong { font-size: .9em; }
+      .form-required { display: none; }
+    }
+    .field-name-field-area .description,
+    .field-name-field-rate .description,
+    /* .field-name-field-duration .description */ {
+      display: none;
+    }
+      /* hide details */
+    #edit-field-ad-details, #field-ad-details-add-more-wrapper {
+      display: none;
+    }
+
+      /*large ad copy body*/
+    #edit-field-ad-copy-und-0-value {
+      font-size: 1.4em;
+    }
+
+    /*empty summary box*/
+    .ad-summary-directions {
+      h4 {
+        background-color: @classified_med;
+        .border-radius-custom;
+        text-align: center;
+        color: @white;
+        margin: 0;
+        padding: 4px;
+      }
+      color: @white;
+      padding: 5px;
+      background-color: @classified_med;
+      .border-radius-custom(0, 0, 10px, 10px);
+      ul {
+        margin: 0 0 0 20px;
+        padding: 0 5px 5px 10px;
+        li {
+          font-size: 1em;
+          line-height: 1.2em;
+          margin-bottom: 6px;
+          list-style-position: outside;
+        }
+      }
+    }
+    #ad-summary {
+      height: 280px;
+      margin: 0 30px;
+      #ad-summary-price {
+        dl.ad-summary {
+          dt, dl, dd {
+            margin: 0;
+            padding: 0;
+            line-height: .9em;
+            font-size: .9em;
+            text-align: center;
+          }
+          dt {
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          dd {
+            font-size: 1.2em; /*1.2em*/
+            line-height: 1.3em;
+          }
+          .ad-summary-block {
+            width: 100px;
+            height: 40px;
+            background-color: @classified_med;
+            color: @white;
+            text-align: center;
+            margin: 6px;
+            padding: 5px;
+            float: left;
+          }
+          .ad-summary-price-block {
+            width: 220px;
+            height: auto;
+            font-size: 1em;
+            line-height: 1em;
+            dt { float: left; width: 50px; }
+            dd { float: right; }
+          }
+        }
+      }
+    }
+
+    .form-wrapper {
+      background-color: @lightsand;
+      padding: 4px 15px;
+      .border-radius;
+      margin: 4px 2px;
+    }
+
+
+      /* HIGHLIGHTS */
+      /*colour certain input fields*/
+    .field-name-field-promote,
+    .form-item-field-agree-und,
+    .field-name-field-price {
+      background-color: @darklight;
+    }
+      /*increase text*/
+    #edit-field-image-und legend, label.edit-field-promote-und, label.edit-field-agree-und {
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bolder;
+      margin-bottom: 12px;
+    }
+
+    /* classififiaciton */
+    #edit-field-tags-und {
+      height: 25em;
+      option.14 {
+        font-weight: bold;
+      }
+    }
+
+      /* OPTIONS */
+      /* add image for emphasis */
+    #edit-field-image-und {
+        background-image: url(../../../../default/files/default_images/puppies.jpg);
+        background-repeat: no-repeat;
+        background-position: 30px 20px;
+      .fieldset-legend {}
+      .fieldset-description {
+        margin: 120px 5px 5px 5px
+      }
+      .form-item-field-image-und-0 {
+/*         border: 1pt solid @classified_light; */
+        padding: 8px;
+        label {
+          text-align: center;
+          background-color: @classified_dark;
+          color: @white;
+          .border-radius-custom (6px, 6px, 0, 0);
+        }
+        .description {
+          font-size: smaller;
+/*           color: @darksand; */
+        }
+      }
+    }
+      /* Liveload  */
+    .form-item-field-promote-und {
+      .description {
+          width: 100%;
+          text-align: center;
+        em {
+          font-size: 1.4em;
+          font-weight: bolder;
+          color: @classified_dark;
+        }
+      }
+    }
+    /* notes */
+    .group-opt-notes-block {
+      margin: 10px 0 0 0;
+      background-color: @darksand;
+      padding: 5px;
+      .border-radius;
+    }
+
+
+    /* confirm */
+    .form-item-field-agree-und {
+      padding: 10px;
+      .border-radius;
+    }
+
+
+    background-color: transparent;
+    border: none;
+    /* HORZ tabs */
+    ul.horizontal-tabs-list {
+      background-color: transparent;
+      border: none;
+      margin-bottom: -12px;
+      padding: 0;
+      li {
+        background-color: @darksand;
+        .border-radius;
+      }
+      li.selected {
+        background-color: @white;
+      }
+    }
+    /*form*/
+    .horizontal-tabs-panes {
+      background-color: @white;
+      .border-radius;
+      fieldset {
+        background-color: transparent;
+        .border-radius(0);
+      }
+    }
+  }
+}
+      /*payment*/
+#node_ad_s_form_group_payment {
+  .fieldset-wrapper {
+    padding: 0;
+    margin: 0;
+    #edit-card {
+  		background: url('url(../../../../ad_payment/images/lock-fade.png') no-repeat;
+  		background-position: center;
+  		background-position-x: 200px;
+  		background-position-y: 180px;
+      border: 1pt solid @darksand;
+      .border-radius;
+      background-color: @white;
+      width: 400px;
+      float: left;
+    }
+    #edit-field-address-und-0 {
+      .border-radius;
+      background-color: @sunlight;
+      width: 350px;
+      float: left;
+      margin-left: 20px;
+    }
+    #field-phone-add-more-wrapper, #edit-field-email, #edit-field-price {
+      width: 400px;
+      margin: 5px auto;
+      clear: both;
+    }
+  }
+}
+
+#user_user_form_group_sales {
+  legend {
+    display: none;
+  }
+  .fieldset-wrapper {
+    padding: 0;
+  }
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+}
+
+.form-item-field-cc-number {
+  #edit-field-cc-number {
+    background-color: @classified_light;
+  }
+	input {
+	 border: 1px solid black;
+	 margin-bottom: .5em;
+  }
+	input.error { border: 1px solid red; }
+	label.error {
+		background: url('url(../../../../ad_payment/images/checked-no.png') no-repeat;
+		padding-left: 35px;
+		height: 35px;
+		margin-left: .3em;
+	}
+	label.valid {
+		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
+		display: block;
+    padding-left: 35px;
+		width: 35px;
+		height: 35px;
+	}
+
+}
+/******************** !PAYMENT CSS ********/
+/***** thank-you page ***/
+#adsubmission-thank-you {
+  background-color: @white;
+  .center;
+  padding: 30px;
+  .border-radius;
+}
+
+
+/* CSS */
+.form-feedback-step {
+  padding: 2px 20px;
+  size: 2em;
+}
+.form-feedback-step-highlight {
+  background-color: yellow;
+}
+.element-error {
+  background-repeat: no-repeat;
+  background-position-x: 5px;
+  background-position-y: 5px;
+  padding-left: 40px;
+  color: #fff;
+  background-color: #fff;
+}
+/************* THEME NEXT/SUBMIT buttons *********/
+#ad-s-node-form {
+  .multipage-controls-list {
+    width: 100%;
+    text-align: right;
+    .multipage-button {
+      input.multipage-link-next {
+        float: right;
+        background-color: @other_light;
+        margin: 5px;
+        font-size: 2em;
+      }
+      a.multipage-link-previous {
+        padding: 10px;
+        margin: 10px;
+        background-color: @classified_light;
+      }
+    }
+    #edit-actions {
+      width: 90%;
+      #edit-submit {
+        width: 100%;
+        background-color: @alert;
+      }
+    }
+  }
+  #active-multipage-control {
+    background-color: @other_light;
+  }
+}
+
+/************************ THANK-YOU PAGE/RECEIPT **************/
+#ad-submission-receipt {
+  .border-radius;
+  background-color: @classified_light;
+  border: solid 2pt @classified_dark;
+  dl {
+    .border-radius;
+    background-color: @white;
+    background-color: @lightsand;
+    padding: 5px;
+    dt {
+      font-size: 1em;
+      width: 80px;
+      float: left;
+      padding: 2px;
+      font-weight: bold;
+
+    }
+    dd {
+      font-size: 1em;
+      width: 200px;
+    }
+
+  }
+  h4.receipt-contact {
+    margin-bottom: 3px;
+  }
+  .receipt-contact em {
+    font-size: .8em;
+    line-height: .7em;
+  }
+  .receipt-price-inner, .receipt-contact-inner {
+    .border-radius;
+    margin: 10px;
+    padding: 5px;
+    background-color: @lightsand;
+    dl {
+      font-size: .9em;
+      margin: 0;
+      display: inline;
+      clear: left;
+      text-align: left;
+      clear: left;
+      margin: 0;
+      padding: 0;
+      width: auto;
+      line-height: 1em;
+    }
+  }
+}
+

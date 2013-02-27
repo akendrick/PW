@@ -1,0 +1,14 @@
+<?php
+
+/**
+* Installation of default variable tables.
+*/
+
+//  variable_set('pennywise_holiday_settings', $holiday_settings);
+//  variable_set('pennywise_holiday_event', $holiday_event);
+//  variable_set('pennywise_holiday_hours', $holiday_hours);
+//  variable_set('pennywise_holiday_online', $online);
+//
+//  variable_set('pennywise_classified_settings_email', $email);
+//  variable_set('pennywise_classified_settings_submissions', $disable_submission);
+//  variable_get('ad_payment_taxrate', '.12');

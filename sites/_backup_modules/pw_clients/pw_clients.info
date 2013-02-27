@@ -1,0 +1,17 @@
+name = PW Clients
+description = Administration of users and such like
+core = 7.x
+package = Pennywise
+php = 5.2.4
+version = 7.x-1.0-alpha
+project = pw_clients
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = user
+dependencies[] = views
+dependencies[] = views_bulk_operations
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[user_permission][] = administer users
+features[user_role][] = user editor
+features[views_view][] = admin_users

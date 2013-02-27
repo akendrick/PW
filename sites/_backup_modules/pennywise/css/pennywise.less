@@ -1,0 +1,554 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+@faintsand: lighten(@sand, 20%);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@alert_t: rgba(254,78,78,0.2);
+@warning_t: rgba(0,15,240,0.2);
+@status_t: rgba(9,201,0,0.2);
+
+
+@highlight: lighten(#900, 20);
+
+
+
+
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
+
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 5px, @top_right: 5px, @bottom_right: 5px, @bottom_left: 5px) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+
+.button-colour(@colour: @classified_light, @background: @classifed_dark) {
+  .border-radius;
+  .center;
+  color: @colour;
+  background-color: @background;
+}
+
+
+/*************************** GENERAL Form Style */
+.less-strong-stuff {
+  font-weight: 800;
+  font-size: 1em;
+}
+.strong-stuff {
+  font-weight: 500;
+  font-size: 1.2em;
+}
+.strong-stuff:first-line {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.italic-stuff {
+  font-style: italic;
+}
+.box-stuff {
+  .border-radius;
+  padding: 5px;
+  margin: 5px;
+  background-color: @sand;
+  border-width: thin;
+}
+
+
+.ds-form-3col-stacked, #pw-digital-node-form {
+  .border-radius;
+  .tabledrag-toggle-weight {
+    visibility: hidden;
+    height: 0;
+  }
+  table.tableheader-processed {
+    width: 200px;
+  }
+  h3 {
+/*     border-bottom: 2pt groove @plum; */
+    text-transform: uppercase;
+    padding: 2pt;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto 0 auto;
+    display: block;
+    background-color: @classified_med;
+    color: @white;
+/*     span { padding: 0 15px; background-color: @white;} */
+    .border-radius;
+  }
+  .form-wrapper {
+    width: 90%;
+  }
+  width: 1160px;
+  background-color: @classified_light;
+  .form-item { width: 100%; }
+  .group-left {
+    padding: 10px;
+    width: 380px;
+    background-color: @peach;
+    margin: 4px;
+    height: 100%;
+    .border-radius;
+  }
+  .group-middle{
+    width: 280px;
+    padding: 10px;
+    div { width: 100%; }
+    height: 100%;
+  }
+  .group-right {
+    width: 280px;
+    padding: 10px;
+    border-left: solid 1pt @white;
+    background: lighten(@classified_light, 5%);
+    height: 100%;
+    .border-radius;
+    margin: 4px;
+  }
+  .form-item {
+    width: 100%;
+  }
+
+}
+/* Digital Edition - 2 col */
+#pw-digital-node-form {
+  .group-left {
+    width: 60%;
+  }
+  .group-right {
+    width: 25%;
+  }
+  /* turn off help display to simplify layout */
+  #edit-field-trail-und-0-format-guidelines,
+  #edit-field-nelson-edition-und-0-format-guidelines,
+  #edit-field-castlegar-edition-und-0-format-guidelines,
+  #edit-field-kootenay-lake-edition-und-0-format-guidelines,
+  #edit-field-trail-und-0-format-help,
+  #edit-field-nelson-edition-und-0-format-help,
+  #edit-field-castlegar-edition-und-0-format-help,
+  #edit-field-kootenay-lake-edition-und-0-format-help,
+   {
+    display: none;
+  }
+}
+/* Editorial (Article) & Classified Node Form Style */
+.node-article-form, .node-classified-form {
+  .ds-form-3col-stacked {
+    .group-left {
+      width: 320px;
+    }
+    .group-middle {
+      width: 390px;
+    }
+    .group-right {
+      width: 365px;
+    }
+
+    #edit-field-image-und {
+      width: 300px;
+    }
+  }
+}
+
+/* Display Ad Node Form */
+.node-display_ads-form {
+  #field-ad-copy-add-more-wrapper {
+    width: 100%;
+    #edit-field-ad-copy-und-0-format {
+      width: 100%;
+    }
+  }
+  .ds-form-3col-stacked {
+    .group-left {
+      margin: 4px;
+      .form-item { border: none; }
+      width: 320px;
+      height: 750px;
+      input { width: 100%; }
+      .image-widget {
+        width: 55%;
+        img {
+          float: left;
+        }
+      }
+    }
+    .group-middle {
+      width: 365px;
+      .cke_skin_kama, .cke_skin_kama, table.cke_editor {
+        width: 350px;
+        height: 300px;
+      }
+    }
+    .group-right {
+      width: 365px;
+    }
+  }
+}
+/* .ds-form-3col-stacked .group-middle .cke_skin_kama .cke_editor { width: 200px } */
+
+/* Page node form */
+/* node attachments node form */
+.node-attachment-form.ds-form-3col, #page-node-form {
+  #edit-title { width: 250px; }
+   .group-middle { width: 400px; }
+  #body-add-more-wrapper {
+    #edit-body-und-0-value, .form-textarea-wrapper .grippie { width: 380px; }
+  }
+  .group-right{ width: 380px; }
+}
+
+/*************************** ADMIN Interface */
+/**** dashboard ****/
+body.page-admin-pennywise {
+  .button a {
+    .button-colour(@white, @classified_dark);
+    text-decoration: none;
+    padding: 4px 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .button a:hover {
+    .button-colour(@classified_dark, @classified_light);
+  }
+}
+
+#block-views-admin-dashboard-display-dash {
+  .view-id-admin_dashboard {
+    table.views-table {
+      tr.Promoted {
+        margin-left: solid 5pt @status;
+      }
+    }
+  }
+}
+
+
+.view-display-admin-v2, .view-id-editorial_administration, .view-id-page_administration {
+  table { border: none; }
+  td.editorial-col, td.display-col, td {
+    width: 15%;
+    vertical-align: bottom;
+
+    .views-field-status {
+      .border-radius-custom(10px, 10px, 0, 0);
+      padding: 3pt;
+      width: 180px;
+/*       height: 38px; */
+      border: 1pt solid @warning;
+      text-align: center;
+    }
+    .Disabled {
+      background-color: lighten(@warning, 40);
+    }
+    .Enabled {
+      background-color: lighten(@status, 20);
+    }
+    .field-promote-status-Promoted {
+      background-color: darken(@status, 20);
+    }
+    .views-field, .views-field-item {
+      .center;
+    }
+    .views-field-bulk-actions {
+      width: 8%;
+      padding: 4px 4px 15px 4px;
+      float: left;
+    }
+    .views-field-title a{
+      text-decoration: none;
+      font-weight: bolder;
+      font-size: 1em;
+      color: @black;
+      height: 30px;
+      overflow: hidden;
+    }
+    .views-field-body {
+      height: 60px;
+      overflow: hidden;
+    }
+    .field-promote-status--promote {
+      border-bottom: 10pt solid @warning;
+    }
+    .new-marker .marker {
+      width: 95%;
+      .border-radius-custom(0, 0, 8px, 8px);
+      padding: 2px;
+      font-weight: bolder;
+      background-color: @alert;
+      color: @white;
+      font-size: .8em;
+      line-height: .9em;
+      .center;
+    }
+    .no-marker {
+    background-color: @white;
+    border: 1pt solid @gray;
+/*       display: none; */
+    }
+  }
+  .field-publish-link, .views-editorial-link, .views-admin-display-link {
+    float: left;
+    margin:0;
+    padding: 0;
+    a {
+      text-decoration: none;
+      background-color: @classified_light;
+      color: @classified_dark;
+      width: 60px;
+      font-size: .6em;
+      text-transform: uppercase;
+      font-weight: 600;
+      .border-radius-custom (5px, 0, 0, 5px);
+      .center;
+      padding: 2px 4px;
+      margin: 2px 4px;
+      width: 100%;
+    }
+    a:hover {
+      background-color: @alert;
+      color: @white;
+    }
+  }
+  .field-clone-link {
+    a {
+     .border-radius-custom (0, 0, 0, 0);
+     margin-right: 0;
+      width: 35px;
+    }
+  }
+  .field-edit-link {
+    a {
+      margin-left: 0;
+      .border-radius-custom (0, 3px, 3px, 0);
+      color: @white;
+      background-color: @status;
+    }
+  }
+  .field-unpublish-link {
+    background-color: @white;
+  }
+  .views-fields-clear-all {
+    clear: both;
+    float: none;
+    line-height: 0px;
+  }
+}
+/*** editorial admin *****/
+.view-id-editorial_administration {
+  .col-2, .col-4 {
+    background-color: @lightsand;
+  }
+}
+.views-field-editorial-header-image {
+  height: 180px;
+}
+
+/* specific admin display quick link button tweaks */
+.views-dispaly-admin-status-links {
+  .border-radius-custom(0,0,0,0);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  a {
+  }
+  .field-publish-link a {
+    .border-radius-custom(3px,0,0,3px);
+    margin: 0;
+    margin-right: 4px;
+  }
+  .field-edit-link a {
+    margin: 0;
+    margin-left: 4px;
+/*     margin-right: 6px; */
+  }
+  .field-clone-link a {
+    margin: 0;
+    margin-left: 10px;
+    padding-right: 2px;
+  }
+  .field-link-link a {
+    margin: 0;
+   .border-radius-custom(0,3px,3px,0);
+  }
+}
+
+/* page admin */
+.view-id-page_administration.view-display-id-page {
+  table {
+    td { vertical-align: bottom; }
+  }
+}
+
+/******************* Classifieds Table Layout ADMIN ********/
+/* AD SUBMISION ADMIN TABLE */
+body.page-admin-pennywise-classified-ad-s  {
+  #views-form-classified-ad-administration-incoming-ads {
+    .views-table {
+      caption {
+        font-size: 2em;
+        background-color: @warning;
+        .border-radius-custom(20px, 20px, 0, 0);
+      }
+    }
+    .submission-placement-cell {
+      width: 10%;
+      font-size: .8em;
+      line-height: 1.2em;
+    }
+    .admin-ad-data-cell {
+      width: 40%;
+    }
+    .client-data-cell {
+      width: 15%;
+    }
+    .details-price-cell {
+      width: 20%;
+    }
+  }
+  /*   section listing */
+  .submission-placement-section ul, .submission-placement-areas ul {
+  li {
+     text-align: center;
+     list-style: none;
+     padding: 5px 20px;
+     margin-bottom: 10px;
+     background-color: @sunlight;
+    .border-radius;
+   }
+  }
+  .submission-placement-areas ul li {
+    background-color: @status_t;
+  }
+  /* ad copy info table */
+  table.admin-incoming-ad-info {
+    text-align: center;
+    td {
+      margin: 0;
+      padding: 0;
+    }
+  }
+  /* client data */
+  .client-data {
+    dl.client-data {
+      dt {
+        text-align: center;
+/*         width: 100%; */
+        .border-radius-custom(5px, 5px, 0, 0);
+        background-color: @classified_light;
+        font-size: .6 em;
+      }
+      dd {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+/* details-price */
+.details-recipt-number, details-reciept-number { text-align: center; }
+table.details-price {
+  tr { }
+  tr.details-price-subtotal, tr.details-price-total {
+    background-color: @faintsand;
+  }
+  td {
+    margin: 0;
+    padding: 3px 5px;
+  }
+}
+/* submited ad details */
+.ad-details-toggle-outer-box {
+  .center;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 4px;
+  .border-radius;
+  background-color: @lightsand;
+}
+.ad-details-toggle-box-content {
+  text-align: left;
+  font-size: .9em;
+  font-weight: 300;
+  padding: 10px;
+  font-size: .9em;
+  line-height: 1.4em;
+}
+
+/* #views-form-classified-ad-administration-classified-pagelink { */
+.vbo-views-form {
+  table {
+    /* status */
+    tr.classified-admin-table-row-published-Not {
+      background-color: @alert_t;
+      border-color: @alert;
+      border-width: 1pt 5pt;
+    }
+    tr.classified-admin-table-row-published-Published {
+      border-color: @status;
+      border-width: 1pt 5pt;
+    }
+    tr.odd.classified-admin-table-row-published-Not {
+      background-color: lighten(@alert_t, 10);
+      border-color: lighten(@alert, 10);
+      border-width: 1pt 5pt;
+    }
+    tr.odd.classified-admin-table-row-published-Published {
+      border-color: lighten(@status, 10);
+    }
+  }
+
+  ul {
+    li {list-style: none;}
+  }
+  td.views-field-field-publish, td.views-field-unpublish-on, td.views-field-changed {
+    width: 250px;
+  }
+  td.views-field-field-tags {
+    width: 100px;
+  }
+}

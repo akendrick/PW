@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PW Admin feature.
+ */
+
+include_once 'pw_admin.features.inc';

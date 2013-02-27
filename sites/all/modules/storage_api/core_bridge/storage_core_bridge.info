@@ -1,0 +1,13 @@
+name = "Core Bridge"
+description = "Allows file and image fields to utilize Storage API."
+package = "Storage API"
+dependencies[] = storage
+dependencies[] = field
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-10-15
+version = "7.x-1.4"
+core = "7.x"
+project = "storage_api"
+datestamp = "1350289930"
+

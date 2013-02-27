@@ -1,0 +1,520 @@
+<?php
+
+/**
+ * @file
+ *  General hacks.
+ *
+ *  Add custom action links to PW Admin pages for node creation.
+ *
+ *  Custom blocks for use in layout:
+ *    - PW Logo
+ *    - PW Contact info (with editable data fields)
+ *
+ *  @TODO
+ *  - Seperate Contact Block THEME layer.
+ */
+
+// FORM DEBUG
+// Displays Form Data
+define ('DEBUG', FALSE);
+
+/**
+* Implementation of HOOK_email_registration_name
+*
+* If Email Registration module enabled - hook and rename.
+* - Email registration uses the email field
+* - PW module uses the real_name module
+*
+*/
+function pennywise_email_registration_name($edit, $account) {
+  if (module_exists('email_registration') && module_exists('realname') ) {
+    $real_name = $account->field_first_name['und'][0]['value'] . '_' . $account->field_last_name['und'][0]['value'];
+    return $real_name;
+  }
+}
+
+
+
+/**
+ * Implementation of HOOK_page
+ */
+function pennywise_init() {
+  drupal_add_css(drupal_get_path('module', 'pennywise') . '/css/pennywise.css', array('type' => 'file'));
+
+}
+
+/**
+* Implementation of hook_permissions
+*/
+function pennywise_permission() {
+  return array(
+    'edit pennywise settings' => array(
+      'title' => t('Edit Pennywise General Settings'),
+      'description' => t('Allow users to edit general settings such as holiday messages, and default email address.'),
+    ),
+  );
+}
+
+
+/**
+* Implementation of HOOK_page_build
+*
+* Ads holiday message to site when the flag is set.
+*/
+function pennywise_page_build(&$page) {
+  pennywise_holiday_message();
+}
+
+
+/**
+* Implementation of custom hook from Persistant Dismissable Message Module
+*
+*  Checks holiday status and outputs holiday message.
+*/
+function pennywise_holiday_message() {
+  $holiday = variable_get('pennywise_holiday_settings', FALSE);
+
+  if($holiday['holiday_settings'] == 0) {
+    return;
+  }
+
+  if (module_exists('pdm')) {
+    switch ($holiday['holiday_message_type']) {
+      case 0: // Show message once then nevermore. {Dismissable).
+        $options = array(
+          'type'         => 'status',
+          'pdm_type'     => 'Pennywise Holiday',
+          'repeat'       => FALSE,
+          'persist'      => FALSE,
+        );
+        break;
+      case 1: // Show message on every page. (Dismissable)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'persist_time'  => 15,
+        );
+        break;
+      case 2: // Show message on every pages including emails & reciepts. (Dismissable)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'dismiss_time'  => 15,
+        );
+        break;
+      case 3: // Show message on every pages including emails & reciepts. (Permanent)
+        $options = array(
+          'type'          => 'status',
+          'pdm_type'      => 'Pennywise Holiday',
+          'repeat'        => FALSE,
+          'dismissable'   => FALSE,
+          'dismiss_type'  => 1,
+        );
+        break;
+    }
+
+    //dpm($options);
+    pdm_create_message($holiday['holiday_message'], $options);
+  }
+  else {
+    drupal_set_message($holiday['holiday_message'], 'status');
+  }
+}
+
+/**
+ * Implementation of HOOK_menu
+ *
+ *  - Callback page for ad_submission to classified ad conversion (promotion).
+ *  - Default settings pages
+ */
+function pennywise_menu() {
+
+  $items['admin/pennywise/promote_ad/%'] = array(
+    'title' => 'Promote',
+    'page callback'    => 'promote_to_classified_ad',
+    'page arguments'   => array(3),
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit any classified content'),
+    'file'             => 'promote_classifieds.inc',
+    'type'             => MENU_CALLBACK,
+  );
+
+  // Settings
+  $items['admin/pennywise/settings'] = array(
+    'title'            => 'Pennywise Settings',
+    'page callback'    => 'pw_general_settings_page',
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit any classified content'),
+    'file'             => 'settings_default.inc',
+    'type'             => MENU_NORMAL_ITEM,
+  );
+  $items['admin/pennywise/settings/general'] = array(
+    'title'            => 'General Settings',
+    'page callback'    => 'pw_general_settings_page',
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
+    'file'             => 'settings_default.inc',
+    'type'             => MENU_DEFAULT_LOCAL_TASK,
+    'weight'           => -10,
+  );
+  $items['admin/pennywise/settings/holiday'] = array(
+    'title'            => 'Holiday Settings',
+    'page callback'    => 'pw_holiday_settings_page',
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
+    'file'             => 'settings_holiday.inc',
+    'type'             => MENU_LOCAL_TASK,
+  );
+  $items['admin/pennywise/settings/classified'] = array(
+    'title'            => 'Classified Settings',
+    'page callback'    => 'pw_classified_settings_page',
+    'access callback'  => 'user_access',
+    'access arguments' => array('edit pennywise settings'),
+    'file'             => 'settings.inc',
+    'type'             => MENU_LOCAL_TASK,
+  );
+//  $items['admin/pennywise/settings/display'] = array(
+//    'title'            => 'Display Settings',
+//    'page callback'    => 'pw_display_settings_page',
+//    'access callback'  => 'user_access',
+//    'access arguments' => array('edit pennywise settings'),
+//    'file'             => 'settings.inc',
+//    'type'             => MENU_LOCAL_TASK,
+//  );
+  return $items;
+ }
+
+/**
+ * Custom page call back
+ *
+ * @return
+ *  Create new display ad.
+ **/
+function pennywise_create_node_page($node_type) {
+
+  module_load_include('inc', 'node', 'node.pages');
+  $content = node_add($node_type);
+
+  return $content;
+}
+
+/**
+* Custom support function for MENU_LOCAL_TASKS_ALTER
+*
+* Custom sub-function for filling details into LOCAL ACTIONS
+*/
+function pennywise_custom_action_links($node_type, $action_link_name, $destination = NULL) {
+  $item = menu_get_item('node/add/' . $node_type);
+  $item['title'] = $action_link_name ;
+  if ($destination) {
+    $item['path'] = $item['path'] . '?destination=' . $destination;
+  }
+  if ($item['access']) {
+    return array(
+      '#theme' => 'menu_local_action',
+      '#link'  => $item,
+    );
+  }
+}
+/**
+* Implementation of HOOK_menu_local_tasks_alter
+*
+* Create Action Links dependant on URL and access.
+*/
+function pennywise_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+
+  // Add action links.
+  $match = explode('/', $root_path);
+  if ($match[0] == 'admin' && $match[1] == 'pennywise') {
+    switch ($match[2]) {
+      case 'display_ads':
+        $data['actions']['output'][] = pennywise_custom_action_links('display-ads', 'Add Display Ad');
+        $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add File Attachment');
+        break;
+      case 'editorial':
+        $data['actions']['output'][] = pennywise_custom_action_links('article', 'Add Editorial');
+        break;
+      case 'pages':
+        $data['actions']['output'][] = pennywise_custom_action_links('page', 'Add New Page');
+        $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add File Attachment');
+        break;
+      case 'edition':
+        $data['actions']['output'][] = pennywise_custom_action_links('pw-digital', 'Add Digital Edition');
+        break;
+      case 'classified':
+        $data['actions']['output'][] = pennywise_custom_action_links('classified', 'Create Classified Ad');
+        $data['actions']['output'][] = pennywise_custom_action_links('adworks-file', 'Upload Adworks File');
+        break;
+      case 'settings':
+        break;
+      default:
+        $data['actions']['output'][] = pennywise_custom_action_links('display-ads', 'Create Display Ad');
+        $data['actions']['output'][] = pennywise_custom_action_links('article', 'Add Editorial');
+        $data['actions']['output'][] = pennywise_custom_action_links('classified', 'Create Classified Ad');
+        $data['actions']['output'][] = pennywise_custom_action_links('adworks-file', 'Upload Adworks File');
+        $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add File Attachment');
+        $data['actions']['output'][] = pennywise_custom_action_links('page', 'Add New Page');
+        break;
+    }
+  }
+  elseif ($match[0] == 'node' && $match[1] == 'add') {
+    switch ($match[2]) {
+      case 'display-ads':
+        $data['actions']['output'][] = pennywise_custom_action_links('attachment', 'Add file attachment');
+        break;
+    }
+  }
+  elseif ($match[0] == 'edition') {
+    $data['actions']['output'][] = pennywise_custom_action_links('pw-digital', 'Add Digital Edition');
+  }
+}
+
+/**
+ * Implementation of HOOK_block_info
+ *
+ * Adding basic theme blocks for Context and Delta.
+ * @var pw_logo
+ * - Custom Logo block
+ * @var pw_contact
+ * - Custom contact info block
+ * @var pw_breadcrumb
+ * - Custom breadcrumb box
+ * @var pw_contact_user
+ * - contact user button
+ */
+function pennywise_block_info() {
+  $blocks['pw_logo'] = array(
+    'info'    => t('PW Logo'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_contact'] = array(
+    'info'    => t('PW Contact'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_contact_user'] = array(
+    'info'    => t('PW Contact User'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_breadcrumb'] = array(
+    'info'    => t('PW BreadCrumbs'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_holiday_message'] = array(
+    'info'    => t('PW Holiday Message'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_tmtv'] = array(
+    'info'    => t('TMTV Image Link'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+  $blocks['pw_edition'] = array(
+    'info'    => t('PW Digital Edition Links'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implementation of HOOK_block_configure
+ *
+ * Configuration options for Contact information block.
+ */
+function pennywise_block_configure($delta) {
+  $form = array();
+  switch($delta) {
+    case 'pw_contact':
+        // Link to default settings page.
+        $form['link_group'] = array(
+          '#type' => 'fieldset',
+          '#title' => 'Pennywise Contact Settings',
+          '#collapsible' => FALSE,
+        );
+        // OUtput
+        $form['link_group']['link'] = array(
+          '#type'         => 'item',
+          '#description'  => l('Administrative Default Settings', 'admin/pennywise/settings'),
+        );
+      break;
+    case 'pw_tmtv';
+
+      $form['tmtv_link'] = array(
+        '#type' => 'textfield',
+        '#description' => t('Link to TMTV News Page'),
+      );
+      break;
+  }
+
+  return $form;
+}
+
+
+/**
+* Implementation of HOOK_block_save
+*
+* Saving PW Custom block data into variables table.
+*/
+function pennywise_block_save() {
+  switch($delta) {
+    case 'tmtv_link':
+      break;
+  }
+  return ;
+}
+
+/**
+ * Implementation of HOOK_block_view
+ *
+ * Call custom block details.
+ * - Logo block
+ * - Contact block
+ * - Breadcrumb block
+ */
+function pennywise_block_view($delta = '') {
+  global $base_url;
+
+  switch($delta) {
+
+    case 'pw_edition':
+      $dig_edition = l('Browse Online', variable_get('pw_edition_link', 'edition'));
+      $subject = $dig_edition;
+      $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-salmo-beaver-valley'));
+      $n = l('Nelson & Salmo', variable_get('pw_edition_trail_link', 'edition/nelson-salmo'));
+      $c = l('Castlegar & Slocan Valley', variable_get('pw_edition_trail_link', 'edition/castlegar-slocan-valley'));
+      $k = l('Kootenay Lake', variable_get('pw_edition_trail_link', 'edition/kootenay-lake'));
+      $items = array(
+        array('data' => $t, 'id' => 't-edtion'),
+        array('data' => $n, 'id' => 'n-edtion'),
+        array('data' => $c, 'id' => 'c-edtion'),
+        array('data' => $k, 'id' => 'k-edtion'),
+      );
+      $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
+      break;
+
+    case 'pw_tmtv':
+      $subject    = '';
+      $image_path = file_create_url(drupal_get_path('module', 'pennywise') . '/images/tmtv_2.png');
+      $image      = '<img width="140px" height="177px" src="' . $image_path . '" alt="' . t('TMTV News') . '" />';
+      $content    = l($image, 'http://www.tmtv.net/newsroom.html', array('html' => TRUE, 'attributes' => array('rel' => 'TMTV', 'id' => 'TMTV-Link', 'title' => t('TMTV Newsroom'))));
+      break;
+
+    case 'pw_logo':
+      $subject    = '';
+      $logo_path  = theme_get_setting('logo');
+      $image      = '<img src="' . $logo_path . '" alt="' . t('Home') . '" />';
+      $content    = l($image, '', array('html' => TRUE, 'attributes' => array('rel' => 'home', 'id' => 'logo', 'title' => t('Home'))));
+      break;
+
+    case 'pw_contact':
+      $subject = variable_get('pw_contact_title', '<none>');
+
+      $pw_contact = array(
+        'toll_free'   => variable_get('pw_phone_toll_free'),
+        'local_phone' => variable_get('pw_phone_local'),
+        'fax'         => variable_get('pw_phone_fax'),
+        'address'     => variable_get('pw_mailing_address'),
+        'email'       => l('email', 'mailto:' . variable_get('pw_email'), array('absolute' => TRUE)),
+        'facebook'    => l('facebook', variable_get('pw_facebook_link'), array('absolute' => TRUE)),
+      );
+
+      $content = '<dl id="pw-contact-info-block">';
+      $a = 0;
+      foreach($pw_contact as $key => $value) {
+        $key_view = ucwords(str_replace('_', ' ', $key));
+        $a++;
+        $row = ($a % 2)? 'row-odd' : 'row-even';
+        $content .= "<div class='pw-contact-wrapper pw-contact-$key-wrapper $row'>";
+        $content .= "<dt class='pw-contact-label pw-contact-$key-label'>$key_view</dt>";
+        $content .= "<dd class='pw-contact-value pw-contact-$key-value'>$value</dd>";
+        $content .= "</div>";
+      }
+      $content .= '</dl>';
+
+      break;
+
+    case 'pw_contact_user':
+      $path_details = explode('/', current_path());
+
+      if($path_details[0] == 'user' && $path_details[2] != 'contact') {
+        $content = '<div class="contact-button">'. l('Contact', 'user/' . $path_details[1] . '/contact') . '</a></div>';
+      }
+      else {
+        $content = '';
+      }
+      break;
+
+    case 'pw_breadcrumb':
+      $site_path = $base_url . base_path();
+
+      $subject = '';
+      $url = current_path();
+
+      $address_string = explode('/', $url);
+      $page_id = array_pop($address_string);
+      $term = taxonomy_term_load($page_id);
+
+      $home = "<a href='$site_path'>  Classifieds >> </a>";
+
+      if ($term && $term->tid) {
+        // If taxonomy term load current page into breadcrumbs.
+        $child = "<a href='$site_path/taxonomy/term/" . $term->tid . "'> " . $term->name . " </a>";
+        $ancestor = db_query('SELECT parent FROM {taxonomy_term_hierarchy} WHERE tid = :tid', array(':tid' => $term->tid))->fetchField();
+
+        // Load Parent - if any;
+        if ($ancestor) {
+            $parent = taxonomy_term_load($ancestor);
+            $parent = "<a href='$site_path/taxonomy/term/" . $parent->tid . "'>  " . $parent->name . " >> </a>";
+        }
+        else { $parent = ''; }
+
+        $content = "<div id='pw-breadcrumb' >$home $parent $child </div>";
+      }
+      else {
+        $content = '';
+      }
+      break;
+  }
+  $block = array(
+    'subject' => $subject,
+    'content' => $content,
+  );
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_jcarousel_skin_info().
+ */
+function pennywise_jcarousel_skin_info() {
+  $skins = array();
+
+  $skins['print'] = array(
+    'title' => t('PW Print'),
+    'file' => 'skins/print/jcarousel-print.css',
+  );
+
+  $skins['editorial'] = array(
+    'title' => t('Vertical Ed'),
+    'file' => 'skins/editorial/jcarousel-editorial.css',
+  );
+
+  return $skins;
+}
+
