@@ -2428,6 +2428,13 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['price_subtotal']['label'] = '';
   $handler->display->display_options['fields']['price_subtotal']['exclude'] = TRUE;
   $handler->display->display_options['fields']['price_subtotal']['element_label_colon'] = FALSE;
+  /* Field: Ad Payment: Price Extras */
+  $handler->display->display_options['fields']['price_extras']['id'] = 'price_extras';
+  $handler->display->display_options['fields']['price_extras']['table'] = 'adp';
+  $handler->display->display_options['fields']['price_extras']['field'] = 'price_extras';
+  $handler->display->display_options['fields']['price_extras']['label'] = '';
+  $handler->display->display_options['fields']['price_extras']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['price_extras']['element_label_colon'] = FALSE;
   /* Field: Ad Payment: Price Taxes */
   $handler->display->display_options['fields']['price_taxes']['id'] = 'price_taxes';
   $handler->display->display_options['fields']['price_taxes']['table'] = 'adp';
@@ -2548,6 +2555,9 @@ function pw_admin_views_default_views() {
 <tr class=\'details-price details-price-subtotal\'>
   <td><strong>Subtotal:</strong></td>
   <td>$[price_subtotal]</td></tr>
+<tr class=\'details-price details-price-subtotal\'>
+  <td><strong>Extras:</strong></td>
+  <td>$[price_extras]</td></tr>
 <tr class=\'details-price details-price-tax\'>
   <td><strong>Tax:</strong></td>
   <td>$[price_taxes]</td></tr>

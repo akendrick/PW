@@ -210,7 +210,6 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~ad/submit' => '~ad/submit',
-        '~ad/*/thank-you' => '~ad/*/thank-you',
       ),
     ),
     'sitewide' => array(
@@ -249,7 +248,7 @@ function pw_la_context_default_contexts() {
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.

@@ -40,7 +40,7 @@ function ad_payment_send_email($email_type, $details = NULL) {
       $result = drupal_mail('ad_payment', 'inhouse', $to, $language, $details, $from, $send);
 
       if ($result['result'] == TRUE) {
-        drupal_set_message(t('A copy of this receipt has beed sent to your @email address.', array('@email' => $from)), 'status' );
+        //  drupal_set_message(t('A copy of this receipt has beed sent to your @email address.', array('@email' => $from)), 'status' );
       }
       else {
         drupal_set_message(t('Unable to send your receipt to your @email address.', array('@email' => $from)), 'status' );

@@ -1185,8 +1185,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'description' => '<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
 <span class="classified-rate-card\'>
 <strong>Classified Ad Rates per area</strong><br>
-<ul><li><b>Personal:</b> 15 words or less - $3.50 <strong>per week</strong> + tax. (20¢ per additional word.)</li>
-<li><b>Business:</b> 15 words or less - $5.00 <strong>per week</strong> + tax. (40¢ per additional word.)</li></ul>
+<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
+<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
 </span>',
       'display' => array(
         'default' => array(
@@ -3278,8 +3278,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
   t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
 <span class="classified-rate-card\'>
 <strong>Classified Ad Rates per area</strong><br>
-<ul><li><b>Personal:</b> 15 words or less - $3.50 <strong>per week</strong> + tax. (20¢ per additional word.)</li>
-<li><b>Business:</b> 15 words or less - $5.00 <strong>per week</strong> + tax. (40¢ per additional word.)</li></ul>
+<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
+<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
 </span>');
   t('Ad Copy');
   t('Ad Creation Override');
