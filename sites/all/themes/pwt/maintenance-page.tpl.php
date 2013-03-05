@@ -77,15 +77,7 @@
       <div id="center">
         <div id="squeeze">
           <div class="right-corner">
-            <div class="left-corner" style="
-                border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;
-                width: 80%;
-                font-size:1.6em;
-                margin: 0 auto;
-                display: block;
-                padding: 30px;
-                line-height: 1.2em;
-                background-color: #e5e0dc;">
+            <div class="left-corner">
               <?php if ($title): ?><h2><?php print $title ?></h2><?php endif; ?>
               <?php print $messages; ?>
               <?php print $help; ?>

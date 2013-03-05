@@ -73,6 +73,12 @@ function pw_display_field_default_fields() {
           'type' => 'taxonomy_term_reference_plain',
           'weight' => '4',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'print_display_ad' => array(
           'label' => 'hidden',
           'module' => 'taxonomy',
@@ -165,6 +171,12 @@ function pw_display_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '5',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'print_display_ad' => array(
           'label' => 'hidden',
@@ -265,6 +277,12 @@ function pw_display_field_default_fields() {
           'settings' => array(),
           'type' => 'lightbox2__lightbox__display_ad_full_page__original',
           'weight' => '0',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'print_display_ad' => array(
           'label' => 'hidden',
@@ -416,6 +434,12 @@ function pw_display_field_default_fields() {
           'type' => 'hidden',
           'weight' => '15',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'print_display_ad' => array(
           'label' => 'above',
           'settings' => array(),
@@ -506,6 +530,12 @@ function pw_display_field_default_fields() {
           'settings' => array(),
           'type' => 'email_default',
           'weight' => '2',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'print_display_ad' => array(
           'label' => 'above',
@@ -622,6 +652,12 @@ function pw_display_field_default_fields() {
           'type' => 'hidden',
           'weight' => '19',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -709,6 +745,12 @@ function pw_display_field_default_fields() {
           'settings' => array(),
           'type' => 'file_default',
           'weight' => '14',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -848,6 +890,12 @@ with <strong>Page 30</strong>.<br>
           'type' => 'link_default',
           'weight' => '1',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'print_display_ad' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -953,6 +1001,12 @@ with <strong>Page 30</strong>.<br>
           'type' => 'hidden',
           'weight' => '17',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'print_display_ad' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1041,6 +1095,12 @@ with <strong>Page 30</strong>.<br>
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '16',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'print_display_ad' => array(
           'label' => 'above',
@@ -1150,6 +1210,12 @@ with <strong>Page 30</strong>.<br>
           'type' => 'entityreference_entity_view',
           'weight' => '6',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'print_display_ad' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1249,6 +1315,12 @@ with <strong>Page 30</strong>.<br>
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '14',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'print_display_ad' => array(
           'label' => 'above',

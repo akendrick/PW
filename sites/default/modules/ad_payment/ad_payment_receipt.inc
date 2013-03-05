@@ -24,16 +24,13 @@ function thankyou_page($temp_id = NULL) {
     $data = variable_get('ad_submission_' . $temp_id);
     $data['receipt'] = $temp_id;
 
-    dpm('Ad Submission Data');
-    dpm($data);
-
     $content = ad_payment_receipt($temp_id, $data);
 
     // Send Email upon Completion.
     module_load_include('inc', 'ad_payment', 'ad_payment_mail');
     ad_payment_send_email('receipt', $data);
 
-    //variable_del('ad_submission_' . $temp_id);
+
   }
 
   return $content;
@@ -72,10 +69,11 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   global $base_url;
   // AD Details
   $details = "
-      <div class='reciept-details grid-8 alpha'>
+      <div class='receipt-details grid-8 alpha'>
         <h3 class='receipt-details-title'>Ad Details</h3>
+      <div class='receipt-details-inner'>
         <dl class='receipt-copy'>
-          <dt class='receipt-copy'>Ad:</dt>
+          <dt class='receipt-copy'>Ad: <div class='receipt-copy-word-count'>(" . $data['wordcount'] . " Words)</div></dt>
           <dd class='receipt-copy'>" . $data['ad_copy'] . "</dd>
         </dl>
         <dl class='receipt-area'>
@@ -88,12 +86,13 @@ function ad_payment_receipt($temp_id, $data = NULL) {
         </dl>
         <dl class='receipt-rate'>
           <dt class='receipt-rate'>Rate:</dt>
-          <dd class='receipt-copy'>" . $data['rate'] . "</dd>
+          <dd class='receipt-copy'>" . $data['rate']['rate_name'] . "</dd>
         </dl>
         <dl class='receipt-duration'>
           <dt class='receipt-duration'>Duration:</dt>
           <dd class='receipt-copy'>" . $data['duration']['actual'] . " weeks</dd>
         </dl>";
+
     if ($data['ad_type']) {
       $ad_type = ($data['ad_type'] == FALSE) ? 'Classified ' : 'Liveload Classified ';
       $details .= "
@@ -116,12 +115,12 @@ function ad_payment_receipt($temp_id, $data = NULL) {
             <dd class='receipt-copy'>" . $data['notes'] . "</dd>
           </dl>";
     }
-    $details .= "\t </div>";
+    $details .= "\t </div></div>";
 
   $price = "
       <div class='small-receipt receipt-price grid-8 omega'>
         <h4 class='receipt-price-title'>Price</h3>
-      <div class='small-receipt receipt-price-inner'>
+      <div class='small-receipt small-receipt-inner receipt-price-inner'>
         <dl class='receipt-price-subtotal'>
           <dt class='receipt-price-subtotal'>Sub-total:</dt>
           <dd class='receipt-price-subtotal'>$" . $data['subtotal'] . "</dt>
@@ -146,7 +145,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
       <div class='small-receipt receipt-contact grid-8 omega'>
         <h4 class='receipt-contact'>Contact Information</h3>
         <em>An email has been sent to your address with the details.</em>
-        <div class='small-receipt receipt-contact-inner'>
+        <div class='small-receipt small-receipt-inner receipt-contact-inner'>
         <dl class='receipt-contact-name'>
           <dt class='receipt-contact-name'>Name:</dt>
           <dd class='receipt-contact-name'>" . $data['user']['real-name']  . "</dt>

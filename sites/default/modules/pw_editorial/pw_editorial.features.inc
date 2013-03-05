@@ -38,7 +38,27 @@ function pw_editorial_image_default_styles() {
   // Exported image style: classified_list_js_crop.
   $styles['classified_list_js_crop'] = array(
     'name' => 'classified_list_js_crop',
-    'effects' => array(),
+    'effects' => array(
+      17 => array(
+        'label' => 'EPSA Image Crop',
+        'help' => '',
+        'effect callback' => 'epsacrop_crop_image',
+        'form callback' => 'epsacrop_crop_image_form',
+        'module' => 'epsacrop',
+        'name' => 'epsacrop_crop',
+        'data' => array(
+          'width' => '240',
+          'height' => '130',
+          'anchor' => 'center-center',
+          'jcrop_settings' => array(
+            'aspect_ratio' => '24/13',
+            'bgcolor' => 'white',
+            'bgopacity' => '0.6',
+          ),
+        ),
+        'weight' => '1',
+      ),
+    ),
   );
 
   // Exported image style: editoral_square_thumbnail.
@@ -71,18 +91,22 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_block_list_header'] = array(
     'name' => 'editorial_block_list_header',
     'effects' => array(
-      14 => array(
-        'label' => 'Scale and Smart Crop',
-        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
-        'effect callback' => 'smartcrop_scale_effect',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'smartcrop',
-        'name' => 'smartcrop_scale_and_crop',
+      21 => array(
+        'label' => 'EPSA Image Crop',
+        'help' => '',
+        'effect callback' => 'epsacrop_crop_image',
+        'form callback' => 'epsacrop_crop_image_form',
+        'module' => 'epsacrop',
+        'name' => 'epsacrop_crop',
         'data' => array(
           'width' => '134',
           'height' => '180',
-          'upscale' => 0,
+          'anchor' => 'center-center',
+          'jcrop_settings' => array(
+            'aspect_ratio' => '67/90',
+            'bgcolor' => 'white',
+            'bgopacity' => '.8',
+          ),
         ),
         'weight' => '1',
       ),
@@ -119,18 +143,22 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_small'] = array(
     'name' => 'editorial_small',
     'effects' => array(
-      32 => array(
-        'label' => 'Scale and Smart Crop',
-        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
-        'effect callback' => 'smartcrop_scale_effect',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'smartcrop',
-        'name' => 'smartcrop_scale_and_crop',
+      18 => array(
+        'label' => 'EPSA Image Crop',
+        'help' => '',
+        'effect callback' => 'epsacrop_crop_image',
+        'form callback' => 'epsacrop_crop_image_form',
+        'module' => 'epsacrop',
+        'name' => 'epsacrop_crop',
         'data' => array(
           'width' => '134',
           'height' => '104',
-          'upscale' => 0,
+          'anchor' => 'center-center',
+          'jcrop_settings' => array(
+            'aspect_ratio' => '67/52',
+            'bgcolor' => 'white',
+            'bgopacity' => '0.6',
+          ),
         ),
         'weight' => '1',
       ),
@@ -189,20 +217,24 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_tiny'] = array(
     'name' => 'editorial_tiny',
     'effects' => array(
-      3 => array(
-        'label' => 'Scale and Smart Crop',
-        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
-        'effect callback' => 'smartcrop_scale_effect',
-        'form callback' => 'image_scale_form',
-        'summary theme' => 'image_scale_summary',
-        'module' => 'smartcrop',
-        'name' => 'smartcrop_scale_and_crop',
+      16 => array(
+        'label' => 'EPSA Image Crop',
+        'help' => '',
+        'effect callback' => 'epsacrop_crop_image',
+        'form callback' => 'epsacrop_crop_image_form',
+        'module' => 'epsacrop',
+        'name' => 'epsacrop_crop',
         'data' => array(
           'width' => '45',
           'height' => '30',
-          'upscale' => 0,
+          'anchor' => 'center-center',
+          'jcrop_settings' => array(
+            'aspect_ratio' => '3/2',
+            'bgcolor' => 'white',
+            'bgopacity' => '0.6',
+          ),
         ),
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );

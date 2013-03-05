@@ -123,13 +123,13 @@ function pw_cl_strongarm() {
           'weight' => '2',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '3',
+          'weight' => '7',
         ),
         'node_notify_subscribe' => array(
-          'weight' => '8',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
@@ -190,7 +190,7 @@ function pw_cl_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_free';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_free'] = $strongarm;
 
   return $export;

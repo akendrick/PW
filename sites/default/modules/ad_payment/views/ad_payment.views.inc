@@ -76,7 +76,7 @@ function ad_payment_views_data() {
   //PRICE TAXES
   $data['adp']['price_taxes'] = array(
     'title' => t('Price Taxes'),
-    'help' => t('Taxes added to subtotal price.'),
+    'help' => t('Taxes added price.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -90,6 +90,19 @@ function ad_payment_views_data() {
   $data['adp']['price_subtotal'] = array(
     'title' => t('Price Subtotal'),
     'help' => t('Calculated price of ad.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  //Extras SUBtotal
+  $data['adp']['price_extras'] = array(
+    'title' => t('Price Extras'),
+    'help' => t('Cost of liveload and images.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,

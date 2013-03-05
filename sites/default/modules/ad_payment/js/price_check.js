@@ -13,30 +13,30 @@ Drupal.adPayment = Drupal.adPayment || {};
  */
 Drupal.adPayment.wordCleaner = function(content) {
 	var fullStr = content + " ";
-	var initial_whitespace_rExp = /^[^A-Za-z0-9-@_.]+/gi;
+ 	var initial_whitespace_rExp = /^[^A-Za-z0-9]+/gi;
 	var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
-	var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9-@_.']+/gi;
+ 	var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9@_&\-\/.'\047]+/gi; // Plus unicode quotations
 	var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
 	var splitString = cleanedStr.split(" ");
 
 	return splitString;
 };
+
 Drupal.adPayment.countWords = function(cleanedWordString) {
 	var word_count = Drupal.adPayment.wordCleaner(cleanedWordString).length-1;
 	return word_count;
-}
+};
 
 
 /**
  * Form Validation
  */
 Drupal.adPayment.validate = function(ad) {
-       //console.log('Payment validation script.');
   ad.errorMsg = {};
   var state = false;
 
   // Hyphenation Check
-	var hyphensRg = /([A-Za-z0-9][-_.*#'\/\(\)]){2,}/;
+	var hyphensRg = /([A-Za-z0-9][-_.*#'\\\/\(\)]){3,}/;
   if (hyphensRg.test(ad.copy)) {
     var state = true;
     ad.errorMsg.hyphen = Drupal.t('<h3>Too Many Connections!</h3> You have too many connections between words. This can include periods between words or hyphens. If this is correct you can ignore this warning.');
@@ -171,17 +171,19 @@ Drupal.adPayment.formData = function(ad) {
   // IMAGE
   if (jQuery('#edit-field-image-und-0-upload').val()) {
     ad.imageFile = jQuery('#edit-field-image-und-0-upload').val();
-    ad.image     = 1;
+    ad.imageFlag = 1;
   }
   else {
+    ad.imageFlag = 0;
     ad.image = 'No image';
   }
+  //console.log('Image file: ' + ad.imageFlag + ad.imageFile + ' ' + ad.image);
 
   // DURATION
   ad.duration = jQuery('#edit-field-duration-und').val();
   switch (ad.duration) {
     case '12':
-      ad.durationPricing = 9;
+      ad.durationPricing = 8;
       break;
     case '9':
       ad.durationPricing = 6;
@@ -194,7 +196,8 @@ Drupal.adPayment.formData = function(ad) {
       break;
     default:
       ad.durationPricing = 2;
-  }
+      ad.duration = 3;
+  };
 
   // LIVELOAD
   if (jQuery('#edit-field-promote-und-0:checked').val() == '0') {
@@ -222,7 +225,7 @@ Drupal.adPayment.formData = function(ad) {
       });
     };
     ad.sectionCount = jQuery('#edit-field-tags-und').val().length;
-  }
+  };
 //  console.log('Sections: ', ad.section);
 //  console.log('SectionCount: ', ad.sectionCount);
 
@@ -268,15 +271,12 @@ Drupal.adPayment.getPrice = function(ad) {
   // If no area selected use default one.
   price.area = (ad.area == 0) ? 1 : ad.area;
 
-  // Word Rate
+  //1. Word Rate
   price.overCount = (ad.wordCount > 15) ? (ad.countOver * price.word) : 0;
-  // 1. Base Price - Total Word count
   price.adWordCount = price.base + price.overCount;
 
-  // 2. Area Multiplyer
-  // Determine options and if discount
-  price.discount = (ad.area == 4) ? -2 * ad.durationPricing : 0;
-  price.basePrice = price.adWordCount * price.area + price.discount;
+  // 2. Area Discount
+  price.discount = (ad.area == 4) ? 2 * ad.durationPricing : 0;
 
   // 3. Section Multiplyer
   if(jQuery('#edit-field-tags-und').val()) {
@@ -284,11 +284,12 @@ Drupal.adPayment.getPrice = function(ad) {
   }
   else {
     price.section = 1;
-  }
+  };
   //price.subTotal1 = price.basePrice * price.section;
 
   // 4. Duration ( Image price here... if any)
-  price.image = (ad.image == 1) ? price.img * ad.duration : 0;
+  price.image = (ad.imageFlag == 1) ? price.img * ad.duration : 0;
+  //console.log('Price.image: ' + price.img + '  Ad.duration: ' + ad.duration);
   //price.subTotal = price.subTotal1 * ad.durationPricing + price.image;
 
   // 5. Determine Liveload (if any)
@@ -296,20 +297,22 @@ Drupal.adPayment.getPrice = function(ad) {
   //price.subTotal  = price.subTotal + price.liveload;
 
   // One long string
-  price.subTotal = (price.adWordCount * price.section * price.area + price.discount) * ad.durationPricing + price.image + price.liveload;
+  price.subTotal = ((price.adWordCount * price.section * price.area ) * ad.durationPricing) - price.discount;
+  price.extras   = price.liveload + price.image;
 
-  console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
-  console.log('Price: ' + price.newTotal);
+  //console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
+  //console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
 
   // Determine taxes
   price.taxRate = .12;
-  price.taxes   = price.subTotal * price.taxRate;
+  price.taxes   = (price.subTotal + price.extras) * price.taxRate;
 
   // 6. Total Price
-  price.total = price.subTotal + price.taxes;
+  price.total = (price.subTotal + price.extras) + price.taxes;
 
   // Round prices for output
   price.subTotalRound = Drupal.adPayment.formatCurrency(price.subTotal);
+  price.extras        = Drupal.adPayment.formatCurrency(price.extras);
   price.taxesRound    = Drupal.adPayment.formatCurrency(price.taxes);
   price.totalRound    = Drupal.adPayment.formatCurrency(price.total);
 
@@ -387,19 +390,19 @@ Drupal.adPayment.displayMsg = function() {
   };
 
   // Image
-  if (ad.image) {
+  if (ad.imageFlag) {
     ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageFile</dd>", {'@imageFile': ad.imageFile});
   }
   else {
     ad.msg.image = '';
-  }
+  };
 
   // Liveload
   ad.msg.type = Drupal.t("<dt>Ad Type:</dt><dd> @type</dd>", {'@type': ad.type});
 
   // PRICE
-  ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Sub Total: $@subTotal</li><li class='price price-image'>Image: $@image</li><li class='price price-liveload'>Liveload: $@liveload</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@taxes': price.taxesRound, '@image': price.image, '@liveload': price.liveload, '@priceTotal': price.totalRound});
+  ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-image'>Image: $@image</li><li class='price price-liveload'>Liveload: $@liveload</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound, '@image': price.image, '@liveload': price.liveload, '@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
@@ -415,7 +418,7 @@ Drupal.adPayment.displayMsg = function() {
   }
   else {
     ad.msg.error = '';
-  }
+  };
 
   // Compose Messages
   // Summary - quick feedback as you type.
@@ -457,27 +460,31 @@ Drupal.adPayment.displayMsg = function() {
     + '</div>'
     + '</div>'
     ;
-  ad.msg.storage =
-      'wordcount = ' + ad.wordCount + ';'
-    + 'duration = ' + ad.duration + ';'
-    + 'count_over = ' + ad.countOver + ';'
-    + 'area_list = ' +  ad.areaList + ';'
-    + 'rate = ' +  ad.formRate + ';'
-    + 'type = ' +  ad.type + ';'
-    + 'subtotal = '+ price.subTotalRound + ';'
-    + 'taxes = ' + price.taxesRound + ';'
-    + 'total = ' + price.totalRound + ';'
-    + 'image = ' + ad.image  + ';'
-    + 'ad_type = ' + ad.typeBool + ';'
-    + 'discount = ' + price.discount + ';'
 
-console.log(ad.msg.storage);
+  ad.msg.storage =
+      'wordcount = '      + ad.wordCount + ';'
+    + 'duration = '       + ad.duration + ';'
+    + 'duration_actual = '+ ad.durationPricing + ';'
+    + 'wordcount_over = ' + ad.countOver + ';'
+    + 'area_list = '      + ad.areaList + ';'
+    + 'imageFlag = '      + ad.imageFlag + ';'
+    + 'image = '          + ad.image  + ';'
+    + 'ad_type = '        + ad.typeBool + ';'
+    + 'ad_type_name = '   + ad.type + ';'
+    + 'rate = '           + ad.formRate + ';'
+    + 'subtotal = '       + price.subTotal + ';'
+    + 'discount = '       + price.discount + ';'
+    + 'extras = '         + price.extras + ';'
+    + 'taxes = '          + price.taxesRound + ';'
+    + 'total = '          + price.totalRound + ';'
+    ;
+//console.log(ad.msg.storage);
 
   // SET FORM PRICE
   jQuery('#edit-field-price-und-0-value').val(price.totalRound);
 
   return ad.msg;
-}
+};
 
 
 /**

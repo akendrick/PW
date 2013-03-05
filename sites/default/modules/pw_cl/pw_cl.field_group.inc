@@ -18,10 +18,10 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = 'group_basic_info_box';
   $field_group->data = array(
     'label' => 'Ad Copy',
-    'weight' => '10',
+    'weight' => '-18',
     'children' => array(
       0 => 'field_ad_copy',
     ),
@@ -30,7 +30,7 @@ function pw_cl_field_group_info() {
       'label' => 'Ad Copy',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-23',
+        'classes' => 'grid-24 alpha omega',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -53,21 +53,20 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Ad Group',
-    'weight' => '0',
+    'weight' => '-200',
     'children' => array(
       0 => 'group_ad',
       1 => 'group_payment',
-      2 => 'group_upgrade',
     ),
     'format_type' => 'multipage-group',
     'format_settings' => array(
       'label' => 'Ad Group',
       'instance_settings' => array(
-        'classes' => '',
-        'page_header' => '3',
-        'page_counter' => '2',
+        'classes' => 'grid-24 alpha omega',
+        'page_header' => '0',
+        'page_counter' => '0',
         'move_button' => '1',
-        'move_additional' => '0',
+        'move_additional' => '1',
       ),
     ),
   );
@@ -142,22 +141,20 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = 'group_ad_grouping';
   $field_group->data = array(
     'label' => 'CREATE AD',
-    'weight' => '0',
+    'weight' => '-80',
     'children' => array(
-      0 => 'group_free_for_free',
-      1 => 'group_ad_copy_block',
-      2 => 'group_area_rate',
-      3 => 'group_section_duration',
-      4 => 'group_section_group',
+      0 => 'group_upgrade',
+      1 => 'group_basic_info_box',
     ),
     'format_type' => 'multipage',
     'format_settings' => array(
-      'formatter' => 'no-start',
+      'label' => 'CREATE AD',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'start',
     ),
   );
   $export['group_ad|node|ad_s|form'] = $field_group;
@@ -170,12 +167,13 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = 'group_basic_info_box';
   $field_group->data = array(
     'label' => 'Area & Rate',
-    'weight' => '11',
+    'weight' => '-17',
     'children' => array(
       0 => 'field_area',
+      1 => 'field_duration',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -193,6 +191,70 @@ function pw_cl_field_group_info() {
     ),
   );
   $export['group_area_rate|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic_info_box|node|ad_s|form';
+  $field_group->group_name = 'group_basic_info_box';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_ad';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '-20',
+    'children' => array(
+      0 => 'group_free_for_free',
+      1 => 'group_ad_copy_block',
+      2 => 'group_area_rate',
+      3 => 'group_section_duration',
+      4 => 'group_section_group',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_basic_info_box|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic|node|ad_s|form';
+  $field_group->group_name = 'group_basic';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_ad';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '3',
+    'children' => array(
+      0 => 'group_free_for_free',
+      1 => 'group_ad_copy_block',
+      2 => 'group_area_rate',
+      3 => 'group_section_duration',
+      4 => 'group_section_group',
+      5 => 'group_upgrade',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_basic|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -323,10 +385,10 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = 'group_basic_info_box';
   $field_group->data = array(
     'label' => 'Special Notices',
-    'weight' => '14',
+    'weight' => '-14',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -356,7 +418,7 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = 'group_upgrade';
   $field_group->data = array(
     'label' => 'optional_image_block',
-    'weight' => '1',
+    'weight' => '100',
     'children' => array(
       0 => 'field_image',
     ),
@@ -388,7 +450,7 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = 'group_upgrade';
   $field_group->data = array(
     'label' => 'optional liveload block',
-    'weight' => '2',
+    'weight' => '120',
     'children' => array(
       0 => 'field_promote',
     ),
@@ -397,7 +459,7 @@ function pw_cl_field_group_info() {
       'label' => 'optional liveload block',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-9',
+        'classes' => 'grid-8',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -420,7 +482,7 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = 'group_upgrade';
   $field_group->data = array(
     'label' => 'Optional notes block',
-    'weight' => '3',
+    'weight' => '140',
     'children' => array(
       0 => 'field_notes',
     ),
@@ -487,18 +549,9 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = 'group_ad_grouping';
   $field_group->data = array(
     'label' => 'PAYMENT',
-    'weight' => '2',
+    'weight' => '300',
     'children' => array(
-      0 => 'field_price',
-      1 => 'field_ad_details',
-      2 => 'field_email',
-      3 => 'field_phone',
-      4 => 'field_address',
-      5 => 'title',
-      6 => 'path',
-      7 => 'redirect',
-      8 => 'group_review',
-      9 => 'group_user_details',
+      0 => 'group_user_details',
     ),
     'format_type' => 'multipage',
     'format_settings' => array(
@@ -540,18 +593,53 @@ function pw_cl_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_review|node|ad_s|form';
+  $field_group->group_name = 'group_review';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_user_details';
+  $field_group->data = array(
+    'label' => 'Ad Review',
+    'weight' => '314',
+    'children' => array(
+      0 => 'field_price',
+      1 => 'field_ad_details',
+      2 => 'title',
+      3 => 'path',
+      4 => 'redirect',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Ad Review',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_review|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_section_duration|node|ad_s|form';
   $field_group->group_name = 'group_section_duration';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = 'group_basic_info_box';
   $field_group->data = array(
     'label' => 'Section & Duration',
-    'weight' => '12',
+    'weight' => '-16',
     'children' => array(
       0 => 'field_rate',
-      1 => 'field_duration',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -578,10 +666,10 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = 'group_basic_info_box';
   $field_group->data = array(
     'label' => 'Classified Section',
-    'weight' => '13',
+    'weight' => '-15',
     'children' => array(
       0 => 'field_tags',
     ),
@@ -610,26 +698,66 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad_grouping';
+  $field_group->parent_name = 'group_ad';
   $field_group->data = array(
     'label' => 'OPTIONS',
-    'weight' => '1',
+    'weight' => '-19',
     'children' => array(
       0 => 'group_opt_image_block',
       1 => 'group_opt_liveload_block',
       2 => 'group_opt_notes_block',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'no-start',
+      'label' => 'OPTIONS',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => 'ad-create-options-box ',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_upgrade|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_user_details|node|ad_s|form';
+  $field_group->group_name = 'group_user_details';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_payment';
+  $field_group->data = array(
+    'label' => 'Contact Information',
+    'weight' => '310',
+    'children' => array(
+      0 => 'field_email',
+      1 => 'field_phone',
+      2 => 'field_address',
+      3 => 'group_review',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Contact Information',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_user_details|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

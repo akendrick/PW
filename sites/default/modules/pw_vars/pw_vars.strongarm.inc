@@ -270,7 +270,7 @@ function pw_vars_strongarm() {
     17 => 'Education & Workshops',
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
-    168 => 'Free',
+    131 => 'Free',
     15 => 'Merchandise',
     35 => 'Obituaries',
     37 => 'Real Estate Listings',
@@ -1271,6 +1271,9 @@ echo date(\'now\');
     'group_free_for_free|node|ad_s|form' => FALSE,
     'group_review|node|ad_s|form' => FALSE,
     'group_user_details|node|ad_s|form' => FALSE,
+    'group_extra_image_group|node|article|form' => FALSE,
+    'group_basic|node|ad_s|form' => TRUE,
+    'group_basic_info_box|node|ad_s|form' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1642,13 +1645,13 @@ echo date(\'now\');
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '71',
+          'weight' => '317',
         ),
         'path' => array(
-          'weight' => '72',
+          'weight' => '319',
         ),
         'redirect' => array(
-          'weight' => '73',
+          'weight' => '318',
         ),
       ),
       'display' => array(),
@@ -1724,9 +1727,12 @@ echo date(\'now\');
       'display' => array(),
       'form' => array(
         'title' => array(
-          'weight' => '7',
+          'weight' => '1',
         ),
         'path' => array(
+          'weight' => '5',
+        ),
+        'redirect' => array(
           'weight' => '6',
         ),
       ),
@@ -1922,7 +1928,10 @@ echo date(\'now\');
           'weight' => '8',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '4',
+        ),
+        'redirect' => array(
+          'weight' => '30',
         ),
       ),
     ),
@@ -2372,6 +2381,7 @@ echo date(\'now\');
     0 => 'menu-advertising-links',
     1 => 'menu-browse-classifieds',
     2 => 'menu-pw-admin',
+    3 => 'menu-pw-super-menu',
   );
   $export['menu_expanded'] = $strongarm;
 
@@ -2387,50 +2397,53 @@ echo date(\'now\');
     4 => 253,
     5 => 252,
     6 => 250,
-    7 => 247,
-    8 => 246,
-    9 => 245,
-    10 => 127,
-    11 => 126,
-    12 => 125,
-    13 => 124,
-    14 => 123,
-    15 => 122,
-    16 => 121,
-    17 => 117,
-    18 => 112,
-    19 => 63,
-    20 => 62,
-    21 => 61,
-    22 => 60,
-    23 => 59,
-    24 => 58,
-    25 => 56,
-    26 => 45,
-    27 => 44,
-    28 => 31,
-    29 => 30,
-    30 => 29,
-    31 => 28,
-    32 => 25,
-    33 => 24,
-    34 => 23,
-    35 => 22,
-    36 => 21,
-    37 => 15,
-    38 => 14,
-    39 => 13,
-    40 => 12,
-    41 => 11,
-    42 => 10,
-    43 => 8,
-    44 => 7,
-    45 => 6,
-    46 => 5,
-    47 => 4,
-    48 => 3,
-    49 => 2,
-    50 => 1,
+    7 => 248,
+    8 => 247,
+    9 => 246,
+    10 => 245,
+    11 => 127,
+    12 => 126,
+    13 => 125,
+    14 => 124,
+    15 => 123,
+    16 => 122,
+    17 => 121,
+    18 => 117,
+    19 => 112,
+    20 => 63,
+    21 => 62,
+    22 => 61,
+    23 => 60,
+    24 => 59,
+    25 => 58,
+    26 => 56,
+    27 => 48,
+    28 => 45,
+    29 => 44,
+    30 => 31,
+    31 => 30,
+    32 => 29,
+    33 => 28,
+    34 => 27,
+    35 => 25,
+    36 => 24,
+    37 => 23,
+    38 => 22,
+    39 => 21,
+    40 => 15,
+    41 => 14,
+    42 => 13,
+    43 => 12,
+    44 => 11,
+    45 => 10,
+    46 => 8,
+    47 => 7,
+    48 => 6,
+    49 => 5,
+    50 => 4,
+    51 => 3,
+    52 => 2,
+    53 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2611,7 +2624,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_ad_s';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
   $export['node_preview_ad_s'] = $strongarm;
 
   $strongarm = new stdClass();

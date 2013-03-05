@@ -11,8 +11,8 @@
 */
 function ad_payment_send_email($email_type, $details = NULL) {
 
-  dpm('DETAILS');
-  dpm($details);
+  // dpm('DETAILS');
+  // dpm($details);
 
   // Set defaults
   $language = language_default();
@@ -59,7 +59,7 @@ function ad_payment_mail($key, &$message, $params) {
 
   $receipt_id = ($message['params']['receipt']) ? $message['params']['receipt'] : $message['reciept'] ;
 
-  $ad_type = ($message['params']['ad_type'] == TRUE) ? 'LIVELOAD' : 'Classified Ad';
+  $ad_type = ($message['params']['ad_type'] == TRUE) ? '### LIVELOAD ### ' : 'Classified Ad';
 
   switch($key) {
     case 'receipt':
@@ -122,15 +122,16 @@ function ad_payment_mail($key, &$message, $params) {
 * - - - (Why pending?) - details as to why.
 */
 function email_receipt_body($params = NULL) {
-  dpm('EMAIL Body');
-  dpm($params);
+  // dpm('EMAIL Body');
+  // dpm($params);
   // Get ad submission details
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
-
+  //dpm('Email Body Params');
+  //dpm($ad);
 
   // Basic Details
-  $duration = $ad['duration_actual'];
+  $duration = $ad['duration'];
   $image    = (isset($ad['image']) && $ad['image'] != '')? 'Image: Received.' : '';
   $ad_copy  = $ad['ad_copy'];
   $notes    = ($ad['notes'] != NULL) ? 'Notes: ' . $ad['notes'] : '';
@@ -147,7 +148,7 @@ function email_receipt_body($params = NULL) {
   $receipt_id = $ad['receipt'];
   $name     = $ad['user']['real-name'];
   $card     = $ad['user']['card-type'];
-  $discount = (isset($ad['discount']))? ' (all area discount $' . abs($ad['discount'] * $ad['duration_adjusted']) . ')' : '';
+  $discount = $ad['discount'];
   $subtotal = $ad['subtotal'];
   $taxes    = $ad['taxes'];
   $total    = $ad['total'];
@@ -163,7 +164,8 @@ function email_receipt_body($params = NULL) {
 
 
 $receipt = <<<RECEIPT
-Classified Ad Receipt #$receipt_id
+$ad_type DETAILS
+Receipt #$receipt_id
 
 Thank you for submitting your ad to PennywiseAds.com.
 This email is your receipt and should be kept for your records.
@@ -207,7 +209,7 @@ The Pennywise Team.
 RECEIPT;
 
 
-  dpm('RECIEPT');
-  dpm($receipt);
+//   dpm('RECIEPT');
+//   dpm($receipt);
   return $receipt;
 }

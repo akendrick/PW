@@ -4,6 +4,18 @@
 
 
 (function ($) {
+  (function(){
+      // remove layerX and layerY
+      var all = $.event.props,
+          len = all.length,
+          res = [];
+      while (len--) {
+        var el = all[len];
+        if (el != 'layerX' && el != 'layerY') res.push(el);
+      }
+      $.event.props = res;
+  }());
+
   function doMasonry() {
     var width = $(window).width();
     if (width >= 600) {
@@ -49,7 +61,7 @@
 
     // Editorials
     $('.views-field-field-image > .field-content > a > img').imagesLoaded(function() {
-      $('.view-display-id-attachment_1 ').masonry({
+      $('.view-display-id-editorial_main_page > .view-content').masonry({
         itemSelector : '.views-row',
         columnWidth : width, // was 270
         isFitWidth: true,
@@ -58,10 +70,10 @@
     });
   };
 
-  // On Load
-  $(document).ready(function() {
-    doMasonry();
-  });
+    // On Load
+    $(document).ready(function() {
+      doMasonry();
+    });
 
   // On Resize
   $(window).bind('resize', function() {

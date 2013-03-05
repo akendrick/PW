@@ -815,9 +815,9 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_display_ad']['alter']['replace_spaces'] = TRUE;
   $handler->display->display_options['fields']['field_display_ad']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_display_ad']['type'] = 'file_rendered';
   $handler->display->display_options['fields']['field_display_ad']['settings'] = array(
-    'file_view_mode' => 'media_original',
+    'image_style' => '',
+    'image_link' => '',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
   /* Field: Content: Edit link */

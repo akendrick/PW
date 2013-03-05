@@ -203,7 +203,7 @@ function pw_clients_views_default_views() {
   $handler->display->display_options['fields']['mail']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['mail']['alter']['text'] = 'Email: [mail]';
   $handler->display->display_options['fields']['mail']['element_label_colon'] = FALSE;
-  /* Field: Field: Phone Number */
+  /* Field: Field: Phone */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';
@@ -432,7 +432,7 @@ function pw_clients_views_default_views() {
     10 => 0,
     3 => 0,
   );
-  /* Filter criterion: Field: Phone Number (field_phone:extension) */
+  /* Filter criterion: Field: Phone (field_phone:extension) */
   $handler->display->display_options['filters']['field_phone_extension']['id'] = 'field_phone_extension';
   $handler->display->display_options['filters']['field_phone_extension']['table'] = 'field_data_field_phone';
   $handler->display->display_options['filters']['field_phone_extension']['field'] = 'field_phone_extension';
@@ -456,7 +456,7 @@ function pw_clients_views_default_views() {
     10 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Email (field_email) */
+  /* Filter criterion: Field: Email (field_email) */
   $handler->display->display_options['filters']['field_email_email']['id'] = 'field_email_email';
   $handler->display->display_options['filters']['field_email_email']['table'] = 'field_data_field_email';
   $handler->display->display_options['filters']['field_email_email']['field'] = 'field_email_email';

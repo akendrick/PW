@@ -701,40 +701,6 @@ body.front {
   }
 }
 
-/* Ad Submission Page */
-body.page-ad-submit {
-  .vertical-tabs {
-    margin: 4em 0 1em 15em;
-  }
-  #ad-s-node-form { /*general style*/
-    .field-name-field-area .description,
-    .field-name-field-rate .description,
-    #edit-field-ad-details
-    /* .field-name-field-duration .description */ {
-      display: block;
-    }
-        /*large ad copy body*/
-    #edit-field-ad-copy-und-0-value {
-      font-size: 2em;
-    }
-    #node_ad_s_form_group_payment {
-      .fieldset-wrapper {
-/*         margin: 0 20% 0 35%; */
-      }
-    }
-    #edit-field-ad-copy {
-      width: 590px;
-      float: left;
-    }
-    #ad-summary {
-      margin: 0;
-      height: auto;
-      width: 250px;
-      float: right;
-    }
-  }
-}
-
 
 /********* Editorial ******/
 /* editorial */
@@ -800,10 +766,11 @@ view-display-id-editorial_main_page
   /* list items */
 }
 /* editorial page */
-.view-display-id-editorial_main_page {
-  .view-display-id-attachment_1 {
-    .views-row {
-      width: 260px;
-    }
+.view-display-id-editorial_main_page { /* was .view-display-id-attachment_1 */
+  .views-row {
+    width: 260px;
+    float: left;
+    margin-bottom: 20px;
+    margin-left: 5px;
   }
 }

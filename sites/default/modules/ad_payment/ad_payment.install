@@ -78,7 +78,14 @@ $schema['adp'] = array(
       'scale' => '2',
     ),
     'price_subtotal' => array(
-      'description' => 'Price before taxes.',
+      'description' => 'Total before taxes.',
+      'type' => 'float',
+      'not null' => TRUE,
+      'precision' => '4',
+      'scale' => '2',
+    ),
+    'price_extras' => array(
+      'description' => 'Extras.',
       'type' => 'float',
       'not null' => TRUE,
       'precision' => '4',
@@ -110,7 +117,6 @@ $schema['adp'] = array(
     'image' => array(
       'description' => 'Is there an image?',
       'type' => 'int',
-      'size' => 'tiny',
       'not null' => TRUE,
     ),
     'card_name' => array(
@@ -161,4 +167,18 @@ function ad_payment_update_7105() {
 /*       'description' => 'Email' */
   );
   db_add_field('adp', 'email', $field);
+}
+
+/**
+* Adds User Extras Sub-total price to ADP table.
+*/
+function ad_payment_update_7106() {
+  $field = array(
+      'type' => 'float',
+      'length' => 1024,
+      'not null' => FALSE,
+      'precision' => '4',
+      'scale' => '2',
+  );
+  db_add_field('adp', 'price_extras', $field);
 }

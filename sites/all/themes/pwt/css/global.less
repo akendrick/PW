@@ -1061,8 +1061,12 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
 
 /************ Main Editorial PAGE */
 /**** editorial main page ****/
+.view-id-editorial_views {
+  h3 {
+    display: none;
+  }
+}
 .node-article .view-mode-full, .view-editorial-views  {
-
   letter-spacing: -0.06em;
   line-height: 1.2em;
 /*   li { list-style: none; } */
@@ -1128,11 +1132,6 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
     .border-radius;
   }
   /* spacing between articles */
-  .view-display-id-attachment_1 {
-    .views-row {
-      margin-bottom: 20px;
-    }
-  }
   /* masonry boxes */
 /*
   .view-id-editorial_views {
@@ -1158,6 +1157,7 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
 */
   /*   PAGER */
   ul.pager {
+
     width: auto;
     li.pager-item {
       margin: 0;
@@ -1812,6 +1812,21 @@ body.maintenance-page {
           display: block;
         }
         span { font-size: 2em; }
+      }
+    }
+    #squeeze {
+      #left-corner {
+        border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;
+        width: 80%;
+        font-size:1.6em;
+        margin: 0 auto;
+        display: block;
+        padding: 30px;
+        line-height: 1.2em;
+        background-color: #e5e0dc;
+      }
+      .messages {
+        font-size: .8em;
       }
     }
   }

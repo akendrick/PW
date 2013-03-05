@@ -62,6 +62,12 @@ function pw_cl_field_default_fields() {
           'type' => 'text_plain',
           'weight' => '0',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_ad_copy',
@@ -79,7 +85,7 @@ function pw_cl_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '11',
+        'weight' => '-15',
       ),
     ),
   );
@@ -126,6 +132,12 @@ function pw_cl_field_default_fields() {
           'type' => 'hidden',
           'weight' => '9',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_ad_details',
@@ -147,7 +159,7 @@ function pw_cl_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '70',
+        'weight' => '315',
       ),
     ),
   );
@@ -212,6 +224,12 @@ function pw_cl_field_default_fields() {
           'type' => 'addressfield_default',
           'weight' => 21,
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_address',
@@ -237,7 +255,7 @@ function pw_cl_field_default_fields() {
           ),
         ),
         'type' => 'addressfield_standard',
-        'weight' => '68',
+        'weight' => '313',
       ),
     ),
   );
@@ -293,6 +311,12 @@ function pw_cl_field_default_fields() {
           'type' => 'list_default',
           'weight' => '5',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'ds_extras_field_template' => '',
       'entity_type' => 'node',
@@ -308,7 +332,7 @@ function pw_cl_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '3',
+        'weight' => '7',
       ),
     ),
   );
@@ -360,6 +384,12 @@ function pw_cl_field_default_fields() {
           'type' => 'list_default',
           'weight' => '6',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_duration',
@@ -374,7 +404,7 @@ function pw_cl_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '5',
+        'weight' => '8',
       ),
     ),
   );
@@ -426,6 +456,12 @@ function pw_cl_field_default_fields() {
           'type' => 'email_default',
           'weight' => 17,
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_email',
@@ -442,7 +478,7 @@ function pw_cl_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '67',
+        'weight' => '312',
       ),
     ),
   );
@@ -507,6 +543,12 @@ function pw_cl_field_default_fields() {
           'settings' => array(),
           'type' => 'lightbox2__lightbox__medium__original',
           'weight' => '1',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -579,7 +621,7 @@ function pw_cl_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '45',
+        'weight' => '110',
       ),
     ),
   );
@@ -626,6 +668,12 @@ function pw_cl_field_default_fields() {
           'type' => 'hidden',
           'weight' => '15',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_notes',
@@ -643,7 +691,7 @@ function pw_cl_field_default_fields() {
           'rows' => '6',
         ),
         'type' => 'text_textarea',
-        'weight' => '20',
+        'weight' => '145',
       ),
     ),
   );
@@ -694,6 +742,12 @@ function pw_cl_field_default_fields() {
           'settings' => array(),
           'type' => 'global_phone_number',
           'weight' => 20,
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -953,7 +1007,7 @@ function pw_cl_field_default_fields() {
           'size' => 15,
         ),
         'type' => 'phone_number',
-        'weight' => '66',
+        'weight' => '311',
       ),
     ),
   );
@@ -990,6 +1044,12 @@ function pw_cl_field_default_fields() {
           'type' => 'hidden',
           'weight' => '13',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_price',
@@ -1008,7 +1068,7 @@ function pw_cl_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '69',
+        'weight' => '316',
       ),
     ),
   );
@@ -1060,6 +1120,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'hidden',
           'weight' => '10',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_promote',
@@ -1074,7 +1140,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '19',
+        'weight' => '130',
       ),
     ),
   );
@@ -1087,6 +1153,9 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_rate',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -1113,13 +1182,24 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         ),
       ),
       'deleted' => '0',
-      'description' => '<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting',
+      'description' => '<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
+<span class="classified-rate-card\'>
+<strong>Classified Ad Rates per area</strong><br>
+<ul><li><b>Personal:</b> 15 words or less - $3.50 <strong>per week</strong> + tax. (20¢ per additional word.)</li>
+<li><b>Business:</b> 15 words or less - $5.00 <strong>per week</strong> + tax. (40¢ per additional word.)</li></ul>
+</span>',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '14',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -1133,9 +1213,11 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
         'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '10',
       ),
     ),
   );
@@ -1190,6 +1272,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_tags',
@@ -1204,7 +1292,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '12',
       ),
     ),
   );
@@ -1288,6 +1376,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'hidden',
           'weight' => '7',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -1369,6 +1463,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'hidden',
           'weight' => '8',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1442,6 +1542,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'hidden',
           'weight' => '9',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1514,6 +1620,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'weight' => 10,
         ),
         'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'notifications' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
@@ -1617,6 +1729,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'date_default',
           'weight' => '2',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1706,6 +1824,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'text_default',
           'weight' => '3',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -1793,6 +1917,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'list_default',
           'weight' => '1',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'rss' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -1864,6 +1994,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '9',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1945,6 +2081,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'settings' => array(),
           'type' => 'email_default',
           'weight' => '6',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2039,6 +2181,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'settings' => array(),
           'type' => 'lightbox2__lightbox__classified_page_style__original',
           'weight' => '0',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2146,6 +2294,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'link_default',
           'weight' => '5',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'rss' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -2240,6 +2394,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'settings' => array(),
           'type' => 'global_phone_number',
           'weight' => '4',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'rss' => array(
           'label' => 'inline',
@@ -2568,6 +2728,12 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'type' => 'taxonomy_term_reference_link',
           'weight' => '2',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'taxonomy',
@@ -2634,8 +2800,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'bundle' => 'free',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Please use 15 - 25 words (about 100 characters) to describe your one personal item per Free for Free ad.
-<ul><li>Puppies FREE to good home
+      'description' => 'Please use 15 - 25 words (about 120 characters) to describe your one personal item per Free for Free ad.
+<ul><li>Bunkbeds FREE to good home
 <li>FREE pink floral couch
 <li>FREE 2 wheel bike will fit 8 year old 
 </ul>
@@ -2654,6 +2820,12 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '3',
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2675,14 +2847,14 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'maxlength_js' => '100',
-          'maxlength_js_enforce' => 1,
+          'maxlength_js' => '',
+          'maxlength_js_enforce' => 0,
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'maxlength_js_truncate_html' => 0,
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -2708,8 +2880,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'email' => 'Email me for more details.',
-          'phone' => 'Phone me for more details.',
+          'email' => 'Allow contact & questions.',
           'none' => 'None. All relevant information is in ad.',
         ),
         'allowed_values_function' => '',
@@ -2725,9 +2896,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
         ),
       ),
       'deleted' => '0',
-      'description' => 'What\'s the best way to contact you about the item?
-PennywiseAds can create an anonymous email link, highlight your contact phone number.
-In addition you will be sent an email when anyone comments on your ad.',
+      'description' => 'Allowing questions and comments will help Pennywise readers contact you about your free ad. They will be allowed to post questions and comments on your ad, and you will be able to respond to them. Comments and questions will also be sent to your email so you can be alerted the moment someone posts a question.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -2741,6 +2910,12 @@ In addition you will be sent an email when anyone comments on your ad.',
           'type' => 'hidden',
           'weight' => '10',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -2750,7 +2925,7 @@ In addition you will be sent an email when anyone comments on your ad.',
       ),
       'entity_type' => 'node',
       'field_name' => 'field_contact_seller',
-      'label' => 'Contact Details',
+      'label' => 'Allow Questions & Comments',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
@@ -2763,7 +2938,7 @@ In addition you will be sent an email when anyone comments on your ad.',
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         ),
         'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '3',
       ),
     ),
   );
@@ -2842,6 +3017,12 @@ In addition you will be sent an email when anyone comments on your ad.',
           'type' => 'image',
           'weight' => '1',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -2879,7 +3060,7 @@ In addition you will be sent an email when anyone comments on your ad.',
           'resolution' => '200x150',
         ),
         'type' => 'imagefield_crop_widget',
-        'weight' => '1',
+        'weight' => '6',
       ),
     ),
   );
@@ -2936,6 +3117,12 @@ In addition you will be sent an email when anyone comments on your ad.',
           'type' => 'list_default',
           'weight' => '0',
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -2958,7 +3145,7 @@ In addition you will be sent an email when anyone comments on your ad.',
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         ),
         'type' => 'options_buttons',
-        'weight' => '5',
+        'weight' => '1',
       ),
     ),
   );
@@ -3023,6 +3210,12 @@ In addition you will be sent an email when anyone comments on your ad.',
           'type' => 'hidden',
           'weight' => 0,
         ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -3045,7 +3238,7 @@ In addition you will be sent an email when anyone comments on your ad.',
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         ),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '4',
       ),
     ),
   );
@@ -3082,18 +3275,24 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
 <li><strong>Internet - included FREE</strong><br>Your ad is also placed on our website the same day as the printed day.</p>
 </ul>
 <em class=\'ad-note\'>Save $2 when you book all four areas.</em>');
-  t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting');
+  t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
+<span class="classified-rate-card\'>
+<strong>Classified Ad Rates per area</strong><br>
+<ul><li><b>Personal:</b> 15 words or less - $3.50 <strong>per week</strong> + tax. (20¢ per additional word.)</li>
+<li><b>Business:</b> 15 words or less - $5.00 <strong>per week</strong> + tax. (40¢ per additional word.)</li></ul>
+</span>');
   t('Ad Copy');
   t('Ad Creation Override');
   t('Ad Details');
   t('Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.');
   t('Address');
+  t('Allow Questions & Comments');
+  t('Allowing questions and comments will help Pennywise readers contact you about your free ad. They will be allowed to post questions and comments on your ad, and you will be able to respond to them. Comments and questions will also be sent to your email so you can be alerted the moment someone posts a question.');
   t('Area');
   t('Area Code');
   t('Body');
   t('Classification');
   t('Classified Ad Type');
-  t('Contact Details');
   t('Duration');
   t('Email');
   t('Image');
@@ -3106,8 +3305,8 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
 <strong>Book 2 weeks receive your 3rd week FREE!</strong>');
   t('Phone');
   t('Phone Number');
-  t('Please use 15 - 25 words (about 100 characters) to describe your one personal item per Free for Free ad.
-<ul><li>Puppies FREE to good home
+  t('Please use 15 - 25 words (about 120 characters) to describe your one personal item per Free for Free ad.
+<ul><li>Bunkbeds FREE to good home
 <li>FREE pink floral couch
 <li>FREE 2 wheel bike will fit 8 year old 
 </ul>
@@ -3118,9 +3317,6 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
   t('Section');
   t('This email is for verification purposes and a receipts only, and we will not send you any unsolicited emails or pass your email to any 3rd party.');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
-  t('What\'s the best way to contact you about the item?
-PennywiseAds can create an anonymous email link, highlight your contact phone number.
-In addition you will be sent an email when anyone comments on your ad.');
 
   return $fields;
 }
