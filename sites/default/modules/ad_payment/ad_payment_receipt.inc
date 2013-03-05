@@ -125,6 +125,10 @@ function ad_payment_receipt($temp_id, $data = NULL) {
           <dt class='receipt-price-subtotal'>Sub-total:</dt>
           <dd class='receipt-price-subtotal'>$" . $data['subtotal'] . "</dt>
         </dl>
+        <dl class='receipt-price-extras'>
+          <dt class='receipt-price-extras'>Extras:</dt>
+          <dd class='receipt-price-extras'>$" . $data['extras'] . "</dt>
+        </dl>
         <dl class='receipt-price-taxes'>
           <dt class='receipt-price-taxes'>Taxes:</dt>
           <dd class='receipt-price-taxes'>$" . $data['taxes'] . "</dt>
