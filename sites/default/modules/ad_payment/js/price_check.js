@@ -173,6 +173,11 @@ Drupal.adPayment.formData = function(ad) {
     ad.imageFile = jQuery('#edit-field-image-und-0-upload').val();
     ad.imageFlag = 1;
   }
+  else if (jQuery('.image-widget.form-managed-file .file a').length > 0) {
+    ad.imageFile = jQuery('.image-widget.form-managed-file .file a');
+    ad.imageFlag = 1;
+    console.log('Image detected: ' + ad.imageFile);
+  }
   else {
     ad.imageFlag = 0;
     ad.image = 'No image';
@@ -359,8 +364,8 @@ Drupal.adPayment.displayMsg = function() {
   // ad.msg.areaInternet += 'Internet Included FREE!';
   // Area MSG
   if (ad.area == 0) {
-    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd> No Area Selected</dd>");
-    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><em>No Area Selected</em></dd>");
+    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd>No Area Selected</dd>");
+    ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><small><em>Select Area</em><small></dd>");
   }
   else if (ad.area > 0 && ad.area < 4) {
     ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas </dd>", {'@area': ad.area, '@areas': ad.areaList});
@@ -501,6 +506,7 @@ jQuery(document).ready(function() {
 
     // Hide Image Upload Button (uploading images always produces an error.
     jQuery('#edit-field-image-und-0-upload-button').hide();
+
     // Hide Preview (unless jQuery is broken)...
     jQuery('#edit-preview').hide();
 
@@ -523,6 +529,10 @@ jQuery(document).ready(function() {
 
     jQuery('#ad-s-node-form').bind('click keypress keyup change mouseup', function() { //click change keypress keyup
        // console.log('Action Detected.');
+
+      // Hide Preview (unless jQuery is broken)...
+      jQuery('#edit-preview').hide();
+
 
       jQuery('#ad-s-node-form').validate({
         rules: {

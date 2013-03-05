@@ -142,15 +142,22 @@ function ad_payment_validate_cc_data($form_state_values = NULL) {
   // Get Section Rating
   $submitted_rate = ($form_state_values['field_rate'][LANGUAGE_NONE][0]['value'] == 'Business') ? TRUE : FALSE;
 
-  foreach ($form_state_values['field_tags'][LANGUAGE_NONE] as $sect) {
-    $term = taxonomy_term_load($sect['tid']);
-    $term_rate = $term->field_business_rated[LANGUAGE_NONE][0]['value'];
-    if ($term_rate != $submitted_rate && $term_rate == TRUE) {
-      $form_validation['field_tags'] = $term->name . 'is a Business Rated classification.<br>To update your ad:
-       <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
-       <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
-       $form_errors['field_tags'] = 'Error #400-T-' . $sect['tid'];
+  if(isset($form_state_values['field_tags'][LANGUAGE_NONE][0]['tid'])){
+    foreach ($form_state_values['field_tags'][LANGUAGE_NONE] as $sect) {
+      $term = taxonomy_term_load($sect['tid']);
+      $term_rate = $term->field_business_rated[LANGUAGE_NONE][0]['value'];
+      if ($term_rate != $submitted_rate && $term_rate == TRUE) {
+        $form_validation['field_tags'] = $term->name . 'is a Business Rated classification.<br>To update your ad:
+         <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
+         <li>Change your ad to "Business" rated <br/>or choose a different section for your ad to appear in.</ol>';
+         $form_errors['field_tags'] = 'Error #400-T-' . $sect['tid'];
+      }
     }
+  }
+  else {
+    // No Rate submitted but rate form validation is handeled elsewhere.
+    // $form_validation['field_rate'] = 'Please your classification section.';
+    // $form_errors['field_rate'] = 'Error #350-NullRate';
   }
 
   if (ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
