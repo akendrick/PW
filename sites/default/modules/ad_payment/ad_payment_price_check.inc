@@ -19,47 +19,58 @@
 
 function ad_payment_log_payment($values) {
 
-    $feedback_message = "
-      PRICING DATA
-      Words: @wordcount
-      Above Base: @count_over words * @word_rate/word = $@price_over
-      Areas(@area_count): @areas
-      Section(@section_count): @sections
-
-      Extras:
-      @liveload
-      @image
-
-
-      Rate: @rate
-      Subtotal: $@subtotal @discount
-        Extras: $@extras
-         Taxes: $@taxes
-         Total: $@total_rounded
+    $feedback_message = "#### @parse - Log Payment ####<br><br>
+      <br> PRICING DATA::
+      <br> Words: @wordcount
+      <br> Above Base: @count_over words * @word_rate/word = $@price_over
+      <br> Areas(@area_count): @areas
+      <br> Section(@section_count): @sections
+      <br>
+      <br> Extras:
+      <br> @liveload
+      <br> @image
+      <br>
+      <br>
+      <br> Rate: @rate
+      <br> Subtotal: $@subtotal @discount
+      <br>   Extras: $@extras
+      <br>    Taxes: $@taxes
+      <br>    Total: $@total_rounded
+      <br> <br><br>
+      <br> USER DATA::
+      <br> Name: @user_name
+      <br> Phone: @user_phone
+      <br> Email: @user_email
       ";
     $feedback_vars = array(
-      '@rate' => $values['rate']['rate_name'],
-      '@wordcount' => $values['wordcount'],
+      '@parse'      => $values['parse'],
+      '@rate'       => $values['rate']['rate_name'],
+      '@wordcount'  => $values['wordcount'],
       '@count_over' => $values['wordcount_over'],
-      '@word_rate' => $values['rate']['word_rate'],
+      '@word_rate'  => $values['rate']['word_rate'],
       '@price_over' => $values['rate']['word_rate'] * $values['wordcount_over'],
       '@area_count' => $values['area_count'],
-      '@areas' => $values['areas'],
-      '@area_discount' => $values['discount'],
-      '@section_count' => $values['section_count'],
-      '@sections' => $values['sections'],
-      '@image' => ($values['image']) ? 'Image detected<br>' : '',
-      '@liveload' => ($values['ad_type']) ? 'Liveload Ad!' : 'Regular Classified',
-      '@subtotal' => $values['subtotal'],
-      '@discount' => ($values['discount']) ? '($' . $values['discount'] . ' discount)' : '',
-      '@extras' => $values['extras'],
-      '@taxes' => $values['taxes'],
-      '@total' => $values['subtotal'],
+      '@areas'      => $values['areas'],
+      '@area_discount'  => $values['discount'],
+      '@section_count'  => $values['section_count'],
+      '@sections'   => $values['sections'],
+      '@image'      => ($values['image']) ? 'Image detected<br>' : '',
+      '@liveload'   => ($values['ad_type']) ? 'Liveload Ad!' : 'Regular Classified',
+      '@subtotal'   => $values['subtotal'],
+      '@discount'   => ($values['discount']) ? '($' . $values['discount'] . ' discount)' : '',
+      '@extras'     => $values['extras'],
+      '@taxes'      => $values['taxes'],
+      '@total'      => $values['subtotal'],
       '@total_rounded' => $values['total'],
+      '@user_name'     => $values['user']['real-name'],
+      '@user_phone'    => $values['user']['phone'],
+      '@user_email'    => $values['user']['email'],
     );
-    watchdog('ADP - Payment', $feedback_message, $feedback_vars, WATCHDOG_INFO);
 
-    // // dpm(t($feedback_message, $feedback_vars));
+    $feedback_message .= '<br><br>Logged by <b>ad_payment_log_payment</b> in <em>ad_payment_price_check.inc</em>';
+    watchdog('ADP LOG', $feedback_message, $feedback_vars, WATCHDOG_INFO);
+
+    // //dpm(t($feedback_message, $feedback_vars));
 
     // Base
     // drupal_set_message(t('Base Price: $@base = $@base_rate base price + @image_price (if any) + (@over words over @ $@word_rate word)',
@@ -92,7 +103,7 @@ function ad_payment_get_form_details($form_state) {
   // Get RAW DATA for processing
   //$values = ad_payment_get_payment_variables($var, $data_type);
   $values = array(
-    'parse'   => 'Form State Values',
+    'parse'   => 'Form Details',
     'ad_copy' => $form_state['values']['field_ad_copy'][LANGUAGE_NONE][0]['value'],
     'area_default'  => $form_state['values']['field_area'][LANGUAGE_NONE][0]['value'],
     'area_count'    => count($form_state['values']['field_area'][LANGUAGE_NONE]),
@@ -117,13 +128,23 @@ function ad_payment_get_form_details($form_state) {
     ),
   );
 
-  // dpm($form_state['values']['field_image'][LANGUAGE_NONE][0]);
+  //dpm('FORM RATE');
+  //dpm($form_state['values']['field_rate'][LANGUAGE_NONE][0]['value']);
+
   $values = ad_payment_price_check($values);
 
+  //dpm('Established RATE - after price check.');
+  //dpm($values['rate']['rate_name']);
+
    // TEST PRICES
-   if(ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
-     ad_payment_log_payment($values);
-   }
+    if(ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
+      ad_payment_log_payment($values);
+
+      $message = 'FORM Rate: ' . $form_state['values']['field_rate'][LANGUAGE_NONE][0]['value'] .
+      ' <br>Parsed Rate: ' . $validated_rate['rate']['rate_name'];
+      $message .= '<br><br>Logged by <b>ad_payment_get_form_details</b> in <em>ad_payment_price_check.inc</em>';
+      watchdog('ADP RATE', $message);
+    }
 
   return $values;
 }
@@ -137,8 +158,9 @@ function ad_payment_get_form_details($form_state) {
 */
 
 function ad_payment_get_node_details($node) {
+  //dpm($node);
   $values = array(
-    'parse'     => 'Node Values',
+    'parse'     => 'Node Details',
     'details'   => ($node->field_ad_details[LANGUAGE_NONE][0]['value']) ? $node->field_ad_details[LANGUAGE_NONE][0]['value'] : NULL,
     'ad_copy'   => $node->field_ad_copy[LANGUAGE_NONE][0]['value'],
     'area_default' => $node->field_area[LANGUAGE_NONE][0]['value'],
@@ -146,7 +168,7 @@ function ad_payment_get_node_details($node) {
     'areas'     => ad_payment_parse_array($node->field_area[LANGUAGE_NONE], 'area'),
     'image'     => isset($node->field_image[LANGUAGE_NONE][0]['fid']) ? $node->field_image[LANGUAGE_NONE][0]['fid'] : '',
     'image_flag'=> isset($node->field_image[LANGUAGE_NONE][0]['fid']) ? TRUE : FALSE,
-    'image_name'=> isset($node->field_image[LANGUAGE_NONE][0]['fid']) ? $node->field_image[LANGUAGE_NONE][0]['file'] : '',
+    'image_name'=> (isset($node->field_image[LANGUAGE_NONE][0]['file'])) ? $node->field_image[LANGUAGE_NONE][0]['fid'] : '',
     'rate'      => $node->field_rate[LANGUAGE_NONE][0]['value'],
     'ad_type'   => $node->field_promote[LANGUAGE_NONE][0]['value'],
     'details'   => $node->field_ad_details[LANGUAGE_NONE][0]['value'],
@@ -165,7 +187,8 @@ function ad_payment_get_node_details($node) {
     ),
   );
 
-  $values['rate'] = ad_payment_get_rate($values);
+  //dpm('NODE RATE');
+  //dpm($node->field_rate[LANGUAGE_NONE]);
 
   // Get jQuery Pricing and Insert Into Database.
   if(isset($values['details'])) {
@@ -195,8 +218,15 @@ function ad_payment_get_node_details($node) {
 
  // TEST PRICES
  if(ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
+    $message = 'Node Rate: ' . $node->field_rate[LANGUAGE_NONE][0]['value'] .
+      ' <br>Parsed Rate: ' . $values['rate']['rate_name'];
+    $message .= '<br><br>Logged by <b>ad_payment_get_node_details</b> in <em>ad_payment_price_check.inc</em>';
+    watchdog('ADP RATE', $message);
+
    ad_payment_log_payment($values);
  }
+  //dpm('RATE - after price check');
+  //dpm($values['rate']['rate_name']);
 
   return($values);
 }
@@ -389,11 +419,16 @@ function ad_payment_price_check($values) {
 *
 */
 function ad_payment_validate_rate($values) {
+  if (!$values['section_default']) {
+    $message .= 'No Default Section detected.';
+    watchdog('ADP RATE', $message);
+  }
+
   // Get Section Rating
-  if ($tax_term = taxonomy_term_load($values['section_default'])) {
+  if ($taxony_term = taxonomy_term_load($values['section_default'])) {
     $rate = array(
-      'term_rate' => $tax_term->field_business_rated[LANGUAGE_NONE][0]['value'],
-      'term_name' => $tax_term->name,
+      'term_rate' => $taxony_term->field_business_rated[LANGUAGE_NONE][0]['value'],
+      'term_name' => $taxony_term->name,
       'form_rate' => ($values['rate'] == 'Personal') ? 0 : 1,
     );
   }
@@ -401,6 +436,13 @@ function ad_payment_validate_rate($values) {
     form_set_error('field_tags', 'Please choose a section for your ad to appear under. Eg. "Animals & Livestock" or "Vehicles".');
     //$get_rate = array();
   }
+
+  $message = 'SUBMITTED RATE: ' . $values['rate'] . '  <br>' .
+      'FORM Rate: ' . $rate['form'] . '  <br>' .
+      'TERM Rate: ' . $rate['form'] . '<br>';
+  $message .= '<br><br>Logged by <b>ad_payment_validate_rate</b> in <em>ad_payment_price_check.inc</em>';
+  watchdog('ADP RATE', $message);
+
 
   if ($rate['form_rate'] == $rate['term_rate'] || $rate['form_rate']) {
     return $rate;
@@ -485,7 +527,10 @@ function ad_payment_business_rating($storage) {
 */
 function ad_payment_set_ad_duration($weeks) {
   if (!$weeks) {
-    watchdog('Ad Payment', 'Unable to set duration. Number of weeks selected --> @weeks <--', array('@weeks' => $weeks));
+    $message = 'Unable to set duration. Number of weeks selected --> @weeks <--';
+    $message_vars = array('@weeks' => $weeks);
+    $message .= '<br><br>Logged by <b>ad_payment_log_payment</b> in <em>ad_payment_price_check.inc</em>';
+    watchdog('ADP Duration', $message, $message_vars, WATCHDOG_INFO);
   }
 
   $duration = array();
@@ -547,7 +592,7 @@ function ad_payment_word_counter($copy) {
   //$find = array('&', '-', '.', '/' , '\\', '\'', '"');
   //$copy = str_replace($find, '--', $copy);
   $copy = preg_replace("/[^A-Za-z0-9 ]/", 'z', $copy);
-  // dpm('COPY: ' . $copy);
+  //dpm('COPY: ' . $copy);
 
   // Clear Paragraph Returns or New Lines and Double Spaces
   // replace with single space

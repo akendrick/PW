@@ -66,8 +66,11 @@ function thankyou_free() {
 
 
 function ad_payment_receipt($temp_id, $data = NULL) {
-  global $base_url;
+  //global $base_url;
+
   // AD Details
+  $rate = (is_array($data['rate'])) ? $data['rate']['rate_name'] : $data['rate'];
+
   $details = "
       <div class='receipt-details grid-8 alpha'>
         <h3 class='receipt-details-title'>Ad Details</h3>
@@ -86,7 +89,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
         </dl>
         <dl class='receipt-rate'>
           <dt class='receipt-rate'>Rate:</dt>
-          <dd class='receipt-copy'>" . $data['rate']['rate_name'] . "</dd>
+          <dd class='receipt-copy'>" . $rate . "</dd>
         </dl>
         <dl class='receipt-duration'>
           <dt class='receipt-duration'>Duration:</dt>
@@ -105,7 +108,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
         $details .= "
           <dl class='receipt-image'>
             <dt class='receipt-image'>Image:</dt>
-            <dd class='receipt-copy'>Image received (fid: " . $data['image'] . ")</dd>
+            <dd class='receipt-copy'>Image received <fid: " . $data['image'] . "></dd>
           </dl>";
     }
     if ($data['notes']) {
@@ -183,6 +186,32 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
   $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
   $content .= '</div>';
+
+  if (ADP_LOG_ERRORS) {
+    $message = 'Receipt Logged<br><br>CLIENT<br>Name: @name<br>Phone: @phone<br>Email: @email<br><br>
+      PRICING<br>Subtotal: @subtotal<br>Extras: @extras <br>Tax: @tax<br>Total: @total<br><br>
+      DETAILS<br>@ad_copy<br><br>Section: @section<br>Area: @area<br>Duration: @duration<br>Rate: @rate';
+    $message_vars = array(
+      '@name' => $data['user']['real-name'],
+      '@phone' => $data['user']['phone'],
+      '@email' => $data['user']['email'],
+
+      '@subtotal' => $data['subtotal'],
+      '@extras' => $data['extras'],
+      '@tax' => $data['taxes'],
+      '@total' => $data['total'],
+
+      '@ad_copy' => $data['ad_copy'],
+      '@section' => $data['section_name'],
+      '@area' => $data['areas'],
+      '@rate' => $data['rate']['rate_name'],
+      '@duration' =>  $data['duration']['actual'],
+    );
+
+    $message .= '<br><br>Logged by <b>ad_payment_receipt</b> in <em>ad_payment_reciept.inc</em>';
+    watchdog('ADP Receipt', $message, $message_vars);
+  }
+
 
    return $content;
 }

@@ -145,7 +145,7 @@ function ad_payment_validate_cc_data($form_state_values = NULL) {
   if(isset($form_state_values['field_tags'][LANGUAGE_NONE][0]['tid'])){
     foreach ($form_state_values['field_tags'][LANGUAGE_NONE] as $sect) {
       $term = taxonomy_term_load($sect['tid']);
-      $term_rate = $term->field_business_rated[LANGUAGE_NONE][0]['value'];
+      $term_rate = (isset($term->field_business_rated[LANGUAGE_NONE][0]['value'])) ? $term->field_business_rated[LANGUAGE_NONE][0]['value'] : 0;
       if ($term_rate != $submitted_rate && $term_rate == TRUE) {
         $form_validation['field_tags'] = $term->name . 'is a Business Rated classification.<br>To update your ad:
          <ol><li>Select "<strong>Create Classified Ad</strong>" from the side menu.
@@ -160,40 +160,37 @@ function ad_payment_validate_cc_data($form_state_values = NULL) {
     // $form_errors['field_rate'] = 'Error #350-NullRate';
   }
 
-  if (ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
-    // drupal_set_message('Form State Values', 'adp');
+//  if (ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
+//    // drupal_set_message('Form State Values', 'adp');
+//
+//    $type = 'ADP CC';
+//    $log_message = t('Submission Error <br> Logged By @name <br>Username: @username - UID: @uid<br> <br>Email: @email <br>Phone: @phone<br><br>',
+//      array(
+//        '@name' => $form_state_values['field_first_name'] . ' ' . $form_state_values['field_last_name'],
+//        '@username' => $form_state_values['name'],
+//        '@uid' => $form_state_values['uid'],
+//        '@email' => $form_state_values['field_email'][LANGUAGE_NONE][0]['email'],
+//        '@phone' => $form_state_values['field_phone'][LANGUAGE_NONE][0]['number'],
+//        )
+//      );
+//    if (isset($form_validation)) {
+//      $errors = array();
+//      foreach ($form_validation as $key => $error) {
+//        $log_message .= '<b>' . $key . '<b> => ' . $error . ' ---- ';
+//        $errors[$key] = $error . ' ' . $form_errors[$key] . '<br>';
+//      }
+//      unset($form_validation);
+//    }
+//    $log_message .= $errors . '<br><br>Logged by <b>ad_payment_validate_cc_data</b> in <em>ad_payment_cc_validate.inc</em>';
+//    watchdog($type, $log_message);
+//  }
 
-    $type = 'Ad Payment';
-    $message = t('Submission Error <br> Logged By @name <br>Username: @username - UID: @uid<br> <br>Email: @email <br>Phone: @phone<br><br>',
-      array(
-        '@name' => $form_state_values['field_first_name'] . ' ' . $form_state_values['field_last_name'],
-        '@username' => $form_state_values['name'],
-        '@uid' => $form_state_values['uid'],
-        '@email' => $form_state_values['field_email'][LANGUAGE_NONE][0]['email'],
-        '@phone' => $form_state_values['field_phone'][LANGUAGE_NONE][0]['number'],
-        )
-      );
-    if (isset($form_validation)) {
-      $errors = array();
-      foreach ($form_validation as $key => $error) {
-        $message .= '[' . $key . '] => ' . $error;
-        $errors[$key] = $error . ' ' . $form_errors[$key];
-      }
-      unset($form_validation);
-    }
-    watchdog($type, $message);
 
-  }
-
-
-  if (isset($errors)) {
-    return $errors;
-  }
-  else if (isset($form_validation)) {
+  if (isset($form_validation)) {
     return $form_validation;
   }
   else {
-    return FALSE;
+    return 'no CC errors';
   }
 }
 

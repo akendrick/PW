@@ -246,13 +246,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
   $form['field_tags'][LANGUAGE_NONE]['#options'] = $pw_list;
 
-
-  if (ADP_LOG_ERRORS) {
-  //  dpm('form');
-  //  dpm($form);
-  //  dpm('form state');
-  //  dpm($form_state);
-  }
 }
 
 
@@ -273,7 +266,7 @@ function ad_payment_cc_validate(&$form, &$form_state) {
 
      $imageBool = (is_numeric($values['image'])) ? 'Yes' : 'No';
      $feedback_message = "
-      <strong>Details</strong><br>
+      <strong>Details:</strong><br>
       Words: @wordcount<br>
       Areas(@area_count): @areas<br>
       Section(@section_count): @sections<br>
@@ -281,7 +274,7 @@ function ad_payment_cc_validate(&$form, &$form_state) {
       Image: @image<br>
       Ad: @liveload<br>
       <br>
-       <strong>Pricing</strong><br>
+       <strong>Pricing:</strong><br>
       Subtotal: $@subtotal @discount<br>
         Extras: $@extras<br>
          Taxes: $@taxes<br>
@@ -327,19 +320,18 @@ function ad_payment_cc_validate(&$form, &$form_state) {
   $validated = ad_payment_validate_cc_data($form_state['values']);
 
   if (is_array($validated)) {
+    $log_message = 'Validation Errors<br><br>';
     foreach($validated as $field => $message) {
       form_set_error($field, $message);
+      $log_message .= '[' . $field . '] = ' . $message . '<br>';
+    }
+    if (ADP_LOG_ERRORS && is_array($validated)) {
+      $type = 'ADP - Validation Errors';
+      $log_message .= '<br><br>Logged by <b>ad_payment_cc_validate</b> in <em>ad_payment.module</em>';
+      watchdog($type, $log_message);
     }
   }
 
-  if (ADP_LOG_ERRORS && is_array($validated)) {
-    $type = 'Ad Payment';
-    $message = 'Validation Errors<br><br>';
-    foreach ($validated as $field => $error) {
-      $message .= '[' . $field . '] => ' . $error . '<br>';
-    }
-    watchdog($type, $message);
-  }
 
 //  // Get Price
 //  module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
@@ -439,10 +431,6 @@ function ad_payment_cc_submit($form, &$form_state) {
     $form_state['redirect']     = 'ad/' . $temp_id . '/thank-you';
     // Update Form
     $form['#action'] =  $temp_id . '/thank-you';
-  }
-
-  if (ADP_LOG_ERRORS) {
-    watchdog('Ad Payment', 'Ad Submitted redirect to receipt. ID: ' . $temp_id . '<br>' . $form_state['values'][LANGUAGE_NONE][0]['value']);
   }
 
   // // Submit Data to Netidea
@@ -563,20 +551,23 @@ function ad_payment_node_insert($node) {
       'liveload' => ($details['ad_type'] == NULL) ? 0 : $details['ad_type'],
       'image'    => ($details['image'] == NULL || $details['image'] == 'No image') ? 0 : $details['image'],
       'price_subtotal' => $details['subtotal'],
-      'price_extras' => $details['extras'],
-      'price_taxes' => $details['taxes'],
-      'price_total' => $details['total'],
+      'price_extras'   => $details['extras'],
+      'price_taxes'    => $details['taxes'],
+      'price_total'    => $details['total'],
     );
 
     $nid = db_insert('adp')->fields($fields)->execute();
 
 
     if (ADP_LOG_ERRORS) {
-//      dpm('Save Data');
-//      dpm($fields);
-
-      $type = 'Ad Payment';
-      $message = 'Submit node' . $fields['nid'];
+      $type = 'ADP Node';
+      $message = 'Node Submit: ' . $fields['nid'];
+      foreach ($fields as $key => $field){
+        if ($key != 'cc_num' || $key != 'exp_m' || $key != 'exp_y' || $key != 'cc_type') {
+          $message .= '<br>' . $key . ': ' . $field;
+        }
+      }
+      $message .= '<br><br>Logged by <b>ad_payment_node_insert</b> in <em>ad_payment.module</em>';
       watchdog($type, $message);
     }
 
@@ -590,8 +581,10 @@ function ad_payment_node_insert($node) {
 
     }
     else {
-      watchdog('Ad Payment', 'Ad submission has encountered some errors in saving CC data for nid: @nid - ccid: @ccid',
-        array('@nid' => $node->nid, '@ccid' => $node-title));
+        $message = 'NO NODE ID!<BR><BR>Ad submission has encountered some errors in saving CC data for nid: @nid - ccid: @ccid';
+        $message .= '<br><br>Logged by <b>ad_payment_node_insert</b> in <em>ad_payment.module</em>';
+        $message_vars = array('@nid' => $node->nid, '@ccid' => $node-title);
+        watchdog('ADP Node', $message, $message_vars);
       return FALSE;
     }
     // Set up on screen receipt and page redirect.

@@ -28,8 +28,9 @@ function ad_payment_send_email($email_type, $details = NULL) {
         drupal_set_message(t('A copy of this receipt has been sent to your email address: @email.', array('@email' => $to)), 'status' );
       }
       else {
-        watchdog('Ad Payment', 'Receipt Email Error',
-          array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $data), WATCHDOG_NOTICE);
+        $message = 'Receipt Error <br><br>To: @to<br>From: @from<br>@result<br>@data<br><br> Logged by <b>ad_payment_send_email</b> in <em>ad_payment_mail.inc</em>';
+        watchdog('ADP Email', $message,
+          array('@to' => $to, '@from' => $from, '@result' => $result, '@data' => $data), WATCHDOG_NOTICE);
       }
       break;
 
@@ -44,7 +45,9 @@ function ad_payment_send_email($email_type, $details = NULL) {
       }
       else {
         drupal_set_message(t('Unable to send your receipt to your @email address.', array('@email' => $from)), 'status' );
-        watchdog('Ad Payment', 'Inhouse Receipt Email Error', array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
+        $message = 'INHOUSE Error <br><br>To: @to<br>From: @from<br>@result<br>@data<br><br> Logged by <b>ad_payment_send_email</b> in <em>ad_payment_mail.inc</em>';
+        watchdog('ADP Email', $message,
+          array('to' => $to, 'from' => $from, 'result' => $result, 'data' => $details), WATCHDOG_NOTICE);
       }
 
       break;
@@ -56,39 +59,38 @@ function ad_payment_send_email($email_type, $details = NULL) {
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-
-  $receipt_id = ($message['params']['receipt']) ? $message['params']['receipt'] : $message['reciept'] ;
+  $receipt_id = (isset($message['params']['receipt'])) ? $message['params']['receipt'] : $params['receipt'] ;
 
   $ad_type = ($message['params']['ad_type'] == TRUE) ? '### LIVELOAD ### ' : 'Classified Ad';
 
   switch($key) {
     case 'receipt':
-      $message['body'][] = email_receipt_body($message);;
+      $message['body'][] = email_receipt_body($message);
       $message['subject'] = 'Pennywise Ad Submission ' . $receipt_id;
       break;
     case 'inhouse':
-      $message['body'][] = email_receipt_body($message);;
+      $message['body'][] = email_receipt_body($message);
       $message['subject'] = $ad_type . 'Pennywise Ad ' . $receipt_id;
       break;
   }
 
-  if (ADP_LOG_ERRORS) {
-    $debug_var = array(
-      '@key' => $key,
-      '@subject' => $message['subject'],
-      '@body' => $message['body'][0],
-    );
-    $debug_msg = "KEY: @key <br> Triggered in ad_payment_mail.<br>
-      SUBJECT: @subject<br>
-      <p>BODY: <br>
-      @body</p>";
-    watchdog('Ad Payment - eMail', $debug_msg, $debug_var, WATCHDOG_INFO);
-  }
+//  if (ADP_LOG_ERRORS) {
+//    $debug_var = array(
+//      '@key' => $key,
+//      '@subject' => $message['subject'],
+//      '@body' => $message['body'][0],
+//    );
+//    $debug_msg = "KEY: @key <br> Triggered in ad_payment_mail.<br>
+//      SUBJECT: @subject<br>
+//      <p>BODY: <br>
+//      @body</p>";
+//    watchdog('ADP - Email Body', $debug_msg, $debug_var, WATCHDOG_INFO);
+//  }
 }
 
 
 /**
-* Custom Reciept Body Theme
+* Custom receipt Body Theme
 *
 * @TODO!!!!!!!!!!!!!!!!!!!!!!!!
 *
@@ -128,7 +130,6 @@ function email_receipt_body($params = NULL) {
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
   //dpm('Email Body Params');
-  //dpm($ad);
 
   // Basic Details
   $duration = $ad['duration'];
@@ -136,7 +137,7 @@ function email_receipt_body($params = NULL) {
   $ad_copy  = $ad['ad_copy'];
   $notes    = ($ad['notes'] != NULL) ? 'Notes: ' . $ad['notes'] : '';
   $ad_type  = ($ad['ad_type'] == TRUE) ? '######### LIVELOAD AD ############## <br>' : 'CLASSIFIED AD ';
-  $rate     = $ad['rate'];
+  $rate     = (is_array($ad['rate'])) ? $ad['rate']['rate_name'] : $ad['rate'];
 
   // Options
   $areas    = $ad['areas'];
@@ -209,7 +210,7 @@ The Pennywise Team.
 RECEIPT;
 
 
-//   dpm('RECIEPT');
+//   dpm('receipt');
 //   dpm($receipt);
   return $receipt;
 }

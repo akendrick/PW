@@ -172,17 +172,19 @@ Drupal.adPayment.formData = function(ad) {
   if (jQuery('#edit-field-image-und-0-upload').val()) {
     ad.imageFile = jQuery('#edit-field-image-und-0-upload').val();
     ad.imageFlag = 1;
+    ad.imageMessage = 'Yes';
   }
   else if (jQuery('.image-widget.form-managed-file .file a').length > 0) {
     ad.imageFile = jQuery('.image-widget.form-managed-file .file a');
     ad.imageFlag = 1;
-    console.log('Image detected: ' + ad.imageFile);
+    ad.imageMessage = 'Yes';
+    //console.log('Image detected: ' + ad.imageFile);
   }
   else {
     ad.imageFlag = 0;
-    ad.image = 'No image';
+    ad.imageMessage = 'No image';
   }
-  //console.log('Image file: ' + ad.imageFlag + ad.imageFile + ' ' + ad.image);
+  //console.log('Image FLAG: ' + ad.imageFlag + ' FILE:' +  ad.imageFile + ' IMAGE:' + ad.image);
 
   // DURATION
   ad.duration = jQuery('#edit-field-duration-und').val();
@@ -387,16 +389,16 @@ Drupal.adPayment.displayMsg = function() {
   ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.formRate});
 
   // Duration MSG
-  ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd> @duration weeks</dd>", {'@duration': ad.duration}) + ad.msg.durationDiscount;
+  ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd> @duration weeks</dd>", {'@duration': ad.duration});
   ad.msg.durationSum = Drupal.t("<dt>Duration:</dt><dd>@duration weeks</dd>", {'@duration': ad.duration});
   if (ad.duration == '2') {
-    ad.msg.durationMsg = '(When you book for 2 weeks you get the 3rd for FREE!)';
-    ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd>@duration weeks @durationMsg</dd>", {'@duration': ad.duration, '@durationMsg': ad.msg.durationMsg});
+    ad.msg.durationWk3 = '(When you book for 2 weeks you get the 3rd for FREE!)';
+    ad.msg.duration = Drupal.t("<dt>Duration:</dt><dd>@duration weeks @durationMsg</dd>", {'@duration': ad.duration, '@durationMsg': ad.msg.durationWk3});
   };
 
   // Image
   if (ad.imageFlag) {
-    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageFile</dd>", {'@imageFile': ad.imageFile});
+    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageFile</dd>", {'@imageFile': ad.imageMessage});
   }
   else {
     ad.msg.image = '';
@@ -407,7 +409,7 @@ Drupal.adPayment.displayMsg = function() {
 
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-image'>Image: $@image</li><li class='price price-liveload'>Liveload: $@liveload</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound, '@image': price.image, '@liveload': price.liveload, '@priceTotal': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
