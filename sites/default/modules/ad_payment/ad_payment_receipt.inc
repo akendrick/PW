@@ -189,7 +189,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
 
   if (ADP_LOG_ERRORS) {
     $message = 'Receipt Logged<br><br>CLIENT<br>Name: @name<br>Phone: @phone<br>Email: @email<br><br>
-      PRICING<br>Subtotal: @subtotal<br>Extras: @extras <br>Tax: @tax<br>Total: @total<br><br>
+      PRICING<br>Wordcount: @wordcount <br>Subtotal: @subtotal<br>Extras: @extras <br>Tax: @tax<br>Total: @total<br><br>
       DETAILS<br>@ad_copy<br><br>Section: @section<br>Area: @area<br>Duration: @duration<br>Rate: @rate';
     $message_vars = array(
       '@name' => $data['user']['real-name'],
@@ -202,6 +202,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
       '@total' => $data['total'],
 
       '@ad_copy' => $data['ad_copy'],
+      '@wordcount' => $data['wordcount'],
       '@section' => $data['section_name'],
       '@area' => $data['areas'],
       '@rate' => $data['rate']['rate_name'],
