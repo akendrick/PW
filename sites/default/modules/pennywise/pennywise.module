@@ -334,6 +334,13 @@ function pennywise_block_info() {
     'cache' => 8,
   );
 
+  $blocks['pw_free_for_free'] = array(
+    'info'    => t('Free for Free'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache'   => 8,
+  );
+
   return $blocks;
 }
 
@@ -365,6 +372,55 @@ function pennywise_block_configure($delta) {
         '#description' => t('Link to TMTV News Page'),
       );
       break;
+    case 'pw_free_for_free':
+        $f4f_layout =  l('Submit Free for Free Ad', 'ad/submit/free') .
+        ' <div class="free-for-free-description">
+          <h4>Save our Landfills <br> Share your Treasure!</h4>
+          <p class="free-for-free-yes-list ">
+           Please use 15 - 25 words to describe your one personal item per Free for Free ad.
+            <ul>
+              <li>Bunkbeds FREE to good home</li>
+              <li>FREE pink floral couch</li>
+              <li>FREE 2 wheel bike will fit 8 year old</li>
+            </ul>
+          </p>
+          <p class=" free-for-free-no-list ">
+            Please don\'t post services in FREE for FREE such as free estimates, no free rides to polling station, or buy 3 get 1 free.
+          </p>
+        </div>';
+
+        $form['free_for_free_link_type'] = array(
+          '#type'    => 'select',
+          '#title'   => t('Select link destination.'),
+          '#options' => array(
+            'email'  => t('Send by email'),
+            'link'   => t('Submit by form'),
+          ),
+          '#default_value' => variable_get('free_for_free_link_type', 1),
+        );
+        $form['free_for_free_link'] = array(
+          '#type'  => 'textfield',
+          '#title' => t('Link to submission form'),
+          '#description' => t('Local URL to Free for Free form or email address.<br> Eg "submit/free" or "info@pennywiseads.com".'),
+          '#default_value' => variable_get('free_for_free_link', 'submit/free'),
+        );
+        $form['free_for_free_embed'] = array(
+          '#type'    => 'checkbox',
+          '#title'   => t('Embed <b>Free for Free</B> in ad submission form.'),
+/*           '#options' => array( */
+/*             0 => t('Leave as block'), */
+/*             1 => t('Embed in ad submission form'), */
+/*           ), */
+          '#default_value' => variable_get('free_for_free_embed', 0),
+        );
+        $form['free_for_free_description'] = array(
+          '#type' => 'textarea',
+          '#title'=> t('Free for Free Details.'),
+          '#cols' => 40,
+          '#rows' => 8,
+          '#default_value' => variable_get('free_for_free_description', $f4f_layout),
+          );
+      break;
   }
 
   return $form;
@@ -376,11 +432,18 @@ function pennywise_block_configure($delta) {
 *
 * Saving PW Custom block data into variables table.
 */
-function pennywise_block_save() {
+function pennywise_block_save($delta = '', $edit = array()) {
   switch($delta) {
     case 'tmtv_link':
       break;
+    case 'pw_free_for_free':
+      variable_set('free_for_free_link_type', $edit['free_for_free_link_type']);
+      variable_set('free_for_free_link', $edit['free_for_free_link']);
+      variable_set('free_for_free_description', $edit['free_for_free_description']);
+      variable_set('free_for_free_embed', $edit['free_for_free_embed']);
+      break;
   }
+
   return ;
 }
 
@@ -411,6 +474,29 @@ function pennywise_block_view($delta = '') {
         array('data' => $k, 'id' => 'k-edtion'),
       );
       $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
+      break;
+
+    case 'pw_free_for_free':
+      // Mailto data
+      // <a href="mailto:info@pennywiseads.com?subject=Submit FREE for FREE ad&body=Free For Free Ad. %0A%0A%0A%0A%0A
+      //       ############        FREE for FREE Guidelines       ############ %0A
+      // Please use 15 - 25 words to describe your one personal item per Free for Free ad.%0A
+      // Such as: Puppies FREE to good home; or FREE pink floral couch; or FREE 2 wheel bike ideal fit for 8 year old. %0A
+      // Please don\'t post services, free estimates, buy 3 get 1 free, or free rides to polling station." class="free-ad-link ">
+      //
+      $subject = '';
+      $link_type = variable_get('free_for_free_link_type', 'email');
+      switch ($link_type) {
+        case 'email':
+          $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
+          $link = l('Submit Free for Free Ad', 'mailto:' . $email);
+          break;
+        default:
+          $destination = variable_get('free_for_free_link', 'user');
+          $link = l('Submit Free for Free Ad', $destination);
+      }
+      $body = variable_get('free_for_free_description', '');
+      $content = $body . $link;
       break;
 
     case 'submit_editorial':

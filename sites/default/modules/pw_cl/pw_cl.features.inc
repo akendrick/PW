@@ -123,7 +123,17 @@ function pw_cl_node_info() {
       'description' => t('Online classified ad submission.'),
       'has_title' => '1',
       'title_label' => t('Title'),
-      'help' => '',
+      'help' => t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
+<span class="classified-rates\'>
+<strong>Classified Ad Rates per area</strong><br>
+<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
+<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
+</span>
+<span class="classified-directions\'>
+<strong>Classified Ad Rates per area</strong><br>
+<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
+<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
+</span>'),
     ),
     'adworks_file' => array(
       'name' => t('Adworks File'),

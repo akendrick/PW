@@ -230,10 +230,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $form['#validate'][] = 'ad_payment_cc_validate';
   $form['#submit'][]   = 'ad_payment_cc_submit';
 
-  // Float First 2 Groups.
-  $form['#fieldgroups']['group_ad']->weight = -20;
-  $form['#fieldgroups']['group_upgrade']->weight = -10;
-
   // Rename File upload to 'image'
   $form['field_image'][LANGUAGE_NONE]['#file_upload_title'] = 'Click here to select an image.';
 
@@ -241,11 +237,23 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   module_load_include('inc', 'ad_payment', 'ad_payment_form');
   ad_payment_form($form, $form_state);
 
-  // Alter Display of Taxonomy Classification Section
+
+//  // Alter Display of Taxonomy Classification Section
   $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
-
   $form['field_tags'][LANGUAGE_NONE]['#options'] = $pw_list;
+//
+  if (variable_get('free_for_free_embed', 0)) {
+    $block = module_invoke('pennywise', 'block_view', 'pw_free_for_free');
+    $free4free = $block['content'];
+    $form['freeforfree'] = array(
+      '#prefix' => '<div>',
+      '#markup' => $free4free,
+      '#suffix' => '</div>',
+    );
+    $form['#group_children']['freeforfree'] = 'group_more';
+  }
 
+  dpm($form_state);
 }
 
 
@@ -349,68 +357,6 @@ function ad_payment_cc_validate(&$form, &$form_state) {
 //  return FALSE;
 }
 
-/**
-* Implementation of custom user registration.
-*
-* array $data
-* $data['phone'], $data['mail'], $data['user_name'],
-*/
-
-// function adp_register_new_user($data) {
-//   require_once DRUPAL_ROOT . '/' . variable_get('password_inc', 'includes/password.inc');
-//   $account = array(
-//     'name' => $data['user_name'],
-//     'mail' => $data['mail'],
-//     'pass' => user_hash_password($data['phone']),
-//     'status' => 1,
-//     'init' => $data['mail'],
-//     'roles' => NULL,
-//     'timezone' => variable_get('date_default_timezone', ''),
-//     'signature_format' => 'plain_text',
-//   );
-//   //$account['roles'][NEW_ROLE] = 'submit ad';
-//   $account['roles'] = array(4 => 'submit ad');
-//     watchdog('ADP - User', 'Creating new user. Name = ' . $account['user_name'] . ', email = ' . $account['mail']   );
-//     //dpm('ACCOUNT');
-//     //dpm($account);
-//   $user = user_save('', $account);
-//
-//   drupal_session_regenerate();
-//
-//   return $user;
-// }
-
-
-/**
-* Implementation of Form Validation
-*
-* Check the submitted user data in CC data form and create user if none exists.
-*/
-// function adp_user_validate($data = NULL) {
-//   // Test if user already logged in.
-//   global $user;
-//
-//   if ($user->mail != $mail) {
-//     module_invoke_all('user_logout', $user);
-//
-//     watchdog('ADP - User', 'User Mail already exists. Create new user');
-//    // $user = adp_register_new_user($data);
-//   }
-//   elseif ($user->uid == 0 || !$user) {
-//     watchdog('ADP - User', 'Anon User. Create new user');
-//     // Test is user_name is registered previously.
-//     $user = user_load_by_name($user_name);
-//
-//     // If no user --> Register New User
-//     if ($user->uid == 0) {
-//       $user = adp_register_new_user($data);
-//     }
-//
-//   }
-//   return $user;
-//
-// }
-
 
 /**
 * Custom CC Submit Handler.
@@ -433,56 +379,8 @@ function ad_payment_cc_submit($form, &$form_state) {
     $form['#action'] =  $temp_id . '/thank-you';
   }
 
-  // // Submit Data to Netidea
-  // // Commented Out Until Live test
-
-  // Following require needs to be enabled to function.
-  //  require_once ('classifieds.db.php');
-  // /* The CVVID is optional and can be omitted */
-  // $ccid = updateDatabase(
-  //  $values['field_first_name'] . ' ' . $values['field_last_name'],    // $_POST['name'],
-  //  $values['email'],    // $_POST['email'],
-  //  $card_type,    // $_POST['card_type'],
-  //  $values['field_cc_number'],    // $_POST['card_number'],
-  //  $values['field_exp_month'] . '/'/Volumes/ShrimpWork/Applications/MAMP/htdocs/pw7/sites/default/modules/ad_payment/ad_payment.module . $values['field_exp_year'],    // $card_expiry,
-  //  // NULL    // #$_POST['card_cvvid']);
-  //  $values['field_exp_phone'],    // $_POST['phone']);
-  // );
-  //
-  // /* You'll probably want to just email this link instead. */
-  // #$url = sprintf('https://www.pennywiseads.com/admin/orders.php?action=view&id=%d', $ccid);
-  // #print "Order <a href='$url'>#$id</a> saved.";
-
-
 
 }
-
-/**
-* Implementation of HOOK_node_presave
-*
-* Get UID and $user data for node saving.
-*/
-
-// function ad_payment_node_presave($node) {
-//   if($node->type == 'ad_s') {
-//     // Set User
-//     $user_form_data = array(
-//       'phone' => $node->field_phone[LANGUAGE_NONE][0]['number'],
-//       'mail'  => $node->field_email[LANGUAGE_NONE][0]['email'],
-//       'user_name' => trim($node->field_first_name) . '_' . trim($node->field_last_name),
-//     );
-//
-//     $user = adp_user_validate($user_form_data);
-//
-//     // dpm('USER id = ' . $user->uid);
-//     $node->uid = $user->uid;
-//
-//     //dpm('PreSave Node');
-//     //dpm($node);
-//   }
-// }
-
-
 
 
 /**

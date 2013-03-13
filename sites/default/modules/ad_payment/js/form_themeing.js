@@ -16,6 +16,11 @@ $('form#node-form div.form-item').each(function(){
 });
 
 
+// Prep for BeautyTips
+
+
+
+
 });
 
 }(jQuery));

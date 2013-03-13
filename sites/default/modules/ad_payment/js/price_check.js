@@ -56,7 +56,6 @@ Drupal.adPayment.validate = function(ad) {
   if (ad.formRate == 'Personal') {
     // Get Selected SECTION
     ad.section = jQuery('#edit-field-tags-und').val();
-
     if (ad.section >= 0) {
       // get section ratings
       var bizRatedSections = Drupal.settings.adPaymentBiz;
@@ -207,34 +206,36 @@ Drupal.adPayment.formData = function(ad) {
   };
 
   // LIVELOAD
-  if (jQuery('#edit-field-promote-und-0:checked').val() == '0') {
-    ad.type = 'Regular Classified Ad';
-    ad.typeBool = 0;
-  }
-  else if (jQuery('#edit-field-promote-und-1:checked').val() == '1') {
+  if (jQuery('#edit-field-liveload-und:checked').val() == '1') {
     ad.type = 'Liveload Classified Ad';
     ad.typeBool = 1;  }
   else {
-    ad.type = 'Not Set';
+    ad.type = 'Regular Classified Ad';
+    ad.typeBool = 0;
   };
 
-  // Section
-  if(jQuery('#edit-field-tags-und').val()) {
-    ad.section = jQuery('#edit-field-tags-und').val().length;
+  // SECTION - SINGLE
+  ad.section = jQuery('#edit-field-tags-und').val();
+  ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
+  ad.sectionCount = 1;
 
-    if (ad.section = jQuery('#edit-field-tags-und').val().length == 1) {
-      ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
-    }
-    else if (ad.section = jQuery('#edit-field-tags-und').val().length > 1) {
-      ad.sectionName = '';
-      jQuery('#edit-field-tags-und option:selected').each(function() {
-        ad.sectionName += jQuery(this).text() + ', ';
-      });
-    };
-    ad.sectionCount = jQuery('#edit-field-tags-und').val().length;
-  };
-//  console.log('Sections: ', ad.section);
-//  console.log('SectionCount: ', ad.sectionCount);
+  // SECTION - MULTIPLE
+  //if(jQuery('#edit-field-tags-und').val()) {
+  //  ad.section = jQuery('#edit-field-tags-und').val().length;
+  //
+  //  if (ad.section = jQuery('#edit-field-tags-und').val().length == 1) {
+  //    ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
+  //  }
+  //  else if (ad.section = jQuery('#edit-field-tags-und').val().length > 1) {
+  //    ad.sectionName = '';
+  //    jQuery('#edit-field-tags-und option:selected').each(function() {
+  //      ad.sectionName += jQuery(this).text() + ', ';
+  //    });
+  //  };
+  //  ad.sectionCount = jQuery('#edit-field-tags-und').val().length;
+  //};
+  //console.log('Section: ' , ad.sectionName + '  ' + ad.section);
+  //console.log('SectionCount: ', ad.sectionCount);
 
   // Validate Form Data
   ad = Drupal.adPayment.validate(ad);
@@ -286,12 +287,12 @@ Drupal.adPayment.getPrice = function(ad) {
   price.discount = (ad.area == 4) ? 2 * ad.durationPricing : 0;
 
   // 3. Section Multiplyer
-  if(jQuery('#edit-field-tags-und').val()) {
-    price.section = jQuery('#edit-field-tags-und').val().length;
-  }
-  else {
-    price.section = 1;
-  };
+  //if(jQuery('#edit-field-tags-und').val()) {
+    price.section = ad.sectionCount;
+  //}
+  //else {
+  //  price.section = 1;
+  //};
   //price.subTotal1 = price.basePrice * price.section;
 
   // 4. Duration ( Image price here... if any)
@@ -300,15 +301,15 @@ Drupal.adPayment.getPrice = function(ad) {
   //price.subTotal = price.subTotal1 * ad.durationPricing + price.image;
 
   // 5. Determine Liveload (if any)
-  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.promote : 0;
+  price.liveload = (ad.typeBool == 1) ? price.promote : 0;
   //price.subTotal  = price.subTotal + price.liveload;
 
   // One long string
   price.subTotal = ((price.adWordCount * price.section * price.area ) * ad.durationPricing) - price.discount;
   price.extras   = price.liveload + price.image;
 
-  //console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
-  //console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
+  // console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
+  // console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
 
   // Determine taxes
   price.taxRate = .12;
@@ -383,7 +384,7 @@ Drupal.adPayment.displayMsg = function() {
   }
 
   // Section
-  ad.msg.section = Drupal.t('<dt>Section (@sectionCount):</dt><dd>@sections</dd>', {'@sectionCount': ad.sectionCount, '@sections': ad.sectionName});
+  ad.msg.section = Drupal.t('<dt>Section:</dt><dd>@sections</dd>', {'@sections': ad.sectionName});
 
   // Rate MSG
   ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.formRate});
@@ -510,7 +511,7 @@ jQuery(document).ready(function() {
     jQuery('#edit-field-image-und-0-upload-button').hide();
 
     // Hide Preview (unless jQuery is broken)...
-    jQuery('#edit-preview').hide();
+    //jQuery('#edit-preview').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
@@ -533,7 +534,7 @@ jQuery(document).ready(function() {
        // console.log('Action Detected.');
 
       // Hide Preview (unless jQuery is broken)...
-      jQuery('#edit-preview').hide();
+      //jQuery('#edit-preview').hide();
 
 
       jQuery('#ad-s-node-form').validate({
