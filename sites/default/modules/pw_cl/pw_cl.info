@@ -84,6 +84,7 @@ features[field_group][] = group_basic_info_box|node|ad_s|form
 features[field_group][] = group_basic|node|ad_s|form
 features[field_group][] = group_cl_ad_master|node|classified|form
 features[field_group][] = group_classified_ad|node|ad_s|form
+features[field_group][] = group_contact|node|ad_s|form
 features[field_group][] = group_default|node|classified|form
 features[field_group][] = group_details|node|classified|default
 features[field_group][] = group_form_basics|node|classified|form

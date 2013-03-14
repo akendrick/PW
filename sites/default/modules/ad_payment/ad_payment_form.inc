@@ -79,18 +79,26 @@ function ad_payment_form(&$form, $form_state) {
 //    '#weight' => -20,
 //  );
 
-  $form['field_first_name'] = array(
+  $form['group_name'] = array(
+    '#type' => 'fieldset',
+    '#description' => t('Please enter your name as it appears on your card'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#title'  => t('Name'),
+  );
+
+  $form['group_name']['field_first_name'] = array(
     '#type' => 'textfield',
     '#title' => t('First Name'),
-    '#description' => t('Please enter your First Name as it appears on your card'),
+//    '#description' => t('Please enter your First Name as it appears on your card'),
 //    '#default_value' => ($user_data && $user_data->field_first_name && $user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value'] : '',
     '#size' => 12,
     '#maxlength' => 35,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => -60,
+/*     '#weight' => -60, */
   );
-  $form['field_last_name'] = array(
+  $form['group_name']['field_last_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Last Name'),
 //    '#description' => t('Please enter your Last Name as it appears on your card'),
@@ -99,7 +107,7 @@ function ad_payment_form(&$form, $form_state) {
     '#maxlength' => 35,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => -50,
+/*     '#weight' => -50, */
   );
 
 //  $form['field_email'] = array(
@@ -113,16 +121,22 @@ function ad_payment_form(&$form, $form_state) {
 //    '#access' => $access,
 //  );
 
-  $form['field_card_type'] = array(
+  $form['group_card'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#title'  => t('Credit Card'),
+  );
+  $form['group_card']['field_card_type'] = array(
     '#type' => 'radios',
     '#title' => t('Credit Card'),
-    '#description' => t('Select your credit card'),
+/*     '#description' => t('Select your credit card'), */
     '#options' => array('Master Card', 'Visa'),
     '#required' => TRUE,
     '#access' => $access,
-    '#weight' => 200,
+/*     '#weight' => 200, */
   );
-  $form['field_cc_number'] = array(
+  $form['group_card']['field_cc_number'] = array(
     '#type' => 'textfield',
     '#title' => t('Credit Card Number'),
     '#validate' => array('ad_payment_cc_number_validate'),
@@ -132,7 +146,7 @@ function ad_payment_form(&$form, $form_state) {
     '#attributes' => array('autocomplete' =>'off'),
     '#required' => $required,
     '#access' => $access,
-    '#weight' => 210,
+    '#weight' => 0,
   );
   $months = array(
     '00' => 'Select Month',
@@ -160,23 +174,29 @@ function ad_payment_form(&$form, $form_state) {
     '2017' => 2017,
     '2018' => 2018,
   );
-  $form['field_exp_month'] = array(
+  $form['group_expiry'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#title'  => t('Expiry Date'),
+  );
+  $form['group_expiry']['field_exp_month'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Month'),
     '#options' => $months,
     '#default_value' => $cc_month,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => 220,
+/*     '#weight' => 220, */
   );
-  $form['field_exp_year'] = array(
+  $form['group_expiry']['field_exp_year'] = array(
     '#type' => 'select',
     '#title' => t('Expiry Year'),
     '#options' => $years,
     '#default_value' => $cc_year,
     '#required' => $required,
     '#access' => $access,
-    '#weight' => 230,
+/*     '#weight' => 230, */
   );
 
   $form['field_review'] = array(
@@ -185,13 +205,10 @@ function ad_payment_form(&$form, $form_state) {
     '#description' => t('To review your ad select the Preview Price button below.'),
   );
 
-  $form['#group_children']['field_first_name'] = 'group_payment';
-  $form['#group_children']['field_last_name']  = 'group_payment';
-  $form['#group_children']['field_card_type']  = 'group_payment';
-  $form['#group_children']['field_cc_number']  = 'group_payment';
-  $form['#group_children']['field_exp_month']  = 'group_payment';
-  $form['#group_children']['field_exp_year']   = 'group_payment';
-  $form['#group_children']['field_review']     = 'group_review';
+  $form['#group_children']['group_name']  = 'group_payment';
+  $form['#group_children']['group_card']  = 'group_payment';
+  $form['#group_children']['group_expiry'] = 'group_payment';
+  $form['#group_children']['field_review'] = 'group_review';
 
 
 

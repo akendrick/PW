@@ -222,9 +222,10 @@ function ad_payment_block_view($delta = '') {
 */
 function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   // Change Save to Submit.
-  $form['actions']['save']['#value']  = 'Submit Ad';
+/*   $form['actions']['save']['#value']  = 'Submit Ad'; */
   $form['actions']['submit']['#value']  = 'Submit Ad';
   $form['actions']['preview']['#value']  = 'Preview Price';
+  $form['actions']['preview']['#weight']  = -50;
 
   // Insert CC Validation.
   $form['#validate'][] = 'ad_payment_cc_validate';
@@ -242,6 +243,8 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
   $form['field_tags'][LANGUAGE_NONE]['#options'] = $pw_list;
 //
+
+  // Add Free for Free Block
   if (variable_get('free_for_free_embed', 0)) {
     $block = module_invoke('pennywise', 'block_view', 'pw_free_for_free');
     $free4free = $block['content'];
@@ -253,7 +256,29 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     $form['#group_children']['freeforfree'] = 'group_more';
   }
 
-  dpm($form_state);
+  // Add Contact info to bottom of form.
+  $form['contact_info'] = array(
+    '#title'  => t('Need Help?'),
+    '#description' => t('Talk to us. <strong>1-800-663-4619</strong> Kaslo, BC Canada'),
+    '#type'   => 'item',
+    '#weight' => '300',
+  );
+/*   $form['#group_children']['contact_info'] = 'group_more'; */
+  $form['#group_children']['contact_info'] = 'group_more';
+  // Beauty Tips
+  ad_payment_beautify(&$form);
+  dpm($form);
+}
+
+/**
+* Implementation of custom module to implement BeautyTips.
+*
+*/
+function ad_payment_beautify(&$form = array()) {
+
+    $form['field_area'][LANGUAGE_NONE]['#description'] =
+      '<span class="beautytips" title="' . $form['field_area'][LANGUAGE_NONE]['#description'] . '">More information.</span>';
+
 }
 
 

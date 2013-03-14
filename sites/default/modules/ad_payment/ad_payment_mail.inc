@@ -116,7 +116,8 @@ function ad_payment_mail($key, &$message, $params) {
 * - - Liveload: YES/NO
 * - - Details
 * - PAYMENT
-* - - Sub-total
+* - - Subtotal
+* - - Extras
 * - - Taxes
 * - - Total
 * - - CC Type
@@ -141,7 +142,7 @@ function email_receipt_body($params = NULL) {
 
   // Options
   $areas    = $ad['areas'];
-  $area_count = $ad['area_count'];
+  $area_count    = $ad['area_count'];
   $section_count = $ad['section_count'];
   $section  = $ad['sections'];
 
@@ -150,6 +151,7 @@ function email_receipt_body($params = NULL) {
   $name     = $ad['user']['real-name'];
   $card     = $ad['user']['card-type'];
   $discount = $ad['discount'];
+  $extras   = $ad['extras'];
   $subtotal = $ad['subtotal'];
   $taxes    = $ad['taxes'];
   $total    = $ad['total'];
@@ -186,7 +188,8 @@ PAYMENT INFO
 Submitted by: $name
 Rate: $rate
 
-Subtotal: $$subtotal $discount
+Subtotal: $$subtotal
+Extras:   $$extras
 Taxes:    $$taxes
 Total:    $$total
 Billed to $card.
@@ -209,8 +212,5 @@ The Pennywise Team.
 
 RECEIPT;
 
-
-//   dpm('receipt');
-//   dpm($receipt);
   return $receipt;
 }

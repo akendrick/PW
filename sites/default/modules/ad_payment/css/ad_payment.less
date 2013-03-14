@@ -85,3 +85,312 @@
  -moz-appearance: none;
 }
 
+
+/******************* LAYOUT */
+.page-ad-submit h1#page-title { display: none; }
+#node_ad_s_form_group_classified_ad {
+}
+
+@ad_mleft:  140px;
+@ad_mright: 120px;
+@ad_mtop:   -16px;
+.ad-left(@left: @ad_mleft, @top: @ad_mtop) {
+  margin: @top 0 0 @left;
+}
+
+#ad-s-node-form {
+  .classified-ad-general {
+    line-height: 1em;
+    background-color: @white;
+    .border-radius;
+  }
+  .classified-description-rates {
+    margin: 0 20px 20px 10px;
+    border: 1pt solid @darksand;
+    background-color: @sand;
+    padding: 5px;
+    .border-radius;
+    border: 3pt solid @white;
+/*     height: 102px; */
+    strong {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2em;
+      text-transform: uppercase;
+    }
+    dl {
+      margin: 10px;
+      width: 40%;
+      text-align: center;
+      float: left;
+      dt {
+        line-height: 1em;
+        font-weight: bold;
+      }
+      dd {
+        margin: 5px 0;
+        text-align: left;
+      }
+    }
+
+  }
+  .spacer {
+    width: 300px;
+    clear: both;
+    visibility: hidden;
+  }
+  .classified-description-directions {
+    clear: both;
+    background-color: @white;
+    padding: 25px;
+    margin-bottom: 30px;
+    ol, ul {
+      li {
+        list-style-position: outside;
+        padding: 0 0 2px 0;
+      }
+      .ad-left(@ad_mright);
+    }
+  }
+.ds-form > .group-right {
+    width: 240px;
+    padding: 10px;
+}
+.ds-form > .group-left {
+    width: 620px;
+    .form-wrapper {
+      background-color: transparent;
+      clear: both;
+      margin-bottom: 10px;
+    }
+  #edit-field-rate,
+  #edit-field-area,
+  #edit-field-tags,
+/*   #edit-field-image, */
+  #edit-field-duration-und {
+      label {
+        text-align: left;
+        font-weight: 700;
+        width: @ad_mright;
+      }
+  }
+  #edit-field-rate-und,
+  #edit-field-area-und,
+  #edit-field-duration-und,
+  #edit-field-tags-und,
+  #image-widget {
+    .ad-left(@ad_mleft, -30px);
+    line-height: 1em;
+  }
+  .description {
+    margin-left: @ad_mleft;
+  }
+  /* ad copy */
+  .form-textarea-wrapper {
+    .ad-left;
+  }
+  /* Liveload */
+  .form-item-field-liveload-und {
+    margin-left: @ad_mleft;
+    label {
+      font-weight: 800;
+      font-size: 1.1em;
+    }
+    .description {
+      margin: 0 0 20px 0;
+
+    }
+  }
+  .image-widget {
+    .ad-left;
+  }
+}
+/* duration inline description */
+#edit-field-duration {
+  display:inline-block;
+    .form-item-field-duration-und {
+    .description {
+      margin-left: 200px;
+      margin-top: -32px;
+    }
+  }
+}
+.beautytips {
+  float: left;
+  .border-radius(20px);
+  background-color: @classified_dark;
+  color: @white;
+  border: 1pt solid @white;
+  padding: 2px 6px;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+/* general group layout */
+.fieldset-wrapper {
+  background-color: @classified_light;
+  margin-bottom: 20px;
+  .border-radius;
+  padding: 20px;
+}
+
+.group-classified-ad {
+}
+.group_review {
+}
+.group-upgrade {
+  legend { display: none; }
+  .border-radius;
+}
+
+.group_more {
+  h3 { display: none; }
+  #edit-contact-info {
+    float: right;
+    clear: left;
+    bottom: 0;
+    border: 10px;
+    background-color: @classified_dark;
+    color: @white;
+    font-weight: 700;
+/*     text-align: center; */
+    .border-radius;
+    padding: 5px;
+    font-size: 1.4em;
+    label {
+      color: @sunlight;
+      font-size: 1.6em;
+      text-transform: uppercase;
+    }
+    .description {
+      color: @white;
+      strong {
+        font-size: 1.4em;
+      }
+    }
+  }
+}
+
+/* LAYOUT */
+
+
+#edit-field-ad-copy {}
+
+/* PAYMENT --- CC INFO*/
+#node_ad_s_form_group_payment {
+  background-color: @sunlight;
+  .border-radius;
+  .fieldset-wrapper {
+    .border-radius;
+  	background: url('url(../../../../ad_payment/images/lock-fade.png') no-repeat;
+  	background-position: center;
+  	background-position-x: 200px;
+  	background-position-y: 180px;
+  	margin: 0;
+  	padding: 0;
+
+  	.fieldset-legend {
+    	width: @ad_mright;
+    	font-weight: 800;
+  	}
+  	.fieldset-wrapper {
+    	.ad-left;
+    	margin-top: -40px;
+    	background: inherit;
+    	.form-item {
+      	display: inline-block;
+      	margin: 0 15px 10px 0;
+    	}
+    	.description {
+      	margin: 0;
+    	}
+  	}
+      /* CC */
+    .form-item-field-cc-number {
+    	input {
+    	 border: 1px solid black;
+    	 margin-bottom: .5em;
+      }
+    	input.error { border: 1px solid red; }
+    	label.error {
+    		background: url('url(../../../../ad_payment/images/checked-no.png') no-repeat;
+    		padding-left: 35px;
+    		height: 35px;
+    		margin-left: .3em;
+    	}
+    	label.valid {
+    		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
+    		display: block;
+        padding-left: 35px;
+    		width: 35px;
+    		height: 35px;
+    	}
+    }
+    #node_ad_s_form_group_contact {
+      .form-wrapper {
+        width: 50%;
+        margin: 0;
+        padding: 0;
+      }
+      .form-item {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+}
+#field-ad-details-add-more-wrapper {
+  display: none;
+}
+/* Ad Review box */
+#edit-field-ad-details {
+  font-size: 1em;
+  background-color: @peach;
+  .border-radius;
+  dt {
+    font-size: 1em;
+    width: @ad_mright;
+  }
+  dd {
+    .ad-left;
+  }
+  #review-ad-box-ad, #ad-review-price {
+    padding: 15px;
+    margin: 10px;
+  }
+}
+/* error */
+.element-error {
+  background-repeat: no-repeat;
+  background-position-x: 5px;
+  background-position-y: 5px;
+  padding-left: 40px;
+  color: #fff;
+  background-color: #fff;
+}
+
+/* SUBMIT */
+#edit-actions{
+  font-size: 2em;
+  padding: 0 20px;
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+  input {
+    .border-radius;
+    padding: 10px;
+    margin: 10px;
+  }
+  #edit-preview {
+    font-size: 1.2em;
+  }
+  #edit-submit {
+    font-size: 1.4em;
+  }
+}
+
+}

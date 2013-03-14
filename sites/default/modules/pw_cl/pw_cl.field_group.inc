@@ -291,7 +291,7 @@ function pw_cl_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Classified Ad',
+    'label' => '',
     'weight' => '0',
     'children' => array(
       0 => 'field_ad_copy',
@@ -299,34 +299,68 @@ function pw_cl_field_group_info() {
       2 => 'field_area',
       3 => 'field_rate',
       4 => 'field_duration',
-      5 => 'group_upgrade',
-      6 => 'group_payment',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Classified Ad',
+      'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'classified-ad-description',
-        'description' => '<span class=\'classified-description-rates\'><strong>Classified Ad Rates Per Area</strong>
-<ul>
-<li>Personal: 15 word or less - $3.50 per week + tax (20¢ per additional word)</li>
-<li>Business: 15 word or less - $5.00 per week + tax (40¢ per additional word)</li>
-<ul></span>
-<span class=\'classified-description-directions\'><strong>Directions</strong>
-<ol>
-<li>Start by designating ad as Business or Personal</li>
-<li>Type your ad in the <b>Ad Copy</b> box.<small>Coping and pasting text of your ad from another document may affect the word count and price of your ad.</small></li>
-<li>Chose which <b>Area Edition(s)</b> you want your print ad to appear.</li>
-<li>Chose how many weeks your ad is to run.</li>
-<li>Select the right option to highlight your ad.</li>
-<li>Review your ad and submit when happy.</li>
-<ol></span>',
+        'classes' => '',
+        'description' => '<div class=\'classified-ad-general\'>
+	<div class=\'classified-description-rates\'><strong>Classified Ad Rates</strong>
+		<dl class=\'personal\'>
+			<dt>Personal & Non-Profit</dt><dd> 15 word or less - $3.50 per week + tax (20¢ per additional word)</dd></dl>
+		<dl class=\'business\'>
+			<dt>Business</dt><dd> 15 word or less - $5.00 per week + tax (40¢ per additional word)</dd>
+		</dl>
+		<div class=\'spacer\'></div>
+	</div>
+	<div class=\'classified-description-directions\'><strong>Directions</strong>
+		<ol>
+			<li>Start by designating ad as Business or Personal</li>
+			<li>Type your ad in the <b>Ad Copy</b> box.<small>Coping and pasting text of your ad from another document may affect the word count and price of your ad.</small></li>
+			<li>Chose which <b>Area Edition(s)</b> you want your print ad to appear.</li>
+			<li>Chose how many weeks your ad is to run.</li>
+			<li>Select the right option to highlight your ad.</li>
+			<li>Review your ad and submit when happy.</li>
+		<ol>
+	</div>
+</div>
+',
       ),
       'formatter' => 'open',
     ),
   );
   $export['group_classified_ad|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact|node|ad_s|form';
+  $field_group->group_name = 'group_contact';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_payment';
+  $field_group->data = array(
+    'label' => 'Contact',
+    'weight' => '324',
+    'children' => array(
+      0 => 'field_email',
+      1 => 'field_phone',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Contact',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'For verification purposes only.<br><small> We will not send you any unsolicited emails or pass your phone number to any 3rd party.</small>',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_contact|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -465,7 +499,7 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'More',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_notes',
     ),
@@ -625,18 +659,16 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_classified_ad';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Payment',
-    'weight' => '8',
+    'label' => '',
+    'weight' => '3',
     'children' => array(
-      0 => 'field_email',
-      1 => 'field_phone',
-      2 => 'group_review',
+      0 => 'group_contact',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Payment',
+      'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -680,10 +712,10 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_payment';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Ad Review',
-    'weight' => '319',
+    'weight' => '2',
     'children' => array(
       0 => 'field_ad_details',
     ),
@@ -772,10 +804,10 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_classified_ad';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'OPTIONS',
-    'weight' => '7',
+    'weight' => '1',
     'children' => array(
       0 => 'field_image',
       1 => 'field_liveload',

@@ -1264,7 +1264,7 @@ with <strong>Page 30</strong>.<br>
   $fields['node-display_ads-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',

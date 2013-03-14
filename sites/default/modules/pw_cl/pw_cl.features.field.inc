@@ -159,7 +159,7 @@ function pw_cl_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '315',
+        'weight' => '9',
       ),
     ),
   );
@@ -206,7 +206,8 @@ function pw_cl_field_default_fields() {
 <li><strong>Trail, Beaver Valley & Rossland</strong><br>Serving Trail, Fruitvale, Montrose and Genelle
 <li><strong>Castlegar & Slocan Valley</strong><br>Serving Castlegar, South Slocan, Slocan Park, Slocan, Crescent Valley and Winlaw
 <li><strong>Internet - included FREE</strong><br>Your ad is also placed on our website the same day as the printed day.</p>
-</ul>',
+</ul> 
+',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -235,7 +236,6 @@ function pw_cl_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(
-          'label_help_description' => '',
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         ),
         'type' => 'options_buttons',
@@ -358,7 +358,7 @@ function pw_cl_field_default_fields() {
       'bundle' => 'ad_s',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'This email is for verification purposes and a receipts only, and we will not send you any unsolicited emails or pass your email to any 3rd party.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -386,10 +386,11 @@ function pw_cl_field_default_fields() {
         'active' => 1,
         'module' => 'email',
         'settings' => array(
-          'size' => '60',
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'size' => '40',
         ),
         'type' => 'email_textfield',
-        'weight' => '318',
+        'weight' => '326',
       ),
     ),
   );
@@ -705,7 +706,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'rows' => '6',
         ),
         'type' => 'text_textarea',
-        'weight' => '7',
+        'weight' => '10',
       ),
     ),
   );
@@ -1021,7 +1022,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'size' => 15,
         ),
         'type' => 'phone_number',
-        'weight' => '317',
+        'weight' => '325',
       ),
     ),
   );
@@ -1063,13 +1064,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
         ),
       ),
       'deleted' => '0',
-      'description' => '<p class="beautytips" title="type the text you want beautytips to display here">
-<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, 
-Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, 
-Gardening/Landscaping, Business Opportunities, Employment Opportunities, 
-Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, 
-Shared Accommodations, House Sitting.
-</p>
+      'description' => '<p class="beautytips" title=" Business Rated Categories include - ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.">More Information.</p>
 ',
       'display' => array(
         'default' => array(
@@ -3149,13 +3144,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
 </ol>
 
 ');
-  t('<p class="beautytips" title="type the text you want beautytips to display here">
-<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, 
-Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, 
-Gardening/Landscaping, Business Opportunities, Employment Opportunities, 
-Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, 
-Shared Accommodations, House Sitting.
-</p>
+  t('<p class="beautytips" title=" Business Rated Categories include - ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.">More Information.</p>
 ');
   t('<strong class=\'ad-area-discount\'>Save $2 when you book all four areas.</strong>
 <strong class=\'ad-area-areas\'>NOTE: Publication Areas</strong>
@@ -3164,7 +3153,8 @@ Shared Accommodations, House Sitting.
 <li><strong>Trail, Beaver Valley & Rossland</strong><br>Serving Trail, Fruitvale, Montrose and Genelle
 <li><strong>Castlegar & Slocan Valley</strong><br>Serving Castlegar, South Slocan, Slocan Park, Slocan, Crescent Valley and Winlaw
 <li><strong>Internet - included FREE</strong><br>Your ad is also placed on our website the same day as the printed day.</p>
-</ul>');
+</ul> 
+');
   t('<strong>$5 one time fee.</strong>
 Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am - 3pm PST.');
   t('<strong>Add an image!</strong> <small>Everyone likes to see what they are buying.</small>
@@ -3201,7 +3191,6 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
   t('Rate');
   t('Section');
   t('Special Requests');
-  t('This email is for verification purposes and a receipts only, and we will not send you any unsolicited emails or pass your email to any 3rd party.');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
   t('Weeks to run');
 

@@ -182,6 +182,7 @@ Drupal.adPayment.formData = function(ad) {
   else {
     ad.imageFlag = 0;
     ad.imageMessage = 'No image';
+    ad.imageFile = 'No Image';
   }
   //console.log('Image FLAG: ' + ad.imageFlag + ' FILE:' +  ad.imageFile + ' IMAGE:' + ad.image);
 
@@ -375,12 +376,14 @@ Drupal.adPayment.displayMsg = function() {
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area </dd>", {'@area': ad.area});
   }
   else if (ad.area == 4) {
-    ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas <br />$2 Discount on ad. </dd>", {'@area': ad.area, '@areas': ad.areaList});
+    ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas</dd>", {'@area': ad.area, '@areas': ad.areaList});
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area </dd>", {'@area': ad.area});
+    ad.msg.discount = Drupal.t("You saved $@discount!", {'@discount': price.discount});
   }
   else {
     ad.msg.areaList = Drupal.t('<dt>Area: None Selected</dt><dd>Please select an area for your ad to appear in.</dd>');
     ad.msg.areaListSum = "";
+    ad.msg.discount = '';
   }
 
   // Section
@@ -398,8 +401,8 @@ Drupal.adPayment.displayMsg = function() {
   };
 
   // Image
-  if (ad.imageFlag) {
-    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageFile</dd>", {'@imageFile': ad.imageMessage});
+  if (ad.imageFlag < 2) {
+    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageMsg</dd>", {'@imageMsg': ad.imageMessage, '@imageFile': ad.imageFile});
   }
   else {
     ad.msg.image = '';
@@ -410,7 +413,7 @@ Drupal.adPayment.displayMsg = function() {
 
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='ad-summary-discount'>@discount</li><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
@@ -454,6 +457,7 @@ Drupal.adPayment.displayMsg = function() {
     + '<div id="review-ad-box-price" class="review-ad-block">'
     + '<h5>Summary</h5>'
     + ad.msg.error
+    + '<div id="ad-review-data">'
     + '<dl>'
     + ad.msg.wordcount
     + ad.msg.countOver
@@ -463,8 +467,13 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.duration
     + ad.msg.type
     + ad.msg.image
+    + '</dl>'
+    + '</div>'
+    + '<div id="ad-review-price">'
+    + '<dl>'
     + ad.msg.priceOverview
     + '</dl>'
+    + '</div>'
     + '</div>'
     + '</div>'
     ;
@@ -476,7 +485,7 @@ Drupal.adPayment.displayMsg = function() {
     + 'wordcount_over = ' + ad.countOver + ';'
     + 'area_list = '      + ad.areaList + ';'
     + 'imageFlag = '      + ad.imageFlag + ';'
-    + 'image = '          + ad.image  + ';'
+    + 'image = '          + ad.imageFile  + ';'
     + 'ad_type = '        + ad.typeBool + ';'
     + 'ad_type_name = '   + ad.type + ';'
     + 'rate = '           + ad.formRate + ';'
@@ -510,6 +519,7 @@ jQuery(document).ready(function() {
     // Hide Image Upload Button (uploading images always produces an error.
     jQuery('#edit-field-image-und-0-upload-button').hide();
 
+    jQuery('#edit-field-review').hide();
     // Hide Preview (unless jQuery is broken)...
     //jQuery('#edit-preview').hide();
 
