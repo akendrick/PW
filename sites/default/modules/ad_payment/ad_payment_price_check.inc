@@ -5,16 +5,6 @@
 *
 * This page does all the back end Price Calculations
 * that appear during page loads of the online ad submission form.
-
-* Save data in $form_data['storage']['price']
-* - Price is saved at every stage of the calculation for verification purposes.
-* - Which is then saved in it's own database, by NID.  -> @TODO
-*
-* @TODO
-* - Store Price in Database for futre retrieval and verification
-* - Create an alert when jQuery price is different from PHP calculated price.
-*   Send alert to classifed & client that price is different.
-* - Create ADMIN INTERFACE -- field on taxonomy term for - BIZ RATEd
 */
 
 function ad_payment_log_payment($values) {
@@ -70,38 +60,16 @@ function ad_payment_log_payment($values) {
     $feedback_message .= '<br><br>Logged by <b>ad_payment_log_payment</b> in <em>ad_payment_price_check.inc</em>';
     watchdog('ADP LOG', $feedback_message, $feedback_vars, WATCHDOG_INFO);
 
-    // //dpm(t($feedback_message, $feedback_vars));
-
-    // Base
-    // drupal_set_message(t('Base Price: $@base = $@base_rate base price + @image_price (if any) + (@over words over @ $@word_rate word)',
-    //   array('@base' => $base_price, '@base_rate' => $rate['base_rate'], '@image_price' => $img_price, '@word_rate' => $rate['word_rate'], '@over' => $count['over'])));
-    //
-    // // Adjusted with duration and areas
-    // drupal_set_message(t('Adj Price: $@adj = $@base * @duration weeks * @sect sections * @areas areas',
-    //   array('@adj' => $adj_price, '@base' => $base_price, '@duration' => $form_variable_storage['adjusted'], '@sect' => $areas, '@areas' => $areas)));
-    //
-    // // All four areas are booked add discount.
-    // // If optional perks
-    // drupal_set_message(t('With Options (if present): $@sub = $@adj + $@live (liveload) + $@image (image) + @discount discount',
-    //   array('@sub' => $sub_total, '@adj' => $adj_price, '@image' => $img_price, '@live' => $live_price, '@discount' => $discount)));
-    //
-    // // Taxes
-    // drupal_set_message(t('Taxes: $@tax', array('@tax' => $taxes)));
-    //
-    // // TOTAL
-    // drupal_set_message(t('Total Price: $@total', array('@total' => $total)));
-
 }
 
 /**
 * Parse Date in $values from form_state
 */
 function ad_payment_get_form_details($form_state) {
-    // Clear $form_state storage price.
+  // Clear $form_state storage price.
   $values = array();
 
   // Get RAW DATA for processing
-  //$values = ad_payment_get_payment_variables($var, $data_type);
   $values = array(
     'parse'   => 'Form Details',
     'ad_copy' => $form_state['values']['field_ad_copy'][LANGUAGE_NONE][0]['value'],
@@ -128,13 +96,7 @@ function ad_payment_get_form_details($form_state) {
     ),
   );
 
-  //dpm('FORM RATE');
-  //dpm($form_state['values']['field_rate'][LANGUAGE_NONE][0]['value']);
-
   $values = ad_payment_price_check($values);
-
-  //dpm('Established RATE - after price check.');
-  //dpm($values['rate']['rate_name']);
 
    // TEST PRICES
     if(ADP_LOG_ERRORS || ADP_LOG_ERRORS_CC) {
@@ -158,7 +120,7 @@ function ad_payment_get_form_details($form_state) {
 */
 
 function ad_payment_get_node_details($node) {
-  //dpm($node);
+
   $values = array(
     'parse'     => 'Node Details',
     'details'   => ($node->field_ad_details[LANGUAGE_NONE][0]['value']) ? $node->field_ad_details[LANGUAGE_NONE][0]['value'] : NULL,
@@ -186,9 +148,6 @@ function ad_payment_get_node_details($node) {
       'email'     => ($node->field_email) ? $node->field_email[LANGUAGE_NONE][0]['email'] : 'No email given.',
     ),
   );
-
-  //dpm('NODE RATE');
-  //dpm($node->field_rate[LANGUAGE_NONE]);
 
   // Get jQuery Pricing and Insert Into Database.
   if(isset($values['details'])) {
@@ -225,8 +184,6 @@ function ad_payment_get_node_details($node) {
 
    ad_payment_log_payment($values);
  }
-  //dpm('RATE - after price check');
-  //dpm($values['rate']['rate_name']);
 
   return($values);
 }
@@ -371,7 +328,7 @@ function ad_payment_price_check($values) {
   $values['taxes']    = $taxes;
   $values['total']    = $total;
 
-  // Recreate jQuery data
+  // Recreate jQuery data if not available.
   if (!isset($values['details'])) {
     $values['details'] = "
       wordcount = {$values['wordcount']};
@@ -390,18 +347,6 @@ function ad_payment_price_check($values) {
       ";
   }
 
-
-
-  // Determine which vales are returned.
-  //If form_state save payment data for future reference & return price for immediate use.
-//  if ($data_type == 'form_state') {
-//    $form_state['storage']['price'] = $storage['total'];
-//    $form_state['storage']['values'] = $storage['values'];
-//    return $storage['total'];
-//  }
-//  else {
-//    return $storage;
-//  }
   return $values;
 }
 
@@ -434,7 +379,6 @@ function ad_payment_validate_rate($values) {
   }
   else {
     form_set_error('field_tags', 'Please choose a section for your ad to appear under. Eg. "Animals & Livestock" or "Vehicles".');
-    //$get_rate = array();
   }
 
   $message = 'SUBMITTED RATE: ' . $values['rate'] . '  <br>' .

@@ -394,3 +394,152 @@
 }
 
 }
+
+
+/***** thank-you page ***/
+#adsubmission-thank-you {
+  background-color: @white;
+  .center;
+  padding: 30px;
+  .border-radius;
+}
+
+
+/* CSS */
+.form-feedback-step {
+  padding: 2px 20px;
+  size: 2em;
+}
+.form-feedback-step-highlight {
+  background-color: yellow;
+}
+.element-error {
+  background-repeat: no-repeat;
+  background-position-x: 5px;
+  background-position-y: 5px;
+  padding-left: 40px;
+  color: #fff;
+  background-color: #fff;
+}
+/************* THEME NEXT/SUBMIT buttons *********/
+#ad-s-node-form {
+  .multipage-controls-list {
+    margin-bottom: 220px;
+    .multipage-button {
+      padding: 10px;
+      margin: 10px;
+      input.multipage-link-next {
+        float: right;
+        background-color: @other_light;
+        margin: 5px;
+        font-size: 2em;
+        .border-radius;
+      }
+      a.multipage-link-previous {
+        background-color: @classified_light;
+        .border-radius(3px);
+        text-decoration: none;
+        font-size: 1.4em;
+        line-height: 1.6em;
+        padding: 4px 6px 8px 6px;
+      }
+    }
+    #edit-actions {
+      width: 60%;
+      background-color: @sunlight;
+      font-size: 1.8em;
+      #edit-submit {
+        background-color: @alert;
+        width: 60%;
+      }
+      #edit-preview {
+        background-color: @warning;
+        width: 35%;
+        display: none;
+        display: inherit\9;
+      }
+    }
+  }
+}
+
+/************************ THANK-YOU PAGE/RECEIPT **************/
+#adsubmission-thank-you {
+  margin-top: 20px;
+  #ads-header {
+    .thank-you-header {
+      padding-top: 40px;
+    }
+    text-align: left;
+    line-height: 1.2em;
+    .logo {
+      padding: 20px;
+      float: left;
+      height: 120px;
+    }
+  }
+  h3.ads-confirmation {
+    clear: both;
+  }
+  .border-radius;
+  background-color: @classified_light;
+  border: solid 2pt @classified_dark;
+  .receipt-details { margin: 20px 10px; }
+  .receipt-details-inner {
+    background-color: @lightsand;
+    .border-radius;
+    padding: 10px;
+  }
+  dl {
+    dt {
+      clear: left;
+      font-size: 1em;
+      width: 80px;
+      float: left;
+      padding: 10px 2px;
+      font-weight: bold;
+      margin-right: 10px;
+      margin: 2px 10px 2px 0;
+      text-align: right;
+    }
+    dd {
+      text-align: left;
+      margin-left: 80px;
+      font-size: 1em;
+      width: 190px;
+      padding: 10px;
+    }
+
+  }
+  .receipt-copy-word-count {
+    font-size: .8em;
+    color: darken(@gray, 40%);
+  }
+  h4.receipt-contact {
+    margin-bottom: 3px;
+  }
+  .receipt-contact em {
+    font-size: .8em;
+    line-height: .7em;
+  }
+  .small-receipt {
+    margin: 20px;
+  }
+  .small-receipt-inner {
+    .border-radius;
+    padding: 10px;
+      background-color: @lightsand;
+    dl {
+      margin: 0;
+      dt {
+        margin: 2px 10px ;
+        padding: 2px;
+      }
+      dd {
+        width: 180px;
+        margin: 2px 10px 2px 80px ;
+        padding: 2px;
+      }
+    }
+  }
+}
+

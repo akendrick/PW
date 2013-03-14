@@ -520,8 +520,9 @@ jQuery(document).ready(function() {
     jQuery('#edit-field-image-und-0-upload-button').hide();
 
     jQuery('#edit-field-review').hide();
+
     // Hide Preview (unless jQuery is broken)...
-    //jQuery('#edit-preview').hide();
+    jQuery('#edit-preview').hide();
 
     // Get Settings
     var sideBar = '#sidebar-first > .section > .region';
@@ -543,10 +544,8 @@ jQuery(document).ready(function() {
     jQuery('#ad-s-node-form').bind('click keypress keyup change mouseup', function() { //click change keypress keyup
        // console.log('Action Detected.');
 
-      // Hide Preview (unless jQuery is broken)...
-      //jQuery('#edit-preview').hide();
 
-
+       // EXTERNAL CC VALIDATION SCRIPT
       jQuery('#ad-s-node-form').validate({
         rules: {
           field_cc_number: {
