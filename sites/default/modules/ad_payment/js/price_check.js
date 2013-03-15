@@ -413,7 +413,7 @@ Drupal.adPayment.displayMsg = function() {
 
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='ad-summary-discount'>@discount</li><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
@@ -450,14 +450,13 @@ Drupal.adPayment.displayMsg = function() {
 
   // Review - full review of ad before submission.
   ad.msg.review =
-    '<div id="review-ad-box-ad" class="review-ad-block">'
-    + '<h4>Ad</h4>'
+    '<fieldset id="review-ad-box-ad" class="review-ad-block field-group-fieldset form-wrapper">'
+    + '<legend><span class="fieldset-legend">Ad Review</span></legend>'
+    + '<div id="ad-review-data" class="fieldset-wrapper">'
+    + '<div id="review-ad-box-price" class="review-ad-block fieldset-legend">'
+    + '<div id="ad-review-data">'
     + ad.msg.ad
-    + '<div id="ad-review-data">'
-    + '<div id="review-ad-box-price" class="review-ad-block">'
-    + '<h5>Summary</h5>'
     + ad.msg.error
-    + '<div id="ad-review-data">'
     + '<dl>'
     + ad.msg.wordcount
     + ad.msg.countOver
@@ -469,13 +468,13 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.image
     + '</dl>'
     + '</div>'
-    + '<div id="ad-review-price">'
+    + '<div id="ad-review-price" class="fieldset-legend">'
     + '<dl>'
     + ad.msg.priceOverview
     + '</dl>'
     + '</div>'
     + '</div>'
-    + '</div>'
+    + '</fieldset>'
     ;
 
   ad.msg.storage =

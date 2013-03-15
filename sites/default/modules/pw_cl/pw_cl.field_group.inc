@@ -508,7 +508,7 @@ function pw_cl_field_group_info() {
       'label' => 'More',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-6 omega',
+        'classes' => 'more-grouping',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -661,14 +661,14 @@ function pw_cl_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => '',
+    'label' => 'Payment Information',
     'weight' => '3',
     'children' => array(
       0 => 'group_contact',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => '',
+      'label' => 'Payment Information',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',

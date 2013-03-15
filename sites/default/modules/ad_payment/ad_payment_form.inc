@@ -85,6 +85,7 @@ function ad_payment_form(&$form, $form_state) {
     '#collapsible' => FALSE,
     '#collapsed' => FALSE,
     '#title'  => t('Name'),
+    '#attributes' => array('class' => array('payment-form', 'group-name')),
   );
 
   $form['group_name']['field_first_name'] = array(
@@ -126,6 +127,7 @@ function ad_payment_form(&$form, $form_state) {
     '#collapsible' => FALSE,
     '#collapsed' => FALSE,
     '#title'  => t('Credit Card'),
+    '#attributes' => array('class' => array('payment-form', 'group-card')),
   );
   $form['group_card']['field_card_type'] = array(
     '#type' => 'radios',
@@ -179,6 +181,7 @@ function ad_payment_form(&$form, $form_state) {
     '#collapsible' => FALSE,
     '#collapsed' => FALSE,
     '#title'  => t('Expiry Date'),
+    '#attributes' => array('class' => array('payment-form', 'group-expiry')),
   );
   $form['group_expiry']['field_exp_month'] = array(
     '#type' => 'select',

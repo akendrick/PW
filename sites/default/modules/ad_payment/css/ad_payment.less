@@ -106,7 +106,7 @@
     .border-radius;
   }
   .classified-description-rates {
-    margin: 0 20px 20px 10px;
+    margin: 0;
     border: 1pt solid @darksand;
     background-color: @sand;
     padding: 5px;
@@ -123,7 +123,7 @@
     }
     dl {
       margin: 10px;
-      width: 40%;
+      width: 45%;
       text-align: center;
       float: left;
       dt {
@@ -132,7 +132,6 @@
       }
       dd {
         margin: 5px 0;
-        text-align: left;
       }
     }
 
@@ -188,6 +187,7 @@
   .description {
     margin-left: @ad_mleft;
   }
+
   /* ad copy */
   .form-textarea-wrapper {
     .ad-left;
@@ -237,14 +237,14 @@
   .border-radius;
   padding: 20px;
 }
-
-.group-classified-ad {
-}
-.group_review {
-}
-.group-upgrade {
-  legend { display: none; }
-  .border-radius;
+legend {
+  background-color: @classified_dark;
+  color: @white;
+  margin: 0;
+  padding: 10px;
+  margin-bottom: -15px;
+  font-size: 1.4em;
+  .border-radius-custom(20px, 20px, 0, 0);
 }
 
 .group_more {
@@ -274,6 +274,29 @@
     }
   }
 }
+/* notes */
+#edit-field-notes {
+  .form-item {
+    margin: 0;
+  }
+  margin: 10px 0 0 0;
+  background-color: lighten(@darksand, 10%);
+  padding: 5px;
+
+  .border-radius;
+  label {
+    text-align: center;
+    font-size: 1.4em;
+    text-transform: uppercase;
+  }
+  .description {
+    padding: 5px;
+  }
+  .description:first-line {
+    font-weight: 700;
+  }
+}
+
 
 /* LAYOUT */
 
@@ -282,27 +305,37 @@
 
 /* PAYMENT --- CC INFO*/
 #node_ad_s_form_group_payment {
+  	#edit-group-name,
+  	#edit-group-card,
+  	#edit-group-expiry,
+  	#node_ad_s_form_group_contact {
+      legend {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: 10pt;
+        color: @black;
+        font-weight: 700;
+        margin-bottom: -8px;
+      }
+  	}
+  	.fieldset-wrapper {
   background-color: @sunlight;
+/*   legend { margin-bottom: 24px;} */
   .border-radius;
   .fieldset-wrapper {
-    .border-radius;
+/*     .border-radius; */
   	background: url('url(../../../../ad_payment/images/lock-fade.png') no-repeat;
   	background-position: center;
-  	background-position-x: 200px;
-  	background-position-y: 180px;
   	margin: 0;
   	padding: 0;
 
-  	.fieldset-legend {
-    	width: @ad_mright;
-    	font-weight: 800;
-  	}
-  	.fieldset-wrapper {
     	.ad-left;
     	margin-top: -40px;
     	background: inherit;
     	.form-item {
-      	display: inline-block;
+      	display: inline;
+      	float: left;
       	margin: 0 15px 10px 0;
     	}
     	.description {
@@ -321,6 +354,9 @@
     		padding-left: 35px;
     		height: 35px;
     		margin-left: .3em;
+    		width: 145px;
+    		font: .9em;
+    		clear: left;
     	}
     	label.valid {
     		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
@@ -328,6 +364,7 @@
         padding-left: 35px;
     		width: 35px;
     		height: 35px;
+    		width: 145px;
     	}
     }
     #node_ad_s_form_group_contact {
@@ -342,7 +379,11 @@
       }
     }
   }
-
+  #node_ad_s_form_group_contact {
+    .form-item-field-phone-und-0-number {
+      width: 400px;
+    }
+  }
 } /* end of #ad-s-node-form  */
 
 .group_more {
@@ -405,6 +446,7 @@
 }
 /* Ad Review box */
 #edit-field-ad-details {
+  .fieldset-wrapper {
   font-size: 1em;
   background-color: @peach;
   .border-radius;
@@ -419,6 +461,7 @@
     padding: 15px;
     margin: 10px;
   }
+}
 }
 /* error */
 .element-error {
