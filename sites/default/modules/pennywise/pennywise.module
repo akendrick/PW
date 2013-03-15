@@ -373,6 +373,13 @@ function pennywise_block_configure($delta) {
       );
       break;
     case 'pw_free_for_free':
+        // Mailto data
+        // <a href="mailto:info@pennywiseads.com?subject=Submit FREE for FREE ad&body=Free For Free Ad. %0A%0A%0A%0A%0A
+        //       ############        FREE for FREE Guidelines       ############ %0A
+        // Please use 15 - 25 words to describe your one personal item per Free for Free ad.%0A
+        // Such as: Puppies FREE to good home; or FREE pink floral couch; or FREE 2 wheel bike ideal fit for 8 year old. %0A
+        // Please don\'t post services, free estimates, buy 3 get 1 free, or free rides to polling station." class="free-ad-link ">
+        //
         $f4f_layout =  l('Submit Free for Free Ad', 'ad/submit/free') .
         ' <div class="free-for-free-description">
           <h4>Save our Landfills <br> Share your Treasure!</h4>
@@ -477,26 +484,21 @@ function pennywise_block_view($delta = '') {
       break;
 
     case 'pw_free_for_free':
-      // Mailto data
-      // <a href="mailto:info@pennywiseads.com?subject=Submit FREE for FREE ad&body=Free For Free Ad. %0A%0A%0A%0A%0A
-      //       ############        FREE for FREE Guidelines       ############ %0A
-      // Please use 15 - 25 words to describe your one personal item per Free for Free ad.%0A
-      // Such as: Puppies FREE to good home; or FREE pink floral couch; or FREE 2 wheel bike ideal fit for 8 year old. %0A
-      // Please don\'t post services, free estimates, buy 3 get 1 free, or free rides to polling station." class="free-ad-link ">
-      //
       $subject = '';
       $link_type = variable_get('free_for_free_link_type', 'email');
       switch ($link_type) {
         case 'email':
           $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
-          $link = l('Submit Free for Free Ad', 'mailto:' . $email);
+          $link_header = l('Submit Free for Free Ad', 'mailto:' . $email);
+          $link_footer = l('Click Here', 'mailto:' . $email);
           break;
         default:
           $destination = variable_get('free_for_free_link', 'user');
-          $link = l('Submit Free for Free Ad', $destination);
+          $link_header = l('Submit Free for Free Ad', $destination);
+          $link_footer = l('Click Here', $destination);
       }
       $body = variable_get('free_for_free_description', '');
-      $content = $body . $link;
+      $content = '<div class="ad-submission-highlight-block free-for-free">' . $link_header . $body . $link_footer . '</div>';
       break;
 
     case 'submit_editorial':
