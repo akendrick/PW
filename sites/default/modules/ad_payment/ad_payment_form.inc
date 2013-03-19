@@ -204,8 +204,8 @@ function ad_payment_form(&$form, $form_state) {
 
   $form['field_review'] = array(
     '#type' => 'item',
-    '#title' => t('Ad Review'),
-    '#description' => t('To review your ad select the Preview Price button below.'),
+/*     '#title' => t('Ad Review'), */
+    '#description' => t('Click here to review ad price.'),
   );
 
   $form['#group_children']['group_name']  = 'group_payment';

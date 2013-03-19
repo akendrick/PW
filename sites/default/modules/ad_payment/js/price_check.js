@@ -116,7 +116,9 @@ Drupal.adPayment.formData = function(ad) {
   ad.copy = jQuery('#edit-field-ad-copy-und-0-value').val();
 
   // Word Counter
-  ad.wordCountTrim = jQuery('#edit-field-ad-copy-und-0-value').val().trim();
+  //following line changed Mar 18, 2013 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+  //ad.wordCountTrim = jQuery('#edit-field-ad-copy-und-0-value').val().trim();
+  ad.wordCountTrim = jQuery.trim(ad.copy);
   //ad.wordCount     = jQuery('#edit-field-ad-copy-und-0-value').val().split(/\b[\n\s,\.:;.]*/).length;
   ad.wordCount = Drupal.adPayment.countWords(Drupal.adPayment.wordCleaner( ad.copy ));
 
@@ -368,7 +370,7 @@ Drupal.adPayment.displayMsg = function() {
   // ad.msg.areaInternet += 'Internet Included FREE!';
   // Area MSG
   if (ad.area == 0) {
-    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd>No Area Selected</dd>");
+    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd class='error'>No Area Selected</dd>");
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><small><em>Select Area</em><small></dd>");
   }
   else if (ad.area > 0 && ad.area < 4) {
@@ -381,7 +383,7 @@ Drupal.adPayment.displayMsg = function() {
     ad.msg.discount = Drupal.t("You saved $@discount!", {'@discount': price.discount});
   }
   else {
-    ad.msg.areaList = Drupal.t('<dt>Area: None Selected</dt><dd>Please select an area for your ad to appear in.</dd>');
+    ad.msg.areaList = Drupal.t('<dt>Area: None Selected</dt><dd class="error">Please select an area for your ad to appear in.</dd>');
     ad.msg.areaListSum = "";
     ad.msg.discount = '';
   }
@@ -450,8 +452,9 @@ Drupal.adPayment.displayMsg = function() {
 
   // Review - full review of ad before submission.
   ad.msg.review =
-    '<fieldset id="review-ad-box-ad" class="review-ad-block field-group-fieldset form-wrapper">'
-    + '<legend><span class="fieldset-legend">Ad Review</span></legend>'
+  //  '<fieldset id="review-ad-box-ad" class="review-ad-block field-group-fieldset form-wrapper">'
+  //  + '<legend><span class="fieldset-legend">Ad Review</span></legend>'
+      '<p></p>'
     + '<div id="ad-review-data" class="fieldset-wrapper">'
     + '<div id="review-ad-box-price" class="review-ad-block fieldset-legend">'
     + '<div id="ad-review-data">'
@@ -474,7 +477,7 @@ Drupal.adPayment.displayMsg = function() {
     + '</dl>'
     + '</div>'
     + '</div>'
-    + '</fieldset>'
+   // + '</fieldset>'
     ;
 
   ad.msg.storage =
@@ -516,9 +519,9 @@ jQuery(document).ready(function() {
   if (jQuery('#ad-s-node-form').length) {
 
     // Hide Image Upload Button (uploading images always produces an error.
-    jQuery('#edit-field-image-und-0-upload-button').hide();
+    // jQuery('#edit-field-image-und-0-upload-button').hide();
 
-    jQuery('#edit-field-review').hide();
+    // jQuery('#edit-field-review').hide();
 
     // Hide Preview (unless jQuery is broken)...
     jQuery('#edit-preview').hide();
@@ -540,9 +543,17 @@ jQuery(document).ready(function() {
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
 
-    jQuery('#ad-s-node-form').bind('click keypress keyup change mouseup', function() { //click change keypress keyup
-       // console.log('Action Detected.');
+    // Review box
+    var reviewButton = '#edit-field-review > .description';
+    jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
+    var autoReview = 0;
 
+    // #edit-field-review > .description
+    //jQuery('#ad-s-node-form').change( function() { // Old change event!
+    jQuery(reviewButton).click( function() { //Bind the change event!
+      jQuery(reviewButton).text('Click to update ad price');
+      autoReview = 1;
+      console.log(autoReview + ' - Auto Review');
 
        // EXTERNAL CC VALIDATION SCRIPT
       jQuery('#ad-s-node-form').validate({
@@ -566,12 +577,17 @@ jQuery(document).ready(function() {
 
       //console.log(reviewBox);
       jQuery('#ad-review').html(summaryBox);
+      jQuery('#ad-review > ').css({'font-weight':'800'});
 
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
 
     });
+
+    if (autoReview > 0) {
+      console.log(autoReview + ' - Auto Review ON');
+    };
   };
 });
 

@@ -491,6 +491,9 @@ function ad_payment_node_insert($node) {
     }
 
     if ($node->nid) {
+      // Add Recipt ID to details (added to customer receipt later).
+      $details['receipt'] = $fields['ccid'];
+
       // Send Email upon Completion.
       module_load_include('inc', 'ad_payment', 'ad_payment_mail');
       ad_payment_send_email('inhouse', $details);
