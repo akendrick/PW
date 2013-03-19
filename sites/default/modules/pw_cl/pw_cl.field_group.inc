@@ -714,18 +714,22 @@ function pw_cl_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Ad Review',
+    'label' => 'Review',
     'weight' => '2',
     'children' => array(
       0 => 'field_ad_details',
     ),
-    'format_type' => 'div',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Ad Review',
+      'label' => 'Review',
       'instance_settings' => array(
         'required_fields' => 0,
         'classes' => '',
         'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
       'formatter' => 'open',
     ),

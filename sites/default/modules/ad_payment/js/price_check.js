@@ -519,7 +519,7 @@ jQuery(document).ready(function() {
   if (jQuery('#ad-s-node-form').length) {
 
     // Hide Image Upload Button (uploading images always produces an error.
-    // jQuery('#edit-field-image-und-0-upload-button').hide();
+    jQuery('#edit-field-image-und-0-upload-button').hide();
 
     // jQuery('#edit-field-review').hide();
 
@@ -546,14 +546,13 @@ jQuery(document).ready(function() {
     // Review box
     var reviewButton = '#edit-field-review > .description';
     jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
-    var autoReview = 0;
 
     // #edit-field-review > .description
     //jQuery('#ad-s-node-form').change( function() { // Old change event!
     jQuery(reviewButton).click( function() { //Bind the change event!
-      jQuery(reviewButton).text('Click to update ad price');
-      autoReview = 1;
-      console.log(autoReview + ' - Auto Review');
+      jQuery(reviewButton).text('Click to update price.');
+
+      jQuery("body").css("cursor", "progress");
 
        // EXTERNAL CC VALIDATION SCRIPT
       jQuery('#ad-s-node-form').validate({
@@ -582,12 +581,10 @@ jQuery(document).ready(function() {
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
+      jQuery("body").css("cursor", "auto");
 
     });
 
-    if (autoReview > 0) {
-      console.log(autoReview + ' - Auto Review ON');
-    };
   };
 });
 

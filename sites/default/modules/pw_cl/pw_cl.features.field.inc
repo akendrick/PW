@@ -1064,8 +1064,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
         ),
       ),
       'deleted' => '0',
-      'description' => '<p class="beautytips" title=" Business Rated Categories include - ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.">More Information.</p>
-',
+      'description' => '<b>Business Rated Categories include:</b><br>ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -3125,6 +3124,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('<b>Business Rated Categories include:</b><br>ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.');
   t('<big><strong>Test your file first!</strong></big>
 <ol>
 <li>To minimize any problems paste Adworks copy into <em>TextWrangler</em>:
@@ -3143,8 +3143,6 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
 <li>If all images are present - change to <strong>Create Ads</strong> and select <strong>SAVE</strong></li>
 </ol>
 
-');
-  t('<p class="beautytips" title=" Business Rated Categories include - ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.">More Information.</p>
 ');
   t('<strong class=\'ad-area-discount\'>Save $2 when you book all four areas.</strong>
 <strong class=\'ad-area-areas\'>NOTE: Publication Areas</strong>

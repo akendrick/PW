@@ -287,6 +287,9 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   // Rename File upload to 'image'
   $form['field_image'][LANGUAGE_NONE]['#file_upload_title'] = 'Click here to select an image.';
 
+  // Add Label to Liveload checkbox.
+  $form['field_liveload'][LANGUAGE_NONE]['#title_display'] = 'before';
+
   // Load CC external form
   module_load_include('inc', 'ad_payment', 'ad_payment_form');
   ad_payment_form($form, $form_state);
@@ -318,9 +321,9 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 /*   $form['#group_children']['contact_info'] = 'group_more'; */
   $form['#group_children']['contact_info'] = 'group_more';
   // Beauty Tips
-  ad_payment_beautify($form);
+  ad_payment_bt($form);
 
-  dpm($form);
+  //dpm($form);
 }
 
 /**
@@ -329,10 +332,12 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 * TODO -- Implement beautytips in description.
 *         More to come.
 */
-function ad_payment_beautify(&$form = array()) {
+function ad_payment_bt(&$form = array()) {
 
-    $form['field_area'][LANGUAGE_NONE]['#description'] =
-      '<span class="beautytips" title="' . $form['field_area'][LANGUAGE_NONE]['#description'] . '">More information.</span>';
+  $form['field_rate'][LANGUAGE_NONE]['#description'] =
+    '<span class="beautytips" title="' . $form['field_rate'][LANGUAGE_NONE]['#description'] . '">What is a Business?</span>';
+  $form['field_area'][LANGUAGE_NONE]['#description'] =
+    '<span class="beautytips" title="' . $form['field_area'][LANGUAGE_NONE]['#description'] . '">Areas defined.</span>';
 
 }
 
@@ -544,52 +549,54 @@ function ad_payment_node_delete($node) {
 * @TODO
 *   Create/register THEME
 */
-function ad_payment_form_price_display($form_state) {
-  $price = $form_state['storage']['price'];
-  if(!$price) {
-    return;
-  }
-
-  // Ad Copy
-  $ad_copy = check_plain($form_state['node']->field_ad_copy[LANGUAGE_NONE][0]['value']);
-
-  // Liveload
-  $ad_status = ($price['options']['liveload'] == TRUE) ? 'Liveload Classified Ad' : 'Classified Ad';
-
-  // Areas
- if (is_array($form_state['node']->field_area[LANGUAGE_NONE])) {
-   foreach($form_state['node']->field_area[LANGUAGE_NONE] as $area) {
-     $areas .= ' ' . $area[0];
-   }
- }
-  // Rate
-  $rate = ($price['rate']['term_rate'] == 0) ? 'Personal' : 'Business';
-
-  // Ad Taxonomy
-  $classification = $price['rate']['term'];
-  $section = $price['rate']['rate_name'];
-
-  // Ad Price
-  $discount = ($price['areas'] == 4) ? ' <br/><em>With $2 Discount for booking all four areas! </em>' : '';
-  $ad_price = '$' . $price['total'];
-
-  // Output Display
-  // THIS NEEDS TO BE THEMED!
-  $ad_review =
-    '<dl>' .
-    '<lh>Ad Copy:</lh><dt>' . $ad_copy . '</dt>' .
-    '<lh>Ad Type:</lh><dt>' . $ad_status . '</dt>' .
-    '<lh>Publication In <strong>' . $price['areas'] . '</strong> Area(s): </lh><dt> ' . $areas . ' </dt>' .
-    '<lh>Classification:</lh><dt>' . $classification . ' (' . $section . ' rated)</dt>' .
-    '<lh class="ad_price">Price:</lh><dt> <strong>' . $ad_price . '</strong>' . $discount . '<dt>' .
-    '</dl>';
-
-  // Set Form Return Value
-  jQuery('#edit-field-price-und-0-value').attr('val', $ad_price);
-
-  return $ad_review;
-
-}
+//function ad_payment_form_price_display($form_state) {
+//  $price = $form_state['storage']['price'];
+//  if(!$price) {
+//    return;
+//  }
+//
+//  dpm('test ad_payment_form_price_display');
+//
+//  // Ad Copy
+//  $ad_copy = check_plain($form_state['node']->field_ad_copy[LANGUAGE_NONE][0]['value']);
+//
+//  // Liveload
+//  $ad_status = ($price['options']['liveload'] == TRUE) ? 'Liveload Classified Ad' : 'Classified Ad';
+//
+//  // Areas
+// if (is_array($form_state['node']->field_area[LANGUAGE_NONE])) {
+//   foreach($form_state['node']->field_area[LANGUAGE_NONE] as $area) {
+//     $areas .= ' ' . $area[0];
+//   }
+// }
+//  // Rate
+//  $rate = ($price['rate']['term_rate'] == 0) ? 'Personal' : 'Business';
+//
+//  // Ad Taxonomy
+//  $classification = $price['rate']['term'];
+//  $section = $price['rate']['rate_name'];
+//
+//  // Ad Price
+//  $discount = ($price['areas'] == 4) ? ' <br/><em>With $2 Discount for booking all four areas! </em>' : '';
+//  $ad_price = '$' . $price['total'];
+//
+//  // Output Display
+//  // THIS NEEDS TO BE THEMED!
+//  $ad_review =
+//    '<dl>' .
+//    '<lh>Ad Copy:</lh><dt>' . $ad_copy . '</dt>' .
+//    '<lh>Ad Type:</lh><dt>' . $ad_status . '</dt>' .
+//    '<lh>Publication In <strong>' . $price['areas'] . '</strong> Area(s): </lh><dt> ' . $areas . ' </dt>' .
+//    '<lh>Classification:</lh><dt>' . $classification . ' (' . $section . ' rated)</dt>' .
+//    '<lh class="ad_price">Price:</lh><dt> <strong>' . $ad_price . '</strong>' . $discount . '<dt>' .
+//    '</dl>';
+//
+//  // Set Form Return Value
+//  jQuery('#edit-field-price-und-0-value').attr('val', $ad_price);
+//
+//  return $ad_review;
+//
+//}
 
 /**
  * Custom Database query.
@@ -662,12 +669,19 @@ function ad_payment_taxonomy($op, $type, $array = array()) {
 * Returns a nested array of classifieds with header and children.
 */
 function ad_payment_get_classified_list() {
+  $business_rated = variable_get('ad_payment_business_rated', ad_payment_get_business_rated()); // Get Business rated.
 
   $parents = ad_payment_get_classification_headers();
   foreach ($parents as $tid => $term) {
     $children = taxonomy_get_children($tid);
     foreach ($children as $child) {
-      $pw_list[$term][$child->tid] = $child->name;
+      if (isset($business_rated[$child->tid])) { // If business rated.
+        $pw_list[$term][$child->tid] = $child->name . ' (Business Rated)';
+        //dpm($child->name . ' is business rated');
+      }
+      else {
+        $pw_list[$term][$child->tid] = $child->name;
+      }
     }
     // Add any category that doesn't have a child (eg. Bulletin Board).
     if (!array_key_exists($term, $pw_list) && $term != 'Free') {

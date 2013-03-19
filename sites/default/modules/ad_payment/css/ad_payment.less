@@ -195,13 +195,22 @@
   }
   /* Liveload */
   .form-item-field-liveload-und {
-    margin-left: @ad_mleft;
+/*     margin-left: @ad_mleft; */
+    label, input, .description {
+      float: left;
+    }
     label {
+      width: 140px;
       font-weight: 800;
       font-size: 1.1em;
     }
+    input {
+      width: 20px;
+    }
     .description {
+      width: 350px;
       margin: 0 0 20px 0;
+/*       margin: -20 0 120px 0; */
 
     }
   }
@@ -243,8 +252,8 @@ legend {
   background-color: @classified_dark;
   color: @white;
   margin: 0;
-  padding: 10px;
-  margin-bottom: -8px;
+  padding: 10px 10px 15px 10px;
+  margin-bottom: 0;
   font-size: 1.4em;
   .border-radius-custom(20px, 20px, 0, 0);
 }
@@ -252,11 +261,14 @@ legend {
 .group_more {
   h3 { display: none; }
   #edit-contact-info {
+    width: 240px;
+    position: absolute;
+    text-align: center;
     float: right;
     clear: left;
     bottom: 0;
     border: 10px;
-    background-color: @classified_dark;
+    background-color: @alert;
     color: @white;
     font-weight: 700;
     .border-radius;
@@ -270,6 +282,9 @@ legend {
     .description {
       color: @white;
       strong {
+        clear: left;
+        display: block;
+        line-height: 1.2em;
         font-size: 1.4em;
       }
     }
@@ -313,11 +328,6 @@ legend {
       .border-radius;
     }
   }
-  #review-ad-box-price {
-    dl dt {
-      font-weight: 800px;
-    }
-  }
 }
 /* LAYOUT */
 
@@ -350,9 +360,8 @@ legend {
   	background-position: center;
   	margin: 0;
   	padding: 0;
-
     	.ad-left;
-    	margin-top: -40px;
+    	margin-top: -20px;
     	background: inherit;
     	.form-item {
       	display: inline;
@@ -378,6 +387,7 @@ legend {
     		width: 145px;
     		font: .9em;
     		clear: left;
+    		background-color: inherit;
     	}
     	label.valid {
     		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
@@ -386,6 +396,7 @@ legend {
     		width: 35px;
     		height: 35px;
     		width: 145px;
+    		background-color: inherit;
     	}
     }
     #node_ad_s_form_group_contact {
@@ -490,8 +501,8 @@ legend {
   background-position-x: 5px;
   background-position-y: 5px;
   padding-left: 40px;
-  color: #fff;
-  background-color: #fff;
+  color: @alert;
+  background-color: inherit;
 }
 
 /* SUBMIT */

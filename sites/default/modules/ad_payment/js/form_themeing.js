@@ -16,6 +16,7 @@ $('form#node-form div.form-item').each(function(){
 });
 
 
+//$('#edit-contact-info')
 // Select parent if child is in 'error'.
 //if ($('form-item > .error') {
 //  $(this).parents('.form-checkboxes').addClass('.error');
