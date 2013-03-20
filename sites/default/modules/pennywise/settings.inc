@@ -86,8 +86,15 @@ function pennywise_classified_settingsform() {
   $form['online_submissions_message'] = array(
     '#title'       => t('Online Submission Message'),
     '#type'        => 'textarea',
-    '#description' => t('Ad message at the top of the ad submission form.'),
+    '#description' => t('Add message at the top of the ad submission form.'),
     '#default_value' => variable_get('pennywise_classified_settings_submissions_message', ''),
+  );
+
+  $form['online_submissions_help'] = array(
+    '#title'       => t('Contact Us Message'),
+    '#type'        => 'textarea',
+    '#description' => t('Message at the end of the ad submission form.'),
+    '#default_value' => variable_get('pennywise_classified_settings_help_message', ''),
   );
 
 
@@ -119,6 +126,7 @@ function pennywise_classified_settingsform_submit($form, &$form_state) {
   variable_set('pw_classified_settings_submissions', $form_state['values']['online_submissions']);
   variable_set('pennywise_classified_settings_submissions_message_status', $form_state['values']['online_submissions_message_status']);
   variable_set('pennywise_classified_settings_submissions_message', $form_state['values']['online_submissions_message']);
+  variable_set('pennywise_classified_settings_help_message', $form_state['values']['online_submissions_help']);
 
   drupal_set_message( t('Your settings have been updated.') );
 

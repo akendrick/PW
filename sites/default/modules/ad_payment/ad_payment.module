@@ -311,15 +311,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     $form['#group_children']['freeforfree'] = 'group_more';
   }
 
-  // Add Contact info to bottom of form.
-  $form['contact_info'] = array(
-    '#title'  => t('Need Help?'),
-    '#description' => t('Talk to us. <strong>1-800-663-4619</strong> Kaslo, BC Canada'),
-    '#type'   => 'item',
-    '#weight' => '300',
-  );
-/*   $form['#group_children']['contact_info'] = 'group_more'; */
-  $form['#group_children']['contact_info'] = 'group_more';
   // Beauty Tips
   ad_payment_bt($form);
 

@@ -213,6 +213,17 @@ function ad_payment_form(&$form, $form_state) {
   $form['#group_children']['group_expiry'] = 'group_payment';
   $form['#group_children']['field_review'] = 'group_review';
 
+  // Add Contact info to bottom of form.
+  $email = variable_get('pw_classified_settings_email', 'info@pennywiseads.com');
+  $form['contact_info'] = array(
+    '#title'  => t('Need Help?'),
+    '#description' => variable_get('pennywise_classified_settings_help_message', t('Talk to us. <strong>1-800-663-4619</strong> Kaslo, BC Canada')) .
+        '<a href="mailto:' . $email . '"> ' . $email . '</a>',
+    '#type'   => 'item',
+    '#weight' => '300',
+  );
+/*   $form['#group_children']['contact_info'] = 'group_more'; */
+  $form['#group_children']['contact_info'] = 'group_more';
 
 
 }

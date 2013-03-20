@@ -172,13 +172,13 @@ function ad_payment_update_7105() {
 /**
 * Adds User Extras Sub-total price to ADP table.
 */
-function ad_payment_update_7106() {
-  $field = array(
-      'type' => 'float',
-      'length' => 1024,
-      'not null' => FALSE,
-      'precision' => '4',
-      'scale' => '2',
-  );
-  db_add_field('adp', 'price_extras', $field);
-}
+//function ad_payment_update_7106() {
+//  $field = array(
+//      'type' => 'float',
+//      'length' => 1024,
+//      'not null' => FALSE,
+//      'precision' => '4',
+//      'scale' => '2',
+//  );
+//  db_add_field('adp', 'price_extras', $field);
+//}
