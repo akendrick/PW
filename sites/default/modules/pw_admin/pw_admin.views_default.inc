@@ -7675,22 +7675,22 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['empty']['php']['label'] = 'Get Parent Taxonomy TID and create Link';
   $handler->display->display_options['empty']['php']['empty'] = TRUE;
   $handler->display->display_options['empty']['php']['php_output'] = '<?php
-global $base_root;
-global $base_path;
-$term_id =  $view->args[0];
+//global $base_root;
+//global $base_path;
+//$term_id =  $view->args[0];
 
-$term = taxonomy_term_load($term_id);
-$parent = taxonomy_get_parents($term_id);
-$ptid = array_values($parent);
-if ($ptid) {
-echo "
-<div class=\'taxonomy-sub-list-no-children-block\'>
-<h3 class=\'sub-list-block-parent-link\'>
-  <a href=\'" . $base_root .  $base_path . "/taxonomy/term/" . $ptid[0]->tid . "\'>
-     See more related ads in <br />" . $ptid[0]->name . "</a>
-</h3>
-</div>";
-}
+//$term = taxonomy_term_load($term_id);
+//$parent = taxonomy_get_parents($term_id);
+//$ptid = array_values($parent);
+//if ($ptid) {
+//echo "
+//<div class=\'taxonomy-sub-list-no-children-block\'>
+//<h3 class=\'sub-list-block-parent-link\'>
+//  <a href=\'" . $base_root .  $base_path . "/taxonomy/term/" . $ptid[0]->tid . "\'>
+//     See more related ads in <br />" . $ptid[0]->name . "</a>
+//</h3>
+//</div>";
+//}
 ?>';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Taxonomy term: Name */

@@ -105,6 +105,76 @@ function pw_cl_ds_field_settings_info() {
   );
   $export['node|classified|teaser'] = $ds_fieldsetting;
 
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|free|default';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'free';
+  $ds_fieldsetting->view_mode = 'default';
+  $ds_fieldsetting->settings = array(
+    'comments' => array(
+      'weight' => '4',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'author' => array(
+      'weight' => '3',
+      'label' => 'hidden',
+      'format' => 'author',
+    ),
+  );
+  $export['node|free|default'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|free|full';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'free';
+  $ds_fieldsetting->view_mode = 'full';
+  $ds_fieldsetting->settings = array(
+    'comments' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'author' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'author',
+    ),
+    'post_date' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'ds_post_date_long',
+    ),
+    'submitted_by' => array(
+      'weight' => '4',
+      'label' => 'hidden',
+      'format' => 'ds_time_ago',
+    ),
+  );
+  $export['node|free|full'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'user|user|default';
+  $ds_fieldsetting->entity_type = 'user';
+  $ds_fieldsetting->bundle = 'user';
+  $ds_fieldsetting->view_mode = 'default';
+  $ds_fieldsetting->settings = array(
+    'contact' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'full_name_display' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+  );
+  $export['user|user|default'] = $ds_fieldsetting;
+
   return $export;
 }
 
@@ -153,6 +223,81 @@ function pw_cl_ds_layout_settings_info() {
     'classes' => array(),
   );
   $export['node|ad_s|default'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|ad_s|form';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'ad_s';
+  $ds_layout->view_mode = 'form';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'group_classified_ad',
+        1 => 'group_upgrade',
+        2 => 'group_review',
+        3 => 'field_rate',
+        4 => 'field_ad_copy',
+        5 => 'group_payment',
+        7 => 'field_area',
+        9 => 'field_duration',
+        10 => 'field_tags',
+        13 => 'field_ad_details',
+        15 => 'field_liveload',
+        16 => 'field_image',
+        17 => 'group_contact',
+        18 => 'field_phone',
+        19 => 'field_email',
+      ),
+      'right' => array(
+        6 => 'group_more',
+        14 => 'field_notes',
+      ),
+      'footer' => array(
+        8 => 'title',
+        11 => 'path',
+        12 => 'redirect',
+      ),
+      'hidden' => array(
+        20 => '_add_existing_field',
+      ),
+    ),
+    'fields' => array(
+      'group_classified_ad' => 'left',
+      'group_upgrade' => 'left',
+      'group_review' => 'left',
+      'field_rate' => 'left',
+      'field_ad_copy' => 'left',
+      'group_payment' => 'left',
+      'group_more' => 'right',
+      'field_area' => 'left',
+      'title' => 'footer',
+      'field_duration' => 'left',
+      'field_tags' => 'left',
+      'path' => 'footer',
+      'redirect' => 'footer',
+      'field_ad_details' => 'left',
+      'field_notes' => 'right',
+      'field_liveload' => 'left',
+      'field_image' => 'left',
+      'group_contact' => 'left',
+      'field_phone' => 'left',
+      'field_email' => 'left',
+      '_add_existing_field' => 'hidden',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+  );
+  $export['node|ad_s|form'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
@@ -360,6 +505,145 @@ function pw_cl_ds_layout_settings_info() {
     'layout_attributes_merge' => 0,
   );
   $export['node|classified|teaser'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|free|default';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'free';
+  $ds_layout->view_mode = 'default';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'field_image',
+      ),
+      'right' => array(
+        1 => 'field_price_free',
+        2 => 'field_body_text',
+        3 => 'author',
+      ),
+      'footer' => array(
+        4 => 'comments',
+      ),
+    ),
+    'fields' => array(
+      'field_image' => 'left',
+      'field_price_free' => 'right',
+      'field_body_text' => 'right',
+      'author' => 'right',
+      'comments' => 'footer',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
+  );
+  $export['node|free|default'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|free|form';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'free';
+  $ds_layout->view_mode = 'form';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'header' => array(
+        0 => 'field_body_text',
+      ),
+      'left' => array(
+        1 => 'field_price_free',
+        2 => 'title',
+      ),
+      'right' => array(
+        3 => 'field_contact_seller',
+        4 => 'field_tags',
+      ),
+      'hidden' => array(
+        5 => 'node_notify_subscribe',
+        6 => 'field_image',
+        7 => 'redirect',
+        8 => 'path',
+        9 => '_add_existing_field',
+      ),
+    ),
+    'fields' => array(
+      'field_body_text' => 'header',
+      'field_price_free' => 'left',
+      'title' => 'left',
+      'field_contact_seller' => 'right',
+      'field_tags' => 'right',
+      'node_notify_subscribe' => 'hidden',
+      'field_image' => 'hidden',
+      'redirect' => 'hidden',
+      'path' => 'hidden',
+      '_add_existing_field' => 'hidden',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
+  );
+  $export['node|free|form'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|free|full';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'free';
+  $ds_layout->view_mode = 'full';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'field_price_free',
+        1 => 'field_image',
+      ),
+      'right' => array(
+        2 => 'post_date',
+        3 => 'field_body_text',
+        4 => 'submitted_by',
+        5 => 'author',
+      ),
+      'footer' => array(
+        6 => 'comments',
+      ),
+    ),
+    'fields' => array(
+      'field_price_free' => 'left',
+      'field_image' => 'left',
+      'post_date' => 'right',
+      'field_body_text' => 'right',
+      'submitted_by' => 'right',
+      'author' => 'right',
+      'comments' => 'footer',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
+  );
+  $export['node|free|full'] = $ds_layout;
 
   return $export;
 }

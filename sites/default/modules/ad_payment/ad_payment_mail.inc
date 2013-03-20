@@ -201,9 +201,9 @@ Address: Box 430,
 
 $message
 
-Thank you for placing your ads with the Pennywise, we appreciate your business .
+Thank you for placing your ad with the Pennywise, we appreciate your business .
 
-Sincerly,
+Sincerely,
 The Pennywise Team.
 
 RECEIPT;
