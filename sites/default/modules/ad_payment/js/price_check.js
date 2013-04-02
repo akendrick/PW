@@ -315,7 +315,7 @@ Drupal.adPayment.getPrice = function(ad) {
   // console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
 
   // Determine taxes
-  price.taxRate = .12;
+  price.taxRate = Drupal.settings.pwDefaults.taxRate;
   price.taxes   = (price.subTotal + price.extras) * price.taxRate;
 
   // 6. Total Price

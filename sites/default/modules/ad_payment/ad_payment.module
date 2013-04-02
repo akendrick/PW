@@ -705,6 +705,10 @@ function ad_payment_init() {
   drupal_add_js(array('adPaymentBiz' => $business_rated), 'setting');
   drupal_add_js(array('adPaymentHead' => $headers), 'setting');
 
+  // Add Default Classified Data
+  $pw_defaults['taxRate'] = variable_get('pennywise_taxrate', '.5');
+
+  drupal_add_js(array('pwDefaults' => $pw_defaults), 'setting');
   // Add jQuery UI
   // drupal_add_library('system', 'ui.tabs');
   // drupal_add_library('system', 'ui.button');

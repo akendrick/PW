@@ -312,7 +312,7 @@ function ad_payment_price_check($values) {
   $sub_total = (($price_over + $values['rate']['base_rate']) * $areas * $sections  ) * $values['duration_adjusted'] - $area_discount;
 
   // Taxes
-  $tax_rate = variable_get('ad_payment_taxrate', '.12');
+  $tax_rate = variable_get('pennywise_taxrate', '.5');
   $taxes = ad_payment_dollar_format(($sub_total + $extras) * $tax_rate);
 
   // 6. Total Cost

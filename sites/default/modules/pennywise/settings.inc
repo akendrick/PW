@@ -29,6 +29,10 @@ function pw_display_settings_page() {
 
 function pennywise_classified_settingsform() {
  $options = array(
+    '.02' => '2%',
+    '.03' => '3%',
+    '.04' => '4%',
+    '.05' => '5%',
     '.06' => '6%',
     '.07' => '7%',
     '.08' => '8%',
@@ -40,13 +44,17 @@ function pennywise_classified_settingsform() {
     '.14' => '14%',
     '.15' => '15%',
     '.16' => '16%',
+    '.17' => '17%',
+    '.18' => '18%',
+    '.19' => '19%',
+    '.20' => '20%',
   );
   $form['default_taxrate'] = array(
     '#title' => t('Default Tax Rate'),
     '#type'  => 'select',
     '#description' => t('Set default tax rate used in the calculation of ad payment.'),
     '#options' => $options,
-    '#default_value' => variable_get('ad_payment_taxrate', '.12'),
+    '#default_value' => variable_get('pennywise_taxrate', '.5'),
     '#required' => TRUE,
   );
 
@@ -122,6 +130,7 @@ function pennywise_classified_settingsform_validate($form, &$form_state) {
 */
 function pennywise_classified_settingsform_submit($form, &$form_state) {
 
+  variable_set('pennywise_taxrate', $form_state['values']['default_taxrate']);
   variable_set('pw_classified_settings_email', $form_state['values']['default_email']);
   variable_set('pw_classified_settings_submissions', $form_state['values']['online_submissions']);
   variable_set('pennywise_classified_settings_submissions_message_status', $form_state['values']['online_submissions_message_status']);

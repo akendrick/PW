@@ -642,8 +642,31 @@ body {
 }
 /* editorial 3-up header block */
 #block-views-deba537d237e294b8f1a706f5b8291e0 {
+  .editorial-slideshow-header-slidey-widey-block {
+    ul.editorial-spotlight-block {
+      li {
+        margin: 0;
+        padding: 0;
 
+        .views-spotlight-editorial-image {
+          margin: 0;
+        }
+        .views-spotlight-editorial-title {
+          padding: 6px 8px;
+          font-weight: bolder;
+        }
+      }
+      li.views-row-even {
+        background-color: lighten(@editorial_light, 20%);
+      }
+      li:hover {
+        background-color: lighten(@editorial_light, 10%);
+      }
+    }
+    margin-bottom: 8px;
+  }
 }
+
 /* editorial 5-up footer block */
 #block-views-editorial-slideshow-block-1 {
   .editorial-slideshow-header-link {
