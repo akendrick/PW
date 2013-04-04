@@ -256,6 +256,40 @@ Drupal.adPayment.formatCurrency = function(num) {
 };
 
 /**
+ * Check for VISA Debit.
+ */
+Drupal.adPayment.cardCheck = function() {
+  var txt;
+  var msgClass;
+
+  // Validate Credit Card
+  // - Check for VISA DEBIT
+  var visaCard = jQuery('#edit-field-card-type-1').is(':checked');
+  var cardNum  = jQuery('#edit-field-cc-number').val();
+  if (visaCard == true) {
+    //  console.log(cardNum + ' VISA: ' + cardNum.indexOf("4506"));
+    if (cardNum.indexOf('4506') >= 0) {
+      console.log('VISA DEBIT: ' + cardNum.indexOf('4506'));
+      txt = '<h5>Sorry, we cannot accept VISA Debit cards online.</h5>For other payment options please call our toll-free number <h5>1-800-663-4619</h5>';
+      msgClass = 'error';
+    }
+    else {
+      txt = '';
+      msgClass = 'no-error';
+    }
+  }
+  else {
+    txt = '';
+    console.log('not VISA');
+  }
+
+  var cardMsg = '<label class="' + msgClass + '">' + txt + '</label>';
+
+  return cardMsg;
+
+}
+
+/**
  * Determine Price
  */
 Drupal.adPayment.getPrice = function(ad) {
@@ -316,6 +350,7 @@ Drupal.adPayment.getPrice = function(ad) {
 
   // Determine taxes
   price.taxRate = Drupal.settings.pwDefaults.taxRate;
+  price.taxRateDisplay = Drupal.settings.pwDefaults.taxRateDisplay;
   price.taxes   = (price.subTotal + price.extras) * price.taxRate;
 
   // 6. Total Price
@@ -415,7 +450,7 @@ Drupal.adPayment.displayMsg = function() {
 
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'> Taxes (@trate): $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@trate': price.taxRateDisplay, '@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
@@ -539,6 +574,11 @@ jQuery(document).ready(function() {
     var reviewLocation = '#edit-field-ad-details';
     jQuery(reviewLocation).prepend('<div id="review-ad-block"></div>');
 
+    // DIV for credit card check
+    var cardCheckBox = '<div id="cc-checkbox-check"></div>';
+    jQuery('#edit-field-card-type').append(cardCheckBox);
+
+
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
@@ -547,22 +587,30 @@ jQuery(document).ready(function() {
     var reviewButton = '#edit-field-review > .description';
     jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
 
-    // #edit-field-review > .description
+    // Credit Card Check
+     // EXTERNAL CC VALIDATION SCRIPT
+    jQuery('#ad-s-node-form').validate({
+      rules: {
+        field_cc_number: {
+          required: true,
+          creditcard: true
+        }
+      }
+    });
+    jQuery('#node_ad_s_form_group_payment').change( function() {
+      // Check Credit Card;
+      var debitMsg = Drupal.adPayment.cardCheck();
+      // console.log('MSG: ' + debitMsg);
+      jQuery('#cc-checkbox-check').html(debitMsg);
+    });
+
+
     //jQuery('#ad-s-node-form').change( function() { // Old change event!
     jQuery(reviewButton).click( function() { //Bind the change event!
       jQuery(reviewButton).text('Click to update price.');
 
-      jQuery("body").css("cursor", "progress");
 
-       // EXTERNAL CC VALIDATION SCRIPT
-      jQuery('#ad-s-node-form').validate({
-        rules: {
-          field_cc_number: {
-            required: true,
-            creditcard: true
-          }
-        }
-      });
+      jQuery("body").css("cursor", "progress");
 
 
       var sideBox = '#ad-summary';

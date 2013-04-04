@@ -2385,7 +2385,6 @@ echo date(\'now\');
     1 => 'menu-browse-classifieds',
     2 => 'menu-pw-admin',
     3 => 'menu-pw-super-menu',
-    4 => 'navigation',
   );
   $export['menu_expanded'] = $strongarm;
 

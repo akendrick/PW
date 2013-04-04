@@ -707,6 +707,8 @@ function ad_payment_init() {
 
   // Add Default Classified Data
   $pw_defaults['taxRate'] = variable_get('pennywise_taxrate', '.5');
+  $pw_defaults['taxRateDisplay'] = ($pw_defaults['taxRate'] * 100) . '%';
+
 
   drupal_add_js(array('pwDefaults' => $pw_defaults), 'setting');
   // Add jQuery UI
