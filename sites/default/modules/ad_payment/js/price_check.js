@@ -56,7 +56,6 @@ Drupal.adPayment.validate = function(ad) {
   if (ad.formRate == 'Personal') {
     // Get Selected SECTION
     ad.section = jQuery('#edit-field-tags-und').val();
-
     if (ad.section >= 0) {
       // get section ratings
       var bizRatedSections = Drupal.settings.adPaymentBiz;
@@ -117,7 +116,9 @@ Drupal.adPayment.formData = function(ad) {
   ad.copy = jQuery('#edit-field-ad-copy-und-0-value').val();
 
   // Word Counter
-  ad.wordCountTrim = jQuery('#edit-field-ad-copy-und-0-value').val().trim();
+  //following line changed Mar 18, 2013 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+  //ad.wordCountTrim = jQuery('#edit-field-ad-copy-und-0-value').val().trim();
+  ad.wordCountTrim = jQuery.trim(ad.copy);
   //ad.wordCount     = jQuery('#edit-field-ad-copy-und-0-value').val().split(/\b[\n\s,\.:;.]*/).length;
   ad.wordCount = Drupal.adPayment.countWords(Drupal.adPayment.wordCleaner( ad.copy ));
 
@@ -183,6 +184,7 @@ Drupal.adPayment.formData = function(ad) {
   else {
     ad.imageFlag = 0;
     ad.imageMessage = 'No image';
+    ad.imageFile = 'No Image';
   }
   //console.log('Image FLAG: ' + ad.imageFlag + ' FILE:' +  ad.imageFile + ' IMAGE:' + ad.image);
 
@@ -207,34 +209,36 @@ Drupal.adPayment.formData = function(ad) {
   };
 
   // LIVELOAD
-  if (jQuery('#edit-field-promote-und-0:checked').val() == '0') {
-    ad.type = 'Regular Classified Ad';
-    ad.typeBool = 0;
-  }
-  else if (jQuery('#edit-field-promote-und-1:checked').val() == '1') {
+  if (jQuery('#edit-field-liveload-und:checked').val() == '1') {
     ad.type = 'Liveload Classified Ad';
     ad.typeBool = 1;  }
   else {
-    ad.type = 'Not Set';
+    ad.type = 'Regular Classified Ad';
+    ad.typeBool = 0;
   };
 
-  // Section
-  if(jQuery('#edit-field-tags-und').val()) {
-    ad.section = jQuery('#edit-field-tags-und').val().length;
+  // SECTION - SINGLE
+  ad.section = jQuery('#edit-field-tags-und').val();
+  ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
+  ad.sectionCount = 1;
 
-    if (ad.section = jQuery('#edit-field-tags-und').val().length == 1) {
-      ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
-    }
-    else if (ad.section = jQuery('#edit-field-tags-und').val().length > 1) {
-      ad.sectionName = '';
-      jQuery('#edit-field-tags-und option:selected').each(function() {
-        ad.sectionName += jQuery(this).text() + ', ';
-      });
-    };
-    ad.sectionCount = jQuery('#edit-field-tags-und').val().length;
-  };
-//  console.log('Sections: ', ad.section);
-//  console.log('SectionCount: ', ad.sectionCount);
+  // SECTION - MULTIPLE
+  //if(jQuery('#edit-field-tags-und').val()) {
+  //  ad.section = jQuery('#edit-field-tags-und').val().length;
+  //
+  //  if (ad.section = jQuery('#edit-field-tags-und').val().length == 1) {
+  //    ad.sectionName = jQuery('#edit-field-tags-und option:selected').text();
+  //  }
+  //  else if (ad.section = jQuery('#edit-field-tags-und').val().length > 1) {
+  //    ad.sectionName = '';
+  //    jQuery('#edit-field-tags-und option:selected').each(function() {
+  //      ad.sectionName += jQuery(this).text() + ', ';
+  //    });
+  //  };
+  //  ad.sectionCount = jQuery('#edit-field-tags-und').val().length;
+  //};
+  //console.log('Section: ' , ad.sectionName + '  ' + ad.section);
+  //console.log('SectionCount: ', ad.sectionCount);
 
   // Validate Form Data
   ad = Drupal.adPayment.validate(ad);
@@ -250,6 +254,40 @@ Drupal.adPayment.formatCurrency = function(num) {
   var num = isNaN(num) || num == '\u65533' || num === '' || num === null ? 0.00 : num;
   return parseFloat(num).toFixed(2);
 };
+
+/**
+ * Check for VISA Debit.
+ */
+Drupal.adPayment.cardCheck = function() {
+  var txt;
+  var msgClass;
+
+  // Validate Credit Card
+  // - Check for VISA DEBIT
+  var visaCard = jQuery('#edit-field-card-type-1').is(':checked');
+  var cardNum  = jQuery('#edit-field-cc-number').val();
+  if (visaCard == true) {
+    //  console.log(cardNum + ' VISA: ' + cardNum.indexOf("4506"));
+    if (cardNum.indexOf('4506') >= 0) {
+      console.log('VISA DEBIT: ' + cardNum.indexOf('4506'));
+      txt = '<h5>Sorry, we cannot accept VISA Debit cards online.</h5>For other payment options please call our toll-free number <h5>1-800-663-4619</h5>';
+      msgClass = 'error';
+    }
+    else {
+      txt = '';
+      msgClass = 'no-error';
+    }
+  }
+  else {
+    txt = '';
+    console.log('not VISA');
+  }
+
+  var cardMsg = '<label class="' + msgClass + '">' + txt + '</label>';
+
+  return cardMsg;
+
+}
 
 /**
  * Determine Price
@@ -286,12 +324,12 @@ Drupal.adPayment.getPrice = function(ad) {
   price.discount = (ad.area == 4) ? 2 * ad.durationPricing : 0;
 
   // 3. Section Multiplyer
-  if(jQuery('#edit-field-tags-und').val()) {
-    price.section = jQuery('#edit-field-tags-und').val().length;
-  }
-  else {
-    price.section = 1;
-  };
+  //if(jQuery('#edit-field-tags-und').val()) {
+    price.section = ad.sectionCount;
+  //}
+  //else {
+  //  price.section = 1;
+  //};
   //price.subTotal1 = price.basePrice * price.section;
 
   // 4. Duration ( Image price here... if any)
@@ -300,18 +338,19 @@ Drupal.adPayment.getPrice = function(ad) {
   //price.subTotal = price.subTotal1 * ad.durationPricing + price.image;
 
   // 5. Determine Liveload (if any)
-  price.liveload = (ad.type == 'Liveload Classified Ad') ? price.promote : 0;
+  price.liveload = (ad.typeBool == 1) ? price.promote : 0;
   //price.subTotal  = price.subTotal + price.liveload;
 
   // One long string
   price.subTotal = ((price.adWordCount * price.section * price.area ) * ad.durationPricing) - price.discount;
   price.extras   = price.liveload + price.image;
 
-  //console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
-  //console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
+  // console.log('Basic: ' + price.adWordCount + '  Sections: ' + price.section + '  Areas: ' + price.area + '  (Discount: ' + price.discount + ')' + '  Weeks: ' + ad.durationPricing + '  Image: ' + price.image + '  Liveload: ' + price.liveload);
+  // console.log('Price: ' + price.subTotal + '  Extras: ' + price.extras + '(Image: ' + price.image + '  Liveload: ' + price.liveload + ')');
 
   // Determine taxes
-  price.taxRate = .12;
+  price.taxRate = Drupal.settings.pwDefaults.taxRate;
+  price.taxRateDisplay = Drupal.settings.pwDefaults.taxRateDisplay;
   price.taxes   = (price.subTotal + price.extras) * price.taxRate;
 
   // 6. Total Price
@@ -366,7 +405,7 @@ Drupal.adPayment.displayMsg = function() {
   // ad.msg.areaInternet += 'Internet Included FREE!';
   // Area MSG
   if (ad.area == 0) {
-    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd>No Area Selected</dd>");
+    ad.msg.areaList = Drupal.t("<dt>Areas:</dt><dd class='error'>No Area Selected</dd>");
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd><small><em>Select Area</em><small></dd>");
   }
   else if (ad.area > 0 && ad.area < 4) {
@@ -374,16 +413,18 @@ Drupal.adPayment.displayMsg = function() {
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area </dd>", {'@area': ad.area});
   }
   else if (ad.area == 4) {
-    ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas <br />$2 Discount on ad. </dd>", {'@area': ad.area, '@areas': ad.areaList});
+    ad.msg.areaList = Drupal.t("<dt>Areas: @area </dt><dd> @areas</dd>", {'@area': ad.area, '@areas': ad.areaList});
     ad.msg.areaListSum = Drupal.t("<dt>Areas:</dt><dd> @area </dd>", {'@area': ad.area});
+    ad.msg.discount = Drupal.t("You saved $@discount!", {'@discount': price.discount});
   }
   else {
-    ad.msg.areaList = Drupal.t('<dt>Area: None Selected</dt><dd>Please select an area for your ad to appear in.</dd>');
+    ad.msg.areaList = Drupal.t('<dt>Area: None Selected</dt><dd class="error">Please select an area for your ad to appear in.</dd>');
     ad.msg.areaListSum = "";
+    ad.msg.discount = '';
   }
 
   // Section
-  ad.msg.section = Drupal.t('<dt>Section (@sectionCount):</dt><dd>@sections</dd>', {'@sectionCount': ad.sectionCount, '@sections': ad.sectionName});
+  ad.msg.section = Drupal.t('<dt>Section:</dt><dd>@sections</dd>', {'@sections': ad.sectionName});
 
   // Rate MSG
   ad.msg.rate = Drupal.t("<dt>Rate:</dt><dd> @rate</dd>", {'@rate': ad.formRate});
@@ -397,8 +438,8 @@ Drupal.adPayment.displayMsg = function() {
   };
 
   // Image
-  if (ad.imageFlag) {
-    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageFile</dd>", {'@imageFile': ad.imageMessage});
+  if (ad.imageFlag < 2) {
+    ad.msg.image = Drupal.t("<dt>Image:</dt><dd>@imageMsg</dd>", {'@imageMsg': ad.imageMessage, '@imageFile': ad.imageFile});
   }
   else {
     ad.msg.image = '';
@@ -409,7 +450,7 @@ Drupal.adPayment.displayMsg = function() {
 
   // PRICE
   ad.msg.priceSum = Drupal.t("<dt>Price:</dt><dd><ul class=\"price price-review\"><li class=\"price price-subtotal\">Subtotal: $@basePrice</li><li class=\"price price-extras\">Extras: $@extras</li><li class=\"price price-taxes\">Taxes: $@taxes</li><li class=\"price price-total\">Total: $@total</li></ul></dd>", {'@basePrice': price.subTotalRound,'@extras': price.extras, '@taxes': price.taxesRound,'@total': price.totalRound});
-  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'>Taxes: $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
+  ad.msg.priceOverview = Drupal.t("<dt>Price</dt><dd><ul class='price price-review'><li class='price price-subtotal'>Subtotal: $@subTotal</li><li class='price price-extras'>Extras: $@extras</li><li class='price price-taxes'> Taxes (@trate): $@taxes</li><li class='price price-total'>Total: $@priceTotal</li></dd>", {'@trate': price.taxRateDisplay, '@discount': ad.msg.discount, '@basePrice': price.basePrice, '@overPrice': price.overCount, '@subTotal': price.subTotalRound, '@extras': price.extras, '@taxes': price.taxesRound,'@priceTotal': price.totalRound});
 
   // Error Messages
   ad.msg.error = '';
@@ -446,12 +487,13 @@ Drupal.adPayment.displayMsg = function() {
 
   // Review - full review of ad before submission.
   ad.msg.review =
-    '<div id="review-ad-box-ad" class="review-ad-block">'
-    + '<h4>Ad</h4>'
-    + ad.msg.ad
+  //  '<fieldset id="review-ad-box-ad" class="review-ad-block field-group-fieldset form-wrapper">'
+  //  + '<legend><span class="fieldset-legend">Ad Review</span></legend>'
+      '<p></p>'
+    + '<div id="ad-review-data" class="fieldset-wrapper">'
+    + '<div id="review-ad-box-price" class="review-ad-block fieldset-legend">'
     + '<div id="ad-review-data">'
-    + '<div id="review-ad-box-price" class="review-ad-block">'
-    + '<h5>Summary</h5>'
+    + ad.msg.ad
     + ad.msg.error
     + '<dl>'
     + ad.msg.wordcount
@@ -462,10 +504,15 @@ Drupal.adPayment.displayMsg = function() {
     + ad.msg.duration
     + ad.msg.type
     + ad.msg.image
+    + '</dl>'
+    + '</div>'
+    + '<div id="ad-review-price" class="fieldset-legend">'
+    + '<dl>'
     + ad.msg.priceOverview
     + '</dl>'
     + '</div>'
     + '</div>'
+   // + '</fieldset>'
     ;
 
   ad.msg.storage =
@@ -475,7 +522,7 @@ Drupal.adPayment.displayMsg = function() {
     + 'wordcount_over = ' + ad.countOver + ';'
     + 'area_list = '      + ad.areaList + ';'
     + 'imageFlag = '      + ad.imageFlag + ';'
-    + 'image = '          + ad.image  + ';'
+    + 'image = '          + ad.imageFile  + ';'
     + 'ad_type = '        + ad.typeBool + ';'
     + 'ad_type_name = '   + ad.type + ';'
     + 'rate = '           + ad.formRate + ';'
@@ -509,6 +556,8 @@ jQuery(document).ready(function() {
     // Hide Image Upload Button (uploading images always produces an error.
     jQuery('#edit-field-image-und-0-upload-button').hide();
 
+    // jQuery('#edit-field-review').hide();
+
     // Hide Preview (unless jQuery is broken)...
     jQuery('#edit-preview').hide();
 
@@ -525,25 +574,43 @@ jQuery(document).ready(function() {
     var reviewLocation = '#edit-field-ad-details';
     jQuery(reviewLocation).prepend('<div id="review-ad-block"></div>');
 
+    // DIV for credit card check
+    var cardCheckBox = '<div id="cc-checkbox-check"></div>';
+    jQuery('#edit-field-card-type').append(cardCheckBox);
+
+
     // create error box for validation
     var validationBox = '<div id="validation-box"></div>';
     jQuery('#ad-s-node-form').prepend(validationBox);
 
-    jQuery('#ad-s-node-form').bind('click keypress keyup change mouseup', function() { //click change keypress keyup
-       // console.log('Action Detected.');
+    // Review box
+    var reviewButton = '#edit-field-review > .description';
+    jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
 
-      // Hide Preview (unless jQuery is broken)...
-      jQuery('#edit-preview').hide();
-
-
-      jQuery('#ad-s-node-form').validate({
-        rules: {
-          field_cc_number: {
-            required: true,
-            creditcard: true
-          }
+    // Credit Card Check
+     // EXTERNAL CC VALIDATION SCRIPT
+    jQuery('#ad-s-node-form').validate({
+      rules: {
+        field_cc_number: {
+          required: true,
+          creditcard: true
         }
-      });
+      }
+    });
+    jQuery('#node_ad_s_form_group_payment').change( function() {
+      // Check Credit Card;
+      var debitMsg = Drupal.adPayment.cardCheck();
+      // console.log('MSG: ' + debitMsg);
+      jQuery('#cc-checkbox-check').html(debitMsg);
+    });
+
+
+    //jQuery('#ad-s-node-form').change( function() { // Old change event!
+    jQuery(reviewButton).click( function() { //Bind the change event!
+      jQuery(reviewButton).text('Click to update price.');
+
+
+      jQuery("body").css("cursor", "progress");
 
 
       var sideBox = '#ad-summary';
@@ -557,12 +624,15 @@ jQuery(document).ready(function() {
 
       //console.log(reviewBox);
       jQuery('#ad-review').html(summaryBox);
+      jQuery('#ad-review > ').css({'font-weight':'800'});
 
       // Store Details for future processing.
       jQuery('#edit-field-ad-details-und-0-value').val(Drupal.adPayment.displayMsg().storage);
 
+      jQuery("body").css("cursor", "auto");
 
     });
+
   };
 });
 

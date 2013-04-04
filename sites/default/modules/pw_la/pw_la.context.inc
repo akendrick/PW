@@ -373,6 +373,7 @@ function pw_la_context_default_contexts() {
         'user/login' => 'user/login',
         'display/*' => 'display/*',
         'editorial/submit' => 'editorial/submit',
+        'ad/submit' => 'ad/submit',
       ),
     ),
   );

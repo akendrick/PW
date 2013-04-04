@@ -11,9 +11,6 @@
 */
 function ad_payment_send_email($email_type, $details = NULL) {
 
-  // dpm('DETAILS');
-  // dpm($details);
-
   // Set defaults
   $language = language_default();
   $send = TRUE;
@@ -36,7 +33,7 @@ function ad_payment_send_email($email_type, $details = NULL) {
 
     case 'inhouse': // Inhouse Receipt
     default:
-      $to = variable_get('pw_email_inhouse_receipt', 'info@pennywiseads.com');
+     $to = variable_get('pw_email_inhouse_receipt', 'info@pennywiseads.com');
       $from = $details['user']['email'];
       $result = drupal_mail('ad_payment', 'inhouse', $to, $language, $details, $from, $send);
 
@@ -59,18 +56,18 @@ function ad_payment_send_email($email_type, $details = NULL) {
 * Implementation of hook_mail
 */
 function ad_payment_mail($key, &$message, $params) {
-  $receipt_id = (isset($message['params']['receipt'])) ? $message['params']['receipt'] : $params['receipt'] ;
+  $rid = (isset($params['receipt']));
 
   $ad_type = ($message['params']['ad_type'] == TRUE) ? '### LIVELOAD ### ' : 'Classified Ad';
 
   switch($key) {
     case 'receipt':
       $message['body'][] = email_receipt_body($message);
-      $message['subject'] = 'Pennywise Ad Submission ' . $receipt_id;
+      $message['subject'] = 'Pennywise Ad Submission ' . $rid;
       break;
     case 'inhouse':
       $message['body'][] = email_receipt_body($message);
-      $message['subject'] = $ad_type . 'Pennywise Ad ' . $receipt_id;
+      $message['subject'] = $ad_type . 'Pennywise Ad ' . $rid;
       break;
   }
 
@@ -116,7 +113,8 @@ function ad_payment_mail($key, &$message, $params) {
 * - - Liveload: YES/NO
 * - - Details
 * - PAYMENT
-* - - Sub-total
+* - - Subtotal
+* - - Extras
 * - - Taxes
 * - - Total
 * - - CC Type
@@ -124,8 +122,7 @@ function ad_payment_mail($key, &$message, $params) {
 * - - - (Why pending?) - details as to why.
 */
 function email_receipt_body($params = NULL) {
-  // dpm('EMAIL Body');
-  // dpm($params);
+
   // Get ad submission details
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
@@ -141,15 +138,16 @@ function email_receipt_body($params = NULL) {
 
   // Options
   $areas    = $ad['areas'];
-  $area_count = $ad['area_count'];
+  $area_count    = $ad['area_count'];
   $section_count = $ad['section_count'];
   $section  = $ad['sections'];
 
   // Payment Details
-  $receipt_id = $ad['receipt'];
+  $rid      = $ad['receipt'];
   $name     = $ad['user']['real-name'];
   $card     = $ad['user']['card-type'];
   $discount = $ad['discount'];
+  $extras   = $ad['extras'];
   $subtotal = $ad['subtotal'];
   $taxes    = $ad['taxes'];
   $total    = $ad['total'];
@@ -166,7 +164,7 @@ function email_receipt_body($params = NULL) {
 
 $receipt = <<<RECEIPT
 $ad_type DETAILS
-Receipt #$receipt_id
+Receipt #$rid
 
 Thank you for submitting your ad to PennywiseAds.com.
 This email is your receipt and should be kept for your records.
@@ -186,7 +184,8 @@ PAYMENT INFO
 Submitted by: $name
 Rate: $rate
 
-Subtotal: $$subtotal $discount
+Subtotal: $$subtotal
+Extras:   $$extras
 Taxes:    $$taxes
 Total:    $$total
 Billed to $card.
@@ -202,15 +201,12 @@ Address: Box 430,
 
 $message
 
-Thank you for placing your ads with the Pennywise, we appreciate your business .
+Thank you for placing your ad with the Pennywise, we appreciate your business .
 
-Sincerly,
+Sincerely,
 The Pennywise Team.
 
 RECEIPT;
 
-
-//   dpm('receipt');
-//   dpm($receipt);
   return $receipt;
 }

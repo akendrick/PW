@@ -63,11 +63,7 @@ function thankyou_free() {
 * @TODO
 *   Replace with THEME function.
 */
-
-
 function ad_payment_receipt($temp_id, $data = NULL) {
-  //global $base_url;
-
   // AD Details
   $rate = (is_array($data['rate'])) ? $data['rate']['rate_name'] : $data['rate'];
 
@@ -177,11 +173,13 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   );
 
   $content  = "<div id='adsubmission-thank-you'>";
+  $content .= "<div id='ads-header'>";
+  $content .= '<div class="logo">' . theme('image', $image_variables) . '</div>';
   $content .= "<h3 class='thank-you thank-you-header'>Thank you for choosing Pennywise.</h3>";
   $content .= "<p class='thank-you thank-you-body'>A confirmation message has been sent to your email address.";
-  $content .= '<div class="logo">' . theme('image', $image_variables) . '</div>';
-  $content .= '<p>Please print this page for your receipt.</p>';
-  $content .= '<h3> Ad Confirmation #' . $temp_id . '</h3>';
+  $content .= '<br>Please print this page for your receipt.</p>';
+  $content .= '</div>';
+  $content .= '<h3 class="ads-confirmation"> Ad Confirmation #' . $temp_id . '</h3>';
   $content .= '<div id="ad-submission-receipt" class="ad-receipt-box grid-20 prefix-2 ">' . $details . $price . $contact . '</div>';
   $content .= '<p>' . l('Return to classified ads', '<front>', array('attributes' => array('class' => array('view-classified-ad-link')))) . '<p>';
   $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';

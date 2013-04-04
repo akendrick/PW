@@ -85,7 +85,7 @@ function pw_cl_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '-15',
+        'weight' => '3',
       ),
     ),
   );
@@ -159,103 +159,7 @@ function pw_cl_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '315',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-ad_s-field_address'.
-  $fields['node-ad_s-field_address'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_address',
-      'field_permissions' => array(
-        'type' => '1',
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'addressfield',
-      'settings' => array(
-        'user_role_field' => array(
-          1 => 0,
-          2 => 0,
-          3 => 0,
-          4 => 0,
-          5 => 0,
-          6 => 0,
-          7 => 0,
-          8 => 0,
-          9 => 0,
-          10 => 0,
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'addressfield',
-    ),
-    'field_instance' => array(
-      'bundle' => 'ad_s',
-      'default_value' => array(
-        0 => array(
-          'element_key' => 'node|ad_s|field_address|und|0',
-          'thoroughfare' => '',
-          'premise' => '',
-          'locality' => '',
-          'administrative_area' => '',
-          'postal_code' => '',
-          'country' => 'CA',
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
-          'weight' => 21,
-        ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_address',
-      'label' => 'Address',
-      'required' => 1,
-      'settings' => array(
-        'custom_add_another' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'addressfield',
-        'settings' => array(
-          'available_countries' => array(
-            'CA' => 'CA',
-          ),
-          'format_handlers' => array(
-            'address' => 'address',
-            'address-hide-country' => 0,
-            'organisation' => 0,
-            'name-full' => 0,
-            'name-oneline' => 0,
-          ),
-        ),
-        'type' => 'addressfield_standard',
-        'weight' => '313',
+        'weight' => '9',
       ),
     ),
   );
@@ -295,14 +199,15 @@ function pw_cl_field_default_fields() {
       'bundle' => 'ad_s',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '<strong class=\'ad-note\'>NOTE: Publication Areas</strong>
+      'description' => '<strong class=\'ad-area-discount\'>Save $2 when you book all four areas.</strong>
+<strong class=\'ad-area-areas\'>NOTE: Publication Areas</strong>
 <ul><li><strong>Nelson & Salmo</strong><br>Serving Nelson, RR#2 (Tagham & Blewett), & Ymir
 <li><strong>Kootenay Lake</strong><br>Serving Kaslo, Balfour, Ainsworth, Meadow Creek and Nelson\'s RR#1 & 3 (north of the bridge)
 <li><strong>Trail, Beaver Valley & Rossland</strong><br>Serving Trail, Fruitvale, Montrose and Genelle
 <li><strong>Castlegar & Slocan Valley</strong><br>Serving Castlegar, South Slocan, Slocan Park, Slocan, Crescent Valley and Winlaw
 <li><strong>Internet - included FREE</strong><br>Your ad is also placed on our website the same day as the printed day.</p>
-</ul>
-<em class=\'ad-note\'>Save $2 when you book all four areas.</em>',
+</ul> 
+',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -321,7 +226,7 @@ function pw_cl_field_default_fields() {
       'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_area',
-      'label' => 'Area',
+      'label' => 'Area Edtions',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
@@ -330,9 +235,11 @@ function pw_cl_field_default_fields() {
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '4',
       ),
     ),
   );
@@ -345,6 +252,9 @@ function pw_cl_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_duration',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -374,8 +284,7 @@ function pw_cl_field_default_fields() {
         ),
       ),
       'deleted' => '0',
-      'description' => 'Number of weeks you wish to run your ad.<br/>
-<strong>Book 2 weeks receive your 3rd week FREE!</strong>',
+      'description' => '<strong>Book 2 weeks receive your 3rd week FREE!</strong>',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -393,7 +302,7 @@ function pw_cl_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_duration',
-      'label' => 'Duration',
+      'label' => 'Weeks to run',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
@@ -402,9 +311,11 @@ function pw_cl_field_default_fields() {
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '5',
       ),
     ),
   );
@@ -447,7 +358,7 @@ function pw_cl_field_default_fields() {
       'bundle' => 'ad_s',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'This email is for verification purposes and a receipts only, and we will not send you any unsolicited emails or pass your email to any 3rd party.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -475,10 +386,11 @@ function pw_cl_field_default_fields() {
         'active' => 1,
         'module' => 'email',
         'settings' => array(
-          'size' => '60',
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'size' => '40',
         ),
         'type' => 'email_textfield',
-        'weight' => '312',
+        'weight' => '326',
       ),
     ),
   );
@@ -535,7 +447,8 @@ function pw_cl_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'ad_s',
       'deleted' => '0',
-      'description' => 'Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.',
+      'description' => '<strong>Add an image!</strong> <small>Everyone likes to see what they are buying.</small>
+<ul><li>Personal/Non-Profit $1.49/week</li><li>Business $2.99/week</li></ul>',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
@@ -553,12 +466,27 @@ function pw_cl_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_image',
-      'label' => 'Image',
+      'label' => 'Power Picture',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
         'default_image' => 0,
+        'epsacrop' => array(
+          'styles' => array(
+            'classified-list-style' => 0,
+            'classified_list_js_crop' => 0,
+            'display_ad_print_cropped_vert_thumbnail' => 0,
+            'display_ad_smart_crop_med_square' => 0,
+            'editoral_square_thumbnail' => 0,
+            'editorial_block_list_header' => 0,
+            'editorial_header' => 0,
+            'editorial_small' => 0,
+            'editorial_teaser' => 0,
+            'editorial_tiny' => 0,
+            'miniature_square' => 0,
+          ),
+        ),
         'file_directory' => 'online_ad_submission_images',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '4MB',
@@ -602,13 +530,18 @@ function pw_cl_field_default_fields() {
             'image_classified_list_js_crop' => 0,
             'image_classified_list_nocrop' => 0,
             'image_classified_page_style' => 0,
+            'image_display_ad_full_page' => 0,
+            'image_display_ad_print_cropped_vert_thumbnail' => 0,
             'image_display_ad_print_thumbnail' => 0,
+            'image_display_ad_smart_crop_med_square' => 0,
+            'image_editoral_square_thumbnail' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
             'image_editorial_teaser' => 0,
             'image_editorial_thumbnail' => 0,
             'image_editorial_tiny' => 0,
+            'image_epsacrop_thumb' => 0,
             'image_large' => 0,
             'image_medium' => 0,
             'image_miniature_square' => 0,
@@ -617,11 +550,88 @@ function pw_cl_field_default_fields() {
             'link' => 0,
           ),
           'insert_width' => '',
-          'preview_image_style' => '',
+          'label_help_description' => '',
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '110',
+        'weight' => '318',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-ad_s-field_liveload'.
+  $fields['node-ad_s-field_liveload'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_liveload',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'ad_s',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '<strong>$5 one time fee.</strong>
+Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am - 3pm PST.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 21,
+        ),
+        'notifications' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_liveload',
+      'label' => 'Liveload your ad',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
+        'type' => 'options_onoff',
+        'weight' => '317',
       ),
     ),
   );
@@ -660,7 +670,7 @@ function pw_cl_field_default_fields() {
       'bundle' => 'ad_s',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Need some help with your ad? Want your ad to run every other week? Let us know, we are here to help.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -677,7 +687,7 @@ function pw_cl_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_notes',
-      'label' => 'Notes',
+      'label' => 'Special Requests',
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
@@ -688,10 +698,15 @@ function pw_cl_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'label_help_description' => '',
+          'maxlength_js' => '',
+          'maxlength_js_enforce' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'maxlength_js_truncate_html' => 0,
           'rows' => '6',
         ),
         'type' => 'text_textarea',
-        'weight' => '145',
+        'weight' => '10',
       ),
     ),
   );
@@ -1007,140 +1022,7 @@ function pw_cl_field_default_fields() {
           'size' => 15,
         ),
         'type' => 'phone_number',
-        'weight' => '311',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-ad_s-field_price'.
-  $fields['node-ad_s-field_price'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_price',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'number',
-      'settings' => array(
-        'decimal_separator' => '.',
-        'precision' => '10',
-        'scale' => '2',
-      ),
-      'translatable' => '0',
-      'type' => 'number_decimal',
-    ),
-    'field_instance' => array(
-      'bundle' => 'ad_s',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '13',
-        ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_price',
-      'label' => 'Price',
-      'required' => 0,
-      'settings' => array(
-        'custom_add_another' => '',
-        'max' => '',
-        'min' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'number',
-        'settings' => array(),
-        'type' => 'number',
-        'weight' => '316',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-ad_s-field_promote'.
-  $fields['node-ad_s-field_promote'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_promote',
-      'field_permissions' => array(
-        'type' => '0',
-      ),
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => 'Regular',
-          1 => 'Liveload',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'ad_s',
-      'default_value' => array(
-        0 => array(
-          'value' => '0',
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '<em>In a rush? Can\'t wait until Tuesday?</em><br/>
-<strong>For an additional $5 (not incl. taxes)</strong> your ad will go online within 1/2 hour of our receiving it.
-Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
-        ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_promote',
-      'label' => 'Liveload Your Ad',
-      'required' => 1,
-      'settings' => array(
-        'custom_add_another' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '130',
+        'weight' => '325',
       ),
     ),
   );
@@ -1166,7 +1048,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'Personal' => 'Personal',
+          'Personal' => 'Personal & Non-Profit',
           'Business' => 'Business',
         ),
         'allowed_values_function' => '',
@@ -1182,12 +1064,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
         ),
       ),
       'deleted' => '0',
-      'description' => '<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
-<span class="classified-rate-card\'>
-<strong>Classified Ad Rates per area</strong><br>
-<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
-<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
-</span>',
+      'description' => '<b>Business Rated Categories include:</b><br>ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1217,7 +1094,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
         ),
         'type' => 'options_buttons',
-        'weight' => '10',
+        'weight' => '2',
       ),
     ),
   );
@@ -1226,7 +1103,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
   $fields['node-ad_s-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -1281,7 +1158,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       ),
       'entity_type' => 'node',
       'field_name' => 'field_tags',
-      'label' => 'Section',
+      'label' => 'Classification',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
@@ -1290,9 +1167,11 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
         'type' => 'options_select',
-        'weight' => '12',
+        'weight' => '6',
       ),
     ),
   );
@@ -2682,7 +2561,7 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
   $fields['node-classified-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -3154,7 +3033,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
   $fields['node-free-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -3245,6 +3124,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('<b>Business Rated Categories include:</b><br>ALL RENTALS, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.');
   t('<big><strong>Test your file first!</strong></big>
 <ol>
 <li>To minimize any problems paste Adworks copy into <em>TextWrangler</em>:
@@ -3264,45 +3144,37 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
 </ol>
 
 ');
-  t('<em>In a rush? Can\'t wait until Tuesday?</em><br/>
-<strong>For an additional $5 (not incl. taxes)</strong> your ad will go online within 1/2 hour of our receiving it.
-Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm).');
-  t('<strong class=\'ad-note\'>NOTE: Publication Areas</strong>
+  t('<strong class=\'ad-area-discount\'>Save $2 when you book all four areas.</strong>
+<strong class=\'ad-area-areas\'>NOTE: Publication Areas</strong>
 <ul><li><strong>Nelson & Salmo</strong><br>Serving Nelson, RR#2 (Tagham & Blewett), & Ymir
 <li><strong>Kootenay Lake</strong><br>Serving Kaslo, Balfour, Ainsworth, Meadow Creek and Nelson\'s RR#1 & 3 (north of the bridge)
 <li><strong>Trail, Beaver Valley & Rossland</strong><br>Serving Trail, Fruitvale, Montrose and Genelle
 <li><strong>Castlegar & Slocan Valley</strong><br>Serving Castlegar, South Slocan, Slocan Park, Slocan, Crescent Valley and Winlaw
 <li><strong>Internet - included FREE</strong><br>Your ad is also placed on our website the same day as the printed day.</p>
-</ul>
-<em class=\'ad-note\'>Save $2 when you book all four areas.</em>');
-  t('<strong>NOTE: Business Rated Categories include: ALL RENTALS</strong>, Bulletin Board, Firewood, Contractor/Tradespeople, Services, Health Personal Care, Gardening/Landscaping, Business Opportunities, Employment Opportunities, Legal Notices, Commercial Real Estate, Commercial Rentals, Vacation Rentals, Shared Accommodations, House Sitting.
-<span class="classified-rate-card\'>
-<strong>Classified Ad Rates per area</strong><br>
-<ul><li><strong>Personal:</strong> 15 words or less - $3.50 <em>per week</em> + tax. (20¢ per additional word.)</li>
-<li><strong>Business:</strong> 15 words or less - $5.00 <em>per week</em> + tax. (40¢ per additional word.)</li></ul>
-</span>');
+</ul> 
+');
+  t('<strong>$5 one time fee.</strong>
+Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am - 3pm PST.');
+  t('<strong>Add an image!</strong> <small>Everyone likes to see what they are buying.</small>
+<ul><li>Personal/Non-Profit $1.49/week</li><li>Business $2.99/week</li></ul>');
+  t('<strong>Book 2 weeks receive your 3rd week FREE!</strong>');
   t('Ad Copy');
   t('Ad Creation Override');
   t('Ad Details');
-  t('Adding an image will improve your chances of getting seen. Everyone likes to see an item before buying, why not show them right now.');
-  t('Address');
   t('Allow Questions & Comments');
   t('Allowing questions and comments will help Pennywise readers contact you about your free ad. They will be allowed to post questions and comments on your ad, and you will be able to respond to them. Comments and questions will also be sent to your email so you can be alerted the moment someone posts a question.');
-  t('Area');
   t('Area Code');
+  t('Area Edtions');
   t('Body');
   t('Classification');
   t('Classified Ad Type');
-  t('Duration');
   t('Email');
   t('Image');
   t('Image Override');
   t('Image Uploader');
   t('Link');
-  t('Liveload Your Ad');
-  t('Notes');
-  t('Number of weeks you wish to run your ad.<br/>
-<strong>Book 2 weeks receive your 3rd week FREE!</strong>');
+  t('Liveload your ad');
+  t('Need some help with your ad? Want your ad to run every other week? Let us know, we are here to help.');
   t('Phone');
   t('Phone Number');
   t('Please use 15 - 25 words (about 120 characters) to describe your one personal item per Free for Free ad.
@@ -3311,12 +3183,14 @@ Available from Monday through Thursday, 9 am - 4:30 pm PST (Friday 9am until 3pm
 <li>FREE 2 wheel bike will fit 8 year old 
 </ul>
 Please don\'t post services in FREE for FREE such as free estimates, no free rides to polling station, or buy 3 get 1 free. ');
+  t('Power Picture');
   t('Price');
   t('Publish Date');
   t('Rate');
   t('Section');
-  t('This email is for verification purposes and a receipts only, and we will not send you any unsolicited emails or pass your email to any 3rd party.');
+  t('Special Requests');
   t('Use the override to \'go through the motions\' of checking the ads but do not save the ads.');
+  t('Weeks to run');
 
   return $fields;
 }

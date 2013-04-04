@@ -284,6 +284,112 @@ function pw_cl_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_classified_ad|node|ad_s|form';
+  $field_group->group_name = 'group_classified_ad';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_ad_copy',
+      1 => 'field_tags',
+      2 => 'field_area',
+      3 => 'field_rate',
+      4 => 'field_duration',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '<div class=\'classified-ad-general\'>
+	<div class=\'classified-description-rates\'><strong>Classified Ad Rates</strong>
+		<dl class=\'personal\'>
+			<dt>Personal & Non-Profit</dt><dd> 15 word or less - $3.50 per week + tax (20¢ per additional word)</dd></dl>
+		<dl class=\'business\'>
+			<dt>Business</dt><dd> 15 word or less - $5.00 per week + tax (40¢ per additional word)</dd>
+		</dl>
+		<div class=\'spacer\'></div>
+	</div>
+	<div class=\'classified-description-directions\'><strong>Directions</strong>
+		<ol>
+			<li>Start by designating ad as Business or Personal</li>
+			<li>Type your ad in the <b>Ad Copy</b> box.<small>Coping and pasting text of your ad from another document may affect the word count and price of your ad.</small></li>
+			<li>Chose which <b>Area Edition(s)</b> you want your print ad to appear.</li>
+			<li>Chose how many weeks your ad is to run.</li>
+			<li>Select the right option to highlight your ad.</li>
+			<li>Review your ad and submit when happy.</li>
+		<ol>
+	</div>
+</div>
+',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_classified_ad|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact|node|ad_s|form';
+  $field_group->group_name = 'group_contact';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_payment';
+  $field_group->data = array(
+    'label' => 'Contact',
+    'weight' => '324',
+    'children' => array(
+      0 => 'field_email',
+      1 => 'field_phone',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Contact',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => 'For verification purposes only.<br><small> We will not send you any unsolicited emails or pass your phone number to any 3rd party.</small>',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_contact|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact|node|classified|form';
+  $field_group->group_name = 'group_contact';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'classified';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_cl_ad_master';
+  $field_group->data = array(
+    'label' => 'Contact',
+    'weight' => '14',
+    'children' => array(),
+    'format_type' => 'htab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_contact|node|classified|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_default|node|classified|form';
   $field_group->group_name = 'group_default';
   $field_group->entity_type = 'node';
@@ -406,6 +512,38 @@ function pw_cl_field_group_info() {
     ),
   );
   $export['group_free_for_free|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_more|node|ad_s|form';
+  $field_group->group_name = 'group_more';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'ad_s';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'More',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_notes',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'More',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'more-grouping',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_more|node|ad_s|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -546,21 +684,22 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad_grouping';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'PAYMENT',
-    'weight' => '300',
+    'label' => 'Payment Information',
+    'weight' => '3',
     'children' => array(
-      0 => 'group_user_details',
+      0 => 'group_contact',
     ),
-    'format_type' => 'multipage',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'no-start',
+      'label' => 'Payment Information',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_payment|node|ad_s|form'] = $field_group;
@@ -598,22 +737,18 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_user_details';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Ad Review',
-    'weight' => '314',
+    'label' => 'Review',
+    'weight' => '2',
     'children' => array(
-      0 => 'field_price',
-      1 => 'field_ad_details',
-      2 => 'title',
-      3 => 'path',
-      4 => 'redirect',
+      0 => 'field_ad_details',
     ),
-    'format_type' => 'div',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Ad Review',
+      'label' => 'Review',
       'instance_settings' => array(
-        'required_fields' => 1,
+        'required_fields' => 0,
         'classes' => '',
         'description' => '',
         'show_label' => '1',
@@ -698,26 +833,21 @@ function pw_cl_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'ad_s';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ad';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'OPTIONS',
-    'weight' => '-19',
+    'weight' => '1',
     'children' => array(
-      0 => 'group_opt_image_block',
-      1 => 'group_opt_liveload_block',
-      2 => 'group_opt_notes_block',
+      0 => 'field_image',
+      1 => 'field_liveload',
     ),
-    'format_type' => 'div',
+    'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'OPTIONS',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'ad-create-options-box ',
+        'required_fields' => 0,
+        'classes' => '',
         'description' => '',
-        'show_label' => '1',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
       ),
       'formatter' => 'open',
     ),

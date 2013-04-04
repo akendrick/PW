@@ -81,7 +81,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_tags']['element_class'] = 'search-classified-section-header';
   $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -198,7 +198,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['sorts']['body_format']['id'] = 'body_format';
   $handler->display->display_options['sorts']['body_format']['table'] = 'field_data_body';
   $handler->display->display_options['sorts']['body_format']['field'] = 'body_format';
-  /* Sort criterion: Field: Image (field_image:fid) */
+  /* Sort criterion: Field: Header Image (field_image:fid) */
   $handler->display->display_options['sorts']['field_image_fid']['id'] = 'field_image_fid';
   $handler->display->display_options['sorts']['field_image_fid']['table'] = 'field_data_field_image';
   $handler->display->display_options['sorts']['field_image_fid']['field'] = 'field_image_fid';
@@ -320,7 +320,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_tags_1']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_tags_1']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_tags_1']['delta_offset'] = '0';
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image_1']['id'] = 'field_image_1';
   $handler->display->display_options['fields']['field_image_1']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image_1']['field'] = 'field_image';
@@ -493,7 +493,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  /* Sort criterion: Field: Image (field_image:fid) */
+  /* Sort criterion: Field: Header Image (field_image:fid) */
   $handler->display->display_options['sorts']['field_image_fid']['id'] = 'field_image_fid';
   $handler->display->display_options['sorts']['field_image_fid']['table'] = 'field_data_field_image';
   $handler->display->display_options['sorts']['field_image_fid']['field'] = 'field_image_fid';

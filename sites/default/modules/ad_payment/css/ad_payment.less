@@ -79,520 +79,13 @@
   }
 }
 
-/***************** Registration Unified Form ********/
-.ad-submission-unified {
-  #login-message {
-/*     .center; */
-    text-align: center;
-    .border-radius;
-    background-color: @status;
-    color: @white;
-    font-size: large;
-    font-weight: 900;
-    padding: 5px;
-  }
-  .border-radius;
-  background-color: @sunlight;
-  border: 3pt solid @darksand;
-  padding: 10px;
-  margin: 20px;
-  #edit-submit {
-    .center
-  }
-  #login-links {
-    .center;
-    .button;
-    padding: 5px;
-
-  }
+@ad_mleft:  140px;
+@ad_mright: 120px;
+@ad_mtop:   -16px;
+.ad-left(@left: @ad_mleft, @top: @ad_mtop) {
+  margin: @top 0 0 @left;
 }
 
-a.ad-submission-link {
-  background-color: @alert;
-  border: 1pt solid @white;
-}
-/************* AD FORM *********/
-/* Ad Submission Page */
-body.page-ad-submit {
-  .vertical-tabs {
-    margin: 4em 0 1em 15em;
-  }
-  #ad-s-node-form {
-/*     .field-name-field-area .description, */
-/*
-    .field-name-field-rate .description,
-    #edit-field-ad-details
-      display: block;
-    }
-*/
-    #edit-field-ad-copy-und-0-value {
-      font-size: 2em;
-    }
-    #node_ad_s_form_group_payment {
-      margin: 0 auto
-    }
-    #edit-field-ad-copy {
-      width: 590px;
-      float: left;
-    }
-    #ad-summary {
-      margin: 0;
-      height: auto;
-      width: 250px;
-      float: right;
-    }
-  }
-}
-
-/*ad submission page */
-body.page-ad-submit {
-  #ad-s-node-form { /*general style*/
-    #node_ad_s_form_group_basic {
-      .fieldset-wrapper {
-        padding: 0;
-        margin: 0;
-      }
-    }
-      /* OPTIONS */
-    .group_upgrade {
-      margin-top: 40px;
-      clear: both;
-      .border-radius;
-      padding: 10px;
-    }
-    .multipage-controls {
-      margin-bottom: 120px;
-    }
-    .ad-create-options-box  {
-      background-color: @darksand;
-      padding: 4px;
-      h3 {
-        padding: 0;
-      }
-      .field-group-format {
-        margin-top: 20px;
-      }
-    }
-
-    /* RATE PRICING */
-    #edit-field-rate {
-      .description {
-        span {
-          display: block;
-          clear: left;
-          margin: 20px 0;
-          border: 1pt solid @darksand;
-          background-color: @sand;
-          padding: 5px;
-          .border-radius;
-          strong {
-            text-align: center;
-            font-weight: 800;
-            font-size: 1.2em;
-          }
-          ul {
-            margin: 5px 0 3px 20px;
-            li {
-              margin-bottom: 15px;
-            }
-          }
-        }
-      }
-    }
-
-      /* mobile stylin' */
-    ul.horizontal-tabs-list {
-      li { width: 23%; }
-      strong { font-size: .9em; }
-      .form-required { display: none; }
-    }
-    .field-name-field-area .description,
-    .field-name-field-rate .description,
-    /* .field-name-field-duration .description */ {
-/*       display: none; */
-    }
-      /* hide details */
-   .form-item-field-ad-details-und-0-value /* , #field-ad-details-add-more-wrapper */ {
-      display: none;
-    }
-    #edit-field-price {
-      display: none;
-    }
-
-      /*large ad copy body*/
-    #edit-field-ad-copy-und-0-value {
-      font-size: 1.4em;
-    }
-
-    /*empty summary box*/
-    .ad-summary-directions {
-      h4 {
-        background-color: @classified_med;
-        .border-radius-custom;
-        text-align: center;
-        color: @white;
-        margin: 0;
-        padding: 4px;
-      }
-      color: @white;
-      padding: 5px;
-      background-color: @classified_med;
-      .border-radius-custom(0, 0, 10px, 10px);
-      ul {
-        margin: 0 0 0 20px;
-        padding: 0 5px 5px 10px;
-        li {
-          font-size: 1em;
-          line-height: 1.2em;
-          margin-bottom: 6px;
-          list-style-position: outside;
-        }
-      }
-    }
-
-    .form-wrapper {
-      background-color: @lightsand;
-      padding: 4px 15px;
-      .border-radius;
-      margin: 4px 2px;
-    }
-
-
-      /* HIGHLIGHTS */
-      /*colour certain input fields*/
-    .field-name-field-promote,
-    .form-item-field-agree-und,
-    .field-name-field-price {
-      background-color: @darklight;
-    }
-      /*increase text*/
-    #edit-field-image-und legend, label.edit-field-promote-und, label.edit-field-agree-und {
-      width: 100%;
-      text-align: center;
-      font-size: 2em;
-      font-weight: bolder;
-      margin-bottom: 12px;
-    }
-
-    /* classififiaciton */
-    #edit-field-tags-und {
-      height: 25em;
-      option.14 {
-        font-weight: bold;
-      }
-    }
-
-
-    #edit-field-image-und {
-/*         background-image: url(../../../../default/files/default_images/puppies.jpg); */
-        background-repeat: no-repeat;
-        background-position: 30px 20px;
-      .fieldset-legend {}
-      .fieldset-description {
-        margin: 120px 5px 5px 5px
-      }
-      .form-item-field-image-und-0 {
-        padding: 8px;
-        label {
-          text-align: center;
-          background-color: @classified_dark;
-          color: @white;
-          .border-radius-custom (6px, 6px, 0, 0);
-        }
-        .description {
-          font-size: smaller;
-/*           color: @darksand; */
-        }
-      }
-    }
-      /* Liveload  */
-    .form-item-field-promote-und {
-      .description {
-          width: 100%;
-          text-align: center;
-        em {
-          font-size: 1.4em;
-          font-weight: bolder;
-          color: @classified_dark;
-        }
-      }
-    }
-    /* notes */
-    .group-opt-notes-block {
-      margin: 10px 0 0 0;
-      background-color: @darksand;
-      padding: 5px;
-      .border-radius;
-    }
-
-
-    /* confirm */
-    .form-item-field-agree-und {
-      padding: 10px;
-      .border-radius;
-    }
-
-
-    background-color: transparent;
-    border: none;
-    /* HORZ tabs */
-    ul.horizontal-tabs-list {
-      background-color: transparent;
-      border: none;
-      margin-bottom: -12px;
-      padding: 0;
-      li {
-        background-color: @darksand;
-        .border-radius;
-      }
-      li.selected {
-        background-color: @white;
-      }
-    }
-    /*form*/
-    .horizontal-tabs-panes {
-      background-color: @white;
-      .border-radius;
-      fieldset {
-        background-color: transparent;
-        .border-radius(0);
-      }
-    }
-  }
-}
-
-/* PAYMENT --- CC INFO*/
-#node_ad_s_form_group_payment {
-  .fieldset-wrapper {
-    padding: 0;
-    margin: 0;
-    #edit-card {
-      clear: left;
-  		background: url('url(../../../../ad_payment/images/lock-fade.png') no-repeat;
-  		background-position: center;
-  		background-position-x: 200px;
-  		background-position-y: 180px;
-      border: 1pt solid @darksand;
-      .border-radius;
-      background-color: @white;
-      width: 400px;
-/*       float: left; */
-    }
-    #edit-field-address-und-0 {
-      .border-radius;
-      background-color: @sunlight;
-      width: 350px;
-/*
-      float: left;
-      margin-left: 20px;
-*/
-    }
-/*
-    #field-phone-add-more-wrapper, #edit-field-email, #edit-field-price {
-      width: 400px;
-      margin: 5px auto;
-      clear: both;
-    }
-*/
-  }
-}
-
-/* AD FORM SPECIAL NOTICES ---> Free for free */
-#edit-free-box-link {
-  background: inherit;
-  z-index: -30;
-}
-.group_free_for_free  {
-  background: @white;
-  /* gradient */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIzOCUiIHN0b3AtY29sb3I9IiNmOGZmZTgiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSI2OCUiIHN0b3AtY29sb3I9IiNlM2Y1YWIiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSI4NyUiIHN0b3AtY29sb3I9IiNiZWUwYjAiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTRkMmIzIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
-background: -moz-linear-gradient(top,  rgba(248,255,232,0.13) 38%, rgba(227,245,171,0.13) 68%, rgba(190,224,176,0.13) 87%, rgba(164,210,179,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(38%,rgba(248,255,232,0.13)), color-stop(68%,rgba(227,245,171,0.13)), color-stop(87%,rgba(190,224,176,0.13)), color-stop(100%,rgba(164,210,179,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21f8ffe8', endColorstr='#a4d2b3',GradientType=0 ); /* IE6-8 */
-  /* end gradient */
-
-  .description { display: none; }
-  border: 2pt solid @editorial_dark;
-  .border-radius;
-  font-size: .8em;
-  line-height: 1em;
-  padding: 0;
-  h1.free-for-free-link-box {
-    background-color: @editorial_light;
-    .border-radius;
-    width: 150px;
-    text-align: center;
-    border: 2pt solid @white;
-    margin: 5pt;
-    font-size: 1.8em;
-    padding: 5px;
-    a.free-ad-link {
-      text-decoration: none;
-      color: @white;
-      line-height: 1em;
-      width: 100%;
-    }
-    a.free-ad-link:hover {
-      color: #alert;
-    }
-    .free, .click {
-      width: 90%;
-      display: block;
-      clear: both;
-      text-align: center;
-    }
-    .free {
-      color: @editorial_dark;
-      font-size: 1.8em;
-      line-height: .9em;
-    }
-    .click {
-      font-size: smaller;
-      text-transform: uppercase;
-      background-color: @alert;
-      .border-radius;
-      padding: 2px;
-    }
-    a:hover {
-      color: @alert;
-      .click {
-        color: @sunlight;
-      }
-    }
-  }
-  .form-wrapper, .fieldset-wrapper { margin: 0; padding: 0;}
-  h4 {
-    margin: 2px;
-    text-align: center;
-  }
-  ul {
-    list-style-position: inside;
-    list-style-type: square;
-    margin: 2px;
-    background-color: @white;
-    border: 1pt solid @editorial_light;
-    padding: 10px;
-    li {
-      margin: 2px;
-    }
-  }
-  p {
-    font-size: .9em;
-    margin: 4px 2px;
-  }
-}
-/* END AD FORM SPECIAL NOTICES ---> Free for free */
-
-/* jQuery Price Summary  */
-#ad-summary {
-  height: 280px;
-  margin: 0 ;
-  #ad-summary-price {
-    dl.ad-summary {
-      dt, dl, dd {
-        margin: 0;
-        padding: 0;
-        line-height: .9em;
-        font-size: .9em;
-        text-align: center;
-      }
-      dt {
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-      dd {
-        font-size: 1.2em; /*1.2em*/
-        line-height: 1.3em;
-      }
-      .ad-summary-block {
-        width: 100px;
-        height: 40px;
-        background-color: @classified_med;
-        color: @white;
-        text-align: center;
-        margin: 6px;
-        padding: 5px;
-        float: left;
-      }
-      .ad-summary-price-block {
-        width: 220px;
-        height: auto;
-        font-size: 1em;
-        line-height: 1em;
-        dt { float: left; width: 50px; }
-        dd { float: right; }
-      }
-    }
-  }
-}
-
-
-/* AD REVIEW BOX jquery */
-#review-ad-box-ad {
-  background: @classified_light;
-  border: 1pt solid @classified_med;
-  padding: 10pt;
-  .border-radius;
-}
-#review-ad-box-price {
-  font-size: .9em;
-  line-height: 1em;
-  dl {
-    margin: 2px;
-    dt, dd {
-      font-size: 1em;
-      line-height: 1.1em;
-    }
-    dt { font-weight: bold;}
-  }
-  ul {
-    list-style: circle;
-    list-style-position: inside;
-  }
-}
-
-#user_user_form_group_sales {
-  legend {
-    display: none;
-  }
-  .fieldset-wrapper {
-    padding: 0;
-  }
-  padding: 0;
-  margin: 0;
-  background-color: inherit;
-}
-
-.form-item-field-cc-number {
-  #edit-field-cc-number {
-    background-color: @classified_light;
-  }
-	input {
-	 border: 1px solid black;
-	 margin-bottom: .5em;
-  }
-	input.error { border: 1px solid red; }
-	label.error {
-		background: url('url(../../../../ad_payment/images/checked-no.png') no-repeat;
-		padding-left: 35px;
-		height: 35px;
-		margin-left: .3em;
-	}
-	label.valid {
-		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
-		display: block;
-    padding-left: 35px;
-		width: 35px;
-		height: 35px;
-	}
-
-}
 
 /* // Radio Button Error */
 .form-item input[type="checkbox"].error, .form-item input[type="radio"].error{
@@ -600,7 +93,457 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21f8ffe8', e
  -moz-appearance: none;
 }
 
-/******************** !PAYMENT CSS ********/
+
+/******************* LAYOUT */
+.page-ad-submit h1#page-title { display: none; }
+#node_ad_s_form_group_classified_ad {
+}
+
+#ad-s-node-form {
+  .classified-ad-general {
+    line-height: 1em;
+    background-color: @white;
+    .border-radius;
+  }
+  .classified-description-rates {
+    margin: 0;
+    border: 1pt solid @darksand;
+    background-color: @sand;
+    padding: 5px;
+    .border-radius;
+    border: 3pt solid @white;
+/*     height: 102px; */
+    strong {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2em;
+      text-transform: uppercase;
+    }
+    dl {
+      margin: 10px;
+      width: 45%;
+      text-align: center;
+      float: left;
+      dt {
+        line-height: 1em;
+        font-weight: bold;
+      }
+      dd {
+        margin: 5px 0;
+      }
+    }
+
+  }
+  .spacer {
+    width: 300px;
+    clear: both;
+    visibility: hidden;
+  }
+  .classified-description-directions {
+    clear: both;
+    background-color: @white;
+    padding: 25px;
+    margin-bottom: 30px;
+    ol, ul {
+      li {
+        list-style-position: outside;
+        padding: 0 0 2px 0;
+      }
+      .ad-left(@ad_mright);
+    }
+  }
+.ds-form > .group-right {
+    width: 240px;
+    padding: 10px;
+}
+.ds-form > .group-left {
+    width: 620px;
+    .form-wrapper {
+      background-color: transparent;
+      clear: both;
+      margin-bottom: 10px;
+    }
+  #edit-field-rate,
+  #edit-field-area,
+  #edit-field-tags,
+  .group-review,
+/*   #edit-field-image, */
+  #edit-field-duration-und {
+      label, h3 {
+        text-align: left;
+        font-weight: 700;
+        width: @ad_mright;
+      }
+  }
+  #edit-field-rate-und,
+  #edit-field-area-und,
+  #edit-field-duration-und,
+  #edit-field-tags-und,
+  #image-widget {
+    .ad-left(@ad_mleft, -30px);
+    line-height: 1em;
+  }
+  .description {
+    margin-left: @ad_mleft;
+  }
+
+  /* ad copy */
+  .form-textarea-wrapper {
+    .ad-left;
+  }
+  /* Liveload */
+  .form-item-field-liveload-und {
+/*     margin-left: @ad_mleft; */
+    label, input, .description {
+      float: left;
+    }
+    label {
+      width: 140px;
+      font-weight: 800;
+      font-size: 1.1em;
+    }
+    input {
+      width: 20px;
+    }
+    .description {
+      width: 350px;
+      margin: 0 0 20px 0;
+/*       margin: -20 0 120px 0; */
+
+    }
+  }
+  .image-widget {
+    .ad-left;
+  }
+}
+/* duration inline description */
+#edit-field-duration {
+  display:inline-block;
+    .form-item-field-duration-und {
+    .description {
+      margin-left: 200px;
+      margin-top: -32px;
+    }
+  }
+}
+.beautytips {
+  float: left;
+  .border-radius(20px);
+  background-color: @classified_dark;
+  color: @white;
+  border: 1pt solid @white;
+  padding: 2px 6px;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+/* general group layout */
+.fieldset-wrapper {
+  background-color: @classified_light;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  .border-radius;
+  padding: 20px;
+}
+legend {
+  background-color: @classified_dark;
+  color: @white;
+  margin: 0;
+  padding: 10px 10px 15px 10px;
+  margin-bottom: 0;
+  font-size: 1.4em;
+  .border-radius-custom(20px, 20px, 0, 0);
+}
+
+.group_more {
+  h3 { display: none; }
+  #edit-contact-info {
+    width: 240px;
+    position: absolute;
+    text-align: center;
+/*     float: right; */
+/*     clear: left; */
+    bottom: 0;
+    border: 10px;
+    background-color: @alert;
+    color: @white;
+    font-weight: 700;
+    .border-radius;
+    padding: 5px;
+    font-size: 1.4em;
+    label {
+      color: @sunlight;
+      font-size: 1.6em;
+      text-transform: uppercase;
+    }
+    .description {
+      color: @white;
+      strong {
+        clear: left;
+        display: block;
+        line-height: 1.2em;
+        font-size: 1.4em;
+      }
+      a {
+        text-decoration: none;
+        color: @sunlight;
+      }
+    }
+  }
+}
+/* notes */
+#edit-field-notes {
+  .form-item {
+    margin: 0;
+  }
+  margin: 10px 0 0 0;
+  background-color: lighten(@darksand, 10%);
+  padding: 5px;
+
+  .border-radius;
+  label {
+    text-align: center;
+    font-size: 1.4em;
+    text-transform: uppercase;
+  }
+  .description {
+    padding: 5px;
+  }
+  .description:first-line {
+    font-weight: 700;
+  }
+}
+
+.group-review {
+  #edit-field-review {
+    .description {
+      padding: 6px;
+      background-color: @sunlight;
+      font-size: 1.4em;
+      font-weight: 800px;
+      width: 300px;
+      color: @black;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      display: block;
+      .border-radius;
+    }
+  }
+}
+/* LAYOUT */
+
+
+#edit-field-ad-copy {}
+
+/* PAYMENT --- CC INFO*/
+#node_ad_s_form_group_payment {
+  	#edit-group-name,
+  	#edit-group-card,
+  	#edit-group-expiry,
+  	#node_ad_s_form_group_contact {
+      legend {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: 10pt;
+        color: @black;
+        font-weight: 700;
+        margin-bottom: -8px;
+      }
+  	}
+  	.fieldset-wrapper {
+  background-color: @sunlight;
+/*   legend { margin-bottom: 24px;} */
+  .border-radius;
+  .fieldset-wrapper {
+/*     .border-radius; */
+  	background: url('url(../../../../ad_payment/images/lock-fade.png') no-repeat;
+  	background-position: center;
+  	margin: 0;
+  	padding: 0;
+    	.ad-left;
+    	margin-top: -20px;
+    	background: inherit;
+    	.form-item {
+      	display: inline;
+      	float: left;
+      	margin: 0 15px 10px 0;
+    	}
+    	.description {
+      	margin: 0;
+    	}
+  	}
+      /* CC */
+    .form-item-field-cc-number {
+    	input {
+    	 border: 1px solid black;
+    	 margin-bottom: .5em;
+      }
+    	input.error { border: 1px solid red; }
+    	label.error {
+    		background: url('url(../../../../ad_payment/images/checked-no.png') no-repeat;
+    		padding-left: 35px;
+    		height: 35px;
+    		margin-left: .3em;
+    		width: 145px;
+    		font: .9em;
+    		clear: left;
+    		background-color: inherit;
+    	}
+    	label.valid {
+    		background: url('url(../../../../ad_payment/images/checked-yes.png') no-repeat;
+    		display: block;
+        padding-left: 35px;
+    		width: 35px;
+    		height: 35px;
+    		width: 145px;
+    		background-color: inherit;
+    	}
+    }
+    #node_ad_s_form_group_contact {
+      .form-wrapper {
+        width: 50%;
+        margin: 0;
+        padding: 0;
+      }
+      .form-item {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  #node_ad_s_form_group_contact {
+    .form-item-field-phone-und-0-number {
+      width: 400px;
+    }
+  }
+  /* visa DEBIT error */
+  #cc-checkbox-check {
+    width: 160px;
+    clear: left;
+    label.error {
+      .border-radius;
+      padding: 5px;
+      background-color: @alert;
+      color: @white;
+    }
+  }
+
+} /* end of #ad-s-node-form  */
+
+.group_more {
+  /* HIGHLIGHT BOX */
+  .ad-submission-highlight-block {
+    background-color: @white;
+    /* gradient */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIzOCUiIHN0b3AtY29sb3I9IiNmOGZmZTgiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSI2OCUiIHN0b3AtY29sb3I9IiNlM2Y1YWIiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSI4NyUiIHN0b3AtY29sb3I9IiNiZWUwYjAiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTRkMmIzIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+  background: -moz-linear-gradient(top,  rgba(248,255,232,0.13) 38%, rgba(227,245,171,0.13) 68%, rgba(190,224,176,0.13) 87%, rgba(164,210,179,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(38%,rgba(248,255,232,0.13)), color-stop(68%,rgba(227,245,171,0.13)), color-stop(87%,rgba(190,224,176,0.13)), color-stop(100%,rgba(164,210,179,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(248,255,232,0.13) 38%,rgba(227,245,171,0.13) 68%,rgba(190,224,176,0.13) 87%,rgba(164,210,179,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21f8ffe8', endColorstr='#a4d2b3',GradientType=0 ); /* IE6-8 */
+    /* end gradient */
+    border: 2pt solid @editorial_dark;
+    .border-radius;
+    font-size: .8em;
+    line-height: 1.1em;
+    padding: 5px;
+    a {
+      color: @white;
+      text-align: center;
+      padding: 4px 10px;
+      font-size: 2em;
+      text-transform: uppercase;
+      display: block;
+      margin: 0 auto;
+      background-color: @editorial_dark;
+      .border-radius;
+    }
+    a:hover {
+      color: @sunlight;
+    }
+    .free-for-free-description {
+      H4 {
+        text-align: center;
+        font-size: 1.4em;
+      }
+      p {
+        margin: 4px;
+      }
+      ul {
+        margin: 4px 4px 4px 20px;
+        li {
+          list-style: circle;
+          list-style-position: outside;
+        }
+      }
+    }
+  }
+}
+
+
+
+#field-ad-details-add-more-wrapper {
+  display: none;
+}
+/* Ad Review box */
+#edit-field-ad-details {
+  .fieldset-wrapper {
+  font-size: 1em;
+  background-color: @peach;
+  .border-radius;
+  dt {
+    font-size: 1em;
+    width: @ad_mright;
+  }
+  dd {
+    .ad-left;
+  }
+  #review-ad-box-ad, #ad-review-price {
+    padding: 15px;
+    margin: 10px;
+  }
+}
+}
+/* error */
+.element-error {
+  background-repeat: no-repeat;
+  background-position-x: 5px;
+  background-position-y: 5px;
+  padding-left: 40px;
+  color: @alert;
+  background-color: inherit;
+}
+
+/* SUBMIT */
+#edit-actions{
+  font-size: 2em;
+  padding: 0 20px;
+  width: 60%;
+  margin: 0 auto;
+  display: block;
+  input {
+    .border-radius;
+    padding: 10px;
+    margin: 10px;
+  }
+  #edit-preview {
+    font-size: 1.2em;
+  }
+  #edit-submit {
+    font-size: 1.4em;
+  }
+}
+
+}
+
+
 /***** thank-you page ***/
 #adsubmission-thank-you {
   background-color: @white;
@@ -668,7 +611,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21f8ffe8', e
 }
 
 /************************ THANK-YOU PAGE/RECEIPT **************/
-#ad-submission-receipt {
+#adsubmission-thank-you {
+  margin-top: 20px;
+  #ads-header {
+    .thank-you-header {
+      padding-top: 40px;
+    }
+    text-align: left;
+    line-height: 1.2em;
+    .logo {
+      padding: 20px;
+      float: left;
+      height: 120px;
+    }
+  }
+  h3.ads-confirmation {
+    clear: both;
+  }
   .border-radius;
   background-color: @classified_light;
   border: solid 2pt @classified_dark;
@@ -679,10 +638,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21f8ffe8', e
     padding: 10px;
   }
   dl {
-/*     .border-radius; */
-/*     background-color: @white; */
-/*     background-color: @lightsand; */
-/*     padding: 5px; */
     dt {
       clear: left;
       font-size: 1em;
