@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Implements hook_is_mobile_device() provide by Mobile Tools module().
+ */
+function mobile_tools_browscap_is_mobile_device() {
+  $info = browscap_get_browser();
+  // detect device type
+  if ($info['ismobiledevice']) {
+    $type = 'mobile';
+  }
+  else {
+    $type = 'desktop';
+  }
+
+  $groups = mt_browscap_device_groups();
+  $group = '';
+  if (in_array($info['browser'], $groups)) {
+    $group = array_search($info['browser'], $groups);
+  }
+  return array('type' => $type, 'group' => $group);
+}
+
+/**
+ * Implements hook_device_groups() as provided by Mobile Tools module ().
+ */
+function mobile_tools_browscap_device_groups() {
+  return array('iphone' => 'iPhone', 'ipod' => 'iPod', 'android' => 'Android', 'opera_mini' => 'Opera Mini', 'blackberry' => 'BlackBerry');
+}
+
+/**
+ * Implements hook_purl_processor(). as provided by the Purl module ().
+ */
+function mobile_tools_browscap_purl_processor() {
+  $plugins = array();
+  $plugins['browscap'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'mobile_tools_browscap'),
+      'file' => 'mobile_tools_browscap_purl.inc',
+      'class' => 'mobile_tools_browscap_purl',
+    ),
+  );
+  return $plugins;
+}
+

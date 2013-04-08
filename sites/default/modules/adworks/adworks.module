@@ -1,0 +1,156 @@
+<?php
+
+/**
+*  @file
+*  This module parses Adworks data into new Classified nodes.
+*
+*   @TODO
+*   Move image file search into seperate function:
+*   - Check images in upload folder and across the `files` structure.
+*   - implement `file_validate_is_image($file)`
+*   - implement UTF-8 file conversion.
+*
+*   - Check previous ads. OPTIONAL
+*     - Perform a cursory check on the ad body (check 5-10 ads)
+*     - Check for similar ad copy
+*     - If several ads found similar then put alert:
+*       - 'DO you want to overwrite previous ads?'
+*       - 'Do you want to save file and not update?'
+*/
+
+/**
+ * Implementation of HOOK_form_alter()
+ */
+function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
+  // add custom validation
+  array_push($form['#validate'], 'adworks_form_validate');
+
+  // add custom submission
+  array_push($form['#submit'], 'adworks_adworks_file_form_submit');
+  //$form['#submit'] = 'adworks_adworks_file_form_submit';
+
+}
+
+
+
+/**
+ * Implementation of HOOK_form_validate()
+ *
+ * Checks for administrative override.
+ * - runs preflight.
+ */
+function adworks_form_validate(&$form, &$form_state) {
+  if ($form_state['input']['field_ad_creation_override']['und']) {
+    return;
+  }
+
+
+
+  // Load & Run Preflight script -- checks images
+  //module_load_include('inc', 'adworks', 'parse_adworks');
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
+  $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+  //  $adworks_preflight = _adworks_pre_flight_ads($adworks_data);
+
+  // Batch Process Preview
+  foreach ($adworks_ads as $ad) {
+    $preflight_batch_ads[] = array('_adworks_pre_flight_ads', array($ad));
+  }
+  // Batch
+  $preflight_batch = array(
+    'title' => t('Preflight Classified Ads'),
+    'init_message' => t('Checking images, ad copy, links, emails and more ...'),
+    'progress_message' => t('Testing @current of @total ads'),
+    'finished' => 'adworks_batch_finished',
+    'operations' => $preflight_batch_ads,
+    'file' => drupal_get_path('module', 'adworks') . '/parse_adworks.inc',
+    'has_form_submits' => FALSE,
+  );
+  batch_set($preflight_batch);
+  batch_process();
+
+  $form_state['batch_preview']['adworks'] = $adworks_data;
+
+  // Preflight message
+  // if ( $adworks_preflight['status'] == FALSE) {
+  //   drupal_set_message($adworks_preflight['message'], 'warning' );
+  // }
+  // else {
+  //   drupal_set_message($adworks_preflight['message'], 'status' );
+  // }
+  //
+  // // Node Creation Override.
+  // if (!$form_state['values']['field_ad_creation_override']['und'][0]['value']) {
+  //   form_set_error('field_ad_creation_override', '<strong>CREATE ADS is currently disabled.</strong> <br> Check <em>Ad Creation Override</em> to save ads.');
+  //   return;
+  // }
+
+
+}
+
+/**
+ * Implementation of HOOK_form_submit
+ *
+ * Create ads from adworks data.
+ * - If image check is off - do not attach images.
+ * - If preview --> exit.
+ * - Else create ads.
+ * - Images are validated in  HOOK_form_validate()
+ */
+function adworks_adworks_file_form_submit($form, &$form_state) {
+  // Set Default State
+  $create_ads = TRUE;
+  $check_images = TRUE;
+  // Preview Override
+  if ($form_state['clicked_button']['#submit'][0] == 'node_form_build_preview') {
+    drupal_set_message('<h2>Adworks Data Preview</h2>', 'alert' );
+    $create_ads = FALSE;
+    return;
+  }
+
+  // Image Check Override
+  if (!$form_state['values']['field_image_override']['und'][0]['value']) {
+    $check_images = FALSE;
+    drupal_set_message('<strong>ADMINISTRATIVE OVERRIDE:<br>## Images were not attached!</strong>', 'warning' );
+  }
+  else {
+    $check_images = TRUE;
+  }
+
+  // Adworks Data
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
+
+  // Get Parser
+  module_load_include('inc', 'adworks', 'parse_adworks');
+
+  // Get Adworks copy
+  $adworks_data = $form_state['values']['body']['und'][0]['value'];
+
+  // Convert Text to UTF8
+  $adworks_ads = preg_split( '/\r\n|\r|\n/', $adworks_data);
+
+  // Get Publish Dates
+  $publish_date = array();
+  $publish_date['start'] = strtotime($form_state['values']['field_publish']['und'][0]['value']);
+  $publish_date['end'] = strtotime($form_state['values']['field_publish']['und'][0]['value2']);
+
+  // BATCH PROCESS ADS
+  foreach ($adworks_ads as $ad) {
+    $batch_ads[] = array('_adworks_parse_individual_ad', array($ad, $publish_date, $create_ads, $check_images));
+  }
+
+  $batch = array(
+    'title' => t('Uploading Classified Ads'),
+    'init_message' => t('Importing Adworks file... Preparing to process classified ads... '),
+    'progress_message' => t('Processing @current of @total ads'),
+    'error_message' => t('An error occurred and some or all of the import has failed.'),
+    'finished' => 'adworks_batch_finished',
+    'operations' => $batch_ads,
+    'file' => drupal_get_path('module', 'adworks') .'/parse_adworks.inc',
+  );
+  batch_set($batch);
+
+  $redirect = 'admin/pennywise/classified/upcoming';
+  batch_process($redirect);
+}
+

@@ -1,0 +1,19 @@
+name = Pennywise
+description = General Pennywise hacks.
+package = "Pennywise"
+core = 7.x
+
+
+files[] = pennywise.install
+files[] = pennywise.module
+files[] = promote_classifieds.module
+files[] = settings.inc
+files[] = settings_default.inc
+files[] = settings_holiday.inc
+
+;CSS
+files[] = css/pennywise.css
+files[] = css/pennywise.less
+
+;jQuery
+scripts[] = js/pw_admin.js
