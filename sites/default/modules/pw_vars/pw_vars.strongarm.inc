@@ -1071,6 +1071,16 @@ echo date(\'now\');
         10 => 12,
         11 => 3,
       ),
+      'task' => array(
+        0 => 9,
+        1 => 11,
+        2 => 5,
+        3 => 6,
+        4 => 7,
+        5 => 10,
+        6 => 12,
+        7 => 3,
+      ),
     ),
     'view_own' => array(
       'adworks_file' => array(
@@ -1133,6 +1143,16 @@ echo date(\'now\');
         1 => 5,
         2 => 3,
       ),
+      'task' => array(
+        0 => 9,
+        1 => 11,
+        2 => 5,
+        3 => 6,
+        4 => 7,
+        5 => 10,
+        6 => 12,
+        7 => 3,
+      ),
     ),
     'per_node' => array(
       'adworks_file' => 0,
@@ -1145,6 +1165,7 @@ echo date(\'now\');
       'ad_s' => 0,
       'display_ads' => 0,
       'free' => 0,
+      'task' => 0,
     ),
     'priority' => array(
       'adworks_file' => '0',
@@ -1157,6 +1178,7 @@ echo date(\'now\');
       'ad_s' => '0',
       'display_ads' => '-10',
       'free' => '0',
+      'task' => '0',
     ),
   );
   $export['content_access_settings'] = $strongarm;
@@ -1239,7 +1261,7 @@ echo date(\'now\');
     'group_area_rate|node|ad_s|form' => TRUE,
     'group_section_duration|node|ad_s|form' => TRUE,
     'group_ad_grouping|node|ad_s|form' => TRUE,
-    'group_ed_group_master|node|article|form' => FALSE,
+    'group_ed_group_master|node|article|form' => TRUE,
     'group_ed_basic|node|article|form' => FALSE,
     'group_cl_ad_master|node|classified|form' => FALSE,
     'group_contact|user|user|form' => FALSE,
@@ -1277,6 +1299,9 @@ echo date(\'now\');
     'group_classified_ad|node|ad_s|form' => FALSE,
     'group_classified_default|node|ad_s|form' => TRUE,
     'group_contact|node|ad_s|form' => FALSE,
+    'group_status|node|task|form' => TRUE,
+    'group_attachments|node|task|form' => FALSE,
+    'group_attachments|node|task|default' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1733,7 +1758,7 @@ echo date(\'now\');
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '4',
         ),
         'redirect' => array(
           'weight' => '6',
@@ -2225,41 +2250,6 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'genpass_algorithm';
-  $strongarm->value = 'genpass';
-  $export['genpass_algorithm'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'genpass_display';
-  $strongarm->value = '3';
-  $export['genpass_display'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'genpass_entropy';
-  $strongarm->value = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!#$%&()*+,-./:;<=>?@[]^_{|}~';
-  $export['genpass_entropy'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'genpass_length';
-  $strongarm->value = '8';
-  $export['genpass_length'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'genpass_mode';
-  $strongarm->value = '1';
-  $export['genpass_mode'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'globalredirect_settings';
   $strongarm->value = array(
     'canonical' => 1,
@@ -2287,69 +2277,6 @@ echo date(\'now\');
     ),
   );
   $export['locale_custom_strings_en'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_confirm_email_at_registration';
-  $strongarm->value = '0';
-  $export['logintoboggan_confirm_email_at_registration'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_immediate_login_on_register';
-  $strongarm->value = 1;
-  $export['logintoboggan_immediate_login_on_register'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_login_successful_message';
-  $strongarm->value = '0';
-  $export['logintoboggan_login_successful_message'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_login_with_email';
-  $strongarm->value = '0';
-  $export['logintoboggan_login_with_email'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_minimum_password_length';
-  $strongarm->value = '0';
-  $export['logintoboggan_minimum_password_length'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_override_destination_parameter';
-  $strongarm->value = 1;
-  $export['logintoboggan_override_destination_parameter'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_pre_auth_role';
-  $strongarm->value = '4';
-  $export['logintoboggan_pre_auth_role'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_redirect_on_confirm';
-  $strongarm->value = 'ad/submit';
-  $export['logintoboggan_redirect_on_confirm'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'logintoboggan_redirect_on_register';
-  $strongarm->value = 'ad/submit';
-  $export['logintoboggan_redirect_on_register'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

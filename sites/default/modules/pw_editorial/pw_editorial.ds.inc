@@ -332,57 +332,55 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
   $ds_layout->view_mode = 'form';
-  $ds_layout->layout = 'ds_form_3col';
+  $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => FALSE,
     'regions' => array(
-      'header' => array(
-        0 => 'body',
-      ),
-      'left' => array(
+      'ds_content' => array(
         0 => 'group_ed_basic',
-        1 => 'title',
-        2 => 'field_submitter',
-        3 => 'field_area_taxonomy',
-      ),
-      'middle' => array(
-        0 => 'group_bonus',
-        1 => 'field_link',
-        2 => 'field_email',
-      ),
-      'right' => array(
-        0 => 'group_details',
-        1 => 'field_entity_reference',
-      ),
-      'footer' => array(
-        0 => 'field_image',
-        1 => 'field_images_editorial_extra',
+        1 => 'group_bonus',
+        2 => 'title',
+        3 => 'field_submitter',
+        4 => 'group_details',
+        5 => 'field_area_taxonomy',
+        6 => 'path',
+        7 => 'body',
+        8 => 'redirect',
+        9 => 'field_link',
+        10 => 'field_email',
+        11 => 'field_entity_reference',
+        12 => 'field_image',
+        13 => 'group_extra_image_group',
+        14 => 'field_images_editorial_extra',
       ),
       'hidden' => array(
-        0 => 'path',
-        1 => 'group_ed_group_master',
-        2 => '_add_existing_field',
+        15 => '_add_existing_field',
       ),
     ),
     'fields' => array(
-      'body' => 'header',
-      'group_ed_basic' => 'left',
-      'group_bonus' => 'middle',
-      'group_details' => 'right',
-      'field_image' => 'footer',
-      'field_images_editorial_extra' => 'footer',
-      'path' => 'hidden',
-      'group_ed_group_master' => 'hidden',
-      'title' => 'left',
-      'field_link' => 'middle',
-      'field_submitter' => 'left',
-      'field_email' => 'middle',
+      'group_ed_basic' => 'ds_content',
+      'group_bonus' => 'ds_content',
+      'title' => 'ds_content',
+      'field_submitter' => 'ds_content',
+      'group_details' => 'ds_content',
+      'field_area_taxonomy' => 'ds_content',
+      'path' => 'ds_content',
+      'body' => 'ds_content',
+      'redirect' => 'ds_content',
+      'field_link' => 'ds_content',
+      'field_email' => 'ds_content',
+      'field_entity_reference' => 'ds_content',
+      'field_image' => 'ds_content',
+      'group_extra_image_group' => 'ds_content',
+      'field_images_editorial_extra' => 'ds_content',
       '_add_existing_field' => 'hidden',
-      'field_area_taxonomy' => 'left',
-      'field_entity_reference' => 'right',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
   );
   $export['node|article|form'] = $ds_layout;
 

@@ -76,23 +76,24 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Links',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'field_link',
       1 => 'field_email',
       2 => 'field_entity_reference',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Links',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_bonus|node|article|form'] = $field_group;
@@ -133,22 +134,23 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'field_image',
       1 => 'group_extra_image_group',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Media',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_details|node|article|form'] = $field_group;
@@ -161,25 +163,24 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Basic',
-    'weight' => '2',
+    'weight' => '0',
     'children' => array(
       0 => 'body',
       1 => 'field_submitter',
       2 => 'field_area_taxonomy',
       3 => 'title',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Basic',
+      'formatter' => 'collapsible',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
         'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
       ),
-      'formatter' => 'open',
     ),
   );
   $export['group_ed_basic|node|article|form'] = $field_group;
