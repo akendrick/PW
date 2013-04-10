@@ -76,15 +76,23 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
+<<<<<<< HEAD
   $field_group->parent_name = 'group_ed_group_master';
   $field_group->data = array(
     'label' => 'Links',
     'weight' => '3',
+=======
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Links',
+    'weight' => '1',
+>>>>>>> feature/Editorial-Image-Handling
     'children' => array(
       0 => 'field_link',
       1 => 'field_email',
       2 => 'field_entity_reference',
     ),
+<<<<<<< HEAD
     'format_type' => 'htab',
     'format_settings' => array(
       'formatter' => 'closed',
@@ -93,6 +101,17 @@ function pw_editorial_field_group_info() {
         'classes' => '',
         'required_fields' => 1,
       ),
+=======
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Links',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+>>>>>>> feature/Editorial-Image-Handling
     ),
   );
   $export['group_bonus|node|article|form'] = $field_group;
@@ -133,14 +152,22 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
+<<<<<<< HEAD
   $field_group->parent_name = 'group_ed_group_master';
   $field_group->data = array(
     'label' => 'Media',
     'weight' => '4',
+=======
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Media',
+    'weight' => '2',
+>>>>>>> feature/Editorial-Image-Handling
     'children' => array(
       0 => 'field_image',
       1 => 'group_extra_image_group',
     ),
+<<<<<<< HEAD
     'format_type' => 'htab',
     'format_settings' => array(
       'formatter' => 'closed',
@@ -149,6 +176,17 @@ function pw_editorial_field_group_info() {
         'classes' => '',
         'required_fields' => 1,
       ),
+=======
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Media',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+>>>>>>> feature/Editorial-Image-Handling
     ),
   );
   $export['group_details|node|article|form'] = $field_group;
@@ -161,16 +199,24 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
+<<<<<<< HEAD
   $field_group->parent_name = 'group_ed_group_master';
   $field_group->data = array(
     'label' => 'Basic',
     'weight' => '2',
+=======
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Basic',
+    'weight' => '0',
+>>>>>>> feature/Editorial-Image-Handling
     'children' => array(
       0 => 'body',
       1 => 'field_submitter',
       2 => 'field_area_taxonomy',
       3 => 'title',
     ),
+<<<<<<< HEAD
     'format_type' => 'htab',
     'format_settings' => array(
       'label' => 'Basic',
@@ -180,6 +226,16 @@ function pw_editorial_field_group_info() {
         'description' => '',
       ),
       'formatter' => 'open',
+=======
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+>>>>>>> feature/Editorial-Image-Handling
     ),
   );
   $export['group_ed_basic|node|article|form'] = $field_group;

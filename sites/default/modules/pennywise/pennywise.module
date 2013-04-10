@@ -503,7 +503,8 @@ function pennywise_block_view($delta = '') {
 
     case 'submit_editorial':
       $subject    = '';
-      $content    = l('Submit Editorial', 'editorial/submit', array('attributes' => array('id' => 'editorial-submit-link')));
+      $content    = l('Submit Editorial', 'submit-editorial', array('attributes' => array('id' => 'editorial-submit-link')));
+      //$content = l('Submit Editorial', 'mailto:editorial@pennywiseads.comm?subject=Pennywise Editorial Submission&body=', array('absolute' => TRUE));
       break;
 
     case 'pw_tmtv':

@@ -506,6 +506,17 @@ body.page-admin-pennywise .button a:hover {
   float: none;
   line-height: 0px;
 }
+<<<<<<< HEAD
+=======
+/* editorial submission thank you */
+.page-node-126539 .webform-confirmation {
+  padding: 20px;
+}
+.page-node-126539 .webform-confirmation h2 {
+  background-color: #ffffff;
+  color: #006600;
+}
+>>>>>>> feature/Editorial-Image-Handling
 /*** editorial admin *****/
 .view-id-editorial_administration .col-2,
 .view-id-editorial_administration .col-4 {

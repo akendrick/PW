@@ -62,6 +62,7 @@ function pw_display_image_default_styles() {
   $styles['display_ad_print_cropped_vert_thumbnail'] = array(
     'name' => 'display_ad_print_cropped_vert_thumbnail',
     'effects' => array(
+<<<<<<< HEAD
       15 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -78,6 +79,20 @@ function pw_display_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.6',
           ),
+=======
+      30 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '95',
+          'height' => '140',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '2',
       ),
@@ -111,6 +126,7 @@ function pw_display_image_default_styles() {
   $styles['display_ad_smart_crop_med_square'] = array(
     'name' => 'display_ad_smart_crop_med_square',
     'effects' => array(
+<<<<<<< HEAD
       22 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -129,6 +145,22 @@ function pw_display_image_default_styles() {
           ),
         ),
         'weight' => '-10',
+=======
+      6 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '165',
+          'height' => '220',
+          'upscale' => 0,
+        ),
+        'weight' => '-9',
+>>>>>>> feature/Editorial-Image-Handling
       ),
       7 => array(
         'label' => 'Rounded Corners',
@@ -151,7 +183,11 @@ function pw_display_image_default_styles() {
             ),
           ),
         ),
+<<<<<<< HEAD
         'weight' => '-9',
+=======
+        'weight' => '-8',
+>>>>>>> feature/Editorial-Image-Handling
       ),
     ),
   );
@@ -160,6 +196,7 @@ function pw_display_image_default_styles() {
   $styles['miniature_square'] = array(
     'name' => 'miniature_square',
     'effects' => array(
+<<<<<<< HEAD
       20 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -176,6 +213,20 @@ function pw_display_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.8',
           ),
+=======
+      33 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '30',
+          'height' => '30',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),

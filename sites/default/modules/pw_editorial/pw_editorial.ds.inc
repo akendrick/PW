@@ -332,6 +332,7 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
   $ds_layout->view_mode = 'form';
+<<<<<<< HEAD
   $ds_layout->layout = 'ds_form_3col';
   $ds_layout->settings = array(
     'hide_empty_regions' => 0,
@@ -383,6 +384,57 @@ function pw_editorial_ds_layout_settings_info() {
       'field_entity_reference' => 'right',
     ),
     'classes' => array(),
+=======
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'group_ed_basic',
+        1 => 'group_bonus',
+        2 => 'title',
+        3 => 'field_submitter',
+        4 => 'group_details',
+        5 => 'field_area_taxonomy',
+        6 => 'path',
+        7 => 'body',
+        8 => 'redirect',
+        9 => 'field_link',
+        10 => 'field_email',
+        11 => 'field_entity_reference',
+        12 => 'field_image',
+        13 => 'group_extra_image_group',
+        14 => 'field_images_editorial_extra',
+      ),
+      'hidden' => array(
+        15 => '_add_existing_field',
+      ),
+    ),
+    'fields' => array(
+      'group_ed_basic' => 'ds_content',
+      'group_bonus' => 'ds_content',
+      'title' => 'ds_content',
+      'field_submitter' => 'ds_content',
+      'group_details' => 'ds_content',
+      'field_area_taxonomy' => 'ds_content',
+      'path' => 'ds_content',
+      'body' => 'ds_content',
+      'redirect' => 'ds_content',
+      'field_link' => 'ds_content',
+      'field_email' => 'ds_content',
+      'field_entity_reference' => 'ds_content',
+      'field_image' => 'ds_content',
+      'group_extra_image_group' => 'ds_content',
+      'field_images_editorial_extra' => 'ds_content',
+      '_add_existing_field' => 'hidden',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+>>>>>>> feature/Editorial-Image-Handling
   );
   $export['node|article|form'] = $ds_layout;
 

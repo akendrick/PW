@@ -1071,6 +1071,19 @@ echo date(\'now\');
         10 => 12,
         11 => 3,
       ),
+<<<<<<< HEAD
+=======
+      'task' => array(
+        0 => 9,
+        1 => 11,
+        2 => 5,
+        3 => 6,
+        4 => 7,
+        5 => 10,
+        6 => 12,
+        7 => 3,
+      ),
+>>>>>>> feature/Editorial-Image-Handling
     ),
     'view_own' => array(
       'adworks_file' => array(
@@ -1133,6 +1146,19 @@ echo date(\'now\');
         1 => 5,
         2 => 3,
       ),
+<<<<<<< HEAD
+=======
+      'task' => array(
+        0 => 9,
+        1 => 11,
+        2 => 5,
+        3 => 6,
+        4 => 7,
+        5 => 10,
+        6 => 12,
+        7 => 3,
+      ),
+>>>>>>> feature/Editorial-Image-Handling
     ),
     'per_node' => array(
       'adworks_file' => 0,
@@ -1145,6 +1171,10 @@ echo date(\'now\');
       'ad_s' => 0,
       'display_ads' => 0,
       'free' => 0,
+<<<<<<< HEAD
+=======
+      'task' => 0,
+>>>>>>> feature/Editorial-Image-Handling
     ),
     'priority' => array(
       'adworks_file' => '0',
@@ -1157,6 +1187,10 @@ echo date(\'now\');
       'ad_s' => '0',
       'display_ads' => '-10',
       'free' => '0',
+<<<<<<< HEAD
+=======
+      'task' => '0',
+>>>>>>> feature/Editorial-Image-Handling
     ),
   );
   $export['content_access_settings'] = $strongarm;
@@ -1239,7 +1273,11 @@ echo date(\'now\');
     'group_area_rate|node|ad_s|form' => TRUE,
     'group_section_duration|node|ad_s|form' => TRUE,
     'group_ad_grouping|node|ad_s|form' => TRUE,
+<<<<<<< HEAD
     'group_ed_group_master|node|article|form' => FALSE,
+=======
+    'group_ed_group_master|node|article|form' => TRUE,
+>>>>>>> feature/Editorial-Image-Handling
     'group_ed_basic|node|article|form' => FALSE,
     'group_cl_ad_master|node|classified|form' => FALSE,
     'group_contact|user|user|form' => FALSE,
@@ -1277,6 +1315,12 @@ echo date(\'now\');
     'group_classified_ad|node|ad_s|form' => FALSE,
     'group_classified_default|node|ad_s|form' => TRUE,
     'group_contact|node|ad_s|form' => FALSE,
+<<<<<<< HEAD
+=======
+    'group_status|node|task|form' => TRUE,
+    'group_attachments|node|task|form' => FALSE,
+    'group_attachments|node|task|default' => FALSE,
+>>>>>>> feature/Editorial-Image-Handling
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1733,7 +1777,11 @@ echo date(\'now\');
           'weight' => '1',
         ),
         'path' => array(
+<<<<<<< HEAD
           'weight' => '5',
+=======
+          'weight' => '4',
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'redirect' => array(
           'weight' => '6',
@@ -2225,6 +2273,7 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+<<<<<<< HEAD
   $strongarm->name = 'genpass_algorithm';
   $strongarm->value = 'genpass';
   $export['genpass_algorithm'] = $strongarm;
@@ -2260,6 +2309,8 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+=======
+>>>>>>> feature/Editorial-Image-Handling
   $strongarm->name = 'globalredirect_settings';
   $strongarm->value = array(
     'canonical' => 1,
@@ -2291,6 +2342,7 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+<<<<<<< HEAD
   $strongarm->name = 'logintoboggan_confirm_email_at_registration';
   $strongarm->value = '0';
   $export['logintoboggan_confirm_email_at_registration'] = $strongarm;
@@ -2354,6 +2406,8 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+=======
+>>>>>>> feature/Editorial-Image-Handling
   $strongarm->name = 'logintoboggan_unified_login';
   $strongarm->value = 1;
   $export['logintoboggan_unified_login'] = $strongarm;
@@ -2420,6 +2474,7 @@ echo date(\'now\');
     24 => 59,
     25 => 58,
     26 => 56,
+<<<<<<< HEAD
     27 => 48,
     28 => 45,
     29 => 44,
@@ -2447,6 +2502,33 @@ echo date(\'now\');
     51 => 3,
     52 => 2,
     53 => 1,
+=======
+    27 => 45,
+    28 => 44,
+    29 => 31,
+    30 => 30,
+    31 => 29,
+    32 => 28,
+    33 => 27,
+    34 => 25,
+    35 => 24,
+    36 => 23,
+    37 => 22,
+    38 => 21,
+    39 => 15,
+    40 => 14,
+    41 => 13,
+    42 => 11,
+    43 => 10,
+    44 => 8,
+    45 => 7,
+    46 => 6,
+    47 => 5,
+    48 => 4,
+    49 => 3,
+    50 => 2,
+    51 => 1,
+>>>>>>> feature/Editorial-Image-Handling
   );
   $export['menu_masks'] = $strongarm;
 

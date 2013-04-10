@@ -39,6 +39,7 @@ function pw_editorial_image_default_styles() {
   $styles['classified_list_js_crop'] = array(
     'name' => 'classified_list_js_crop',
     'effects' => array(
+<<<<<<< HEAD
       17 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -55,6 +56,20 @@ function pw_editorial_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.6',
           ),
+=======
+      32 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '240',
+          'height' => '130',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),
@@ -65,6 +80,7 @@ function pw_editorial_image_default_styles() {
   $styles['editoral_square_thumbnail'] = array(
     'name' => 'editoral_square_thumbnail',
     'effects' => array(
+<<<<<<< HEAD
       10 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -81,6 +97,20 @@ function pw_editorial_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.6',
           ),
+=======
+      26 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '130',
+          'height' => '130',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),
@@ -91,6 +121,7 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_block_list_header'] = array(
     'name' => 'editorial_block_list_header',
     'effects' => array(
+<<<<<<< HEAD
       21 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -107,6 +138,20 @@ function pw_editorial_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '.8',
           ),
+=======
+      25 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '134',
+          'height' => '180',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),
@@ -117,6 +162,7 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_header'] = array(
     'name' => 'editorial_header',
     'effects' => array(
+<<<<<<< HEAD
       11 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -135,6 +181,22 @@ function pw_editorial_image_default_styles() {
           ),
         ),
         'weight' => '2',
+=======
+      24 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '580',
+          'height' => '400',
+          'upscale' => 0,
+        ),
+        'weight' => '1',
+>>>>>>> feature/Editorial-Image-Handling
       ),
     ),
   );
@@ -143,6 +205,7 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_small'] = array(
     'name' => 'editorial_small',
     'effects' => array(
+<<<<<<< HEAD
       18 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -159,6 +222,20 @@ function pw_editorial_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.6',
           ),
+=======
+      27 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '134',
+          'height' => '104',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),
@@ -169,6 +246,7 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_teaser'] = array(
     'name' => 'editorial_teaser',
     'effects' => array(
+<<<<<<< HEAD
       13 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -187,6 +265,22 @@ function pw_editorial_image_default_styles() {
           ),
         ),
         'weight' => '2',
+=======
+      28 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '260',
+          'height' => '230',
+          'upscale' => 0,
+        ),
+        'weight' => '1',
+>>>>>>> feature/Editorial-Image-Handling
       ),
     ),
   );
@@ -195,7 +289,11 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_thumbnail'] = array(
     'name' => 'editorial_thumbnail',
     'effects' => array(
+<<<<<<< HEAD
       19 => array(
+=======
+      23 => array(
+>>>>>>> feature/Editorial-Image-Handling
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
@@ -205,8 +303,13 @@ function pw_editorial_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
+<<<<<<< HEAD
           'width' => '135',
           'height' => '65',
+=======
+          'width' => '140',
+          'height' => '75',
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),
@@ -217,6 +320,7 @@ function pw_editorial_image_default_styles() {
   $styles['editorial_tiny'] = array(
     'name' => 'editorial_tiny',
     'effects' => array(
+<<<<<<< HEAD
       16 => array(
         'label' => 'EPSA Image Crop',
         'help' => '',
@@ -233,6 +337,20 @@ function pw_editorial_image_default_styles() {
             'bgcolor' => 'white',
             'bgopacity' => '0.6',
           ),
+=======
+      29 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
+        'data' => array(
+          'width' => '45',
+          'height' => '30',
+          'upscale' => 0,
+>>>>>>> feature/Editorial-Image-Handling
         ),
         'weight' => '1',
       ),

@@ -190,6 +190,7 @@ features[variable][] = ga_stats_enabled_metrics
 features[variable][] = ga_stats_enabled_timeframes
 features[variable][] = ga_stats_max_results
 features[variable][] = ga_stats_password
+<<<<<<< HEAD
 features[variable][] = genpass_algorithm
 features[variable][] = genpass_display
 features[variable][] = genpass_entropy
@@ -207,6 +208,11 @@ features[variable][] = logintoboggan_override_destination_parameter
 features[variable][] = logintoboggan_pre_auth_role
 features[variable][] = logintoboggan_redirect_on_confirm
 features[variable][] = logintoboggan_redirect_on_register
+=======
+features[variable][] = globalredirect_settings
+features[variable][] = locale_custom_disabled_strings_en
+features[variable][] = locale_custom_strings_en
+>>>>>>> feature/Editorial-Image-Handling
 features[variable][] = logintoboggan_unified_login
 features[variable][] = menu_default_active_menus
 features[variable][] = menu_expanded

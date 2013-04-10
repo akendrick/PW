@@ -44,7 +44,17 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+<<<<<<< HEAD
       'default_value' => NULL,
+=======
+      'default_value' => array(
+        0 => array(
+          'summary' => '',
+          'value' => '',
+          'format' => 'filtered_html',
+        ),
+      ),
+>>>>>>> feature/Editorial-Image-Handling
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -153,11 +163,22 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+<<<<<<< HEAD
+=======
+          'maxlength_js' => '',
+          'maxlength_js_enforce' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'maxlength_js_truncate_html' => 0,
+>>>>>>> feature/Editorial-Image-Handling
           'rows' => '20',
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
+<<<<<<< HEAD
         'weight' => '0',
+=======
+        'weight' => '4',
+>>>>>>> feature/Editorial-Image-Handling
       ),
     ),
   );
@@ -2570,7 +2591,16 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+<<<<<<< HEAD
       'default_value' => NULL,
+=======
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
+>>>>>>> feature/Editorial-Image-Handling
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2676,6 +2706,11 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+<<<<<<< HEAD
+=======
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+>>>>>>> feature/Editorial-Image-Handling
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -3160,7 +3195,16 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+<<<<<<< HEAD
       'default_value' => NULL,
+=======
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
+>>>>>>> feature/Editorial-Image-Handling
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3266,6 +3310,11 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+<<<<<<< HEAD
+=======
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+>>>>>>> feature/Editorial-Image-Handling
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -3308,7 +3357,16 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+<<<<<<< HEAD
       'default_value' => NULL,
+=======
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
+>>>>>>> feature/Editorial-Image-Handling
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3414,6 +3472,11 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+<<<<<<< HEAD
+=======
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+>>>>>>> feature/Editorial-Image-Handling
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -3886,7 +3949,16 @@ NOTE: Thumbnail image required.',
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+<<<<<<< HEAD
       'default_value' => NULL,
+=======
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
+>>>>>>> feature/Editorial-Image-Handling
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3992,6 +4064,11 @@ NOTE: Thumbnail image required.',
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+<<<<<<< HEAD
+=======
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+>>>>>>> feature/Editorial-Image-Handling
           'size' => '60',
         ),
         'type' => 'text_textfield',
