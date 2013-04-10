@@ -152,22 +152,18 @@ function pw_display_image_default_styles() {
   $styles['miniature_square'] = array(
     'name' => 'miniature_square',
     'effects' => array(
-      20 => array(
-        'label' => 'EPSA Image Crop',
-        'help' => '',
-        'effect callback' => 'epsacrop_crop_image',
-        'form callback' => 'epsacrop_crop_image_form',
-        'module' => 'epsacrop',
-        'name' => 'epsacrop_crop',
+      33 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
           'width' => '30',
           'height' => '30',
-          'anchor' => 'center-center',
-          'jcrop_settings' => array(
-            'aspect_ratio' => '1/1',
-            'bgcolor' => 'white',
-            'bgopacity' => '0.8',
-          ),
+          'upscale' => 0,
         ),
         'weight' => '1',
       ),
