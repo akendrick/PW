@@ -332,59 +332,6 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
   $ds_layout->view_mode = 'form';
-<<<<<<< HEAD
-  $ds_layout->layout = 'ds_form_3col';
-  $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => FALSE,
-    'regions' => array(
-      'header' => array(
-        0 => 'body',
-      ),
-      'left' => array(
-        0 => 'group_ed_basic',
-        1 => 'title',
-        2 => 'field_submitter',
-        3 => 'field_area_taxonomy',
-      ),
-      'middle' => array(
-        0 => 'group_bonus',
-        1 => 'field_link',
-        2 => 'field_email',
-      ),
-      'right' => array(
-        0 => 'group_details',
-        1 => 'field_entity_reference',
-      ),
-      'footer' => array(
-        0 => 'field_image',
-        1 => 'field_images_editorial_extra',
-      ),
-      'hidden' => array(
-        0 => 'path',
-        1 => 'group_ed_group_master',
-        2 => '_add_existing_field',
-      ),
-    ),
-    'fields' => array(
-      'body' => 'header',
-      'group_ed_basic' => 'left',
-      'group_bonus' => 'middle',
-      'group_details' => 'right',
-      'field_image' => 'footer',
-      'field_images_editorial_extra' => 'footer',
-      'path' => 'hidden',
-      'group_ed_group_master' => 'hidden',
-      'title' => 'left',
-      'field_link' => 'middle',
-      'field_submitter' => 'left',
-      'field_email' => 'middle',
-      '_add_existing_field' => 'hidden',
-      'field_area_taxonomy' => 'left',
-      'field_entity_reference' => 'right',
-    ),
-    'classes' => array(),
-=======
   $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
     'regions' => array(
@@ -434,7 +381,6 @@ function pw_editorial_ds_layout_settings_info() {
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
     'layout_attributes_merge' => 1,
->>>>>>> feature/Editorial-Image-Handling
   );
   $export['node|article|form'] = $ds_layout;
 

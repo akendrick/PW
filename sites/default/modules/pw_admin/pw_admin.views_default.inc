@@ -977,30 +977,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['title'] = 'Page Views';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-<<<<<<< HEAD
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['relationships'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Statistics: Page Views in the past 24 hours */
-  $handler->display->display_options['fields']['count']['id'] = 'count';
-  $handler->display->display_options['fields']['count']['table'] = 'ga_stats_count_pageviews_today';
-  $handler->display->display_options['fields']['count']['field'] = 'count';
-  $handler->display->display_options['fields']['count']['label'] = 'Past 24 hours';
-  /* Field: Statistics: Page Views in the past 31 days */
-  $handler->display->display_options['fields']['count_1']['id'] = 'count_1';
-  $handler->display->display_options['fields']['count_1']['table'] = 'ga_stats_count_pageviews_month';
-  $handler->display->display_options['fields']['count_1']['field'] = 'count';
-  $handler->display->display_options['fields']['count_1']['label'] = 'Past 31 days';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-=======
   $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -1105,7 +1081,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
->>>>>>> feature/Editorial-Image-Handling
   $handler->display->display_options['block_description'] = 'Analytics Dashboard';
 
   /* Display: DASH Submissions */
