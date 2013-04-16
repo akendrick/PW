@@ -113,6 +113,37 @@
 #pw-digital-node-form .form-item {
   width: 100%;
 }
+/******* BLOCK THEMEING */
+.block-pennywise-pw-phone-areas #phone-calling-codes dl,
+#pennywise-pw-phone-areas #phone-calling-codes dl {
+  font-size: 1em;
+  float: left;
+  width: 250px;
+}
+.block-pennywise-pw-phone-areas #phone-calling-codes dt,
+#pennywise-pw-phone-areas #phone-calling-codes dt,
+.block-pennywise-pw-phone-areas #phone-calling-codes dd,
+#pennywise-pw-phone-areas #phone-calling-codes dd {
+  font-size: 1em;
+  text-align: center;
+  float: left;
+  margin: 0;
+}
+.block-pennywise-pw-phone-areas #phone-calling-codes dt,
+#pennywise-pw-phone-areas #phone-calling-codes dt {
+  background-color: #003366;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 2px 4px;
+  clear: left;
+  max-width: 60px;
+  margin-bottom: 2px;
+}
+.block-pennywise-pw-phone-areas #phone-calling-codes dd,
+#pennywise-pw-phone-areas #phone-calling-codes dd {
+  border: 1pt solid blue;
+  margin: 0 80;
+}
 /* Digital Edition - 2 col */
 #pw-digital-node-form {
   /* turn off help display to simplify layout */
