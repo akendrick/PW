@@ -468,18 +468,21 @@ function pennywise_block_view($delta = '') {
   switch($delta) {
 
     case 'pw_edition':
-      $dig_edition = l('Browse Online', variable_get('pw_edition_link', 'edition'));
-      $subject = $dig_edition;
+      $subject = l('Browse Online', variable_get('pw_edition_link', 'edition'));
+
       $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-salmo-beaver-valley'));
       $n = l('Nelson & Salmo', variable_get('pw_edition_trail_link', 'edition/nelson-salmo'));
       $c = l('Castlegar & Slocan Valley', variable_get('pw_edition_trail_link', 'edition/castlegar-slocan-valley'));
       $k = l('Kootenay Lake', variable_get('pw_edition_trail_link', 'edition/kootenay-lake'));
+      $hometown = l('Hometown Business', 'features/hometown');
       $items = array(
         array('data' => $t, 'id' => 't-edtion'),
         array('data' => $n, 'id' => 'n-edtion'),
         array('data' => $c, 'id' => 'c-edtion'),
         array('data' => $k, 'id' => 'k-edtion'),
+        array('data' => $hometown, 'id' => 'hometown-bus-link'),
       );
+
       $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
       break;
 

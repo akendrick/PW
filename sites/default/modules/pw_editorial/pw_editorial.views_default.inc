@@ -934,6 +934,120 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'edition/%';
+
+  /* Display: Hometown Businesses */
+  $handler = $view->new_display('page_with_page_title', 'Hometown Businesses', 'hometown_bus_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Hometown Businesses';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'ds';
+  $handler->display->display_options['row_options']['view_mode'] = 'special_feature';
+  $handler->display->display_options['row_options']['load_comments'] = 0;
+  $handler->display->display_options['row_options']['alternating'] = 0;
+  $handler->display->display_options['row_options']['grouping'] = 0;
+  $handler->display->display_options['row_options']['advanced'] = 0;
+  $handler->display->display_options['row_options']['delta_fieldset']['delta_fields'] = array();
+  $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'node|created';
+  $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'special_feature';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Edition Date */
+  $handler->display->display_options['fields']['field_edition_date']['id'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['table'] = 'field_data_field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['field'] = 'field_edition_date';
+  $handler->display->display_options['fields']['field_edition_date']['label'] = '';
+  $handler->display->display_options['fields']['field_edition_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_edition_date']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['field_edition_date']['settings'] = array(
+    'format_type' => 'medium',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '[field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'edition/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['alt'] = '[field_edition_date] [field_area] Pennywise ';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Kootenay Lake Edition */
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['id'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['table'] = 'field_data_field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['field'] = 'field_kootenay_lake_edition';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['label'] = '';
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom Text: Link to Archive */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Global: Custom Text: Link to Archive';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View Entire Pennywise Digital Archive';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'digital/archive';
+  $handler->display->display_options['fields']['nothing']['alter']['link_class'] = 'center button';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'attachment' => 'attachment',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Feature Type (field_feature_type) */
+  $handler->display->display_options['filters']['field_feature_type_value']['id'] = 'field_feature_type_value';
+  $handler->display->display_options['filters']['field_feature_type_value']['table'] = 'field_data_field_feature_type';
+  $handler->display->display_options['filters']['field_feature_type_value']['field'] = 'field_feature_type_value';
+  $handler->display->display_options['filters']['field_feature_type_value']['value'] = array(
+    'hometown' => 'hometown',
+  );
+  /* Filter criterion: Content: Scribd (field_scribd) */
+  $handler->display->display_options['filters']['field_scribd_value']['id'] = 'field_scribd_value';
+  $handler->display->display_options['filters']['field_scribd_value']['table'] = 'field_data_field_scribd';
+  $handler->display->display_options['filters']['field_scribd_value']['field'] = 'field_scribd_value';
+  $handler->display->display_options['filters']['field_scribd_value']['operator'] = 'not empty';
+  $handler->display->display_options['path'] = 'features/hometown';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Hometown Businesses';
+  $handler->display->display_options['menu']['weight'] = '100';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $export['digital_edition_pages'] = $view;
 
   $view = new view();
@@ -2534,7 +2648,7 @@ function pw_editorial_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
-  /* Field: User: First Name */
+  /* Field: Field: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
