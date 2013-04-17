@@ -90,6 +90,8 @@ function pw_la_context_default_contexts() {
         'search' => 'search',
         'search?*' => 'search?*',
         'search/*' => 'search/*',
+        'area-code' => 'area-code',
+        'features/hometown' => 'features/hometown',
       ),
     ),
   );
@@ -106,13 +108,13 @@ function pw_la_context_default_contexts() {
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-9',
+          'weight' => '-8',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-7',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
