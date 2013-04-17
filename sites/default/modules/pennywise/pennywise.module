@@ -210,19 +210,22 @@ function pennywise_create_node_page($node_type) {
 }
 
 function area_code_page() {
-  $prefix = variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.'));
-  $line_break = array('\n', '\r');
+//  $prefix = variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.'));
+//  $line_break = array('\n', '\r');
+//
+//  $phone_areas = variable_get('pw_phone_areas', '');
+//
+//  $content = '<div id="pennywise-pw-phone-areas"><h4 class="block-title">' . $prefix . '</h4>';
+//  $content .= '<dl id="phone-calling-codes">';
+//  foreach ($phone_areas as $town => $code) {
+//    $content .= '<dt>' . $code . '</dt><dd>' . $town . "</dd>\n";
+//  }
+//  $content .= '</dl></div>';
 
-  $phone_areas = variable_get('pw_phone_areas', '');
+  $content = block_load('pennywise', 'pw_phone_areas');
+  $block_content = _block_render_blocks(array($block));
 
-  $content = '<div id="pennywise-pw-phone-areas"><h4 class="block-title">' . $prefix . '</h4>';
-  $content .= '<dl id="phone-calling-codes">';
-  foreach ($phone_areas as $town => $code) {
-    $content .= '<dt>' . $code . '</dt><dd>' . $town . "</dd>\n";
-  }
-  $content .= '</dl></div>';
-
-  return $content;
+  return $block_content;
 }
 /**
 * Custom support function for MENU_LOCAL_TASKS_ALTER
@@ -410,19 +413,15 @@ function pennywise_block_configure($delta) {
         '#title' => t('Phone prefixes'),
         '#default_value' => variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.')),
       );
-      $form['pw_phone_areas'] = array(
-        '#type' => 'textarea',
-        '#cols' => 20,
-        '#rows' => 40,
-        '#description' => t('Area codes for phone numbers.<br>Format as:<br>Boswell => 000<br>Riondel => 001<br>'),
-        '#default_value' => variable_get('pw_phone_areas', '
+      $phone_areas = variable_get('pw_phone_areas', FALSE);
+      $default_phone = '
 Boswell => 223
 Riondel => 225
 Winlaw/Vallican => 226
 Crawford Bay/Gray Creek => 227
 Balfour/Ainsworth => 229
 Procter/Harrop => 229
-Nakusp =>
+Nakusp => 265
 Fauquier => 269
 CASTLEGAR => 304 365 608 687
 NELSON => 352 354 505 509 551 777 825
@@ -445,7 +444,19 @@ Midway => 449
 Beaverdell => 484
 Genelle => 693
 North Shore, Nelson => 825
-Wynndel/Sirdarn => 866'),
+Wynndel/Sirdarn => 866
+      ';
+      if ($phone_areas) {
+        foreach ($phone_areas as $city => $code) {
+          $default_phone .= $city . ' => ' . $code . "\n";
+        }
+      }
+      $form['pw_phone_areas'] = array(
+        '#type' => 'textarea',
+        '#cols' => 20,
+        '#rows' => 40,
+        '#description' => t('Area codes for phone numbers.<br>Format as:<br>Boswell => 000<br>Riondel => 001<br>'),
+        '#default_value' => $default_phone,
       );
 
       break;
@@ -570,7 +581,7 @@ function pennywise_block_view($delta = '') {
         $title = '';
         $caption = t('Click here to see where you are calling');
 //        $content = l($caption,
-        $content .= '<a rel="lightmodal[][' . $caption . '|height:400px]" style="display:none" >' . $markup . '</a>';
+        $content .= '<a rel="lightmodal[][' . $caption . '|height:400px]"  >' . $markup . '</a>';
 
       break;
 

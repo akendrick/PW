@@ -123,7 +123,12 @@ function pw_editorial_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '3',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'links' => array(
+      'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -138,7 +143,7 @@ function pw_editorial_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -421,27 +426,40 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'attachment';
   $ds_layout->view_mode = 'default';
-  $ds_layout->layout = 'ds_1col';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
   $ds_layout->settings = array(
     'regions' => array(
-      'ds_content' => array(
-        0 => 'title',
-        1 => 'field_image',
-        2 => 'body',
-        3 => 'field_high_res_ad',
-        4 => 'field_link',
+      'left' => array(
+        0 => 'field_image',
+        1 => 'field_high_res_ad',
+      ),
+      'right' => array(
+        2 => 'links',
+        3 => 'title',
+        4 => 'body',
+        5 => 'field_link',
+        6 => 'field_file',
+      ),
+      'footer' => array(
+        7 => 'field_scribd',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
-      'field_image' => 'ds_content',
-      'body' => 'ds_content',
-      'field_high_res_ad' => 'ds_content',
-      'field_link' => 'ds_content',
+      'field_image' => 'left',
+      'field_high_res_ad' => 'left',
+      'links' => 'right',
+      'title' => 'right',
+      'body' => 'right',
+      'field_link' => 'right',
+      'field_file' => 'right',
+      'field_scribd' => 'footer',
     ),
     'classes' => array(),
     'wrappers' => array(
-      'ds_content' => 'div',
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
@@ -503,16 +521,14 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'title',
-        1 => 'field_image',
-        2 => 'field_high_res_ad',
-        3 => 'body',
+        0 => 'field_image',
+        1 => 'title',
+        2 => 'body',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
       'field_image' => 'ds_content',
-      'field_high_res_ad' => 'ds_content',
+      'title' => 'ds_content',
       'body' => 'ds_content',
     ),
     'classes' => array(),
@@ -640,45 +656,47 @@ function pw_editorial_ds_layout_settings_info() {
     'regions' => array(
       'left' => array(
         0 => 'group_edition',
-        2 => 'field_trail',
-        4 => 'field_nelson_edition',
-        5 => 'field_castlegar_edition',
-        7 => 'field_kootenay_lake_edition',
+        3 => 'field_trail',
+        5 => 'field_nelson_edition',
+        7 => 'field_castlegar_edition',
+        8 => 'field_kootenay_lake_edition',
       ),
       'right' => array(
         1 => 'group_info',
-        14 => 'field_edition_date',
-        15 => 'field_display_ad',
+        15 => 'field_edition_date',
+        16 => 'field_display_ad',
       ),
       'footer' => array(
-        3 => 'group_optional_features',
-        8 => 'field_entity_reference',
-        10 => 'field_scribd',
+        2 => 'group_optional_features',
+        10 => 'field_entity_reference',
       ),
       'hidden' => array(
+        4 => 'field_scribd',
         6 => 'field_pdf',
         9 => 'path',
         11 => 'title',
         12 => 'body',
         13 => 'field_special_feature_link',
-        16 => '_add_existing_field',
+        14 => 'redirect',
+        17 => '_add_existing_field',
       ),
     ),
     'fields' => array(
       'group_edition' => 'left',
       'group_info' => 'right',
-      'field_trail' => 'left',
       'group_optional_features' => 'footer',
+      'field_trail' => 'left',
+      'field_scribd' => 'hidden',
       'field_nelson_edition' => 'left',
-      'field_castlegar_edition' => 'left',
       'field_pdf' => 'hidden',
+      'field_castlegar_edition' => 'left',
       'field_kootenay_lake_edition' => 'left',
-      'field_entity_reference' => 'footer',
       'path' => 'hidden',
-      'field_scribd' => 'footer',
+      'field_entity_reference' => 'footer',
       'title' => 'hidden',
       'body' => 'hidden',
       'field_special_feature_link' => 'hidden',
+      'redirect' => 'hidden',
       'field_edition_date' => 'right',
       'field_display_ad' => 'right',
       '_add_existing_field' => 'hidden',

@@ -114,23 +114,35 @@
   width: 100%;
 }
 /******* BLOCK THEMEING */
+.block-pennywise-pw-phone-areas h4.block-title,
+#pennywise-pw-phone-areas h4.block-title,
+#block-pennywise-pw-phone-areas h4.block-title {
+  font-size: .8em;
+  text-align: center;
+  background-color: #003366;
+  color: #ffffff;
+}
 .block-pennywise-pw-phone-areas #phone-calling-codes dl,
-#pennywise-pw-phone-areas #phone-calling-codes dl {
-  font-size: 1em;
+#pennywise-pw-phone-areas #phone-calling-codes dl,
+#block-pennywise-pw-phone-areas #phone-calling-codes dl {
+  font-size: .6em;
   float: left;
   width: 250px;
 }
 .block-pennywise-pw-phone-areas #phone-calling-codes dt,
 #pennywise-pw-phone-areas #phone-calling-codes dt,
+#block-pennywise-pw-phone-areas #phone-calling-codes dt,
 .block-pennywise-pw-phone-areas #phone-calling-codes dd,
-#pennywise-pw-phone-areas #phone-calling-codes dd {
+#pennywise-pw-phone-areas #phone-calling-codes dd,
+#block-pennywise-pw-phone-areas #phone-calling-codes dd {
   font-size: 1em;
   text-align: center;
   float: left;
   margin: 0;
 }
 .block-pennywise-pw-phone-areas #phone-calling-codes dt,
-#pennywise-pw-phone-areas #phone-calling-codes dt {
+#pennywise-pw-phone-areas #phone-calling-codes dt,
+#block-pennywise-pw-phone-areas #phone-calling-codes dt {
   background-color: #003366;
   color: #ffffff;
   font-weight: bold;
@@ -140,8 +152,8 @@
   margin-bottom: 2px;
 }
 .block-pennywise-pw-phone-areas #phone-calling-codes dd,
-#pennywise-pw-phone-areas #phone-calling-codes dd {
-  border: 1pt solid blue;
+#pennywise-pw-phone-areas #phone-calling-codes dd,
+#block-pennywise-pw-phone-areas #phone-calling-codes dd {
   margin: 0 80;
 }
 /* Digital Edition - 2 col */

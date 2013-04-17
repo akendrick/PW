@@ -124,6 +124,7 @@ function pw_la_context_default_contexts() {
         'search?*' => 'search?*',
         'search/*' => 'search/*',
         'area-code' => 'area-code',
+        'features/hometown' => 'features/hometown',
       ),
     ),
   );
@@ -136,15 +137,15 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'pennywise-pw_phone_areas' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_phone_areas',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
           'region' => 'content',
           'weight' => '-8',
         ),
