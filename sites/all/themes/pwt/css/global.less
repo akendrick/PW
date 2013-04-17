@@ -1647,6 +1647,26 @@ ul.pager {
   }
 
 }
+/* Attachments on digital editions */
+.view-digital-edition-pages {
+  .field-name-field-high-res-ad {
+    background-color: @classified_med;
+    padding: 5px;
+    margin: 4px auto;
+    display: block;
+    text-align: center;
+    .border-radius;
+    text-overflow: ellipsis;
+    width: 400px;
+    a:before {
+      content: "Download: ";
+    }
+    a {
+      font-weight: 700;
+      color: @white;
+    }
+  }
+}
 
 /* LOGIN PAGE */
 .not-front.not-logged-in.page-user-login {
