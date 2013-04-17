@@ -13,6 +13,66 @@ function pw_editorial_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_attachments|node|task|default';
+  $field_group->group_name = 'group_attachments';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'task';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Attachments',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_task_image',
+      1 => 'field_add_link',
+      2 => 'field_add_file',
+      3 => 'field_add_attachments',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_attachments|node|task|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_attachments|node|task|form';
+  $field_group->group_name = 'group_attachments';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'task';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Attachments',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_task_image',
+      1 => 'field_related_information',
+      2 => 'field_add_link',
+      3 => 'field_add_file',
+      4 => 'field_add_attachments',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_attachments|node|task|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_attachment|node|attachment|form';
   $field_group->group_name = 'group_attachment';
   $field_group->entity_type = 'node';
@@ -21,11 +81,11 @@ function pw_editorial_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attachment',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
-      0 => 'group_basics',
+      0 => 'group_description',
       1 => 'group_optional',
-      2 => 'group_description',
+      2 => 'group_special_feature',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -53,7 +113,8 @@ function pw_editorial_field_group_info() {
     'children' => array(
       0 => 'field_high_res_ad',
       1 => 'field_image',
-      2 => 'title',
+      2 => 'field_scribd',
+      3 => 'title',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -108,14 +169,16 @@ function pw_editorial_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_attachment';
   $field_group->data = array(
-    'label' => 'Description',
-    'weight' => '2',
+    'label' => 'File Attachemnt',
+    'weight' => '9',
     'children' => array(
       0 => 'body',
+      1 => 'field_high_res_ad',
+      2 => 'field_image',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'label' => 'Description',
+      'label' => 'File Attachemnt',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -371,15 +434,14 @@ function pw_editorial_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Optional Features',
+    'label' => 'Optional Features & Inserts',
     'weight' => '2',
     'children' => array(
       0 => 'field_entity_reference',
-      1 => 'field_scribd',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Optional Features',
+      'label' => 'Optional Features & Inserts',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -401,11 +463,13 @@ function pw_editorial_field_group_info() {
   $field_group->parent_name = 'group_attachment';
   $field_group->data = array(
     'label' => 'Optional',
-    'weight' => '3',
+    'weight' => '10',
     'children' => array(
       0 => 'field_link',
       1 => 'field_entity_reference',
-      2 => 'path',
+      2 => 'field_file',
+      3 => 'path',
+      4 => 'redirect',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -418,6 +482,35 @@ function pw_editorial_field_group_info() {
     ),
   );
   $export['group_optional|node|attachment|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_special_feature|node|attachment|form';
+  $field_group->group_name = 'group_special_feature';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'attachment';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_attachment';
+  $field_group->data = array(
+    'label' => 'Special Feature',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_scribd',
+      1 => 'field_feature_type',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Special Feature',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_special_feature|node|attachment|form'] = $field_group;
 
   return $export;
 }
