@@ -408,13 +408,21 @@ function pennywise_block_configure($delta) {
       break;
 
     case 'pw_phone_areas':
+      $phone_headers = variable_get('pw_phone_header');
       $form['pw_phone_prefix'] = array(
         '#type' => 'textfield',
         '#title' => t('Phone prefixes'),
-        '#default_value' => variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.')),
+        '#default_value' => $prefix = ($phone_headers['prefix']) ? $phone['prefix'] : 'The most common prefix is 250. New to the area are 778 and 236.',
       );
       $phone_areas = variable_get('pw_phone_areas', FALSE);
-      $default_phone = '
+      if ($phone_areas) {
+        $default_phone = '';
+        foreach ($phone_areas as $city => $code) {
+          $default_phone .= $city . ' => ' . $code . "\n";
+        }
+      }
+      else {
+        $default_phone = '
 Boswell => 223
 Riondel => 225
 Winlaw/Vallican => 226
@@ -445,11 +453,7 @@ Beaverdell => 484
 Genelle => 693
 North Shore, Nelson => 825
 Wynndel/Sirdarn => 866
-      ';
-      if ($phone_areas) {
-        foreach ($phone_areas as $city => $code) {
-          $default_phone .= $city . ' => ' . $code . "\n";
-        }
+        ';
       }
       $form['pw_phone_areas'] = array(
         '#type' => 'textarea',
@@ -531,10 +535,10 @@ function pennywise_block_save($delta = '', $edit = array()) {
   switch($delta) {
     case 'tmtv_link':
       break;
-    case 'pw_phone_areas': //
-      variable_set('pw_phone_prefix', $edit['pw_phone_prefix']);
-
-      $phone_areas = preg_split ('/$\R?^/m', $edit['pw_phone_areas']);
+    case 'pw_phone_areas':
+      variable_set('pw_phone_header', array('prefix' => $edit['pw_phone_prefix'], 'title' => $edit['title']));
+      dpm($edit);
+      $phone_areas = preg_split ('/$\R?^/m', trim($edit['pw_phone_areas']));
       foreach ($phone_areas as $phone) {
         $area = explode('=>', $phone);
         $listing[$area[0]] = $area[1];
@@ -566,23 +570,25 @@ function pennywise_block_view($delta = '') {
   switch($delta) {
 
     case 'pw_phone_areas':
-        $prefix = variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.'));
-        $line_break = array('\n', '\r');
+
+        $headers = variable_get('pw_phone_header');
+        $caption = '<h4 id="phone-calling-codes-button">' . $headers['title'] . '</h4>';
+        $markup  = '<h4 id="phone-calling-codes-title">' . $headers['prefix'] . '</h4>';
+        $markup .= '<div id="phone-calling-codes">';
 
         $phone_areas = variable_get('pw_phone_areas', '');
-
-        $markup = '<h4 class="block-title">' . $prefix . '</h4>';
-        $markup .= '<dl id="phone-calling-codes">';
         foreach ($phone_areas as $town => $code) {
-          $markup .= '<dt>' . $code . '</dt><dd>' . $town . "</dd>\n";
+          $marker++;
+          $zebra_strip = ($marker % 2 == 0) ? 'even' : 'odd';
+
+          $markup .= '<div class="city-phone-group ' . $zebra_strip . '"><span class="phone-area-code">' . $code . '</span><span class="phone-area ">' . $town . "</span><div class='bottom-floater'></div></div>\n";
         }
-        $markup .= '</dl>';
+        $markup .= '</div>';
 
-        $title = '';
-        $caption = t('Click here to see where you are calling');
-//        $content = l($caption,
-        $content .= '<a rel="lightmodal[][' . $caption . '|height:400px]"  >' . $markup . '</a>';
-
+        //$subject = '';
+        $subject = l($headers['title'], 'area-code', array('attributes' => array('id' => 'phone-calling-codes-button')));
+        //$content = '<a href="area-code" id="phone-calling-codes-button-link" >' . $caption . '</a>';
+        $content = $markup;
       break;
 
     case 'pw_edition':
