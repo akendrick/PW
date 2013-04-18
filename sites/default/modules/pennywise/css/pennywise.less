@@ -72,6 +72,22 @@
   background-color: @background;
 }
 
+/* cols */
+.cols (@cols: 2, @width: 1em) {
+	-moz-column-count: @cols;
+	-moz-column-gap: @width;
+	-webkit-column-count: @cols;
+	-webkit-column-gap: @width;
+	column-count: @cols;
+	column-gap: @width;
+
+ -webkit-column-span:1; /* Chrome */
+ column-span:1;
+
+	widows: 8;
+	orphans: 8;
+}
+
 
 /*************************** GENERAL Form Style */
 .less-strong-stuff {
@@ -155,6 +171,9 @@
   }
 
 }
+
+/******* BLOCK THEMEING */
+
 /* Digital Edition - 2 col */
 #pw-digital-node-form {
   .group-left {
@@ -194,6 +213,83 @@
     }
   }
 }
+
+/* Phone Area Code Block */
+#block-pennywise-pw-phone-areas {
+  border: 1pt solid @status;
+  border-left: 0;
+  border-right: 0;
+  border-bottom:0;
+  border-top: 0;
+  margin: 0;
+  #phone-calling-codes-button, h2.block-title, h4#phone-calling-codes-title {
+    font-size: 1em;
+    text-align: center;
+    background-color: @status;
+    padding: 2px;
+    color: @white;
+    margin: 0;
+    width: 100%;
+  }
+  h2.block-title {
+    .border-radius(0);
+    padding: 0;
+  }
+  #phone-calling-codes  {
+    .phone-calling-codes-title { clear: both; width: 100%;}
+    .city-phone-group {
+      width: 190px;
+      margin: 15px;
+      float: left;
+      background-color: lighten(@editorial_light, 20%);
+      margin: 2px 0;
+      .phone-area-code, .phone-area {
+        font-size: .8em;
+        text-align: center;
+        margin: 0;
+        padding: 2px 4px;
+      }
+      .phone-area-code {
+        float: left;
+        display: block;
+        width: 25px;
+        background-color: @editorial_dark;
+        color: @white;
+        font-weight: bold;
+        clear: left;
+        max-width: 60px;
+        margin-bottom: 2px;
+      }
+      .phone-area {
+        margin: 0 80;
+        width: 100px;
+        word-wrap: break-word;
+      }
+      .bottom-floater {
+        clear: both;
+      }
+    }
+    .even {
+/*       background-color: lighten(@editorial_light, 10%); */
+    }
+  }
+}
+/*
+.page-area-code #phone-calling-codes {
+  display: inherit;
+  .cols(2, 1em);
+  .phone-area-code, .phone-area {
+    font-size: 1em;
+  }
+  .phone-area-code {
+    width: 35px;
+  }
+  .phone-area {
+    width: 150px;
+  }
+}
+*/
+
 
 /* Display Ad Node Form */
 .node-display_ads-form {
@@ -565,3 +661,4 @@ table.details-price {
     width: 100px;
   }
 }
+

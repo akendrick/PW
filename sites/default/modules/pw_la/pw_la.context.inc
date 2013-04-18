@@ -58,6 +58,39 @@ function pw_la_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'area_code_page';
+  $context->description = 'Display calling area block as page.';
+  $context->tag = 'Pages';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'area-codes' => 'area-codes',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Display calling area block as page.');
+  t('Pages');
+  $export['area_code_page'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'classifieds_et_al';
   $context->description = 'General look and feel for classifieds and most pages';
   $context->tag = 'Pages';
@@ -107,6 +140,12 @@ function pw_la_context_default_contexts() {
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
+          'region' => 'content',
+          'weight' => '-8',
+        ),
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
           'region' => 'content',
           'weight' => '-8',
         ),
@@ -201,6 +240,93 @@ function pw_la_context_default_contexts() {
   t('General look and feel for classifieds and most pages');
   t('Pages');
   $export['classifieds_et_al'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'dashboard';
+  $context->description = 'Admin Dashboard layout';
+  $context->tag = 'Pages';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'admin/dashboard' => 'admin/dashboard',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-admin_dashboard-display_dash' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-display_dash',
+          'region' => 'dashboard_main',
+          'weight' => '-10',
+        ),
+        'views-1609153c8b57774fee260bccf7c286f4' => array(
+          'module' => 'views',
+          'delta' => '1609153c8b57774fee260bccf7c286f4',
+          'region' => 'dashboard_main',
+          'weight' => '-9',
+        ),
+        'views-admin_dashboard-block_2' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-block_2',
+          'region' => 'dashboard_main',
+          'weight' => '-8',
+        ),
+        'views-admin_dashboard-block_1' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-block_1',
+          'region' => 'dashboard_main',
+          'weight' => '-7',
+        ),
+        'search-form' => array(
+          'module' => 'search',
+          'delta' => 'form',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-54',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-53',
+        ),
+        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-browse-classifi',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-52',
+        ),
+        'user-online' => array(
+          'module' => 'user',
+          'delta' => 'online',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-51',
+        ),
+        'views-admin_dashboard-classified_dash' => array(
+          'module' => 'views',
+          'delta' => 'admin_dashboard-classified_dash',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-10',
+        ),
+        'views-85679b54a104be59cbd7704598393d19' => array(
+          'module' => 'views',
+          'delta' => '85679b54a104be59cbd7704598393d19',
+          'region' => 'dashboard_sidebar',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Admin Dashboard layout');
+  t('Pages');
+  $export['dashboard'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */

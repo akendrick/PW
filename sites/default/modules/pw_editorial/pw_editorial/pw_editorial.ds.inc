@@ -484,47 +484,18 @@ function pw_editorial_ds_layout_settings_info() {
         2 => 'body',
         3 => 'field_high_res_ad',
         4 => 'field_link',
-  $ds_layout->view_mode = 'default';
-  $ds_layout->layout = 'ds_2col_stacked_fluid';
-  $ds_layout->settings = array(
-    'regions' => array(
-      'left' => array(
-        0 => 'field_image',
-        1 => 'field_high_res_ad',
-      ),
-      'right' => array(
-        2 => 'links',
-        3 => 'title',
-        4 => 'body',
-        5 => 'field_link',
-        6 => 'field_file',
-      ),
-      'footer' => array(
-        7 => 'field_scribd',
->>>>>>> PopUpAreaNumbers
       ),
       'footer' => array(
         5 => 'field_entity_reference',
       ),
     ),
     'fields' => array(
-<<<<<<< HEAD
       'title' => 'header',
       'field_image' => 'left',
       'body' => 'right',
       'field_high_res_ad' => 'right',
       'field_link' => 'right',
       'field_entity_reference' => 'footer',
-=======
-      'field_image' => 'left',
-      'field_high_res_ad' => 'left',
-      'links' => 'right',
-      'title' => 'right',
-      'body' => 'right',
-      'field_link' => 'right',
-      'field_file' => 'right',
-      'field_scribd' => 'footer',
->>>>>>> PopUpAreaNumbers
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -532,7 +503,6 @@ function pw_editorial_ds_layout_settings_info() {
       'left' => 'div',
       'right' => 'div',
       'footer' => 'div',
-<<<<<<< HEAD
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
@@ -580,8 +550,6 @@ function pw_editorial_ds_layout_settings_info() {
       'left' => 'div',
       'right' => 'div',
       'footer' => 'div',
-=======
->>>>>>> PopUpAreaNumbers
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
