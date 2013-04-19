@@ -1151,12 +1151,6 @@ function pw_editorial_field_default_fields() {
       'description' => '',
       'display' => array(
         'attachment' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'default' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
@@ -1177,12 +1171,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'text_default',
           'weight' => '3',
         ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -1191,10 +1179,11 @@ function pw_editorial_field_default_fields() {
           'weight' => '1',
         ),
         'special_feature' => array(
-          'label' => 'above',
+          'label' => 'hidden',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'type' => 'text_default',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -1298,10 +1287,13 @@ function pw_editorial_field_default_fields() {
       'description' => 'If the attachment is several pages or files you can reference the other items here.',
       'display' => array(
         'attachment' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '5',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -1315,12 +1307,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'hidden',
           'weight' => '12',
         ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -1328,10 +1314,10 @@ function pw_editorial_field_default_fields() {
           'weight' => '4',
         ),
         'special_feature' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1505,12 +1491,6 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'default' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
           'weight' => '12',
         ),
         'default' => array(
@@ -1526,12 +1506,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'hidden',
           'weight' => '11',
         ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1543,12 +1517,6 @@ function pw_editorial_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '6',
-        ),
-        'special_feature' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'inline',
@@ -1676,10 +1644,13 @@ function pw_editorial_field_default_fields() {
       'description' => '',
       'display' => array(
         'attachment' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'file_entity',
+          'settings' => array(
+            'file_view_mode' => 'default',
+          ),
+          'type' => 'file_rendered',
+          'weight' => '3',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -1699,12 +1670,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'file_rendered',
           'weight' => '4',
         ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'module' => 'file',
@@ -1713,12 +1678,6 @@ function pw_editorial_field_default_fields() {
           'weight' => '2',
         ),
         'special_feature' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
           'label' => 'hidden',
           'module' => 'file',
           'settings' => array(),
@@ -1855,18 +1814,11 @@ function pw_editorial_field_default_fields() {
 </ul>',
       'display' => array(
         'attachment' => array(
-<<<<<<< HEAD
           'label' => 'hidden',
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightbox__thumbnail__original',
           'weight' => '1',
-=======
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
->>>>>>> PopUpAreaNumbers
         ),
         'default' => array(
           'label' => 'hidden',
@@ -1879,15 +1831,6 @@ function pw_editorial_field_default_fields() {
           'weight' => '0',
         ),
         'search_result' => array(
-<<<<<<< HEAD
-=======
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'simple_teaser' => array(
->>>>>>> PopUpAreaNumbers
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -1905,17 +1848,10 @@ function pw_editorial_field_default_fields() {
           'weight' => '0',
         ),
         'special_feature' => array(
-<<<<<<< HEAD
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '5',
-=======
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
->>>>>>> PopUpAreaNumbers
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -2048,18 +1984,11 @@ function pw_editorial_field_default_fields() {
       'description' => 'By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>',
       'display' => array(
         'attachment' => array(
-<<<<<<< HEAD
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '4',
-=======
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
->>>>>>> PopUpAreaNumbers
         ),
         'default' => array(
           'label' => 'hidden',
@@ -2075,12 +2004,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'link_default',
           'weight' => '5',
         ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'settings' => array(),
@@ -2088,17 +2011,10 @@ function pw_editorial_field_default_fields() {
           'weight' => '3',
         ),
         'special_feature' => array(
-<<<<<<< HEAD
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '3',
-=======
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
->>>>>>> PopUpAreaNumbers
         ),
         'teaser' => array(
           'label' => 'above',
@@ -4487,10 +4403,6 @@ NOTE: Thumbnail image required.',
   t('Email');
   t('Extra Images');
   t('Feature Type');
-<<<<<<< HEAD
-=======
-  t('File');
->>>>>>> PopUpAreaNumbers
   t('Header Image');
   t('Highlighted Link');
   t('If the attachment is several pages or files you can reference the other items here.');

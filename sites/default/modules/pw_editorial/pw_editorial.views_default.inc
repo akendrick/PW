@@ -1335,14 +1335,17 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['text'] = '[body] ...more.';
   $handler->display->display_options['fields']['body']['alter']['path'] = '[view_node]';
+  $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['max_length'] = '80';
   $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
+  $handler->display->display_options['fields']['body']['alter']['more_link_text'] = 'More';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['body']['element_type'] = 'p';
   $handler->display->display_options['fields']['body']['element_class'] = 'views-spotlight-editorial-body views-spotlight-editorial-body-trimmed';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['body']['type'] = 'text_plain';
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '180',
   );
@@ -1526,16 +1529,16 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['body']['alter']['text'] = '[body]...';
   $handler->display->display_options['fields']['body']['alter']['path'] = '[view_node]';
   $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['body']['alter']['nl2br'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['max_length'] = '80';
-  $handler->display->display_options['fields']['body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
+  $handler->display->display_options['fields']['body']['alter']['more_link_text'] = 'More';
+  $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['body']['element_type'] = 'p';
   $handler->display->display_options['fields']['body']['element_class'] = 'views-spotlight-editorial-body views-spotlight-editorial-body-trimmed';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['body']['type'] = 'text_trimmed';
+  $handler->display->display_options['fields']['body']['type'] = 'text_plain';
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '110',
   );

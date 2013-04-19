@@ -141,7 +141,7 @@ function pw_la_context_default_contexts() {
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-9',
         ),
         'pennywise-pw_phone_areas' => array(
           'module' => 'pennywise',
@@ -197,11 +197,17 @@ function pw_la_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-4',
         ),
+        'menu-menu-special-features' => array(
+          'module' => 'menu',
+          'delta' => 'menu-special-features',
+          'region' => 'sidebar_first',
+          'weight' => '-3',
+        ),
         'user-login' => array(
           'module' => 'user',
           'delta' => 'login',
           'region' => 'sidebar_first',
-          'weight' => '-3',
+          'weight' => '-2',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -583,6 +589,33 @@ function pw_la_context_default_contexts() {
   t('Default');
   t('Logo, menu bar, address, and splash boxes');
   $export['top_stuff'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'user';
+  $context->description = 'Simple content only user pages.';
+  $context->tag = 'Pages';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'user/*' => 'user/*',
+        'people/*' => 'people/*',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'delta' => array(
+      'delta_template' => 'content_only',
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Pages');
+  t('Simple content only user pages.');
+  $export['user'] = $context;
 
   return $export;
 }

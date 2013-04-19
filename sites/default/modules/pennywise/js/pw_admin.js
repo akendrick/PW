@@ -17,17 +17,21 @@ $(document).ready(function() {
   });
 
   //Area Phone Codes show-hide
-  $('.page-taxonomy-term #phone-calling-codes, #phone-calling-codes-title').hide();
-  $('#block-pennywise-pw-phone-areas .block-title').css('cursor', 'pointer').click(function() {
-    $('#phone-calling-codes, #phone-calling-codes-title').toggle();
-    // Do masonry on it.
-    $('#phone-calling-codes').masonry({
-      itemSelector : '.city-phone-group',
-      columnWidth : 200,
-    })
-    return false;
-  });
-
+  if ($('.page-taxonomy-term').length > 0) {
+    $('.page-taxonomy-term #phone-calling-codes, #phone-calling-codes-title').hide();
+    $('#block-pennywise-pw-phone-areas .block-title').css('cursor', 'pointer').click(function() {
+      $('#phone-calling-codes, #phone-calling-codes-title').toggle();
+      // Do masonry on it.
+      $('#phone-calling-codes').masonry({
+        itemSelector : '.city-phone-group',
+        columnWidth : 200,
+      })
+      return false;
+    });
+  }
+  else {
+    $('#block-pennywise-pw-phone-areas').hide();
+  }
 })
 
 }(jQuery));

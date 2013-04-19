@@ -577,6 +577,7 @@ function pennywise_block_view($delta = '') {
         $markup .= '<div id="phone-calling-codes">';
 
         $phone_areas = variable_get('pw_phone_areas', '');
+        $marker = 0;
         foreach ($phone_areas as $town => $code) {
           $marker++;
           $zebra_strip = ($marker % 2 == 0) ? 'even' : 'odd';
@@ -598,13 +599,13 @@ function pennywise_block_view($delta = '') {
       $n = l('Nelson & Salmo', variable_get('pw_edition_trail_link', 'edition/nelson-salmo'));
       $c = l('Castlegar & Slocan Valley', variable_get('pw_edition_trail_link', 'edition/castlegar-slocan-valley'));
       $k = l('Kootenay Lake', variable_get('pw_edition_trail_link', 'edition/kootenay-lake'));
-      $hometown = l('Hometown Business', 'features/hometown');
+/*       $hometown = l('Hometown Business', 'features/hometown'); */
       $items = array(
         array('data' => $t, 'id' => 't-edtion'),
         array('data' => $n, 'id' => 'n-edtion'),
         array('data' => $c, 'id' => 'c-edtion'),
         array('data' => $k, 'id' => 'k-edtion'),
-        array('data' => $hometown, 'id' => 'hometown-bus-link'),
+/*         array('data' => $hometown, 'id' => 'hometown-bus-link'), */
       );
 
       $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
