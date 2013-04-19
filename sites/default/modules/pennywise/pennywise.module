@@ -115,7 +115,6 @@ function pennywise_holiday_message() {
         break;
     }
 
-    //dpm($options);
     pdm_create_message($holiday['holiday_message'], $options);
   }
   else {
@@ -537,7 +536,6 @@ function pennywise_block_save($delta = '', $edit = array()) {
       break;
     case 'pw_phone_areas':
       variable_set('pw_phone_header', array('prefix' => $edit['pw_phone_prefix'], 'title' => $edit['title']));
-      dpm($edit);
       $phone_areas = preg_split ('/$\R?^/m', trim($edit['pw_phone_areas']));
       foreach ($phone_areas as $phone) {
         $area = explode('=>', $phone);
