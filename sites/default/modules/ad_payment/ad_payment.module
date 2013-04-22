@@ -447,6 +447,30 @@ function ad_payment_node_insert($node) {
     module_load_include('inc', 'ad_payment', 'ad_payment_price_check');
     $details = ad_payment_get_node_details($node);
 
+    /* TEST subtotal */
+    if (!isset($details['subtotal'])) {
+      // see if no subtotal present at all.
+      $message = 'No subtotal: @subtotal ** Set to default "0.00"<br>taxes: @taxes <br>total: @total <br> <br>AD - @ad';
+      $message_vars = array('@subtotal' => $price['subtotal'], '@taxes' => $details['taxes'], '@total' => $details['total'], '@ad' => $node->title);
+
+      watchdog('ADP Node', $message, $message_vars);
+      $details['subtotal'] = 0.00;
+
+    }
+    else {
+      $new_subtotal = number_format($details['subtotal'], 2, '.', '');
+      $new_total = number_format($details['total'], 2, '.', '');
+      if ($new_subtotal != $details['subtotal'] || $new_total != $details['total'] ) {
+        $details['subtotal'] = $new_subtotal;
+        $details['total'] = $new_total;
+
+        // Log discrepency.
+        $message = 'OLD subtotal: @subtotal <br>NEW subtotal: @newSub <br>taxes: @taxes <br>total: @total <br>NEW total: @newTotal<br> <br>AD - @ad';
+        $message_vars = array('@subtotal' => $details['subtotal'],'@newSub' => $new_subtotal, '@taxes' => $details['taxes'], '@total' => $details['total'], '@newTotal' => $new_total, '@ad' => $node->title);
+        watchdog('ADP Price', $message, $message_vars);
+      }
+    }
+
     $fields = array(
       'ccid'    => $node->title,
       'uid'     => 0,

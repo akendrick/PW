@@ -67,28 +67,28 @@ $schema['adp'] = array(
       'description' => 'Final price (with taxes).',
       'type' => 'float',
       'not null' => TRUE,
-      'precision' => '4',
+      'precision' => '6',
       'scale' => '2',
     ),
     'price_taxes' => array(
       'description' => 'Death and taxes.',
       'type' => 'float',
       'not null' => TRUE,
-      'precision' => '4',
+      'precision' => '6',
       'scale' => '2',
     ),
     'price_subtotal' => array(
       'description' => 'Total before taxes.',
       'type' => 'float',
       'not null' => TRUE,
-      'precision' => '4',
+      'precision' => '6',
       'scale' => '2',
     ),
     'price_extras' => array(
       'description' => 'Extras.',
       'type' => 'float',
       'not null' => TRUE,
-      'precision' => '4',
+      'precision' => '6',
       'scale' => '2',
     ),
     'word_count' => array(
@@ -177,7 +177,7 @@ function ad_payment_update_7105() {
 //      'type' => 'float',
 //      'length' => 1024,
 //      'not null' => FALSE,
-//      'precision' => '4',
+//      'precision' => '6',
 //      'scale' => '2',
 //  );
 //  db_add_field('adp', 'price_extras', $field);
