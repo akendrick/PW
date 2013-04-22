@@ -268,7 +268,7 @@ Drupal.adPayment.cardCheck = function() {
   var cardNum  = jQuery('#edit-field-cc-number').val();
   if (visaCard == true) {
     //  console.log(cardNum + ' VISA: ' + cardNum.indexOf("4506"));
-    if (cardNum.indexOf('4506') >= 0) {
+    if (cardNum.indexOf('4506') >= 0 || cardNum.indexOf('4519') >= 0 || cardNum.indexOf('4724') >= 0) {
       console.log('VISA DEBIT: ' + cardNum.indexOf('4506'));
       txt = '<h5>Sorry, we cannot accept VISA Debit cards online.</h5>For other payment options please call our toll-free number <h5>1-800-663-4619</h5>';
       msgClass = 'error';
