@@ -135,7 +135,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['label'] = '';
-  /* Field: User: First Name */
+  /* Field: Field: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
@@ -369,7 +369,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['grouping'] = array(
     0 => array(
@@ -981,7 +980,6 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -2189,16 +2187,17 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Link: Promote */
+  /* Field: Link: PUBLISH */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['ui_name'] = 'Link: Promote';
+  $handler->display->display_options['fields']['nid']['ui_name'] = 'Link: PUBLISH';
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['text'] = 'PUBLISH';
   $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nid']['alter']['path'] = 'admin/pennywise/promote_ad/[nid]';
+  $handler->display->display_options['fields']['nid']['alter']['link_class'] = 'confirm-link-wDialog';
   $handler->display->display_options['fields']['nid']['element_class'] = 'button';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Field: Link: Netidea (External) */
@@ -2423,6 +2422,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['price_subtotal']['label'] = '';
   $handler->display->display_options['fields']['price_subtotal']['exclude'] = TRUE;
   $handler->display->display_options['fields']['price_subtotal']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['price_subtotal']['separator'] = '';
   /* Field: Ad Payment: Price Extras */
   $handler->display->display_options['fields']['price_extras']['id'] = 'price_extras';
   $handler->display->display_options['fields']['price_extras']['table'] = 'adp';
@@ -4179,7 +4179,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: User: First Name */
+  /* Field: Field: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
@@ -4989,7 +4989,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'adp';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: User: First Name */
+  /* Field: Field: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
@@ -7172,7 +7172,7 @@ function pw_admin_views_default_views() {
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
-  /* Field: Content: Inserted Images */
+  /* Field: Content: Extra Images */
   $handler->display->display_options['fields']['field_images_editorial_extra']['id'] = 'field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['table'] = 'field_data_field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['field'] = 'field_images_editorial_extra';

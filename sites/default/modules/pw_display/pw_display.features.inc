@@ -84,21 +84,20 @@ function pw_display_image_default_styles() {
   $styles['display_ad_print_thumbnail'] = array(
     'name' => 'display_ad_print_thumbnail',
     'effects' => array(
-      13 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
+      35 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
         'form callback' => 'image_scale_form',
         'summary theme' => 'image_scale_summary',
-        'module' => 'image',
-        'name' => 'image_scale',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
-          'width' => '60',
+          'width' => '85',
           'height' => '85',
           'upscale' => 0,
         ),
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );

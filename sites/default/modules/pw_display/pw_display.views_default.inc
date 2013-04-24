@@ -477,7 +477,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'jcarousel';
   $handler->display->display_options['style_options']['wrap'] = 'both';
   $handler->display->display_options['style_options']['skin'] = 'print';
-  $handler->display->display_options['style_options']['visible'] = '4';
+  $handler->display->display_options['style_options']['visible'] = '';
   $handler->display->display_options['style_options']['scroll'] = '1';
   $handler->display->display_options['style_options']['auto'] = '8';
   $handler->display->display_options['style_options']['autoPause'] = 1;
@@ -496,6 +496,21 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Client */
+  $handler->display->display_options['fields']['field_ad_client']['id'] = 'field_ad_client';
+  $handler->display->display_options['fields']['field_ad_client']['table'] = 'field_data_field_ad_client';
+  $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
+  $handler->display->display_options['fields']['field_ad_client']['label'] = '';
+  $handler->display->display_options['fields']['field_ad_client']['alter']['text'] = '<a href="[field_display_ad_1]" 
+rel="lightbox[_field_display_ad]<p><a href= title class="lightbox-processed" http: pennywiseads.com sites default files images display>"
+>[field_ad_client]</a>';
+  $handler->display->display_options['fields']['field_ad_client']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_ad_client']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['field_ad_client']['element_type'] = 'h6';
+  $handler->display->display_options['fields']['field_ad_client']['element_class'] = 'print-client-header';
+  $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_ad_client']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_ad_client']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Display Ad File Link */
   $handler->display->display_options['fields']['field_display_ad_1']['id'] = 'field_display_ad_1';
   $handler->display->display_options['fields']['field_display_ad_1']['table'] = 'field_data_field_display_ad';
@@ -509,7 +524,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad_1']['type'] = 'image_url';
   $handler->display->display_options['fields']['field_display_ad_1']['settings'] = array(
     'image_style' => '',
-    'image_link' => '',
+    'image_link' => 'content',
   );
   /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
@@ -520,6 +535,8 @@ function pw_display_views_default_views() {
 [field_ad_client]<br>
 [field_ad_copy]<br>
 ';
+  $handler->display->display_options['fields']['field_display_ad']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_display_ad']['element_class'] = 'display-ad-print-box';
   $handler->display->display_options['fields']['field_display_ad']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_display_ad']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
@@ -528,21 +545,19 @@ function pw_display_views_default_views() {
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
-  /* Field: Content: Client */
-  $handler->display->display_options['fields']['field_ad_client']['id'] = 'field_ad_client';
-  $handler->display->display_options['fields']['field_ad_client']['table'] = 'field_data_field_ad_client';
-  $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
-  $handler->display->display_options['fields']['field_ad_client']['label'] = '';
-  $handler->display->display_options['fields']['field_ad_client']['alter']['text'] = '<a href="[field_display_ad_1]" 
-rel="lightbox[_field_display_ad]<p><a href= title class="lightbox-processed" http: pennywiseads.com sites default files images display>"
->[field_ad_client]</a>';
-  $handler->display->display_options['fields']['field_ad_client']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_ad_client']['alter']['path'] = '[field_display_ad_1] ';
-  $handler->display->display_options['fields']['field_ad_client']['alter']['rel'] = 'lightshow';
-  $handler->display->display_options['fields']['field_ad_client']['element_type'] = 'h6';
-  $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ad_client']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_ad_client']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['max_length'] = '40';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['more_link_text'] = 'More';
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = TRUE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h6';
+  $handler->display->display_options['fields']['title']['element_class'] = 'print-title';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: Content: Ad Copy */
   $handler->display->display_options['fields']['field_ad_copy']['id'] = 'field_ad_copy';
   $handler->display->display_options['fields']['field_ad_copy']['table'] = 'field_data_field_ad_copy';

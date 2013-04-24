@@ -950,242 +950,6 @@ echo date(\'now\');
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'content_access_settings';
-  $strongarm->value = array(
-    'view' => array(
-      'adworks_file' => array(
-        0 => 5,
-        1 => 3,
-      ),
-      'attachment' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'classified' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'page' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'webform' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'article' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'pw_digital' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 9,
-        5 => 6,
-        6 => 5,
-        7 => 7,
-        8 => 3,
-        9 => 10,
-      ),
-      'ad_s' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 9,
-        5 => 11,
-        6 => 5,
-        7 => 6,
-        8 => 7,
-        9 => 10,
-        10 => 12,
-        11 => 3,
-      ),
-      'display_ads' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 9,
-        5 => 11,
-        6 => 5,
-        7 => 6,
-        8 => 7,
-        9 => 10,
-        10 => 12,
-        11 => 3,
-      ),
-      'free' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 9,
-        5 => 11,
-        6 => 5,
-        7 => 6,
-        8 => 7,
-        9 => 10,
-        10 => 12,
-        11 => 3,
-      ),
-      'task' => array(
-        0 => 9,
-        1 => 11,
-        2 => 5,
-        3 => 6,
-        4 => 7,
-        5 => 10,
-        6 => 12,
-        7 => 3,
-      ),
-    ),
-    'view_own' => array(
-      'adworks_file' => array(
-        0 => 5,
-        1 => 3,
-      ),
-      'attachment' => array(
-        0 => 6,
-        1 => 5,
-        2 => 7,
-        3 => 9,
-        4 => 10,
-        5 => 3,
-      ),
-      'classified' => array(
-        0 => 1,
-        1 => 4,
-        2 => 2,
-        3 => 8,
-        4 => 6,
-        5 => 5,
-        6 => 7,
-        7 => 9,
-        8 => 10,
-        9 => 3,
-      ),
-      'page' => array(
-        0 => 10,
-        1 => 3,
-      ),
-      'webform' => array(
-        0 => 1,
-        1 => 10,
-        2 => 3,
-      ),
-      'article' => array(
-        0 => 7,
-        1 => 3,
-      ),
-      'pw_digital' => array(
-        0 => 1,
-        1 => 2,
-        2 => 6,
-        3 => 5,
-        4 => 7,
-        5 => 3,
-        6 => 10,
-      ),
-      'ad_s' => array(
-        0 => 5,
-        1 => 3,
-      ),
-      'display_ads' => array(
-        0 => 8,
-        1 => 6,
-        2 => 3,
-      ),
-      'free' => array(
-        0 => 2,
-        1 => 5,
-        2 => 3,
-      ),
-      'task' => array(
-        0 => 9,
-        1 => 11,
-        2 => 5,
-        3 => 6,
-        4 => 7,
-        5 => 10,
-        6 => 12,
-        7 => 3,
-      ),
-    ),
-    'per_node' => array(
-      'adworks_file' => 0,
-      'attachment' => 0,
-      'classified' => 0,
-      'page' => 0,
-      'webform' => 0,
-      'article' => 0,
-      'pw_digital' => 0,
-      'ad_s' => 0,
-      'display_ads' => 0,
-      'free' => 0,
-      'task' => 0,
-    ),
-    'priority' => array(
-      'adworks_file' => '0',
-      'attachment' => '0',
-      'classified' => '0',
-      'page' => '0',
-      'webform' => '0',
-      'article' => '0',
-      'pw_digital' => '0',
-      'ad_s' => '0',
-      'display_ads' => '-10',
-      'free' => '0',
-      'task' => '0',
-    ),
-  );
-  $export['content_access_settings'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'context_status';
   $strongarm->value = array(
     'pwadmin_layout' => TRUE,
@@ -1284,7 +1048,7 @@ echo date(\'now\');
     'group_optional_features|node|pw_digital|form' => FALSE,
     'group_name|node|ad_s|form' => TRUE,
     'group_optional|node|attachment|form' => FALSE,
-    'group_basics|node|attachment|form' => FALSE,
+    'group_basics|node|attachment|form' => TRUE,
     'group_description|node|attachment|form' => FALSE,
     'group_attachment|node|attachment|form' => FALSE,
     'group_display_ad|node|display_ads|form' => FALSE,
@@ -1302,6 +1066,7 @@ echo date(\'now\');
     'group_status|node|task|form' => TRUE,
     'group_attachments|node|task|form' => FALSE,
     'group_attachments|node|task|default' => FALSE,
+    'group_special_feature|node|attachment|form' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1787,7 +1552,7 @@ echo date(\'now\');
         'custom_settings' => FALSE,
       ),
       'search_result' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'token' => array(
         'custom_settings' => FALSE,
@@ -1822,14 +1587,29 @@ echo date(\'now\');
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'notifications' => array(
+        'custom_settings' => FALSE,
+      ),
+      'print_display_ad' => array(
+        'custom_settings' => FALSE,
+      ),
+      'special_feature' => array(
+        'custom_settings' => TRUE,
+      ),
+      'attachment' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '6',
+          'weight' => '0',
         ),
         'path' => array(
           'weight' => '6',
+        ),
+        'redirect' => array(
+          'weight' => '9',
         ),
       ),
       'display' => array(),
@@ -2087,10 +1867,13 @@ echo date(\'now\');
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '7',
+          'weight' => '6',
         ),
         'path' => array(
-          'weight' => '6',
+          'weight' => '5',
+        ),
+        'redirect' => array(
+          'weight' => '9',
         ),
       ),
       'display' => array(),
@@ -2300,6 +2083,7 @@ echo date(\'now\');
     8 => 'menu-pennywise-digital-edition',
     9 => 'menu-header-menu',
     10 => 'menu-browse-classifieds',
+    11 => 'menu-special-features',
   );
   $export['menu_default_active_menus'] = $strongarm;
 

@@ -131,29 +131,29 @@ function pw_la_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
+          'region' => 'content',
+          'weight' => '-56',
+        ),
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-10',
+          'weight' => '-55',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-9',
-        ),
-        'pennywise-pw_phone_areas' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_phone_areas',
-          'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-54',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-7',
+          'weight' => '-53',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',

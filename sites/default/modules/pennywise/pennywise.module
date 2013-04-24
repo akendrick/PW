@@ -411,7 +411,7 @@ function pennywise_block_configure($delta) {
       $form['pw_phone_prefix'] = array(
         '#type' => 'textfield',
         '#title' => t('Phone prefixes'),
-        '#default_value' => $prefix = ($phone_headers['prefix']) ? $phone['prefix'] : 'The most common prefix is 250. New to the area are 778 and 236.',
+        '#default_value' => $prefix = ($phone_headers['prefix']) ? $phone_headers['prefix'] : 'The most common area code is 250, followed by 778 and 236.',
       );
       $phone_areas = variable_get('pw_phone_areas', FALSE);
       if ($phone_areas) {

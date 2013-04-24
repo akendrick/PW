@@ -137,7 +137,6 @@ features[variable][] = comment_subject_field_classified
 features[variable][] = comment_subject_field_display_ads
 features[variable][] = comment_subject_field_page
 features[variable][] = comment_subject_field_pw_digital
-features[variable][] = content_access_settings
 features[variable][] = context_status
 features[variable][] = date_default_timezone
 features[variable][] = date_first_day
