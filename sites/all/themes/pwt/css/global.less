@@ -93,6 +93,60 @@
   box-shadow: none;
 }
 
+/* image curl shading
+* courtesy of http://www.matthamm.com/box-shadow-curl.html
+*/
+.image-curl {
+  /* for the object itself */
+  padding: 0;
+  border: 1px solid @white;
+/*   position: relative; */
+/*   float: left; */
+  background: #ffffff; /* old browsers */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .4), 0 0 40px rgba(0, 0, 0, .6) inset;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .4), 0 0 60px rgba(0, 0, 0, .6) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .4), 0 0 40px rgba(0, 0, 0, .6) inset;
+}
+.image-curl-after {
+  /*   for the object with ':after' */
+  z-index: -1;
+  position: absolute;
+  background: transparent;
+  width: 70%;
+  height: 55%;
+  content: '';
+  right: 10px;
+  bottom: 10px;
+  transform: skew(15deg) rotate(6deg);
+  -webkit-transform: skew(15deg) rotate(6deg);
+  -moz-transform: skew(15deg) rotate(6deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+}
+.image-curl-before {
+  /*   for the object with ':before' */
+  z-index: -2;
+  position: absolute;
+  background: transparent;
+  width: 70%;
+  height: 55%;
+  content: '';
+  left: 10px;
+  bottom: 10px;
+  transform: skew(-15deg) rotate(-6deg);
+  -webkit-transform: skew(-15deg) rotate(-6deg);
+  -moz-transform: skew(-15deg) rotate(-6deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, .6);
+}
+/* apply this to the container of the img */
+.curl-img {
+  img { .image-curl; }
+  img :before { .image-curl-before; }
+  img :after { .image-curl-after; }
+}
 
 /* opacity */
 .opacity (@opacity: 0.5) {
@@ -798,39 +852,37 @@ body {
 
 /* display ad pages - simple page */
 .node-type-display-ads {
+  #region-content {
+    background-color: transparent;
+  }
   .node-display-ads.view-mode-full {
+    .field-name-field-display-ad {
+      margin-bottom: 20px;
+    }
     .field-name-field-link, .field-name-field-email {
-      text-align: center;
+      text-align: right;
+      margin: 5px;
+      padding: 5px;
+      font-size: 1em;
+      line-height: 1em;
       .field-label {
         background-color: @alert;
-        font-style: italic;
-        font-size: 1em;
-        padding: 5px;
-        .border-radius-custom(10px,10px,0,0);
-        color: @sunlight;
+        color: @white;
         width: 80px;
-        display: block;
-        margin: 10px auto 5px auto;
       }
       .field-item {
-        background-color: @alert;
-        text-align: center;
-        .border-radius;
-        padding: 4px 8px;
-        margin: 0 10px;
         a {
-          font-size: 1.4em;
-          color: @white;
+          color: @classified_dark;
+          padding: 5px;
         }
         a:hover {
-          color: @sunlight;
+          background-color: @alert;
+          color: @white;
         }
       }
-      .field-item a:hover { background-color: darken(@alert, 20%);color: @sunlight; }
-    }
-    .field-name-field-email {
-      .field-label, .field-item a { background-color: @classified_med; }
-      .field-item a:hover { background-color: @classified_dark; color: @sunlight; }
+      .field-item, .field-label {
+        padding: 5px;
+      }
     }
   }
   .ds-2col-stacked.node-display-ads {
