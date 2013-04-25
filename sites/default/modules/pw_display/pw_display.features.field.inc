@@ -71,7 +71,7 @@ function pw_display_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -170,7 +170,7 @@ function pw_display_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -276,7 +276,7 @@ function pw_display_field_default_fields() {
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightbox__display_ad_full_page__original',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -525,11 +525,11 @@ function pw_display_field_default_fields() {
           'weight' => '15',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -650,7 +650,7 @@ function pw_display_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '18',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -744,7 +744,7 @@ function pw_display_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '14',
+          'weight' => '8',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -884,11 +884,11 @@ with <strong>Page 30</strong>.<br>
           'weight' => '16',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1208,7 +1208,7 @@ with <strong>Page 30</strong>.<br>
             'view_mode' => 'teaser',
           ),
           'type' => 'entityreference_entity_view',
-          'weight' => '6',
+          'weight' => '7',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1311,10 +1311,11 @@ with <strong>Page 30</strong>.<br>
           'weight' => '10',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '14',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '0',
         ),
         'notifications' => array(
           'label' => 'above',

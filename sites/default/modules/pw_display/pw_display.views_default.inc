@@ -60,7 +60,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -208,7 +208,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -388,7 +388,7 @@ function pw_display_views_default_views() {
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -526,7 +526,7 @@ rel="lightbox[_field_display_ad]<p><a href= title class="lightbox-processed" htt
     'image_style' => '',
     'image_link' => 'content',
   );
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -661,7 +661,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -819,7 +819,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -1000,7 +1000,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -1215,7 +1215,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_link']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_link']['delta_limit'] = '3';
   $handler->display->display_options['fields']['field_link']['delta_offset'] = '0';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -1433,7 +1433,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['fields']['field_tags_1']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_tags_1']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_tags_1']['delta_offset'] = '1';
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -1475,7 +1475,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['sorts']['field_ad_copy_format']['id'] = 'field_ad_copy_format';
   $handler->display->display_options['sorts']['field_ad_copy_format']['table'] = 'field_data_field_ad_copy';
   $handler->display->display_options['sorts']['field_ad_copy_format']['field'] = 'field_ad_copy_format';
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -1509,7 +1509,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
     'print' => 'print',
   );
   $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';

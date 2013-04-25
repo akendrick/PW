@@ -1728,6 +1728,15 @@ echo date(\'now\');
       'print_display_ad' => array(
         'custom_settings' => FALSE,
       ),
+      'notifications' => array(
+        'custom_settings' => TRUE,
+      ),
+      'attachment' => array(
+        'custom_settings' => FALSE,
+      ),
+      'special_feature' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'display' => array(),
@@ -2146,16 +2155,17 @@ echo date(\'now\');
     39 => 15,
     40 => 14,
     41 => 13,
-    42 => 11,
-    43 => 10,
-    44 => 8,
-    45 => 7,
-    46 => 6,
-    47 => 5,
-    48 => 4,
-    49 => 3,
-    50 => 2,
-    51 => 1,
+    42 => 12,
+    43 => 11,
+    44 => 10,
+    45 => 8,
+    46 => 7,
+    47 => 6,
+    48 => 5,
+    49 => 4,
+    50 => 3,
+    51 => 2,
+    52 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
