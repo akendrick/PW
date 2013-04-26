@@ -1,0 +1,296 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+@faintsand: lighten(@sand, 20%);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@highlight: lighten(#900, 20);
+
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
+
+/* drop shadow */
+.text-drop-shadow (@colour: @black) {
+  text-shadow: 1px 1px 0px #fff, 2px 2px 6px @colour;
+}
+.box-shadow (@x: 0px, @y: 3px, @blur: 2px, @alpha: 0.8) {
+	-webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow-off () {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+
+/* opacity */
+.opacity (@opacity: 0.5) {
+	-webkit-opacity: 	@opacity;
+	-moz-opacity: 		@opacity;
+	opacity: 		@opacity;
+}
+
+
+/*****************  MIXIN'  *****************/
+/* isolate box -- for debuging */
+.border{
+    border: 1pt solid @alert;
+}
+
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+
+/**
+ * Based on the default jCarousel Tango skin. Adapted for use with the Mini
+ * Panels module by Wim Leers. GPL icons created by Kaj Heijmans.
+ */
+/* custom text */
+/*
+.jcarousel-skin-fineprint h6 {
+  margin-bottom: 8px;
+}
+.jcarousel-skin-fineprint h6 a {
+  margin-bottom: 0;
+}
+.jcarousel-skin-fineprint em a {
+  font-weight: 300;
+  font-style: normal;
+  width: 100%;
+  overflow: hidden;
+}
+
+.jcarousel-skin-fineprint {
+  text-align: center;
+}
+*/
+
+.jcarousel-skin-fineprint .jcarousel-container {
+/*
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+*/
+/*
+  background: #F0F6F9;
+*/
+/*   margin: auto; */
+}
+
+.jcarousel-skin-fineprint .jcarousel-container-horizontal {
+  padding: 10px 10px 10px 0;
+/*   height: 160px; */
+  background-color: @lightsand;
+}
+
+.jcarousel-skin-fineprint .jcarousel-navigation-before {
+  padding-top: 30px;
+}
+
+.jcarousel-skin-fineprint .jcarousel-navigation-after {
+  padding-bottom: 30px;
+}
+ul.jcarousel-navigation {
+  margin: 0;
+  li {
+    display: inline;
+    padding-left: 15px;
+  }
+}
+.jcarousel-skin-fineprint .jcarousel-clip-horizontal {
+/*   border: 1px solid #346F97; */
+  overflow: hidden;
+/*   background-color: @white; */
+  margin-left: 40px;
+  padding: 3px;
+  width: 200px;
+/*   border: 1pt solid #900; */
+}
+
+.jcarousel-skin-fineprint .jcarousel-item {
+  .border-radius(10px);
+  width: 118px;
+  height: 158px;
+  overflow: hidden;
+  border: 1px solid @classified_med;
+  list-style: none;
+  background: #F0F6F9;
+}
+
+.jcarousel-skin-fineprint .jcarousel-item-horizontal {
+  margin: 2px 6px;
+/*   width: 105px; */
+}
+
+.jcarousel-skin-fineprint .jcarousel-item-placeholder {
+  background: #fff url(throbber.gif) no-repeat center center;
+  color: #000;
+}
+
+/**
+ * Buttons
+ */
+.jcarousel-skin-fineprint .jcarousel-next,
+.jcarousel-skin-fineprint .jcarousel-prev {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-image: url(arrows.png);
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-fineprint .jcarousel-prev-horizontal {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  background-position: 0 0;
+}
+.jcarousel-skin-fineprint .jcarousel-prev-horizontal:hover {
+  background-position: -32px 0;
+}
+.jcarousel-skin-fineprint .jcarousel-prev-horizontal:active {
+  background-position: -64px 0;
+}
+.jcarousel-skin-fineprint .jcarousel-prev-disabled-horizontal,
+.jcarousel-skin-fineprint .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-skin-fineprint .jcarousel-prev-disabled-horizontal:active {
+  cursor: default;
+  background-position: -96px 0;
+}
+
+.jcarousel-skin-fineprint .jcarousel-next-horizontal {
+  position: absolute;
+  top: 55px;
+  right: 5px;
+  background-position: 0 -32px;
+}
+.jcarousel-skin-fineprint .jcarousel-next-horizontal:hover {
+  background-position: -32px -32px;
+}
+.jcarousel-skin-fineprint .jcarousel-next-horizontal:active {
+  background-position: -64px -32px;
+}
+.jcarousel-skin-fineprint .jcarousel-next-disabled-horizontal,
+.jcarousel-skin-fineprint .jcarousel-next-disabled-horizontal:hover,
+.jcarousel-skin-fineprint .jcarousel-next-disabled-horizontal:active {
+  cursor: default;
+  background-position: -96px -32px;
+}
+
+
+/* LESS */
+.view-display-id-print_block {
+  /* title */
+  ul .jcarousel-list-horizontal {
+/*     width: 600px */
+/*     padding: 0 20px; */
+  }
+  .print-client-header {
+    font-size: .8em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 2px;
+    height: 14px;
+    overflow: hidden;
+    background-color: @white;
+  }
+  .display-ad-print-box {
+    height: 85px;
+    line-height: 85px;
+    img {
+      .drop-shadow;
+      vertical-align: middle;
+    }
+  }
+  .print-title {
+    margin: 4px 2px 2px 2px;
+    line-height: 1em;
+    letter-spacing: -0.05em;
+    height: 30px;
+    padding: 2px;
+    line-height: .5em;
+    a {
+      padding: 0;
+      margin: 0;
+      font-size: .65em;
+      color: @black;
+      font-weight: 600;
+    }
+    a :hover {
+      color: @classified_med;
+    }
+  }
+  .button-link {
+    margin: 0;
+    padding: 0;
+    .box-shadow-off;
+    a {
+      width: 104px;
+      .border-radius-custom(0,0, 9px, 9px);
+      border: 0;
+      text-align: center;
+      background-color: @classified_med;
+      color: @white;
+      padding: 0 46px;
+      font-size: .7em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    a:hover {
+      background-color: @classified_dark;
+    }
+  }
+}

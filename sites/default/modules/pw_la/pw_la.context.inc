@@ -95,6 +95,12 @@ function pw_la_context_default_contexts() {
   $context->description = 'General look and feel for classifieds and most pages';
   $context->tag = 'Pages';
   $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        2 => 2,
+        3 => 3,
+      ),
+    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
@@ -239,7 +245,7 @@ function pw_la_context_default_contexts() {
       'delta_template' => 'default_center',
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -483,16 +489,166 @@ function pw_la_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'mobile_layout';
+  $context->name = 'mobile_front';
   $context->description = '';
-  $context->tag = 'default';
-  $context->conditions = array();
-  $context->reactions = array();
+  $context->tag = 'Mobile';
+  $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+    'path' => array(
+      'values' => array(
+        '<front>' => '<front>',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'pennywise-pw_logo' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_logo',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+        'pennywise-pw_holiday_message' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_holiday_message',
+          'region' => 'content',
+          'weight' => '-8',
+        ),
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
+          'region' => 'content',
+          'weight' => '-7',
+        ),
+        'pennywise-pw_edition' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_edition',
+          'region' => 'content',
+          'weight' => '-6',
+        ),
+        'pennywise-submit_editorial' => array(
+          'module' => 'pennywise',
+          'delta' => 'submit_editorial',
+          'region' => 'content',
+          'weight' => '-5',
+        ),
+        'views-deba537d237e294b8f1a706f5b8291e0' => array(
+          'module' => 'views',
+          'delta' => 'deba537d237e294b8f1a706f5b8291e0',
+          'region' => 'content',
+          'weight' => '-4',
+        ),
+      ),
+    ),
+    'delta' => array(
+      'delta_template' => 'mobile',
+    ),
+  );
   $context->condition_mode = 0;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('default');
+  t('Mobile');
+  $export['mobile_front'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'mobile_layout';
+  $context->description = '';
+  $context->tag = 'Mobile';
+  $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'delta_blocks-logo' => array(
+          'module' => 'delta_blocks',
+          'delta' => 'logo',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_logo' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_logo',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'content',
+          'weight' => '-8',
+        ),
+        'pennywise-pw_holiday_message' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_holiday_message',
+          'region' => 'content',
+          'weight' => '-7',
+        ),
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
+          'region' => 'content',
+          'weight' => '-6',
+        ),
+        'pennywise-submit_editorial' => array(
+          'module' => 'pennywise',
+          'delta' => 'submit_editorial',
+          'region' => 'content',
+          'weight' => '-5',
+        ),
+        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-browse-classifi',
+          'region' => 'content',
+          'weight' => '-4',
+        ),
+        'pennywise-pw_phone_areas' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_phone_areas',
+          'region' => 'content',
+          'weight' => '-3',
+        ),
+        'views-de361c058107ea938b176d3ffd541f03' => array(
+          'module' => 'views',
+          'delta' => 'de361c058107ea938b176d3ffd541f03',
+          'region' => 'content',
+          'weight' => '-2',
+        ),
+        'system-main' => array(
+          'module' => 'system',
+          'delta' => 'main',
+          'region' => 'content',
+          'weight' => '-1',
+        ),
+      ),
+    ),
+    'delta' => array(
+      'delta_template' => 'mobile',
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Mobile');
   $export['mobile_layout'] = $context;
 
   $context = new stdClass();
@@ -541,6 +697,12 @@ function pw_la_context_default_contexts() {
   $context->description = 'Logo, menu bar, address, and splash boxes';
   $context->tag = 'Default';
   $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        2 => 2,
+        3 => 3,
+      ),
+    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',

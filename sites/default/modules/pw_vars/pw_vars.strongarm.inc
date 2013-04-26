@@ -967,6 +967,7 @@ echo date(\'now\');
     'admin_boxes' => TRUE,
     'frontpage_classified_layout' => TRUE,
     'front_page' => TRUE,
+    'mobile_front' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -2155,17 +2156,16 @@ echo date(\'now\');
     39 => 15,
     40 => 14,
     41 => 13,
-    42 => 12,
-    43 => 11,
-    44 => 10,
-    45 => 8,
-    46 => 7,
-    47 => 6,
-    48 => 5,
-    49 => 4,
-    50 => 3,
-    51 => 2,
-    52 => 1,
+    42 => 11,
+    43 => 10,
+    44 => 8,
+    45 => 7,
+    46 => 6,
+    47 => 5,
+    48 => 4,
+    49 => 3,
+    50 => 2,
+    51 => 1,
   );
   $export['menu_masks'] = $strongarm;
 

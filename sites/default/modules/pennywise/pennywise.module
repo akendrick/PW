@@ -565,6 +565,9 @@ function pennywise_block_save($delta = '', $edit = array()) {
 function pennywise_block_view($delta = '') {
   global $base_url;
 
+  $subject = '';
+  $content = '';
+
   switch($delta) {
 
     case 'pw_phone_areas':
@@ -716,6 +719,8 @@ function pennywise_block_view($delta = '') {
       }
       break;
   }
+
+
   $block = array(
     'subject' => $subject,
     'content' => $content,
@@ -735,6 +740,12 @@ function pennywise_jcarousel_skin_info() {
     'title' => t('PW Print'),
     'file' => 'skins/print/jcarousel-print.css',
   );
+
+  $skins['fineprint'] = array(
+    'title' => t('FinePrint'),
+    'file' => 'skins/fineprint/jcarousel-fineprint.css',
+  );
+
 
   $skins['front'] = array(
     'title' => t('Front'),
