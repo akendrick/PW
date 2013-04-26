@@ -2094,6 +2094,7 @@ echo date(\'now\');
     9 => 'menu-header-menu',
     10 => 'menu-browse-classifieds',
     11 => 'menu-special-features',
+    12 => 'menu-pw-mobile-menu',
   );
   $export['menu_default_active_menus'] = $strongarm;
 

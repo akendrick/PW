@@ -574,69 +574,80 @@ function pw_la_context_default_contexts() {
         1 => 1,
       ),
     ),
+    'path' => array(
+      'values' => array(
+        'section/animals-livestock' => 'section/animals-livestock',
+      ),
+    ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'delta_blocks-logo' => array(
-          'module' => 'delta_blocks',
-          'delta' => 'logo',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
-        'pennywise-pw_logo' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_logo',
-          'region' => 'content',
+        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-browse-classifi',
+          'region' => 'threeup_one',
           'weight' => '-9',
         ),
-        'pennywise-pw_contact' => array(
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
+          'region' => 'threeup_two',
+          'weight' => '-10',
+        ),
+        'pennywise-submit_editorial' => array(
           'module' => 'pennywise',
-          'delta' => 'pw_contact',
-          'region' => 'content',
-          'weight' => '-8',
+          'delta' => 'submit_editorial',
+          'region' => 'threeup_three',
+          'weight' => '-9',
         ),
         'pennywise-pw_holiday_message' => array(
           'module' => 'pennywise',
           'delta' => 'pw_holiday_message',
           'region' => 'content',
-          'weight' => '-7',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'content',
-          'weight' => '-6',
-        ),
-        'pennywise-submit_editorial' => array(
-          'module' => 'pennywise',
-          'delta' => 'submit_editorial',
-          'region' => 'content',
-          'weight' => '-5',
-        ),
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
-          'region' => 'content',
-          'weight' => '-4',
+          'weight' => '-9',
         ),
         'pennywise-pw_phone_areas' => array(
           'module' => 'pennywise',
           'delta' => 'pw_phone_areas',
           'region' => 'content',
-          'weight' => '-3',
-        ),
-        'views-de361c058107ea938b176d3ffd541f03' => array(
-          'module' => 'views',
-          'delta' => 'de361c058107ea938b176d3ffd541f03',
-          'region' => 'content',
-          'weight' => '-2',
+          'weight' => '-8',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-1',
+          'weight' => '-7',
+        ),
+        'delta_blocks-logo' => array(
+          'module' => 'delta_blocks',
+          'delta' => 'logo',
+          'region' => 'branding',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_contact' => array(
+          'module' => 'pennywise',
+          'delta' => 'pw_contact',
+          'region' => 'branding',
+          'weight' => '-9',
+        ),
+        'views-de361c058107ea938b176d3ffd541f03' => array(
+          'module' => 'views',
+          'delta' => 'de361c058107ea938b176d3ffd541f03',
+          'region' => 'header_first',
+          'weight' => '-10',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'header_first',
+          'weight' => '-9',
+        ),
+        'jump_menu-jump_menu-m_menu-pw-mobile-menu' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-pw-mobile-menu',
+          'region' => 'header_first',
+          'weight' => '-8',
         ),
       ),
     ),
