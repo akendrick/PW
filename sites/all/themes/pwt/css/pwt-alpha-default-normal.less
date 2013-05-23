@@ -288,115 +288,224 @@ body {
   display: block;
 }
 
-/***************** HEADER :: CONTACT BAR  ********/
-#block-pennywise-pw-contact {
-  background-color: transparent;
-  margin: 10px 0;
-  display: table;
-  width: 100%;
-  color: @black;
-  #pw-contact-info-block {
-    margin: 0;
-    background-color: @white;
-    border: solid 2pt @classified_light;
-/*     padding: 4px; */
-    .center;
-    .border-radius;
-    height: 40px;
+/***************** HEADER :: CONTACT BAR :: MASTHEAD  ********/
+/* masthead contact header */
+#pw-masthead {
+  /* undo mobile */
+  display: inherit;
 
-/*     div {display: inline; } */
+  width: 100%;
+  height: 50px !important;
+  margin: 0;
+  padding: 0;
+  background-color: @white;
+  border: solid 2pt @classified_light;
+  .border-radius;
+  .pw-masthead-block {
+    float: left;
+    height: 40px;
   }
-  dt, dd {
-    display: inline;
-    font-size: .8em;
-    font-weight: bolder;
-    margin: 0; padding: 0;
-  }
-  dt {
-    margin: 0;
-    padding: 0;
-  }
-  dd {
-/*     margin: 0 10px 0 4px; */
-    .button;
-  }
-  .pw-contact-toll_free-wrapper {
-    dt, dd {
-      width: 100%;
-      float: inherit;
+  .pw-masthead-block-contact {
+    padding: 5px 0 0 5px;
+    width: 38%;
+    .pw-masthead-toll_free-label,
+    .pw-masthead-local-label,
+    .pw-masthead-fax-label {
+      padding-right: 6px;
+      text-transform: uppercase;
+      font-size: .8em;
+    }
+    .pw-masthead-email-value {
+      margin-left: 10px;
+      a:hover {
+        background-color: @classified_dark;
+        color: @white;
+        .border-radius(2px);
+      }
+    }
+    .pw-masthead-fax-wrapper{
+      float: left;
+      clear: left;
     }
   }
-
-  /* Individual Fields */
-  .pw-contact-wrapper {
-    margin: 4px;
-    width: 170px;
-    float: left;
-    line-height: 1.2em;
-    display: table-cell;
-    vertical-align: middle;
+  .pw-masthead-block-social {
+    width: 42%;
+    .pw-masthead-contest-wrapper  {
+      margin: 0;
+      padding: 0;
+      dd.pw-masthead-contest-value a {
+        float: left;
+        width: 160px;
+        margin: 3px 0 0 10px;
+        .border-radius(3px);
+        font-size: 1em;
+        background-color: @classified_light;
+        text-align: center;
+        padding: 6px;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      dd.pw-masthead-contest-value a:hover {
+        background-color: @classified_dark;
+        color: @white;
+      }
+    }
+    #pw-masthead-facebook img,
+    #pw-masthead-twitter img {
+      border: 3pt solid @white;
+      margin: 1px 0 0 10px;
+    }
+    #pw-masthead-facebook img:hover,
+    #pw-masthead-twitter img:hover {
+      border: 3pt solid @classified_light;
+    }
   }
-  dt.pw-contact-label {
+  .pw-masthead-block-address {
+    display: inherit;
+    width: 15%;
+    margin-top: 3px;
+    padding-right: 10px;
+  }
+/*   #pw-contact-info-block { */
     width: 100%;
-    text-align: center;
-    display: block;
-  }
-  dd.pw-contact-value {
-    font-size: larger;
-    clear: both;
-  }
-  .pw-contact-toll_free-wrapper {
-    font-size: .9em;
-    font-weight: bolder;
-    background-color: @sunlight;
-    .border-radius;
-    max-width: 200px;
-    margin: 2px;
-  }
-  dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
-    display: none;
-  }
-  dd.pw-contact-email-value, dd.pw-contact-address-value  {
-    font-size: smaller;
-  }
-  .pw-contact-email-wrapper {
-    max-width: 60px;
-    padding: 6px 4px;
-  }
-  .pw-contact-facebook-wrapper {
-    max-width: 60px;
-    margin: 8px;
-    height: 100%;
-    vertical-align: middle;
-  }
-  dd.pw-contact-facebook-value, .pw-contact-facebook-wrapper {
-    padding: 0;
-    margin: 0;
-  }
-  dd.pw-contact-facebook-value a {
-    float: left;
-    background-image: url(../../../../default/files/facebook-logo_30.png);
-    color: transparent;
-    background-color: inherit;
-    background-repeat: no-repeat;
-    .border-radius(0);
-    width: 40px;
-    height: 30px;
-    background-position-x: 5px;
-    background-position-y: 5px;
-  }
-  dd.pw-contact-facebook-value a:hover {
-    color: @black;
-  }
-  dd.pw-contact-address-value {
-    display: block;
-    line-height: 1.1em;
-    width: 180px;
-    font-size: 1em;
-    padding: 4px 0 0 0 ;
-  }
+    height: 80px;
+    dl, dd, dt {
+      display: inline-block;
+      width: auto;
+      padding: 0;
+      margin: 0;
+    }
+    .pw-masthead-label, .pw-masthead-value {
+      display: inline;
+      font-size: .9em;
+      font-weight: 700;
+    }
 
 
+    /* hide labels */
+    .pw-masthead-contest-label,
+/*     .pw-masthead-local-label, */
+    .pw-masthead-address-label,
+    .pw-masthead-email-label,
+    .pw-masthead-facebook-label,
+    .pw-masthead-twitter-label {
+      display: none;
+    }
+
+    .pw-masthead-toll_free-wrapper {}
+    .pw-masthead-local-wrapper{}
+    .pw-masthead-fax-wrapper{}
+    .pw-masthead-email-wrapper{}
+    .pw-masthead-contest-wrapper{}
+    .pw-masthead-facebook-wrapper{}
+    .pw-masthead-twitter-wrapper{}
+
+}
+
+
+#block-pennywise-pw-contact {
+/*  background-color: transparent;
+/*  margin: 10px 0;
+/*  display: table;
+/*  width: 100%;
+/*  color: @black;
+/*  #pw-contact-info-block {
+/*    margin: 0;
+/*    background-color: @white;
+/*    border: solid 2pt @classified_light;
+/*    .center;
+/*    .border-radius;
+/*    height: 40px;
+/*  }
+/*  dt, dd {
+/*    display: inline;
+/*    font-size: .8em;
+/*    font-weight: bolder;
+/*    margin: 0; padding: 0;
+/*  }
+/*  dt {
+/*    margin: 0;
+/*    padding: 0;
+/*  }
+/*  dd {
+/*    .button;
+/*  }
+/*  .pw-contact-toll_free-wrapper {
+/*    dt, dd {
+/*      width: 100%;
+/*      float: inherit;
+/*    }
+/*  }
+/*
+/*  /* Individual Fields */
+/*  .pw-contact-wrapper {
+/*    margin: 4px;
+/*    width: 170px;
+/*    float: left;
+/*    line-height: 1.2em;
+/*    display: table-cell;
+/*    vertical-align: middle;
+/*  }
+/*  dt.pw-contact-label {
+/*    width: 100%;
+/*    text-align: center;
+/*    display: block;
+/*  }
+/*  dd.pw-contact-value {
+/*    font-size: larger;
+/*    clear: both;
+/*  }
+/*  .pw-contact-toll_free-wrapper {
+/*    font-size: .9em;
+/*    font-weight: bolder;
+/*    background-color: @sunlight;
+/*    .border-radius;
+/*    max-width: 200px;
+/*    margin: 2px;
+/*  }
+/*  dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
+/*    display: none;
+/*  }
+/*  dd.pw-contact-email-value, dd.pw-contact-address-value  {
+/*    font-size: smaller;
+/*  }
+/*  .pw-contact-email-wrapper {
+/*    max-width: 60px;
+/*    padding: 6px 4px;
+/*  }
+/*  .pw-contact-facebook-wrapper {
+/*    max-width: 60px;
+/*    margin: 8px;
+/*    height: 100%;
+/*    vertical-align: middle;
+/*  }
+/*  dd.pw-contact-facebook-value, .pw-contact-facebook-wrapper {
+/*    padding: 0;
+/*    margin: 0;
+/*  }
+/*  dd.pw-contact-facebook-value a {
+/*    float: left;
+/*    background-image: url(../../../../default/files/facebook-logo_30.png);
+/*    color: transparent;
+/*    background-color: inherit;
+/*    background-repeat: no-repeat;
+/*    .border-radius(0);
+/*    width: 40px;
+/*    height: 30px;
+/*    background-position-x: 5px;
+/*    background-position-y: 5px;
+/*  }
+/*  dd.pw-contact-facebook-value a:hover {
+/*    color: @black;
+/*  }
+/*  dd.pw-contact-address-value {
+/*    display: block;
+/*    line-height: 1.1em;
+/*    width: 180px;
+/*    font-size: 1em;
+/*    padding: 4px 0 0 0 ;
+/*  }
+/* */
 }
 /* mobile hide */
 
