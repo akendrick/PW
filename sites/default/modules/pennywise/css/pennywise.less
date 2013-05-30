@@ -114,7 +114,6 @@
   border-width: thin;
 }
 
-
 .ds-form-3col-stacked, #pw-digital-node-form {
   .border-radius;
   .tabledrag-toggle-weight {
@@ -345,6 +344,28 @@
 
 /*************************** ADMIN Interface */
 /**** dashboard ****/
+#dashboard {
+  #block-views-admin-dashboard-display-dash {
+    background-color: @classified_light;
+    table {
+      caption {
+        font-size: 2em;
+        font-weight: bolder;
+      }
+      th {
+        font-size: .8em;
+        font-weight: 700;
+        background-color: @classified_dark;
+        color: @white;
+        a {
+          color: @darklight;
+        }
+      }
+    }
+  }
+}
+
+
 body.page-admin-pennywise {
   .button a {
     .button-colour(@white, @classified_dark);

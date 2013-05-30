@@ -95,12 +95,6 @@ function pw_la_context_default_contexts() {
   $context->description = 'General look and feel for classifieds and most pages';
   $context->tag = 'Pages';
   $context->conditions = array(
-    'cmd' => array(
-      'values' => array(
-        2 => 2,
-        3 => 3,
-      ),
-    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
@@ -141,25 +135,25 @@ function pw_la_context_default_contexts() {
           'module' => 'pennywise',
           'delta' => 'pw_phone_areas',
           'region' => 'content',
-          'weight' => '-56',
+          'weight' => '-53',
         ),
         'views-taxonomy_listing-tax_sub_list' => array(
           'module' => 'views',
           'delta' => 'taxonomy_listing-tax_sub_list',
           'region' => 'content',
-          'weight' => '-55',
+          'weight' => '-52',
         ),
         'views-display_ad_blocks-print_block' => array(
           'module' => 'views',
           'delta' => 'display_ad_blocks-print_block',
           'region' => 'content',
-          'weight' => '-54',
+          'weight' => '-51',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-53',
+          'weight' => '-50',
         ),
         'ad_payment-ad_payment_create_ad' => array(
           'module' => 'ad_payment',
@@ -708,12 +702,6 @@ function pw_la_context_default_contexts() {
   $context->description = 'Logo, menu bar, address, and splash boxes';
   $context->tag = 'Default';
   $context->conditions = array(
-    'cmd' => array(
-      'values' => array(
-        2 => 2,
-        3 => 3,
-      ),
-    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',

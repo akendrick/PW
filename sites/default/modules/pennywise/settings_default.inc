@@ -32,7 +32,6 @@ function pennywise_general_settingsform() {
   );
   $pw_general = variable_get('pennywise_general_contact_settings', $pw_general);
 
-  dpm($pw_general);
 
   $form['pennywise_contact_information']['toll_free'] = array(
     '#type' => 'textfield',
@@ -114,7 +113,7 @@ function pennywise_classified_settingsform_validate($form, &$form_state) {
 * Implementation of form submission -- CLASSIFIED.
 */
 function pennywise_general_settingsform_submit($form, &$form_state) {
-  dpm($form_state);
+//  dpm($form_state);
 
   variable_set('pennywise_general_contact_settings', $form_state['values']);
 
