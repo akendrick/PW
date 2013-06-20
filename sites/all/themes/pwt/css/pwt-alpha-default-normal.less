@@ -402,111 +402,38 @@ body {
 
 }
 
-
-#block-pennywise-pw-contact {
-/*  background-color: transparent;
-/*  margin: 10px 0;
-/*  display: table;
-/*  width: 100%;
-/*  color: @black;
-/*  #pw-contact-info-block {
-/*    margin: 0;
-/*    background-color: @white;
-/*    border: solid 2pt @classified_light;
-/*    .center;
-/*    .border-radius;
-/*    height: 40px;
-/*  }
-/*  dt, dd {
-/*    display: inline;
-/*    font-size: .8em;
-/*    font-weight: bolder;
-/*    margin: 0; padding: 0;
-/*  }
-/*  dt {
-/*    margin: 0;
-/*    padding: 0;
-/*  }
-/*  dd {
-/*    .button;
-/*  }
-/*  .pw-contact-toll_free-wrapper {
-/*    dt, dd {
-/*      width: 100%;
-/*      float: inherit;
-/*    }
-/*  }
-/*
-/*  /* Individual Fields */
-/*  .pw-contact-wrapper {
-/*    margin: 4px;
-/*    width: 170px;
-/*    float: left;
-/*    line-height: 1.2em;
-/*    display: table-cell;
-/*    vertical-align: middle;
-/*  }
-/*  dt.pw-contact-label {
-/*    width: 100%;
-/*    text-align: center;
-/*    display: block;
-/*  }
-/*  dd.pw-contact-value {
-/*    font-size: larger;
-/*    clear: both;
-/*  }
-/*  .pw-contact-toll_free-wrapper {
-/*    font-size: .9em;
-/*    font-weight: bolder;
-/*    background-color: @sunlight;
-/*    .border-radius;
-/*    max-width: 200px;
-/*    margin: 2px;
-/*  }
-/*  dt.pw-contact-email-label, dt.pw-contact-facebook-label, dt.pw-contact-address-label {
-/*    display: none;
-/*  }
-/*  dd.pw-contact-email-value, dd.pw-contact-address-value  {
-/*    font-size: smaller;
-/*  }
-/*  .pw-contact-email-wrapper {
-/*    max-width: 60px;
-/*    padding: 6px 4px;
-/*  }
-/*  .pw-contact-facebook-wrapper {
-/*    max-width: 60px;
-/*    margin: 8px;
-/*    height: 100%;
-/*    vertical-align: middle;
-/*  }
-/*  dd.pw-contact-facebook-value, .pw-contact-facebook-wrapper {
-/*    padding: 0;
-/*    margin: 0;
-/*  }
-/*  dd.pw-contact-facebook-value a {
-/*    float: left;
-/*    background-image: url(../../../../default/files/facebook-logo_30.png);
-/*    color: transparent;
-/*    background-color: inherit;
-/*    background-repeat: no-repeat;
-/*    .border-radius(0);
-/*    width: 40px;
-/*    height: 30px;
-/*    background-position-x: 5px;
-/*    background-position-y: 5px;
-/*  }
-/*  dd.pw-contact-facebook-value a:hover {
-/*    color: @black;
-/*  }
-/*  dd.pw-contact-address-value {
-/*    display: block;
-/*    line-height: 1.1em;
-/*    width: 180px;
-/*    font-size: 1em;
-/*    padding: 4px 0 0 0 ;
-/*  }
-/* */
+.contact-button, #ad-submission-link-wrapper, .block-pennywise-submit-editorial .content {
+  margin-bottom: 20px;
+  .center;
+  a:link {
+    color: @white;
+    background-color: @other;
+    padding: 5px;
+    .border-radius;
+    border: 2pt solid @white;
+    .drop-shadow;
+  }
+  a:visited { color: @white; background-color: @other; }
+  a:hover {
+    .drop-shadow(3px, 3px, 6px, lighten(@black, 10));
+    background-color: @other_dark;
+  }
+  a.contact-button {
+    width: 50%;
+  }
 }
+
+.block-pennywise-submit-editorial {
+  a#editorial-submit-link {
+    background-color: @editorial_dark;
+    width: 140px;
+  }
+  a:hover {
+    background-color: @editorial;
+  }
+}
+
+
 /* mobile hide */
 
 
@@ -614,6 +541,153 @@ body.front {
     }
   }
 }
+
+.view-id-editorial_slideshow {
+  .editorial-spotlight-block {
+    font-size: 1em;
+    line-height: 1.1em;
+    .editorial-spotlight-article {
+      margin: 0 5px 8px 50px;
+    }
+    .views-spotlight-editorial-image {
+      margin-left: -50px;
+      float: left;
+    }
+    .views-spotlight-editorial-title {
+      a {
+
+      }
+    }
+    a {
+      font-weight: 200;
+      font-size: .9em;
+      line-height: 1em;
+    }
+  }
+  .views-row:hover {
+    background-color: lighten(@editorial_light, 10%);
+  }
+  .view-header, .view-footer {
+    text-align: center;
+    .border-radius-custom (10px, 10px, 0, 0);
+    background-color: @editorial_dark;
+    a {
+      width: 100%;
+      color: @white;
+      text-align: center;
+      p { line-height: 1 em; margin: 0;}
+    }
+    a:hover {
+      color: @warning;
+    }
+  }
+  .view-footer {
+      .border-radius-custom(0,0,10px,10px);
+  }
+}
+/* editorial 3-up header block */
+.editorial-slideshow-header-slidey-widey-block {
+  ul.jcarousel-view--editorial-slideshow--vertical-editorial-slider {
+    li.jcarousel-item-vertical {
+      border: 0;
+      width: 335px;
+      margin: 0;
+      padding: 0;
+      padding-right: 5px;
+      p {
+        margin: 2px;
+        font-size: .9em;
+      }
+      .views-spotlight-editorial-image {
+        margin: 0;
+        padding: 0;
+        a { margin: 0; }
+      }
+      .views-spotlight-editorial-title {
+        margin-top: 6px;
+        font-weight: bolder;
+        a {
+          color: @editorial_dark;
+          margin-bottom: 0;
+          img { margin-bottom: 0; }
+        }
+      }
+      .views-spotlight-editorial-body {
+        font-size: .8em;
+        .views-more-link {
+          background-color: @editorial;
+          color: @white;
+          .border-radius;
+          padding: 2px;
+          font-size: .9em;
+        }
+      }
+    }
+    li.views-row-even {
+      background-color: lighten(@editorial_light, 20%);
+    }
+    li:hover {
+      background-color: lighten(@editorial_light, 10%);
+    }
+  }
+  margin-bottom: 8px;
+}
+
+/* editorial 5-up footer block */
+#block-views-editorial-slideshow-block-1 {
+  .editorial-slideshow-header-link {
+    padding: 5px;
+    font-size: 1.5em;
+  }
+}
+
+/* Digital Edition Link Block */
+.block-pw-edition, #block-menu-menu-special-features {
+  ul#pw-edition {
+    li {
+      margin: 0;
+      margin-left: 5px;
+    }
+  }
+    ul, li {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      border-bottom: 1pt solid @darksand;
+      padding: 4px 10px;
+      line-height: 1.6em;
+      margin: 0;
+      margin-left: 5px;
+      a {
+        width: 100%;
+        margin: 0;
+      }
+    }
+    li:hover {
+      background-color: @sand;
+    }
+/*   } */
+}
+#block-menu-menu-special-features {
+  h2.block-title {
+    background-color: @editorial_dark;
+    font-size: 1em;
+  }
+  li {
+    font-size: .9em;
+    line-height: 1em;
+    a {
+      color: @editorial_dark;
+    }
+  }
+}
+
+#ad-submission-link-wrapper {
+  font-size: 1.6em;
+  width: 100%;
+}
+
 
 /****** classifieds *******/
 

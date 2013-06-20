@@ -1,0 +1,242 @@
+/* COLOURS */
+
+@black: #000;
+@white: #fff;
+@gray: #e5e0dc;
+
+@classified_dark: #036;
+@classified_med: lighten(@classified_dark, 15); // #36C;
+@classified_light: #d1e5ff;
+
+@editorial: #339a00;
+@editorial_light: #a4d2b3; /* lighten(@editorial, 25); */
+@editorial_dark: #060; /* darken(@editorial, 10); */
+
+@other: #fc4021; /*  #F63;  */
+@other_dark: darken(@other, 25);
+@other_light: lighten(@other, 25);
+@other_extra_light: lighten(@other_light, 25);
+
+@plum: #303;
+@peach: #FC9;
+
+@sand: #e5e0dc;
+@lightsand: lighten(@sand, 10%);
+@darksand: darken(@sand, 5);
+@faintsand: lighten(@sand, 20%);
+
+@sunlight: rgb(255, 248, 221);
+@darklight: darken(@sunlight, 5);
+
+@alert: #fe4e4e;
+@warning: #ff0;
+@status: lighten(#060, 10);
+
+@highlight: lighten(#900, 20);
+
+.background-color-lighten(@colour, @amount: 10) {
+  background-color: lighten(@colour, @amount);
+}
+
+
+/*****************  MIXIN'  *****************/
+/* isolate box -- for debuging */
+.border{
+    border: 1pt solid @alert;
+}
+
+/* rounded corners */
+.border-radius (@radius: 10px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.border-radius-custom (@top_left: 10px, @top_right: 10px, @bottom_right: 0, @bottom_left: 0) {
+  border-radius: @top_left @top_right @bottom_right @bottom_left;
+  -moz-border-radius: @top_left @top_right @bottom_right @bottom_left;
+	-webkit-border-radius: @top_left @top_right @bottom_right @bottom_left;
+}
+
+/* drop shadow */
+.drop-shadow (@x: 3px, @y: 3px, @depth: 4px, @colour: @darksand) {
+  -moz-box-shadow: @x @y @depth @colour;
+  -webkit-box-shadow: @x @y @depth @colour;
+  box-shadow: @x @y @depth @colour;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+.drop-shadow-none () {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.test-border(@color: #900) {
+  border: 1pt solid @color;
+}
+
+/* center block */
+.center {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* drop shadow */
+.text-drop-shadow (@colour: @black) {
+  text-shadow: 1px 1px 0px #fff, 2px 2px 6px @colour;
+}
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+	-webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow-off () {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+
+
+/*****************************
+* HEADER
+*/
+html {
+  width: 100%;
+  max-width: 640px;
+  #zone-content,
+  #region-content,
+  #region-branding {
+    width: 95%;
+  }
+  div.block {
+    clear:both!important;
+    display: block!important;
+    width: 100%!important;
+    float: none!important;
+    margin: 0!important;
+    padding: 0!important;
+  }
+  div {
+    .border-radius(0);
+  }
+}
+body {
+  margin: 0 auto;
+  max-width: 640px;
+  background-image: none;
+  background: @classified_light;
+/*   padding: 5px; */
+}
+
+#section-header {
+/*   background: @classified_dark; */
+  margin-bottom: 20px;
+  div {
+/*     margin-bottom: 4px; */
+  }
+}
+
+#block-delta-blocks-logo {
+  margin: 0;
+  .logo-img {
+    width: 100%;
+    img {
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+}
+#block-pennywise-pw-contact {
+  h2 {
+/*     background: none; */
+    display: none;
+  }
+/*   font-size: 1em; */
+/*   color: @classified_med; */
+/*   font-weight: 700; */
+}
+#pw-masthead {
+/*   background-color: @white; */
+/*   text-align: center; */
+/*   margin: 0; */
+/*   padding: 0; */
+  .pw-masthead-value {
+/*     padding-left: 5px; */
+  }
+/*   color: @white; */
+  a {
+/*     color: @white; */
+  }
+  .pw-masthead-label,
+  .pw-masthead-fax-wrapper,
+  .pw-masthead-local-wrapper,
+  .pw-masthead-block-social,
+  .pw-masthead-block-address {
+    display: none;
+  }
+}
+
+/* browse */
+#ctools-jump-menu--2 {
+  padding: 10px 0;
+  margin: 0 auto 10px auto;
+  display: block;
+  #edit-jump--2 {
+    width: 100%;
+    font-size: 3em;
+    line-height: 1em;
+  }
+}
+
+/* major links */
+#block-ad-payment-ad-payment-create-ad,
+#block-pennywise-submit-editorial {
+  font-size: 1em;
+  padding: 4px;
+  line-height: 3em;
+  background: @white;
+}
+#ad-submission-link-wrapper a.ad-submission-link,
+#editorial-submit-link {
+  color: @alert;
+  font-size: 1.4em;
+  padding: 10px 2px;
+  font-size: 3em;
+  margin: 5px 0;
+}
+
+#editorial-submit-link {
+  color: @classified_dark;
+  font-weight: 400;
+}
+#views-exposed-form-search-ads-search-page {
+  .border-radius(0);
+  padding: 5px;
+  background: none;
+  margin-top: 10px;
+}
+#block-views-exp-search-ads-search-page {
+  .views-widget {
+    float: left!important;
+    width: 70%;
+  }
+  #edit-search-ads {
+    font-size: 2em;
+  }
+  .views-submit-button, #edit-submit-search-ads {
+    margin: 0;
+    float: right!important;
+    clear: none!important;
+    font-size: 1.4em;
+  }
+}
+/******************************
+* CONTENT
+*/

@@ -95,6 +95,17 @@ function pw_la_context_default_contexts() {
   $context->description = 'General look and feel for classifieds and most pages';
   $context->tag = 'Pages';
   $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        2 => 2,
+        3 => 3,
+      ),
+    ),
+    'context' => array(
+      'values' => array(
+        '~mobile_layout' => '~mobile_layout',
+      ),
+    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
@@ -235,6 +246,9 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
+    'debug' => array(
+      'debug' => 1,
+    ),
     'delta' => array(
       'delta_template' => 'default_center',
     ),
@@ -252,7 +266,7 @@ function pw_la_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'dashboard';
   $context->description = 'Admin Dashboard layout';
-  $context->tag = 'Pages';
+  $context->tag = 'admin';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -268,12 +282,6 @@ function pw_la_context_default_contexts() {
           'delta' => 'admin_dashboard-display_dash',
           'region' => 'dashboard_main',
           'weight' => '-10',
-        ),
-        'views-1609153c8b57774fee260bccf7c286f4' => array(
-          'module' => 'views',
-          'delta' => '1609153c8b57774fee260bccf7c286f4',
-          'region' => 'dashboard_main',
-          'weight' => '-9',
         ),
         'views-admin_dashboard-block_2' => array(
           'module' => 'views',
@@ -291,7 +299,7 @@ function pw_la_context_default_contexts() {
           'module' => 'search',
           'delta' => 'form',
           'region' => 'dashboard_sidebar',
-          'weight' => '-54',
+          'weight' => '-53',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
@@ -331,7 +339,7 @@ function pw_la_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Admin Dashboard layout');
-  t('Pages');
+  t('admin');
   $export['dashboard'] = $context;
 
   $context = new stdClass();
@@ -341,6 +349,11 @@ function pw_la_context_default_contexts() {
   $context->description = 'General links appearing at the bottom of every page';
   $context->tag = 'Default';
   $context->conditions = array(
+    'context' => array(
+      'values' => array(
+        '~mobile_layout' => '~mobile_layout',
+      ),
+    ),
     'path' => array(
       'values' => array(
         '~ad/submit' => '~ad/submit',
@@ -570,31 +583,14 @@ function pw_la_context_default_contexts() {
     ),
     'path' => array(
       'values' => array(
-        'section/animals-livestock' => 'section/animals-livestock',
+        '~admin/*' => '~admin/*',
+        '~ad/submit' => '~ad/submit',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
-          'region' => 'threeup_one',
-          'weight' => '-9',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'threeup_two',
-          'weight' => '-10',
-        ),
-        'pennywise-submit_editorial' => array(
-          'module' => 'pennywise',
-          'delta' => 'submit_editorial',
-          'region' => 'threeup_three',
-          'weight' => '-9',
-        ),
         'pennywise-pw_holiday_message' => array(
           'module' => 'pennywise',
           'delta' => 'pw_holiday_message',
@@ -613,17 +609,41 @@ function pw_la_context_default_contexts() {
           'region' => 'content',
           'weight' => '-7',
         ),
-        'delta_blocks-logo' => array(
-          'module' => 'delta_blocks',
-          'delta' => 'logo',
-          'region' => 'branding',
-          'weight' => '-10',
-        ),
         'pennywise-pw_contact' => array(
           'module' => 'pennywise',
           'delta' => 'pw_contact',
           'region' => 'branding',
+          'weight' => '-10',
+        ),
+        'delta_blocks-logo' => array(
+          'module' => 'delta_blocks',
+          'delta' => 'logo',
+          'region' => 'branding',
           'weight' => '-9',
+        ),
+        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-browse-classifi',
+          'region' => 'branding',
+          'weight' => '-8',
+        ),
+        'ad_payment-ad_payment_create_ad' => array(
+          'module' => 'ad_payment',
+          'delta' => 'ad_payment_create_ad',
+          'region' => 'branding',
+          'weight' => '-7',
+        ),
+        'pennywise-submit_editorial' => array(
+          'module' => 'pennywise',
+          'delta' => 'submit_editorial',
+          'region' => 'branding',
+          'weight' => '-6',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'header_first',
+          'weight' => '-14',
         ),
         'views-de361c058107ea938b176d3ffd541f03' => array(
           'module' => 'views',
@@ -631,18 +651,41 @@ function pw_la_context_default_contexts() {
           'region' => 'header_first',
           'weight' => '-10',
         ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'header_first',
-          'weight' => '-9',
-        ),
-        'jump_menu-jump_menu-m_menu-pw-mobile-menu' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-pw-mobile-menu',
-          'region' => 'header_first',
-          'weight' => '-8',
-        ),
+      ),
+    ),
+    'css' => array(
+      'Bartik' => array(
+        'themes/bartik/css/colors.css' => 0,
+        'themes/bartik/css/ie-rtl.css' => 0,
+        'themes/bartik/css/ie.css' => 0,
+        'themes/bartik/css/ie6.css' => 0,
+        'themes/bartik/css/layout-rtl.css' => 0,
+        'themes/bartik/css/layout.css' => 0,
+        'themes/bartik/css/maintenance-page.css' => 0,
+        'themes/bartik/css/print.css' => 0,
+        'themes/bartik/css/style-rtl.css' => 0,
+        'themes/bartik/css/style.css' => 0,
+        'themes/bartik/color/preview.css' => 0,
+      ),
+      'Pennywise Theme' => array(
+        'sites/all/themes/pwt/css/global.css' => 0,
+        'sites/all/themes/pwt/css/pw-mobile.css' => 'sites/all/themes/pwt/css/pw-mobile.css',
+        'sites/all/themes/pwt/css/pw.css' => 0,
+        'sites/all/themes/pwt/css/pwt-alpha-default-narrow.css' => 0,
+        'sites/all/themes/pwt/css/pwt-alpha-default-normal.css' => 0,
+        'sites/all/themes/pwt/css/pwt-alpha-default-wide.css' => 0,
+        'sites/all/themes/pwt/css/pwt-alpha-default.css' => 0,
+      ),
+      'Seven' => array(
+        'themes/seven/ie.css' => 0,
+        'themes/seven/ie6.css' => 0,
+        'themes/seven/ie7.css' => 0,
+        'themes/seven/jquery.ui.theme.css' => 0,
+        'themes/seven/reset.css' => 0,
+        'themes/seven/style-rtl.css' => 0,
+        'themes/seven/style.css' => 0,
+        'themes/seven/vertical-tabs-rtl.css' => 0,
+        'themes/seven/vertical-tabs.css' => 0,
       ),
     ),
     'delta' => array(
@@ -702,6 +745,17 @@ function pw_la_context_default_contexts() {
   $context->description = 'Logo, menu bar, address, and splash boxes';
   $context->tag = 'Default';
   $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        2 => 2,
+        3 => 3,
+      ),
+    ),
+    'context' => array(
+      'values' => array(
+        '~mobile_layout' => '~mobile_layout',
+      ),
+    ),
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
