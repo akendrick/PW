@@ -565,6 +565,9 @@ function pennywise_block_save($delta = '', $edit = array()) {
 function pennywise_block_view($delta = '') {
   global $base_url;
 
+  $subject = '';
+  $content = '';
+
   switch($delta) {
 
     case 'pw_phone_areas':
@@ -650,27 +653,7 @@ function pennywise_block_view($delta = '') {
     case 'pw_contact':
       $subject = variable_get('pw_contact_title', '<none>');
 
-      $pw_contact = array(
-        'toll_free'   => variable_get('pw_phone_toll_free'),
-        'local_phone' => variable_get('pw_phone_local'),
-        'fax'         => variable_get('pw_phone_fax'),
-        'address'     => variable_get('pw_mailing_address'),
-        'email'       => l('email', 'mailto:' . variable_get('pw_email'), array('absolute' => TRUE)),
-        'facebook'    => l('facebook', variable_get('pw_facebook_link'), array('absolute' => TRUE)),
-      );
-
-      $content = '<dl id="pw-contact-info-block">';
-      $a = 0;
-      foreach($pw_contact as $key => $value) {
-        $key_view = ucwords(str_replace('_', ' ', $key));
-        $a++;
-        $row = ($a % 2)? 'row-odd' : 'row-even';
-        $content .= "<div class='pw-contact-wrapper pw-contact-$key-wrapper $row'>";
-        $content .= "<dt class='pw-contact-label pw-contact-$key-label'>$key_view</dt>";
-        $content .= "<dd class='pw-contact-value pw-contact-$key-value'>$value</dd>";
-        $content .= "</div>";
-      }
-      $content .= '</dl>';
+      $content = pw_masthead(variable_get('pennywise_general_contact_settings'));
 
       break;
 
@@ -716,12 +699,76 @@ function pennywise_block_view($delta = '') {
       }
       break;
   }
+
+
   $block = array(
     'subject' => $subject,
     'content' => $content,
   );
 
   return $block;
+}
+
+/**
+* Implementation of theme_hook()
+* Sets the variables and Themes the PW masthead.
+*/
+function pennywise_theme() {
+  return array(
+    'masthead' => array(
+      'template'  => 'templates/pw-masthead',
+      'variables' => array(
+        'toll_free' => NULL,
+        'local'     => NULL,
+        'fax'       => NULL,
+        'email'     => NULL,
+        'contest'   => NULL,
+        'address'   => NULL,
+        'facebook'  => NULL,
+        'twitter'   => NULL,
+      ),
+    ),
+  );
+}
+
+function pw_masthead($pw) {
+  $image_t  = file_create_url(drupal_get_path('module', 'pennywise') . '/images/twitter.png');
+  $image_twitter      = '<img width="40px" height="40px" src="' . $image_t . '" alt="' . t('Twitter') . '" />';
+
+  $image_f = file_create_url(drupal_get_path('module', 'pennywise') . '/images/facebook.png');
+  $image_facebook = '<img width="40px" height="40px" src="' . $image_f . '" alt="' . t('Facebook') . '" />';
+
+ // $content    = l($image, 'http://www.tmtv.net/newsroom.html', array('html' => TRUE, 'attributes' => array('rel' => 'TMTV', 'id' => 'TMTV-Link', 'title' => t('TMTV Newsroom'))));
+
+
+  $pw_contact = array(
+    'toll_free'   => $pw['toll_free'],
+    'local'       => $pw['local'],
+    'fax'         => $pw['fax'],
+    'email'       => l($pw['email'], 'mailto:' . $pw['email'], array('absolute' => TRUE)),
+    'contest'     => l($pw['contest'], 'contests', array('absolute' => TRUE)),
+    'facebook'    => l($image_facebook, $pw['facebook'], array('html' => TRUE, 'attributes' => array('rel' => 'Facebook', 'id' => 'pw-masthead-facebook', 'class' => 'social-link facebook-link', 'title' => t('Like us on Facebook')))),
+    'twitter'     => l($image_twitter, $pw['twitter'], array('html' => TRUE, 'attributes' => array('rel' => 'Twitter', 'id' => 'pw-masthead-twitter', 'class' => 'social-link twitter-link', 'title' => t('Follow us on Twitter')))),
+    'address'     => $pw['mailing_address'],
+
+  );
+
+
+  $a = 0;
+  foreach($pw_contact as $key => $value) {
+    /* wrap all the elements */
+    $key_view = ucwords(str_replace('_', ' ', $key));
+    $a++;
+    $row = ($a % 2)? 'row-odd' : 'row-even';
+    $content[$key] = "<span class='pw-masthead-wrapper pw-masthead-$key-wrapper $row'>";
+    $content[$key] .= "<dt class='pw-masthead-label pw-masthead-$key-label'>$key_view</dt>";
+    $content[$key] .= "<dd class='pw-masthead-value pw-masthead-$key-value'>$value</dd>";
+    $content[$key] .= "</span>";
+  }
+
+ $output = theme('masthead', $content);
+
+  return $output;
 }
 
 
@@ -735,6 +782,12 @@ function pennywise_jcarousel_skin_info() {
     'title' => t('PW Print'),
     'file' => 'skins/print/jcarousel-print.css',
   );
+
+  $skins['fineprint'] = array(
+    'title' => t('FinePrint'),
+    'file' => 'skins/fineprint/jcarousel-fineprint.css',
+  );
+
 
   $skins['front'] = array(
     'title' => t('Front'),

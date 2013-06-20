@@ -33,7 +33,7 @@ function pw_display_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '3',
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -147,23 +147,25 @@ function pw_display_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'header' => array(
-        0 => 'field_display_ad',
+        0 => 'field_tags',
+        1 => 'field_display_ad',
       ),
       'left' => array(
-        1 => 'field_link',
-        2 => 'field_email',
+        2 => 'field_link',
+        3 => 'field_email',
       ),
       'right' => array(
-        3 => 'title',
-        4 => 'field_ad_client',
-        5 => 'field_ad_copy',
+        4 => 'title',
+        5 => 'field_ad_client',
+        6 => 'field_ad_copy',
       ),
       'footer' => array(
-        6 => 'field_special_feature_link',
-        7 => 'field_high_res_ad',
+        7 => 'field_special_feature_link',
+        8 => 'field_high_res_ad',
       ),
     ),
     'fields' => array(
+      'field_tags' => 'header',
       'field_display_ad' => 'header',
       'field_link' => 'left',
       'field_email' => 'left',
