@@ -1,5 +1,5 @@
 <?php print $doctype; ?>
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
 <html lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf->version . $rdf->namespaces; ?>>
 <head<?php print $rdf->profile; ?>>
   <?php print $head; ?>
