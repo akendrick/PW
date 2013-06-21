@@ -317,7 +317,7 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $form['field_area'][LANGUAGE_NONE]['#description'] =
     '<span class=" beautytips form-toggle" id="bt-areas">Areas defined.</span> <div id="beautytips-toggle-box-bt-areas" class="beautytips-box"> ' . $form['field_area'][LANGUAGE_NONE]['#description'] . ' </div>';
 
-  dpm($form);
+//  dpm($form);
 }
 
 /**
