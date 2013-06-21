@@ -312,9 +312,12 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   }
 
   // Beauty Tips
-  ad_payment_bt($form);
+  $form['field_rate'][LANGUAGE_NONE]['#description'] =
+    '<span class=" beautytips form-toggle" id="bt-business" >What is a Business?</span> <div id="beautytips-toggle-box-bt-business" class="beautytips-box">' . $form['field_rate'][LANGUAGE_NONE]['#description'] . '</div>';
+  $form['field_area'][LANGUAGE_NONE]['#description'] =
+    '<span class=" beautytips form-toggle" id="bt-areas">Areas defined.</span> <div id="beautytips-toggle-box-bt-areas" class="beautytips-box"> ' . $form['field_area'][LANGUAGE_NONE]['#description'] . ' </div>';
 
-  //dpm($form);
+  dpm($form);
 }
 
 /**
@@ -323,14 +326,14 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 * TODO -- Implement beautytips in description.
 *         More to come.
 */
-function ad_payment_bt(&$form = array()) {
+// function ad_payment_bt(&$form = array()) {
 
-  $form['field_rate'][LANGUAGE_NONE]['#description'] =
-    '<span class="beautytips" title="' . $form['field_rate'][LANGUAGE_NONE]['#description'] . '">What is a Business?</span>';
-  $form['field_area'][LANGUAGE_NONE]['#description'] =
-    '<span class="beautytips" title="' . $form['field_area'][LANGUAGE_NONE]['#description'] . '">Areas defined.</span>';
+//  $form['field_rate'][LANGUAGE_NONE]['#description'] =
+//    '<span class="beautytips" title="' . $form['field_rate'][LANGUAGE_NONE]['#description'] . '">What is a Business?</span>';
+//  $form['field_area'][LANGUAGE_NONE]['#description'] =
+//    '<span class="beautytips" title="' . $form['field_area'][LANGUAGE_NONE]['#description'] . '">Areas defined.</span>';
 
-}
+// }
 
 
 /**

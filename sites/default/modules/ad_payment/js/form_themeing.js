@@ -15,15 +15,14 @@ $('form#node-form div.form-item').each(function(){
   if (result) $(this).find('label:first').removeClass('error').addClass('error');
 });
 
-
-//$('#edit-contact-info')
-// Select parent if child is in 'error'.
-//if ($('form-item > .error') {
-//  $(this).parents('.form-checkboxes').addClass('.error');
-//});
-
-
-
+  // Beauty tips replacement
+  // - hide and show extra info for form submission.
+  $('.beautytips-box').hide();
+  $('.form-toggle').css('cursor', 'pointer');
+  $('.form-toggle').click(function() {
+    $('#beautytips-toggle-box-'+($(this).attr('id'))).toggle('slow');
+     console.log($(this).attr('id'));
+  })
 
 });
 
