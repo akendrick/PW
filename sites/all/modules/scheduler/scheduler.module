@@ -54,7 +54,6 @@ function scheduler_menu() {
     'description' => 'A lightweight cron handler to allow more frequent runs of Schedulers internal cron system.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_scheduler_lightweight_cron'),
-    'access callback' => TRUE,
     'access arguments' => array('administer scheduler'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
@@ -71,7 +70,19 @@ function scheduler_menu() {
     'type' => MENU_LOCAL_TASK,
     'title' => 'Scheduled',
     'page callback' => 'scheduler_list',
+    'page arguments' => array(NULL, NULL),
     'access callback' => 'scheduler_list_access_callback',
+    'access arguments' => array(NULL, NULL),
+    'description' => 'Display a list of scheduled nodes',
+    'file' => NULL,
+  );
+  $items['user/%/scheduler'] = array(
+    'type' => MENU_LOCAL_TASK,
+    'title' => 'Scheduled',
+    'page callback' => 'scheduler_list',
+    'page arguments' => array('user_only', 1), // This will pass the uid of the user account being viewed.
+    'access callback' => 'scheduler_list_access_callback',
+    'access arguments' => array('user_only', 1),
     'description' => 'Display a list of scheduled nodes',
     'file' => NULL,
   );
@@ -82,7 +93,11 @@ function scheduler_menu() {
  * Return the users access to the scheduler list page. Separate function required because of the two access values to be checked.
  */
 function scheduler_list_access_callback() {
-  return user_access('administer nodes') && user_access('schedule (un)publishing of nodes');
+  $args = func_get_args();
+  global $user;
+  // If this is called from the user account page then allow the tab to be shown if you are
+  // viewing your own account as an alternative to having 'administer nodes' permission.
+  return (user_access('administer nodes') || ($args[0] == 'user_only' && $args[1] == $user->uid)) && user_access('schedule (un)publishing of nodes');
 }
 
 /**
@@ -97,14 +112,15 @@ function scheduler_help($section) {
                 . '<br/>' . t('The options and settings below are common to all content types.') . '</p>';
       break;
     case 'admin/config/content/scheduler/cron':
+      $base_url = $GLOBALS['base_url'];
       $output = '<p>' . t("When you have set up Drupal's standard crontab job cron.php then Scheduler will be executed during each cron run. "
         . "However, if you would like finer granularity to scheduler, but don't want to run Drupal's cron more often then you can use the "
         . "lightweight cron handler provided by Scheduler. This is an independent cron job which only runs the scheduler process and does not "
         . "execute any cron tasks defined by Drupal core or any other modules.") . '</p>'
         . '<p>' . t("Scheduler's cron is at /scheduler/cron and a sample crontab entry to run scheduler every minute might look like:") . '</p>'
-        . '<code>* * * * * /usr/bin/wget -O - -q "http://example.com/scheduler/cron"</code>'
-        . '<p>or</p>'
-        . '<code>* * * * * curl "http://example.com/scheduler/cron" > /dev/null 2>&1</code><br/><br/>';
+        . '<code>* * * * * wget -q -O /dev/null "' . $base_url . '/scheduler/cron"</code>'
+        . '<p>' . t('or') . '</p>'
+        . '<code>* * * * * curl -s -o /dev/null "' . $base_url . '/scheduler/cron"</code><br/><br/>';
       break;
     case 'admin/help#scheduler':
       // This is shown at the top of admin/help/scheduler.
@@ -181,7 +197,7 @@ function scheduler_form_node_type_form_alter(&$form, $form_state) {
   drupal_add_css(drupal_get_path('module', 'scheduler') .'/scheduler.css');
   $form['scheduler'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Scheduler settings',
+    '#title' => t('Scheduler'),
     '#weight' => 35,
     '#group' => 'additional_settings',
     '#attached' => array(
@@ -193,61 +209,52 @@ function scheduler_form_node_type_form_alter(&$form, $form_state) {
 
   $form['scheduler']['publish'] = array(
       '#type' => 'fieldset',
-      '#title' => 'Publishing settings',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#title' => t('Publishing'),
+      '#collapsible' => FALSE,
       '#weight' => 1,
       '#group' => 'scheduler',
   );
   $form['scheduler']['publish']['scheduler_publish_enable'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Enable scheduled publishing'),
+      '#title' => t('Enable scheduled publishing for this content type'),
       '#default_value' => variable_get('scheduler_publish_enable_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box to enable scheduled publishing for this node type.')
   );
   $form['scheduler']['publish']['scheduler_publish_touch'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Alter published on time'),
+      '#title' => t('Change content creation time to match the scheduled publish time'),
       '#default_value' => variable_get('scheduler_publish_touch_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box to alter the published on time to match the scheduled time ("touch feature").')
   );
   $form['scheduler']['publish']['scheduler_publish_required'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Publishing date/time is required.'),
+      '#title' => t('Require scheduled publishing'),
       '#default_value' => variable_get('scheduler_publish_required_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box to if scheduled publishing is required (e.g. the user must enter a date/time).')
   );
   $form['scheduler']['publish']['scheduler_publish_revision'] = array(
       '#type' => 'checkbox',
       '#title' => t('Create a new revision on publishing'),
       '#default_value' => variable_get('scheduler_publish_revision_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box if you want a new revision created when publishing.')
   );
   $form['scheduler']['unpublish'] = array(
       '#type' => 'fieldset',
-      '#title' => 'Unpublishing settings',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#title' => t('Unpublishing'),
+      '#collapsible' => FALSE,
       '#weight' => 2,
       '#group' => 'scheduler',
   );
   $form['scheduler']['unpublish']['scheduler_unpublish_enable'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Enable scheduled unpublishing'),
+      '#title' => t('Enable scheduled unpublishing for this content type'),
       '#default_value' => variable_get('scheduler_unpublish_enable_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box to enable scheduled unpublishing for this node type.')
   );
   $form['scheduler']['unpublish']['scheduler_unpublish_required'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Unpublishing date/time is required.'),
+      '#title' => t('Require scheduled unpublishing'),
       '#default_value' => variable_get('scheduler_unpublish_required_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box to if scheduled unpublishing is required (e.g. the user must enter a date/time).')
   );
   $form['scheduler']['unpublish']['scheduler_unpublish_revision'] = array(
       '#type' => 'checkbox',
       '#title' => t('Create a new revision on unpublishing'),
       '#default_value' => variable_get('scheduler_unpublish_revision_' . $form['#node_type']->type, 0),
-      '#description' => t('Check this box if you want a new revision created when unpublishing.')
   );
 }
 
@@ -422,6 +429,15 @@ function scheduler_list() {
   $query->fields('s', array('publish_on', 'unpublish_on'));
   $query->fields('n', array('nid', 'uid', 'status', 'title'));
   $query->addField('u', 'name');
+
+  // If this function is being called from a user account page then only select the nodes owned by
+  // that user. If the current user is viewing another users profile and they do not have
+  // 'administer nodes' permission then it won't even get this far, as the tab will not be accessible.
+  $args = func_get_args();
+  if ($args[0] == 'user_only') {
+    $query->condition('n.uid', $args[1], '=');
+  }
+
   $query = $query
     ->extend('TableSort')
     ->orderByHeader($header);
@@ -671,6 +687,24 @@ function scheduler_node_delete($node) {
     ->execute();
 }
 
+/**
+ * Implements hook_node_type_delete().
+ */
+function scheduler_node_type_delete($info) {
+  $variables = array();
+
+  $variables[] = "scheduler_publish_enable_" . $info->type;
+  $variables[] = "scheduler_publish_touch_" . $info->type;
+  $variables[] = "scheduler_publish_required_" . $info->type;
+  $variables[] = "scheduler_publish_revision_" . $info->type;
+  $variables[] = "scheduler_unpublish_enable_" . $info->type;
+  $variables[] = "scheduler_unpublish_required_" . $info->type;
+  $variables[] = "scheduler_unpublish_revision_" . $info->type;
+
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}
 
 /**
  * Implementation of hook_cron().
@@ -724,6 +758,13 @@ function _scheduler_publish() {
       $n->revision = TRUE;
       $n->log = "Node published by scheduler module. Original creation date was ".  format_date($old_creation_date, 'custom', $date_format) .".";
     }
+    // Unset publish_on so the node will not get rescheduled by subsequent calls
+    // to node_save().
+    $n->publish_on = NULL;
+
+    // Invoke scheduler API to allow modules to alter the node before it is
+    // saved.
+    _scheduler_scheduler_api($n, 'pre_publish');
 
     // Use the actions system to publish the node.
     watchdog('scheduler', '@type: scheduled publishing of %title.', array('@type' => $n->type, '%title' => $n->title), WATCHDOG_NOTICE, l(t('view'), 'node/'. $n->nid));
@@ -792,6 +833,13 @@ function _scheduler_unpublish() {
         $n->revision = TRUE;
         $n->log = "Node unpublished by scheduler module. Original change date was ".  format_date($old_change_date, 'custom', $date_format) .".";
       }
+      // Unset unpublish_on so the node will not get rescheduled by subsequent
+      // calls to node_save().
+      $n->unpublish_on = NULL;
+
+      // Invoke scheduler API to allow modules to alter the node before it is
+      // saved.
+      _scheduler_scheduler_api($n, 'pre_unpublish');
 
       // Use the actions system to unpublish the node.
       watchdog('scheduler', '@type: scheduled unpublishing of %title.', array('@type' => $n->type, '%title' => $n->title), WATCHDOG_NOTICE, l(t('view'), 'node/'. $n->nid));
@@ -853,7 +901,7 @@ function _scheduler_run_cron() {
       ob_clean();
     }
   }
-  watchdog('scheduler', 'Internal scheduler cron run completed', array(), WATCHDOG_NOTICE, l('settings', 'admin/settings/scheduler'));
+  watchdog('scheduler', 'Internal scheduler cron run completed', array(), WATCHDOG_NOTICE, l('settings', 'admin/config/content/scheduler'));
 
   // This message is only seen when the lightweight cron is tested interactively.
   drupal_set_message(t("Scheduler's lightweight cron completed. See !log for details.", array('!log' => l('admin/reports/dblog', 'admin/reports/dblog'))));

@@ -97,6 +97,27 @@
 /******************* LAYOUT */
 .page-ad-submit h1#page-title { display: none; }
 #node_ad_s_form_group_classified_ad {
+/* BEAUTY TIPS */
+.beautytips {
+  float: left;
+  .border-radius(20px);
+  background-color: @classified_dark;
+  color: @white;
+  border: 1pt solid @white;
+  padding: 2px 6px;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0;
+}
+.description .beautytips-box {
+  clear: left;
+  padding: 4px;
+  background: lighten(@classified_light, 10%);
+  margin: 0 0 20px 0;
+  display: none;
+  border: 1pt solid @classified_med;
+}
+
 }
 
 #ad-s-node-form {
@@ -228,18 +249,6 @@
     }
   }
 }
-.beautytips {
-  float: left;
-  .border-radius(20px);
-  background-color: @classified_dark;
-  color: @white;
-  border: 1pt solid @white;
-  padding: 2px 6px;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 20px;
-}
-
 /* general group layout */
 .fieldset-wrapper {
   background-color: @classified_light;
@@ -519,6 +528,8 @@ legend {
   color: @alert;
   background-color: inherit;
 }
+
+
 
 /* SUBMIT */
 #edit-actions{
