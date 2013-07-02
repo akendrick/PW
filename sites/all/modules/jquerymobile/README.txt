@@ -16,25 +16,25 @@ Module
 
  * Manual Method
  1. create a folder in the 'sites/all' directory name 'libraries'
- 
+
  2. create a folder in the newly create 'sites/all/libraries' directory
      named jquery-VERSION ex. jquery-1.6.4
 
  3. create a folder in the newly create 'sites/all/libraries' directory
      named jquery-mobile-VERSION ex. jquery-mobile-1.0.1
-      
+
  4. download and extract minified and uncompressed version of
-     the jquery framework version into the newly created 
+     the jquery framework version into the newly created
      'sites/all/libraries/jquery-VERSION' directory
      -Minified: http://code.jquery.com/jquery-1.6.4.min.js
      -Uncompressed: http://code.jquery.com/jquery-1.6.4.js
-     
+
  5. download and extract the jquery mobile framework in the
      newly created 'sites/all/libraries/jquery-mobile-VERSION' directory
      -Stable: http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.zip
 
  * Drush Method
-Using Drush, you can now download and extract the jquerymobile framework. 
+Using Drush, you can now download and extract the jquerymobile framework.
 
  1. To enable jquerymobile and install the framework files
      - drush en jquerymobile
@@ -48,7 +48,7 @@ Using Drush, you can now download and extract the jquerymobile framework.
 Usage
 =====
 
-You can put the settings in your site's settings.php file if you choose. 
+You can put the settings in your site's settings.php file if you choose.
 **NOTE: Doing so will prevent changes from being made through the configuration form.
 
 Just copy, paste and modify the following:

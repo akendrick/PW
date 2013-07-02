@@ -42,7 +42,7 @@
 /*****************  MIXIN'  *****************/
 /* isolate box -- for debuging */
 .border{
-    border: 1pt solid @alert;
+  border: 1pt solid @alert;
 }
 
 /* rounded corners */
@@ -102,17 +102,56 @@
 
 
 
+/* RESET GRID */
+
+/*
+.container-13,
+.container-24 {
+  width: 100%!important;
+  .grid-1,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-5,
+  .grid-6,
+  .grid-7,
+  .grid-8,
+  .grid-9,
+  .grid-10,
+  .grid-11,
+  .grid-12,
+  .grid-13,
+  .grid-14,
+  .grid-15,
+  .grid-16,
+  .grid-17,
+  .grid-18,
+  .grid-19,
+  .grid-20,
+  .grid-21,
+  .grid-22,
+  .grid-23,
+  .grid-24 {
+    width: 100%!important;
+  }
+}
+*/
+
 /*****************************
 * HEADER
 */
 html {
-  width: 100%;
-  max-width: 640px;
+  -webkit-text-size-adjust: auto;
+/*   width: 100%; */
+/*   max-width: 640px; */
+/*
+  #zone-content-wrapper
   #zone-content,
   #region-content,
   #region-branding {
-    width: 95%;
+    width: 100%!important;
   }
+*/
   div.block {
     clear:both!important;
     display: block!important;
@@ -127,7 +166,8 @@ html {
 }
 body {
   margin: 0 auto;
-  max-width: 640px;
+/*   width: auto; */
+/*   max-width: 640px; */
   background-image: none;
   background: @classified_light;
 /*   padding: 5px; */
@@ -135,12 +175,17 @@ body {
 
 #section-header {
 /*   background: @classified_dark; */
-  margin-bottom: 20px;
+/*   margin-bottom: 20px; */
   div {
 /*     margin-bottom: 4px; */
   }
 }
 
+#logo, #zone-branding {
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
 #block-delta-blocks-logo {
   margin: 0;
   .logo-img {
@@ -149,30 +194,19 @@ body {
       width: 100%;
       margin: 0 auto;
       display: block;
-      margin-bottom: 20px;
+/*       margin-bottom: 10px; */
     }
   }
 }
 #block-pennywise-pw-contact {
   h2 {
-/*     background: none; */
     display: none;
   }
-/*   font-size: 1em; */
-/*   color: @classified_med; */
-/*   font-weight: 700; */
 }
 #pw-masthead {
-/*   background-color: @white; */
-/*   text-align: center; */
-/*   margin: 0; */
-/*   padding: 0; */
   .pw-masthead-value {
-/*     padding-left: 5px; */
   }
-/*   color: @white; */
   a {
-/*     color: @white; */
   }
   .pw-masthead-label,
   .pw-masthead-fax-wrapper,
@@ -185,58 +219,103 @@ body {
 
 /* browse */
 #ctools-jump-menu--2 {
-  padding: 10px 0;
-  margin: 0 auto 10px auto;
-  display: block;
+/*   display: block; */
+  margin: 0 0 10px 0;
   #edit-jump--2 {
     width: 100%;
-    font-size: 3em;
+/*     font-size: 3em; */
     line-height: 1em;
   }
 }
 
 /* major links */
+#zone-threeup {
+  background: @classified_dark;
+  padding: 10px 2px;
+  margin: 5px 0;
+}
+
+
+
 #block-ad-payment-ad-payment-create-ad,
 #block-pennywise-submit-editorial {
-  font-size: 1em;
-  padding: 4px;
-  line-height: 3em;
+/*   font-size: 1em; */
+/*   line-height: 3em; */
   background: @white;
+  height: auto;
 }
 #ad-submission-link-wrapper a.ad-submission-link,
 #editorial-submit-link {
   color: @alert;
-  font-size: 1.4em;
-  padding: 10px 2px;
-  font-size: 3em;
-  margin: 5px 0;
+/*   font-size: 1.4em; */
+/*   padding: 10px 2px; */
+/*   font-size: 3em; */
+/*   margin: 5px 0; */
 }
 
+/*
 #editorial-submit-link {
   color: @classified_dark;
   font-weight: 400;
 }
+*/
 #views-exposed-form-search-ads-search-page {
   .border-radius(0);
-  padding: 5px;
+/*   padding: 5px; */
   background: none;
-  margin-top: 10px;
+/*   margin-top: 10px; */
 }
 #block-views-exp-search-ads-search-page {
   .views-widget {
     float: left!important;
-    width: 70%;
+/*     width: 40%; */
   }
   #edit-search-ads {
-    font-size: 2em;
+/*     font-size: 2em; */
   }
   .views-submit-button, #edit-submit-search-ads {
+    -webkit-appearance: caret;
     margin: 0;
+    padding-bottom: 0;
     float: right!important;
     clear: none!important;
-    font-size: 1.4em;
+/*     font-size: 1.4em; */
   }
 }
+
+#block-pennywise-pw-mobile-links {
+  background: @white;
+  text-align: center;
+  width: 100%;
+  #pw-mobile-links-button {
+    font-size: 1.2em;
+  }
+  #pw-mobile-links-content {
+    display: inline-table;
+    width: 100%;
+    background-color: @white;
+    .pw-mobile-link-block {
+      width: 33%;
+      display: inline-block;
+/*       background-color: @white; */
+    }
+    a {
+      width: 100%;
+/*       background: @white; */
+      padding: 5%;
+    }
+    .clear-both {
+      width: 100%;
+      clear: both;
+      padding: 5px;
+    }
+  }
+}
+
+
+
 /******************************
 * CONTENT
 */
+
+

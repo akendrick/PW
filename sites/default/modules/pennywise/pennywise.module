@@ -373,6 +373,14 @@ function pennywise_block_info() {
     'cache'   => 8,
   );
 
+  $blocks['pw_mobile_links'] = array(
+    'info'    => t('PW Mobile Links'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache'   => 8,
+  );
+
+
   return $blocks;
 }
 
@@ -521,6 +529,7 @@ Wynndel/Sirdarn => 866
           );
       break;
   }
+
   return $form;
 }
 
@@ -610,6 +619,15 @@ function pennywise_block_view($delta = '') {
       );
 
       $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
+      break;
+
+    case 'pw_mobile_links':
+        $headers = '';
+        $links =
+          '<div class="pw-mobile-link-block">' . l('Classified Ad', 'ad/submit', array('attributes' => array('id' => 'mobile-classified-link'))) . '</div>' .
+          '<div class="pw-mobile-link-block">' . l('Free for Free', 'submit/ad', array('attributes' => array('id' => 'mobile-free-link'))) . '</div>' .
+          '<div class="pw-mobile-link-block">' . l('Editorial', 'submit-editorial', array('attributes' => array('id' => 'mobile-editorial-link'))) . '</div>' ;
+        $content = '<div id="pw-mobile-links-button">Submit</div><div id="pw-mobile-links-content">' . $links . '<div class="clear-both"></div></div>';
       break;
 
     case 'pw_free_for_free':
