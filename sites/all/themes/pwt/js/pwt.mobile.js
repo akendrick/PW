@@ -6,14 +6,18 @@
 jQuery(document).ready(function($) {
 //jQuery(document).ready(function() {
 
-    console.log('Mobile JQ');
+    // console.log('Mobile JQ');
+
+  $('.classified-ad-group-section').width('auto');
 
   // - hide and show options for mobile.
-  $('#pw-mobile-links-content').hide();
-  $('#pw-mobile-links-button').css('cursor', 'pointer');
-  $('#pw-mobile-links-button').click(function() {
-    $('#pw-mobile-links-content').toggle('slow');
-  })
+  //$('#pw-mobile-links-content').hide();
+  //$('#pw-mobile-links-button').css('cursor', 'pointer');
+  //$('#pw-mobile-links-button').click(function() {
+  //  $('#pw-mobile-links-content').toggle('slow');
+  //})
+
+
 
 }(jQuery));
 

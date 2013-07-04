@@ -27,6 +27,7 @@
 @sand: #e5e0dc;
 @lightsand: lighten(@sand, 10%);
 @darksand: darken(@sand, 5);
+@faintsand: lighten(@sand, 20%);
 
 @sunlight: rgb(255, 248, 221);
 @darklight: darken(@sunlight, 5);
@@ -290,6 +291,37 @@ body {
 
 /***************** HEADER :: CONTACT BAR :: MASTHEAD  ********/
 /* masthead contact header */
+/* masthead contact header */
+.block-pw-contact {
+  margin: 0;
+  padding: 0;
+  dd, dt {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+/*     font-weight: 400; */
+    display: inline-block;
+    text-align: center;
+  }
+  .pw-masthead-wrapper {
+    clear: left;
+  }
+  .pw-masthead-block {
+    margin-bottom: 10px;
+  }
+
+    /* hide labels */
+  .pw-masthead-contest-label,
+/*     .pw-masthead-local-label, */
+  .pw-masthead-address-label,
+  .pw-masthead-email-label,
+  .pw-masthead-facebook-label,
+  .pw-masthead-twitter-label {
+    display: none;
+  }
+
+
+}
 #block-pennywise-pw-contact #pw-masthead {
   /* undo mobile */
   display: inherit;
@@ -832,6 +864,133 @@ body.front {
     }
   }
 }
+/*** classified ads with MASONRY blocks ****/
+.view-id-section_pages {
+  background-color: @faintsand;
+  margin: 0;
+  padding: 0;
+  /* section headers */
+  h3 {
+    background-color: @classified_med;
+    color: @white;
+    text-align: center;
+    .border-radius-custom;
+    margin: 0;
+  }
+  .classified-item-wrapper {
+    margin: 0;
+    background-color: inherit;
+    clear: both;
+  }
+   /* general sections */
+  ul.classified-ad-group-section {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    li.classified-ad-block {
+/*       float: left; */
+      width: 100%;
+      padding: 5px;
+      margin: 3px 5px;
+      .border-radius;
+      background-color: @lightsand;
+      border-width: 1pt;
+      p {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      img, a img {
+/*         width: 100%; */
+        margin: 0 auto;
+        display: block;
+      }
+    }
+
+    li.views-row-odd {
+      border: none;
+      background-color: @lightsand;
+    }
+    li.views-row-even {
+      border: none;
+      background-color: @sand;
+    }
+  }
+  .views-row-even, .views-row-odd {
+    background-color: inherit;
+  }
+  .classified-ad-copy p:first-line {
+    font-weight: bold;
+  }
+  .ad-type-Regular {
+    background-color: @lightsand;
+    .border-radius(4px);
+  }
+  .ad-type-Liveload {
+    background-color: @sunlight;
+   .border-radius(4px);
+   border: 1pt solid @highlight;
+  }
+  .Liveload-footer {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .8em;
+    line-height: .9em;
+    font-weight: bolder;
+    background-color: @warning;
+    margin-bottom: 3px;
+  }
+  .Regular-footer {
+    display: none;
+    height: 0;
+  }
+}
+
+/* read-more link */
+.classified-more-link a, {
+  font-size: .7em;
+  color: @plum;
+  background-color: @classified_light;
+  padding: 1px 2px;
+  border: 1pt solid @classified_light;
+  .border-radius;
+}
+
+.classified-more-link a:link:hover {
+  color: @white;
+  background-color: @classified_dark;
+  border: 1pt solid @other_dark;
+}
+
+/** Classified Ad Page **/
+
+.node-type-classified {
+  #page-title { display: none;}
+  .ds-2col-stacked {
+    .group-left {
+      width: 100%;
+    }
+    .group-right {
+      width: 90%;
+    }
+  }
+  .classified-detail-box {
+    margin: 0 10px;
+  }
+  .field-name-field-ad-copy {
+    font-size: 1.4em;
+  }
+  .field-name-field-ad-copy :first-line {
+    font-weight: bold;
+  }
+  .field-name-field-link {
+    word-wrap: break-word;
+  }
+}
+#node_classified_full_group_details {
+  width: 190px;
+}
+
 
 
 /****** display ads ********/

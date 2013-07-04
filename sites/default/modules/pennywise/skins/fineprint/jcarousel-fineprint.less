@@ -4,87 +4,71 @@
  * Panels module by Wim Leers. GPL icons created by Kaj Heijmans.
  */
 /* custom text */
-.view-display-id-block_print_ad_carousel_small {
-/*   background-color: #900; */
-/*   width: 3; */
-/*   overflow: hidden; */
-.jcarousel-skin-fineprint h6 {
-  margin-bottom: 2px;
-}
-.jcarousel-skin-fineprint h6 a {
-  margin-bottom: 0;
-}
-.jcarousel-skin-fineprint em a {
-  font-weight: 300;
-  font-style: normal;
-  width: auto;
-  overflow: hidden;
-}
-
+.view-display-id-block_print_ads_mobile {
 .jcarousel-skin-fineprint {
   text-align: center;
   text-align: left;
   margin: 0;
   padding: 0;
   width: auto;
+  em a {
+    font-weight: 300;
+    font-style: normal;
+    width: auto;
+    overflow: hidden;
+  }
+  h6 {
+    margin-bottom: 2px;
+    text-align: center;
+    a {
+      font-size: .8em;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+  }
+  h6.print-title {
+    font-weight: 600;
+  }
+  a {
+    img {
+      display: block;
+
+/*       float: left; */
+      margin: 0 auto;
+/*       padding: 0 10px 10px 0; */
+    }
+  }
+ .jcarousel-container-horizontal {
+    width: auto;
+    height: auto;
+  }
+
+  .jcarousel-clip-horizontal {
+    height: auto;
+    overflow: hidden;
+  }
+
+  .jcarousel-item {
+    padding: 5px;
+    height: auto;
+    min-height: 90px;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    list-style: none;
+    background: #F0F6F9;
+  }
+  .jcarousel-item-horizontal {
+/*     margin: 4px 0; */
+  }
+
+  .jcarousel-item-placeholder {
+    background: #fff url(throbber.gif) no-repeat center center;
+    color: #000;
+  }
 }
 
-.jcarousel-skin-fineprint a img {
-  float: left;
-  margin: 0;
-  padding: 0 10px 10px 0;
-}
-
-/* navigation */
-/*
-.jcarousel-skin-edition ul.jcarousel-navigation {
-  float: left;
-  width: 10px;
-}
-*/
 
 
-.jcarousel-skin-fineprint .jcarousel-container-horizontal {
-  width: auto;
-  height: auto;
-/*   padding: 40px 20px; */
-}
-
-/*
-.jcarousel-skin-fineprint .jcarousel-navigation-before {
-  padding-top: 30px;
-}
-
-.jcarousel-skin-fineprint .jcarousel-navigation-after {
-  padding-bottom: 30px;
-}
-*/
-
-
-.jcarousel-skin-fineprint .jcarousel-clip-horizontal {
-  height: 120px;
-  overflow: hidden;
-}
-
-.jcarousel-skin-fineprint .jcarousel-item {
-  padding: 5px;
-  height: 90px;
-  min-height: 90px;
-  overflow: hidden;
-  border: 1px solid #CCC;
-  list-style: none;
-  background: #F0F6F9;
-/*   background: #fff none; */
-}
-
-.jcarousel-skin-fineprint .jcarousel-item-horizontal {
-/*   margin: 4px 0; */
-}
-
-.jcarousel-skin-fineprint .jcarousel-item-placeholder {
-  background: #fff url(throbber.gif) no-repeat center center;
-  color: #000;
-}
 
 /**
  * Buttons

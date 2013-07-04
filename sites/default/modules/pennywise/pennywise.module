@@ -564,6 +564,35 @@ function pennywise_block_save($delta = '', $edit = array()) {
 }
 
 /**
+* Implementation of Custom Free For Free code
+*
+*  Determine what kind of FREE for FREE contact info required.
+* @return - link to either email or website form.
+*/
+function free_for_free_link() {
+  $free = array();
+
+  $link_type = variable_get('free_for_free_link_type', 'email');
+  switch ($link_type) {
+    case 'email':
+      $free['type']        = 'email';
+      $free['destination'] = variable_get('free_for_free_link', 'info@pennywiseads.com');
+      $free['header']      = l('Submit Free for Free Ad', 'mailto:' . $free['destination']);
+      $free['footer']      = l('Click Here', 'mailto:' . $free['destination']);
+      $free['simple_link'] = l('Free for Free', 'mailto:' . $free['destination']);
+      break;
+    default:
+      $free['type']        = 'link';
+      $free['destination'] = variable_get('free_for_free_link', 'user');
+      $free['header']      = l('Submit Free for Free Ad', $free['destination']);
+      $free['footer']      = l('Click Here', $free['destination']);
+      $free['simple_link'] = l('Free for Free', $free['destination']);
+  }
+
+  return($free);
+}
+
+/**
  * Implementation of HOOK_block_view
  *
  * Call custom block details.
@@ -623,29 +652,34 @@ function pennywise_block_view($delta = '') {
 
     case 'pw_mobile_links':
         $headers = '';
-        $links =
+
+        // Free for free data.
+       $free = free_for_free_link();
+
+       $links =
           '<div class="pw-mobile-link-block">' . l('Classified Ad', 'ad/submit', array('attributes' => array('id' => 'mobile-classified-link'))) . '</div>' .
-          '<div class="pw-mobile-link-block">' . l('Free for Free', 'submit/ad', array('attributes' => array('id' => 'mobile-free-link'))) . '</div>' .
+          '<div class="pw-mobile-link-block">' . $free['simple_link'] . '</div>' .
           '<div class="pw-mobile-link-block">' . l('Editorial', 'submit-editorial', array('attributes' => array('id' => 'mobile-editorial-link'))) . '</div>' ;
         $content = '<div id="pw-mobile-links-button">Submit</div><div id="pw-mobile-links-content">' . $links . '<div class="clear-both"></div></div>';
       break;
 
     case 'pw_free_for_free':
       $subject = '';
-      $link_type = variable_get('free_for_free_link_type', 'email');
-      switch ($link_type) {
-        case 'email':
-          $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
-          $link_header = l('Submit Free for Free Ad', 'mailto:' . $email);
-          $link_footer = l('Click Here', 'mailto:' . $email);
-          break;
-        default:
-          $destination = variable_get('free_for_free_link', 'user');
-          $link_header = l('Submit Free for Free Ad', $destination);
-          $link_footer = l('Click Here', $destination);
-      }
+      //$link_type = variable_get('free_for_free_link_type', 'email');
+      //switch ($link_type) {
+      //  case 'email':
+      //    $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
+      //    $link_header = l('Submit Free for Free Ad', 'mailto:' . $email);
+      //    $link_footer = l('Click Here', 'mailto:' . $email);
+      //    break;
+      //  default:
+      //    $destination = variable_get('free_for_free_link', 'user');
+      //    $link_header = l('Submit Free for Free Ad', $destination);
+      //    $link_footer = l('Click Here', $destination);
+      //}
+      $free = free_for_free_link();
       $body = variable_get('free_for_free_description', '');
-      $content = '<div class="ad-submission-highlight-block free-for-free">' . $link_header . $body . $link_footer . '</div>';
+      $content = '<div class="ad-submission-highlight-block free-for-free">' . $free['header'] . $body . $free['footer'] . '</div>';
       break;
 
     case 'submit_editorial':
