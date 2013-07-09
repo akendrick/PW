@@ -606,7 +606,7 @@ jQuery(document).ready(function() {
 
 
     //jQuery('#ad-s-node-form').change( function() { // Old change event!
-    jQuery(reviewButton).click( function() { //Bind the change event!
+    jQuery(reviewButton).change( function() { //Bind the change event!
       jQuery(reviewButton).text('Click to update price.');
 
 

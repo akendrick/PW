@@ -355,6 +355,11 @@ body {
       background: @lightsand;
     }
   }
+  h3 {
+    background: @sand;
+    text-align: center;
+    padding: 10px;
+  }
   .ad-type-Regular {
     border: none;
     border: 1pt solid @sand;
@@ -393,7 +398,8 @@ body {
     clear: both;
     img {
       width: auto;
-      max-width: 400px;
+      max-width: 380px;
+      max-height: 420px;
       margin: 0 auto;
       display: block;
     }
@@ -498,4 +504,30 @@ body {
     font-size: 1em;
   }
 
+}
+
+/* AD SUBMIT */
+body.page-ad-submit.responsive-layout-mobile {
+
+  #ad-s-node-form {
+   .group-left, .group-right,
+   fieldset, .fieldset-wrapper,
+   .classified-ad-general,
+   .classified-description-rates,
+   ol, strong,
+   #node_ad_s_form_group_classified_ad,
+   #edit-field-rate-und,
+   .form-textarea-wrapper,
+   #edit-field-area,
+    {
+    margin: 0!important;
+    padding: 0!important;
+    width: 100%!important;
+    .border-radius(0);
+    }
+    dd, dl, dt {
+      clear: both;
+      width: 100%;
+    }
+  }
 }
