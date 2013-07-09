@@ -968,7 +968,7 @@ echo date(\'now\');
     'frontpage_classified_layout' => TRUE,
     'front_page' => TRUE,
     'mobile_front' => TRUE,
-    'mobile_layout' => TRUE,
+    'jq_mobile_layout' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -2096,6 +2096,7 @@ echo date(\'now\');
     10 => 'menu-browse-classifieds',
     11 => 'menu-special-features',
     12 => 'menu-pw-mobile-menu',
+    13 => 'devel',
   );
   $export['menu_default_active_menus'] = $strongarm;
 
@@ -2143,25 +2144,26 @@ echo date(\'now\');
     25 => 30,
     26 => 29,
     27 => 28,
-    28 => 25,
-    29 => 24,
-    30 => 23,
-    31 => 22,
-    32 => 21,
-    33 => 15,
-    34 => 14,
-    35 => 13,
-    36 => 12,
-    37 => 11,
-    38 => 10,
-    39 => 8,
-    40 => 7,
-    41 => 6,
-    42 => 5,
-    43 => 4,
-    44 => 3,
-    45 => 2,
-    46 => 1,
+    28 => 27,
+    29 => 25,
+    30 => 24,
+    31 => 23,
+    32 => 22,
+    33 => 21,
+    34 => 15,
+    35 => 14,
+    36 => 13,
+    37 => 12,
+    38 => 11,
+    39 => 10,
+    40 => 8,
+    41 => 7,
+    42 => 6,
+    43 => 5,
+    44 => 4,
+    45 => 3,
+    46 => 2,
+    47 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2762,7 +2764,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_article_pattern';
-  $strongarm->value = 'editorial/[current-date:custom:Y]/[current-date:custom:m]/[node:title]';
+  $strongarm->value = 'editorial/[current-date:custom:Y]/[current-date:custom:m]/[node:nid]/[node:title]';
   $export['pathauto_node_article_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2783,7 +2785,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_display_ads_pattern';
-  $strongarm->value = 'display/[node:field_display_ad_type]/[node:title]';
+  $strongarm->value = 'display/[node:field_display_ad_type]/[node:field-ad-client]/[node:nid]/[node:title]';
   $export['pathauto_node_display_ads_pattern'] = $strongarm;
 
   $strongarm = new stdClass();

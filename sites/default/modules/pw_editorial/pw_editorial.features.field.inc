@@ -44,6 +44,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'summary' => '',
@@ -151,6 +153,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -223,6 +226,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -277,6 +282,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -328,6 +334,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -383,6 +391,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -461,6 +470,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -517,6 +528,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -584,6 +596,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'This image will be at the top of the page and used through out the site as the articles primary image.',
       'display' => array(
@@ -678,6 +692,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'epsacrop' => array(
           'styles' => array(
@@ -749,6 +764,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.',
       'display' => array(
@@ -803,6 +820,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'epsacrop' => array(
           'styles' => array(
@@ -920,6 +938,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -981,6 +1001,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -1033,6 +1054,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1097,6 +1120,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1146,6 +1170,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1201,6 +1227,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 0,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -1282,6 +1309,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'If the attachment is several pages or files you can reference the other items here.',
@@ -1332,6 +1361,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1382,6 +1412,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1430,6 +1462,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1484,6 +1517,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Used for large file attachments such as PDFs, DOC, etc.',
       'display' => array(
@@ -1531,6 +1566,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 0,
         'file_directory' => 'storage/attachments',
         'file_extensions' => 'txt pdf doc tif psd jpg png ind exl',
@@ -1640,6 +1676,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1697,6 +1735,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 0,
         'file_directory' => 'attachments',
         'file_extensions' => 'txt pdf jpg tiff gif png',
@@ -1807,6 +1846,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '<ul>
 <li>If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.</li>
@@ -1871,6 +1912,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/attachment',
         'file_extensions' => 'png gif jpg jpeg',
@@ -1979,6 +2021,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>',
@@ -2036,6 +2080,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -2091,6 +2136,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '',
@@ -2175,6 +2222,7 @@ function pw_editorial_field_default_fields() {
           ),
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -2226,6 +2274,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -2256,6 +2306,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -2337,6 +2388,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Attach pages, display ads, editorials or downloadable files to this page.',
@@ -2370,6 +2423,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -2437,6 +2491,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2482,6 +2538,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/page',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2580,6 +2637,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2609,6 +2668,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/page',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2707,6 +2767,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'This link field is for expressly highlighting a specific link. It will be displayed in large type.',
@@ -2744,6 +2806,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -2799,6 +2862,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '<strong>You can also copy and paste the whole text from Scribd.</strong>
@@ -2864,6 +2929,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 0,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -2915,6 +2981,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '',
@@ -3019,6 +3087,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3075,6 +3144,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3124,7 +3195,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -3134,6 +3205,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/cover',
         'file_extensions' => 'png gif jpg jpeg',
@@ -3228,6 +3300,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3286,6 +3360,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_value' => 'strtotime',
         'default_value2' => 'same',
         'default_value_code' => '+1 Tuesday',
@@ -3374,6 +3449,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => 'Attach another special feature.',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Special Feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.<br>
 You can either link to an already existing Special Feature or create a new one. <br>
@@ -3460,7 +3537,8 @@ You can either link to an already existing Special Feature or create a new one. 
       'label' => 'Add Special Feature',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => 'Attach another special feature.',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -3515,6 +3593,8 @@ You can either link to an already existing Special Feature or create a new one. 
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '',
@@ -3619,6 +3699,7 @@ You can either link to an already existing Special Feature or create a new one. 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3670,6 +3751,8 @@ You can either link to an already existing Special Feature or create a new one. 
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '',
@@ -3774,6 +3857,7 @@ You can either link to an already existing Special Feature or create a new one. 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3831,6 +3915,8 @@ You can either link to an already existing Special Feature or create a new one. 
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Direct link to pdf for download purposes. <strong>Label the file with the AREA.</strong><br><em>eg. Pennywise_Castlegar_Nov13-2021.pdf</em>',
       'display' => array(
@@ -3882,7 +3968,7 @@ You can either link to an already existing Special Feature or create a new one. 
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -3891,6 +3977,7 @@ You can either link to an already existing Special Feature or create a new one. 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 1,
         'file_directory' => 'pdf',
         'file_extensions' => 'pdf',
@@ -3987,6 +4074,8 @@ You can either link to an already existing Special Feature or create a new one. 
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => 'Add another edition',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '[scribd id=pub-18673738874898982461 key=yy mode=list]',
@@ -4069,7 +4158,7 @@ You can either link to an already existing Special Feature or create a new one. 
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -4077,7 +4166,8 @@ You can either link to an already existing Special Feature or create a new one. 
       'label' => 'Scribd',
       'required' => 1,
       'settings' => array(
-        'custom_add_another' => 'Add another edition',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -4141,6 +4231,8 @@ You can either link to an already existing Special Feature or create a new one. 
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link special feature here by typing the name of the file.<br>
@@ -4196,7 +4288,7 @@ NOTE: Thumbnail image required.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -4205,6 +4297,7 @@ NOTE: Thumbnail image required.',
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -4255,6 +4348,8 @@ NOTE: Thumbnail image required.',
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '',
@@ -4359,6 +4454,7 @@ NOTE: Thumbnail image required.',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),

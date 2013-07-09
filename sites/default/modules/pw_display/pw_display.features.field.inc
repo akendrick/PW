@@ -49,6 +49,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'The following are considered clients
@@ -107,6 +109,7 @@ function pw_display_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -154,6 +157,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -207,6 +212,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -261,6 +267,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Upload (or select) display ad.',
       'display' => array(
@@ -313,6 +321,7 @@ function pw_display_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/display',
         'file_extensions' => 'png gif jpg jpeg',
@@ -416,6 +425,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Select the ad type. This will affect the ads placement and thumbnail size. <br>
@@ -465,6 +476,7 @@ function pw_display_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -513,6 +525,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Optional email contact for business.',
@@ -563,6 +577,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -641,6 +656,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => 'Attach another',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link this display ad to a PDF attachment, another display ad or even a classified ad. Link to a specific PW web page, or even an online web submission form. You can also create the attachment right here.
@@ -676,7 +693,8 @@ function pw_display_field_default_fields() {
       'label' => 'File Attach',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => 'Attach another',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -736,6 +754,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Upload related document.',
       'display' => array(
@@ -773,6 +793,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 1,
         'file_directory' => 'images/attachment',
         'file_extensions' => 'pdf gif tif jpg',
@@ -867,6 +888,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Title tag allows you to shorten very long and complex web links with a concise title.<br>
@@ -929,6 +952,7 @@ with <strong>Page 30</strong>.<br>
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '0',
         ),
@@ -984,6 +1008,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1032,6 +1058,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1075,6 +1102,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '0',
@@ -1127,6 +1156,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1187,6 +1217,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link file here by typing the title of the uploaded file name. To upload a file click <a href=\'/node/add/attachment\' target=\'_NEW\'>here.</a>',
@@ -1241,6 +1273,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1299,6 +1332,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1348,6 +1383,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
