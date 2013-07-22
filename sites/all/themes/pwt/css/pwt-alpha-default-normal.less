@@ -847,7 +847,7 @@ body.front {
    /* general sections */
   ul.classified-ad-group-section {
     width: 560px;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     li {
       display: block;
@@ -856,8 +856,10 @@ body.front {
     li.classified-ad-block {
       float: left;
       width: 260px;
+/*
       padding: 5px;
       margin: 3px 5px;
+*/
       .border-radius;
       background-color: @lightsand;
       border-width: 1pt;
@@ -869,12 +871,16 @@ body.front {
   background-color: @faintsand;
   margin: 0;
   padding: 0;
+  width: 620px!important;
   /* section headers */
   h3 {
     background-color: @classified_med;
     color: @white;
     text-align: center;
     .border-radius-custom;
+    margin: 0;
+  }
+  .item-list ul li {
     margin: 0;
   }
   .classified-item-wrapper {
@@ -884,26 +890,26 @@ body.front {
   }
    /* general sections */
   ul.classified-ad-group-section {
+/*     border: 1pt dotted #900; */
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
     li.classified-ad-block {
-/*       float: left; */
-      width: 100%;
-      padding: 5px;
-      margin: 3px 5px;
+      float: left;
+      width: 49%;
+/*       margin: 3px 5px; */
       .border-radius;
       background-color: @lightsand;
       border-width: 1pt;
       p {
         margin: 0;
-        padding: 0;
+        padding: 5px 5px 0 5px;
         overflow: hidden;
+        clear: left;
       }
       img, a img {
-/*         width: 100%; */
-        margin: 0 auto;
-        display: block;
+        width: 280px;
+        padding: 3px 8px;
       }
     }
 

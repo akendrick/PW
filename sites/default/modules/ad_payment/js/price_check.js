@@ -585,7 +585,8 @@ jQuery(document).ready(function() {
 
     // Review box
     var reviewButton = '#edit-field-review > .description';
-    jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
+    //jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
+    jQuery(reviewButton).text('Review ad price before confirming submission.');
 
     // Credit Card Check
      // EXTERNAL CC VALIDATION SCRIPT
@@ -598,16 +599,19 @@ jQuery(document).ready(function() {
       }
     });
     jQuery('#node_ad_s_form_group_payment').change( function() {
+      console.log('Ad Submission CHANGE!');
       // Check Credit Card;
       var debitMsg = Drupal.adPayment.cardCheck();
-      // console.log('MSG: ' + debitMsg);
+
       jQuery('#cc-checkbox-check').html(debitMsg);
     });
 
+      console.log('Ad Submission !');
 
-    //jQuery('#ad-s-node-form').change( function() { // Old change event!
-    jQuery(reviewButton).change( function() { //Bind the change event!
-      jQuery(reviewButton).text('Click to update price.');
+    jQuery('#ad-s-node-form').change( function() { // ON CHANGE event!
+    //jQuery(reviewButton).click( function() { //Bind to CLICK event!
+       //console.log('Ad Submission CHANGE!');
+      jQuery(reviewButton).text('Updated price.');
 
 
       jQuery("body").css("cursor", "progress");

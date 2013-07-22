@@ -6,7 +6,7 @@
 jQuery(document).ready(function($) {
 //jQuery(document).ready(function() {
 
-    // console.log('Mobile JQ');
+     console.log('Mobile JQ');
 
   $('.classified-ad-group-section').width('auto');
 

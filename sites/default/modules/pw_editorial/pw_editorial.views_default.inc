@@ -1379,9 +1379,11 @@ function pw_editorial_views_default_views() {
   $handler = $view->new_display('block', 'Editorial Slideshow (5) Block', 'block_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['total_pages'] = '3';
   $handler->display->display_options['defaults']['header'] = FALSE;
   /* Header: Global: PHP */
   $handler->display->display_options['header']['php']['id'] = 'php';

@@ -455,9 +455,6 @@ body {
   color: @white;
   font-size: 1.2em;
   padding: 20px 5px;
-  .pw-masthead-block {
-/*     display: inherit; */
-  }
   a {
     color: @white;
     font-weight: 500;
@@ -478,8 +475,6 @@ body {
       float: left;
       width: 30%;
     }
-/*     dd, dt { width: 30%; } */
-/*     display: inline; */
   }
 
   .pw-masthead-block-contact, {
@@ -503,31 +498,178 @@ body {
     background: @alert;
     font-size: 1em;
   }
-
 }
 
 /* AD SUBMIT */
 body.page-ad-submit.responsive-layout-mobile {
-
-  #ad-s-node-form {
-   .group-left, .group-right,
-   fieldset, .fieldset-wrapper,
-   .classified-ad-general,
-   .classified-description-rates,
-   ol, strong,
-   #node_ad_s_form_group_classified_ad,
-   #edit-field-rate-und,
-   .form-textarea-wrapper,
-   #edit-field-area,
-    {
-    margin: 0!important;
-    padding: 0!important;
-    width: 100%!important;
-    .border-radius(0);
-    }
-    dd, dl, dt {
-      clear: both;
-      width: 100%;
-    }
+  #region-footer-first {
+    display: none;
   }
+  #ad-s-node-form {
+    width: 100%!important;
+    font-size: 1em;
+    background-color: @classified_light;
+    padding: 5px;
+    .group-right,
+    .classified-ad-general,
+     { display: none; }
+    .group-left,
+    #node_ad_s_form_group_classified_ad,
+    #node_ad_s_form_group_upgrade,
+    #node_ad_s_form_group_review,
+    #node_ad_s_form_group_payment, {
+      margin: 0!important;
+      padding: 0!important;
+      width: 99%!important;
+      .border-radius(0);
+      margin: 0 auto;
+      display: block;
+      legend,
+      .fieldset-wrapper {
+        margin: 0!important;
+        padding: 0!important;
+        width: 99%!important;
+        .border-radius(0);
+      }
+    }
+
+    #edit-field-rate,
+    #edit-field-ad-copy,
+    #edit-field-area,
+    #edit-field-duration,
+    #edit-field-tags,
+    #edit-field-liveload,
+    #edit-field-image,
+    #edit-field-review,
+    #edit-field-ad-details,
+    #edit-group-name,
+    #edit-group-card,
+    #edit-group-expiry,
+    #node_ad_s_form_group_contact,
+    {
+      margin: 0;
+      padding: 5px;
+      .border-radius(0);
+      label,
+      .fieldset-description,
+      .description,
+      .form-textarea-wrapper,
+      .textarea-processed,
+      .form-managed-file
+       {
+        clear: both;
+        width: 90%!important;
+        margin: 0!important;
+        padding: 2px;
+      }
+      .form-item,
+      .form-type-radio,
+      .form-type-checkbox,
+      .form-type-select,
+      .form-type-managed-file,
+      .form-checkboxes,
+      .form-textarea,
+      .form-radios,
+      .form-select,
+      dd, dl, dt
+      {
+       font-weight: 500;
+        width: 90%!important;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    #ad-review-data {
+      padding: 5px;
+      padding-bottom: 5px!important;
+      .border-radius(0);
+      dl dd {
+        clear: both;
+        margin: 0;
+        font-weight: 600;
+      }
+    }
+    #edit-field-liveload-und {
+      clear: left;
+    }
+    #ad-review-price {
+      border: 1pt solid @alert;
+      background-color: @white;
+      margin-bottom: 5px;
+      margin: 5px;
+    }
+   #node_ad_s_form_group_payment {
+/*         width: 80%!important; */
+       legend {
+          width: auto;
+          background-color: @classified_dark;
+       }
+      .fieldset-wrapper {
+/*         width: 60%!important; */
+         padding: 5px;
+      }
+      #field-phone-add-more-wrapper {
+        width: auto;
+        input {
+          width: auto;
+        }
+      }
+   }
+
+    #edit-contact-info {
+      clear: both;
+    }
+
+    fieldset .fieldset-wrapper .form-item {
+/*       border-top: 1pt solid @white; */
+      margin: 10px 0 5px 5px!important;
+      padding: 10px 5px;
+      font-size: 1em;
+/*       width: 90%; */
+      font-weight: 500;
+    }
+    #edit-field-area-und .form-item,
+    fieldset .fieldset-wrapper .form-item .form-type-radio,
+    fieldset .fieldset-wrapper .form-item .form-type-checkbox
+    fieldset .fieldset-wrapper .form-item .form-type-textfield {
+      label, label .option, .form-item
+       {
+          border-top: none!important;
+         font-weight: 500;
+       }
+      border: none!important;
+      margin: 2px;
+      padding: 0;
+    }
+    #edit-field-rate-und label,
+    #edit-field-area-und label { font-weight: 500; }
+
+  }
+  #field-ad-copy-add-more-wrapper {
+    margin: 4px;
+  }
+  #edit-field-ad-copy-und-0-value {
+    width: auto;
+  }
+  .beautytips {
+    float: left;
+    .border-radius(20px);
+    background-color: @plum;
+    color: @white;
+    border: 1pt solid @white;
+    padding: 2px 6px;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 0;
+  }
+  .beautytips-box {
+    clear: left;
+    padding: 4px;
+    background: lighten(@classified_light, 10%);
+    margin: 0 0 20px 0;
+    display: none;
+    border: 1pt solid @classified_med;
+  }
+
 }
