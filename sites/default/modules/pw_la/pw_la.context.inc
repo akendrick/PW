@@ -246,11 +246,13 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'debug' => array(
-      'debug' => 1,
-    ),
     'delta' => array(
       'delta_template' => 'default_center',
+    ),
+    'disable_context' => array(
+      'disabled' => array(
+        'mobile_layout' => 'mobile_layout',
+      ),
     ),
   );
   $context->condition_mode = 1;
@@ -584,7 +586,6 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
-        '~ad/submit' => '~ad/submit',
       ),
     ),
     'sitewide' => array(
@@ -630,12 +631,6 @@ function pw_la_context_default_contexts() {
           'module' => 'delta_blocks',
           'delta' => 'logo',
           'region' => 'branding',
-          'weight' => '-10',
-        ),
-        'menu-menu-advertising-links' => array(
-          'module' => 'menu',
-          'delta' => 'menu-advertising-links',
-          'region' => 'footer_first',
           'weight' => '-10',
         ),
         'pennywise-pw_contact' => array(
@@ -710,6 +705,7 @@ function pw_la_context_default_contexts() {
         'sites/all/themes/pwt/js/jquery.imagesloaded.min.js' => 0,
         'sites/all/themes/pwt/js/jquery.masonry.min.js' => 0,
         'sites/all/themes/pwt/js/pwt.masonry.js' => 0,
+        'sites/all/themes/pwt/js/pwt.masonry__error_backup.js' => 0,
         'sites/all/themes/pwt/js/pwt.mobile.js' => 'sites/all/themes/pwt/js/pwt.mobile.js',
       ),
     ),

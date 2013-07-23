@@ -321,8 +321,9 @@ body {
   margin: 0;
   padding: 0;
 }
-#page-title, .classified-item-wrapper h3 {
+#page-title {
   .border-radius(0);
+  background-color: @classified_dark;
 }
 
 .view-display-id-page {
@@ -332,7 +333,6 @@ body {
   li.classified-ad-block {
     margin: auto;
   }
-
   .classified-ad-group-section {
     width: auto;
   }
@@ -341,7 +341,6 @@ body {
     margin: 0;
     padding: 10px 10px 0 10px;
     img {
-      float: left;
       margin: 0 10px 10px 0;
     }
   }
@@ -356,7 +355,6 @@ body {
     }
   }
   h3 {
-    background: @sand;
     text-align: center;
     padding: 10px;
   }
@@ -385,9 +383,10 @@ body {
     height: 0;
   }
 
-
-
 }
+
+
+
 
 /* INDIVIDUAL CLASSIFIED PAGE */
 .responsive-layout-mobile {
@@ -423,6 +422,50 @@ body {
     font-weight: bold;
   }
 }
+
+/* SEARCH PAGE */
+.view-search-ads {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  .view-content {
+    border: 0;
+  }
+  .item-list {
+    h3 {
+      background-color: @classified_med;
+      color: @white;
+      margin: 0;
+      .border-radius(0);
+      border: 0;
+      padding: 5px;
+      margin-top: 10px;
+      a {
+        color: @white;
+      }
+    }
+    ul.search-results-list {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: lighten(@classified_med, 60%);
+      li.views-row {
+        margin: 0;
+        padding: 8px 3px;
+      }
+      li.views-row :first-line {
+        font-weight: bold;
+      }
+      li.views-row-odd {
+        background-color: lighten(@classified_light, 20%);
+      }
+      li.classified-ad-Liveload {
+        background-color: @sunlight
+      }
+    }
+  }
+}
+
 
 
 /* FOOTER */
@@ -532,6 +575,16 @@ body.page-ad-submit.responsive-layout-mobile {
         .border-radius(0);
       }
     }
+    #edit-field-ad-copy-und-0-value {
+      width: 90%!important;
+    }
+    #node_ad_s_form_group_contact {
+      .fieldset-description {
+        width: 60%;
+        font-size: 1em;
+      }
+    }
+
 
     #edit-field-rate,
     #edit-field-ad-copy,
@@ -558,7 +611,7 @@ body.page-ad-submit.responsive-layout-mobile {
       .form-managed-file
        {
         clear: both;
-        width: 90%!important;
+/*         width: 95%!important; */
         margin: 0!important;
         padding: 2px;
       }
@@ -574,7 +627,7 @@ body.page-ad-submit.responsive-layout-mobile {
       dd, dl, dt
       {
        font-weight: 500;
-        width: 90%!important;
+/*         width: 90%!important; */
         margin: 0;
         padding: 0;
       }
