@@ -588,11 +588,6 @@ function pw_la_context_default_contexts() {
         '~admin/*' => '~admin/*',
       ),
     ),
-    'sitewide' => array(
-      'values' => array(
-        1 => 1,
-      ),
-    ),
   );
   $context->reactions = array(
     'block' => array(
