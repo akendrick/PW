@@ -109,7 +109,7 @@ function pw_la_delta_default_templates() {
       'favicon_path' => 'public://PW_logo_WEB-favicon.ico',
       'favicon_upload' => '',
       'alpha_grid' => 'alpha_fluid',
-      'alpha_responsive' => 0,
+      'alpha_responsive' => 1,
       'alpha_viewport' => 1,
       'alpha_viewport_initial_scale' => '1',
       'alpha_viewport_min_scale' => '1',
@@ -187,9 +187,8 @@ function pw_la_delta_default_templates() {
       'alpha_debug_block_toggle' => 1,
       'alpha_debug_block_active' => 0,
       'alpha_debug_grid_toggle' => 1,
-      'alpha_debug_grid_active' => 0,
+      'alpha_debug_grid_active' => 1,
       'alpha_debug_grid_roles' => array(
-        6 => '6',
         3 => '3',
         1 => 0,
         4 => 0,
@@ -198,6 +197,7 @@ function pw_la_delta_default_templates() {
         9 => 0,
         11 => 0,
         5 => 0,
+        6 => 0,
         7 => 0,
         10 => 0,
         12 => 0,
@@ -272,7 +272,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_sidebar_second_css' => '',
       'alpha_region_sidebar_second_equal_height_element' => FALSE,
       'alpha_region_sidebar_second_equal_height_container' => 0,
-      'alpha_zone_branding_wrapper' => 1,
+      'alpha_zone_branding_wrapper' => 0,
       'alpha_zone_branding_force' => 0,
       'alpha_zone_branding_order' => 0,
       'alpha_zone_branding_section' => 'header',
@@ -312,7 +312,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_splash_two_css' => '',
       'alpha_region_splash_two_equal_height_element' => 0,
       'alpha_region_splash_two_equal_height_container' => 0,
-      'alpha_zone_super_menu_wrapper' => 1,
+      'alpha_zone_super_menu_wrapper' => 0,
       'alpha_zone_super_menu_force' => 0,
       'alpha_zone_super_menu_order' => 0,
       'alpha_zone_super_menu_section' => 'header',
@@ -322,7 +322,7 @@ function pw_la_delta_default_templates() {
       'alpha_zone_super_menu_css' => '',
       'alpha_zone_super_menu_wrapper_css' => '',
       'alpha_zone_super_menu_equal_height_container' => 0,
-      'alpha_region_super_menu_force' => 1,
+      'alpha_region_super_menu_force' => 0,
       'alpha_region_super_menu_zone' => 'super_menu',
       'alpha_region_super_menu_prefix' => '0',
       'alpha_region_super_menu_columns' => '12',
@@ -332,7 +332,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_super_menu_css' => '',
       'alpha_region_super_menu_equal_height_element' => 0,
       'alpha_region_super_menu_equal_height_container' => 0,
-      'alpha_zone_menu_wrapper' => 1,
+      'alpha_zone_menu_wrapper' => 0,
       'alpha_zone_menu_force' => 0,
       'alpha_zone_menu_order' => 0,
       'alpha_zone_menu_section' => 'header',
@@ -342,7 +342,7 @@ function pw_la_delta_default_templates() {
       'alpha_zone_menu_css' => '',
       'alpha_zone_menu_wrapper_css' => '',
       'alpha_zone_menu_equal_height_container' => 0,
-      'alpha_region_menu_force' => 1,
+      'alpha_region_menu_force' => 0,
       'alpha_region_menu_zone' => 'menu',
       'alpha_region_menu_prefix' => '0',
       'alpha_region_menu_columns' => '12',
@@ -352,8 +352,8 @@ function pw_la_delta_default_templates() {
       'alpha_region_menu_css' => '',
       'alpha_region_menu_equal_height_element' => 0,
       'alpha_region_menu_equal_height_container' => 0,
-      'alpha_zone_threeup_wrapper' => 0,
-      'alpha_zone_threeup_force' => 0,
+      'alpha_zone_threeup_wrapper' => 1,
+      'alpha_zone_threeup_force' => 1,
       'alpha_zone_threeup_order' => 0,
       'alpha_zone_threeup_section' => 'header',
       'alpha_zone_threeup_weight' => '-5',
@@ -362,7 +362,7 @@ function pw_la_delta_default_templates() {
       'alpha_zone_threeup_css' => '',
       'alpha_zone_threeup_wrapper_css' => '',
       'alpha_zone_threeup_equal_height_container' => 0,
-      'alpha_region_threeup_one_force' => 0,
+      'alpha_region_threeup_one_force' => 1,
       'alpha_region_threeup_one_zone' => 'threeup',
       'alpha_region_threeup_one_prefix' => '0',
       'alpha_region_threeup_one_columns' => '4',
@@ -372,7 +372,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_threeup_one_css' => '',
       'alpha_region_threeup_one_equal_height_element' => 0,
       'alpha_region_threeup_one_equal_height_container' => 0,
-      'alpha_region_threeup_two_force' => 0,
+      'alpha_region_threeup_two_force' => 1,
       'alpha_region_threeup_two_zone' => 'threeup',
       'alpha_region_threeup_two_prefix' => '0',
       'alpha_region_threeup_two_columns' => '4',
@@ -382,7 +382,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_threeup_two_css' => '',
       'alpha_region_threeup_two_equal_height_element' => 0,
       'alpha_region_threeup_two_equal_height_container' => 0,
-      'alpha_region_threeup_three_force' => 0,
+      'alpha_region_threeup_three_force' => 1,
       'alpha_region_threeup_three_zone' => 'threeup',
       'alpha_region_threeup_three_prefix' => '0',
       'alpha_region_threeup_three_columns' => '4',
@@ -392,7 +392,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_threeup_three_css' => '',
       'alpha_region_threeup_three_equal_height_element' => 0,
       'alpha_region_threeup_three_equal_height_container' => 0,
-      'alpha_zone_user_wrapper' => 1,
+      'alpha_zone_user_wrapper' => 0,
       'alpha_zone_user_force' => 0,
       'alpha_zone_user_order' => 0,
       'alpha_zone_user_section' => 'header',
@@ -422,7 +422,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_user_second_css' => '',
       'alpha_region_user_second_equal_height_element' => 0,
       'alpha_region_user_second_equal_height_container' => 0,
-      'alpha_zone_header_wrapper' => 1,
+      'alpha_zone_header_wrapper' => 0,
       'alpha_zone_header_force' => 0,
       'alpha_zone_header_order' => 0,
       'alpha_zone_header_section' => 'header',
@@ -452,9 +452,9 @@ function pw_la_delta_default_templates() {
       'alpha_region_header_second_css' => '',
       'alpha_region_header_second_equal_height_element' => 0,
       'alpha_region_header_second_equal_height_container' => 0,
-      'alpha_zone_content_wrapper' => 1,
-      'alpha_zone_content_force' => 1,
-      'alpha_zone_content_order' => 1,
+      'alpha_zone_content_wrapper' => 0,
+      'alpha_zone_content_force' => 0,
+      'alpha_zone_content_order' => 0,
       'alpha_zone_content_section' => 'content',
       'alpha_zone_content_weight' => '-8',
       'alpha_zone_content_columns' => '24',
@@ -462,7 +462,7 @@ function pw_la_delta_default_templates() {
       'alpha_zone_content_css' => '',
       'alpha_zone_content_wrapper_css' => '',
       'alpha_zone_content_equal_height_container' => 0,
-      'alpha_region_content_force' => 1,
+      'alpha_region_content_force' => 0,
       'alpha_region_content_zone' => 'content',
       'alpha_region_content_prefix' => '0',
       'alpha_region_content_columns' => '16',
@@ -472,7 +472,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_content_css' => '',
       'alpha_region_content_equal_height_element' => 0,
       'alpha_region_content_equal_height_container' => 0,
-      'alpha_zone_preface_wrapper' => 1,
+      'alpha_zone_preface_wrapper' => 0,
       'alpha_zone_preface_force' => 0,
       'alpha_zone_preface_order' => 0,
       'alpha_zone_preface_section' => 'content',
@@ -512,7 +512,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_preface_third_css' => '',
       'alpha_region_preface_third_equal_height_element' => 0,
       'alpha_region_preface_third_equal_height_container' => 0,
-      'alpha_zone_postscript_wrapper' => 1,
+      'alpha_zone_postscript_wrapper' => 0,
       'alpha_zone_postscript_force' => 0,
       'alpha_zone_postscript_order' => 0,
       'alpha_zone_postscript_section' => 'content',
@@ -562,7 +562,7 @@ function pw_la_delta_default_templates() {
       'alpha_region_postscript_fourth_css' => '',
       'alpha_region_postscript_fourth_equal_height_element' => 0,
       'alpha_region_postscript_fourth_equal_height_container' => 0,
-      'alpha_zone_footer_wrapper' => 1,
+      'alpha_zone_footer_wrapper' => 0,
       'alpha_zone_footer_force' => 0,
       'alpha_zone_footer_order' => 0,
       'alpha_zone_footer_section' => 'footer',
@@ -601,6 +601,25 @@ function pw_la_delta_default_templates() {
     'color_pwt_screenshot' => NULL,
   );
   $export['mobile'] = $delta;
+
+  $delta = new stdClass();
+  $delta->disabled = FALSE; /* Edit this to true to make a default delta disabled initially */
+  $delta->api_version = 3;
+  $delta->machine_name = 'simple_large_content';
+  $delta->name = 'Simple Large Content';
+  $delta->description = '';
+  $delta->theme = 'pwt';
+  $delta->mode = 'preserve';
+  $delta->parent = 'default_center';
+  $delta->settings = array(
+    'theme_pwt_settings' => array(
+      'alpha_region_content_columns' => '24',
+      'alpha_region_sidebar_first_force' => 0,
+      'alpha_region_sidebar_first_zone' => NULL,
+      'alpha_region_sidebar_second_zone' => NULL,
+    ),
+  );
+  $export['simple_large_content'] = $delta;
 
   return $export;
 }

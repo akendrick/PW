@@ -12,7 +12,7 @@ function pw_display_views_default_views() {
 
   $view = new view();
   $view->name = 'display_ad_blocks';
-  $view->description = '';
+  $view->description = 'display ads, boxes, sliders, poster, etc';
   $view->tag = 'default';
   $view->base_table = 'node';
   $view->human_name = 'Display Ad Blocks';
@@ -1533,8 +1533,8 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['block_description'] = 'Front Highlight Print Block';
   $handler->display->display_options['block_caching'] = '-1';
 
-  /* Display: Print Block SML */
-  $handler = $view->new_display('block', 'Print Block SML', 'block_print_ad_carousel_small');
+  /* Display: Print Block Mobile */
+  $handler = $view->new_display('block', 'Print Block Mobile', 'block_print_ads_mobile');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
@@ -1543,9 +1543,9 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['style_plugin'] = 'jcarousel';
   $handler->display->display_options['style_options']['wrap'] = 'both';
   $handler->display->display_options['style_options']['skin'] = 'fineprint';
-  $handler->display->display_options['style_options']['visible'] = '1';
-  $handler->display->display_options['style_options']['scroll'] = '1';
-  $handler->display->display_options['style_options']['auto'] = '8';
+  $handler->display->display_options['style_options']['visible'] = '2';
+  $handler->display->display_options['style_options']['scroll'] = '2';
+  $handler->display->display_options['style_options']['auto'] = '0';
   $handler->display->display_options['style_options']['autoPause'] = 0;
   $handler->display->display_options['style_options']['easing'] = '';
   $handler->display->display_options['style_options']['vertical'] = 0;
@@ -1579,21 +1579,6 @@ rel="lightbox[_field_display_ad]<p><a href= title class="lightbox-processed" htt
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_ad_client']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_ad_client']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Display Ad File Link */
-  $handler->display->display_options['fields']['field_display_ad_1']['id'] = 'field_display_ad_1';
-  $handler->display->display_options['fields']['field_display_ad_1']['table'] = 'field_data_field_display_ad';
-  $handler->display->display_options['fields']['field_display_ad_1']['field'] = 'field_display_ad';
-  $handler->display->display_options['fields']['field_display_ad_1']['ui_name'] = 'Content: Display Ad File Link';
-  $handler->display->display_options['fields']['field_display_ad_1']['label'] = '';
-  $handler->display->display_options['fields']['field_display_ad_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_display_ad_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_display_ad_1']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_display_ad_1']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_display_ad_1']['type'] = 'image_url';
-  $handler->display->display_options['fields']['field_display_ad_1']['settings'] = array(
-    'image_style' => '',
-    'image_link' => 'content',
-  );
   /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
@@ -1613,6 +1598,21 @@ rel="lightbox[_field_display_ad]<p><a href= title class="lightbox-processed" htt
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_display_ad']['group_column'] = 'fid';
+  /* Field: Content: Display Ad File Link */
+  $handler->display->display_options['fields']['field_display_ad_1']['id'] = 'field_display_ad_1';
+  $handler->display->display_options['fields']['field_display_ad_1']['table'] = 'field_data_field_display_ad';
+  $handler->display->display_options['fields']['field_display_ad_1']['field'] = 'field_display_ad';
+  $handler->display->display_options['fields']['field_display_ad_1']['ui_name'] = 'Content: Display Ad File Link';
+  $handler->display->display_options['fields']['field_display_ad_1']['label'] = '';
+  $handler->display->display_options['fields']['field_display_ad_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_display_ad_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_display_ad_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_display_ad_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_ad_1']['type'] = 'image_url';
+  $handler->display->display_options['fields']['field_display_ad_1']['settings'] = array(
+    'image_style' => '',
+    'image_link' => 'content',
+  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1689,7 +1689,7 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
     'print' => 'print',
   );
   $handler->display->display_options['filters']['field_display_ad_type_value']['group'] = 1;
-  $handler->display->display_options['block_description'] = 'Print Block (small)';
+  $handler->display->display_options['block_description'] = 'Print Block (mobile)';
   $handler->display->display_options['block_caching'] = '4';
   $export['display_ad_blocks'] = $view;
 

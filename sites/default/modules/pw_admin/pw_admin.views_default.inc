@@ -455,7 +455,7 @@ function pw_admin_views_default_views() {
     'client' => 0,
     'tags' => 0,
   );
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -674,7 +674,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['status']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['status']['type'] = 'unicode-yes-no';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -700,10 +700,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad_type']['element_type'] = 'h2';
   $handler->display->display_options['fields']['field_display_ad_type']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_display_ad_type']['element_default_classes'] = FALSE;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
+  $handler->display->display_options['fields']['field_tags']['label'] = 'Section';
   $handler->display->display_options['fields']['field_tags']['element_type'] = 'em';
   $handler->display->display_options['fields']['field_tags']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_tags']['hide_empty'] = TRUE;
@@ -747,7 +748,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['unpublish_on']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'short';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -812,7 +813,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['unpublish_on']['element_class'] = 'small';
   $handler->display->display_options['fields']['unpublish_on']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'short';
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -1227,7 +1228,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -1529,7 +1530,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -1751,7 +1752,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['view_node']['element_label_class'] = 'button';
   $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['view_node']['text'] = 'Link';
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -2297,7 +2298,7 @@ function pw_admin_views_default_views() {
     'ccid' => 0,
     'nid' => 0,
   );
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -2950,7 +2951,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -3138,7 +3139,7 @@ function pw_admin_views_default_views() {
     ),
   );
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -3190,7 +3191,7 @@ function pw_admin_views_default_views() {
     12 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -3360,7 +3361,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -3559,7 +3560,7 @@ function pw_admin_views_default_views() {
     ),
   );
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -3722,7 +3723,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type_1']['label'] = '';
   $handler->display->display_options['fields']['field_ad_type_1']['element_type'] = 'strong';
   $handler->display->display_options['fields']['field_ad_type_1']['element_label_colon'] = FALSE;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -3892,7 +3893,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['field_ad_type_value']['table'] = 'field_data_field_ad_type';
   $handler->display->display_options['sorts']['field_ad_type_value']['field'] = 'field_ad_type_value';
   $handler->display->display_options['sorts']['field_ad_type_value']['order'] = 'DESC';
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -4809,7 +4810,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['ccid']['alter']['path'] = 'pwadmin/classified/adp/[ccid]';
   $handler->display->display_options['fields']['ccid']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['ccid']['empty_zero'] = TRUE;
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -4881,7 +4882,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  /* Sort criterion: Content: Section (field_tags) */
+  /* Sort criterion: Content: Classification (field_tags) */
   $handler->display->display_options['sorts']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['sorts']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['sorts']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -5487,7 +5488,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -5507,7 +5508,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['max_length'] = '35';
   $handler->display->display_options['fields']['title']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -5850,7 +5851,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -5946,7 +5947,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['status']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['status']['type'] = 'enabled-disabled';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
@@ -5969,7 +5970,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Display Ad */
+  /* Field: Content: Cover */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -6150,7 +6151,7 @@ function pw_admin_views_default_views() {
     'display_ads' => 'display_ads',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -6271,7 +6272,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -6341,7 +6342,7 @@ function pw_admin_views_default_views() {
     'display_ads' => 'display_ads',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -6446,7 +6447,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -6544,7 +6545,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -6636,7 +6637,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['operator'] = 'field_display_ad_type_value_op';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['identifier'] = 'display_ad_type';
   $handler->display->display_options['filters']['field_display_ad_type_value']['expose']['remember'] = TRUE;
-  /* Filter criterion: Content: Section (field_tags) */
+  /* Filter criterion: Content: Classification (field_tags) */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
@@ -7247,7 +7248,7 @@ function pw_admin_views_default_views() {
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
-  /* Field: Content: Extra Images */
+  /* Field: Content: Inserted Images */
   $handler->display->display_options['fields']['field_images_editorial_extra']['id'] = 'field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['table'] = 'field_data_field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['field'] = 'field_images_editorial_extra';
@@ -7484,7 +7485,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '200',
   );
-  /* Field: Content: Related File */
+  /* Field: Content: Attachment */
   $handler->display->display_options['fields']['field_high_res_ad']['id'] = 'field_high_res_ad';
   $handler->display->display_options['fields']['field_high_res_ad']['table'] = 'field_data_field_high_res_ad';
   $handler->display->display_options['fields']['field_high_res_ad']['field'] = 'field_high_res_ad';
@@ -7620,11 +7621,10 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Section */
+  /* Field: Content: Classification */
   $handler->display->display_options['fields']['field_tags']['id'] = 'field_tags';
   $handler->display->display_options['fields']['field_tags']['table'] = 'field_data_field_tags';
   $handler->display->display_options['fields']['field_tags']['field'] = 'field_tags';
-  $handler->display->display_options['fields']['field_tags']['label'] = 'Classification';
   $handler->display->display_options['fields']['field_tags']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['field_tags']['delta_offset'] = '0';
   /* Field: Content: Classified Ad Type */

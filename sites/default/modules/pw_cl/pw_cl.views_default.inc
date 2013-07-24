@@ -130,7 +130,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['field_ad_copy']['settings'] = array(
     'trim_length' => '110',
   );
-  /* Field: Field: Phone */
+  /* Field: Field: Phone Number */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';

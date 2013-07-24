@@ -246,11 +246,13 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'debug' => array(
-      'debug' => 1,
-    ),
     'delta' => array(
       'delta_template' => 'default_center',
+    ),
+    'disable_context' => array(
+      'disabled' => array(
+        'mobile_layout' => 'mobile_layout',
+      ),
     ),
   );
   $context->condition_mode = 1;
@@ -584,71 +586,52 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
-        '~ad/submit' => '~ad/submit',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_holiday_message' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_holiday_message',
-          'region' => 'content',
-          'weight' => '-9',
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'threeup_one',
+          'weight' => '-10',
         ),
-        'pennywise-pw_phone_areas' => array(
+        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
+          'module' => 'jump_menu',
+          'delta' => 'jump_menu-m_menu-browse-classifi',
+          'region' => 'threeup_two',
+          'weight' => '-10',
+        ),
+        'pennywise-pw_mobile_links' => array(
           'module' => 'pennywise',
-          'delta' => 'pw_phone_areas',
+          'delta' => 'pw_mobile_links',
+          'region' => 'threeup_three',
+          'weight' => '-10',
+        ),
+        'views-276555a85e20cd9e83768e783dbee851' => array(
+          'module' => 'views',
+          'delta' => '276555a85e20cd9e83768e783dbee851',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-10',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-7',
-        ),
-        'pennywise-pw_contact' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_contact',
-          'region' => 'branding',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'delta_blocks-logo' => array(
           'module' => 'delta_blocks',
           'delta' => 'logo',
           'region' => 'branding',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
-          'region' => 'branding',
-          'weight' => '-8',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'branding',
-          'weight' => '-7',
-        ),
-        'pennywise-submit_editorial' => array(
+        'pennywise-pw_contact' => array(
           'module' => 'pennywise',
-          'delta' => 'submit_editorial',
-          'region' => 'branding',
-          'weight' => '-6',
-        ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'header_first',
-          'weight' => '-14',
-        ),
-        'views-de361c058107ea938b176d3ffd541f03' => array(
-          'module' => 'views',
-          'delta' => 'de361c058107ea938b176d3ffd541f03',
-          'region' => 'header_first',
+          'delta' => 'pw_contact',
+          'region' => 'footer_second',
           'weight' => '-10',
         ),
       ),
@@ -690,6 +673,36 @@ function pw_la_context_default_contexts() {
     ),
     'delta' => array(
       'delta_template' => 'mobile',
+    ),
+    'disable_context' => array(
+      'disabled' => array(
+        'admin-stuff' => 'admin-stuff',
+        'admin-stuff-admin-theme' => 'admin-stuff-admin-theme',
+        'admin-theme-by-role' => 'admin-theme-by-role',
+        'admin_boxes' => 'admin_boxes',
+        'area_code_page' => 'area_code_page',
+        'classifieds_et_al' => 'classifieds_et_al',
+        'dashboard' => 'dashboard',
+        'footer_all' => 'footer_all',
+        'front_page' => 'front_page',
+        'mobile_front' => 'mobile_front',
+        'simple_page' => 'simple_page',
+        'top_stuff' => 'top_stuff',
+        'user' => 'user',
+      ),
+    ),
+    'js' => array(
+      'Bartik' => array(
+        'themes/bartik/color/preview.js' => 0,
+      ),
+      'Pennywise Theme' => array(
+        'sites/all/themes/pwt/js/jquery.imagesloaded.js' => 0,
+        'sites/all/themes/pwt/js/jquery.imagesloaded.min.js' => 0,
+        'sites/all/themes/pwt/js/jquery.masonry.min.js' => 0,
+        'sites/all/themes/pwt/js/pwt.masonry.js' => 0,
+        'sites/all/themes/pwt/js/pwt.masonry__error_backup.js' => 0,
+        'sites/all/themes/pwt/js/pwt.mobile.js' => 'sites/all/themes/pwt/js/pwt.mobile.js',
+      ),
     ),
   );
   $context->condition_mode = 0;

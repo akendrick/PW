@@ -21,6 +21,16 @@ function httprl_admin_settings_form() {
     '#default_value' => variable_get('httprl_background_callback', HTTPRL_BACKGROUND_CALLBACK),
     '#description' => t('If disabled all background_callback keys will be turned into callback & httprl_queue_background_callback will return NULL and not queue up the request. Note that background callbacks will automatically be disabled if the site is in maintenance mode.'),
   );
+  // Currently only available on D7.
+  // http://drupal.org/node/1664784
+  if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
+    $form['drupal_http_request_function'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Use httprl to handle drupal_http_request.'),
+      '#default_value' => variable_get('drupal_http_request_function', FALSE) === 'httprl_override_core' ? TRUE : FALSE,
+      '#description' => t('Use httprl to handle all calls to drupal_http_request. Requires 7.22+'),
+    );
+  }
   $form['timeouts'] = array(
     '#type' => 'fieldset',
     '#title' => t('Default timeouts'),
@@ -82,7 +92,7 @@ function httprl_admin_settings_form_validate($form, &$form_state) {
   }
 
   // Get form values.
-  $values = $form_state['values'];
+  $values = &$form_state['values'];
 
   // If the IP field is not blank, check that it is a valid address.
   if (   !empty($values['httprl_server_addr'])
@@ -114,4 +124,10 @@ function httprl_admin_settings_form_validate($form, &$form_state) {
       continue;
     }
   }
+
+  // Change checkbox value to string.
+  if (!empty($values['drupal_http_request_function'])) {
+    $values['drupal_http_request_function'] = 'httprl_override_core';
+  }
+
 }

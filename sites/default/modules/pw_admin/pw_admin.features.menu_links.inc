@@ -10,20 +10,6 @@
 function pw_admin_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: management:admin/pennywise
-  $menu_links['management:admin/pennywise'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/pennywise',
-    'router_path' => 'admin/pennywise',
-    'link_title' => 'Pennywise',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '1',
-    'expanded' => '0',
-    'weight' => '0',
-  );
   // Exported menu link: management:admin/pennywise/settings
   $menu_links['management:admin/pennywise/settings'] = array(
     'menu_name' => 'management',
@@ -37,7 +23,6 @@ function pw_admin_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
-    'parent_path' => 'admin/pennywise',
   );
   // Exported menu link: menu-pw-admin:<front>
   $menu_links['menu-pw-admin:<front>'] = array(
@@ -92,25 +77,6 @@ function pw_admin_menu_default_menu_links() {
     'has_children' => '1',
     'expanded' => '0',
     'weight' => '-48',
-  );
-  // Exported menu link: menu-pw-admin:admin/pennywise/classified/ad_s
-  $menu_links['menu-pw-admin:admin/pennywise/classified/ad_s'] = array(
-    'menu_name' => 'menu-pw-admin',
-    'link_path' => 'admin/pennywise/classified/ad_s',
-    'router_path' => 'admin/pennywise/classified/ad_s',
-    'link_title' => 'Incoming',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-50',
-    'parent_path' => 'admin/pennywise/classified',
   );
   // Exported menu link: menu-pw-admin:admin/pennywise/classified/liveload
   $menu_links['menu-pw-admin:admin/pennywise/classified/liveload'] = array(
@@ -481,7 +447,6 @@ function pw_admin_menu_default_menu_links() {
   t('Display');
   t('Edition');
   t('Editorial');
-  t('Incoming');
   t('Liveload');
   t('Pages');
   t('Pennywise');
