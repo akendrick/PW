@@ -465,7 +465,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_pattern_pw_digital';
-  $strongarm->value = '[node:field-edition-date:short] Pennywise';
+  $strongarm->value = '[node:field-edition-date:short]';
   $export['ant_pattern_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2631,7 +2631,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital_showfield';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['page_title_type_pw_digital_showfield'] = $strongarm;
 
   $strongarm = new stdClass();
