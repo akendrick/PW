@@ -1740,18 +1740,9 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
         'default' => array(
           'label' => 'hidden',
           'module' => 'text',
-          'settings' => array(
-            'masonry' => 0,
-            'masonry_animated' => 1,
-            'masonry_animated_duration' => '500',
-            'masonry_center' => 0,
-            'masonry_gutter' => '0',
-            'masonry_resizable' => 1,
-            'masonry_rtl' => 0,
-            'masonry_width' => '200',
-          ),
+          'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1774,6 +1765,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
             'trim_length' => '80',
           ),
           'type' => 'text_trimmed',
+          'weight' => '2',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
           'weight' => '2',
         ),
         'teaser' => array(
@@ -1847,7 +1845,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1860,6 +1858,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '3',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1926,9 +1931,10 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'display' => array(
         'default' => array(
           'label' => 'hidden',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '9',
+          'type' => 'text_default',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1941,6 +1947,12 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '7',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2018,7 +2030,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2031,6 +2043,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '6',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'email',
+          'settings' => array(),
+          'type' => 'email_default',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2147,6 +2166,16 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'type' => 'image',
           'weight' => '0',
         ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => 'content',
+            'image_style' => 'square_thumbnail',
+          ),
+          'type' => 'image',
+          'weight' => '1',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'lightbox2',
@@ -2236,7 +2265,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2248,6 +2277,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
           'weight' => '5',
         ),
         'teaser' => array(
@@ -2340,7 +2376,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'cck_phone',
           'settings' => array(),
           'type' => 'global_phone_number',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2353,6 +2389,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '4',
+        ),
+        'search_result' => array(
+          'label' => 'inline',
+          'module' => 'cck_phone',
+          'settings' => array(),
+          'type' => 'global_phone_number',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2676,7 +2719,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2690,6 +2733,12 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
           'weight' => '1',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',

@@ -134,6 +134,8 @@ function pw_la_context_default_contexts() {
         'search' => 'search',
         'search?*' => 'search?*',
         'search/*' => 'search/*',
+        'find' => 'find',
+        'find/*' => 'find/*',
         'area-code' => 'area-code',
         'features/hometown' => 'features/hometown',
       ),
@@ -170,17 +172,11 @@ function pw_la_context_default_contexts() {
           'module' => 'ad_payment',
           'delta' => 'ad_payment_create_ad',
           'region' => 'sidebar_first',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'views--exp-search_ads-search_page' => array(
           'module' => 'views',
           'delta' => '-exp-search_ads-search_page',
-          'region' => 'sidebar_first',
-          'weight' => '-9',
-        ),
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
           'region' => 'sidebar_first',
           'weight' => '-8',
         ),
@@ -188,37 +184,37 @@ function pw_la_context_default_contexts() {
           'module' => 'views',
           'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
           'region' => 'sidebar_first',
-          'weight' => '-7',
+          'weight' => '-6',
         ),
         'pennywise-submit_editorial' => array(
           'module' => 'pennywise',
           'delta' => 'submit_editorial',
           'region' => 'sidebar_first',
-          'weight' => '-6',
+          'weight' => '-5',
         ),
         'pennywise-pw_tmtv' => array(
           'module' => 'pennywise',
           'delta' => 'pw_tmtv',
           'region' => 'sidebar_first',
-          'weight' => '-5',
+          'weight' => '-4',
         ),
         'pennywise-pw_edition' => array(
           'module' => 'pennywise',
           'delta' => 'pw_edition',
           'region' => 'sidebar_first',
-          'weight' => '-4',
+          'weight' => '-3',
         ),
         'menu-menu-special-features' => array(
           'module' => 'menu',
           'delta' => 'menu-special-features',
           'region' => 'sidebar_first',
-          'weight' => '-3',
+          'weight' => '-2',
         ),
         'user-login' => array(
           'module' => 'user',
           'delta' => 'login',
           'region' => 'sidebar_first',
-          'weight' => '-2',
+          'weight' => '-1',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -705,7 +701,7 @@ function pw_la_context_default_contexts() {
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.

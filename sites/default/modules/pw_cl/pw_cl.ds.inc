@@ -375,8 +375,16 @@ function pw_cl_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_2col_stacked';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => 0,
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
     'regions' => array(
       'header' => array(
         0 => 'field_image',
@@ -400,12 +408,11 @@ function pw_cl_ds_layout_settings_info() {
       'group_details' => 'left',
       'field_tags' => 'left',
       'post_date' => 'left',
-      'field_ad_copy' => 'right',
       'field_phone' => 'left',
       'field_link' => 'left',
       'field_email' => 'left',
+      'field_ad_copy' => 'right',
     ),
-    'classes' => array(),
   );
   $export['node|classified|default'] = $ds_layout;
 
