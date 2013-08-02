@@ -217,8 +217,6 @@ body {
 
 #block-ad-payment-ad-payment-create-ad,
 #block-pennywise-submit-editorial {
-/*   font-size: 1em; */
-/*   line-height: 3em; */
   background: @white;
   height: auto;
 }
@@ -241,23 +239,36 @@ body {
   .border-radius(0);
 /*   padding: 5px; */
   background: none;
-/*   margin-top: 10px; */
 }
 #block-views-exp-search-ads-search-page {
-  .views-widget {
-    float: left!important;
-/*     width: 40%; */
+/*   color: @classified_dark; */
+  label {
+    color: @classified_dark;
+    width: 100px;
+    text-align: center;
+    font-size: .8em;
+    height: 30px;
   }
-  #edit-search-ads {
-/*     font-size: 2em; */
+  .views-widget .form-item {
+    width: 130px;
+    overflow: hidden;
+    margin: 0 auto;
+    display: block;
+  }
+  .views-exposed-widget {
+    float: left;
+    margin-left: 8px;
   }
   .views-submit-button, #edit-submit-search-ads {
     -webkit-appearance: caret;
-    margin: 0;
+    margin: 5px auto 10px;
+    display: block;
     padding-bottom: 0;
-    float: right!important;
-    clear: none!important;
-/*     font-size: 1.4em; */
+    width: 100%;
+/*     width: 30%; */
+/*     overflow: hidden; */
+/*     float: right!important; */
+/*     clear: none!important; */
   }
 }
 

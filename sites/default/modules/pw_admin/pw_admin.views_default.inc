@@ -455,7 +455,7 @@ function pw_admin_views_default_views() {
     'client' => 0,
     'tags' => 0,
   );
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -674,7 +674,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['status']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['status']['type'] = 'unicode-yes-no';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -829,7 +829,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['element_type'] = 'strong';
   $handler->display->display_options['fields']['field_ad_type']['element_label_colon'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -971,7 +971,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['promote']['empty_zero'] = TRUE;
   $handler->display->display_options['fields']['promote']['type'] = 'promoted-notpromoted';
   $handler->display->display_options['fields']['promote']['not'] = 0;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -1244,7 +1244,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['element_type'] = 'strong';
   $handler->display->display_options['fields']['field_ad_type']['element_label_colon'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -1541,7 +1541,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['label'] = 'Liveload';
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['hide_alter_empty'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -2323,7 +2323,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_area']['delta_limit'] = '4';
   $handler->display->display_options['fields']['field_area']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_area']['multi_type'] = 'ul';
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -2962,7 +2962,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['label'] = 'Liveload';
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['hide_alter_empty'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -3370,7 +3370,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['label'] = 'Liveload';
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['hide_alter_empty'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -3733,7 +3733,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['label'] = 'Liveload';
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['hide_alter_empty'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -4186,7 +4186,7 @@ function pw_admin_views_default_views() {
     'ccid' => 0,
     'nid' => 0,
   );
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -4646,7 +4646,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_type']['label'] = 'Liveload';
   $handler->display->display_options['fields']['field_ad_type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_ad_type']['hide_alter_empty'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -5484,7 +5484,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -5966,7 +5966,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_ad_client']['field'] = 'field_ad_client';
   $handler->display->display_options['fields']['field_ad_client']['label'] = '';
   $handler->display->display_options['fields']['field_ad_client']['element_label_colon'] = FALSE;
-  /* Field: Content: Cover */
+  /* Field: Content: Display Ad */
   $handler->display->display_options['fields']['field_display_ad']['id'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
@@ -6765,7 +6765,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -7231,7 +7231,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['alter']['text'] = '<span class=\'marker\'>NEW</span>';
   $handler->display->display_options['fields']['timestamp']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['timestamp']['hide_empty'] = TRUE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -7244,7 +7244,7 @@ function pw_admin_views_default_views() {
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_image']['group_column'] = 'fid';
-  /* Field: Content: Inserted Images */
+  /* Field: Content: Extra Images */
   $handler->display->display_options['fields']['field_images_editorial_extra']['id'] = 'field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['table'] = 'field_data_field_images_editorial_extra';
   $handler->display->display_options['fields']['field_images_editorial_extra']['field'] = 'field_images_editorial_extra';
@@ -7451,7 +7451,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['alter']['text'] = '<span class=\'marker\'>NEW</span>';
   $handler->display->display_options['fields']['timestamp']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['timestamp']['hide_empty'] = TRUE;
-  /* Field: Field: Image */
+  /* Field: Field: Header Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
@@ -7481,7 +7481,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '200',
   );
-  /* Field: Content: Attachment */
+  /* Field: Content: Related File */
   $handler->display->display_options['fields']['field_high_res_ad']['id'] = 'field_high_res_ad';
   $handler->display->display_options['fields']['field_high_res_ad']['table'] = 'field_data_field_high_res_ad';
   $handler->display->display_options['fields']['field_high_res_ad']['field'] = 'field_high_res_ad';
@@ -8092,7 +8092,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['cache'] = FALSE;
   $handler->display->display_options['cache']['type'] = 'time';
-  $handler->display->display_options['cache']['results_lifespan'] = '21600';
+  $handler->display->display_options['cache']['results_lifespan'] = '518400';
   $handler->display->display_options['cache']['results_lifespan_custom'] = '0';
   $handler->display->display_options['cache']['output_lifespan'] = '518400';
   $handler->display->display_options['cache']['output_lifespan_custom'] = '0';
