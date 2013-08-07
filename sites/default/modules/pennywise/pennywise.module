@@ -634,7 +634,7 @@ function pennywise_block_view($delta = '') {
     case 'pw_edition':
       $subject = l('Browse Online', variable_get('pw_edition_link', 'edition'));
 
-      $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-salmo-beaver-valley'));
+      $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-beaver-valley-rossland'));
       $n = l('Nelson & Salmo', variable_get('pw_edition_trail_link', 'edition/nelson-salmo'));
       $c = l('Castlegar & Slocan Valley', variable_get('pw_edition_trail_link', 'edition/castlegar-slocan-valley'));
       $k = l('Kootenay Lake', variable_get('pw_edition_trail_link', 'edition/kootenay-lake'));

@@ -465,7 +465,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_pattern_pw_digital';
-  $strongarm->value = '[node:field-edition-date:short]';
+  $strongarm->value = '[node:field-edition-date:short] Pennywise';
   $export['ant_pattern_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1637,7 +1637,7 @@ echo date(\'now\');
         'custom_settings' => FALSE,
       ),
       'search_result' => array(
-        'custom_settings' => TRUE,
+        'custom_settings' => FALSE,
       ),
       'token' => array(
         'custom_settings' => FALSE,
@@ -1652,36 +1652,6 @@ echo date(\'now\');
         'custom_settings' => FALSE,
       ),
       'mobile' => array(
-        'custom_settings' => FALSE,
-      ),
-      'diff_standard' => array(
-        'custom_settings' => FALSE,
-      ),
-      'print_display_ad' => array(
-        'custom_settings' => FALSE,
-      ),
-      'attachment' => array(
-        'custom_settings' => FALSE,
-      ),
-      'castlegar_edition_view' => array(
-        'custom_settings' => FALSE,
-      ),
-      'editorial_slideshow' => array(
-        'custom_settings' => FALSE,
-      ),
-      'kootenay_edition_view' => array(
-        'custom_settings' => FALSE,
-      ),
-      'nelson_edition_view' => array(
-        'custom_settings' => FALSE,
-      ),
-      'special_feature' => array(
-        'custom_settings' => FALSE,
-      ),
-      'trail_edition_view' => array(
-        'custom_settings' => FALSE,
-      ),
-      'revision' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -2437,7 +2407,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_rank_recent';
-  $strongarm->value = '10';
+  $strongarm->value = '0';
   $export['node_rank_recent'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2661,7 +2631,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital_showfield';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['page_title_type_pw_digital_showfield'] = $strongarm;
 
   $strongarm = new stdClass();

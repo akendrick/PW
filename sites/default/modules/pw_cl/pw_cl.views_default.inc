@@ -274,7 +274,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Search by Classification';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
-  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'term';
   $handler->display->display_options['filters']['term_node_tid_depth']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
@@ -313,7 +313,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'And/or keyword';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator'] = 'field_ad_copy_value_op';
-  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'search_ads';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'keyword';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
