@@ -123,20 +123,15 @@ define('HTTPRL_HOST_NOT_FOUND', -11001);
 define('HTTPRL_MULTIPART_BOUNDARY', '---------------------------' . str_replace('.', '', microtime(TRUE)));
 
 /**
+ * Max length of a string inside of httprl_pr(). Default is 256KB.
+ */
+define('HTTPRL_PR_MAX_STRING_LENGTH', 262144);
+
+/**
  * Implement hook_menu().
  */
 function httprl_menu() {
   $items = array();
-
-  // Non blocking test URL.
-  $items['admin/httprl-test'] = array(
-    'title' => 'HTTPRL',
-    'page callback' => 'httprl_nonblockingtest_page',
-    'access callback' => TRUE,
-    'description' => 'Test URL to make sure non blocking requests work.',
-    'type' => MENU_CALLBACK,
-    'file' => 'httprl.nonblocktest.inc',
-  );
 
   // Admin page.
   if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
@@ -190,6 +185,31 @@ function httprl_cron() {
 }
 
 /**
+ * Queue and send off http request.
+ *
+ * @see drupal_http_request()
+ *
+ * This is a flexible and powerful HTTP client implementation. Correctly
+ * handles GET, POST, PUT or any other HTTP requests.
+ *
+ * @param $urls
+ *   A string containing a fully qualified URI.
+ * @param array $options
+ *   (optional) An array of options.
+ *
+ * @return Object
+ *   The request object.
+ */
+function httprl_override_core($url, $options) {
+  // Queue up the request.
+  httprl_request($url, $options);
+  // Execute request.
+  $request = httprl_send_request();
+  // Send back results.
+  return $request[$url];
+}
+
+/**
  * Helper function to build an URL for asynchronous requests to self.
  *
  * @param $path
@@ -200,7 +220,6 @@ function httprl_cron() {
  */
 function httprl_build_url_self($path = '', $detect_schema = FALSE) {
   global $base_path, $conf;
-  static $variable_loaded = FALSE;
 
   if (!empty($base_path)) {
     $root_path = $base_path;
@@ -327,6 +346,7 @@ function httprl_set_default_options(&$options) {
     'connect_timeout' => httprl_variable_get('httprl_connect_timeout', HTTPRL_CONNECT_TIMEOUT),
     'ttfb_timeout' => httprl_variable_get('httprl_ttfb_timeout', HTTPRL_TTFB_TIMEOUT),
     'context' => NULL,
+    'secure_socket_transport' => 'ssl',
     'blocking' => TRUE,
     'version' => '1.0',
     'referrer' => FALSE,
@@ -455,7 +475,7 @@ function httprl_set_socket($uri, &$options, $proxy_server, &$result) {
     case 'https':
       // Note: Only works when PHP is compiled with OpenSSL support.
       $port = isset($uri['port']) ? $uri['port'] : 443;
-      $socket = 'ssl://' . $uri['host'] . ':' . $port;
+      $socket = $options['secure_socket_transport'] . '://' . $uri['host'] . ':' . $port;
       if (empty($options['headers']['Host'])) {
         $options['headers']['Host'] = $uri['host'];
       }
@@ -527,7 +547,7 @@ function httprl_set_connection_flag(&$options, $uri) {
  */
 function httprl_handle_data(&$options) {
   // Encode data if not already done.
-  if (!empty($options['data']) && !is_string($options['data'])) {
+  if (isset($options['data']) && !is_string($options['data'])) {
     // No files passed in, url-encode the data.
     if (empty($options['data']['files']) || !is_array($options['data']['files'])) {
       $options['data'] = http_build_query($options['data'], '', '&');
@@ -591,9 +611,8 @@ function httprl_handle_data(&$options) {
   // or PUT request. Some non-standard servers get confused by Content-Length in
   // at least HEAD/GET requests, and Squid always requires Content-Length in
   // POST/PUT requests.
-  $content_length = httprl_strlen($options['data']);
-  if ($content_length > 0 || $options['method'] == 'POST' || $options['method'] == 'PUT') {
-    $options['headers']['Content-Length'] = $content_length;
+  if (strlen($options['data']) > 0 || $options['method'] == 'POST' || $options['method'] == 'PUT') {
+    $options['headers']['Content-Length'] = httprl_strlen($options['data']);
   }
 }
 
@@ -865,6 +884,11 @@ function httprl_establish_stream_connection(&$result) {
  *     seconds. If a timeout occurs, the error code is set to the
  *     HTTPRL_REQUEST_ABORTED constant.
  *   - context: A context resource created with stream_context_create().
+ *   - secure_socket_transport: The transport to use when making secure
+ *     requests over HTTPS; see http://php.net/manual/en/transports.inet.php
+ *     for more information. The value should be 'ssl', 'sslv2', 'sslv3' or
+ *     'tls'. Defaults to 'ssl', which will work for HTTPS requests to most
+ *     remote servers.
  *   - blocking: set to FALSE to make this not care about the returned data.
  *   - version: HTTP Version 1.0 or 1.1. Default is 1.0 for a good reason.
  *   - referrer: TRUE - send current page; FALSE - do not send current
@@ -969,8 +993,10 @@ function httprl_request($urls, $options = array()) {
       continue;
     }
 
-    // Use a sync of async connection.
+    // Use a sync or async connection.
     $flags = httprl_set_connection_flag($these_options, $uri);
+    // Set basic authorization header if needed.
+    httprl_basic_auth($uri, $these_options);
     // If any data is given, do the right things to this request so it works.
     httprl_handle_data($these_options);
     // Build the request string.
@@ -1277,7 +1303,7 @@ function httprl_send_request($results = NULL) {
     $n = stream_select($read, $write, $except, $stream_select_timeout, 25000);
     $stream_select_timeout = 0;
 
-    // An error occured with the streams. Remove bad ones.
+    // An error occurred with the streams. Remove bad ones.
     if ($n === FALSE) {
       $merged = array_unique(array_merge($read, $write, $except));
       foreach ($merged as $m) {
@@ -1312,7 +1338,7 @@ function httprl_send_request($results = NULL) {
 
         // Read socket.
         $chunk = fread($r, $responses[$id]->chunk_size);
-        if (httprl_strlen($chunk) > 0) {
+        if (strlen($chunk) > 0) {
           $rw_done = TRUE;
           if (!isset($responses[$id]->time_to_first_byte)) {
             // Calculate Time to First Byte.
@@ -1372,7 +1398,7 @@ function httprl_send_request($results = NULL) {
 
         // Get stream data.
         $info = stream_get_meta_data($r);
-        $alive = !$info['eof'] && !feof($r) && !$info['timed_out'] && httprl_strlen($chunk);
+        $alive = !$info['eof'] && !feof($r) && !$info['timed_out'] && strlen($chunk);
         if (!$alive) {
           if ($responses[$id]->status == 'Connecting.') {
             $responses[$id]->error = $t('Connection refused by destination. TCP.');
@@ -2013,6 +2039,9 @@ function httprl_queue_background_callback(&$args, &$result = NULL) {
   if (isset($callback_options['options']) && is_array($callback_options['options'])) {
     $options += $callback_options['options'];
   }
+  if (empty($options['headers']['Host']) && !empty($_SERVER['HTTP_HOST'])) {
+    $options['headers']['Host'] = $_SERVER['HTTP_HOST'];
+  }
   // Send Request.
   return httprl_request($url, $options);
 }
@@ -2052,23 +2081,21 @@ function httprl_acquire_lock(&$result) {
   }
 
   // Make sure lock exists after this process is dead.
-  if (!empty($result->options['blocking'])) {
-    // Remove from the global locks variable.
-    global $locks;
-    unset($locks[$name]);
+  // Remove from the global locks variable.
+  global $locks;
+  unset($locks[$name]);
 
-    // Remove the lock_id reference in the database.
-    if (httprl_variable_get('lock_inc', './includes/lock.inc') === './includes/lock.inc') {
-      if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
-        db_update('semaphore')
-          ->fields(array('value' => 'httprl'))
-          ->condition('name', $name)
-          ->condition('value', _lock_id())
-          ->execute();
-      }
-      else {
-        db_query("UPDATE {semaphore} SET value = '%s' WHERE name = '%s' AND value = '%s'", 'httprl', $name, _lock_id());
-      }
+  // Remove the lock_id reference in the database.
+  if (httprl_variable_get('lock_inc', './includes/lock.inc') === './includes/lock.inc') {
+    if (defined('VERSION') && substr(VERSION, 0, 1) >= 7) {
+      db_update('semaphore')
+        ->fields(array('value' => 'httprl'))
+        ->condition('name', $name)
+        ->condition('value', _lock_id())
+        ->execute();
+    }
+    else {
+      db_query("UPDATE {semaphore} SET value = '%s' WHERE name = '%s' AND value = '%s'", 'httprl', $name, _lock_id());
     }
   }
   return TRUE;
@@ -2118,7 +2145,7 @@ function httprl_decode_data(&$result) {
     }
   }
 
-  // Cut up respose for one sided Range requests.
+  // Cut up response for one sided Range requests.
   if (array_key_exists('max_data_size', $result->options)) {
     $result->code = 206;
 
@@ -2337,7 +2364,7 @@ function httprl_get_server_schema() {
 /**
  * Send out a fast 403 and exit.
  */
-function httprl_fast403() {
+function httprl_fast403($msg = '') {
   global $base_path;
 
   // Set headers.
@@ -2353,7 +2380,7 @@ function httprl_fast403() {
   print '<body><h1>Forbidden</h1>';
   print '<p>You are not authorized to access this page.</p>';
   print '<p><a href="' . $base_path . '">Home</a></p>';
-  print '<!-- httprl_fast403 -->';
+  print '<!-- httprl_fast403 ' . $msg . ' -->';
   print '</body></html>';
 
   // Exit Script.
@@ -2401,19 +2428,27 @@ function httprl_lock_release($name) {
  */
 function httprl_print_empty(&$data, $level = 0) {
   $level++;
-  if ($level < 10 ) {
+  if ($level < 5) {
     if (is_object($data)) {
+      $new_object = new stdClass;
+      $new_object->__original_class_name__ = get_class($data);
       foreach ($data as $key => $values) {
-        $data->{$key} = httprl_print_empty($values, $level);
+        $new_object->{$key} = httprl_print_empty($values, $level);
       }
+      $data = $new_object;
     }
     elseif (is_array($data)) {
       foreach ($data as &$values) {
         $values = httprl_print_empty($values, $level);
       }
     }
-    elseif (is_bool($data) || strlen($data) == 0) {
+    elseif (is_bool($data) || strlen((string) $data) == 0) {
       $data = strtoupper(var_export($data, TRUE));
+    }
+    elseif (is_string($data) && strlen($data) > HTTPRL_PR_MAX_STRING_LENGTH) {
+      // Do not try to print a string longer than 256KB.
+      // Some browsers have issues with very long documents.
+      $data = substr($data, 0, HTTPRL_PR_MAX_STRING_LENGTH);
     }
   }
   return $data;
@@ -2422,25 +2457,65 @@ function httprl_print_empty(&$data, $level = 0) {
 /**
  * Pretty print data.
  *
- * @param $data
+ * @param $input
  *   Data In.
  * @return
  *   Human readable HTML version of the data.
  */
-function httprl_pr($data) {
+function httprl_pr($input) {
+  $old_setting = ini_set('mbstring.substitute_character', '"none"');
+
   // Get extra arguments passed in.
-  $data = func_get_args();
+  $input = func_get_args();
 
   // If bool or strlen = 0 use var_export on that variable.
-  $data = httprl_print_empty($data);
+  $data = httprl_print_empty($input);
 
   // Merge into base array if only one argument passed in.
   if (count($data) == 1) {
     $data = array_pop($data);
   }
 
-  // Remove non UTF-8 Characters, escape HTML markup, remove extra new lines.
-  $output = array_filter(explode("\n", htmlentities(iconv('utf-8', 'utf-8//IGNORE', print_r($data, TRUE)), ENT_QUOTES, 'UTF-8')), 'strlen');
+  // Print_r the input.
+  $output = print_r($data, TRUE);
+
+  // Remove non UTF-8 Characters.
+  if (function_exists('mb_convert_encoding')) {
+    $translated = mb_convert_encoding($output, 'UTF-8', 'auto');
+  }
+  else {
+    $translated = @iconv('utf-8', 'utf-8//TRANSLIT//IGNORE', $output);
+  }
+
+  // Convert html entities.
+  $options = ENT_QUOTES;
+  if (defined('ENT_SUBSTITUTE')) {
+    $options = ENT_QUOTES | ENT_SUBSTITUTE;
+  }
+  elseif (defined('ENT_IGNORE')) {
+    $options = ENT_QUOTES | ENT_IGNORE;
+  }
+  $translated = htmlentities($translated, $options, 'UTF-8');
+
+  // Make sure the UTF-8 translation didn't kill the output.
+  $original_size = strlen($output);
+  $translated_size = strlen($translated);
+  $ratio = 0;
+  if ($original_size != 0) {
+    $ratio = ($original_size - $translated_size) / $original_size;
+  }
+
+  // Decide to use the original output or the translated one.
+  if (!empty($translated_size) && !empty($ratio) && $ratio < 0.5) {
+    $html_output = TRUE;
+    $output = $translated;
+  }
+  else {
+    $output = '<pre>' . str_replace(array('<', '>'), array('&lt;', '&gt;'), $output) . '</pre>';
+  }
+
+  // Remove extra new lines.
+  $output = array_filter(explode("\n", $output), 'strlen');
 
   // Whitespace compression.
   foreach ($output as $key => $value) {
@@ -2451,7 +2526,12 @@ function httprl_pr($data) {
   }
 
   // Replace whitespace with html markup.
-  $output = str_replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;', nl2br(implode("\n", $output))) . '<br />';
+  $output = implode("\n", $output);
+  if (!empty($html_output)) {
+    $output = str_replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;', nl2br($output)) . '<br />';
+  }
+
+  ini_set('mbstring.substitute_character', $old_setting);
   return $output;
 }
 

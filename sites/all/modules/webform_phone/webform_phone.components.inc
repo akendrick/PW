@@ -1,35 +1,29 @@
 <?php
-/**
- * @file
- * Webform Component information for a phone number field type
- */
+/** @file Webform Component information for a phone number field type */
 /**
  * Specify the default properties of a component.
  * @return
  *   An array defining the default structure of a component.
  */
 function _webform_defaults_phone() {
-
   return array(
-    'name' => '',
-    'form_key' => NULL,
+    'name'      => '',
+    'form_key'  => NULL,
+    'required'  => 0,
     'mandatory' => 0,
-    'pid' => 0,
-    'weight' => 0,
-    'value' => '',
-    'extra' => array(
-      'title_display' => 0,
-      'width' => '',
-      'disabled' => FALSE,
-      'private' => FALSE,
-      'attributes' => array(),
-      'description' => '',
-      'country' => 'ca',
-      'phone_country_code' => 0,
+    'pid'       => 0,
+    'weight'    => 0,
+    'extra'     => array(
+      'title_display'              => 0,
+      'private'                    => FALSE,
+      'attributes'                 => array(),
+      'description'                => '',
+      'country'                    => 'ca',
+      'phone_country_code'         => 0,
       'phone_default_country_code' => 1,
-      'phone_int_max_length' => 15,
-      'ca_phone_separator' => '-',
-      'ca_phone_parentheses' => 1,
+      'phone_int_max_length'       => 15,
+      'ca_phone_separator'         => '-',
+      'ca_phone_parentheses'       => 1,
     ),
   );
 }
@@ -38,12 +32,7 @@ function _webform_defaults_phone() {
  * Implements _webform_theme_component().
  */
 function _webform_theme_phone() {
-
-  return array(
-    'webform_display_phonefield' => array(
-      'render element' => 'element',
-    ),
-  );
+  return array( 'webform_display_phonefield' => array( 'render element' => 'element', ), );
 }
 
 /**
@@ -61,81 +50,46 @@ function _webform_theme_phone() {
  *   An array of form items to be displayed on the edit component page
  */
 function _webform_edit_phone($component) {
-
   $form = array();
-  //Create fake parameter arrays so we can impersonate the form api
-  //Settings using our actual country setting
-  $fake_field_actual = array(
-    'settings' => array(
-      'country' => $component['extra']['country']
-    )
-  );
-  //Need 2 calls to phone_field_instance_settings_form() so we can get all the fields (it doesn't need/use same page conditionals (states))
-  $fake_field_us = array(
-    'settings' => array(
-      'country' => 'ca',
-    ),
-  );
-  $fake_field_int = array(
-    'settings' => array(
-      'country' => 'int',
-    ),
-  );
-  $fake_settings = array(
-    'settings' => array(
-      'phone_country_code' => isset( $component['#phone_country_code'] ) ? $component['#phone_country_code'] : $component['extra']['phone_country_code'],
-      'phone_default_country_code' => isset( $component['#phone_default_country_code'] ) ? $component['#phone_default_country_code'] : $component['extra']['phone_default_country_code'],
-      'phone_int_max_length' => isset( $component['#phone_int_max_length'] ) ? $component['#phone_int_max_length'] : $component['extra']['phone_int_max_length'],
-      'ca_phone_separator' => isset( $component['#ca_phone_separator'] ) ? $component['#ca_phone_separator'] : $component['extra']['ca_phone_separator'],
-      'ca_phone_parentheses' => isset( $component['#ca_phone_parentheses'] ) ? $component['#ca_phone_parentheses'] : $component['extra']['ca_phone_parentheses'],
-    ),
-  );
   // General Options
-  $country_form = phone_field_settings_form($fake_field_actual, NULL, FALSE);
-  $us_settings_form = phone_field_instance_settings_form($fake_field_us, $fake_settings);
-  $int_settings_form = phone_field_instance_settings_form($fake_field_int, $fake_settings);
-  $form['extra']['country'] = $country_form['country'];
-  $form['extra']['phone_country_code'] = $us_settings_form['phone_country_code'];
+  $form['extra']['country'] = array(
+    '#type'          => 'select',
+    '#title'         => t('Country'),
+    '#options'       => phone_countries(),
+    '#default_value' => $component['extra']['country'],
+    '#description'   => t('Which country-specific rules should this field be validated against and formatted according to.'),
+    '#required'      => TRUE,
+  );
+  $form['extra']['phone_country_code'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Add the country code if not filled by the user'),
+    '#default_value' => $component['extra']['phone_country_code'],
+  );
   // International Options
-  /*
-   * Phone module is currently using an incorrect implementation of the field api,
-   * the help markup is in the #value key instead of in #markup.
-   * Below phone_int_help field is future-proofed in case they fix it upstream.
-  */
   $form['extra']['phone_int_help'] = array(
-    //    $form['phone_int_help'] = array(
-    '#markup' => '',
+    '#type'   => 'markup',
+    '#value'  => t('International phone numbers are in the form +XX YYYYYYY where XX is a country code and YYYYYYY is the local number. This field type is based off of the <a href="http://www.itu.int/rec/T-REC-E.123/en">E.123 specification</a>.'),
     '#states' => array(
       'visible' => array( // action to take.
         ':input[name="extra[country]"]' => array( 'value' => 'int' ),
       ),
     ),
   );
-  if ( isset( $int_settings_form['phone_int_help']['#markup'] ) ) {
-    $form['extra']['phone_int_help']['#markup'] = $int_settings_form['phone_int_help']['#markup'];
-  }
-  elseif ( isset( $int_settings_form['phone_int_help']['#value'] ) ) {
-    $form['extra']['phone_int_help']['#markup'] = $int_settings_form['phone_int_help']['#value'];
-  }
-  else {
-    //don't bother with the field at all if it's not going to do anything
-    unset( $form['extra']['phone_int_help'] );
-  }
   $form['extra']['phone_default_country_code'] = array(
-    '#type' => 'textfield',
-    '#title' => $int_settings_form['phone_default_country_code']['#title'],
+    '#type'          => 'textfield',
+    '#title'         => t('Default country code to add to international numbers without one (omit + sign)'),
     '#default_value' => $component['extra']['phone_default_country_code'],
-    '#states' => array(
+    '#states'        => array(
       'visible' => array( // action to take.
         ':input[name="extra[country]"]' => array( 'value' => 'int' ),
       ),
     ),
   );
   $form['extra']['phone_int_max_length'] = array(
-    '#type' => 'textfield',
-    '#title' => $int_settings_form['phone_int_max_length']['#title'],
+    '#type'          => 'textfield',
+    '#title'         => t('Maximum length of international numbers, according to the ITU this is 15'),
     '#default_value' => $component['extra']['phone_int_max_length'],
-    '#states' => array(
+    '#states'        => array(
       'visible' => array( // action to take.
         ':input[name="extra[country]"]' => array( 'value' => 'int' ),
       ),
@@ -143,53 +97,25 @@ function _webform_edit_phone($component) {
   );
   // US/Canada Options
   $form['extra']['ca_phone_separator'] = array(
-    '#type' => 'textfield',
-    '#title' => $us_settings_form['ca_phone_separator']['#title'],
+    '#type'          => 'textfield',
+    '#title'         => t('Separator'),
     '#default_value' => $component['extra']['ca_phone_separator'],
-    '#size' => 2,
-    '#states' => array(
+    '#size'          => 2,
+    '#states'        => array(
       'visible' => array( // action to take.
         ':input[name="extra[country]"]' => array( 'value' => 'ca' ),
       ),
     ),
   );
   $form['extra']['ca_phone_parentheses'] = array(
-    '#type' => 'checkbox',
-    '#title' => $us_settings_form['ca_phone_parentheses']['#title'],
+    '#type'          => 'checkbox',
+    '#title'         => t('Use parentheses around area code'),
     '#default_value' => $component['extra']['ca_phone_parentheses'],
-    '#states' => array(
+    '#states'        => array(
       'visible' => array( // action to take.
         ':input[name="extra[country]"]' => array( 'value' => 'ca' ),
       ),
     ),
-  );
-  $form['value'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default value'),
-    '#default_value' => $component['value'],
-    '#description' => t('The default value of the field.') . theme('webform_token_help'),
-    '#size' => 60,
-    '#maxlength' => 1024,
-    '#weight' => 0,
-  );
-  $form['display']['width'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Width'),
-    '#default_value' => $component['extra']['width'],
-    '#description' => t('Width of the textfield.') . ' ' . t('Leaving blank will use the default size.'),
-    '#size' => 5,
-    '#maxlength' => 10,
-    '#weight' => 0,
-    '#parents' => array( 'extra', 'width' ),
-  );
-  $form['display']['disabled'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Disabled'),
-    '#return_value' => 1,
-    '#description' => t('Make this field non-editable. Useful for setting an unchangeable default value.'),
-    '#weight' => 11,
-    '#default_value' => $component['extra']['disabled'],
-    '#parents' => array( 'extra', 'disabled' ),
   );
   return $form;
 }
@@ -212,46 +138,25 @@ function _webform_edit_phone($component) {
  * @see _webform_client_form_add_component()
  */
 function _webform_render_phone($component, $value = NULL, $filter = TRUE) {
-
   $form_item = array(
-    '#type' => 'textfield',
-    '#default_value' => $filter ? _webform_filter_values($component['value']) : $component['value'],
-    '#attributes' => $component['extra']['attributes'],
-    '#theme_wrappers' => array( 'webform_element' ),
-    '#description' => $filter ? _webform_filter_descriptions($component['extra']['description']) : $component['extra']['description'],
+    '#type'             => 'textfield',
+    '#default_value'    => $filter ? _webform_filter_values($component['value']) : $component['value'],
+    '#attributes'       => $component['extra']['attributes'],
+    '#theme_wrappers'   => array( 'webform_element' ),
+    '#description'      => $filter ? _webform_filter_descriptions($component['extra']['description']) : $component['extra']['description'],
     '#element_validate' => array( 'webform_validate_phone' ),
-    '#maxlength' => ( $component['extra']['country'] == 'int' ? ( isset( $component['extra']['phone_int_max_length'] ) ? $component['extra']['phone_int_max_length'] : NULL ) : NULL ),
-    '#required' => $component['mandatory'],
-    '#title' => $filter ? _webform_filter_xss($component['name']) : $component['name'],
-    '#title_display' => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',
-    '#weight' => $component['weight'],
-    '#translatable' => array(
+    '#maxlength'        => ( $component['extra']['country'] == 'int' ? ( isset( $component['extra']['phone_int_max_length'] ) ? $component['extra']['phone_int_max_length'] : NULL ) : NULL ),
+    '#required'         => $component['required'] || $component['mandatory'],//Either one being true will could as required...because webform changed in 4.x-alpha8
+    '#size'             => 17,
+    '#title'            => $filter ? _webform_filter_xss($component['name']) : $component['name'],
+    '#title_display'    => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',
+    '#weight'           => $component['weight'],
+    '#translatable'     => array(
       'title',
       'description'
     ),
-    '#ca_phone_parentheses' => $component['extra']['ca_phone_parentheses'],
-    '#ca_phone_separator' => $component['extra']['ca_phone_separator'],
-    '#country' => $component['extra']['country'],
-    '#phone_country_code' => $component['extra']['phone_country_code'],
-    '#phone_default_country_code' => $component['extra']['phone_default_country_code'],
-    '#phone_int_max_length' => $component['extra']['phone_int_max_length'],
   );
   if ( isset( $value ) ) {
-    $form_item['#default_value'] = $value[0];
-  }
-  // Change the 'width' option to the correct 'size' option.
-  if ( $component['extra']['width'] > 0 ) {
-    $form_item['#size'] = $component['extra']['width'];
-  }
-  if ( $component['extra']['disabled'] ) {
-    if ( $filter ) {
-      $form_item['#attributes']['readonly'] = 'readonly';
-    }
-    else {
-      $form_item['#disabled'] = TRUE;
-    }
-  }
-  if ( isset( $value[0] ) ) {
     $form_item['#default_value'] = $value[0];
   }
   return $form_item;
@@ -261,10 +166,9 @@ function _webform_render_phone($component, $value = NULL, $filter = TRUE) {
  * Validation Callback for phone field
  */
 function webform_validate_phone($element, $form_state) {
-
   $value = $element['#value'];
   if ( isset( $value ) && $value != '' ) {
-    $ccode = $element['#country'];
+    $ccode = $element['#webform_component']['extra']['country'];
     //run through 'phone' module's validation
     if ( !valid_phone_number($ccode, $value) ) {
       $country = phone_country_info($ccode);
@@ -300,16 +204,15 @@ function webform_validate_phone($element, $form_state) {
  *   (such as wrapping the text) or as HTML (ensuring consistent output).
  */
 function _webform_display_phone($component, $value, $format = 'html') {
-
   return array(
-    '#title' => $component['name'],
-    '#weight' => $component['weight'],
-    '#theme' => 'webform_display_phonefield',
+    '#title'          => $component['name'],
+    '#weight'         => $component['weight'],
+    '#theme'          => 'webform_display_phonefield',
     '#theme_wrappers' => $format == 'html' ? array( 'webform_element' ) : array( 'webform_element_text' ),
-    '#post_render' => array( 'webform_element_wrapper' ),
-    '#component' => $component,
-    '#format' => $format,
-    '#value' => isset( $value[0] ) ? $value[0] : '',
+    '#post_render'    => array( 'webform_element_wrapper' ),
+    '#component'      => $component,
+    '#format'         => $format,
+    '#value'          => isset( $value[0] ) ? $value[0] : '',
   );
 }
 
@@ -317,7 +220,6 @@ function _webform_display_phone($component, $value, $format = 'html') {
  * Format the output of data for this component.
  */
 function theme_webform_display_phonefield($variables) {
-
   $markup = array();
   $element = $variables['element'];
   $plain_value = check_plain($element['#value']);
@@ -352,7 +254,6 @@ function theme_webform_display_phonefield($variables) {
  *   a numerically keyed array.
  */
 function _webform_submit_phone($component, $value) {
-
   $ccode = $component['extra']['country'];
   if ( phone_countries($ccode) !== NULL ) {
     if ( isset( $value ) && !empty( $value ) ) {
@@ -387,7 +288,6 @@ function _webform_submit_phone($component, $value) {
  *   submissions.
  */
 function _webform_analysis_phone($component, $sids = array(), $single = FALSE) {
-
   // Generate the list of options and questions.
   $query = db_select('webform_submitted_data', 'wsd', array( 'fetch' => PDO::FETCH_ASSOC ))->fields('wsd', array( 'data' ))->condition('nid', $component['nid'])->condition('cid', $component['cid']);
   if ( count($sids) ) {
@@ -396,7 +296,7 @@ function _webform_analysis_phone($component, $sids = array(), $single = FALSE) {
   $non_blanks = 0;
   $submissions = 0;
   $result = $query->execute();
-  foreach ($result as $data) {
+  foreach ( $result as $data ) {
     if ( drupal_strlen(trim($data['data'])) > 0 ) {
       $non_blanks++;
     }
@@ -428,7 +328,6 @@ function _webform_analysis_phone($component, $sids = array(), $single = FALSE) {
  *   Textual output formatted for human reading.
  */
 function _webform_table_phone($component, $value) {
-
   return check_plain(empty( $value[0] ) ? '' : $value[0]);
 }
 
@@ -447,7 +346,6 @@ function _webform_table_phone($component, $value) {
  *   including either prefixed or trailing commas.
  */
 function _webform_csv_headers_phone($component, $export_options) {
-
   $header = array();
   $header[0] = '';
   $header[1] = '';
@@ -474,10 +372,16 @@ function _webform_csv_headers_phone($component, $export_options) {
  *   every row of data.
  */
 function _webform_csv_data_phone($component, $export_options, $value) {
-
   return !isset( $value[0] ) ? '' : $value[0];
 }
 
+/*
+ The first hook provides the name and position of the field in the Form Builder palette, as well as a default element to display when the field is pulled out of the palette.
+The second hook maps the component properties and options to FormAPI properties that Form Builder can manipulate.
+Form Builder then will manage pulling the form out of the normal Webform configuration form, loading configuration, and saving it.
+There are plenty of examples in the form_builder_webform.components.inc file that other modules (such as Webform Phone Number) can use as templates.
+I'm moving this request over to that module's queue, and changing to a feature request.
+ */
 /**
  * @defgroup form-builder-webform-phone-callbacks Callbacks for the Phone component
  * @{
@@ -486,12 +390,10 @@ function _webform_csv_data_phone($component, $export_options, $value) {
  * Implements _form_builder_webform_form_builder_types_component().
  */
 function _form_builder_webform_form_builder_types_phone() {
-
-  //Icon is from the RRZE icon set (http://rrze-icon-set.berlios.de/) licensed under creative commons
   drupal_add_css(drupal_get_path('module', 'webform_phone') . '/webform_phone.css');
   $fields = array();
   $fields['phone'] = array(
-    'title' => t('Phone Number'),
+    'title'      => t('Phone Number'),
     'properties' => array(
       'country',
       'phone_country_code',
@@ -500,7 +402,7 @@ function _form_builder_webform_form_builder_types_phone() {
       'ca_phone_separator',
       'ca_phone_parentheses',
     ),
-    'weight' => -17,
+    'weight'     => -17,
     //Doesn't make sense that modules get to weight themselves, why wouldn't everyone want to be first?
   );
   $defaults = _webform_defaults_phone();
@@ -519,41 +421,72 @@ function _form_builder_webform_form_builder_types_phone() {
  * Implements _form_builder_webform_form_builder_map_component().
  */
 function _form_builder_webform_form_builder_map_phone() {
-
   return array(
     'form_builder_type' => 'phone',
-    'properties' => array(
-      'size' => array(
-        'storage_parents' => array( 'extra', 'width' ),
+    'properties'        => array(
+      'country'                    => array(
+        'form_parents'    => array(
+          'extra',
+          'country'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'country'
+        ),
       ),
-      'country' => array(
-        'form_parents' => array( 'extra', 'country' ),
-        'storage_parents' => array( 'extra', 'country' ),
-      ),
-      'phone_country_code' => array(
-        'form_parents' => array( 'extra', 'phone_country_code' ),
-        'storage_parents' => array( 'extra', 'phone_country_code' ),
+      'phone_country_code'         => array(
+        'form_parents'    => array(
+          'extra',
+          'phone_country_code'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'phone_country_code'
+        ),
       ),
       'phone_default_country_code' => array(
-        'form_parents' => array( 'extra', 'phone_default_country_code' ),
-        'storage_parents' => array( 'extra', 'phone_default_country_code' ),
+        'form_parents'    => array(
+          'extra',
+          'phone_default_country_code'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'phone_default_country_code'
+        ),
       ),
-      'phone_int_max_length' => array(
-        'form_parents' => array( 'extra', 'phone_int_max_length' ),
-        'storage_parents' => array( 'extra', 'phone_int_max_length' ),
+      'phone_int_max_length'       => array(
+        'form_parents'    => array(
+          'extra',
+          'phone_int_max_length'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'phone_int_max_length'
+        ),
       ),
-      'ca_phone_separator' => array(
-        'form_parents' => array( 'extra', 'ca_phone_separator' ),
-        'storage_parents' => array( 'extra', 'ca_phone_separator' ),
+      'ca_phone_separator'         => array(
+        'form_parents'    => array(
+          'extra',
+          'ca_phone_separator'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'ca_phone_separator'
+        ),
       ),
-      'ca_phone_parentheses' => array(
-        'form_parents' => array( 'extra', 'ca_phone_parentheses' ),
-        'storage_parents' => array( 'extra', 'ca_phone_parentheses' ),
+      'ca_phone_parentheses'       => array(
+        'form_parents'    => array(
+          'extra',
+          'ca_phone_parentheses'
+        ),
+        'storage_parents' => array(
+          'extra',
+          'ca_phone_parentheses'
+        ),
       ),
     ),
   );
 }
-
 /**
  * @} End of "defgroup form-builder-webform-phone-callbacks"
  */

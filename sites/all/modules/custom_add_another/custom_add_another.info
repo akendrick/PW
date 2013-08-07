@@ -4,9 +4,9 @@ package = Fields
 dependencies[] = field (>=7.8)
 core = 7.x
 
-; Information added by drupal.org packaging script on 2012-02-07
-version = "7.x-1.0-rc2"
+; Information added by drupal.org packaging script on 2013-06-08
+version = "7.x-1.0-rc3"
 core = "7.x"
 project = "custom_add_another"
-datestamp = "1328622638"
+datestamp = "1370714751"
 

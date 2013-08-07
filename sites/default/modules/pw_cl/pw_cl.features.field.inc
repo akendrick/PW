@@ -42,6 +42,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -75,6 +77,7 @@ function pw_cl_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -122,6 +125,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -145,6 +150,7 @@ function pw_cl_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -197,6 +203,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '<strong class=\'ad-area-discount\'>Save $2 when you book all four areas.</strong>
@@ -230,6 +238,7 @@ function pw_cl_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -278,6 +287,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '2',
@@ -306,6 +317,7 @@ function pw_cl_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -356,6 +368,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -380,6 +394,7 @@ function pw_cl_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -446,6 +461,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '<strong>Add an image!</strong> <small>Everyone likes to see what they are buying.</small>
 <ul><li>Personal/Non-Profit $1.49/week</li><li>Business $2.99/week</li></ul>',
@@ -471,6 +488,7 @@ function pw_cl_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'epsacrop' => array(
           'styles' => array(
@@ -592,6 +610,8 @@ function pw_cl_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => 0,
@@ -621,6 +641,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -668,6 +689,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Need some help with your ad? Want your ad to run every other week? Let us know, we are here to help.',
@@ -691,6 +714,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -748,6 +772,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1009,6 +1035,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'hide_single_cc' => 1,
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_country' => 'ca',
         'enable_country_level_validation' => 0,
         'enable_default_country' => 1,
@@ -1058,6 +1085,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => 'Personal',
@@ -1085,6 +1114,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1138,6 +1168,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'ad_s',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1162,6 +1194,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1210,6 +1243,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'adworks_file',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '<big><strong>Test your file first!</strong></big>
@@ -1274,6 +1309,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 0,
         'text_processing' => '0',
         'user_register_form' => FALSE,
@@ -1322,6 +1358,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'adworks_file',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '0',
@@ -1361,6 +1399,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1401,6 +1440,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'adworks_file',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '1',
@@ -1440,6 +1481,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1488,6 +1530,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'adworks_file',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1523,6 +1567,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 0,
         'file_directory' => 'classified_ad_image_upload',
         'file_extensions' => 'jpg gif',
@@ -1586,6 +1631,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'adworks_file',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1627,6 +1674,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_value' => 'strtotime',
         'default_value2' => 'strtotime',
         'default_value_code' => '+1 Tuesday 05:30',
@@ -1683,6 +1731,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1690,18 +1740,9 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
         'default' => array(
           'label' => 'hidden',
           'module' => 'text',
-          'settings' => array(
-            'masonry' => 0,
-            'masonry_animated' => 1,
-            'masonry_animated_duration' => '500',
-            'masonry_center' => 0,
-            'masonry_gutter' => '0',
-            'masonry_resizable' => 1,
-            'masonry_rtl' => 0,
-            'masonry_width' => '200',
-          ),
+          'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1726,6 +1767,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'type' => 'text_trimmed',
           'weight' => '2',
         ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '2',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -1742,6 +1790,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -1785,6 +1834,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1794,7 +1845,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1807,6 +1858,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '3',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1821,6 +1879,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1864,15 +1923,18 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'hidden',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '9',
+          'type' => 'text_default',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1885,6 +1947,12 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '7',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1899,6 +1967,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1950,6 +2019,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1959,7 +2030,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1972,6 +2043,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '6',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'email',
+          'settings' => array(),
+          'type' => 'email_default',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1986,6 +2064,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -2051,6 +2130,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2085,6 +2166,16 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'type' => 'image',
           'weight' => '0',
         ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => 'content',
+            'image_style' => 'square_thumbnail',
+          ),
+          'type' => 'image',
+          'weight' => '1',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'lightbox2',
@@ -2100,6 +2191,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'classified_ad_images',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2162,6 +2254,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -2171,7 +2265,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2183,6 +2277,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
           'weight' => '5',
         ),
         'teaser' => array(
@@ -2206,6 +2307,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -2264,6 +2366,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2272,7 +2376,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'cck_phone',
           'settings' => array(),
           'type' => 'global_phone_number',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2285,6 +2389,13 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '4',
+        ),
+        'search_result' => array(
+          'label' => 'inline',
+          'module' => 'cck_phone',
+          'settings' => array(),
+          'type' => 'global_phone_number',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2539,6 +2650,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'hide_single_cc' => 1,
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_country' => 'ca',
         'enable_country_level_validation' => 0,
         'enable_default_country' => TRUE,
@@ -2596,6 +2708,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -2605,7 +2719,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2620,6 +2734,12 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'type' => 'taxonomy_term_reference_link',
           'weight' => '1',
         ),
+        'search_result' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -2633,6 +2753,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -2677,6 +2798,8 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
     ),
     'field_instance' => array(
       'bundle' => 'free',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Please use 15 - 25 words (about 120 characters) to describe your one personal item per Free for Free ad.
@@ -2719,6 +2842,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -2769,6 +2893,8 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
     ),
     'field_instance' => array(
       'bundle' => 'free',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => 'email',
@@ -2808,6 +2934,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -2873,6 +3000,8 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
     ),
     'field_instance' => array(
       'bundle' => 'free',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2916,6 +3045,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'free',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2974,6 +3104,8 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
     ),
     'field_instance' => array(
       'bundle' => 'free',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => 'Free',
@@ -3015,6 +3147,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -3068,6 +3201,8 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
     ),
     'field_instance' => array(
       'bundle' => 'free',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'tid' => '131',
@@ -3108,6 +3243,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(

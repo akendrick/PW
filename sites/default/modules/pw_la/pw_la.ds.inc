@@ -70,6 +70,36 @@ function pw_la_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|article|teaser';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'article';
+  $ds_layout->view_mode = 'teaser';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'hide_empty_regions' => 0,
+    'hide_sidebars' => 0,
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_image',
+        1 => 'title',
+        2 => 'field_submitter',
+        3 => 'body',
+        4 => 'node_link',
+      ),
+    ),
+    'fields' => array(
+      'field_image' => 'ds_content',
+      'title' => 'ds_content',
+      'field_submitter' => 'ds_content',
+      'body' => 'ds_content',
+      'node_link' => 'ds_content',
+    ),
+    'classes' => array(),
+  );
+  $export['node|article|teaser'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'user|user|default';
   $ds_layout->entity_type = 'user';
   $ds_layout->bundle = 'user';

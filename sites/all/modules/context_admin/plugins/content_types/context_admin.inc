@@ -57,7 +57,7 @@ function context_admin_context_admin_content_type_content_types() {
 * Render the custom content type.
 */
 function context_admin_context_admin_content_type_render($subtype, $conf, $panel_args, $context) {
-  list( , $plugin_name) = explode(':', $subtype);
+  list( , $plugin_name) = explode(':', $subtype, 2);
   $plugin = ctools_get_plugins('context_admin', 'context_admin', $plugin_name);
   // This logic should be extend to work with multiple contexts.
   if (isset($plugin['required context'])) {
@@ -107,16 +107,19 @@ function context_admin_context_admin_content_type_render($subtype, $conf, $panel
 }
 
 function context_admin_context_admin_content_type_form($form, &$form_state) {
-  list( , $plugin_name) = explode(':', $form_state['pane']->subtype);
+  list( , $plugin_name) = explode(':', $form_state['pane']->subtype, 2);
+  $form_state['conf']['context_admin_options'] = $plugin_name;
   $plugin = ctools_get_plugins('context_admin', 'context_admin', $plugin_name);
   if ($function = ctools_plugin_get_function($plugin, 'content form')) {
-    $form += $function($form, $form_state);
+    $contexts = isset($form_state['contexts']) ? $form_state['contexts'] : array();
+    $form += $function($form, $form_state, $contexts);
   }
   return $form;
 }
 
 function context_admin_context_admin_content_type_form_submit($form, &$form_state) {
-  list( , $plugin_name) = explode(':', $form_state['pane']->subtype);
+  list( , $plugin_name) = explode(':', $form_state['pane']->subtype, 2);
+  $form_state['conf']['context_admin_options'] = $plugin_name;
   $plugin = ctools_get_plugins('context_admin', 'context_admin', $plugin_name);
   if ($function = ctools_plugin_get_function($plugin, 'content form submit')) {
     $function($form, $form_state);
@@ -127,7 +130,7 @@ function context_admin_context_admin_content_type_form_submit($form, &$form_stat
 * Returns the administrative title for a type.
 */
 function context_admin_context_admin_content_type_admin_title($subtype, $conf, $context) {
-  list( , $plugin_name) = explode(':', $subtype);
+  list( , $plugin_name) = explode(':', $subtype, 2);
   $plugin = ctools_get_plugins('context_admin', 'context_admin', $plugin_name);
   return t('Context Admin: @plugin_title', array('@plugin_title' => $plugin['title']));
 }

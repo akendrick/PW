@@ -44,6 +44,8 @@ function pw_admin_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'webform',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -94,6 +96,7 @@ function pw_admin_field_default_fields() {
       'required' => FALSE,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => TRUE,
         'text_processing' => 1,
         'user_register_form' => FALSE,
@@ -138,6 +141,8 @@ function pw_admin_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'classification',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => 0,
@@ -167,6 +172,7 @@ function pw_admin_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -215,6 +221,8 @@ function pw_admin_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'classification',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -238,6 +246,7 @@ function pw_admin_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),

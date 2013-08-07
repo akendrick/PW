@@ -375,8 +375,16 @@ function pw_cl_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_2col_stacked';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => 0,
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
     'regions' => array(
       'header' => array(
         0 => 'field_image',
@@ -400,12 +408,11 @@ function pw_cl_ds_layout_settings_info() {
       'group_details' => 'left',
       'field_tags' => 'left',
       'post_date' => 'left',
-      'field_ad_copy' => 'right',
       'field_phone' => 'left',
       'field_link' => 'left',
       'field_email' => 'left',
+      'field_ad_copy' => 'right',
     ),
-    'classes' => array(),
   );
   $export['node|classified|default'] = $ds_layout;
 
@@ -470,6 +477,50 @@ function pw_cl_ds_layout_settings_info() {
     'classes' => array(),
   );
   $export['node|classified|form'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|classified|search_result';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'classified';
+  $ds_layout->view_mode = 'search_result';
+  $ds_layout->layout = 'ds_3col_stacked_equal_width';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'field_ad_type',
+        1 => 'field_image',
+      ),
+      'middle' => array(
+        2 => 'field_ad_copy',
+      ),
+      'right' => array(
+        3 => 'field_phone',
+        4 => 'field_email',
+        5 => 'field_link',
+      ),
+    ),
+    'fields' => array(
+      'field_ad_type' => 'left',
+      'field_image' => 'left',
+      'field_ad_copy' => 'middle',
+      'field_phone' => 'right',
+      'field_email' => 'right',
+      'field_link' => 'right',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'middle' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+  );
+  $export['node|classified|search_result'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;

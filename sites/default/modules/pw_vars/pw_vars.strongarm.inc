@@ -961,14 +961,13 @@ echo date(\'now\');
     'classifieds_singlular' => TRUE,
     'general_layout' => TRUE,
     'editorial_layout' => TRUE,
-    'search' => TRUE,
     'admin-stuff' => TRUE,
     'admin-stuff-admin-theme' => TRUE,
     'admin_boxes' => TRUE,
     'frontpage_classified_layout' => TRUE,
     'front_page' => TRUE,
     'mobile_front' => TRUE,
-    'mobile_layout' => TRUE,
+    'jq_mobile_layout' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -2096,6 +2095,7 @@ echo date(\'now\');
     10 => 'menu-browse-classifieds',
     11 => 'menu-special-features',
     12 => 'menu-pw-mobile-menu',
+    13 => 'devel',
   );
   $export['menu_default_active_menus'] = $strongarm;
 
@@ -2121,47 +2121,49 @@ echo date(\'now\');
     3 => 247,
     4 => 246,
     5 => 245,
-    6 => 126,
-    7 => 125,
-    8 => 124,
-    9 => 123,
-    10 => 122,
-    11 => 121,
-    12 => 117,
-    13 => 112,
-    14 => 63,
-    15 => 62,
-    16 => 61,
-    17 => 60,
-    18 => 59,
-    19 => 58,
-    20 => 56,
-    21 => 48,
-    22 => 45,
-    23 => 44,
-    24 => 31,
-    25 => 30,
-    26 => 29,
-    27 => 28,
-    28 => 25,
-    29 => 24,
-    30 => 23,
-    31 => 22,
-    32 => 21,
-    33 => 15,
-    34 => 14,
-    35 => 13,
-    36 => 12,
-    37 => 11,
-    38 => 10,
-    39 => 8,
-    40 => 7,
-    41 => 6,
-    42 => 5,
-    43 => 4,
-    44 => 3,
-    45 => 2,
-    46 => 1,
+    6 => 127,
+    7 => 126,
+    8 => 125,
+    9 => 124,
+    10 => 123,
+    11 => 122,
+    12 => 121,
+    13 => 117,
+    14 => 112,
+    15 => 63,
+    16 => 62,
+    17 => 61,
+    18 => 60,
+    19 => 59,
+    20 => 58,
+    21 => 56,
+    22 => 48,
+    23 => 45,
+    24 => 44,
+    25 => 31,
+    26 => 30,
+    27 => 29,
+    28 => 28,
+    29 => 27,
+    30 => 25,
+    31 => 24,
+    32 => 23,
+    33 => 22,
+    34 => 21,
+    35 => 15,
+    36 => 14,
+    37 => 13,
+    38 => 12,
+    39 => 11,
+    40 => 10,
+    41 => 8,
+    42 => 7,
+    43 => 6,
+    44 => 5,
+    45 => 4,
+    46 => 3,
+    47 => 2,
+    48 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2762,7 +2764,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_article_pattern';
-  $strongarm->value = 'editorial/[current-date:custom:Y]/[current-date:custom:m]/[node:title]';
+  $strongarm->value = 'editorial/[current-date:custom:Y]/[current-date:custom:m]/[node:nid]/[node:title]';
   $export['pathauto_node_article_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2783,7 +2785,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_display_ads_pattern';
-  $strongarm->value = 'display/[node:field_display_ad_type]/[node:title]';
+  $strongarm->value = 'display/[node:field_display_ad_type]/[node:field-ad-client]/[node:nid]/[node:title]';
   $export['pathauto_node_display_ads_pattern'] = $strongarm;
 
   $strongarm = new stdClass();

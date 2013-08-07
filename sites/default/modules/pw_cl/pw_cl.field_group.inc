@@ -431,13 +431,12 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => '',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_link',
-      1 => 'field_phone',
-      2 => 'field_email',
-      3 => 'field_tags',
-      4 => 'post_date',
+      0 => 'field_area_code',
+      1 => 'field_image',
+      2 => 'field_tags',
+      3 => 'post_date',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

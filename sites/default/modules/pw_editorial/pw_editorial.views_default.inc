@@ -1379,9 +1379,11 @@ function pw_editorial_views_default_views() {
   $handler = $view->new_display('block', 'Editorial Slideshow (5) Block', 'block_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['total_pages'] = '3';
   $handler->display->display_options['defaults']['header'] = FALSE;
   /* Header: Global: PHP */
   $handler->display->display_options['header']['php']['id'] = 'php';
@@ -2689,7 +2691,7 @@ function pw_editorial_views_default_views() {
   $handler->display->display_options['fields']['contact']['element_wrapper_class'] = '.contact-button';
   $handler->display->display_options['fields']['contact']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['contact']['text'] = 'Contact';
-  /* Field: Field: Phone */
+  /* Field: Field: Phone Number */
   $handler->display->display_options['fields']['field_phone']['id'] = 'field_phone';
   $handler->display->display_options['fields']['field_phone']['table'] = 'field_data_field_phone';
   $handler->display->display_options['fields']['field_phone']['field'] = 'field_phone';

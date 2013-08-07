@@ -121,6 +121,10 @@ function pw_la_context_default_contexts() {
         'classifieds' => 'classifieds',
         'section/*' => 'section/*',
         'node/*' => 'node/*',
+        'search' => 'search',
+        'search/*' => 'search/*',
+        'find' => 'find',
+        'find/*' => 'find/*',
         'sales/*' => 'sales/*',
         'browse/*' => 'browse/*',
         'online/*' => 'online/*',
@@ -131,9 +135,6 @@ function pw_la_context_default_contexts() {
         'user' => 'user',
         'user/*' => 'user/*',
         'contact/*' => 'contact/*',
-        'search' => 'search',
-        'search?*' => 'search?*',
-        'search/*' => 'search/*',
         'area-code' => 'area-code',
         'features/hometown' => 'features/hometown',
       ),
@@ -172,53 +173,41 @@ function pw_la_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'sidebar_first',
-          'weight' => '-9',
-        ),
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
-          'region' => 'sidebar_first',
-          'weight' => '-8',
-        ),
         'views-27d2d6d0e3ed6c5fa504fe7a9076159a' => array(
           'module' => 'views',
           'delta' => '27d2d6d0e3ed6c5fa504fe7a9076159a',
           'region' => 'sidebar_first',
-          'weight' => '-7',
+          'weight' => '-8',
         ),
         'pennywise-submit_editorial' => array(
           'module' => 'pennywise',
           'delta' => 'submit_editorial',
           'region' => 'sidebar_first',
-          'weight' => '-6',
+          'weight' => '-7',
         ),
         'pennywise-pw_tmtv' => array(
           'module' => 'pennywise',
           'delta' => 'pw_tmtv',
           'region' => 'sidebar_first',
-          'weight' => '-5',
+          'weight' => '-6',
         ),
         'pennywise-pw_edition' => array(
           'module' => 'pennywise',
           'delta' => 'pw_edition',
           'region' => 'sidebar_first',
-          'weight' => '-4',
+          'weight' => '-5',
         ),
         'menu-menu-special-features' => array(
           'module' => 'menu',
           'delta' => 'menu-special-features',
           'region' => 'sidebar_first',
-          'weight' => '-3',
+          'weight' => '-4',
         ),
         'user-login' => array(
           'module' => 'user',
           'delta' => 'login',
           'region' => 'sidebar_first',
-          'weight' => '-2',
+          'weight' => '-3',
         ),
         'views-display_ad_blocks-poster_block' => array(
           'module' => 'views',
@@ -246,11 +235,13 @@ function pw_la_context_default_contexts() {
         ),
       ),
     ),
-    'debug' => array(
-      'debug' => 1,
-    ),
     'delta' => array(
       'delta_template' => 'default_center',
+    ),
+    'disable_context' => array(
+      'disabled' => array(
+        'mobile_layout' => 'mobile_layout',
+      ),
     ),
   );
   $context->condition_mode = 1;
@@ -584,71 +575,46 @@ function pw_la_context_default_contexts() {
     'path' => array(
       'values' => array(
         '~admin/*' => '~admin/*',
-        '~ad/submit' => '~ad/submit',
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pennywise-pw_holiday_message' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_holiday_message',
-          'region' => 'content',
-          'weight' => '-9',
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'threeup_one',
+          'weight' => '-10',
         ),
-        'pennywise-pw_phone_areas' => array(
+        'pennywise-pw_mobile_links' => array(
           'module' => 'pennywise',
-          'delta' => 'pw_phone_areas',
+          'delta' => 'pw_mobile_links',
+          'region' => 'threeup_three',
+          'weight' => '-10',
+        ),
+        'views-276555a85e20cd9e83768e783dbee851' => array(
+          'module' => 'views',
+          'delta' => '276555a85e20cd9e83768e783dbee851',
           'region' => 'content',
-          'weight' => '-8',
+          'weight' => '-10',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-7',
-        ),
-        'pennywise-pw_contact' => array(
-          'module' => 'pennywise',
-          'delta' => 'pw_contact',
-          'region' => 'branding',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
         'delta_blocks-logo' => array(
           'module' => 'delta_blocks',
           'delta' => 'logo',
           'region' => 'branding',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
-        'jump_menu-jump_menu-m_menu-browse-classifi' => array(
-          'module' => 'jump_menu',
-          'delta' => 'jump_menu-m_menu-browse-classifi',
-          'region' => 'branding',
-          'weight' => '-8',
-        ),
-        'ad_payment-ad_payment_create_ad' => array(
-          'module' => 'ad_payment',
-          'delta' => 'ad_payment_create_ad',
-          'region' => 'branding',
-          'weight' => '-7',
-        ),
-        'pennywise-submit_editorial' => array(
+        'pennywise-pw_contact' => array(
           'module' => 'pennywise',
-          'delta' => 'submit_editorial',
-          'region' => 'branding',
-          'weight' => '-6',
-        ),
-        'views--exp-search_ads-search_page' => array(
-          'module' => 'views',
-          'delta' => '-exp-search_ads-search_page',
-          'region' => 'header_first',
-          'weight' => '-14',
-        ),
-        'views-de361c058107ea938b176d3ffd541f03' => array(
-          'module' => 'views',
-          'delta' => 'de361c058107ea938b176d3ffd541f03',
-          'region' => 'header_first',
+          'delta' => 'pw_contact',
+          'region' => 'footer_second',
           'weight' => '-10',
         ),
       ),
@@ -691,13 +657,152 @@ function pw_la_context_default_contexts() {
     'delta' => array(
       'delta_template' => 'mobile',
     ),
+    'disable_context' => array(
+      'disabled' => array(
+        'admin-stuff' => 'admin-stuff',
+        'admin-stuff-admin-theme' => 'admin-stuff-admin-theme',
+        'admin-theme-by-role' => 'admin-theme-by-role',
+        'admin_boxes' => 'admin_boxes',
+        'area_code_page' => 'area_code_page',
+        'classifieds_et_al' => 'classifieds_et_al',
+        'dashboard' => 'dashboard',
+        'footer_all' => 'footer_all',
+        'front_page' => 'front_page',
+        'mobile_front' => 'mobile_front',
+        'simple_page' => 'simple_page',
+        'top_stuff' => 'top_stuff',
+        'user' => 'user',
+      ),
+    ),
+    'js' => array(
+      'Bartik' => array(
+        'themes/bartik/color/preview.js' => 0,
+      ),
+      'Pennywise Theme' => array(
+        'sites/all/themes/pwt/js/jquery.imagesloaded.js' => 0,
+        'sites/all/themes/pwt/js/jquery.imagesloaded.min.js' => 0,
+        'sites/all/themes/pwt/js/jquery.masonry.min.js' => 0,
+        'sites/all/themes/pwt/js/pwt.masonry.js' => 0,
+        'sites/all/themes/pwt/js/pwt.mobile.js' => 'sites/all/themes/pwt/js/pwt.mobile.js',
+      ),
+    ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Mobile');
   $export['mobile_layout'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'search';
+  $context->description = 'Default search page';
+  $context->tag = 'Pages';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'search' => 'search',
+        'search/*' => 'search/*',
+        'find' => 'find',
+        'find/*' => 'find/*',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'system-main' => array(
+          'module' => 'system',
+          'delta' => 'main',
+          'region' => 'content',
+          'weight' => '-56',
+        ),
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'content',
+          'weight' => '-55',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Default search page');
+  t('Pages');
+  $export['search'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'search_block';
+  $context->description = 'Place Search block on classified pages.';
+  $context->tag = 'Pages';
+  $context->conditions = array(
+    'cmd' => array(
+      'values' => array(
+        2 => 2,
+        3 => 3,
+      ),
+    ),
+    'context' => array(
+      'values' => array(
+        '~mobile_layout' => '~mobile_layout',
+      ),
+    ),
+    'path' => array(
+      'values' => array(
+        '~admin/*' => '~admin/*',
+        '~classifieds' => '~classifieds',
+        '~ad/submit' => '~ad/submit',
+        '~thank-you' => '~thank-you',
+        '~ad/*/thank-you' => '~ad/*/thank-you',
+        '~user/login' => '~user/login',
+        '~display/*' => '~display/*',
+        '~editorial/submit' => '~editorial/submit',
+        'ad/*' => 'ad/*',
+        '<front>' => '<front>',
+        'classifieds' => 'classifieds',
+        'section/*' => 'section/*',
+        'node/*' => 'node/*',
+        'sales/*' => 'sales/*',
+        'browse/*' => 'browse/*',
+        'online/*' => 'online/*',
+        'edition' => 'edition',
+        'edition/*' => 'edition/*',
+        'editorial' => 'editorial',
+        'editorial/*' => 'editorial/*',
+        'user' => 'user',
+        'user/*' => 'user/*',
+        'contact/*' => 'contact/*',
+        'area-code' => 'area-code',
+        'features/hometown' => 'features/hometown',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views--exp-search_ads-search_page' => array(
+          'module' => 'views',
+          'delta' => '-exp-search_ads-search_page',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Pages');
+  t('Place Search block on classified pages.');
+  $export['search_block'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
