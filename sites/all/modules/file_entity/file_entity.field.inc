@@ -14,6 +14,15 @@ function file_entity_field_formatter_info() {
     'description' => t('Display the file in a specific view mode'),
     'field types' => array('file', 'image'),
     'settings' => array('file_view_mode' => 'default'),
+    'hidden file formatter' => TRUE,
+  );
+  $info['file_download_link'] = array(
+    'label' => t('Download link'),
+    'description' => t('Displays a link that will force the browser to download the file.'),
+    'field types' => array('file', 'image'),
+    'settings' => array(
+      'text' => t('Download [file:name]'),
+    ),
   );
   return $info;
 }
@@ -35,6 +44,15 @@ function file_entity_field_formatter_settings_form($field, $instance, $view_mode
       // Never empty, so no #empty_option
     );
   }
+  elseif ($display['type'] == 'file_download_link') {
+    $element['text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Link text'),
+      '#description' => t('This field support tokens.'),
+      '#default_value' => $settings['text'],
+      '#required' => TRUE,
+    );
+  }
 
   return $element;
 }
@@ -50,6 +68,9 @@ function file_entity_field_formatter_settings_summary($field, $instance, $view_m
   if ($display['type'] === 'file_rendered') {
     $view_mode_label = file_entity_view_mode_label($settings['file_view_mode'], t('Unknown'));
     $summary = t('View mode: %mode', array('%mode' => $view_mode_label));
+  }
+  elseif ($display['type'] == 'file_download_link') {
+    $summary = t('Link text: %text', array('%text' => $settings['text']));
   }
 
   return $summary;
@@ -102,13 +123,27 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
         $files_display[$fid]->referencing_entity = $entity;
         $files_display[$fid]->referencing_field = $field['field_name'];
       }
-      $files_built = file_view_multiple($files_display, $view_mode);
+      $output = file_view_multiple($files_display, $view_mode);
+      // Remove the first level from the output array.
+      $files_built = reset($output);
     }
 
     // Assemble the render array.
     foreach ($items as $delta => $item) {
       if (isset($files_built[$item['fid']])) {
         $element[$delta] = $files_built[$item['fid']];
+      }
+    }
+  }
+  elseif ($display['type'] == 'file_download_link') {
+    foreach ($items as $delta => $item) {
+      $file = (object) $item;
+      if (file_entity_access('download', $file)) {
+        $element[$delta] = array(
+          '#theme' => 'file_entity_download_link',
+          '#file' => $file,
+          '#text' => $settings['text'],
+        );
       }
     }
   }

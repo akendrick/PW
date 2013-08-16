@@ -21,6 +21,7 @@ function pw_general_settings_page() {
 
 function pennywise_general_settingsform() {
   $pw_general = array(
+    'pw_hours_operation' => 'Mon.-Thurs. 8:30am-5pm &lt;BR&gt; Friday 8am-4pm',
     'toll_free' => '1-800-663-4619',
     'local'     => '250-353-2602',
     'fax'       => '250-353-7444',
@@ -32,6 +33,17 @@ function pennywise_general_settingsform() {
   );
   $pw_general = variable_get('pennywise_general_contact_settings', $pw_general);
 
+  $form['pw_hours_operation'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Hours of Operation.'),
+    '#description' => t('Add a &lt;BR&gt; tag to indicate a new line.<br>Default: Mon.-Thurs. 8:30am-5pm &lt;BR&gt; Friday 8am-4pm.'),
+    '#size' => 65,
+    '#default_value' => $pw_general['pw_hours_operation'],
+  );
+  $form['pennywise_contact_information'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Pennywise Contact Information'),
+  );
 
   $form['pennywise_contact_information']['toll_free'] = array(
     '#type' => 'textfield',
@@ -90,7 +102,6 @@ function pennywise_general_settingsform() {
     '#default_value' => $pw_general['twitter'], //'#default_value' => variable_get('pw_twitter_link', 'http://www.twitter.com'),
   );
 
-
   $form['submit'] = array(
     '#type'  => 'submit',
     '#value' => t('Submit'),
@@ -113,7 +124,7 @@ function pennywise_classified_settingsform_validate($form, &$form_state) {
 * Implementation of form submission -- CLASSIFIED.
 */
 function pennywise_general_settingsform_submit($form, &$form_state) {
-//  dpm($form_state);
+#  dpm($form_state['values']);
 
   variable_set('pennywise_general_contact_settings', $form_state['values']);
 

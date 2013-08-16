@@ -57,15 +57,20 @@
       gutterWidth: 20
     });
 
-
+    // Client List
+//    $('.client-listing-wrapper').masonry({
+//      itemSelector : '.client-row-item',
+//      isFitWidth : true,
+//      gutterWidth : 10
+//    });
 
     // Editorials
     $('.views-field-field-image > .field-content > a > img').imagesLoaded(function() {
       $('.view-display-id-editorial_main_page > .view-content').masonry({
         itemSelector : '.views-row',
         columnWidth : width, // was 270
-        isFitWidth: true,
-        gutterWidth: 10
+        isFitWidth : true,
+        gutterWidth : 10
       });
     });
   };

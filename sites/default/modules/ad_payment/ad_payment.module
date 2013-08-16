@@ -4,6 +4,12 @@
 * Custom FAPI payment info with validation + submission.
 *
 *
+*
+* ###### SUBMISSION FORM is created in 'ad_payment_form_ad_s_node_form_alter' ######
+*
+*
+*
+*
 * HOOK_menu:
 *   - user registration form if not logged in.
 *      - NO USER REGISTRATION REQUIRED
@@ -83,12 +89,6 @@
 *
 * ad_paymnet_views_api
 *   - load views table data
-*
-*
-*
-*
-*
-*
 *
 *
 *
@@ -299,6 +299,18 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
   $form['field_tags'][LANGUAGE_NONE]['#options'] = $pw_list;
 
+  // Add Default Hours of Operation
+  if (variable_get('pennywise_general_contact_settings', 0)) {
+    $block = module_invoke('pennywise', 'block_view', 'pw_hours_operation');
+    #$hours = variable_get('pennywise_general_contact_settings');
+    $form['hours'] = array(
+      '#prefix' => '<div id="pw-hours-operation">',
+      '#markup' => '<h4>' . $block['subject'] . '</h4>' . $block['content'],
+      '#suffix' => '</div>',
+    );
+    $form['#group_children']['hours'] = 'group_more';
+  }
+
   // Add Free for Free Block
   if (variable_get('free_for_free_embed', 0)) {
     $block = module_invoke('pennywise', 'block_view', 'pw_free_for_free');
@@ -317,7 +329,6 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
   $form['field_area'][LANGUAGE_NONE]['#description'] =
     '<span class=" beautytips form-toggle" id="bt-areas">Areas defined.</span> <div id="beautytips-toggle-box-bt-areas" class="beautytips-box"> ' . $form['field_area'][LANGUAGE_NONE]['#description'] . ' </div>';
 
-//  dpm($form);
 }
 
 /**

@@ -238,7 +238,7 @@ function pw_vars_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_pw_digital';
-  $strongarm->value = 'edit-auto-nodetitle';
+  $strongarm->value = 'edit-page-title';
   $export['additional_settings__active_tab_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -273,7 +273,7 @@ function pw_vars_strongarm() {
     168 => 'Free',
     15 => 'Merchandise',
     35 => 'Obituaries',
-    37 => 'Real Estate Listings',
+    37 => 'Real Estate & Rentals',
     48 => 'Services',
     54 => 'Vehicles',
   );
@@ -2624,14 +2624,14 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital';
-  $strongarm->value = '';
+  $strongarm->value = '[node:field-edition-date:short]';
   $export['page_title_type_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital_showfield';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['page_title_type_pw_digital_showfield'] = $strongarm;
 
   $strongarm = new stdClass();

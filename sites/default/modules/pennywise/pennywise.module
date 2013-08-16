@@ -380,6 +380,13 @@ function pennywise_block_info() {
     'cache'   => 8,
   );
 
+  $blocks['pw_hours_operation'] = array(
+    'info'    => t('PW Hours Operation'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache'   => 8,
+  );
+
 
   return $blocks;
 }
@@ -469,7 +476,14 @@ Wynndel/Sirdarn => 866
         '#description' => t('Area codes for phone numbers.<br>Format as:<br>Boswell => 000<br>Riondel => 001<br>'),
         '#default_value' => $default_phone,
       );
+      break;
 
+    case 'pw_hours_operation':
+        $form['pw_hours_link'] = array(
+          '#prefix' => '<div class="button form-submit"><h2>',
+          '#suffix' => '</h2></div>',
+          '#markup' => l('Click Here to Edit Hours of Operation', 'admin/pennywise/settings'),
+        );
       break;
 
     case 'pw_free_for_free':
@@ -680,6 +694,12 @@ function pennywise_block_view($delta = '') {
       $free = free_for_free_link();
       $body = variable_get('free_for_free_description', '');
       $content = '<div class="ad-submission-highlight-block free-for-free">' . $free['header'] . $body . $free['footer'] . '</div>';
+      break;
+
+    case 'pw_hours_operation':
+      $subject  = 'Hours of Operation';
+      $contact  = variable_get('pennywise_general_contact_settings', l('Set Hours of Operation', 'admin/pennywise/settings'));
+      $content  = ($contact['pw_hours_operation']) ? $contact['pw_hours_operation'] : $contact;
       break;
 
     case 'submit_editorial':
