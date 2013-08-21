@@ -56,6 +56,7 @@ function pw_display_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'display_ad_full_page',
   );
 
   // Exported image style: display_ad_print_cropped_vert_thumbnail.
@@ -78,6 +79,7 @@ function pw_display_image_default_styles() {
         'weight' => '2',
       ),
     ),
+    'label' => 'display_ad_print_cropped_vert_thumbnail',
   );
 
   // Exported image style: display_ad_print_thumbnail.
@@ -100,6 +102,7 @@ function pw_display_image_default_styles() {
         'weight' => '2',
       ),
     ),
+    'label' => 'display_ad_print_thumbnail',
   );
 
   // Exported image style: display_ad_smart_crop_med_square.
@@ -145,6 +148,7 @@ function pw_display_image_default_styles() {
         'weight' => '-8',
       ),
     ),
+    'label' => 'display_ad_smart_crop_med_square',
   );
 
   // Exported image style: miniature_square.
@@ -167,6 +171,7 @@ function pw_display_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'miniature_square',
   );
 
   return $styles;

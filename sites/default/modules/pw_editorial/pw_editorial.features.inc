@@ -55,6 +55,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'classified_list_js_crop',
   );
 
   // Exported image style: editoral_square_thumbnail.
@@ -77,6 +78,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editoral_square_thumbnail',
   );
 
   // Exported image style: editorial_block_list_header.
@@ -99,6 +101,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_block_list_header',
   );
 
   // Exported image style: editorial_header.
@@ -121,6 +124,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_header',
   );
 
   // Exported image style: editorial_small.
@@ -143,6 +147,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_small',
   );
 
   // Exported image style: editorial_teaser.
@@ -165,6 +170,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_teaser',
   );
 
   // Exported image style: editorial_thumbnail.
@@ -187,6 +193,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_thumbnail',
   );
 
   // Exported image style: editorial_tiny.
@@ -209,6 +216,7 @@ function pw_editorial_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'editorial_tiny',
   );
 
   return $styles;

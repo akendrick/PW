@@ -516,12 +516,11 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['unpublish_on']['table'] = 'scheduler';
   $handler->display->display_options['fields']['unpublish_on']['field'] = 'unpublish_on';
   $handler->display->display_options['fields']['unpublish_on']['label'] = '';
-  $handler->display->display_options['fields']['unpublish_on']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['unpublish_on']['alter']['text'] = 'Unpublish - [unpublish_on]';
   $handler->display->display_options['fields']['unpublish_on']['element_type'] = 'span';
   $handler->display->display_options['fields']['unpublish_on']['element_class'] = 'small';
   $handler->display->display_options['fields']['unpublish_on']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'short';
+  $handler->display->display_options['fields']['unpublish_on']['date_format'] = 'medium';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -569,11 +568,8 @@ function pw_admin_views_default_views() {
     ),
   );
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'mini';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '12';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = TRUE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['grouping'] = array(
@@ -587,6 +583,7 @@ function pw_admin_views_default_views() {
     'status' => 'status',
     'field_display_ad' => 'field_display_ad',
     'edit_node' => 'field_display_ad',
+    'publishcontent' => 'field_display_ad',
     'field_display_ad_type' => 'field_display_ad_type',
     'field_tags' => 'field_tags',
     'title' => 'title',
@@ -607,10 +604,15 @@ function pw_admin_views_default_views() {
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => '<br>',
+      'separator' => ' ',
       'empty_column' => 0,
     ),
     'edit_node' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'publishcontent' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -679,6 +681,7 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['field_display_ad']['table'] = 'field_data_field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['field'] = 'field_display_ad';
   $handler->display->display_options['fields']['field_display_ad']['label'] = 'AD';
+  $handler->display->display_options['fields']['field_display_ad']['element_type'] = 'div';
   $handler->display->display_options['fields']['field_display_ad']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_display_ad']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_display_ad']['type'] = 'lightbox2__lightbox__thumbnail__original';
@@ -691,6 +694,14 @@ function pw_admin_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['text'] = 'EDIT';
+  /* Field: Content: Publish link */
+  $handler->display->display_options['fields']['publishcontent']['id'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['table'] = 'node';
+  $handler->display->display_options['fields']['publishcontent']['field'] = 'publishcontent';
+  $handler->display->display_options['fields']['publishcontent']['label'] = '';
+  $handler->display->display_options['fields']['publishcontent']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['publishcontent']['unpublish'] = 'UNPUBLISH';
+  $handler->display->display_options['fields']['publishcontent']['publish'] = 'Publish';
   /* Field: Content: Display Ad Type */
   $handler->display->display_options['fields']['field_display_ad_type']['id'] = 'field_display_ad_type';
   $handler->display->display_options['fields']['field_display_ad_type']['table'] = 'field_data_field_display_ad_type';

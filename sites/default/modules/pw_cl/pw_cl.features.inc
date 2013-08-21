@@ -55,6 +55,7 @@ function pw_cl_image_default_styles() {
         'weight' => '2',
       ),
     ),
+    'label' => 'classified-list-style',
   );
 
   // Exported image style: classified_list_nocrop.
@@ -80,6 +81,7 @@ function pw_cl_image_default_styles() {
       26 => NULL,
       28 => NULL,
     ),
+    'label' => 'classified_list_nocrop',
   );
 
   // Exported image style: classified_page_style.
@@ -103,6 +105,7 @@ function pw_cl_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'classified_page_style',
   );
 
   return $styles;

@@ -16,8 +16,8 @@ function pw_cl_default_rules_configuration() {
       "TAGS" : [ "ad_submission", "login", "redirect" ],
       "REQUIRES" : [ "path", "rules" ],
       "ON" : [ "user_login" ],
-      "IF" : [ { "path_has_alias" : { "source" : "ad\\u002Fsubmit" } } ],
-      "DO" : [  ]
+      "IF" : [ { "path_has_alias" : { "source" : "ad\\/submit" } } ],
+      "DO" : []
     }
   }');
   $items['rules_ad_submission_submission_redirect'] = entity_import('rules_config', '{ "rules_ad_submission_submission_redirect" : {
@@ -36,7 +36,7 @@ function pw_cl_default_rules_configuration() {
           }
         }
       ],
-      "DO" : [ { "redirect" : { "url" : "ad\\u002Fthank-you" } } ]
+      "DO" : [ { "redirect" : { "url" : "ad\\/thank-you" } } ]
     }
   }');
   return $items;
