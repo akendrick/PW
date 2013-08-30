@@ -311,7 +311,7 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['filters']['field_ad_copy_value']['group'] = 1;
   $handler->display->display_options['filters']['field_ad_copy_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator_id'] = 'field_ad_copy_value_op';
-  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'And/or keyword';
+  $handler->display->display_options['filters']['field_ad_copy_value']['expose']['label'] = 'Or keyword';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['operator'] = 'field_ad_copy_value_op';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['identifier'] = 'keyword';
   $handler->display->display_options['filters']['field_ad_copy_value']['expose']['remember_roles'] = array(

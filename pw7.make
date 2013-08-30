@@ -306,7 +306,7 @@ libraries[dompdf][type] = "library"
 
 ; Please fill the following out. Type may be one of get, git, bzr or svn,
 ; and url is the url of the download.
-libraries[facebook-php-sdk][download][type] = "git"
+libraries[facebook-php-sdk][download][type] = "git "
 libraries[facebook-php-sdk][download][url] = "https://github.com/facebook/facebook-php-sdk/archive/master.zip"
 libraries[facebook-php-sdk][directory_name] = "facebook-php-sdk"
 libraries[facebook-php-sdk][type] = "library"
