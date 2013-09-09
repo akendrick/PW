@@ -132,6 +132,8 @@ function pw_la_context_default_contexts() {
         'edition/*' => 'edition/*',
         'editorial' => 'editorial',
         'editorial/*' => 'editorial/*',
+        'editorials' => 'editorials',
+        'editorials/*' => 'editorials/*',
         'user' => 'user',
         'user/*' => 'user/*',
         'contact/*' => 'contact/*',

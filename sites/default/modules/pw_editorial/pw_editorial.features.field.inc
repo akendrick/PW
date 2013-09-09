@@ -712,49 +712,18 @@ function pw_editorial_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'image',
+        'module' => 'imagefield_crop',
         'settings' => array(
-          'allowed_schemes' => array(
-            0 => 'public',
-            1 => 'private',
-          ),
-          'allowed_types' => array(
-            0 => 'image',
-          ),
           'collapsible' => '2',
           'croparea' => '0x0',
           'enforce_minimum' => 0,
           'enforce_ratio' => 0,
-          'filefield_sources' => array(
-            'filefield_sources' => array(),
-            'source_attach' => array(
-              'absolute' => 0,
-              'attach_mode' => 'move',
-              'path' => 'file_attach',
-            ),
-            'source_imce' => array(
-              'imce_mode' => 0,
-            ),
-            'source_reference' => array(
-              'autocomplete' => '0',
-            ),
-          ),
-          'insert' => 0,
-          'insert_absolute' => FALSE,
-          'insert_class' => '',
-          'insert_default' => array(
-            0 => 'auto',
-          ),
-          'insert_styles' => array(
-            0 => 'auto',
-          ),
-          'insert_width' => '',
           'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'preview_image_style' => '',
           'progress_indicator' => 'throbber',
           'resolution' => '',
         ),
-        'type' => 'image_image',
+        'type' => 'imagefield_crop_widget',
         'weight' => '16',
       ),
     ),

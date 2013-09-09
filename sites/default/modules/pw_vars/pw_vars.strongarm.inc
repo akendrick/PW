@@ -2137,13 +2137,13 @@ echo date(\'now\');
     19 => 59,
     20 => 58,
     21 => 56,
-    22 => 45,
-    23 => 44,
-    24 => 31,
-    25 => 30,
-    26 => 29,
-    27 => 28,
-    28 => 27,
+    22 => 48,
+    23 => 45,
+    24 => 44,
+    25 => 31,
+    26 => 30,
+    27 => 29,
+    28 => 28,
     29 => 25,
     30 => 24,
     31 => 23,
@@ -2152,16 +2152,17 @@ echo date(\'now\');
     34 => 15,
     35 => 14,
     36 => 13,
-    37 => 11,
-    38 => 10,
-    39 => 8,
-    40 => 7,
-    41 => 6,
-    42 => 5,
-    43 => 4,
-    44 => 3,
-    45 => 2,
-    46 => 1,
+    37 => 12,
+    38 => 11,
+    39 => 10,
+    40 => 8,
+    41 => 7,
+    42 => 6,
+    43 => 5,
+    44 => 4,
+    45 => 3,
+    46 => 2,
+    47 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2622,7 +2623,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital';
-  $strongarm->value = '[node:field-edition-date:short]';
+  $strongarm->value = '';
   $export['page_title_type_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2885,11 +2886,11 @@ echo date(\'now\');
     'holiday_settings' => '0',
     'regular_hours' => 'OPEN Monday to Thursday 9am - 5pm, Friday 9am - 4pm.',
     'holiday_message_type' => NULL,
-    'holiday' => 'Pennywise is closed for Christmas',
-    'holiday_hours' => 'Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013',
-    'holiday_details' => 'The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
-    'holiday_message' => '<h2>Pennywise is closed for Christmas</h2><p class="holiday-hours">The Pennywise office will be closed Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013.</p><p class="holiday-details">The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
-    'holiday_message_plain' => 'Pennywise is closed for Christmas.\\n\\r The Pennywise office will be closed Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013. \\r\\n The Pennywise offices are now closed until Monday, Dec. 31st at 9am.  If you wish to place an ad, please be aware that new ad requests will be received and processed at that time. We look forward to serving all your advertising needs in 2013. Merry Christmas and Happy New Year to you all!',
+    'holiday' => 'Labour Day ',
+    'holiday_hours' => 'Monday Sept. 3, 2013',
+    'holiday_details' => 'The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
+    'holiday_message' => '<h2>Labour Day </h2><p class="holiday-hours">The Pennywise office will be closed Monday Sept. 3, 2013.</p><p class="holiday-details">The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
+    'holiday_message_plain' => 'Labour Day .\\n\\r The Pennywise office will be closed Monday Sept. 3, 2013. \\r\\n The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
   );
   $export['pennywise_holiday_settings'] = $strongarm;
 
@@ -4505,7 +4506,7 @@ Your account on [site:name] has been canceled.
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_register';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['user_register'] = $strongarm;
 
   $strongarm = new stdClass();
