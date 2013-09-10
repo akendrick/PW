@@ -67,7 +67,10 @@ function ad_payment_mail($key, &$message, $params) {
       break;
     case 'inhouse':
       $message['body'][] = email_receipt_body($message);
-      $message['subject'] = $ad_type . 'Pennywise Ad ' . $rid;
+      $message['subject'] = $ad_type . $params['user']['phone'] . ' Pennywise Ad ' . $rid;
+
+      #dpm('MESSAGE');
+      #dpm($message);
       break;
   }
 
@@ -126,7 +129,8 @@ function email_receipt_body($params = NULL) {
   // Get ad submission details
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
-  //dpm('Email Body Params');
+  #dpm('Email Body Params');
+  #dpm($params);
 
   // Basic Details
   $duration = $ad['duration'];
@@ -135,6 +139,9 @@ function email_receipt_body($params = NULL) {
   $notes    = ($ad['notes'] != NULL) ? 'Notes: ' . $ad['notes'] : '';
   $ad_type  = ($ad['ad_type'] == TRUE) ? '######### LIVELOAD AD ############## <br>' : 'CLASSIFIED AD ';
   $rate     = (is_array($ad['rate'])) ? $ad['rate']['rate_name'] : $ad['rate'];
+
+  $phone    = $params['params']['user']['phone'];
+  $email    = $params['params']['user']['email'];
 
   // Options
   $areas    = $ad['areas'];
@@ -180,8 +187,12 @@ $ad_copy
 
 $notes
 
+SUBMISSION INFO
+$name
+Phone: $phone
+Email: $email
+
 PAYMENT INFO
-Submitted by: $name
 Rate: $rate
 
 Subtotal: $$subtotal
@@ -201,7 +212,7 @@ Address: Box 430,
 
 $message
 
-Thank you for placing your ad with the Pennywise, we appreciate your business .
+Thank you for placing your ad with the Pennywise, we appreciate your business.
 
 Sincerely,
 The Pennywise Team.
