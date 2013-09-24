@@ -168,12 +168,12 @@ function pw_editorial_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '3',
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'links' => array(
-      'weight' => '2',
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -522,13 +522,13 @@ function pw_editorial_ds_layout_settings_info() {
       'left' => array(
         0 => 'field_image',
         1 => 'field_high_res_ad',
+        2 => 'field_file',
       ),
       'right' => array(
-        2 => 'links',
-        3 => 'title',
-        4 => 'body',
-        5 => 'field_link',
-        6 => 'field_file',
+        3 => 'links',
+        4 => 'title',
+        5 => 'body',
+        6 => 'field_link',
       ),
       'footer' => array(
         7 => 'field_scribd',
@@ -537,11 +537,11 @@ function pw_editorial_ds_layout_settings_info() {
     'fields' => array(
       'field_image' => 'left',
       'field_high_res_ad' => 'left',
+      'field_file' => 'left',
       'links' => 'right',
       'title' => 'right',
       'body' => 'right',
       'field_link' => 'right',
-      'field_file' => 'right',
       'field_scribd' => 'footer',
     ),
     'classes' => array(),
@@ -554,6 +554,8 @@ function pw_editorial_ds_layout_settings_info() {
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
     'layout_attributes_merge' => 0,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
   );
   $export['node|attachment|default'] = $ds_layout;
 
@@ -614,12 +616,14 @@ function pw_editorial_ds_layout_settings_info() {
         0 => 'field_image',
         1 => 'title',
         2 => 'body',
+        3 => 'field_high_res_ad',
       ),
     ),
     'fields' => array(
       'field_image' => 'ds_content',
       'title' => 'ds_content',
       'body' => 'ds_content',
+      'field_high_res_ad' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -628,6 +632,8 @@ function pw_editorial_ds_layout_settings_info() {
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
     'layout_attributes_merge' => 0,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
   );
   $export['node|attachment|teaser'] = $ds_layout;
 

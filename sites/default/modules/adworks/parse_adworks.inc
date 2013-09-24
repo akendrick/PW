@@ -380,6 +380,18 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
           ),
         ),
       );
+
+      // Address field area code
+      $new_ad->field_addressfield = array(
+        $new_ad->language => array(
+          0 => array(
+            '#address' => array(
+              'postal_code' = $area_code,
+            ),
+          ),
+        ),
+      );
+
       // Count Area Codes
       //$area_code_count += 1;
       $context['results']['area_count']++;

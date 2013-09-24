@@ -1068,6 +1068,7 @@ echo date(\'now\');
     'group_attachments|node|task|form' => FALSE,
     'group_attachments|node|task|default' => FALSE,
     'group_special_feature|node|attachment|form' => FALSE,
+    'group_map|node|classified|form' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1654,6 +1655,36 @@ echo date(\'now\');
       'mobile' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'print_display_ad' => array(
+        'custom_settings' => FALSE,
+      ),
+      'attachment' => array(
+        'custom_settings' => FALSE,
+      ),
+      'castlegar_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'editorial_slideshow' => array(
+        'custom_settings' => FALSE,
+      ),
+      'kootenay_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'nelson_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'special_feature' => array(
+        'custom_settings' => FALSE,
+      ),
+      'trail_edition_view' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'display' => array(),
@@ -1663,6 +1694,9 @@ echo date(\'now\');
         ),
         'path' => array(
           'weight' => '8',
+        ),
+        'redirect' => array(
+          'weight' => '9',
         ),
       ),
     ),
@@ -2144,25 +2178,26 @@ echo date(\'now\');
     26 => 30,
     27 => 29,
     28 => 28,
-    29 => 25,
-    30 => 24,
-    31 => 23,
-    32 => 22,
-    33 => 21,
-    34 => 15,
-    35 => 14,
-    36 => 13,
-    37 => 12,
-    38 => 11,
-    39 => 10,
-    40 => 8,
-    41 => 7,
-    42 => 6,
-    43 => 5,
-    44 => 4,
-    45 => 3,
-    46 => 2,
-    47 => 1,
+    29 => 27,
+    30 => 25,
+    31 => 24,
+    32 => 23,
+    33 => 22,
+    34 => 21,
+    35 => 15,
+    36 => 14,
+    37 => 13,
+    38 => 12,
+    39 => 11,
+    40 => 10,
+    41 => 8,
+    42 => 7,
+    43 => 6,
+    44 => 5,
+    45 => 4,
+    46 => 3,
+    47 => 2,
+    48 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
