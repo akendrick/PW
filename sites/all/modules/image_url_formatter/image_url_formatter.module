@@ -36,7 +36,7 @@ function image_url_formatter_field_formatter_info() {
   $formatters = array(
     'image_url' => array(
       'label' => t('Image URL'),
-      'field types' => array('file', 'image', 'imagefield_crop'),
+      'field types' => array('image', 'imagefield_crop'),
       'settings' => array(
         'url_type' => '',
         'image_style' => '',
@@ -210,7 +210,7 @@ function theme_image_url_formatter($variables) {
     return $item['uri'];
   }
   $output = file_create_url($item['uri']);
-  if ($variables['image_style'] && ($variables['item']['type'] == 'image' || $variables['item']['type'] == 'imagefield_crop')) {
+  if ($variables['image_style']) {
     $image['style_name'] = $variables['image_style'];
     $output = image_style_url($image['style_name'], $item['uri']);
   }
