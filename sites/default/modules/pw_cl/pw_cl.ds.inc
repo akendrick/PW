@@ -82,8 +82,13 @@ function pw_cl_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'classified';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'links' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'post_date' => array(
-      'weight' => '3',
+      'weight' => '2',
       'label' => 'inline',
       'format' => 'ds_post_date_medium',
     ),
@@ -375,6 +380,40 @@ function pw_cl_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_2col_stacked';
   $ds_layout->settings = array(
+    'regions' => array(
+      'header' => array(
+        0 => 'field_ad_type',
+        1 => 'field_image',
+        3 => 'field_geofield',
+      ),
+      'left' => array(
+        2 => 'field_tags',
+        4 => 'group_details',
+        5 => 'post_date',
+        6 => 'field_email',
+        7 => 'field_phone',
+        8 => 'field_link',
+        9 => 'links',
+        11 => 'field_addressfield',
+      ),
+      'right' => array(
+        10 => 'field_ad_copy',
+      ),
+    ),
+    'fields' => array(
+      'field_ad_type' => 'header',
+      'field_image' => 'header',
+      'field_tags' => 'left',
+      'field_geofield' => 'header',
+      'group_details' => 'left',
+      'post_date' => 'left',
+      'field_email' => 'left',
+      'field_phone' => 'left',
+      'field_link' => 'left',
+      'links' => 'left',
+      'field_ad_copy' => 'right',
+      'field_addressfield' => 'left',
+    ),
     'classes' => array(),
     'wrappers' => array(
       'header' => 'div',
@@ -385,34 +424,8 @@ function pw_cl_ds_layout_settings_info() {
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
     'layout_attributes_merge' => 1,
-    'regions' => array(
-      'header' => array(
-        0 => 'field_image',
-        1 => 'field_ad_type',
-      ),
-      'left' => array(
-        0 => 'group_details',
-        1 => 'field_tags',
-        2 => 'post_date',
-        3 => 'field_phone',
-        4 => 'field_link',
-        5 => 'field_email',
-      ),
-      'right' => array(
-        0 => 'field_ad_copy',
-      ),
-    ),
-    'fields' => array(
-      'field_image' => 'header',
-      'field_ad_type' => 'header',
-      'group_details' => 'left',
-      'field_tags' => 'left',
-      'post_date' => 'left',
-      'field_phone' => 'left',
-      'field_link' => 'left',
-      'field_email' => 'left',
-      'field_ad_copy' => 'right',
-    ),
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
   );
   $export['node|classified|default'] = $ds_layout;
 

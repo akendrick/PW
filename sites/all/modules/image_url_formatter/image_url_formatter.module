@@ -4,7 +4,15 @@
  * @file
  * Add an URL formatter for image field
  */
- 
+
+/**
+ * Define constants for determine which type of URL should be used.
+ */
+define('IMAGE_URL_FORMATTER_URI_PATH', '3');
+define('IMAGE_URL_FORMATTER_RELATIVE_PATH', '2');
+define('IMAGE_URL_FORMATTER_ABSOLUTE_PATH', '1');
+define('IMAGE_URL_FORMATTER_FULL_URL', '0');
+
 /**
  * Implements hook_theme().
  */
@@ -12,14 +20,15 @@ function image_url_formatter_theme() {
   return array(
     'image_url_formatter' => array(
       'variables' => array(
-        'item' => NULL, 
-        'path' => NULL, 
+        'item' => NULL,
+        'path' => NULL,
         'image_style' => NULL,
+        'url_type' => NULL,
       ),
     ),
   );
 }
- 
+
 /**
  * Implements hook_field_formatter_info().
  */
@@ -28,7 +37,11 @@ function image_url_formatter_field_formatter_info() {
     'image_url' => array(
       'label' => t('Image URL'),
       'field types' => array('image', 'imagefield_crop'),
-      'settings' => array('image_style' => '', 'image_link' => ''),
+      'settings' => array(
+        'url_type' => '',
+        'image_style' => '',
+        'image_link' => '',
+      ),
     ),
   );
 
@@ -41,6 +54,22 @@ function image_url_formatter_field_formatter_info() {
 function image_url_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
+
+  $element['url_type'] = array(
+    '#title' => t('URL type'),
+    '#type' => 'radios',
+    '#options' => array(
+      IMAGE_URL_FORMATTER_URI_PATH => t('URI path'),
+      IMAGE_URL_FORMATTER_RELATIVE_PATH => t('Relative file path'),
+      IMAGE_URL_FORMATTER_ABSOLUTE_PATH => t('Absolute file path (recommended)'),
+      IMAGE_URL_FORMATTER_FULL_URL => t('Full URL'),
+    ),
+    '#default_value' => $settings['url_type'],
+  );
+  $element['url_type'][IMAGE_URL_FORMATTER_URI_PATH]['#description'] = t("Uses the URI path, like: 'public://image.png'");
+  $element['url_type'][IMAGE_URL_FORMATTER_RELATIVE_PATH]['#description'] = t("No base URL or leading slash, like: 'sites/default/files/image.png'");
+  $element['url_type'][IMAGE_URL_FORMATTER_ABSOLUTE_PATH]['#description'] = t("With leading slash, no base URL, like: '/sites/default/files/image.png'");
+  $element['url_type'][IMAGE_URL_FORMATTER_FULL_URL]['#description'] = t("Like: 'http://example.com/sites/default/files/image.png'");
 
   $image_styles = image_style_options(FALSE);
   $element['image_style'] = array(
@@ -74,6 +103,24 @@ function image_url_formatter_field_formatter_settings_summary($field, $instance,
   $settings = $display['settings'];
 
   $summary = array();
+
+  switch ($settings['url_type']) {
+    case IMAGE_URL_FORMATTER_URI_PATH:
+      $summary[] = t('Use uri path');
+      break;
+
+    case IMAGE_URL_FORMATTER_RELATIVE_PATH:
+      $summary[] = t('Use relative path');
+      break;
+
+    case IMAGE_URL_FORMATTER_ABSOLUTE_PATH:
+      $summary[] = t('Use absolute path');
+      break;
+
+    case IMAGE_URL_FORMATTER_FULL_URL:
+      $summary[] = t('Use full URL');
+      break;
+  }
 
   $image_styles = image_style_options(FALSE);
   // Unset possible 'No defined styles' option.
@@ -121,12 +168,12 @@ function image_url_formatter_field_formatter_view($entity_type, $entity, $field,
             'options' => array(),
           );
         }
-        //debug($item);
         $element[$delta] = array(
           '#theme' => 'image_url_formatter',
           '#item' => $item,
           '#image_style' => $display['settings']['image_style'],
           '#path' => isset($uri) ? $uri : '',
+          '#url_type' => $display['settings']['url_type'],
         );
       }
 
@@ -140,7 +187,7 @@ function image_url_formatter_field_formatter_view($entity_type, $entity, $field,
 /**
  * Returns HTML for an image url field formatter.
  *
- * @param $variables
+ * @param array $variables
  *   An associative array containing:
  *   - item: An array of image data.
  *   - image_style: An optional image style.
@@ -158,14 +205,19 @@ function theme_image_url_formatter($variables) {
   if (drupal_strlen($item['title']) > 0) {
     $image['title'] = $item['title'];
   }
+  // Return the URI path.
+  if ($variables['url_type'] == 3) {
+    return $item['uri'];
+  }
   $output = file_create_url($item['uri']);
   if ($variables['image_style']) {
-    //debug($image);
     $image['style_name'] = $variables['image_style'];
     $output = image_style_url($image['style_name'], $item['uri']);
   }
+  $output = image_url_formatter_convert_full_url($output, $variables['url_type']);
   if ($variables['path']) {
     $path = $variables['path']['path'];
+    $path = image_url_formatter_convert_full_url($path, $variables['url_type']);
     $options = $variables['path']['options'];
     // When displaying an image inside a link, the html option must be TRUE.
     $options['html'] = TRUE;
@@ -173,4 +225,53 @@ function theme_image_url_formatter($variables) {
   }
 
   return $output;
+}
+
+/**
+ * Converts a full URL to the choosen format.
+ *
+ * @param string $url
+ *   The full URL to convet.
+ * @param constant $format
+ *   IMAGE_URL_FORMATTER_RELATIVE_PATH for relative path,
+ *   IMAGE_URL_FORMATTER_ABSOLUTE_PATH for absolute path,
+ *   IMAGE_URL_FORMATTER_FULL_URL for full URL.
+ *
+ * @return string
+ *   The converted URL.
+ */
+function image_url_formatter_convert_full_url($url, $format = IMAGE_URL_FORMATTER_FULL_URL) {
+  switch ($format) {
+    case IMAGE_URL_FORMATTER_RELATIVE_PATH:
+      $url = _image_url_formatter_get_relative_file_url($url);
+      break;
+
+    case IMAGE_URL_FORMATTER_ABSOLUTE_PATH:
+      $url = _image_url_formatter_get_absolute_file_url($url);
+      break;
+  }
+
+  return $url;
+}
+
+/**
+ * Returns an absolute url.
+ */
+function _image_url_formatter_get_absolute_file_url($url) {
+  global $base_url;
+  if (strpos($url, $base_url) === 0) {
+    $url = base_path() . ltrim(str_replace($GLOBALS['base_url'], '', $url), '/');
+  }
+  return $url;
+}
+
+/**
+ * Returns a relative url.
+ */
+function _image_url_formatter_get_relative_file_url($url) {
+  $url = _image_url_formatter_get_absolute_file_url($url);
+  if ($url[0] == '/') {
+    $url = substr($url, 1);
+  }
+  return $url;
 }

@@ -32,6 +32,17 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
 }
 
 
+function adworks_form_classified_node_form_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'adworks_form_classified_node_form_validate';
+  #dpm($form);
+}
+
+function adworks_form_classified_node_form_validate(&$form, &$form_state) {
+  #dpm('Adworks form validation');
+  #dpm($form_state);
+}
+
+
 
 /**
  * Implementation of HOOK_form_validate()
@@ -40,6 +51,8 @@ function adworks_form_adworks_file_node_form_alter(&$form, &$form_state) {
  * - runs preflight.
  */
 function adworks_form_validate(&$form, &$form_state) {
+  dpm('Adworks Validate');
+
   if ($form_state['input']['field_ad_creation_override']['und']) {
     return;
   }

@@ -592,6 +592,11 @@ rel="lightbox[field_display_ad_1]%5B<p><a href=\'[field_display_ad_1]\'Download 
   $handler->display->display_options['sorts']['field_ad_client_tid']['id'] = 'field_ad_client_tid';
   $handler->display->display_options['sorts']['field_ad_client_tid']['table'] = 'field_data_field_ad_client';
   $handler->display->display_options['sorts']['field_ad_client_tid']['field'] = 'field_ad_client_tid';
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
