@@ -1,8 +1,0 @@
-filename = "PennywiseAds-2013-09-24T04-23-38"
-description = ""
-datestamp = "1380021826"
-generator = "Backup and Migrate (http://drupal.org/project/backup_migrate)"
-generatorversion = "7.x-2.x"
-sites[0][version] = "7.23"
-sites[0][name] = "Pennywise Ads"
-sites[0][url] = "http://kaslobc.com:8888/pw7/"
