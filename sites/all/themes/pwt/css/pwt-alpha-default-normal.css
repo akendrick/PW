@@ -113,7 +113,7 @@
 .node-type-classified .classified-detail-box{margin:0 10px}
 .node-type-classified .field-name-field-ad-copy{font-size:1.4em}
 .node-type-classified .field-name-field-ad-copy :first-line {font-weight:bold}
-.node-type-classified .field-name-field-link{word-wrap:break-word}#node_classified_full_group_details{width:190px}
+.node-type-classified .field-name-field-link{word-wrap:break-word}#node_classified_full_group_details{width:100%}
 .view-display-id-poster_block{display:block;margin-left:auto;margin-right:auto;text-align:center}
 .view-display-id-poster_block .views-row{margin-bottom:20px}
 .view-display-id-poster_block .view-footer{clear:both}

@@ -90,8 +90,8 @@
 .page-search ul.search-results-list li.classified-ad-Regular p,.page-search ul.search-results-list li.classified-ad-Liveload p{margin:0}
 .page-search ul.search-results-list li.classified-ad-Regular .views-field-field-phone,.page-search ul.search-results-list li.classified-ad-Liveload .views-field-field-phone{font-weight:700}
 .page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper{display:table}
-.page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-image-wrapper,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-image-wrapper{margin:0 10px 10px 0;display:table-cell}
-.page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-copy-wrapper,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-copy-wrapper{display:table-cell;float:left;padding:5px 10px}
+.page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-image-wrapper,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-image-wrapper{margin:0 10px 10px 0}
+.page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-copy-wrapper,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-copy-wrapper{padding:5px 10px}
 .page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-copy-wrapper a,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-copy-wrapper a{padding:2px 5px;background-color:#fff8dd;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px}
 .page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-copy-wrapper a:hover,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-copy-wrapper a:hover{background-color:#fe4e4e}
 .page-search ul.search-results-list li.classified-ad-Regular .search-result-page-wrapper .search-result-page-copy-wrapper .search-result-phone,.page-search ul.search-results-list li.classified-ad-Liveload .search-result-page-wrapper .search-result-page-copy-wrapper .search-result-phone{background:#fff;padding:2px 5px;text-align:center;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px}
@@ -178,3 +178,4 @@
 .view-business-client-pages ul.client-list{padding:10px;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px}
 .view-business-client-pages ul.client-list li{width:180px;padding:10px;background:#d1e5ff}
 .view-business-client-pages ul.client-list li img{margin:0 auto;display:block}
+.views-field-path a {display: none}#node_classified_full_group_details {width: 100%}
