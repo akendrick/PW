@@ -12,6 +12,8 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+  <!-- One line added my Andrea @ Brainflex Oct. 1, 2013 -->
+  <?php render($content['metatags']); ?>
 </head>
 <body<?php print $attributes;?>>
   <div id="skip-link">
