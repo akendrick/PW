@@ -3,13 +3,13 @@
 /**
  * @file
  * This is the Form API Tutorial from the handbook.
+ * TODO: Update this URL, and update it in the dynamic text below.
+ * @see http://drupal.org/node/262422
  *
- * It goes through 10 form examples of increasing complexity to demonstrate
+ * It goes through nine form examples in increasing complexity to demonstrate
  * Drupal 7 Form API.
  *
  * Links are provided inline for the related handbook pages.
- *
- * @see http://drupal.org/node/262422
  */
 
 /**
@@ -29,7 +29,7 @@
  * @ingroup form_example
  */
 function form_example_tutorial() {
-  return t('This is a set of 10 form tutorials tied to the <a href="http://drupal.org/node/262422">Drupal handbook</a>.');
+  return t('This is a set of nine form tutorials tied to the <a href="http://drupal.org/node/262422">Drupal handbook</a>.');
 }
 
 //////////////// Tutorial Example 1 //////////////////////
@@ -141,7 +141,7 @@ function form_example_tutorial_3($form, &$form_state) {
 function form_example_tutorial_4($form, &$form_state) {
   $form['description'] = array(
     '#type' => 'item',
-    '#title' => t('A form with required fields'),
+    '#title' => t('A form with validation'),
   );
 
   $form['name'] = array(
@@ -382,8 +382,9 @@ function form_example_tutorial_7_submit($form, &$form_state) {
  * The @link ajax_example_wizard AJAX Example's Wizard Example @endlink
  * gives an AJAX version of this same idea.
  *
+ * @see form_example_tutorial_8_submit()
+ * @see form_example_tutorial_8_validate()
  * @see form_example_tutorial_8_page_two()
- * @see form_example_tutorial_8_page_two_back()
  * @see form_example_tutorial_8_page_two_submit()
  * @see form_example_tutorial_8_next_submit()
  * @see form_example_tutorial.inc
@@ -391,7 +392,7 @@ function form_example_tutorial_7_submit($form, &$form_state) {
  */
 function form_example_tutorial_8($form, &$form_state) {
 
-  // Display page 2 if $form_state['page_num'] == 2
+  // Display page 2 if $form_state['page_num'] == 1
   if (!empty($form_state['page_num']) && $form_state['page_num'] == 2) {
     return form_example_tutorial_8_page_two($form, $form_state);
   }
@@ -529,27 +530,8 @@ function form_example_tutorial_8_page_two_submit($form, &$form_state) {
   }
   drupal_set_message(t('And the favorite color is @color', array('@color' => $form_state['values']['color'])));
 
-  // If we wanted to redirect on submission, set $form_state['redirect']. For
-  // simple redirects, the value can be a string of the path to redirect to. For
-  // example, to redirect to /node, one would specify the following:
-  //
-  // $form_state['redirect'] = 'node';
-  //
-  // For more complex redirects, this value can be set to an array of options to
-  // pass to drupal_goto(). For example, to redirect to /foo?bar=1#baz, one
-  // would specify the following:
-  //
-  // $form_state['redirect'] = array(
-  //   'foo',
-  //   array(
-  //     'query' => array('bar' => 1),
-  //     'fragment' => 'baz',
-  //   ),
-  // );
-  //
-  // The first element in the array is the path to redirect to, and the second
-  // element in the array is the array of options. For more information on the
-  // available options, see http://api.drupal.org/url.
+  // If we wanted to redirect on submission, set $form_state['redirect']
+  // $form_state['redirect'] = 'node'; // Redirects the user to /node.
 }
 
 //////////////// Tutorial Example 9 //////////////////////
@@ -743,7 +725,7 @@ function form_example_tutorial_10_validate($form, &$form_state) {
       $form_state['storage']['file'] = $file;
     }
     else {
-      form_set_error('file', t('Failed to write the uploaded file to the site\'s file folder.'));
+      form_set_error('file', t('Failed to write the uploaded file the site\'s file folder.'));
     }
   }
   else {

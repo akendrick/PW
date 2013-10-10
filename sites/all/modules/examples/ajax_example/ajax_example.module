@@ -18,16 +18,12 @@
  * The several examples here demonstrate basic AJAX usage.
  */
 
-// The Node Form Alter example needs to be in another file.
-module_load_include('inc', 'ajax_example', 'ajax_example_node_form_alter');
-
 /**
  * Implements hook_menu().
  *
  * Sets up calls to drupal_get_form() for all our example cases.
  *
- * @see menu_example.module
- * @see menu_example_menu()
+ * @see menu_example.module for more details on hook_menu().
  */
 function ajax_example_menu() {
   $items = array();
@@ -195,51 +191,7 @@ function ajax_example_menu() {
     'page arguments' => array('ajax_example_advanced_commands'),
     'access callback' => TRUE,
     'file' => 'ajax_example_advanced.inc',
-    'weight' => 100,
-  );
-
-  // Autocomplete examples.
-  $items['examples/ajax_example/simple_autocomplete'] = array(
-    'title' => 'Autocomplete (simple)',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ajax_example_simple_autocomplete'),
-    'access arguments' => array('access user profiles'),
-    'file' => 'ajax_example_autocomplete.inc',
     'weight' => 10,
-  );
-  $items['examples/ajax_example/simple_user_autocomplete_callback'] = array(
-    'page callback' => 'ajax_example_simple_user_autocomplete_callback',
-    'file' => 'ajax_example_autocomplete.inc',
-    'type' => MENU_CALLBACK,
-    'access arguments' => array('access user profiles'),
-  );
-  $items['examples/ajax_example/node_autocomplete'] = array(
-    'title' => 'Autocomplete (node with nid)',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ajax_example_unique_autocomplete'),
-    'access arguments' => array('access content'),
-    'file' => 'ajax_example_autocomplete.inc',
-    'weight' => 11,
-  );
-  $items['examples/ajax_example/unique_node_autocomplete_callback'] = array(
-    'page callback' => 'ajax_example_unique_node_autocomplete_callback',
-    'file' => 'ajax_example_autocomplete.inc',
-    'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
-  );
-  $items['examples/ajax_example/node_by_author'] = array(
-    'title' => 'Autocomplete (node limited by author)',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ajax_example_node_by_author_autocomplete'),
-    'access callback' => TRUE,
-    'file' => 'ajax_example_autocomplete.inc',
-    'weight' => 12,
-  );
-  $items['examples/ajax_example/node_by_author_autocomplete'] = array(
-    'page callback' => 'ajax_example_node_by_author_node_autocomplete_callback',
-    'file' => 'ajax_example_autocomplete.inc',
-    'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
   );
 
   return $items;
@@ -247,29 +199,6 @@ function ajax_example_menu() {
 
 function ajax_example_intro() {
   $markup = t('The AJAX example module provides many examples of AJAX including forms, links, and AJAX commands.');
-
-  $list[] = l(t('Simplest AJAX Example'), 'examples/ajax_example/simplest');
-  $list[] = l(t('Generate checkboxes'), 'examples/ajax_example/autocheckboxes');
-  $list[] = l(t('Generate textfields'), 'examples/ajax_example/autotextfields');
-  $list[] = l(t('Submit-driven AJAX'), 'examples/ajax_example/submit_driven_ajax');
-  $list[] = l(t('Dependent dropdown'), 'examples/ajax_example/dependent_dropdown');
-  $list[] = l(t('Dependent dropdown (with graceful degradation)'), 'examples/ajax_example/dependent_dropdown_degrades');
-  $list[] = l(t('Dynamic Sections w/JS turned off'), 'examples/ajax_example/dependent_dropdown_degrades_no_js');
-  $list[] = l(t('Wizard (with graceful degradation)'), 'examples/ajax_example/wizard');
-  $list[] = l(t('Wizard w/JS turned off'), 'examples/ajax_example/wizard_no_js');
-  $list[] = l(t('Add-more button (with graceful degradation)'), 'examples/ajax_example/add_more');
-  $list[] = l(t('Add-more button w/JS turned off'), 'examples/ajax_example/add_more_no_js');
-  $list[] = l(t('Ajax Link ("use-ajax" class)'), 'examples/ajax_example/ajax_link');
-  $list[] = l(t('Ajax Link (Renderable Array)'), 'examples/ajax_example/ajax_link_renderable');
-  $list[] = l(t('AJAX framework commands'), 'examples/ajax_example/advanced_commands');
-  $list[] = l(t('Autocomplete (simple)'), 'examples/ajax_example/simple_autocomplete');
-  $list[] = l(t('Autocomplete (node with nid)'), 'examples/ajax_example/node_autocomplete');
-  $list[] = l(t('Autocomplete (node limited by author)'), 'examples/ajax_example/node_by_author');
-
-  $variables['items'] = $list;
-  $variables['type'] = 'ul';
-  $markup .= theme('item_list', $variables);
-
   return $markup;
 }
 
@@ -297,7 +226,7 @@ function ajax_example_simplest($form, &$form_state) {
       // There are also several optional keys - see ajax_example_autocheckboxes
       // below for details on 'method', 'effect' and 'speed' and
       // ajax_example_dependent_dropdown for 'event'.
-    ),
+     ),
   );
 
   // This entire form element will be replaced whenever 'changethis' is updated.
@@ -488,6 +417,7 @@ function ajax_example_submit_driven_ajax($form, &$form_state) {
     '#ajax' => array(
       'callback' => 'ajax_example_submit_driven_callback',
       'wrapper' => 'box',
+      'name' => 'submit1',
     ),
     '#value' => t('Submit'),
   );
