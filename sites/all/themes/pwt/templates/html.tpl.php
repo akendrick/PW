@@ -6,6 +6,8 @@
   <?php print $styles; ?>
   <?php print $scripts; ?>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!-- One line added my Andrea @ Brainflex Oct. 1, 2013 -->
+  <?php render($content['metatags']); ?>
 </head>
 <body<?php print $attributes;?>>
   <div id="skip-link">

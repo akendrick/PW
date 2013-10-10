@@ -1438,10 +1438,6 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
           }
           .search-result-page-copy-wrapper {
             padding: 5px 10px;
-            margin:0 10px 10px 0
-          }
-          .search-result-page-copy-wrapper {
-            padding:5px 10px;
             a {
               padding: 2px 5px;
               background-color: @sunlight;
@@ -1479,7 +1475,81 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
 
     }
  }
-
+/*   .view-display-id-search_page {
+/*     h3 {
+/*       clear: both;
+/*       background-color: @classified_med;
+/*       padding: 5px 40px;
+/*       margin: 15px 0 0 0;
+/*       .border-radius-custom;
+/*       a {
+/*         color: @white;
+/*       }
+/*     }
+/*     ul.search-results-list {
+/*       border: 1pt solid @classified_dark;
+/*       border-top: none;
+/*       margin: 0;
+/*       padding: 10px;
+/*       li {
+/*         clear: both;
+/*         padding: 8px;
+/*         margin: 5px;
+/*         font-size: 1.1em;
+/*         p {
+/*           margin: 0;
+/*         }
+/*         .views-field-field-phone {
+/*           font-weight: 700;
+/*         }
+/*         .search-result-page-wrapper {
+/*           display: table;
+/*           .search-result-page-image-wrapper {
+/*             margin: 0 10px 10px 0;
+/*             display: table-cell;
+/*           }
+/*           .search-result-page-copy-wrapper {
+/*             display: table-cell;
+/*             float: left;
+/*             padding: 5px 10px;
+/*             a {
+/*               padding: 2px 5px;
+/*               background-color: @sunlight;
+/*               .border-radius;
+/*             }
+/*             a:hover {
+/*               background-color: @alert;
+/*             }
+/*             .search-result-phone {
+/*               background: @white;
+/*               padding: 2px 5px;
+/*               text-align: center;
+/*               .border-radius;
+/*             }
+/*           }
+/*           .search-result-page-copy-wrapper:first-line {
+/*             font-weight: 600;
+/*           }
+/*           .search-result-page-clear {
+/*             clear: both;
+/*             width: 100%;
+/*           }
+/*         }
+/*       }
+/*       li.views-row-last {
+/*         .border-radius-custom(0, 0, 10px, 10px);
+/*       }
+/*       li.views-row-first {
+/*         .border-radius-custom;
+/*       }
+/*       li.classified-ad-Liveload {
+/*         background-color: @sunlight;
+/*         border: 1pt solid @alert;
+/*       }
+/*     }
+/*   }
+/* }
+/*
 /* PAGER */
 ul.pager {
     border: none;
@@ -1512,7 +1582,33 @@ ul.pager {
     }
   }
 
+/*
+#main-content {
+  #views-exposed-form-search-ads-search-page,
+  #views-exposed-form-search-ads-search-page--2 {
+    color: @white;
+    background-color: @classified_med;
+    .border-radius-custom;
 
+    .form-item-search-ads, label, .views-widget, {
+      width: 200px;
+      display: inline;
+    }
+  }
+}
+
+*/
+/* Main Sections BLOCK */
+/*
+.view-section-pages, .view-search-ads {
+   li.views-row-even, .views-row-odd {
+      background-color: @lightsand;
+    }
+    li.views-row-odd,  .views-row-even {
+      background-color: @sand;
+    }
+}
+*/
 
 .classified-full_section-links {
   background-color: @white;
@@ -1622,7 +1718,7 @@ ul.pager {
 
 /*** classified ads with MASONRY blocks ****/
 .view-id-section_pages {
-/*   background-color: @faintsand; */
+  background-color: @faintsand;
   margin: 0;
   padding: 0;
   /* section headers */
@@ -1649,7 +1745,7 @@ ul.pager {
     li.classified-ad-block {
 /*       padding: 5px; */
       margin: 3px 0;
-/*       background-color: @lightsand; */
+      background-color: @lightsand;
       border-width: 1pt;
       p {
         margin: 0;
@@ -1663,11 +1759,11 @@ ul.pager {
     }
     li.views-row-odd {
       border: none;
-/*       background-color: @lightsand; */
+      background-color: @lightsand;
     }
     li.views-row-even {
       border: none;
-/*       background-color: @sand; */
+      background-color: @sand;
     }
   }
   .views-row-even, .views-row-odd {
@@ -1699,28 +1795,7 @@ ul.pager {
     height: 0;
   }
 }
-
-/* CLASSIFIED MAPs */
-.geofield-map-field {
-  .map-link-block {
-    width: 100%!important;
-    clear: both;
-    padding: 20px;
-    a.map-link  {
-      background: @alert url(../images/globesml.png) left no-repeat;
-      border: 2pt solid @white;
-      text-align: center;
-      padding: 12px 20px 12px 50px;
-      .border-radius;
-      font-size: .8em;
-      color: @white;
-      margin: 3px 0 10px 50px;
-    }
-    a.map-link:hover {
-      background: @classified_dark url(../images/globesml.png) left no-repeat;
-    }
-  }
-}
+/* */
 
 
 /* read-more link */
@@ -1743,6 +1818,14 @@ ul.pager {
 
 .node-type-classified {
   #page-title { display: none;}
+  .ds-2col-stacked {
+    .group-left {
+      width: 100%;
+    }
+    .group-right {
+      width: 90%;
+    }
+  }
   .classified-detail-box {
     margin: 0 10px;
   }
@@ -1757,7 +1840,7 @@ ul.pager {
   }
 }
 #node_classified_full_group_details {
-  width: 100%;
+  width: 190px;
 }
 
 
@@ -2089,10 +2172,4 @@ body.responsive-layout-mobile {
       }
     }
   }
-}
-.views-field-path a {
-  display: none;
-}
-#node_classified_full_group_details {
-  width: 100%;
 }
