@@ -968,6 +968,7 @@ echo date(\'now\');
     'front_page' => TRUE,
     'mobile_front' => TRUE,
     'jq_mobile_layout' => TRUE,
+    'mobile_layout' => TRUE,
   );
   $export['context_status'] = $strongarm;
 
@@ -1068,7 +1069,6 @@ echo date(\'now\');
     'group_attachments|node|task|form' => FALSE,
     'group_attachments|node|task|default' => FALSE,
     'group_special_feature|node|attachment|form' => FALSE,
-    'group_map|node|classified|form' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
@@ -1695,9 +1695,6 @@ echo date(\'now\');
         'path' => array(
           'weight' => '8',
         ),
-        'redirect' => array(
-          'weight' => '9',
-        ),
       ),
     ),
   );
@@ -2178,26 +2175,25 @@ echo date(\'now\');
     26 => 30,
     27 => 29,
     28 => 28,
-    29 => 27,
-    30 => 25,
-    31 => 24,
-    32 => 23,
-    33 => 22,
-    34 => 21,
-    35 => 15,
-    36 => 14,
-    37 => 13,
-    38 => 12,
-    39 => 11,
-    40 => 10,
-    41 => 8,
-    42 => 7,
-    43 => 6,
-    44 => 5,
-    45 => 4,
-    46 => 3,
-    47 => 2,
-    48 => 1,
+    29 => 25,
+    30 => 24,
+    31 => 23,
+    32 => 22,
+    33 => 21,
+    34 => 15,
+    35 => 14,
+    36 => 13,
+    37 => 12,
+    38 => 11,
+    39 => 10,
+    40 => 8,
+    41 => 7,
+    42 => 6,
+    43 => 5,
+    44 => 4,
+    45 => 3,
+    46 => 2,
+    47 => 1,
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2616,7 +2612,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_classified';
-  $strongarm->value = '[site:name]  [node:field-tags] - [node:nid] - [node:title]';
+  $strongarm->value = '[site:name] - [node:field-tags] - [current-page:page-title] ';
   $export['page_title_type_classified'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2812,7 +2808,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_classified_pattern';
-  $strongarm->value = 'ad/[node:field-tags]/[node:nid]';
+  $strongarm->value = 'ad/[node:field-tags]/[node:created:short]/[node:title]';
   $export['pathauto_node_classified_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2923,9 +2919,9 @@ echo date(\'now\');
     'holiday_message_type' => NULL,
     'holiday' => 'Labour Day ',
     'holiday_hours' => 'Monday Sept. 3, 2013',
-    'holiday_details' => 'The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
-    'holiday_message' => '<h2>Labour Day </h2><p class="holiday-hours">The Pennywise office will be closed Monday Sept. 3, 2013.</p><p class="holiday-details">The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
-    'holiday_message_plain' => 'Labour Day .\\n\\r The Pennywise office will be closed Monday Sept. 3, 2013. \\r\\n The Pennywise is now closed for the Labour Day weekend. We will reopen again on Tuesday, September 3 at 8:30 am. ',
+    'holiday_details' => 'The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
+    'holiday_message' => '<h2>Labour Day </h2><p class="holiday-hours">The Pennywise office will be closed Monday Sept. 3, 2013.</p><p class="holiday-details">The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
+    'holiday_message_plain' => 'Labour Day .\\n\\r The Pennywise office will be closed Monday Sept. 3, 2013. \\r\\n The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
   );
   $export['pennywise_holiday_settings'] = $strongarm;
 
@@ -3500,14 +3496,14 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'securepages_enable';
-  $strongarm->value = 0;
+  $strongarm->value = '0';
   $export['securepages_enable'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'securepages_ignore';
-  $strongarm->value = '';
+  $strongarm->value = 'sitemap.xml';
   $export['securepages_ignore'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -3540,6 +3536,8 @@ ad/*';
     6 => 0,
     7 => 0,
     10 => 0,
+    12 => 0,
+    13 => 0,
   );
   $export['securepages_roles'] = $strongarm;
 
@@ -3561,7 +3559,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_403';
-  $strongarm->value = '';
+  $strongarm->value = 'r4032login';
   $export['site_403'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -3610,7 +3608,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_slogan';
-  $strongarm->value = 'The West Kootenay Source for Classified Advertising';
+  $strongarm->value = 'The West Kootenay Free Source for Classified Advertising';
   $export['site_slogan'] = $strongarm;
 
   $strongarm = new stdClass();

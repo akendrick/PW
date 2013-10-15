@@ -76,7 +76,6 @@ features[field][] = node-classified-field_ad_type
 features[field][] = node-classified-field_addressfield
 features[field][] = node-classified-field_area_code
 features[field][] = node-classified-field_email
-features[field][] = node-classified-field_geofield
 features[field][] = node-classified-field_image
 features[field][] = node-classified-field_link
 features[field][] = node-classified-field_phone
