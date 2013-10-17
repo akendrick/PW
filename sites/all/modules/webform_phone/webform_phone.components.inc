@@ -139,14 +139,14 @@ function _webform_edit_phone($component) {
  */
 function _webform_render_phone($component, $value = NULL, $filter = TRUE) {
   $form_item = array(
-    '#type'             => 'textfield',
+    '#type'             => module_exists('elements') ? 'telfield' : 'textfield',
     '#default_value'    => $filter ? _webform_filter_values($component['value']) : $component['value'],
     '#attributes'       => $component['extra']['attributes'],
     '#theme_wrappers'   => array( 'webform_element' ),
     '#description'      => $filter ? _webform_filter_descriptions($component['extra']['description']) : $component['extra']['description'],
     '#element_validate' => array( 'webform_validate_phone' ),
     '#maxlength'        => ( $component['extra']['country'] == 'int' ? ( isset( $component['extra']['phone_int_max_length'] ) ? $component['extra']['phone_int_max_length'] : NULL ) : NULL ),
-    '#required'         => $component['required'] || $component['mandatory'],//Either one being true will could as required...because webform changed in 4.x-alpha8
+    '#required'         => $component['required'] || $component['mandatory'], //Either one being true will could as required...because webform changed in 4.x-alpha8
     '#size'             => 17,
     '#title'            => $filter ? _webform_filter_xss($component['name']) : $component['name'],
     '#title_display'    => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',

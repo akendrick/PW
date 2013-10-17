@@ -5,9 +5,9 @@ dependencies[] = webform
 dependencies[] = phone
 files[] = webform_phone.module
 core = 7.x
-; Information added by drupal.org packaging script on 2013-07-12
-version = "7.x-1.13"
+; Information added by drupal.org packaging script on 2013-09-29
+version = "7.x-1.14"
 core = "7.x"
 project = "webform_phone"
-datestamp = "1373645772"
+datestamp = "1380497432"
 
