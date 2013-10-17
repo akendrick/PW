@@ -160,13 +160,12 @@ function email_receipt_body($params = NULL) {
   $total    = $ad['total'];
 
   // Set Message (if holiday)
-  $standard_message = 'PLEASE NOTE:
-  Live Load ads are given priority and will be processed as quickly as possible (during regular business hours).
-  Regular ads placed before 3pm on Thursday will appear in the following Tuesday\'s print edition.';
+  $standard_message = '';
 
   // Check to see is the holiday settings are set and get message.
   $holiday = variable_get('pennywise_holiday_settings', NULL);
-  $message = ($holiday['holiday_settings'] > 1) ? $holiday['holiday_message_plain'] : $standard_message;
+  $default_footer = variable_get('pennywise_email_receipt_footer', NULL);
+  $message = ($holiday['holiday_settings'] > 1) ? $holiday['holiday_message_plain'] : $default_footer;
 
 
 $receipt = <<<RECEIPT
@@ -174,7 +173,7 @@ $ad_type DETAILS
 Receipt #$rid
 
 Thank you for submitting your ad to PennywiseAds.com.
-This email is your receipt and should be kept for your records.
+This email confirms that we have received your ad request. You will receive a follow-up message with an ad number and confirmation of the amount to be charged to your credit card.
 
 $ad_type DETAILS
 Areas ($area_count): $areas
@@ -206,16 +205,9 @@ You can contact us 9am to 5pm Monday to Thursday (& until 4pm on Friday).
 Toll free: 1-800-663-4619
 Local: 250-353-2602
 Email: info@pennywiseads.com
-Address: Box 430,
-         Kaslo BC
-         Canada V0G 1M0
 
 $message
 
-Thank you for placing your ad with the Pennywise, we appreciate your business.
-
-Sincerely,
-The Pennywise Team.
 
 RECEIPT;
 
