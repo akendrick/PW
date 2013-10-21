@@ -30,7 +30,7 @@ function pw_display_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-advanced field-group-accordion-item',
         'required_fields' => 1,
       ),
     ),
@@ -60,7 +60,7 @@ function pw_display_field_group_info() {
       'label' => 'Basic',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-6',
+        'classes' => 'grid-6 group-basics field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -91,7 +91,7 @@ function pw_display_field_group_info() {
       'label' => 'Description',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-description-box field-group-accordion-item',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -126,7 +126,7 @@ function pw_display_field_group_info() {
       'formatter' => '',
       'instance_settings' => array(
         'effect' => 'none',
-        'classes' => '',
+        'classes' => ' group-display-ad field-group-accordion',
       ),
     ),
   );
@@ -153,7 +153,7 @@ function pw_display_field_group_info() {
       'label' => 'Options',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-options field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'closed',

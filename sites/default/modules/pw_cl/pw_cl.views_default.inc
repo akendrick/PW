@@ -453,6 +453,34 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['view_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_node']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['view_node']['text'] = 'more';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Geofield */
+  $handler->display->display_options['fields']['field_geofield']['id'] = 'field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['table'] = 'field_data_field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['field'] = 'field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['label'] = '';
+  $handler->display->display_options['fields']['field_geofield']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_geofield']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_geofield']['alter']['text'] = '<div class=\'geofield-map-field\'><div class=\'map-link-block centre\'><a href=\'node/[nid]\' class=\'map-link\'>VIEW MAP</a></div></div>
+';
+  $handler->display->display_options['fields']['field_geofield']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_geofield']['element_class'] = 'geofield-map-field center';
+  $handler->display->display_options['fields']['field_geofield']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_geofield']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_geofield']['empty_zero'] = TRUE;
+  $handler->display->display_options['fields']['field_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_geofield']['type'] = 'geofield_latlon';
+  $handler->display->display_options['fields']['field_geofield']['settings'] = array(
+    'data' => 'full',
+    'format' => 'decimal_degrees',
+    'labels' => 0,
+  );
   /* Field: Content: Free Ad Copy */
   $handler->display->display_options['fields']['field_body_text']['id'] = 'field_body_text';
   $handler->display->display_options['fields']['field_body_text']['table'] = 'field_data_field_body_text';
@@ -539,10 +567,11 @@ function pw_cl_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class=\'classified-ad ad-type-[field_ad_type] section-%1\'>
 [field_image_1]
-<div class=\'classified-ad-copy\'><!-- [edit_node]--> [field_ad_copy] [field_body_text]</div>
-[field_ad_type_1]
+<div class=\'classified-ad-copy\'><!-- [edit_node]--> [field_ad_copy] [field_body_text]
+[field_geofield]
 </div>
-';
+[field_ad_type_1]
+</div>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['nothing']['empty_zero'] = TRUE;

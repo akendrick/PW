@@ -1742,7 +1742,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1845,7 +1845,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1931,15 +1931,9 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
-          'weight' => '7',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '14',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1979,7 +1973,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           ),
         ),
         'type' => 'addressfield_standard',
-        'weight' => '20',
+        'weight' => '9',
       ),
     ),
   );
@@ -2069,7 +2063,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'size' => '10',
         ),
         'type' => 'text_textfield',
-        'weight' => '15',
+        'weight' => '10',
       ),
     ),
   );
@@ -2165,7 +2159,141 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '18',
+        'weight' => '13',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-classified-field_geofield'.
+  $fields['node-classified-field_geofield'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_geofield',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'bbox' => array(
+          0 => 'top',
+          1 => 'bottom',
+          2 => 'left',
+          3 => 'right',
+        ),
+        'bottom' => array(
+          0 => 'bottom',
+        ),
+        'centroid' => array(
+          0 => 'lat',
+          1 => 'lon',
+        ),
+        'geohash' => array(
+          0 => 'geohash',
+        ),
+        'lat' => array(
+          0 => 'lat',
+        ),
+        'left' => array(
+          0 => 'left',
+        ),
+        'lon' => array(
+          0 => 'lon',
+        ),
+        'right' => array(
+          0 => 'right',
+        ),
+        'top' => array(
+          0 => 'top',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'geofield',
+      'settings' => array(
+        'backend' => 'default',
+        'srid' => '4326',
+      ),
+      'translatable' => '0',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'classified',
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'geofield_map',
+          'settings' => array(
+            'geofield_map_baselayers_hybrid' => 1,
+            'geofield_map_baselayers_map' => 1,
+            'geofield_map_baselayers_physical' => 0,
+            'geofield_map_baselayers_satellite' => 1,
+            'geofield_map_controltype' => 'small',
+            'geofield_map_draggable' => 0,
+            'geofield_map_height' => '300px',
+            'geofield_map_maptype' => 'map',
+            'geofield_map_mtc' => 'standard',
+            'geofield_map_overview' => 0,
+            'geofield_map_overview_opened' => 0,
+            'geofield_map_pancontrol' => 1,
+            'geofield_map_scale' => 0,
+            'geofield_map_scrollwheel' => 0,
+            'geofield_map_streetview_show' => 0,
+            'geofield_map_width' => '100%',
+            'geofield_map_zoom' => '12',
+          ),
+          'type' => 'geofield_map_map',
+          'weight' => '0',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_geofield',
+      'label' => 'Geofield',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'custom_remove' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geocoder',
+        'settings' => array(
+          'delta_handling' => 'default',
+          'geocoder_field' => 'field_addressfield',
+          'geocoder_handler' => 'google',
+          'handler_settings' => array(
+            'google' => array(
+              'all_results' => 0,
+              'geometry_type' => 'point',
+              'reject_results' => array(
+                'APPROXIMATE' => 'APPROXIMATE',
+                'GEOMETRIC_CENTER' => 0,
+                'RANGE_INTERPOLATED' => 0,
+                'ROOFTOP' => 0,
+              ),
+            ),
+          ),
+        ),
+        'type' => 'geocoder',
+        'weight' => '10',
       ),
     ),
   );
@@ -2305,7 +2433,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'resolution' => '240x130',
         ),
         'type' => 'imagefield_crop_widget',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -2415,7 +2543,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '16',
+        'weight' => '11',
       ),
     ),
   );
@@ -2755,7 +2883,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'size' => 15,
         ),
         'type' => 'phone_number',
-        'weight' => '17',
+        'weight' => '12',
       ),
     ),
   );
@@ -3397,6 +3525,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
   t('Classification');
   t('Classified Ad Type');
   t('Email');
+  t('Geofield');
   t('Image');
   t('Image Override');
   t('Image Uploader');

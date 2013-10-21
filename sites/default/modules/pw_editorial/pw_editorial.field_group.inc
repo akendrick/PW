@@ -33,7 +33,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-attachments field-group-fieldset',
       ),
     ),
   );
@@ -63,7 +63,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-attachments field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -91,7 +91,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'label' => 'Attachment',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-attachment field-group-accordion',
         'effect' => 'bounceslide',
       ),
     ),
@@ -121,7 +121,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Basics',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-basics field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -151,7 +151,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Links',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-bonus field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -181,7 +181,7 @@ function pw_editorial_field_group_info() {
       'label' => 'File Attachemnt',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-description field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'closed',
@@ -210,7 +210,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Media',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-details field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -241,7 +241,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-ed-basic field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -269,7 +269,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'formatter' => '',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-ed-group-master field-group-htabs',
       ),
     ),
   );
@@ -298,7 +298,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-edition field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -326,7 +326,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'label' => 'Details',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-editorial-details field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -356,7 +356,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'label' => '',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-editorial-more field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -384,7 +384,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Upload Extra Images',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => '',
+        'classes' => ' group-extra-image-group field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -417,7 +417,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-info field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -444,7 +444,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Optional Features & Inserts',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-optional-features field-group-fieldset',
         'description' => 'Add a special feature such as Carolling, or Home Town Business Section here. They can be attachment features or extra links to additional Scribd documents.',
       ),
       'formatter' => 'collapsed',
@@ -476,7 +476,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-optional field-group-accordion-item',
         'required_fields' => 1,
       ),
     ),
@@ -504,7 +504,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Special Feature',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-special-feature field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'open',

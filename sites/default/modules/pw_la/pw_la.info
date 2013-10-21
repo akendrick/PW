@@ -15,7 +15,6 @@ dependencies[] = features
 dependencies[] = jump_menu
 dependencies[] = menu
 dependencies[] = menu_block
-dependencies[] = page_title
 dependencies[] = pennywise
 dependencies[] = redirect
 dependencies[] = search

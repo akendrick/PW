@@ -10,7 +10,7 @@
 function openlayers_test_example_feature_views_default_views() {
   $export = array();
 
-  $view = new view;
+  $view = new view();
   $view->name = 'openlayers_example_data_overlay';
   $view->description = 'This is an example OpenLayers Data Overlay using the OpenLayers Example Content';
   $view->tag = 'default';
@@ -23,6 +23,7 @@ function openlayers_test_example_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'OpenLayers Example Content';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -32,7 +33,6 @@ function openlayers_test_example_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'openlayers_data';
   $handler->display->display_options['style_options']['data_source'] = array(
     'value' => 'wkt',
@@ -53,69 +53,24 @@ function openlayers_test_example_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
-  $handler->display->display_options['fields']['body']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['body']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['body']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['body']['alter']['html'] = 0;
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['body']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['body']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['body']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['body']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['body']['field_api_classes'] = 0;
   /* Field: Content: OpenLayers Example Geofield Input */
   $handler->display->display_options['fields']['field_openlayers_example_input']['id'] = 'field_openlayers_example_input';
   $handler->display->display_options['fields']['field_openlayers_example_input']['table'] = 'field_data_field_openlayers_example_input';
   $handler->display->display_options['fields']['field_openlayers_example_input']['field'] = 'field_openlayers_example_input';
   $handler->display->display_options['fields']['field_openlayers_example_input']['label'] = '';
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_openlayers_example_input']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_openlayers_example_input']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_openlayers_example_input']['click_sort_column'] = 'wkt';
   $handler->display->display_options['fields']['field_openlayers_example_input']['settings'] = array(
     'data' => 'full',
   );
-  $handler->display->display_options['fields']['field_openlayers_example_input']['field_api_classes'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -142,7 +97,7 @@ function openlayers_test_example_feature_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $export['openlayers_example_data_overlay'] = $view;
 
-  $view = new view;
+  $view = new view();
   $view->name = 'openlayers_example_map_display_view';
   $view->description = 'View to display the OpenLayers Example Map.';
   $view->tag = 'default';
@@ -155,6 +110,7 @@ function openlayers_test_example_feature_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'OpenLayers Example Map Display View';
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -169,17 +125,8 @@ function openlayers_test_example_feature_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

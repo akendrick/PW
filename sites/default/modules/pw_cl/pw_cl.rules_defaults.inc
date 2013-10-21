@@ -15,7 +15,7 @@ function pw_cl_default_rules_configuration() {
       "ACTIVE" : false,
       "TAGS" : [ "ad_submission", "login", "redirect" ],
       "REQUIRES" : [ "path", "rules" ],
-      "ON" : [ "user_login" ],
+      "ON" : { "user_login" : [] },
       "IF" : [ { "path_has_alias" : { "source" : "ad\\/submit" } } ],
       "DO" : []
     }
@@ -26,7 +26,7 @@ function pw_cl_default_rules_configuration() {
       "ACTIVE" : false,
       "TAGS" : [ "ad_submission redirect" ],
       "REQUIRES" : [ "rules" ],
-      "ON" : [ "node_insert" ],
+      "ON" : { "node_insert" : [] },
       "IF" : [
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "ad_s" : "ad_s" } } } },
         { "user_has_role" : {
