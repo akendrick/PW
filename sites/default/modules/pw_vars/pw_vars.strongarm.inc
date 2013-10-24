@@ -968,7 +968,7 @@ echo date(\'now\');
     'front_page' => TRUE,
     'mobile_front' => TRUE,
     'jq_mobile_layout' => TRUE,
-    'mobile_layout' => TRUE,
+    'mobile_layout' => FALSE,
   );
   $export['context_status'] = $strongarm;
 

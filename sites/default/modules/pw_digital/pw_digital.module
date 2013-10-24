@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Digital Edition feature.
+ */
+
+include_once 'pw_digital.features.inc';

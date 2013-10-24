@@ -982,7 +982,10 @@ body {
   margin: 10px;
 }
 /**** General Block list views ******/
-ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-menu-advertising-links ul {
+ul.pw-classified-nav-list,
+.menu-name-menu-pennywise-digital-edition ul,
+.block-menu-pennywise-digital-edition ul,
+.block-menu-advertising-links ul {
   width: 95%;
   .border-radius-custom(0,0,10px,10px);
   background-color: @white;
@@ -1009,6 +1012,24 @@ ul.pw-classified-nav-list, .menu-name-menu-pennywise-digital-edition ul, .block-
     background-color: @darksand;
   }
 }
+
+/* digital edition block style */
+/* ## Created with views menu links and menu block */
+#block-menu-menu-pennywise-digital-edition {
+  ul.menu {
+    li.last {
+      background-color: @classified_med;
+      padding: 2px;
+      margin: 0;
+      text-align: center;
+      .border-radius-custom(0,0,10px,10px);
+      a {
+        color: @white;
+      }
+    }
+  }
+}
+
 /*
   menu.expanded {
     background-color: @sand;
@@ -1905,6 +1926,22 @@ ul.pager {
   }
 }
 
+/* special features page */
+.page-edition-hometown {
+  background-color: #900;
+}
+#view-display-id-page_hometown {
+  background: #900;
+  .view-content {
+    .views-row {
+      width: 300px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+}
+
 /* LOGIN PAGE */
 .not-front.not-logged-in.page-user-login {
   .container-24 .login {
@@ -2055,19 +2092,47 @@ ul.pager {
 
 /************ Digital Edition ********/
 /* Archive Page */
-.view-display-id-edition_archive {
-  h3 {
-    height: 60px;
-    text-align: center;
-    vertical-align: bottom;
+/* .view-display-id-edition_archive {
+/*   h3 {
+/*     height: 60px;
+/*     text-align: center;
+/*     vertical-align: bottom;
+/*   }
+/*   .wrapper-head {
+/*     border-left: 1pt solid @lightsand;
+/*   }
+/*   .item-list ul li {
+/*     margin:0;
+/*     padding: 0;
+/*     text-align: center;
+/*   }
+/* }
+*/
+.view-display-id-page_edition_archive {
+  table {
+    caption {
+      background-color: @classified_light;
+    }
+    border: none;
+    margin-bottom: 0;
+    border-bottom: 1pt solid @white;
   }
-  .wrapper-head {
-    border-left: 1pt solid @lightsand;
-  }
-  .item-list ul li {
-    margin:0;
-    padding: 0;
+  td {
     text-align: center;
+    border: 1pt solid @classified_light;
+    a {
+      font-weight: 300;
+    }
+    width: 20%;
+  }
+  td:hover {
+    background-color: @classified_med;
+    a {
+      color: @white;
+    }
+  }
+  td.views-field-field-entity-reference {
+    background-color: @classified_light;
   }
 }
 
@@ -2113,28 +2178,6 @@ body.maintenance-page {
 }
 
 
-/*
-body.responsive-layout-mobile {
-  #logo {
-    width: 100%;
-  }
-  #ctools-jump-menu {
-    #edit-jump {
-      width: 100%;
-    }
-  }
-  #region-threeup-two, #region-threeup-three {
-   float: left;
-    width: 140px;
-    margin: 0;
-    padding: 0;
-    a {
-      font-size: 1em;
-      line-height: 1em;
-    }
-  }
-}
-*/
 
 /* CLIENT PAGES */
 .view-business-client-pages {
