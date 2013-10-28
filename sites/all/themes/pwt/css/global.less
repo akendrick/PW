@@ -605,13 +605,15 @@ body {
 .pw-contact-address-wrapper,
 #block-pennywise-pw-tmtv,
 #block-user-login,
-#block-pennywise-pw-edition
+#block-pennywise-pw-edition,
+#block-menu-menu-pennywise-digital-edition,
+#block-views-display-ad-blocks-poster-block
  {
   display: none;
 }
 
 
-#zone-postscript,
+/* #zone-postscript, */
 #region-header-second,
 #region-splash-one,
 #region-splash-two,
@@ -690,6 +692,10 @@ body {
     background-color: @lightsand;
   }
   font-size: .8em;
+}
+#block-jump-menu-jump-menu-m-menu-browse-classifi {
+  overflow: hidden;
+  width: 100%;
 }
 
 /*****************  BLOCKS  *****************/
@@ -1844,11 +1850,12 @@ ul.pager {
       width: 100%;
     }
     .group-right {
-      width: 90%;
+      width: 100%;
     }
   }
   .classified-detail-box {
-    margin: 0 10px;
+    margin: 0;
+    background-color: inherit;
   }
   .field-name-field-ad-copy {
     font-size: 1.4em;
@@ -1859,9 +1866,45 @@ ul.pager {
   .field-name-field-link {
     word-wrap: break-word;
   }
+  .field-name-field-ad-type {
+    font-size: 1.4em;
+    background-color: @classified_light;
+    margin-bottom: 10px;
+    padding: 3px 20px;
+    width: 90%;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+  }
 }
 #node_classified_full_group_details {
-  width: 190px;
+/*   width: 190px; */
+  margin: 0;
+  padding: 0;
+  .fieldset-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+  img {
+    width: 100%;
+    overflow: hidden;
+  }
+  .field-type-taxonomy-term-reference  {
+    font-size: 1.4em;
+    background-color: @classified_light;
+    margin-bottom: 10px;
+    padding: 3px 20px;
+    width: 90%;
+    margin: 0;
+    overflow: hidden;
+  }
+  .field-name-post-date {
+    text-transform: uppercase;
+    color: darken(@darksand, 20%);
+    font-weight: 400;
+    font-size: .9em;
+    padding-bottom: 10px;
+  }
 }
 
 

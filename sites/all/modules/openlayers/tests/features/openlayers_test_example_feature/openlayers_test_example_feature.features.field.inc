@@ -10,7 +10,7 @@
 function openlayers_test_example_feature_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-openlayers_example_content-body'.
+  // Exported field: 'node-openlayers_example_content-body'
   $fields['node-openlayers_example_content-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,9 +20,6 @@ function openlayers_test_example_feature_field_default_fields() {
         0 => 'node',
       ),
       'field_name' => 'body',
-      'field_permissions' => array(
-        'type' => '0',
-      ),
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -36,7 +33,6 @@ function openlayers_test_example_feature_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -70,8 +66,6 @@ function openlayers_test_example_feature_field_default_fields() {
       'label' => 'Body',
       'required' => FALSE,
       'settings' => array(
-        'custom_add_another' => '',
-        'custom_remove' => '',
         'display_summary' => TRUE,
         'text_processing' => 1,
         'user_register_form' => FALSE,
@@ -88,7 +82,7 @@ function openlayers_test_example_feature_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-openlayers_example_content-field_openlayers_example_input'.
+  // Exported field: 'node-openlayers_example_content-field_openlayers_example_input'
   $fields['node-openlayers_example_content-field_openlayers_example_input'] = array(
     'field_config' => array(
       'active' => '1',
@@ -97,45 +91,9 @@ function openlayers_test_example_feature_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_openlayers_example_input',
       'foreign keys' => array(),
-      'indexes' => array(
-        'bbox' => array(
-          0 => 'top',
-          1 => 'bottom',
-          2 => 'left',
-          3 => 'right',
-        ),
-        'bottom' => array(
-          0 => 'bottom',
-        ),
-        'centroid' => array(
-          0 => 'lat',
-          1 => 'lon',
-        ),
-        'geohash' => array(
-          0 => 'geohash',
-        ),
-        'lat' => array(
-          0 => 'lat',
-        ),
-        'left' => array(
-          0 => 'left',
-        ),
-        'lon' => array(
-          0 => 'lon',
-        ),
-        'right' => array(
-          0 => 'right',
-        ),
-        'top' => array(
-          0 => 'top',
-        ),
-      ),
-      'locked' => '0',
+      'indexes' => array(),
       'module' => 'geofield',
-      'settings' => array(
-        'backend' => 'default',
-        'srid' => '4326',
-      ),
+      'settings' => array(),
       'translatable' => '0',
       'type' => 'geofield',
     ),
@@ -166,8 +124,6 @@ function openlayers_test_example_feature_field_default_fields() {
       'label' => 'OpenLayers Example Geofield Input',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => '',
-        'custom_remove' => '',
         'local_solr' => array(
           'enabled' => FALSE,
           'lat_field' => 'lat',
@@ -177,7 +133,7 @@ function openlayers_test_example_feature_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'openlayers',
+        'module' => 'geofield',
         'settings' => array(
           'data_storage' => 'collection',
           'openlayers_map' => 'geofield_widget_map',
