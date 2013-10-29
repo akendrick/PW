@@ -51,7 +51,7 @@ function adworks_form_classified_node_form_validate(&$form, &$form_state) {
  * - runs preflight.
  */
 function adworks_form_validate(&$form, &$form_state) {
-  dpm('Adworks Validate');
+  #dpm('Adworks Validate');
 
   if ($form_state['input']['field_ad_creation_override']['und']) {
     return;

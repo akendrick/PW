@@ -386,7 +386,7 @@ function _adworks_parse_individual_ad($ad, $publish_dates = NULL, $create_ads = 
         $new_ad->language => array(
           0 => array(
             '#address' => array(
-              'postal_code' = $area_code,
+              'postal_code' => $area_code,
             ),
           ),
         ),
