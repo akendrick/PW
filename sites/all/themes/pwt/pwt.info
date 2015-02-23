@@ -70,11 +70,55 @@ settings[alpha_layouts_alpha_default_wide_media] = 'all and (min-width: 1220px)'
 settings[alpha_layouts_alpha_default_wide_weight] = '3'
 
 
-stylesheets[all][] = css/pw.less
 
-css[global.css][name] = 'PW custom global styles'
-css[global.css][description] = 'Globally active custom CSS of your theme.'
-css[global.css][options][weight] = '-30'
+
+; LESS CSS
+; BASE STYLE
+css[pw.less][name] = 'Base style'
+css[pw.less][description] = 'Base Styling that which all stands.'
+css[pw.less][options][weight] = '-30'
+settings[alpha_css][pw.less] = 'pw.less'
+
+; DDBLOCK
+settings[alpha_css][global.less] = 'ddblock.css'
+
+; GLOBAL
+css[global.less][name] = 'Global style'
+css[global.less][description] = 'Globally active custom CSS of your theme.'
+css[global.less][options][weight] = '-30'
+settings[alpha_css][global.less] = 'global.less'
+
+; MOBILE
+css[pw-mobile.less][name] = 'Custom Mobile Style'
+css[pw-mobile.less][description] = 'Mobile style called only by context.'
+css[pw-mobile.less][options][weight] = '-30'
+settings[alpha_css][pw-mobile.less] = 'pw-mobile.less'
+
+; NORMAL
+css[pwt-alpha-default-normal.less][name] = Default Normal Style
+css[pwt-alpha-default-normal.less][description] = PWT Default Normal Less
+css[pwt-alpha-default-normal.less][options][weight] = 10
+settings[alpha_css][pwt-alpha-default-normal.less] = 'pwt-alpha-default-normal.less'
+
+; UNUSED
+; WIDE
+css[pwt-alpha-default-wide.less][name] = Default Normal Style
+css[pwt-alpha-default-wide.less][description] = PWT Omega Wide Less
+css[pwt-alpha-default-wide.less][options][weight] = 10
+settings[alpha_css][pwt-alpha-default-wide.less] = 'pwt-alpha-default-wide.less'
+; NARROW
+css[pwt-alpha-default-narrow.less][name] = PW Narrow Style
+css[pwt-alpha-default-narrow.less][description] = PWT Default Narrow Less
+css[pwt-alpha-default-narrow.less][options][weight] = 10
+settings[alpha_css][pwt-alpha-default-narrow.less] = 'pwt-alpha-default-narrow.less'
+; DEFAULT
+css[pwt-alpha-default.less][name] = PW Default Style
+css[pwt-alpha-default.less][description] = PWT Omega Default Less
+css[pwt-alpha-default.less][options][weight] = 10
+settings[alpha_css][pwt-alpha-default.less] = 'pwt-alpha-default.less'
+
+
+
 
 scripts[] = js/jquery.imagesloaded.min.js
 

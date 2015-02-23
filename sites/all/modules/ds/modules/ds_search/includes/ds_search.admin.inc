@@ -51,6 +51,13 @@ function ds_search_settings($form, $form_state) {
     '#options' => $view_mode_options,
   );
 
+  $form['general']['ds_search_file_render'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use default search theming for files'),
+    '#description' => t('File/attachment results are best supported when the file entity module is enabled. Toggle the checkbox in case it is not available or you want to use default search theming.'),
+    '#default_value' => variable_get('ds_search_file_render', FALSE),
+  );
+
   $form['general']['ds_search_variables'] = array(
     '#type' => 'radios',
     '#options' => array(
@@ -100,7 +107,7 @@ function ds_search_settings($form, $form_state) {
   $form['general']['ds_search_group_by_type'] = array(
     '#type' => 'checkbox',
     '#title' => t('Group by type.'),
-    '#description' => t('Group the search results per page by type.'),
+    '#description' => t('Group the search results per page by type. Note that this only works if you only display nodes on the search result page.'),
     '#default_value' => variable_get('ds_search_group_by_type'),
   );
 
@@ -119,6 +126,10 @@ function ds_search_settings($form, $form_state) {
 
   $node_types = node_type_get_names();
   $ds_search_group_by_type_settings = variable_get('ds_search_group_by_type_settings');
+  $wrapper_options = array(
+    'fieldset' => t('Fieldset'),
+    'markup' => t('Div with H3 headline'),
+  );
   foreach ($node_types as $name => $label) {
 
     $form['ds_search_group_by_type_settings'][$name]['name'] = array(
@@ -143,10 +154,6 @@ function ds_search_settings($form, $form_state) {
       '#parents' => array('ds_search_group_by_type_settings', $name, 'label'),
     );
 
-    $wrapper_options = array(
-      'fieldset' => t('Fieldset'),
-      'markup' => t('Div with H3 headline'),
-    );
     $form['ds_search_group_by_type_settings'][$name]['wrapper'] = array(
       '#type' => 'select',
       '#options' => $wrapper_options,

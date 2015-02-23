@@ -44,7 +44,15 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
-      'default_value' => NULL,
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'summary' => '',
+          'value' => '',
+          'format' => 'filtered_html',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -145,6 +153,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -153,11 +162,15 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'maxlength_js' => '',
+          'maxlength_js_enforce' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'maxlength_js_truncate_html' => 0,
           'rows' => '20',
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '0',
+        'weight' => '4',
       ),
     ),
   );
@@ -213,6 +226,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -267,6 +282,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -318,6 +334,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -373,6 +391,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -451,6 +470,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -507,6 +528,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -574,6 +596,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'This image will be at the top of the page and used through out the site as the articles primary image.',
       'display' => array(
@@ -668,6 +692,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'epsacrop' => array(
           'styles' => array(
@@ -739,6 +764,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.',
       'display' => array(
@@ -793,6 +820,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'epsacrop' => array(
           'styles' => array(
@@ -910,6 +938,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -971,6 +1001,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -1023,6 +1054,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'article',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1087,6 +1120,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1136,22 +1170,32 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
+        'attachment' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '2',
+        ),
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_plain',
+          'weight' => '5',
+        ),
+        'search_result' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '3',
-        ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
         ),
         'simple_teaser' => array(
           'label' => 'hidden',
@@ -1160,14 +1204,21 @@ function pw_editorial_field_default_fields() {
           'type' => 'text_plain',
           'weight' => '1',
         ),
+        'special_feature' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(
-            'trim_length' => '350',
+            'trim_length' => '120',
           ),
           'type' => 'text_summary_or_trimmed',
-          'weight' => '3',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'node',
@@ -1176,6 +1227,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 0,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -1188,7 +1240,7 @@ function pw_editorial_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '4',
+        'weight' => '9',
       ),
     ),
   );
@@ -1257,21 +1309,32 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'If the attachment is several pages or files you can reference the other items here.',
       'display' => array(
+        'attachment' => array(
+          'label' => 'hidden',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '5',
+        ),
         'default' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '15',
         ),
-        'notifications' => array(
-          'label' => 'above',
+        'search_result' => array(
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '12',
         ),
         'simple_teaser' => array(
           'label' => 'hidden',
@@ -1279,11 +1342,17 @@ function pw_editorial_field_default_fields() {
           'type' => 'hidden',
           'weight' => '4',
         ),
+        'special_feature' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '13',
         ),
       ),
       'entity_type' => 'node',
@@ -1292,6 +1361,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1304,6 +1374,104 @@ function pw_editorial_field_default_fields() {
         ),
         'type' => 'entityreference_autocomplete',
         'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-attachment-field_feature_type'.
+  $fields['node-attachment-field_feature_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_feature_type',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'hometown' => 'Hometown Business',
+          'carolling' => 'Carolling',
+          'maydays' => 'Maydays',
+          'school' => 'School',
+          'event' => 'Special Event',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'attachment' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
+        ),
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'simple_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'special_feature' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_feature_type',
+      'label' => 'Feature Type',
+      'required' => 0,
+      'settings' => array(
+        'custom_add_another' => '',
+        'custom_remove' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        ),
+        'type' => 'options_select',
+        'weight' => '10',
       ),
     ),
   );
@@ -1341,49 +1509,63 @@ function pw_editorial_field_default_fields() {
           'class_id' => '2',
           'current_class_id' => '2',
         ),
-        'uri_scheme' => 'storage-field-file',
+        'uri_scheme' => 'public',
       ),
       'translatable' => '0',
       'type' => 'file',
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Used for large file attachments such as PDFs, DOC, etc.',
       'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
-          'weight' => 11,
-        ),
-        'notifications' => array(
+        'attachment' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '12',
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '2',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
         ),
         'simple_teaser' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '11',
+        ),
+        'special_feature' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'inline',
-          'module' => 'file',
           'settings' => array(),
-          'type' => 'file_table',
-          'weight' => '3',
+          'type' => 'hidden',
+          'weight' => '12',
         ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_file',
-      'label' => 'File',
-      'required' => 1,
+      'label' => 'Large File',
+      'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 0,
         'file_directory' => 'storage/attachments',
         'file_extensions' => 'txt pdf doc tif psd jpg png ind exl',
@@ -1422,14 +1604,20 @@ function pw_editorial_field_default_fields() {
             'icon_link' => 0,
             'image' => 0,
             'image_classified-list-style' => 0,
+            'image_classified_list_js_crop' => 0,
             'image_classified_list_nocrop' => 0,
             'image_classified_page_style' => 0,
+            'image_display_ad_full_page' => 0,
+            'image_display_ad_print_cropped_vert_thumbnail' => 0,
             'image_display_ad_print_thumbnail' => 0,
+            'image_display_ad_smart_crop_med_square' => 0,
+            'image_editoral_square_thumbnail' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
             'image_editorial_teaser' => 0,
             'image_editorial_thumbnail' => 0,
+            'image_editorial_tiny' => 0,
             'image_large' => 0,
             'image_medium' => 0,
             'image_miniature_square' => 0,
@@ -1438,10 +1626,11 @@ function pw_editorial_field_default_fields() {
             'link' => 0,
           ),
           'insert_width' => '',
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '1',
+        'weight' => '8',
       ),
     ),
   );
@@ -1486,10 +1675,28 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
+        'attachment' => array(
+          'label' => 'hidden',
+          'module' => 'file_entity',
+          'settings' => array(
+            'file_view_mode' => 'default',
+          ),
+          'type' => 'file_rendered',
+          'weight' => '3',
+        ),
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '1',
+        ),
+        'search_result' => array(
           'label' => 'hidden',
           'module' => 'file_entity',
           'settings' => array(
@@ -1498,12 +1705,6 @@ function pw_editorial_field_default_fields() {
           'type' => 'file_rendered',
           'weight' => '4',
         ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
           'module' => 'file',
@@ -1511,12 +1712,19 @@ function pw_editorial_field_default_fields() {
           'type' => 'file_url_plain',
           'weight' => '2',
         ),
-        'teaser' => array(
+        'special_feature' => array(
           'label' => 'hidden',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
           'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'node',
@@ -1525,10 +1733,11 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 0,
         'file_directory' => 'attachments',
         'file_extensions' => 'txt pdf jpg tiff gif png',
-        'max_filesize' => '5MB',
+        'max_filesize' => '8MB',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1538,39 +1747,50 @@ function pw_editorial_field_default_fields() {
           'filefield_sources' => array(
             'filefield_sources' => array(
               'attach' => 0,
+              'clipboard' => 0,
               'reference' => 'reference',
               'remote' => 0,
+              'upload' => 'upload',
             ),
             'source_attach' => array(
               'absolute' => '0',
               'attach_mode' => 'copy',
               'path' => 'attachments',
             ),
+            'source_imce' => array(
+              'imce_mode' => 0,
+            ),
             'source_reference' => array(
               'autocomplete' => '1',
             ),
           ),
           'insert' => 0,
-          'insert_absolute' => FALSE,
+          'insert_absolute' => 0,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
             'auto' => 'auto',
+            'icon_link' => 0,
             'image' => 0,
-            'image_classified_ad_image_small' => 0,
-            'image_display_ad_banner' => 0,
-            'image_display_ad_poster' => 0,
-            'image_display_ad_print_full' => 0,
+            'image_classified-list-style' => 0,
+            'image_classified_list_js_crop' => 0,
+            'image_classified_list_nocrop' => 0,
+            'image_classified_page_style' => 0,
+            'image_display_ad_full_page' => 0,
+            'image_display_ad_print_cropped_vert_thumbnail' => 0,
             'image_display_ad_print_thumbnail' => 0,
-            'image_display_ad_splash' => 0,
-            'image_display_ad_target' => 0,
+            'image_display_ad_smart_crop_med_square' => 0,
+            'image_editoral_square_thumbnail' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
             'image_editorial_teaser' => 0,
             'image_editorial_thumbnail' => 0,
+            'image_editorial_tiny' => 0,
+            'image_epsacrop_thumb' => 0,
             'image_large' => 0,
             'image_medium' => 0,
+            'image_miniature_square' => 0,
             'image_square_thumbnail' => 0,
             'image_thumbnail' => 0,
             'link' => 0,
@@ -1579,7 +1799,7 @@ function pw_editorial_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -1635,10 +1855,29 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
-      'description' => 'Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.',
+      'description' => '<ul>
+<li>If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.</li>
+<li> This can also be used as scaled image where a smaller version of the image will appear as a teaser then expand to a high quality image.</li>
+</ul>',
       'display' => array(
+        'attachment' => array(
+          'label' => 'hidden',
+          'module' => 'lightbox2',
+          'settings' => array(),
+          'type' => 'lightbox2__lightbox__thumbnail__original',
+          'weight' => '1',
+        ),
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'lightbox2',
+          'settings' => array(),
+          'type' => 'lightbox2__lightbox__medium__original',
+          'weight' => '0',
+        ),
+        'search_result' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -1648,31 +1887,28 @@ function pw_editorial_field_default_fields() {
           'type' => 'image',
           'weight' => '1',
         ),
-        'notifications' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
         'simple_teaser' => array(
           'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => 'content',
-            'image_style' => 'thumbnail',
-          ),
-          'type' => 'image',
+          'module' => 'lightbox2',
+          'settings' => array(),
+          'type' => 'lightbox2__lightbox__thumbnail__original',
           'weight' => '0',
+        ),
+        'special_feature' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
-            'image_link' => 'file',
+            'image_link' => 'content',
             'image_style' => 'medium',
           ),
           'type' => 'image',
-          'weight' => '1',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -1682,10 +1918,11 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/attachment',
         'file_extensions' => 'png gif jpg jpeg',
-        'max_filesize' => '500 KB',
+        'max_filesize' => '2 MB',
         'max_resolution' => '',
         'min_resolution' => '',
         'title_field' => 0,
@@ -1723,14 +1960,20 @@ function pw_editorial_field_default_fields() {
             'icon_link' => 0,
             'image' => 'image',
             'image_classified-list-style' => 0,
+            'image_classified_list_js_crop' => 0,
             'image_classified_list_nocrop' => 0,
             'image_classified_page_style' => 0,
+            'image_display_ad_full_page' => 0,
+            'image_display_ad_print_cropped_vert_thumbnail' => 0,
             'image_display_ad_print_thumbnail' => 0,
+            'image_display_ad_smart_crop_med_square' => 0,
+            'image_editoral_square_thumbnail' => 0,
             'image_editorial_block_list_header' => 0,
             'image_editorial_header' => 0,
             'image_editorial_small' => 0,
             'image_editorial_teaser' => 0,
             'image_editorial_thumbnail' => 0,
+            'image_editorial_tiny' => 0,
             'image_large' => 'image_large',
             'image_medium' => 'image_medium',
             'image_miniature_square' => 0,
@@ -1739,11 +1982,12 @@ function pw_editorial_field_default_fields() {
             'link' => 0,
           ),
           'insert_width' => '',
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
@@ -1783,24 +2027,40 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>',
       'display' => array(
+        'attachment' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '4',
+        ),
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '6',
+        ),
+        'search_result' => array(
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '5',
         ),
-        'notifications' => array(
-          'label' => 'above',
+        'simple_teaser' => array(
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
-        'simple_teaser' => array(
+        'special_feature' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
@@ -1810,7 +2070,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '14',
         ),
       ),
       'entity_type' => 'node',
@@ -1826,6 +2086,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -1843,6 +2104,144 @@ function pw_editorial_field_default_fields() {
         'settings' => array(),
         'type' => 'link_field',
         'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-attachment-field_scribd'.
+  $fields['node-attachment-field_scribd'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_scribd',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '80',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'attachment',
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'attachment' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
+        'search_result' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
+        ),
+        'simple_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '13',
+        ),
+        'special_feature' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_scribd',
+      'label' => 'Scribd',
+      'required' => 0,
+      'settings' => array(
+        'better_formats' => array(
+          'allowed_formats' => array(
+            'edition_editor' => 'edition_editor',
+            'filtered_html' => 0,
+            'full_html' => 0,
+            'markdown_filtering' => 0,
+            'plain_text' => 0,
+          ),
+          'allowed_formats_toggle' => 1,
+          'default_order_toggle' => 0,
+          'default_order_wrapper' => array(
+            'formats' => array(
+              'edition_editor' => array(
+                'weight' => '-8',
+              ),
+              'filtered_html' => array(
+                'weight' => '-9',
+              ),
+              'full_html' => array(
+                'weight' => '-6',
+              ),
+              'markdown_filtering' => array(
+                'weight' => '-7',
+              ),
+              'plain_text' => array(
+                'weight' => '-10',
+              ),
+            ),
+          ),
+        ),
+        'custom_add_another' => '',
+        'custom_remove' => '',
+        'text_processing' => '1',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+          'size' => '120',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '11',
       ),
     ),
   );
@@ -1881,6 +2280,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1911,6 +2312,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 1,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -1992,6 +2394,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Attach pages, display ads, editorials or downloadable files to this page.',
@@ -2025,6 +2429,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -2092,6 +2497,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2137,6 +2544,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/page',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2235,6 +2643,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2264,6 +2674,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/page',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2362,6 +2773,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'page',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'This link field is for expressly highlighting a specific link. It will be displayed in large type.',
@@ -2399,6 +2812,7 @@ function pw_editorial_field_default_fields() {
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '80',
         ),
@@ -2454,6 +2868,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '<strong>You can also copy and paste the whole text from Scribd.</strong>
@@ -2519,6 +2935,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display_summary' => 0,
         'text_processing' => '1',
         'user_register_form' => FALSE,
@@ -2531,7 +2948,7 @@ function pw_editorial_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
@@ -2570,7 +2987,14 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
-      'default_value' => NULL,
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2669,6 +3093,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -2676,6 +3101,8 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -2723,6 +3150,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2772,7 +3201,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -2782,6 +3211,7 @@ function pw_editorial_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/cover',
         'file_extensions' => 'png gif jpg jpeg',
@@ -2876,6 +3306,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2934,6 +3366,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_value' => 'strtotime',
         'default_value2' => 'same',
         'default_value_code' => '+1 Tuesday',
@@ -3022,8 +3455,12 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => 'Attach another special feature.',
+      'custom_remove' => '',
       'deleted' => '0',
-      'description' => 'Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.',
+      'description' => 'Special Feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.<br>
+You can either link to an already existing Special Feature or create a new one. <br>
+<strong>Be sure to include the OPTIONAL >> ScribD link</strong>',
       'display' => array(
         'castlegar_edition_view' => array(
           'label' => 'hidden',
@@ -3103,10 +3540,11 @@ function pw_editorial_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_entity_reference',
-      'label' => 'Special Feature',
+      'label' => 'Add Special Feature',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => 'Attach another special feature.',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -3114,6 +3552,7 @@ function pw_editorial_field_default_fields() {
         'module' => 'inline_entity_form',
         'settings' => array(
           'fields' => array(),
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'type_settings' => array(
             'allow_existing' => 1,
             'delete_references' => 1,
@@ -3160,7 +3599,14 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
-      'default_value' => NULL,
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3259,6 +3705,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3266,6 +3713,8 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -3308,7 +3757,14 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
-      'default_value' => NULL,
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3407,6 +3863,7 @@ function pw_editorial_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3414,6 +3871,8 @@ function pw_editorial_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -3462,6 +3921,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Direct link to pdf for download purposes. <strong>Label the file with the AREA.</strong><br><em>eg. Pennywise_Castlegar_Nov13-2021.pdf</em>',
       'display' => array(
@@ -3513,7 +3974,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -3522,6 +3983,7 @@ function pw_editorial_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 1,
         'file_directory' => 'pdf',
         'file_extensions' => 'pdf',
@@ -3579,7 +4041,7 @@ function pw_editorial_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '5',
+        'weight' => '4',
       ),
     ),
   );
@@ -3618,6 +4080,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => 'Add another edition',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '[scribd id=pub-18673738874898982461 key=yy mode=list]',
@@ -3700,7 +4164,7 @@ function pw_editorial_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -3708,7 +4172,8 @@ function pw_editorial_field_default_fields() {
       'label' => 'Scribd',
       'required' => 1,
       'settings' => array(
-        'custom_add_another' => 'Add another edition',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3719,7 +4184,7 @@ function pw_editorial_field_default_fields() {
           'size' => '80',
         ),
         'type' => 'text_textfield',
-        'weight' => '6',
+        'weight' => '3',
       ),
     ),
   );
@@ -3772,6 +4237,8 @@ function pw_editorial_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link special feature here by typing the name of the file.<br>
@@ -3827,7 +4294,7 @@ NOTE: Thumbnail image required.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'node',
@@ -3836,6 +4303,7 @@ NOTE: Thumbnail image required.',
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -3847,7 +4315,7 @@ NOTE: Thumbnail image required.',
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
@@ -3886,7 +4354,14 @@ NOTE: Thumbnail image required.',
     ),
     'field_instance' => array(
       'bundle' => 'pw_digital',
-      'default_value' => NULL,
+      'custom_add_another' => '',
+      'custom_remove' => '',
+      'default_value' => array(
+        0 => array(
+          'value' => '',
+          'format' => 'edition_editor',
+        ),
+      ),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3985,6 +4460,7 @@ NOTE: Thumbnail image required.',
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
@@ -3992,6 +4468,8 @@ NOTE: Thumbnail image required.',
         'active' => 1,
         'module' => 'text',
         'settings' => array(
+          'maxlength_js' => 0,
+          'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
           'size' => '60',
         ),
         'type' => 'text_textfield',
@@ -4009,6 +4487,11 @@ NOTE: Thumbnail image required.',
 <li>copy and paste the whole line into the body of the text.</li>
 <li>Should look like: <em>[scribd id=pub-18673738874898982461 key=yy mode=list] </em></li>
 </ol>');
+  t('<ul>
+<li>If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.</li>
+<li> This can also be used as scaled image where a smaller version of the image will appear as a teaser then expand to a high quality image.</li>
+</ul>');
+  t('Add Special Feature');
   t('Area');
   t('Attach pages, display ads, editorials or downloadable files to this page.');
   t('Attachment');
@@ -4016,36 +4499,38 @@ NOTE: Thumbnail image required.',
   t('By default when you add an attachment you will see a thumbnail/link to the file and the user can click on it to view it at a higher resolution. <strong>By adding a link here you override that and the user is instead sent to this web address.</strong>');
   t('Castlegar Edition');
   t('Cover');
-  t('Create and link special feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.');
   t('Description');
   t('Direct link to pdf for download purposes. <strong>Label the file with the AREA.</strong><br><em>eg. Pennywise_Castlegar_Nov13-2021.pdf</em>');
   t('Edition Date');
   t('Email');
   t('Extra Images');
-  t('File');
+  t('Feature Type');
   t('Header Image');
   t('Highlighted Link');
   t('If the attachment is several pages or files you can reference the other items here.');
   t('Inserted Images');
   t('Kootenay Lake Edition');
+  t('Large File');
   t('Link');
   t('Link special feature here by typing the name of the file.<br>
 If you have not uploaded the special feature <a href=\'/node/add/attachment\' target=\'_NEW\'>click here.</a><br>
 NOTE: Thumbnail image required.');
   t('Nelson Edition');
-  t('Optional thumbnail of file. If uploading a PDF (or any kind of image) please include a thumbnail/screen capture so that the viewer can see what they are getting with this.');
   t('PDF');
   t('Reference Other');
   t('References');
   t('Scribd');
-  t('Special Feature');
   t('Special Feature Link');
+  t('Special Feature pages. Eg. Hometown Business pages, Christmas Carols, and Back to School sections.<br>
+You can either link to an already existing Special Feature or create a new one. <br>
+<strong>Be sure to include the OPTIONAL >> ScribD link</strong>');
   t('Submitted by');
   t('These images can be of lower resolution than the primary header image. These images will only be displayed on the full editorial page, not in any teasers.');
   t('This image will be at the top of the page and used through out the site as the articles primary image.');
   t('This link field is for expressly highlighting a specific link. It will be displayed in large type.');
   t('Thumbnail');
   t('Trail Edition');
+  t('Used for large file attachments such as PDFs, DOC, etc.');
   t('You can also copy and paste the whole text from Scribd.
 <ol>
 <li>Navigate to the edition you want to embed.

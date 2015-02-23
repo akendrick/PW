@@ -28,21 +28,69 @@ class SchemaDatabaseSchema_mysql extends DatabaseSchema_mysql {
     return $map;
   }
 
-  public function inspect($connection = 'default', $name = NULL) {
+  /**
+   * Overrides DatabaseSchema_mysql::getPrefixInfo().
+   *
+   * @todo Remove when https://drupal.org/node/2223073 is fixed in core.
+   */
+  protected function getPrefixInfo($table = 'default', $add_prefix = TRUE) {
+    $info = array('prefix' => $this->connection->tablePrefix($table));
+    if ($add_prefix) {
+      $table = $info['prefix'] . $table;
+    }
+    if (($pos = strpos($table, '.')) !== FALSE) {
+      $info['database'] = substr($table, 0, $pos);
+      $info['table'] = substr($table, ++$pos);
+    }
+    else {
+      $db_info = $this->connection->getConnectionOptions();
+      $info['database'] = $db_info['database'];
+      $info['table'] = $table;
+    }
+    return $info;
+  }
+
+  /**
+   * Overrides DatabaseSchema_mysql::getFieldTypeMap().
+   */
+  public function getFieldTypeMap() {
+    $map = &drupal_static('SchemaDatabaseSchema_mysql::getFieldTypeMap');
+    if (!isset($map)) {
+      $map = parent::getFieldTypeMap();
+      drupal_alter('schema_field_type_map', $map, $this, $this->connection);
+    }
+    return $map;
+  }
+
+  public function inspect($connection = NULL, $table_name = NULL) {
+    // Support the deprecated connection parameter.
+    if (isset($connection) && $connection != $this->connection->getKey()) {
+      $this->connection = Database::getConnection('default', $connection);
+    }
+
     // Get the current database name
-    $info = Database::getConnectionInfo($connection);
-    $database = $info['default']['database'];
+    $info = $this->connection->getConnectionOptions();
+    $database = $info['database'];
+
+    // Apply table prefixes.
+    if (isset($table_name)) {
+      $table_info = $this->getPrefixInfo($table_name);
+      if (!empty($table_info['database']) && $database != $table_info['database']) {
+        $database = $table_info['database'];
+      }
+      $table_name = $table_info['table'];
+    }
 
     $tables = array();
     $args = array(':database' => $database);
     $sql = 'SELECT table_name, table_comment
             FROM information_schema.tables
             WHERE table_schema=:database ';
-    if (isset($name)) {
+    if (isset($table_name)) {
       $sql .= 'AND table_name = :table ';
-      $args[':table'] = $name;
+      $args[':table'] = $table_name;
     }
-    $res = db_query($sql, $args);
+    $res = $this->connection->query($sql, $args);
     foreach ($res as $r) {
       $tables[$r->table_name]['description'] = $r->table_comment;
     }
@@ -51,14 +99,14 @@ class SchemaDatabaseSchema_mysql extends DatabaseSchema_mysql {
                    extra, is_nullable, numeric_scale, column_comment
             FROM information_schema.columns
             WHERE table_schema=:database ';
-    if (isset($name)) {
+    if (isset($table_name)) {
       $sql .= 'AND table_name = :table ';
     }
     $sql .= 'ORDER BY table_name, ordinal_position';
 
-    $res = db_query($sql, $args);
+    $res = $this->connection->query($sql, $args);
     foreach ($res as $r) {
-      $r->new_table_name = schema_unprefix_table($r->table_name);
+      $r->new_table_name = schema_unprefix_table($r->table_name, $this->connection);
 
       $numeric = !is_null($r->numeric_scale);
       $col = array();
@@ -102,12 +150,12 @@ class SchemaDatabaseSchema_mysql extends DatabaseSchema_mysql {
     $sql = 'SELECT table_name, column_name, index_name, sub_part, non_unique
             FROM information_schema.statistics
             WHERE table_schema=:database ';
-    if (isset($name)) {
+    if (isset($table_name)) {
       $sql .= 'AND table_name = :table ';
     }
     $sql .= 'ORDER BY table_name, index_name, seq_in_index';
 
-    $res = db_query($sql, $args);
+    $res = $this->connection->query($sql, $args);
     foreach ($res as $r) {
       if (isset($r->sub_part) && !is_null($r->sub_part)) {
         $col = array($r->column_name, intval($r->sub_part));

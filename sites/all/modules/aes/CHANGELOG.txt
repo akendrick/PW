@@ -1,4 +1,32 @@
-; $Id: CHANGELOG.txt,v 1.2 2010/12/31 13:27:19 amc Exp $
+7.x-1.8 -> 7.x-1.9
+
+  * Implemented hook_aes_config_change(). https://drupal.org/node/1415550 .
+
+  * Password viewing method is more secure for non-JS users. https://drupal.org/node/1114780 .
+
+  * Fixed bug with unattended installation. Issue: https://drupal.org/node/2394761 .
+
+  * Correct handling the cases when mcrypt became unavailable. Issue: https://drupal.org/node/2088357 .
+
+  * Some documentation clean-up.
+
+7.x-1.7 -> 7.x-1.8
+
+  * Phpseclib: Integrated AES with the libraries API. PHPSeclib now preferable to be placed into libraries.
+
+  * Fixed major bug with changing location of key file, thanks to digitalRoots. Issue: https://drupal.org/node/2188325 .
+
+  * Minor: storing boolean data as a real boolean instead of string, by jurgenhaas.
+
+7.x-1.6 -> 7.x-1.7
+
+  * Fixed critical issue preventing module to normal usage by Aegir hosting system.
+
+7.x-1.4 -> 7.x-1.6
+
+ * By default functionality to tracking and showing user passwords is turned off.
+
+ * Various fixes.
 
 6.x-1.4 -> 7.x-1.4
 

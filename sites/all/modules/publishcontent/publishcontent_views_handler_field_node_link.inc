@@ -1,9 +1,18 @@
 <?php
 
 /**
+ * @file
+ * Views field handler providing a publish, unpublish link.
+ */
+
+/**
  * Field handler to present a link node publish.
  */
-class publishcontent_views_handler_field_node_link extends views_handler_field {
+class publishcontent_views_handler_field_node_link extends views_handler_field_node_link {
+
+  /**
+   * Define the field handler constructor.
+   */
   function construct() {
     parent::construct();
     $this->additional_fields['nid'] = 'nid';
@@ -12,16 +21,21 @@ class publishcontent_views_handler_field_node_link extends views_handler_field {
     $this->additional_fields['uid'] = 'uid';
   }
 
+  /**
+   * Define the view option definition.
+   */
   function option_definition() {
     $options = parent::option_definition();
-    $options['publish'] = 
-    $options['unpublish'] = array('default' => '', 'translatable' => TRUE);
-
+    $options['publish'] = $options['unpublish'] = array('default' => '', 'translatable' => TRUE);
     return $options;
   }
 
+  /**
+   * Define the view option form.
+   */
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
+    unset($form['text']);
     $form['publish'] = array(
       '#type' => 'textfield',
       '#title' => t('Text to display for publishing'),
@@ -34,34 +48,34 @@ class publishcontent_views_handler_field_node_link extends views_handler_field {
     );
   }
 
-
+  /**
+   * Define the fields query.
+   */
   function query() {
     $this->ensure_my_table();
     $this->add_additional_fields();
   }
 
-  function render($values) {
-    // ensure user has access to edit this node.
-    $node = new stdClass();
-    $node->nid = $values->{$this->aliases['nid']};
-    $node->type = $values->{$this->aliases['type']};
-    $node->status = $values->{$this->aliases['status']};
-    $node->uid = $values->{$this->aliases['uid']};
-
-    $options = array('query' => drupal_get_destination());
-
-    if ($node->status && _publishcontent_unpublish_access($node)) {
+  /**
+   * Render the field.
+   */
+  function render_link($node, $values) {
+    // Ensure user has access to edit this node.
+    if (!empty($node->status) && publishcontent_unpublish_access($node)) {
       $op = 'unpublish';
     }
 
-    if (!$node->status && _publishcontent_publish_access($node)) {
+    if (empty($node->status) && publishcontent_publish_access($node)) {
       $op = 'publish';
     }
 
     if (isset($op)) {
-      $options['attributes'] = array('class' => array('publishcontent-link', 'publishcontent-' . $op));
-      return l(empty($this->options[$op]) ? t($op) : $this->options[$op],
-               "node/$node->nid/$op/". drupal_get_token(), $options);
+      $this->options['alter']['make_link'] = TRUE;
+      $this->options['alter']['path'] = "node/$node->nid/$op/" . drupal_get_token();
+      $this->options['alter']['query'] = drupal_get_destination();
+      $this->options['alter']['link_class'] = 'publishcontent-link publishcontent-' . $op;
+
+      return empty($this->options[$op]) ? t($op) : $this->options[$op];
     }
   }
 }

@@ -67,7 +67,7 @@ function ad_payment_mail($key, &$message, $params) {
       break;
     case 'inhouse':
       $message['body'][] = email_receipt_body($message);
-      $message['subject'] = $ad_type . 'Pennywise Ad ' . $rid;
+      $message['subject'] = $ad_type . $params['user']['phone'] . ' Pennywise Ad ' . $rid;
       break;
   }
 
@@ -126,7 +126,6 @@ function email_receipt_body($params = NULL) {
   // Get ad submission details
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
-  //dpm('Email Body Params');
 
   // Basic Details
   $duration = $ad['duration'];
@@ -136,11 +135,18 @@ function email_receipt_body($params = NULL) {
   $ad_type  = ($ad['ad_type'] == TRUE) ? '######### LIVELOAD AD ############## <br>' : 'CLASSIFIED AD ';
   $rate     = (is_array($ad['rate'])) ? $ad['rate']['rate_name'] : $ad['rate'];
 
+  $phone    = $params['params']['user']['phone'];
+  $email    = $params['params']['user']['email'];
+
   // Options
   $areas    = $ad['areas'];
   $area_count    = $ad['area_count'];
   $section_count = $ad['section_count'];
   $section  = $ad['sections'];
+
+  //FREE Week
+  $free_week = ($duration == 2) ? "You will receive a 3rd week absolutely FREE!" : "";
+
 
   // Payment Details
   $rid      = $ad['receipt'];
@@ -153,13 +159,12 @@ function email_receipt_body($params = NULL) {
   $total    = $ad['total'];
 
   // Set Message (if holiday)
-  $standard_message = 'PLEASE NOTE:
-  Live Load ads are given priority and will be processed as quickly as possible (during regular business hours).
-  Regular ads placed before 3pm on Thursday will appear in the following Tuesday\'s print edition.';
+  $standard_message = '';
 
   // Check to see is the holiday settings are set and get message.
   $holiday = variable_get('pennywise_holiday_settings', NULL);
-  $message = ($holiday['holiday_settings'] > 1) ? $holiday['holiday_message_plain'] : $standard_message;
+  $default_footer = variable_get('pennywise_email_receipt_footer', NULL);
+  $message = ($holiday['holiday_settings'] > 1) ? $holiday['holiday_message_plain'] : $default_footer;
 
 
 $receipt = <<<RECEIPT
@@ -167,12 +172,12 @@ $ad_type DETAILS
 Receipt #$rid
 
 Thank you for submitting your ad to PennywiseAds.com.
-This email is your receipt and should be kept for your records.
+This email confirms that we have received your ad request. You will receive a follow-up message with an ad number and confirmation of the amount to be charged to your credit card.
 
 $ad_type DETAILS
 Areas ($area_count): $areas
 Section ($section_count): $section
-Duration: $duration weeks
+Duration: $duration weeks. $free_week
 $image
 
 AD COPY
@@ -180,8 +185,12 @@ $ad_copy
 
 $notes
 
+SUBMISSION INFO
+$name
+Phone: $phone
+Email: $email
+
 PAYMENT INFO
-Submitted by: $name
 Rate: $rate
 
 Subtotal: $$subtotal
@@ -195,16 +204,9 @@ You can contact us 9am to 5pm Monday to Thursday (& until 4pm on Friday).
 Toll free: 1-800-663-4619
 Local: 250-353-2602
 Email: info@pennywiseads.com
-Address: Box 430,
-         Kaslo BC
-         Canada V0G 1M0
 
 $message
 
-Thank you for placing your ad with the Pennywise, we appreciate your business .
-
-Sincerely,
-The Pennywise Team.
 
 RECEIPT;
 

@@ -66,6 +66,13 @@ function pennywise_classified_settingsform() {
     '#required' => TRUE,
   );
 
+  $form['email_receipt_footer'] = array(
+    '#title'       => t('Email Receipt Footer'),
+    '#type'        => 'textarea',
+    '#description' => t('Appears at the bottom of the email sent to customers who have submitted an ad. Unless a holiday setting is enabled.'),
+    '#default_value' => variable_get('pennywise_email_receipt_footer', ''),
+  );
+
   $form['online_submissions'] = array(
     '#title'       => t('Online Submissions'),
     '#type'        => 'radios',
@@ -101,10 +108,9 @@ function pennywise_classified_settingsform() {
   $form['online_submissions_help'] = array(
     '#title'       => t('Contact Us Message'),
     '#type'        => 'textarea',
-    '#description' => t('Message at the end of the ad submission form.'),
+    '#description' => t('Message appears at the bottom of the ad submission form.'),
     '#default_value' => variable_get('pennywise_classified_settings_help_message', ''),
   );
-
 
 
   $form['submit'] = array(
@@ -136,6 +142,7 @@ function pennywise_classified_settingsform_submit($form, &$form_state) {
   variable_set('pennywise_classified_settings_submissions_message_status', $form_state['values']['online_submissions_message_status']);
   variable_set('pennywise_classified_settings_submissions_message', $form_state['values']['online_submissions_message']);
   variable_set('pennywise_classified_settings_help_message', $form_state['values']['online_submissions_help']);
+  variable_set('pennywise_email_receipt_footer', $form_state['values']['email_receipt_footer']);
 
   drupal_set_message( t('Your settings have been updated.') );
 

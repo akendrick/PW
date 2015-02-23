@@ -18,6 +18,37 @@
 // Displays Form Data
 define ('DEBUG', FALSE);
 
+
+/**
+* Implementationof HOOK_form_alter
+* 
+* Add a post-form alter hook.
+*/
+function pennywise_field_widget_form_alter(&$element, &$form_state, $context) {
+  if ($context['field']['type'] == 'addressfield') {
+    $element['name_block']['name_line']['#required'] = FALSE;
+    $element['street_block']['thoroughfare']['#required'] = FALSE;
+    $element['locality_block']['dependent_locality']['#required'] = FALSE;
+    $element['locality_block']['locality']['#required'] = FALSE;
+    $element['locality_block']['administrative_area']['#required'] = FALSE;
+    $element['locality_block']['postal_code']['#required'] = FALSE;
+  }
+}
+
+/**
+* Implementationof HOOK_form_alter
+* 
+* Add a post-form alter hook.
+*/
+#function pennywise_remove_required(&$element) {
+#	#$element['#required'] = FALSE;
+#	dpm($element);
+#	
+#	foreach (element_children($element) as $key) {
+#		pennywise_remove_required([$key]);
+#	}
+#}
+
 /**
 * Implementation of HOOK_email_registration_name
 *
@@ -115,7 +146,6 @@ function pennywise_holiday_message() {
         break;
     }
 
-    //dpm($options);
     pdm_create_message($holiday['holiday_message'], $options);
   }
   else {
@@ -139,6 +169,15 @@ function pennywise_menu() {
     'access arguments' => array('edit any classified content'),
     'file'             => 'promote_classifieds.inc',
     'type'             => MENU_CALLBACK,
+  );
+
+  $items['area-code'] = array(
+    'title'            => 'Kootenay Phone Codes',
+    'page callback'    => 'area_code_page',
+    'access callback'  => 'user_access',
+  //'access arguments' => array('edit any classified content'),
+  //'file'             => 'settings_default.inc',
+  //'type'             => MENU_NORMAL_ITEM,
   );
 
   // Settings
@@ -200,6 +239,24 @@ function pennywise_create_node_page($node_type) {
   return $content;
 }
 
+function area_code_page() {
+//  $prefix = variable_get('pw_phone_prefix', t('The most common prefix is 250. New to the area are 778 and 236.'));
+//  $line_break = array('\n', '\r');
+//
+//  $phone_areas = variable_get('pw_phone_areas', '');
+//
+//  $content = '<div id="pennywise-pw-phone-areas"><h4 class="block-title">' . $prefix . '</h4>';
+//  $content .= '<dl id="phone-calling-codes">';
+//  foreach ($phone_areas as $town => $code) {
+//    $content .= '<dt>' . $code . '</dt><dd>' . $town . "</dd>\n";
+//  }
+//  $content .= '</dl></div>';
+
+  $content = block_load('pennywise', 'pw_phone_areas');
+  $block_content = _block_render_blocks(array($block));
+
+  return $block_content;
+}
 /**
 * Custom support function for MENU_LOCAL_TASKS_ALTER
 *
@@ -321,6 +378,12 @@ function pennywise_block_info() {
     'visibility' => 0,
     'cache' => 8,
   );
+  $blocks['pw_phone_areas'] = array(
+    'info'    => t('PW Calling Areas'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache' => 8,
+  );
   $blocks['pw_edition'] = array(
     'info'    => t('PW Digital Edition Links'),
     'status'  => FALSE,
@@ -340,6 +403,21 @@ function pennywise_block_info() {
     'visibility' => 0,
     'cache'   => 8,
   );
+
+  $blocks['pw_mobile_links'] = array(
+    'info'    => t('PW Mobile Links'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache'   => 8,
+  );
+
+  $blocks['pw_hours_operation'] = array(
+    'info'    => t('PW Hours Operation'),
+    'status'  => FALSE,
+    'visibility' => 0,
+    'cache'   => 8,
+  );
+
 
   return $blocks;
 }
@@ -365,6 +443,7 @@ function pennywise_block_configure($delta) {
           '#description'  => l('Administrative Default Settings', 'admin/pennywise/settings'),
         );
       break;
+
     case 'pw_tmtv';
 
       $form['tmtv_link'] = array(
@@ -372,6 +451,72 @@ function pennywise_block_configure($delta) {
         '#description' => t('Link to TMTV News Page'),
       );
       break;
+
+    case 'pw_phone_areas':
+      $phone_headers = variable_get('pw_phone_header');
+      $form['pw_phone_prefix'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Phone prefixes'),
+        '#default_value' => $prefix = ($phone_headers['prefix']) ? $phone_headers['prefix'] : 'The most common area code is 250, followed by 778 and 236.',
+      );
+      $phone_areas = variable_get('pw_phone_areas', FALSE);
+      if ($phone_areas) {
+        $default_phone = '';
+        foreach ($phone_areas as $city => $code) {
+          $default_phone .= $city . ' => ' . $code . "\n";
+        }
+      }
+      else {
+        $default_phone = '
+Boswell => 223
+Riondel => 225
+Winlaw/Vallican => 226
+Crawford Bay/Gray Creek => 227
+Balfour/Ainsworth => 229
+Procter/Harrop => 229
+Nakusp => 265
+Fauquier => 269
+CASTLEGAR => 304 365 608 687
+NELSON => 352 354 505 509 551 777 825
+Kaslo => 353
+Slocan City => 355
+Salmo/Ymir => 357
+New Denver/Silverton => 358
+South Slocan /Crescent Valley => 359
+Rossland => 362
+TRAIL => 364 368
+Lardeau Valley/Duncan Lake => 366
+Fruitvale/Beaver Valley => 367
+Tarry’s/Thrums/Glade => 399
+CRESTON => 402 428 254 431 435 977
+Grand Forks => 442 443
+Greenwood => 445
+Rock Creek => 446
+Christina Lake => 447
+Midway => 449
+Beaverdell => 484
+Genelle => 693
+North Shore, Nelson => 825
+Wynndel/Sirdarn => 866
+        ';
+      }
+      $form['pw_phone_areas'] = array(
+        '#type' => 'textarea',
+        '#cols' => 20,
+        '#rows' => 40,
+        '#description' => t('Area codes for phone numbers.<br>Format as:<br>Boswell => 000<br>Riondel => 001<br>'),
+        '#default_value' => $default_phone,
+      );
+      break;
+
+    case 'pw_hours_operation':
+        $form['pw_hours_link'] = array(
+          '#prefix' => '<div class="button form-submit"><h2>',
+          '#suffix' => '</h2></div>',
+          '#markup' => l('Click Here to Edit Hours of Operation', 'admin/pennywise/settings'),
+        );
+      break;
+
     case 'pw_free_for_free':
         // Mailto data
         // <a href="mailto:info@pennywiseads.com?subject=Submit FREE for FREE ad&body=Free For Free Ad. %0A%0A%0A%0A%0A
@@ -443,6 +588,15 @@ function pennywise_block_save($delta = '', $edit = array()) {
   switch($delta) {
     case 'tmtv_link':
       break;
+    case 'pw_phone_areas':
+      variable_set('pw_phone_header', array('prefix' => $edit['pw_phone_prefix'], 'title' => $edit['title']));
+      $phone_areas = preg_split ('/$\R?^/m', trim($edit['pw_phone_areas']));
+      foreach ($phone_areas as $phone) {
+        $area = explode('=>', $phone);
+        $listing[$area[0]] = $area[1];
+      }
+      variable_set('pw_phone_areas', $listing);
+      break;
     case 'pw_free_for_free':
       variable_set('free_for_free_link_type', $edit['free_for_free_link_type']);
       variable_set('free_for_free_link', $edit['free_for_free_link']);
@@ -452,6 +606,35 @@ function pennywise_block_save($delta = '', $edit = array()) {
   }
 
   return ;
+}
+
+/**
+* Implementation of Custom Free For Free code
+*
+*  Determine what kind of FREE for FREE contact info required.
+* @return - link to either email or website form.
+*/
+function free_for_free_link() {
+  $free = array();
+
+  $link_type = variable_get('free_for_free_link_type', 'email');
+  switch ($link_type) {
+    case 'email':
+      $free['type']        = 'email';
+      $free['destination'] = variable_get('free_for_free_link', 'info@pennywiseads.com');
+      $free['header']      = l('Submit Free for Free Ad', 'mailto:' . $free['destination']);
+      $free['footer']      = l('Click Here', 'mailto:' . $free['destination']);
+      $free['simple_link'] = l('Free for Free', 'mailto:' . $free['destination']);
+      break;
+    default:
+      $free['type']        = 'link';
+      $free['destination'] = variable_get('free_for_free_link', 'user');
+      $free['header']      = l('Submit Free for Free Ad', $free['destination']);
+      $free['footer']      = l('Click Here', $free['destination']);
+      $free['simple_link'] = l('Free for Free', $free['destination']);
+  }
+
+  return($free);
 }
 
 /**
@@ -465,45 +648,96 @@ function pennywise_block_save($delta = '', $edit = array()) {
 function pennywise_block_view($delta = '') {
   global $base_url;
 
+  $subject = '';
+  $content = '';
+
   switch($delta) {
 
+    case 'pw_phone_areas':
+
+        $headers = variable_get('pw_phone_header');
+        $caption = '<h4 id="phone-calling-codes-button">' . $headers['title'] . '</h4>';
+        $markup  = '<h4 id="phone-calling-codes-title">' . $headers['prefix'] . '</h4>';
+        $markup .= '<div id="phone-calling-codes">';
+
+        $phone_areas = variable_get('pw_phone_areas', '');
+        $marker = 0;
+        foreach ($phone_areas as $town => $code) {
+          $marker++;
+          $zebra_strip = ($marker % 2 == 0) ? 'even' : 'odd';
+
+          $markup .= '<div class="city-phone-group ' . $zebra_strip . '"><span class="phone-area-code">' . $code . '</span><span class="phone-area ">' . $town . "</span><div class='bottom-floater'></div></div>\n";
+        }
+        $markup .= '</div>';
+
+        //$subject = '';
+        $subject = l($headers['title'], 'area-code', array('attributes' => array('id' => 'phone-calling-codes-button')));
+        //$content = '<a href="area-code" id="phone-calling-codes-button-link" >' . $caption . '</a>';
+        $content = $markup;
+      break;
+
     case 'pw_edition':
-      $dig_edition = l('Browse Online', variable_get('pw_edition_link', 'edition'));
-      $subject = $dig_edition;
-      $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-salmo-beaver-valley'));
+      $subject = l('Browse Online', variable_get('pw_edition_link', 'edition'));
+
+      $t = l('Trail & Rossland', variable_get('pw_edition_trail_link', 'edition/trail-beaver-valley-rossland'));
       $n = l('Nelson & Salmo', variable_get('pw_edition_trail_link', 'edition/nelson-salmo'));
       $c = l('Castlegar & Slocan Valley', variable_get('pw_edition_trail_link', 'edition/castlegar-slocan-valley'));
       $k = l('Kootenay Lake', variable_get('pw_edition_trail_link', 'edition/kootenay-lake'));
+/*       $hometown = l('Hometown Business', 'features/hometown'); */
       $items = array(
         array('data' => $t, 'id' => 't-edtion'),
         array('data' => $n, 'id' => 'n-edtion'),
         array('data' => $c, 'id' => 'c-edtion'),
         array('data' => $k, 'id' => 'k-edtion'),
+/*         array('data' => $hometown, 'id' => 'hometown-bus-link'), */
       );
+
       $content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'online-edition', 'id' => 'pw-edition')));
+      break;
+
+    case 'pw_mobile_links':
+        $headers = '';
+
+        // Free for free data.
+       $free = free_for_free_link();
+
+       $links =
+          '<div class="pw-mobile-link-block">' . l('Classified Ad', 'ad/submit', array('attributes' => array('id' => 'mobile-classified-link'))) . '</div>' .
+          '<div class="pw-mobile-link-block">' . $free['simple_link'] . '</div>' .
+          '<div class="pw-mobile-link-block">' . l('Editorial', 'submit-editorial', array('attributes' => array('id' => 'mobile-editorial-link'))) . '</div>' ;
+        $content = '<div id="pw-mobile-links-button">Submit</div><div id="pw-mobile-links-content">' . $links . '<div class="clear-both"></div></div>';
       break;
 
     case 'pw_free_for_free':
       $subject = '';
-      $link_type = variable_get('free_for_free_link_type', 'email');
-      switch ($link_type) {
-        case 'email':
-          $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
-          $link_header = l('Submit Free for Free Ad', 'mailto:' . $email);
-          $link_footer = l('Click Here', 'mailto:' . $email);
-          break;
-        default:
-          $destination = variable_get('free_for_free_link', 'user');
-          $link_header = l('Submit Free for Free Ad', $destination);
-          $link_footer = l('Click Here', $destination);
-      }
+      //$link_type = variable_get('free_for_free_link_type', 'email');
+      //switch ($link_type) {
+      //  case 'email':
+      //    $email = variable_get('free_for_free_link', 'info@pennywiseads.com');
+      //    $link_header = l('Submit Free for Free Ad', 'mailto:' . $email);
+      //    $link_footer = l('Click Here', 'mailto:' . $email);
+      //    break;
+      //  default:
+      //    $destination = variable_get('free_for_free_link', 'user');
+      //    $link_header = l('Submit Free for Free Ad', $destination);
+      //    $link_footer = l('Click Here', $destination);
+      //}
+      $free = free_for_free_link();
       $body = variable_get('free_for_free_description', '');
-      $content = '<div class="ad-submission-highlight-block free-for-free">' . $link_header . $body . $link_footer . '</div>';
+      $content = '<div class="ad-submission-highlight-block free-for-free">' . $free['header'] . $body . $free['footer'] . '</div>';
+      break;
+
+    case 'pw_hours_operation':
+      $subject  = 'Hours of Operation';
+      $contact  = variable_get('pennywise_general_contact_settings', l('Set Hours of Operation', 'admin/pennywise/settings'));
+      $content  = ($contact['pw_hours_operation']) ? $contact['pw_hours_operation'] : $contact;
       break;
 
     case 'submit_editorial':
       $subject    = '';
-      $content    = l('Submit Editorial', 'editorial/submit', array('attributes' => array('id' => 'editorial-submit-link')));
+      $content    = l('Submit Editorial', 'submit-editorial', array('attributes' => array('id' => 'editorial-submit-link')));
+      $content   .= l('Submission Guidelines', 'editorial/submission-guidelines', array('attributes' => array('id' => 'editorial-guidelines')));
+      //$content = l('Submit Editorial', 'mailto:editorial@pennywiseads.comm?subject=Pennywise Editorial Submission&body=', array('absolute' => TRUE));
       break;
 
     case 'pw_tmtv':
@@ -523,27 +757,7 @@ function pennywise_block_view($delta = '') {
     case 'pw_contact':
       $subject = variable_get('pw_contact_title', '<none>');
 
-      $pw_contact = array(
-        'toll_free'   => variable_get('pw_phone_toll_free'),
-        'local_phone' => variable_get('pw_phone_local'),
-        'fax'         => variable_get('pw_phone_fax'),
-        'address'     => variable_get('pw_mailing_address'),
-        'email'       => l('email', 'mailto:' . variable_get('pw_email'), array('absolute' => TRUE)),
-        'facebook'    => l('facebook', variable_get('pw_facebook_link'), array('absolute' => TRUE)),
-      );
-
-      $content = '<dl id="pw-contact-info-block">';
-      $a = 0;
-      foreach($pw_contact as $key => $value) {
-        $key_view = ucwords(str_replace('_', ' ', $key));
-        $a++;
-        $row = ($a % 2)? 'row-odd' : 'row-even';
-        $content .= "<div class='pw-contact-wrapper pw-contact-$key-wrapper $row'>";
-        $content .= "<dt class='pw-contact-label pw-contact-$key-label'>$key_view</dt>";
-        $content .= "<dd class='pw-contact-value pw-contact-$key-value'>$value</dd>";
-        $content .= "</div>";
-      }
-      $content .= '</dl>';
+      $content = pw_masthead(variable_get('pennywise_general_contact_settings'));
 
       break;
 
@@ -589,12 +803,76 @@ function pennywise_block_view($delta = '') {
       }
       break;
   }
+
+
   $block = array(
     'subject' => $subject,
     'content' => $content,
   );
 
   return $block;
+}
+
+/**
+* Implementation of theme_hook()
+* Sets the variables and Themes the PW masthead.
+*/
+function pennywise_theme() {
+  return array(
+    'masthead' => array(
+      'template'  => 'templates/pw-masthead',
+      'variables' => array(
+        'toll_free' => NULL,
+        'local'     => NULL,
+        'fax'       => NULL,
+        'email'     => NULL,
+        'contest'   => NULL,
+        'address'   => NULL,
+        'facebook'  => NULL,
+        'twitter'   => NULL,
+      ),
+    ),
+  );
+}
+
+function pw_masthead($pw) {
+  $image_t  = file_create_url(drupal_get_path('module', 'pennywise') . '/images/twitter.png');
+  $image_twitter      = '<img width="40px" height="40px" src="' . $image_t . '" alt="' . t('Twitter') . '" />';
+
+  $image_f = file_create_url(drupal_get_path('module', 'pennywise') . '/images/facebook.png');
+  $image_facebook = '<img width="40px" height="40px" src="' . $image_f . '" alt="' . t('Facebook') . '" />';
+
+ // $content    = l($image, 'http://www.tmtv.net/newsroom.html', array('html' => TRUE, 'attributes' => array('rel' => 'TMTV', 'id' => 'TMTV-Link', 'title' => t('TMTV Newsroom'))));
+
+
+  $pw_contact = array(
+    'toll_free'   => $pw['toll_free'],
+    'local'       => $pw['local'],
+    'fax'         => $pw['fax'],
+    'email'       => l($pw['email'], 'mailto:' . $pw['email'], array('absolute' => TRUE)),
+    'contest'     => l($pw['contest'], 'contests', array('absolute' => TRUE)),
+    'facebook'    => l($image_facebook, $pw['facebook'], array('html' => TRUE, 'attributes' => array('rel' => 'Facebook', 'id' => 'pw-masthead-facebook', 'class' => 'social-link facebook-link', 'title' => t('Like us on Facebook')))),
+    'twitter'     => l($image_twitter, $pw['twitter'], array('html' => TRUE, 'attributes' => array('rel' => 'Twitter', 'id' => 'pw-masthead-twitter', 'class' => 'social-link twitter-link', 'title' => t('Follow us on Twitter')))),
+    'address'     => $pw['mailing_address'],
+
+  );
+
+
+  $a = 0;
+  foreach($pw_contact as $key => $value) {
+    /* wrap all the elements */
+    $key_view = ucwords(str_replace('_', ' ', $key));
+    $a++;
+    $row = ($a % 2)? 'row-odd' : 'row-even';
+    $content[$key] = "<span class='pw-masthead-wrapper pw-masthead-$key-wrapper $row'>";
+    $content[$key] .= "<dt class='pw-masthead-label pw-masthead-$key-label'>$key_view</dt>";
+    $content[$key] .= "<dd class='pw-masthead-value pw-masthead-$key-value'>$value</dd>";
+    $content[$key] .= "</span>";
+  }
+
+ $output = theme('masthead', $content);
+
+  return $output;
 }
 
 
@@ -606,18 +884,24 @@ function pennywise_jcarousel_skin_info() {
 
   $skins['print'] = array(
     'title' => t('PW Print'),
-    'file' => 'skins/print/jcarousel-print.css',
+    'file' => 'skins/print/jcarousel-print.less',
   );
+
+  $skins['fineprint'] = array(
+    'title' => t('FinePrint'),
+    'file' => 'skins/fineprint/jcarousel-fineprint.less',
+  );
+
 
   $skins['front'] = array(
     'title' => t('Front'),
-    'file' => 'skins/front/jcarousel-front.css',
+    'file' => 'skins/front/jcarousel-front.less',
   );
 
 
   $skins['editorial'] = array(
     'title' => t('Vertical Ed'),
-    'file' => 'skins/editorial/jcarousel-editorial.css',
+    'file' => 'skins/editorial/jcarousel-editorial.less',
   );
 
   return $skins;

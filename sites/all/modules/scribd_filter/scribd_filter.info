@@ -9,9 +9,9 @@ package = Input filters
 files[] = scribd_filter.module
 files[] = scribd_filter.test
 
-; Information added by drupal.org packaging script on 2012-05-28
-version = "7.x-1.3"
+; Information added by Drupal.org packaging script on 2014-02-10
+version = "7.x-1.4"
 core = "7.x"
 project = "scribd_filter"
-datestamp = "1338201696"
+datestamp = "1392057806"
 

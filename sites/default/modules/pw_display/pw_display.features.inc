@@ -56,53 +56,51 @@ function pw_display_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'display_ad_full_page',
   );
 
   // Exported image style: display_ad_print_cropped_vert_thumbnail.
   $styles['display_ad_print_cropped_vert_thumbnail'] = array(
     'name' => 'display_ad_print_cropped_vert_thumbnail',
     'effects' => array(
-      15 => array(
-        'label' => 'EPSA Image Crop',
-        'help' => '',
-        'effect callback' => 'epsacrop_crop_image',
-        'form callback' => 'epsacrop_crop_image_form',
-        'module' => 'epsacrop',
-        'name' => 'epsacrop_crop',
+      30 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
           'width' => '95',
           'height' => '140',
-          'anchor' => 'center-center',
-          'jcrop_settings' => array(
-            'aspect_ratio' => '19/28',
-            'bgcolor' => 'white',
-            'bgopacity' => '0.6',
-          ),
+          'upscale' => 0,
         ),
         'weight' => '2',
       ),
     ),
+    'label' => 'display_ad_print_cropped_vert_thumbnail',
   );
 
   // Exported image style: display_ad_print_thumbnail.
   $styles['display_ad_print_thumbnail'] = array(
     'name' => 'display_ad_print_thumbnail',
+    'label' => 'display_ad_print_thumbnail',
     'effects' => array(
-      13 => array(
-        'label' => 'Scale',
-        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
-        'effect callback' => 'image_scale_effect',
-        'dimensions callback' => 'image_scale_dimensions',
+      34 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
         'form callback' => 'image_scale_form',
         'summary theme' => 'image_scale_summary',
-        'module' => 'image',
-        'name' => 'image_scale',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
-          'width' => '60',
-          'height' => '85',
+          'width' => '100',
+          'height' => '100',
           'upscale' => 0,
         ),
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -111,24 +109,20 @@ function pw_display_image_default_styles() {
   $styles['display_ad_smart_crop_med_square'] = array(
     'name' => 'display_ad_smart_crop_med_square',
     'effects' => array(
-      22 => array(
-        'label' => 'EPSA Image Crop',
-        'help' => '',
-        'effect callback' => 'epsacrop_crop_image',
-        'form callback' => 'epsacrop_crop_image_form',
-        'module' => 'epsacrop',
-        'name' => 'epsacrop_crop',
+      6 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
           'width' => '165',
           'height' => '220',
-          'anchor' => 'center-center',
-          'jcrop_settings' => array(
-            'aspect_ratio' => '3/4',
-            'bgcolor' => 'white',
-            'bgopacity' => '.8',
-          ),
+          'upscale' => 0,
         ),
-        'weight' => '-10',
+        'weight' => '-9',
       ),
       7 => array(
         'label' => 'Rounded Corners',
@@ -151,35 +145,33 @@ function pw_display_image_default_styles() {
             ),
           ),
         ),
-        'weight' => '-9',
+        'weight' => '-8',
       ),
     ),
+    'label' => 'display_ad_smart_crop_med_square',
   );
 
   // Exported image style: miniature_square.
   $styles['miniature_square'] = array(
     'name' => 'miniature_square',
     'effects' => array(
-      20 => array(
-        'label' => 'EPSA Image Crop',
-        'help' => '',
-        'effect callback' => 'epsacrop_crop_image',
-        'form callback' => 'epsacrop_crop_image_form',
-        'module' => 'epsacrop',
-        'name' => 'epsacrop_crop',
+      33 => array(
+        'label' => 'Scale and Smart Crop',
+        'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
+        'effect callback' => 'smartcrop_scale_effect',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'smartcrop',
+        'name' => 'smartcrop_scale_and_crop',
         'data' => array(
           'width' => '30',
           'height' => '30',
-          'anchor' => 'center-center',
-          'jcrop_settings' => array(
-            'aspect_ratio' => '1/1',
-            'bgcolor' => 'white',
-            'bgopacity' => '0.8',
-          ),
+          'upscale' => 0,
         ),
         'weight' => '1',
       ),
     ),
+    'label' => 'miniature_square',
   );
 
   return $styles;

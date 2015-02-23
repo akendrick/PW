@@ -13,6 +13,66 @@ function pw_editorial_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_attachments|node|task|default';
+  $field_group->group_name = 'group_attachments';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'task';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Attachments',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_task_image',
+      1 => 'field_add_link',
+      2 => 'field_add_file',
+      3 => 'field_add_attachments',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => ' group-attachments field-group-fieldset',
+      ),
+    ),
+  );
+  $export['group_attachments|node|task|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_attachments|node|task|form';
+  $field_group->group_name = 'group_attachments';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'task';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Attachments',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_task_image',
+      1 => 'field_related_information',
+      2 => 'field_add_link',
+      3 => 'field_add_file',
+      4 => 'field_add_attachments',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => ' group-attachments field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_attachments|node|task|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_attachment|node|attachment|form';
   $field_group->group_name = 'group_attachment';
   $field_group->entity_type = 'node';
@@ -21,17 +81,17 @@ function pw_editorial_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attachment',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
-      0 => 'group_basics',
+      0 => 'group_description',
       1 => 'group_optional',
-      2 => 'group_description',
+      2 => 'group_special_feature',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
       'label' => 'Attachment',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-attachment field-group-accordion',
         'effect' => 'bounceslide',
       ),
     ),
@@ -53,14 +113,15 @@ function pw_editorial_field_group_info() {
     'children' => array(
       0 => 'field_high_res_ad',
       1 => 'field_image',
-      2 => 'title',
+      2 => 'field_scribd',
+      3 => 'title',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
       'label' => 'Basics',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-basics field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -76,23 +137,24 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Links',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'field_link',
       1 => 'field_email',
       2 => 'field_entity_reference',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Links',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => ' group-bonus field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_bonus|node|article|form'] = $field_group;
@@ -107,17 +169,19 @@ function pw_editorial_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_attachment';
   $field_group->data = array(
-    'label' => 'Description',
-    'weight' => '2',
+    'label' => 'File Attachemnt',
+    'weight' => '9',
     'children' => array(
       0 => 'body',
+      1 => 'field_high_res_ad',
+      2 => 'field_image',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'label' => 'Description',
+      'label' => 'File Attachemnt',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-description field-group-accordion-item',
         'description' => '',
       ),
       'formatter' => 'closed',
@@ -133,22 +197,23 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'field_image',
       1 => 'group_extra_image_group',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Media',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => ' group-details field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_details|node|article|form'] = $field_group;
@@ -161,25 +226,24 @@ function pw_editorial_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'article';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_ed_group_master';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Basic',
-    'weight' => '2',
+    'weight' => '0',
     'children' => array(
       0 => 'body',
       1 => 'field_submitter',
       2 => 'field_area_taxonomy',
       3 => 'title',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Basic',
+      'formatter' => 'collapsible',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
         'description' => '',
+        'classes' => ' group-ed-basic field-group-fieldset',
+        'required_fields' => 1,
       ),
-      'formatter' => 'open',
     ),
   );
   $export['group_ed_basic|node|article|form'] = $field_group;
@@ -205,7 +269,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'formatter' => '',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-ed-group-master field-group-htabs',
       ),
     ),
   );
@@ -234,7 +298,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-edition field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -262,7 +326,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'label' => 'Details',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-editorial-details field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -292,7 +356,7 @@ function pw_editorial_field_group_info() {
     'format_settings' => array(
       'label' => '',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => ' group-editorial-more field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -320,7 +384,7 @@ function pw_editorial_field_group_info() {
       'label' => 'Upload Extra Images',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => '',
+        'classes' => ' group-extra-image-group field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -353,7 +417,7 @@ function pw_editorial_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-info field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -370,18 +434,17 @@ function pw_editorial_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Optional Features',
+    'label' => 'Optional Features & Inserts',
     'weight' => '2',
     'children' => array(
       0 => 'field_entity_reference',
-      1 => 'field_scribd',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Optional Features',
+      'label' => 'Optional Features & Inserts',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-optional-features field-group-fieldset',
         'description' => 'Add a special feature such as Carolling, or Home Town Business Section here. They can be attachment features or extra links to additional Scribd documents.',
       ),
       'formatter' => 'collapsed',
@@ -400,23 +463,54 @@ function pw_editorial_field_group_info() {
   $field_group->parent_name = 'group_attachment';
   $field_group->data = array(
     'label' => 'Optional',
-    'weight' => '3',
+    'weight' => '10',
     'children' => array(
       0 => 'field_link',
       1 => 'field_entity_reference',
-      2 => 'path',
+      2 => 'field_file',
+      3 => 'path',
+      4 => 'redirect',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-optional field-group-accordion-item',
         'required_fields' => 1,
       ),
     ),
   );
   $export['group_optional|node|attachment|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_special_feature|node|attachment|form';
+  $field_group->group_name = 'group_special_feature';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'attachment';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_attachment';
+  $field_group->data = array(
+    'label' => 'Special Feature',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_scribd',
+      1 => 'field_feature_type',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Special Feature',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => ' group-special-feature field-group-accordion-item',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_special_feature|node|attachment|form'] = $field_group;
 
   return $export;
 }

@@ -24,7 +24,9 @@ function context_admin_ctools_plugin_directory($owner, $plugin_type) {
  */
 function context_admin_ctools_plugin_type() {
   return array(
-    'context_admin' => array(),
+    'context_admin' => array(
+      'child plugins' => TRUE,
+    ),
   );
 }
 

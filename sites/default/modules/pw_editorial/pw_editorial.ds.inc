@@ -92,6 +92,36 @@ function pw_editorial_ds_field_settings_info() {
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|article|editorial_slideshow';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'article';
+  $ds_fieldsetting->view_mode = 'editorial_slideshow';
+  $ds_fieldsetting->settings = array(
+    'title' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '1',
+        'wrapper' => 'h6',
+        'class' => 'editorial-slideshow-title',
+      ),
+    ),
+    'node_link' => array(
+      'weight' => '3',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link text' => 'Read more',
+        'wrapper' => '',
+        'class' => 'field-link-readmore',
+      ),
+    ),
+  );
+  $export['node|article|editorial_slideshow'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|article|simple_teaser';
   $ds_fieldsetting->entity_type = 'node';
   $ds_fieldsetting->bundle = 'article';
@@ -117,13 +147,33 @@ function pw_editorial_ds_field_settings_info() {
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|attachment|attachment';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'attachment';
+  $ds_fieldsetting->view_mode = 'attachment';
+  $ds_fieldsetting->settings = array(
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+  );
+  $export['node|attachment|attachment'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|attachment|default';
   $ds_fieldsetting->entity_type = 'node';
   $ds_fieldsetting->bundle = 'attachment';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '4',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'links' => array(
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -138,7 +188,7 @@ function pw_editorial_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '0',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -332,57 +382,55 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'article';
   $ds_layout->view_mode = 'form';
-  $ds_layout->layout = 'ds_form_3col';
+  $ds_layout->layout = 'ds_1col';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => FALSE,
     'regions' => array(
-      'header' => array(
-        0 => 'body',
-      ),
-      'left' => array(
+      'ds_content' => array(
         0 => 'group_ed_basic',
-        1 => 'title',
-        2 => 'field_submitter',
-        3 => 'field_area_taxonomy',
-      ),
-      'middle' => array(
-        0 => 'group_bonus',
-        1 => 'field_link',
-        2 => 'field_email',
-      ),
-      'right' => array(
-        0 => 'group_details',
-        1 => 'field_entity_reference',
-      ),
-      'footer' => array(
-        0 => 'field_image',
-        1 => 'field_images_editorial_extra',
+        1 => 'group_bonus',
+        2 => 'title',
+        3 => 'field_submitter',
+        4 => 'group_details',
+        5 => 'field_area_taxonomy',
+        6 => 'path',
+        7 => 'body',
+        8 => 'redirect',
+        9 => 'field_link',
+        10 => 'field_email',
+        11 => 'field_entity_reference',
+        12 => 'field_image',
+        13 => 'group_extra_image_group',
+        14 => 'field_images_editorial_extra',
       ),
       'hidden' => array(
-        0 => 'path',
-        1 => 'group_ed_group_master',
-        2 => '_add_existing_field',
+        15 => '_add_existing_field',
       ),
     ),
     'fields' => array(
-      'body' => 'header',
-      'group_ed_basic' => 'left',
-      'group_bonus' => 'middle',
-      'group_details' => 'right',
-      'field_image' => 'footer',
-      'field_images_editorial_extra' => 'footer',
-      'path' => 'hidden',
-      'group_ed_group_master' => 'hidden',
-      'title' => 'left',
-      'field_link' => 'middle',
-      'field_submitter' => 'left',
-      'field_email' => 'middle',
+      'group_ed_basic' => 'ds_content',
+      'group_bonus' => 'ds_content',
+      'title' => 'ds_content',
+      'field_submitter' => 'ds_content',
+      'group_details' => 'ds_content',
+      'field_area_taxonomy' => 'ds_content',
+      'path' => 'ds_content',
+      'body' => 'ds_content',
+      'redirect' => 'ds_content',
+      'field_link' => 'ds_content',
+      'field_email' => 'ds_content',
+      'field_entity_reference' => 'ds_content',
+      'field_image' => 'ds_content',
+      'group_extra_image_group' => 'ds_content',
+      'field_images_editorial_extra' => 'ds_content',
       '_add_existing_field' => 'hidden',
-      'field_area_taxonomy' => 'left',
-      'field_entity_reference' => 'right',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
   );
   $export['node|article|form'] = $ds_layout;
 
@@ -419,31 +467,89 @@ function pw_editorial_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
-  $ds_layout->id = 'node|attachment|default';
+  $ds_layout->id = 'node|attachment|attachment';
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'attachment';
-  $ds_layout->view_mode = 'default';
-  $ds_layout->layout = 'ds_1col';
+  $ds_layout->view_mode = 'attachment';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
   $ds_layout->settings = array(
     'regions' => array(
-      'ds_content' => array(
+      'header' => array(
         0 => 'title',
+      ),
+      'left' => array(
         1 => 'field_image',
+      ),
+      'right' => array(
         2 => 'body',
         3 => 'field_high_res_ad',
         4 => 'field_link',
       ),
+      'footer' => array(
+        5 => 'field_entity_reference',
+      ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
-      'field_image' => 'ds_content',
-      'body' => 'ds_content',
-      'field_high_res_ad' => 'ds_content',
-      'field_link' => 'ds_content',
+      'title' => 'header',
+      'field_image' => 'left',
+      'body' => 'right',
+      'field_high_res_ad' => 'right',
+      'field_link' => 'right',
+      'field_entity_reference' => 'footer',
     ),
     'classes' => array(),
     'wrappers' => array(
-      'ds_content' => 'div',
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+  );
+  $export['node|attachment|attachment'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|attachment|default';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'attachment';
+  $ds_layout->view_mode = 'default';
+  $ds_layout->layout = 'ds_2col_stacked_fluid';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'field_image',
+        1 => 'field_high_res_ad',
+        2 => 'field_file',
+      ),
+      'right' => array(
+        3 => 'links',
+        4 => 'title',
+        5 => 'body',
+        6 => 'field_link',
+      ),
+      'footer' => array(
+        7 => 'field_scribd',
+      ),
+    ),
+    'fields' => array(
+      'field_image' => 'left',
+      'field_high_res_ad' => 'left',
+      'field_file' => 'left',
+      'links' => 'right',
+      'title' => 'right',
+      'body' => 'right',
+      'field_link' => 'right',
+      'field_scribd' => 'footer',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
@@ -505,17 +611,17 @@ function pw_editorial_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'title',
-        1 => 'field_image',
-        2 => 'field_high_res_ad',
-        3 => 'body',
+        0 => 'field_image',
+        1 => 'title',
+        2 => 'body',
+        3 => 'field_high_res_ad',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
       'field_image' => 'ds_content',
-      'field_high_res_ad' => 'ds_content',
+      'title' => 'ds_content',
       'body' => 'ds_content',
+      'field_high_res_ad' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -642,45 +748,47 @@ function pw_editorial_ds_layout_settings_info() {
     'regions' => array(
       'left' => array(
         0 => 'group_edition',
-        2 => 'field_trail',
-        4 => 'field_nelson_edition',
-        5 => 'field_castlegar_edition',
-        7 => 'field_kootenay_lake_edition',
+        3 => 'field_trail',
+        5 => 'field_nelson_edition',
+        7 => 'field_castlegar_edition',
+        8 => 'field_kootenay_lake_edition',
       ),
       'right' => array(
         1 => 'group_info',
-        14 => 'field_edition_date',
-        15 => 'field_display_ad',
+        15 => 'field_edition_date',
+        16 => 'field_display_ad',
       ),
       'footer' => array(
-        3 => 'group_optional_features',
-        8 => 'field_entity_reference',
-        10 => 'field_scribd',
+        2 => 'group_optional_features',
+        10 => 'field_entity_reference',
       ),
       'hidden' => array(
+        4 => 'field_scribd',
         6 => 'field_pdf',
         9 => 'path',
         11 => 'title',
         12 => 'body',
         13 => 'field_special_feature_link',
-        16 => '_add_existing_field',
+        14 => 'redirect',
+        17 => '_add_existing_field',
       ),
     ),
     'fields' => array(
       'group_edition' => 'left',
       'group_info' => 'right',
-      'field_trail' => 'left',
       'group_optional_features' => 'footer',
+      'field_trail' => 'left',
+      'field_scribd' => 'hidden',
       'field_nelson_edition' => 'left',
-      'field_castlegar_edition' => 'left',
       'field_pdf' => 'hidden',
+      'field_castlegar_edition' => 'left',
       'field_kootenay_lake_edition' => 'left',
-      'field_entity_reference' => 'footer',
       'path' => 'hidden',
-      'field_scribd' => 'footer',
+      'field_entity_reference' => 'footer',
       'title' => 'hidden',
       'body' => 'hidden',
       'field_special_feature_link' => 'hidden',
+      'redirect' => 'hidden',
       'field_edition_date' => 'right',
       'field_display_ad' => 'right',
       '_add_existing_field' => 'hidden',
@@ -706,6 +814,15 @@ function pw_editorial_ds_layout_settings_info() {
  */
 function pw_editorial_ds_view_modes_info() {
   $export = array();
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'attachment';
+  $ds_view_mode->label = 'Attachment';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['attachment'] = $ds_view_mode;
 
   $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
@@ -769,6 +886,15 @@ function pw_editorial_ds_view_modes_info() {
     'node' => 'node',
   );
   $export['simple_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'special_feature';
+  $ds_view_mode->label = 'Special Feature';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['special_feature'] = $ds_view_mode;
 
   $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;

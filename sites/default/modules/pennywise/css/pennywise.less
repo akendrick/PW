@@ -72,6 +72,22 @@
   background-color: @background;
 }
 
+/* cols */
+.cols (@cols: 2, @width: 1em) {
+	-moz-column-count: @cols;
+	-moz-column-gap: @width;
+	-webkit-column-count: @cols;
+	-webkit-column-gap: @width;
+	column-count: @cols;
+	column-gap: @width;
+
+ -webkit-column-span:1; /* Chrome */
+ column-span:1;
+
+	widows: 8;
+	orphans: 8;
+}
+
 
 /*************************** GENERAL Form Style */
 .less-strong-stuff {
@@ -97,7 +113,6 @@
   background-color: @sand;
   border-width: thin;
 }
-
 
 .ds-form-3col-stacked, #pw-digital-node-form {
   .border-radius;
@@ -155,6 +170,9 @@
   }
 
 }
+
+/******* BLOCK THEMEING */
+
 /* Digital Edition - 2 col */
 #pw-digital-node-form {
   .group-left {
@@ -195,11 +213,90 @@
   }
 }
 
+/* Phone Area Code Block */
+#block-pennywise-pw-phone-areas {
+  border: 1pt solid @status;
+  border-left: 0;
+  border-right: 0;
+  border-bottom:0;
+  border-top: 0;
+  margin: 0;
+  #phone-calling-codes-button, h2.block-title, h4#phone-calling-codes-title {
+    font-size: 1em;
+    text-align: center;
+    background-color: @status;
+    padding: 2px;
+    color: @white;
+    margin: 0;
+    width: 100%;
+  }
+  h2.block-title {
+    .border-radius(0);
+    padding: 0;
+  }
+  #phone-calling-codes  {
+    .phone-calling-codes-title { clear: both; width: 100%;}
+    .city-phone-group {
+      width: 190px;
+      margin: 15px;
+      float: left;
+      background-color: lighten(@editorial_light, 20%);
+      margin: 2px 0;
+      .phone-area-code, .phone-area {
+        font-size: .8em;
+        text-align: center;
+        margin: 0;
+        padding: 2px 4px;
+      }
+      .phone-area-code {
+        float: left;
+        display: block;
+        width: 25px;
+        background-color: @editorial_dark;
+        color: @white;
+        font-weight: bold;
+        clear: left;
+        max-width: 60px;
+        margin-bottom: 2px;
+      }
+      .phone-area {
+        margin: 0 80;
+        width: 100px;
+        word-wrap: break-word;
+      }
+      .bottom-floater {
+        clear: both;
+      }
+    }
+    .even {
+/*       background-color: lighten(@editorial_light, 10%); */
+    }
+  }
+}
+/*
+.page-area-code #phone-calling-codes {
+  display: inherit;
+  .cols(2, 1em);
+  .phone-area-code, .phone-area {
+    font-size: 1em;
+  }
+  .phone-area-code {
+    width: 35px;
+  }
+  .phone-area {
+    width: 150px;
+  }
+}
+*/
+
+
 /* Display Ad Node Form */
 .node-display_ads-form {
+/*
   #edit-field-tags-und {
     height: 250px;
   }
+*/
   #field-ad-copy-add-more-wrapper {
     width: 100%;
     #edit-field-ad-copy-und-0-format {
@@ -247,6 +344,28 @@
 
 /*************************** ADMIN Interface */
 /**** dashboard ****/
+#dashboard {
+  #block-views-admin-dashboard-display-dash {
+    background-color: @classified_light;
+    table {
+      caption {
+        font-size: 2em;
+        font-weight: bolder;
+      }
+      th {
+        font-size: .8em;
+        font-weight: 700;
+        background-color: @classified_dark;
+        color: @white;
+        a {
+          color: @darklight;
+        }
+      }
+    }
+  }
+}
+
+
 body.page-admin-pennywise {
   .button a {
     .button-colour(@white, @classified_dark);
@@ -379,6 +498,16 @@ body.page-admin-pennywise {
     clear: both;
     float: none;
     line-height: 0px;
+  }
+}
+/* editorial submission thank you */
+.page-node-126539 {
+  .webform-confirmation {
+    padding: 20px;
+    h2 {
+      background-color: @white;
+      color: @editorial_dark;
+    }
   }
 }
 /*** editorial admin *****/
@@ -553,5 +682,26 @@ table.details-price {
   }
   td.views-field-field-tags {
     width: 100px;
+  }
+}
+
+/* admin labelling */
+#edit-field-tags-und {
+  .form-item-field-tags-und-32, /* animals etc */
+  .form-item-field-tags-und-24, /* annoucements */
+  .form-item-field-tags-und-1, /* bulletin board */
+  .form-item-field-tags-und-17, /* education */
+  .form-item-field-tags-und-20, /* employment */
+  .form-item-field-tags-und-16, /* events */
+  .form-item-field-tags-und-16, /* events */
+  .form-item-field-tags-und-168, /* free */
+  .form-item-field-tags-und-16, /* events */
+  .form-item-field-tags-und-15, /* Merchandise */
+  .form-item-field-tags-und-35, /* obit */
+  .form-item-field-tags-und-37, /* Real Estate */
+  .form-item-field-tags-und-48, /* Services */
+  .form-item-field-tags-und-54, /* Vehicles */
+   {
+    background-color: @classified_light;
   }
 }

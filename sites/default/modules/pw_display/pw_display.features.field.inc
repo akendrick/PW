@@ -49,6 +49,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'The following are considered clients
@@ -71,7 +73,7 @@ function pw_display_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -107,6 +109,7 @@ function pw_display_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -154,6 +157,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -170,7 +175,7 @@ function pw_display_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -207,6 +212,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -261,6 +267,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Upload (or select) display ad.',
       'display' => array(
@@ -273,10 +281,13 @@ function pw_display_field_default_fields() {
         ),
         'default' => array(
           'label' => 'hidden',
-          'module' => 'lightbox2',
-          'settings' => array(),
-          'type' => 'lightbox2__lightbox__display_ad_full_page__original',
-          'weight' => '0',
+          'module' => 'image_link_formatter',
+          'settings' => array(
+            'image_link' => 'field_link',
+            'image_style' => '',
+          ),
+          'type' => 'image_link_formatter',
+          'weight' => '1',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -313,6 +324,7 @@ function pw_display_field_default_fields() {
       'settings' => array(
         'alt_field' => 1,
         'custom_add_another' => '',
+        'custom_remove' => '',
         'default_image' => 0,
         'file_directory' => 'images/display',
         'file_extensions' => 'png gif jpg jpeg',
@@ -416,6 +428,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Select the ad type. This will affect the ads placement and thumbnail size. <br>
@@ -465,6 +479,7 @@ function pw_display_field_default_fields() {
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -513,6 +528,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Optional email contact for business.',
@@ -525,11 +542,11 @@ function pw_display_field_default_fields() {
           'weight' => '15',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -563,6 +580,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -641,6 +659,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => 'Attach another',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link this display ad to a PDF attachment, another display ad or even a classified ad. Link to a specific PW web page, or even an online web submission form. You can also create the attachment right here.
@@ -650,7 +670,7 @@ function pw_display_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '18',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -676,7 +696,8 @@ function pw_display_field_default_fields() {
       'label' => 'File Attach',
       'required' => 0,
       'settings' => array(
-        'custom_add_another' => 'Attach another',
+        'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -736,6 +757,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'deleted' => '0',
       'description' => 'Upload related document.',
       'display' => array(
@@ -744,7 +767,7 @@ function pw_display_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '14',
+          'weight' => '8',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -773,6 +796,7 @@ function pw_display_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'description_field' => 1,
         'file_directory' => 'images/attachment',
         'file_extensions' => 'pdf gif tif jpg',
@@ -867,6 +891,8 @@ function pw_display_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Title tag allows you to shorten very long and complex web links with a concise title.<br>
@@ -884,11 +910,11 @@ with <strong>Page 30</strong>.<br>
           'weight' => '16',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -929,6 +955,7 @@ with <strong>Page 30</strong>.<br>
           'title' => '',
         ),
         'custom_add_another' => '',
+        'custom_remove' => '',
         'display' => array(
           'url_cutoff' => '0',
         ),
@@ -954,7 +981,7 @@ with <strong>Page 30</strong>.<br>
   $fields['node-display_ads-field_publish_date'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_publish_date',
@@ -984,6 +1011,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1032,6 +1061,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
@@ -1075,6 +1105,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => array(
         0 => array(
           'value' => '0',
@@ -1127,6 +1159,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1187,6 +1220,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Link file here by typing the title of the uploaded file name. To upload a file click <a href=\'/node/add/attachment\' target=\'_NEW\'>here.</a>',
@@ -1208,7 +1243,7 @@ with <strong>Page 30</strong>.<br>
             'view_mode' => 'teaser',
           ),
           'type' => 'entityreference_entity_view',
-          'weight' => '6',
+          'weight' => '7',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1241,6 +1276,7 @@ with <strong>Page 30</strong>.<br>
       'required' => 0,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1264,7 +1300,7 @@ with <strong>Page 30</strong>.<br>
   $fields['node-display_ads-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -1299,6 +1335,8 @@ with <strong>Page 30</strong>.<br>
     ),
     'field_instance' => array(
       'bundle' => 'display_ads',
+      'custom_add_another' => '',
+      'custom_remove' => '',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -1311,10 +1349,11 @@ with <strong>Page 30</strong>.<br>
           'weight' => '10',
         ),
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '14',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '0',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1347,13 +1386,14 @@ with <strong>Page 30</strong>.<br>
       'required' => 1,
       'settings' => array(
         'custom_add_another' => '',
+        'custom_remove' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_select',
+        'type' => 'options_buttons',
         'weight' => '5',
       ),
     ),

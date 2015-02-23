@@ -22,11 +22,10 @@ Setup
 4. Profit!  The examples will appear in your Navigation menu (on the left
    sidebar by default; you'll need to reenable it if you removed it).
 
-Now you can read the code and its comments and see the result, experiment with
-it, and hopefully quickly grasp how things work.
+Now you can read the code and it's comments and see the result, experiment with
+it, and hopefully quickly grasp it's working.
 
 If you find a problem, incorrect comment, obsolete or improper code or such,
 please let us know by creating a new issue at
 http://drupal.org/project/issues/examples
-
 

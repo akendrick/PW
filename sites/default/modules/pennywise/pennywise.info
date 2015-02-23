@@ -12,8 +12,16 @@ files[] = settings_default.inc
 files[] = settings_holiday.inc
 
 ;CSS
-files[] = css/pennywise.css
-files[] = css/pennywise.less
+;files[] = css/pennywise.css
+;files[] = css/pennywise.less
+
+stylesheets[all][] = css/pennywise.less
+
+; skins
+stylesheets[all][] = skins/print/jcarousel-print.less
+stylesheets[all][] = skins/fineprint/jcarousel-fineprint.less
+stylesheets[all][] = skins/front/jcarousel-front.less
+stylesheets[all][] = skins/editorial/jcarousel-editorial.less
 
 ;jQuery
 scripts[] = js/pw_admin.js

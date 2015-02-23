@@ -3,9 +3,5 @@ the test to see if files are writable on your site. If you see timestamps below
 this line those are security runs which were able to write to this file.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-20120330034314
-20120330034344
-20120530103941
-20130102112543
-20130102113456
-20130102113529
+20130923022437 - Your web server should not be able to write to your modules directory. This is a security vulnerable. Consult the Security Review file permissions check help for mitigation steps.
+20140906124133 - Your web server should not be able to write to your modules directory. This is a security vulnerable. Consult the Security Review file permissions check help for mitigation steps.

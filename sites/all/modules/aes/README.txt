@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.3 2010/12/31 13:27:19 amc Exp $
 
 WHAT THIS MODULE IS GOOD FOR
 ----------------------
@@ -28,7 +27,7 @@ HOW TO GET AN AES IMPLEMENTATION
 If you don't have an AES implementation (you'll notice this when you install this module) then the easiest implementation for you to get is probably the PHP Secure Communications Library (phpseclib).
 
 Just download the latest version from http://phpseclib.sourceforge.net/ and extract it into a directory called "phpseclib" inside the aes directory. Note that the zip file of the version of phpseclib that this module was developed with doesn't create the phpseclib directory itself, it just extracts its various directories directly into the location you unzip it, so create that "phpseclib" directory first and then move the zip file into it, and unzip. The complete path to the file which will be included by this module (AES.php) should look like this:
-aes/phpseclib/Crypt/AES.php
+aes/phpseclib/Crypt/AES.php . You also may install PhpSecLib as a regular Drupal library.
 
 That's it! Try installing/enabling the module again.
 
@@ -39,7 +38,7 @@ Note that you most likely need to be running your own webserver in order to inst
 
 ABOUT KEY STORAGE METHODS
 ----------------------
-Something you should pay attention to (if you want any sort of security) is how you store your encryption key. You have the option of storing it in the database as a normal Drupal variable, this is also the default, but it's the default only because there is no good standard location to store it. Switching to a file-based storage is strongly encouraged since storing the key in the same database as your encrypted strings will sort of nullify the point of them being encrypted in the first place. Also make sure to set the permission on the keyfile to be as restrictive as possible, assuming you're on a unix-like system running apache, I recommend setting the ownership of the file to apache with the owner being the only one allowed to read and write to it (0600). Above all make sure that the file is not readable from the web! The easiest way to do that is probably to place it somewhere below the webroot.
+Something you should pay attention to (if you want any sort of security) is how you store your encryption key. You have the option of storing it in the database as a normal Drupal variable, this is also the default, but it's the default only because there is no good standard location to store it. Switching to a file-based storage is strongly encouraged since storing the key in the same database as your encrypted strings will sort of nullify the point of them being encrypted in the first place. Also make sure to set the permission on the keyfile to be as restrictive as possible, assuming you're on a unix-like system running apache, I recommend setting the ownership of the file to apache with the owner being the only one allowed to read and write to it (0600). Above all make sure that the file is not readable from the web! The easiest way to do that is probably to place it somewhere outside the webroot.
 
 UPGRADING FROM 1.3 OR EARLIER
 ----------------------

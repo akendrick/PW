@@ -14,7 +14,7 @@ function pw_admin_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "admin" ],
       "REQUIRES" : [ "path", "rules" ],
-      "ON" : [ "user_login" ],
+      "ON" : { "user_login" : [] },
       "IF" : [ { "path_has_alias" : { "source" : "ad\\/sumit" } } ],
       "DO" : [ { "redirect" : { "url" : "ad\\/submit" } } ]
     }

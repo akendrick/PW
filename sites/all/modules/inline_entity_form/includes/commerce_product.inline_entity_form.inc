@@ -7,6 +7,19 @@
 
 class CommerceProductInlineEntityFormController extends EntityInlineEntityFormController {
 
+  public function __construct($entityType, array $settings) {
+    $this->entityType = $entityType;
+    $this->settings = $settings + $this->defaultSettings();
+
+    // Convert the old product-specific variation language setting.
+    if (!empty($settings['use_variation_language']) && empty($settings['override_labels'])) {
+      $this->settings['override_labels'] = TRUE;
+      $this->settings['label_singular'] = 'variation';
+      $this->settings['label_plural'] = 'variations';
+      unset($this->settings['use_variation_language']);
+    }
+  }
+
   /**
    * Overrides EntityInlineEntityFormController::css().
    */
@@ -17,37 +30,18 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
   }
 
   /**
-   * Overrides EntityInlineEntityFormController::labels().
+   * Overrides EntityInlineEntityFormController::tableFields().
    */
-  public function labels() {
-    $labels = parent::labels();
-
-    // Override the strings.
-    if ($this->settings['use_variation_language']) {
-      $labels = array(
-        'singular' => t('variation'),
-        'plural' => t('variations'),
-      );
-    }
-
-    return $labels;
-  }
-
-  /**
-   * Overrides EntityInlineEntityFormController::defaultFields().
-   */
-  public function defaultFields($bundles) {
+  public function tableFields($bundles) {
     $fields = array();
     $fields['title'] = array(
       'type' => 'property',
       'label' => t('Variation title'),
-      'visible' => TRUE,
       'weight' => 1,
     );
     $fields['sku'] = array(
       'type' => 'property',
-      'label' => 'SKU',
-      'visible' => TRUE,
+      'label' => t('SKU'),
       'weight' => 2,
     );
 
@@ -60,13 +54,18 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
 
         // If the product has an imagefield, show it.
         if ($field['type'] == 'image') {
+          // Determine the correct image style to use.
+          $image_style = 'thumbnail';
+          if (!empty($instance['widget']['settings']['preview_image_style'])) {
+            $image_style = $instance['widget']['settings']['preview_image_style'];
+          }
+
           $fields[$field_name] = array(
             'type' => 'field',
             'label' => $instance['label'],
             'formatter' => 'image',
-            'settings' => array('image_style' => 'thumbnail'),
+            'settings' => array('image_style' => $image_style),
             'delta' => 0,
-            'visible' => TRUE,
             'weight' => -10,
           );
           // Don't add any other imagefields. One is enough.
@@ -91,8 +90,6 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
             'type' => 'field',
             'label' => $attribute['instance']['label'],
             'formatter' => $field_type['default_formatter'],
-            'settings' => array(),
-            'visible' => TRUE,
             'weight' => ++$weight,
           );
         }
@@ -103,14 +100,11 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
       'type' => 'field',
       'label' => t('Price'),
       'formatter' => 'commerce_price_formatted_amount',
-      'settings' => array(),
-      'visible' => TRUE,
       'weight' => 99,
     );
     $fields['status'] = array(
       'type' => 'property',
       'label' => t('Status'),
-      'visible' => TRUE,
       'weight' => 100,
     );
 
@@ -122,8 +116,7 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
    */
   public function defaultSettings() {
     $defaults = parent::defaultSettings();
-    $defaults['autogenerate_title'] = TRUE;
-    $defaults['use_variation_language'] = FALSE;
+    $defaults['autogenerate_title'] = FALSE;
 
     return $defaults;
   }
@@ -139,11 +132,6 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
       '#title' => t('Auto generate the product title'),
       '#description' => t('This will hide the title input field and generate the title by appending any available attributes to the @entity title.', array('@entity' => $instance['entity_type'])),
       '#default_value' => $this->settings['autogenerate_title'],
-    );
-    $form['use_variation_language'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Refer to the referenced products as "variations"'),
-      '#default_value' => $this->settings['use_variation_language'],
     );
 
     return $form;
@@ -175,18 +163,13 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
       '#title' => t('Details'),
       '#attributes' => array('class' => array('ief-product-details', 'ief-entity-fieldset')),
     );
-    $entity_form['product_image'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('@label image', array('@label' => drupal_ucfirst($labels['singular']))),
-      '#attributes' => array('class' => array('ief-product-image', 'ief-entity-fieldset')),
-    );
 
     $entity_form['sku'] = array(
       '#type' => 'textfield',
       '#title' => t('SKU'),
       '#description' => t('Supply a unique identifier using letters, numbers, hyphens, and underscores. Commas may not be used.'),
       '#default_value' => $product->sku,
-      '#maxlength' => 128,
+      '#maxlength' => 255,
       '#required' => TRUE,
       '#fieldset' => 'product_details',
       '#weight' => $extra_fields['sku']['weight'],
@@ -195,7 +178,7 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
       '#type' => 'textfield',
       '#title' => t('@label title', array('@label' => drupal_ucfirst($labels['singular']))),
       '#default_value' => $product->title,
-      '#maxlength' => 128,
+      '#maxlength' => 255,
       '#required' => TRUE,
       '#fieldset' => 'product_details',
       // The label might be missing if the Title module has replaced it.
@@ -255,35 +238,12 @@ class CommerceProductInlineEntityFormController extends EntityInlineEntityFormCo
       }
     }
 
-    // Arrange images and other non-attribute fields.
-    $imagefields = array();
+    // Arrange non-attribute fields.
     foreach (field_info_instances('commerce_product', $product->type) as $name => $instance) {
       $field_name = $instance['field_name'];
       $field = field_info_field($field_name);
-
-      if ($field['type'] == 'image') {
-        $entity_form[$field_name]['#fieldset'] = 'product_image';
-        $imagefields[] = $field_name;
-      }
-      elseif (!isset($attributes[$field_name])) {
+      if (!isset($attributes[$field_name])) {
         $entity_form[$field_name]['#fieldset'] = 'product_details';
-      }
-    }
-
-    if (count($imagefields) == 0) {
-      // The fieldset is empty, hide it.
-      $entity_form['product_image']['#access'] = FALSE;
-    }
-    elseif (count($imagefields) == 1) {
-      // There's only one image on the product, no need to show its title, the
-      // fieldset title is enough.
-      $field_name = reset($imagefields);
-      $language = $entity_form[$field_name]['#language'];
-      unset($entity_form[$field_name][$language][0]['#title']);
-      // Prevent multi-value imagefields from rendering their own fieldsets.
-      if (isset($entity_form[$field_name][$language]['#theme_wrappers']) && in_array('fieldset', $entity_form[$field_name][$language]['#theme_wrappers'])) {
-        $key = array_search('fieldset', $entity_form[$field_name][$language]['#theme_wrappers']);
-        unset($entity_form[$field_name][$language]['#theme_wrappers'][$key]);
       }
     }
 

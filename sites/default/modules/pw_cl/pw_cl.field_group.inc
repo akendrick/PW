@@ -30,7 +30,7 @@ function pw_cl_field_group_info() {
       'label' => 'Ad Copy',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-24 alpha omega',
+        'classes' => 'grid-24 alpha omega group-ad-copy-block field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -62,7 +62,7 @@ function pw_cl_field_group_info() {
     'format_settings' => array(
       'label' => 'Ad Group',
       'instance_settings' => array(
-        'classes' => 'grid-24 alpha omega',
+        'classes' => 'grid-24 alpha omega group-ad-grouping field-group-multipage-group',
         'page_header' => '0',
         'page_counter' => '0',
         'move_button' => '1',
@@ -92,7 +92,7 @@ function pw_cl_field_group_info() {
       'label' => 'SUBMIT',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-ad-review field-group-multipage',
         'description' => '',
       ),
       'formatter' => 'no-start',
@@ -122,7 +122,7 @@ function pw_cl_field_group_info() {
       'label' => 'Administration',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-admin field-group-tab',
         'description' => '',
       ),
       'formatter' => 'closed',
@@ -151,7 +151,7 @@ function pw_cl_field_group_info() {
       'label' => 'CREATE AD',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-ad field-group-multipage',
         'description' => '',
       ),
       'formatter' => 'start',
@@ -180,7 +180,7 @@ function pw_cl_field_group_info() {
       'label' => 'Area & Rate',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-8 alpha',
+        'classes' => 'grid-8 alpha group-area-rate field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -216,7 +216,7 @@ function pw_cl_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-basic-info-box field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
@@ -248,7 +248,7 @@ function pw_cl_field_group_info() {
       'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-basic field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -275,7 +275,7 @@ function pw_cl_field_group_info() {
     'format_settings' => array(
       'label' => 'Classified Master Group',
       'instance_settings' => array(
-        'classes' => 'grid-6',
+        'classes' => 'grid-6 group-cl-ad-master field-group-htabs',
       ),
     ),
   );
@@ -305,7 +305,7 @@ function pw_cl_field_group_info() {
       'label' => '',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-classified-ad field-group-fieldset',
         'description' => '<div class=\'classified-ad-general\'>
 	<div class=\'classified-description-rates\'><strong>Classified Ad Rates</strong>
 		<dl class=\'personal\'>
@@ -354,7 +354,7 @@ function pw_cl_field_group_info() {
       'label' => 'Contact',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-contact field-group-fieldset',
         'description' => 'For verification purposes only.<br><small> We will not send you any unsolicited emails or pass your phone number to any 3rd party.</small>',
       ),
       'formatter' => 'open',
@@ -380,7 +380,7 @@ function pw_cl_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-contact field-group-htab',
         'required_fields' => 1,
       ),
     ),
@@ -408,7 +408,7 @@ function pw_cl_field_group_info() {
       'label' => 'Default',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-6',
+        'classes' => 'grid-6 group-default field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -431,13 +431,14 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => '',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_link',
-      1 => 'field_phone',
-      2 => 'field_email',
-      3 => 'field_tags',
-      4 => 'post_date',
+      0 => 'field_phone',
+      1 => 'field_area_code',
+      2 => 'field_image',
+      3 => 'field_geofield',
+      4 => 'field_tags',
+      5 => 'post_date',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -471,7 +472,7 @@ function pw_cl_field_group_info() {
       'label' => 'Basics',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-8',
+        'classes' => 'grid-8 group-form-basics field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -501,7 +502,7 @@ function pw_cl_field_group_info() {
       'label' => 'Special Notices',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'grid-15 special-notices-box omega',
+        'classes' => 'grid-15 special-notices-box omega group-free-for-free field-group-div',
         'description' => '&nbsp;',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -512,6 +513,34 @@ function pw_cl_field_group_info() {
     ),
   );
   $export['group_free_for_free|node|ad_s|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_map|node|classified|form';
+  $field_group->group_name = 'group_map';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'classified';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Map',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_geofield',
+      1 => 'field_addressfield',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-map field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_map|node|classified|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -533,7 +562,7 @@ function pw_cl_field_group_info() {
       'label' => 'More',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'more-grouping',
+        'classes' => 'more-grouping group-more field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -565,7 +594,7 @@ function pw_cl_field_group_info() {
       'label' => 'optional_image_block',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-9 alpha',
+        'classes' => 'grid-9 alpha group-opt-image-block field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -597,7 +626,7 @@ function pw_cl_field_group_info() {
       'label' => 'optional liveload block',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-8',
+        'classes' => 'grid-8 group-opt-liveload-block field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -629,7 +658,7 @@ function pw_cl_field_group_info() {
       'label' => 'Optional notes block',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-5 omega',
+        'classes' => 'grid-5 omega group-opt-notes-block field-group-div',
         'description' => 'Need some help with your ad? Want your ad to run every other week? Let us know, we can help.',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -652,7 +681,7 @@ function pw_cl_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Optional',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_link',
       1 => 'field_phone',
@@ -664,7 +693,7 @@ function pw_cl_field_group_info() {
       'label' => 'Optional',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-8',
+        'classes' => 'grid-8 group-otional field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -696,7 +725,7 @@ function pw_cl_field_group_info() {
       'label' => 'Payment Information',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-payment field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -722,7 +751,7 @@ function pw_cl_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => '',
+        'classes' => ' group-publishing-group field-group-htab',
         'required_fields' => 1,
       ),
     ),
@@ -749,7 +778,7 @@ function pw_cl_field_group_info() {
       'label' => 'Review',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => '',
+        'classes' => ' group-review field-group-fieldset',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -781,7 +810,7 @@ function pw_cl_field_group_info() {
       'label' => 'Section & Duration',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-8',
+        'classes' => 'grid-8 group-section-duration field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -813,7 +842,7 @@ function pw_cl_field_group_info() {
       'label' => 'Classified Section',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'grid-7 omega',
+        'classes' => 'grid-7 omega group-section-group field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -846,7 +875,7 @@ function pw_cl_field_group_info() {
       'label' => 'OPTIONS',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => '',
+        'classes' => ' group-upgrade field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'open',
@@ -877,7 +906,7 @@ function pw_cl_field_group_info() {
       'label' => 'Contact Information',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => '',
+        'classes' => ' group-user-details field-group-div',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -905,7 +934,7 @@ function pw_cl_field_group_info() {
     'format_type' => 'tab',
     'format_settings' => array(
       'instance_settings' => array(
-        'classes' => 'path-form',
+        'classes' => 'path-form path field-group-tab',
       ),
       'formatter' => 'collapsed',
     ),

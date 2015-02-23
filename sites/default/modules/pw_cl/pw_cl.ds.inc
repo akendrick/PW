@@ -83,7 +83,7 @@ function pw_cl_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'post_date' => array(
-      'weight' => '3',
+      'weight' => '2',
       'label' => 'inline',
       'format' => 'ds_post_date_medium',
     ),
@@ -375,37 +375,50 @@ function pw_cl_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_2col_stacked';
   $ds_layout->settings = array(
-    'hide_empty_regions' => 0,
-    'hide_sidebars' => 0,
     'regions' => array(
       'header' => array(
-        0 => 'field_image',
-        1 => 'field_ad_type',
+        0 => 'field_tags',
+        1 => 'field_image',
+        3 => 'field_geofield',
       ),
       'left' => array(
-        0 => 'group_details',
-        1 => 'field_tags',
-        2 => 'post_date',
-        3 => 'field_phone',
-        4 => 'field_link',
+        2 => 'group_details',
+        4 => 'post_date',
         5 => 'field_email',
+        6 => 'field_phone',
+        7 => 'field_link',
       ),
       'right' => array(
-        0 => 'field_ad_copy',
+        8 => 'field_ad_copy',
+      ),
+      'footer' => array(
+        9 => 'field_ad_type',
       ),
     ),
     'fields' => array(
+      'field_tags' => 'header',
       'field_image' => 'header',
-      'field_ad_type' => 'header',
       'group_details' => 'left',
-      'field_tags' => 'left',
+      'field_geofield' => 'header',
       'post_date' => 'left',
-      'field_ad_copy' => 'right',
+      'field_email' => 'left',
       'field_phone' => 'left',
       'field_link' => 'left',
-      'field_email' => 'left',
+      'field_ad_copy' => 'right',
+      'field_ad_type' => 'footer',
     ),
     'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
   );
   $export['node|classified|default'] = $ds_layout;
 
@@ -470,6 +483,50 @@ function pw_cl_ds_layout_settings_info() {
     'classes' => array(),
   );
   $export['node|classified|form'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|classified|search_result';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'classified';
+  $ds_layout->view_mode = 'search_result';
+  $ds_layout->layout = 'ds_3col_stacked_equal_width';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'left' => array(
+        0 => 'field_ad_type',
+        1 => 'field_image',
+      ),
+      'middle' => array(
+        2 => 'field_ad_copy',
+      ),
+      'right' => array(
+        3 => 'field_phone',
+        4 => 'field_email',
+        5 => 'field_link',
+      ),
+    ),
+    'fields' => array(
+      'field_ad_type' => 'left',
+      'field_image' => 'left',
+      'field_ad_copy' => 'middle',
+      'field_phone' => 'right',
+      'field_email' => 'right',
+      'field_link' => 'right',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'middle' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+  );
+  $export['node|classified|search_result'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;

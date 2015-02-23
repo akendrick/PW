@@ -20,7 +20,6 @@
     var width = $(window).width();
     if (width >= 600) {
       width = 280;
-      // console.log(width, 'Masonry width');
     }
 //    if ( width == '') {
 //      console.log(width, 'No Masonry width');
@@ -37,7 +36,7 @@
     $('.classified-ad-group-section > img').imagesLoaded(function() {
       $('.classified-ad-group-section').masonry({
         itemSelector : '.classified-ad-block',
-        columnWidth : width, // was 285
+        columnWidth : 310, // was 285
         isFitWidth: true
       });
     });
@@ -59,6 +58,7 @@
     });
 
 
+
     // Editorials
     $('.views-field-field-image > .field-content > a > img').imagesLoaded(function() {
       $('.view-display-id-editorial_main_page > .view-content').masonry({
@@ -73,6 +73,7 @@
     // On Load
     $(document).ready(function() {
       doMasonry();
+      console.log('Masonry On Load');
     });
 
   // On Resize

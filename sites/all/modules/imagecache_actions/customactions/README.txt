@@ -21,9 +21,8 @@ Personally, I prefer the imagemagick toolkit:
   you will see what I mean.
 - It does not execute in the PHP memory space, so is not restricted by the
   memory_limit PHP setting.
-- The GD toolkit will, at least on my Windows configuration, keep the font file
+- The GD toolkit will, at least on my Windows configuration, keep font files
   open after a text operation, so you cannot delete, move or rename it anymore.
-- This module does a better job with Imagemagick (see below).
 
 
 Installing
@@ -62,7 +61,7 @@ To ease your task, this effect makes some information regarding the image being
 processed available in 2 variables: $image and $image_context. These variables
 are readily available in your snippet.
 
-$image is an associative array containing:
+$image is an object containing the following properties:
 - source: string, the source of the image, e.g. public://photo.jpg
 - info: array, example data:
    - width (int) 180

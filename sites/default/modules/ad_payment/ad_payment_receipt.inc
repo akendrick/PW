@@ -26,10 +26,14 @@ function thankyou_page($temp_id = NULL) {
 
     $content = ad_payment_receipt($temp_id, $data);
 
+	//following block deleted June 2, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+	//code moved to function ad_payment_cc_submit in ad_payment.module
+	/*
     // Send Email upon Completion.
     module_load_include('inc', 'ad_payment', 'ad_payment_mail');
     ad_payment_send_email('receipt', $data);
-
+    */
+	//end of block
 
   }
 
@@ -67,6 +71,8 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   // AD Details
   $rate = (is_array($data['rate'])) ? $data['rate']['rate_name'] : $data['rate'];
 
+  $free_week = ($data['duration']['actual'] == 2) ? "<p><em>You will receive a 3rd week absolutely FREE!</em></p>" : "";
+
   $details = "
       <div class='receipt-details grid-8 alpha'>
         <h3 class='receipt-details-title'>Ad Details</h3>
@@ -89,7 +95,7 @@ function ad_payment_receipt($temp_id, $data = NULL) {
         </dl>
         <dl class='receipt-duration'>
           <dt class='receipt-duration'>Duration:</dt>
-          <dd class='receipt-copy'>" . $data['duration']['actual'] . " weeks</dd>
+          <dd class='receipt-copy'>" . $data['duration']['actual'] . " weeks. " . $free_week . "</dd>
         </dl>";
 
     if ($data['ad_type']) {
@@ -185,6 +191,9 @@ function ad_payment_receipt($temp_id, $data = NULL) {
   $content .= '<p>' . l('Submit another ad', 'ad/submit', array('attributes' => array('class' => array('submit-classified-ad-link')))) . '<p>';
   $content .= '</div>';
 
+	//following block deleted June 2, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+	//code moved to function ad_payment_cc_submit in ad_payment.module
+	/*
   if (ADP_LOG_ERRORS) {
     $message = 'Receipt Logged<br><br>CLIENT<br>Name: @name<br>Phone: @phone<br>Email: @email<br><br>
       PRICING<br>Subtotal: @subtotal<br>Extras: @extras <br>Tax: @tax<br>Total: @total<br><br>
@@ -210,7 +219,8 @@ function ad_payment_receipt($temp_id, $data = NULL) {
     $message .= '<br><br>Logged by <b>ad_payment_receipt</b> in <em>ad_payment_reciept.inc</em>';
     watchdog('ADP Receipt', $message, $message_vars);
   }
-
+	*/
+	//end of block
 
    return $content;
 }

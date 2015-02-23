@@ -19,6 +19,7 @@ function context_admin_user_create_menu_content_form($form, $form_state) {
   $conf = $form_state['conf'];
   $default = isset($conf['context_admin_user_roles']) ? $conf['context_admin_user_roles'] : NULL;
   $default_alter = isset($conf['context_admin_user_roles_alter']) ? $conf['context_admin_user_roles_alter'] : NULL;
+  $default_limited = isset($conf['context_admin_user_roles_limited']) ? $conf['context_admin_user_roles_limited'] : NULL;
   $default_status = isset($conf['context_admin_user_status']) ? $conf['context_admin_user_status'] : NULL;
   $default_status_alter = isset($conf['context_admin_user_status_alter']) ? $conf['context_admin_user_status_alter'] : NULL;
   $default_help = isset($conf['context_admin_user_registration_help']) ? $conf['context_admin_user_registration_help'] : NULL;
@@ -32,15 +33,30 @@ function context_admin_user_create_menu_content_form($form, $form_state) {
   $form['context_admin_user_roles'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Default Roles'),
-    '#description' => t('Select the a default role for users created from this administration, if necessary.'),
+    '#description' => t('Select the default role(s) for users created from this administration, if necessary.'),
     '#options' => $options,
     '#default_value' => is_array($default) ? $default : array($default),
   );
   $form['context_admin_user_roles_alter'] = array(
-    '#type' => 'checkbox',
+    '#type' => 'radios',
     '#title' => t('Alter Roles'),
-    '#description' => t('Allow users of this form to set any role. *NOTE: This is HUGELY dangerous.  Use with care.'),
+    '#options' => array(
+      'disallow' => t('Disallow'),
+      'any' => t('Any'),
+      'limited' => t('Limited'),
+    ),
     '#default_value' => $default_alter,
+  );
+  $form['context_admin_user_roles_alter']['disallow']['#description'] = t('Do not allow users of this form to set roles.');
+  $form['context_admin_user_roles_alter']['any']['#description'] = t('Allow users of this form to set any role. *NOTE: This is HUGELY dangerous and will override the limit roles list. Use with care.');
+  $form['context_admin_user_roles_alter']['limited']['#description'] = t('Allow users of this form to set only the roles that have been selected.');
+  $form['context_admin_user_roles_limited'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Limited Roles'),
+    '#description' => t('Select the roles to show when using this form.'),
+    '#options' => $options,
+    '#default_value' => is_array($default_limited) ? $default_limited : array($default_limited),
+    '#dependency' => array('radio:context_admin_user_roles_alter' => array('limited')),
   );
   $form['context_admin_user_status'] = array(
     '#type' => 'radios',
@@ -77,6 +93,7 @@ function context_admin_user_create_menu_content_form($form, $form_state) {
 function context_admin_user_create_menu_content_form_submit($form, &$form_state) {
   $form_state['conf']['context_admin_user_roles'] = $form_state['values']['context_admin_user_roles'];
   $form_state['conf']['context_admin_user_roles_alter'] = $form_state['values']['context_admin_user_roles_alter'];
+  $form_state['conf']['context_admin_user_roles_limited'] = $form_state['values']['context_admin_user_roles_limited'];
   $form_state['conf']['context_admin_user_status'] = $form_state['values']['context_admin_user_status'];
   $form_state['conf']['context_admin_user_status_alter'] = $form_state['values']['context_admin_user_status_alter'];
   //$form_state['conf']['context_admin_user_registration_help'] = $form_state['values']['context_admin_user_registration_help'];
@@ -353,8 +370,15 @@ function context_admin_user_create_menu_form_alter(&$form, $form_state, $form_id
       $form['account']['roles']['#value'] = array_filter($page['handler']->conf['context_admin_user_roles']);
     }
     $form['account']['roles']['#value'][2] = TRUE;
-    if (!isset($page['handler']->conf['context_admin_user_roles_alter']) || !$page['handler']->conf['context_admin_user_roles_alter']) {
+    if (!isset($page['handler']->conf['context_admin_user_roles_alter']) || !$page['handler']->conf['context_admin_user_roles_alter'] || $page['handler']->conf['context_admin_user_roles_alter'] == 'disallow') {
       $form['account']['roles']['#disabled'] = TRUE;
+    }
+    elseif ($page['handler']->conf['context_admin_user_roles_alter'] == 'limited') {
+      foreach ($page['handler']->conf['context_admin_user_roles_limited'] as $id => $status) {
+        if ($status == 0) {
+          unset($form['account']['roles']['#options'][$id]);
+        }
+      }
     }
     $form['account']['status']['#default_value'] = $page['handler']->conf['context_admin_user_status'];
     if (!isset($page['handler']->conf['context_admin_user_status_alter']) || !$page['handler']->conf['context_admin_user_status_alter']) {

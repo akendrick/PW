@@ -268,7 +268,7 @@ Drupal.adPayment.cardCheck = function() {
   var cardNum  = jQuery('#edit-field-cc-number').val();
   if (visaCard == true) {
     //  console.log(cardNum + ' VISA: ' + cardNum.indexOf("4506"));
-    if (cardNum.indexOf('4506') >= 0) {
+    if (cardNum.indexOf('4506') >= 0 || cardNum.indexOf('4519') >= 0 || cardNum.indexOf('4724') >= 0) {
       console.log('VISA DEBIT: ' + cardNum.indexOf('4506'));
       txt = '<h5>Sorry, we cannot accept VISA Debit cards online.</h5>For other payment options please call our toll-free number <h5>1-800-663-4619</h5>';
       msgClass = 'error';
@@ -526,7 +526,7 @@ Drupal.adPayment.displayMsg = function() {
     + 'ad_type = '        + ad.typeBool + ';'
     + 'ad_type_name = '   + ad.type + ';'
     + 'rate = '           + ad.formRate + ';'
-    + 'subtotal = '       + price.subTotal + ';'
+    + 'subtotal = '       + price.subTotalRound + ';'
     + 'discount = '       + price.discount + ';'
     + 'extras = '         + price.extras + ';'
     + 'taxes = '          + price.taxesRound + ';'
@@ -585,7 +585,8 @@ jQuery(document).ready(function() {
 
     // Review box
     var reviewButton = '#edit-field-review > .description';
-    jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
+    //jQuery(reviewButton).css('cursor', 'pointer');     // Create button appearance with pointer.
+    jQuery(reviewButton).text('Review ad price before confirming submission.');
 
     // Credit Card Check
      // EXTERNAL CC VALIDATION SCRIPT
@@ -598,16 +599,19 @@ jQuery(document).ready(function() {
       }
     });
     jQuery('#node_ad_s_form_group_payment').change( function() {
+      console.log('Ad Submission CHANGE!');
       // Check Credit Card;
       var debitMsg = Drupal.adPayment.cardCheck();
-      // console.log('MSG: ' + debitMsg);
+
       jQuery('#cc-checkbox-check').html(debitMsg);
     });
 
+      console.log('Ad Submission !');
 
-    //jQuery('#ad-s-node-form').change( function() { // Old change event!
-    jQuery(reviewButton).click( function() { //Bind the change event!
-      jQuery(reviewButton).text('Click to update price.');
+    jQuery('#ad-s-node-form').change( function() { // ON CHANGE event!
+    //jQuery(reviewButton).click( function() { //Bind to CLICK event!
+       //console.log('Ad Submission CHANGE!');
+      jQuery(reviewButton).text('Updated price.');
 
 
       jQuery("body").css("cursor", "progress");

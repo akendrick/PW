@@ -1,0 +1,32 @@
+
+name = Views Watchdog
+description = Allows to create customized lists (pages, blocks, feeds) of watchdog entries.
+
+core = 7.x
+package = Views
+configure = admin/structure/views
+
+dependencies[] = dblog
+dependencies[] = views
+
+; Handlers
+files[] = views/handlers/views_handler_field_watchdog_message.inc
+files[] = views/handlers/views_handler_field_watchdog_severity.inc
+files[] = views/handlers/views_handler_field_watchdog_type.inc
+files[] = views/handlers/views_handler_filter_watchdog_message.inc
+files[] = views/handlers/views_handler_filter_watchdog_severity.inc
+files[] = views/handlers/views_handler_filter_watchdog_type.inc
+files[] = views/handlers/views_handler_sort_watchdog_timestamp.inc
+; Plugins
+files[] = views/plugins/views_plugin_row_watchdog_rss.inc
+files[] = views/plugins/views_plugin_style_watchdog_table.inc
+; Theme
+files[] = views/theme/theme.inc
+files[] = views/theme/views-view-watchdog-table.tpl.php
+
+; Information added by drupal.org packaging script on 2013-10-19
+version = "7.x-3.3+5-dev"
+core = "7.x"
+project = "views_watchdog"
+datestamp = "1382165276"
+

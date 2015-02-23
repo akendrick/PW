@@ -17,8 +17,9 @@ files[] = views/ad_payment_handler_aes_decrypt.inc
 files[] = views/views-view-table--classified-ad-administration--incoming-ads.tpl
 
 ;CSS Files
-files[] = css/ad_payment.css
-files[] = css/ad_payment.less
+;files[] = css/ad_payment.css
+;files[] = css/ad_payment.less
+stylesheets[all][] = css/ad_payment.less
 
 ;jQuery
 scripts[] = js/price_check.js
