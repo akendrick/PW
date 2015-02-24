@@ -1,14 +1,35 @@
+<<<<<<< HEAD
 
 (function ($) {
+=======
+/**
+ * @file
+ * Custom JS for controlling the Metatag vertical tab.
+ */
+
+(function ($) {
+  'use strict';
+>>>>>>> SiteReformation
 
 Drupal.behaviors.metatagFieldsetSummaries = {
   attach: function (context) {
     $('fieldset.metatags-form', context).drupalSetSummary(function (context) {
       var vals = [];
       $("input[type='text'], select, textarea", context).each(function() {
+<<<<<<< HEAD
         var default_name = $(this).attr('name').replace(/\[value\]/, '[default]');
         var default_value = $("input[type='hidden'][name='" + default_name + "']", context);
         if (default_value.length && default_value.val() == $(this).val()) {
+=======
+        var input_field = $(this).attr('name');
+        // Verify the field exists before proceeding.
+        if (input_field === undefined) {
+          return false;
+        }
+        var default_name = input_field.replace(/\[value\]/, '[default]');
+        var default_value = $("input[type='hidden'][name='" + default_name + "']", context);
+        if (default_value.length && default_value.val() === $(this).val()) {
+>>>>>>> SiteReformation
           // Meta tag has a default value and form value matches default value.
           return true;
         }

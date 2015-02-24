@@ -93,6 +93,14 @@ class BootstrapIPAddressTestCase extends DrupalWebTestCase {
     $this->assertFalse(drupal_valid_http_host('security\\.drupal.org:80'), 'HTTP_HOST with \\ is invalid');
     $this->assertFalse(drupal_valid_http_host('security<.drupal.org:80'), 'HTTP_HOST with &lt; is invalid');
     $this->assertFalse(drupal_valid_http_host('security..drupal.org:80'), 'HTTP_HOST with .. is invalid');
+<<<<<<< HEAD
+=======
+    // Verifies that host names are shorter than 1000 characters.
+    $this->assertFalse(drupal_valid_http_host(str_repeat('x', 1001)), 'HTTP_HOST with more than 1000 characters is invalid.');
+    $this->assertFalse(drupal_valid_http_host(str_repeat('.', 101)), 'HTTP_HOST with more than 100 subdomains is invalid.');
+    $this->assertFalse(drupal_valid_http_host(str_repeat(':', 101)), 'HTTP_HOST with more than 100 portseparators is invalid.');
+
+>>>>>>> SiteReformation
     // IPv6 loopback address
     $this->assertTrue(drupal_valid_http_host('[::1]:80'), 'HTTP_HOST containing IPv6 loopback is valid');
   }
@@ -139,7 +147,11 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
     $this->assertResponse(200, 'Conditional request without If-None-Match returned 200 OK.');
     $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT', 'Page was cached.');
 
+<<<<<<< HEAD
     $this->drupalGet('', array(), array('If-Modified-Since: ' . gmdate(DATE_RFC1123, strtotime($last_modified) + 1), 'If-None-Match: ' . $etag));
+=======
+    $this->drupalGet('', array(), array('If-Modified-Since: ' . gmdate(DATE_RFC7231, strtotime($last_modified) + 1), 'If-None-Match: ' . $etag));
+>>>>>>> SiteReformation
     $this->assertResponse(200, 'Conditional request with new a If-Modified-Since date newer than Last-Modified returned 200 OK.');
     $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT', 'Page was cached.');
 
@@ -219,6 +231,21 @@ class BootstrapPageCacheTestCase extends DrupalWebTestCase {
     $this->assertFalse($this->drupalGetHeader('Content-Encoding'), 'A Content-Encoding header was not sent.');
     $this->assertTitle(t('Welcome to @site-name | @site-name', array('@site-name' => variable_get('site_name', 'Drupal'))), 'Site title matches.');
     $this->assertRaw('</html>', 'Page was not compressed.');
+<<<<<<< HEAD
+=======
+
+    // Disable compression mode.
+    variable_set('page_compression', FALSE);
+
+    // Verify if cached page is still available for a client with compression support.
+    $this->drupalGet('', array(), array('Accept-Encoding: gzip,deflate'));
+    $this->drupalSetContent(gzinflate(substr($this->drupalGetContent(), 10, -8)));
+    $this->assertRaw('</html>', 'Page was delivered after compression mode is changed (compression support enabled).');
+
+    // Verify if cached page is still available for a client without compression support.
+    $this->drupalGet('');
+    $this->assertRaw('</html>', 'Page was delivered after compression mode is changed (compression support disabled).');
+>>>>>>> SiteReformation
   }
 }
 

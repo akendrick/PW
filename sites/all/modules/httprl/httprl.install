@@ -6,28 +6,17 @@
  */
 
 /**
- * Implements hook_enable().
- */
-function httprl_enable() {
-}
-
-/**
- * Implements hook_disable().
- */
-function httprl_disable() {
-}
-
-/**
- * Implements hook_install().
- */
-function httprl_install() {
-}
-
-/**
  * Implements hook_uninstall().
  */
 function httprl_uninstall() {
   variable_del('httprl_server_addr');
+  variable_del('httprl_background_callback');
+  variable_del('httprl_dns_timeout');
+  variable_del('httprl_connect_timeout');
+  variable_del('httprl_ttfb_timeout');
+  variable_del('httprl_timeout');
+  variable_del('httprl_global_timeout');
+  variable_del('httprl_url_inbound_alter');
 }
 
 /**
@@ -35,7 +24,7 @@ function httprl_uninstall() {
  */
 function httprl_requirements($phase) {
   $requirements = array();
-  // Ensure translations don't break at install time
+  // Ensure translations don't break at install time.
   $t = get_t();
 
   if ($phase == 'runtime' || $phase == 'install') {
@@ -157,15 +146,28 @@ function httprl_requirements($phase) {
 /**
  * Issue a HTTP request to admin/httprl-test, verifying that the server got it.
  *
- * @param $mode
+ * @param int $mode
  *   1: use drupal_http_request()
  *   2: use httprl_request()
- * @param $blocking
+ * @param bool $blocking
  *   (Optional) HTTPRL blocking mode.
  */
 function httprl_install_http_test($mode, $blocking = FALSE) {
   global $conf, $_httprl;
+<<<<<<< HEAD
   $id = 'httprl_' . hash('sha512', mt_rand() . microtime(TRUE));
+=======
+  // 512 bits = 64 bytes.
+  if (function_exists('drupal_random_bytes')) {
+    $id = 'httprl_' . hash('sha512', drupal_random_bytes(64));
+  }
+  elseif (function_exists('openssl_random_pseudo_bytes')) {
+    $id = 'httprl_' . hash('sha512', openssl_random_pseudo_bytes(64));
+  }
+  else {
+    $id = 'httprl_' . hash('sha512', mt_rand() . microtime(TRUE) . serialize($_SERVER));
+  }
+>>>>>>> SiteReformation
 
   // Set the headers to point to this hostname.
   $headers = array(
@@ -197,12 +199,28 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
       $args[0]['return'] = '';
       $args[0]['printed'] = '';
     }
+<<<<<<< HEAD
 
     $url = httprl_queue_background_callback($args);
     $url = array_keys($url);
     $url = array_pop($url);
     // Execute request.
     $output = httprl_send_request();
+=======
+    $old_var = variable_get('httprl_background_callback', HTTPRL_BACKGROUND_CALLBACK);
+    $GLOBALS['conf']['httprl_background_callback'] = HTTPRL_BACKGROUND_CALLBACK;
+    $url = httprl_queue_background_callback($args);
+    if (empty($url)) {
+      return FALSE;
+    }
+    else {
+      $url = array_keys($url);
+      $url = array_pop($url);
+      // Execute request.
+      $output = httprl_send_request();
+    }
+    $GLOBALS['conf']['httprl_background_callback'] = $old_var;
+>>>>>>> SiteReformation
   }
   else {
     // Get options.
@@ -215,7 +233,16 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
     $available = FALSE;
     $lock_counter = 0;
     while (!$available && $lock_counter < 20) {
+<<<<<<< HEAD
       $name = 'httprl_' . hash('sha512', mt_rand() . microtime(TRUE));
+=======
+      if (function_exists('openssl_random_pseudo_bytes')) {
+        $name = 'httprl_' . hash('sha512', openssl_random_pseudo_bytes(512));
+      }
+      else {
+        $name = 'httprl_' . hash('sha512', mt_rand() . microtime(TRUE));
+      }
+>>>>>>> SiteReformation
       $available = lock_may_be_available($name);
       $lock_counter++;
     }
@@ -230,7 +257,13 @@ function httprl_install_http_test($mode, $blocking = FALSE) {
         'mode' => TRUE,
         'php_timeout' => $callback_options['options']['timeout'],
         'function' => $callback_options['function'],
+<<<<<<< HEAD
         'args' => serialize($args),
+=======
+        // Follow rfc4648 for base64url
+        // @see http://tools.ietf.org/html/rfc4648#page-7
+        'args' => strtr(base64_encode(serialize($args)), array('+' => '-', '/' => '_')),
+>>>>>>> SiteReformation
       ),
       'method' => 'POST',
       'headers' => $headers,

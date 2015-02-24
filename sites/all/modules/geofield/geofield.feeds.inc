@@ -67,10 +67,15 @@ function geofield_feeds_combined_source($source, FeedsParserResult $result, $key
 /**
  * Implements hook_feeds_node_processor_targets_alter().
  */
+<<<<<<< HEAD
 function geofield_feeds_processor_targets_alter(&$targets, $entity_type,
   $bundle_name) {
     foreach (field_info_instances($entity_type, $bundle_name) as
       $name => $instance) {
+=======
+function geofield_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_name) {
+  foreach (field_info_instances($entity_type, $bundle_name) as $name => $instance) {
+>>>>>>> SiteReformation
     $info = field_info_field($name);
     if ($info['type'] == 'geofield') {
       $targets[$info['field_name'] . ':wkt'] = array(
@@ -126,6 +131,7 @@ function geofield_feeds_processor_targets_alter(&$targets, $entity_type,
  *   An entity object, for instance a node object.
  * @param $target
  *   A string identifying the target on the node.
+<<<<<<< HEAD
  * @param $value
  *   The value to populate the target with.
  *
@@ -133,6 +139,27 @@ function geofield_feeds_processor_targets_alter(&$targets, $entity_type,
 function geofield_set_target_simple($source, $entity, $target, $value) {
   list($field_name, $sub_field) = explode(':', $target, 2);
   $entity->{$field_name}['und'][0][$sub_field] = $value;
+=======
+ * @param $values
+ *   The values to populate the target with.
+ *
+ */
+function geofield_set_target_simple($source, $entity, $target, $values) {
+  list($field_name, $sub_field) = explode(':', $target, 2);
+
+  if (!is_array($values)) {
+    $values = array($values);
+  }
+
+  $field = isset($entity->$field_name) ? $entity->$field_name : array('und' => array());
+  $delta = 0;
+  foreach ($values as $value) {
+    $field['und'][$delta][$sub_field] = $value;
+    $delta++;
+  }
+
+  $entity->$field_name = $field;
+>>>>>>> SiteReformation
 }
 
 /**
@@ -146,6 +173,7 @@ function geofield_set_target_simple($source, $entity, $target, $value) {
  *   An entity object, for instance a node object.
  * @param $target
  *   A string identifying the target on the node.
+<<<<<<< HEAD
  * @param $value
  *   The value to populate the target with.
  *
@@ -153,11 +181,21 @@ function geofield_set_target_simple($source, $entity, $target, $value) {
 function geofield_set_target_combined($source, $entity, $target, $value) {
   $field_name = substr($target, 0, strpos($target, ':'));
   _geofield_set_target($source, $entity, $field_name, $value);
+=======
+ * @param $values
+ *   The values to populate the target with.
+ *
+ */
+function geofield_set_target_combined($source, $entity, $target, $values) {
+  $field_name = substr($target, 0, strpos($target, ':'));
+  _geofield_set_target($source, $entity, $field_name, $values);
+>>>>>>> SiteReformation
 }
 
 /**
  * Feeds processor target callback for WKT source.
  */
+<<<<<<< HEAD
 function geofield_set_target_wkt($source, $entity, $target, $value) {
   $field_name = substr($target, 0, strpos($target, ':'));
   $geofield_values = array();
@@ -170,6 +208,19 @@ function geofield_set_target_wkt($source, $entity, $target, $value) {
   }
   else {
     $field = array('wkt' => $value);
+=======
+function geofield_set_target_wkt($source, $entity, $target, $values) {
+  $field_name = substr($target, 0, strpos($target, ':'));
+
+  if (!is_array($values)) {
+    $values = array($values);
+  }
+
+  $geofield_values = array();
+
+  foreach ($values as $wkt) {
+    $field = array('geom' => $wkt);
+>>>>>>> SiteReformation
     $geofield_values[] = geofield_compute_values($field, 'wkt');
   }
 
@@ -187,6 +238,7 @@ function geofield_set_target_wkt($source, $entity, $target, $value) {
  *   The entity to map to.
  * @param $target
  *   The target key on $entity to map to.
+<<<<<<< HEAD
  * @param $value
  *   The value to map. MUST be an array.
  */
@@ -213,5 +265,30 @@ function _geofield_set_target($source, $entity, $target, $value) {
     }
     $i++;
   }
+=======
+ * @param $values
+ *   The value to map. MUST be an array.
+ */
+function _geofield_set_target($source, $entity, $target, $values) {
+  if (empty($values)) {
+    return;
+  }
+
+  // Iterate over all values.
+  $i = 0;
+
+  $field = isset($entity->$target) ? $entity->$target : array('und' => array());
+  foreach ($values as $value) {
+    // Check if field value is empty.
+    if(empty($value)){
+      continue;
+    }
+    if (is_array($value) || is_object($value)) {
+      $field['und'][$i] = $value;
+    }
+    $i++;
+  }
+
+>>>>>>> SiteReformation
   $entity->{$target} = $field;
 }

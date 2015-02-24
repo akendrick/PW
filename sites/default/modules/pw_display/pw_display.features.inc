@@ -85,8 +85,13 @@ function pw_display_image_default_styles() {
   // Exported image style: display_ad_print_thumbnail.
   $styles['display_ad_print_thumbnail'] = array(
     'name' => 'display_ad_print_thumbnail',
+    'label' => 'display_ad_print_thumbnail',
     'effects' => array(
+<<<<<<< HEAD
       35 => array(
+=======
+      34 => array(
+>>>>>>> SiteReformation
         'label' => 'Scale and Smart Crop',
         'help' => 'Similar to "Scale And Crop", but preserves the portion of the image with the most entropy.',
         'effect callback' => 'smartcrop_scale_effect',
@@ -95,8 +100,13 @@ function pw_display_image_default_styles() {
         'module' => 'smartcrop',
         'name' => 'smartcrop_scale_and_crop',
         'data' => array(
+<<<<<<< HEAD
           'width' => '85',
           'height' => '85',
+=======
+          'width' => '100',
+          'height' => '100',
+>>>>>>> SiteReformation
           'upscale' => 0,
         ),
         'weight' => '2',

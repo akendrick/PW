@@ -34,6 +34,7 @@
 *   - Ad custom info blocks
 *       - Free for free promotion block
 *       - contact info block
+*   - Check Holiday submission dates, else calculate standard submission deadlines
 *   - BeautyTips for form description
 *
 * ad_payment_beautify
@@ -254,12 +255,18 @@ function ad_payment_block_info() {
 */
 function ad_payment_block_view($delta = '') {
   $block = array();
+  global $base_root;
+  global $base_path;
 
   switch ($delta) {
     case 'ad_payment_create_ad':
       $block['subject'] = '<none>';
       $block['content'] = '<div id="ad-submission-link-wrapper">' .
+<<<<<<< HEAD
         l('Submit Ad', 'https://pennywiseads.com/ad/submit', array('attributes' => array('class' => array('ad-submission-link')),)) .
+=======
+        l('Submit Ad', $base_root . $base_path . 'ad/submit', array('attributes' => array('class' => array('ad-submission-link')),)) .
+>>>>>>> SiteReformation
         '</div>';
       break;
   }
@@ -282,8 +289,16 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
   // Insert CC Validation.
   $form['#validate'][] = 'ad_payment_cc_validate';
-  $form['#submit'][]   = 'ad_payment_cc_submit';
+//following line removed June 19, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+//(see function ad_payment_cc_submit for notes)
+//  $form['#submit'][]   = 'ad_payment_cc_submit';
 
+//following line added June 4, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+//(on node forms, the form-level #submit processes happen BEFORE the node is actually saved; but any processes on the #submit of the Save button (if appearing AFTER node_form_submit in the array) 
+//will happen AFTER the node is saved. see documentation for functions node_form, node_form_submit for more.
+//in our case, we want some of the custom actions for this node type to happen before the save, others after.  this one is the "after".
+  $form['actions']['submit']['#submit'][] = 'ad_payment_cc_submit_postsave';
+	
   // Rename File upload to 'image'
   $form['field_image'][LANGUAGE_NONE]['#file_upload_title'] = 'Click here to select an image.';
 
@@ -296,7 +311,7 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
 
 
 //  // Alter Display of Taxonomy Classification Section
-  $pw_list = variable_get('ad_payment_classified_list', ad_payment_get_classified_list() );
+  $pw_list = variable_get('pw_classified_list_form_alphabetical', ad_payment_get_classified_list());
   $form['field_tags'][LANGUAGE_NONE]['#options'] = $pw_list;
 
   // Add Default Hours of Operation
@@ -323,6 +338,36 @@ function ad_payment_form_ad_s_node_form_alter(&$form, &$form_state, $form_id) {
     $form['#group_children']['freeforfree'] = 'group_more';
   }
 
+  // Set the ad submision deadlines.
+  // Default date and time.
+  $ad_deadline = '3pm Thursday, ' . date("F d", strtotime('thursday'));
+  // Get Holiday overrides.
+  $holiday = variable_get('pennywise_holiday_settings', $holiday_settings);
+
+  if ($holiday['holiday_settings'] || $holiday['deadline']) {
+     $form['#groups']['group_classified_ad']->format_settings['instance_settings']['description'] =
+      '<div class="classified-ad-deadline">DEADLINE: ' . $holiday['deadline'] . '</div>' .
+      $form['#groups']['group_classified_ad']->format_settings['instance_settings']['description'];
+  }
+  else {
+#    // Check for date conflicts.
+#   if (date("d", strtotime('Next Tuesday')) <  date("d", strtotime('thursday')) ) {
+#        $print_edition = t('Tuesday, ') . date("F d", strtotime('Next Week Tuesday'));
+#    }
+#    else {
+#        $print_edition = t('Tuesday, ') . date("F d", strtotime('Next Tuesday'));
+#    }
+#	
+#	#dpm('Next Tuesday: ' . $print_edition);
+#	#dpm('Tuesday: ' . date("F d", strtotime('Tuesday')));
+#	
+#    $form['#groups']['group_classified_ad']->format_settings['instance_settings']['description'] =
+#      '<div class="classified-ad-deadline">DEADLINE: ' . $ad_deadline . ' for following ' . $print_edition . ' publication.</div>' .
+#      $form['#groups']['group_classified_ad']->format_settings['instance_settings']['description'];
+	  $form['#groups']['group_classified_ad']->format_settings['instance_settings']['description'] = 'DEADLINE: Thursday at 3pm for the following Tuesday.';
+  }
+  
+  
   // Beauty Tips
   $form['field_rate'][LANGUAGE_NONE]['#description'] =
     '<span class=" beautytips form-toggle" id="bt-business" >What is a Business?</span> <div id="beautytips-toggle-box-bt-business" class="beautytips-box">' . $form['field_rate'][LANGUAGE_NONE]['#description'] . '</div>';
@@ -433,17 +478,80 @@ function ad_payment_cc_validate(&$form, &$form_state) {
 * - If already exists link to node.
 * - Send email comfirmation.
 */
+
+//following function deleted June 19, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+//this is all irrelevant because at this point, the time stamp still needs to be put into the title by use of a pattern [current-date:raw] for automatic title generation
+//(see admin/structure/types/manage/ad_s) and not even with ad_ in front!  and the timestamp may be a second or two DIFFERENT here, causing even more havoc if it was set at this point! 
+/*
 function ad_payment_cc_submit($form, &$form_state) {
   // Store TempID
   if (!isset($form_state['redirect'])) {
+
     $temp_id = time();
     $form_state['node']->title = 'ad_' . $temp_id;
+    
     $form_state['redirect']     = 'ad/' . $temp_id . '/thank-you';
     // Update Form
     $form['#action'] =  $temp_id . '/thank-you';
+    
   }
+}
+*/
 
+//following function added June 4, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+//(this code was originally in function thankyou_page in ad_payment_receipt.inc (except for error logging, which was in function ad_payment_receipt,
+//and some operations on temp_id which were in ad_payment_cc_submit) but that meant that it could accidentally be triggered 
+//if the URL ad/xxx/thank-you was ever triggered, resulting in a spurious ad-confirmation email, confusing to users!
+function ad_payment_cc_submit_postsave($form, &$form_state) {
+	
+	
+	//get the temp_id back from the title of the node that was just created (see notes for function ad_payment_cc_submit)
+	$sql = "SELECT n.title FROM {node} n WHERE n.nid = :nid";
+	
+	$result = db_query($sql, array(':nid' => $form_state['values']['nid']))->fetch();
+	if ($result) {
 
+		$temp_id = $result->title;
+		
+		$form_state['redirect']     = 'ad/' . $temp_id . '/thank-you';
+				
+		$data = variable_get('ad_submission_' . $temp_id);
+		$data['receipt'] = $temp_id;
+
+		//these two lines not needed, if called from here... content from ad_payment_receipt is only for the thank-you page, not for the email
+		//module_load_include('inc', 'ad_payment', 'ad_payment_receipt');
+		//$content = ad_payment_receipt($temp_id, $data);
+
+		if (ADP_LOG_ERRORS) {
+			$message = 'Receipt Logged<br><br>CLIENT<br>Name: @name<br>Phone: @phone<br>Email: @email<br><br>
+	PRICING<br>Subtotal: @subtotal<br>Extras: @extras <br>Tax: @tax<br>Total: @total<br><br>
+	DETAILS<br>Wordcount: @wordcount <br>@ad_copy<br><br>Section: @section<br>Area: @area<br>Duration: @duration<br>Rate: @rate';
+			$message_vars = array(
+				'@name' => $data['user']['real-name'],
+				'@phone' => $data['user']['phone'],
+				'@email' => $data['user']['email'],
+
+				'@subtotal' => $data['subtotal'],
+				'@extras' => $data['extras'],
+				'@tax' => $data['taxes'],
+				'@total' => $data['total'],
+
+				'@ad_copy' => $data['ad_copy'],
+				'@wordcount' => $data['wordcount'],
+				'@section' => $data['section_name'],
+				'@area' => $data['areas'],
+				'@rate' => $data['rate']['rate_name'],
+				'@duration' =>  $data['duration']['actual'],
+			);
+
+			$message .= '<br><br>Logged by <b>ad_payment_receipt</b> in <em>ad_payment_reciept.inc</em>';
+			watchdog('ADP Receipt', $message, $message_vars);
+		}
+
+		// Send Email upon Completion.
+		module_load_include('inc', 'ad_payment', 'ad_payment_mail');
+		ad_payment_send_email('receipt', $data);
+	}
 }
 
 
@@ -533,7 +641,9 @@ function ad_payment_node_insert($node) {
       ad_payment_send_email('inhouse', $details);
 
       variable_set('ad_submission_' . $node->title, $details);
-      drupal_goto('ad/' . $node->title . '/thank-you');
+      //following line removed June 18, 2014 - Peter Fisera, Earth Angel Consulting (for Brainflex)
+      //this should NEVER be done in a node_insert or node_update hook, it should be handled by the form processing itself!
+      //drupal_goto('ad/' . $node->title . '/thank-you');
 
     }
     else {
@@ -716,9 +826,19 @@ function ad_payment_get_classified_list() {
     if (!array_key_exists($term, $pw_list) && $term != 'Free') {
       $pw_list[$tid] = $term;
     }
-
   }
-  return $pw_list;
+
+  # Sort List alphabetically.
+  foreach ($pw_list as $term => $section) {
+    if (is_array($section)) {
+      asort($section);
+    }
+    $pw_sort[$term] = $section;
+  }
+
+  variable_set('pw_classified_list_form_alphabetical', $pw_sort );
+
+  return $pw_sort;
 }
 
 
@@ -733,6 +853,7 @@ function ad_payment_get_classified_list() {
 function ad_payment_init() {
 
   drupal_add_css(drupal_get_path('module', 'ad_payment') . '/css/ad_payment.css', array('type' => 'file'));
+  drupal_add_css(drupal_get_path('module', 'ad_payment') . '/css/ad_payment.less');
 
   // Get Business rated taxonomy sections.
   $business_rated = variable_get('ad_payment_business_rated', ad_payment_get_business_rated());

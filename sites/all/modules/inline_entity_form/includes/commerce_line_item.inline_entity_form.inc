@@ -100,6 +100,7 @@ class CommerceLineItemInlineEntityFormController extends EntityInlineEntityFormC
     );
     field_attach_form('commerce_line_item', $line_item, $entity_form, $form_state);
 
+<<<<<<< HEAD
     // If the order is still in a cart status, then the prices are still being
     // recalculated, meaning that no changes made to them would be permanent.
     if (!empty($form_state['commerce_order']) && module_exists('commerce_order')) {
@@ -110,10 +111,13 @@ class CommerceLineItemInlineEntityFormController extends EntityInlineEntityFormC
       }
     }
 
+=======
+>>>>>>> SiteReformation
     // Tweaks specific to product line items.
     if (in_array($line_item->type, $this->productLineItemTypes())) {
       $entity_form['line_item_label']['#access'] = FALSE;
       $entity_form['commerce_display_path']['#access'] = FALSE;
+      $entity_form['commerce_unit_price']['#access'] = FALSE;
       $entity_form['commerce_product']['#weight'] = -100;
     }
 
@@ -159,6 +163,7 @@ class CommerceLineItemInlineEntityFormController extends EntityInlineEntityFormC
     commerce_line_item_rebase_unit_price($line_item);
 
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+<<<<<<< HEAD
     // Update the line item label based on the line item type.
     // Product line item types always get the product SKU as the label.
     if (in_array($line_item->type, $this->productLineItemTypes())) {
@@ -166,6 +171,15 @@ class CommerceLineItemInlineEntityFormController extends EntityInlineEntityFormC
     }
     else {
       $wrapper->line_item_label = trim($line_item_values['line_item_label']);
+=======
+    if (in_array($line_item->type, $this->productLineItemTypes())) {
+      // Populate the line item with the product data.
+      commerce_product_line_item_populate($line_item, $wrapper->commerce_product->value());
+    }
+    else {
+      $wrapper->line_item_label = trim($line_item_values['line_item_label']);
+      commerce_line_item_rebase_unit_price($line_item);
+>>>>>>> SiteReformation
     }
 
     // Update the total price.

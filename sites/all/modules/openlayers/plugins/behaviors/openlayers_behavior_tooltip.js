@@ -86,6 +86,11 @@ Drupal.openlayers.addBehavior('openlayers_behavior_tooltip', function (data, opt
       }
     }
   );
+<<<<<<< HEAD
+=======
+  popupSelect.handlers['feature'].stopDown = false;
+  popupSelect.handlers['feature'].stopUp = false;
+>>>>>>> SiteReformation
 
   // Actiate the popups
   map.addControl(popupSelect);

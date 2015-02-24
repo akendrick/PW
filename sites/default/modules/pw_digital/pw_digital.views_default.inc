@@ -32,11 +32,17 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['cache']['output_lifespan_custom'] = '0';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+<<<<<<< HEAD
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+=======
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+>>>>>>> SiteReformation
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Title */
@@ -199,6 +205,17 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+<<<<<<< HEAD
+=======
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nid']['element_default_classes'] = FALSE;
+>>>>>>> SiteReformation
   /* Field: Content: Castlegar Edition */
   $handler->display->display_options['fields']['field_castlegar_edition']['id'] = 'field_castlegar_edition';
   $handler->display->display_options['fields']['field_castlegar_edition']['table'] = 'field_data_field_castlegar_edition';
@@ -207,7 +224,11 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['fields']['field_castlegar_edition']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_castlegar_edition']['alter']['text'] = 'Castlegar & Slocan Valley';
   $handler->display->display_options['fields']['field_castlegar_edition']['alter']['make_link'] = TRUE;
+<<<<<<< HEAD
   $handler->display->display_options['fields']['field_castlegar_edition']['alter']['path'] = 'edition/castlegar-slocan';
+=======
+  $handler->display->display_options['fields']['field_castlegar_edition']['alter']['path'] = 'edition/castlegar-slocan/[nid]';
+>>>>>>> SiteReformation
   $handler->display->display_options['fields']['field_castlegar_edition']['alter']['link_class'] = 'latest-edition button';
   $handler->display->display_options['fields']['field_castlegar_edition']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_castlegar_edition']['type'] = 'text_plain';
@@ -219,7 +240,11 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['text'] = 'Kootenay Lake';
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['make_link'] = TRUE;
+<<<<<<< HEAD
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['path'] = 'edition/kootenay-lake';
+=======
+  $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['path'] = 'edition/kootenay-lake/[nid]';
+>>>>>>> SiteReformation
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['alter']['link_class'] = 'button';
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_kootenay_lake_edition']['type'] = 'text_plain';
@@ -231,7 +256,11 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['fields']['field_nelson_edition']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_nelson_edition']['alter']['text'] = 'Nelson Edition';
   $handler->display->display_options['fields']['field_nelson_edition']['alter']['make_link'] = TRUE;
+<<<<<<< HEAD
   $handler->display->display_options['fields']['field_nelson_edition']['alter']['path'] = 'edition/nelson-salmo';
+=======
+  $handler->display->display_options['fields']['field_nelson_edition']['alter']['path'] = 'edition/nelson-salmo/[nid]';
+>>>>>>> SiteReformation
   $handler->display->display_options['fields']['field_nelson_edition']['alter']['link_class'] = 'button';
   $handler->display->display_options['fields']['field_nelson_edition']['element_class'] = 'button';
   $handler->display->display_options['fields']['field_nelson_edition']['element_label_colon'] = FALSE;
@@ -244,7 +273,11 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['fields']['field_trail']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_trail']['alter']['text'] = 'Trail, Beaver Valley & Rossland';
   $handler->display->display_options['fields']['field_trail']['alter']['make_link'] = TRUE;
+<<<<<<< HEAD
   $handler->display->display_options['fields']['field_trail']['alter']['path'] = 'edition/trail-area';
+=======
+  $handler->display->display_options['fields']['field_trail']['alter']['path'] = 'edition/trail-area/[nid]';
+>>>>>>> SiteReformation
   $handler->display->display_options['fields']['field_trail']['alter']['link_class'] = 'button';
   $handler->display->display_options['fields']['field_trail']['element_label_colon'] = FALSE;
   /* Field: Content: References */
@@ -403,6 +436,202 @@ function pw_digital_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'menu-special-features';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+<<<<<<< HEAD
+=======
+
+  /* Display: C1 */
+  $handler = $view->new_display('page', 'C1', 'c1_idiv_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Castlegar & Slocan Valley Pennywise Digital Edition';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'castlegar_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['path'] = 'edition/castlegar-slocan/%';
+  $handler->display->display_options['menu']['title'] = 'Castlegar & Slocan Valley';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: T1 */
+  $handler = $view->new_display('page', 'T1', 't1_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Trail and Salmo Pennywise Digital Edition';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'trail_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['path'] = 'edition/trail-area/%';
+  $handler->display->display_options['menu']['title'] = 'Castlegar & Slocan Valley';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: N1 */
+  $handler = $view->new_display('page', 'N1', 'n1_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Nelson & Salmo Pennywise Digital Edition';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'nelson_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['path'] = 'edition/nelson-salmo/%';
+  $handler->display->display_options['menu']['title'] = 'Castlegar & Slocan Valley';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: K1 */
+  $handler = $view->new_display('page', 'K1', 'k1_page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Kootenay Lake - Pennywise Digital Edition';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'nelson_edition_view';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'pw_digital' => 'pw_digital',
+  );
+  $handler->display->display_options['path'] = 'edition/kootenay-lake/%';
+  $handler->display->display_options['menu']['title'] = 'Castlegar & Slocan Valley';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-pennywise-digital-edition';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Carolling */
+  $handler = $view->new_display('page', 'Carolling', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Carolling';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'special_feature';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'attachment' => 'attachment',
+  );
+  /* Filter criterion: Content: Feature Type (field_feature_type) */
+  $handler->display->display_options['filters']['field_feature_type_value']['id'] = 'field_feature_type_value';
+  $handler->display->display_options['filters']['field_feature_type_value']['table'] = 'field_data_field_feature_type';
+  $handler->display->display_options['filters']['field_feature_type_value']['field'] = 'field_feature_type_value';
+  $handler->display->display_options['filters']['field_feature_type_value']['value'] = array(
+    'carolling' => 'carolling',
+  );
+  $handler->display->display_options['path'] = 'edition/carolling';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Carolling';
+  $handler->display->display_options['menu']['weight'] = '50';
+  $handler->display->display_options['menu']['name'] = 'menu-special-features';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+>>>>>>> SiteReformation
   $export['edition_viewer'] = $view;
 
   return $export;

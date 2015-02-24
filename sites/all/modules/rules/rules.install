@@ -5,6 +5,14 @@
  */
 
 /**
+ * Implements hook_enable().
+ */
+function rules_enable() {
+  // Enable evaluation of Rules right after enabling the module.
+  rules_event_invocation_enabled(TRUE);
+}
+
+/**
  * Implements hook_install().
  */
 function rules_install() {
@@ -460,6 +468,7 @@ function rules_update_7210() {
  */
 function rules_update_7211() {
   // Create a owner column.
+<<<<<<< HEAD
   db_add_field('rules_config', 'owner', array(
     'description' => 'The name of the module via which the rule has been configured.',
     'type' => 'varchar',
@@ -467,6 +476,17 @@ function rules_update_7211() {
     'not null' => TRUE,
     'default' => 'rules',
   ));
+=======
+  if (!db_field_exists('rules_config', 'owner')) {
+    db_add_field('rules_config', 'owner', array(
+      'description' => 'The name of the module via which the rule has been configured.',
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => 'rules',
+    ));
+  }
+>>>>>>> SiteReformation
 }
 
 /**
@@ -477,3 +497,27 @@ function rules_update_7212() {
   drupal_static_reset('system_rebuild_module_data');
   registry_rebuild();
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * Recover the "owner" property for broken configurations.
+ */
+function rules_update_7213() {
+  $rows= db_select('rules_config', 'c')
+    ->fields('c')
+    ->condition('status', ENTITY_OVERRIDDEN)
+    ->condition('owner', 'rules', '<>')
+    ->execute()
+    ->fetchAllAssoc('id');
+
+  foreach ($rows as $id => $row) {
+    if ($row->module == $row->owner) {
+      db_update('rules_config')
+        ->condition('id', $id)
+        ->fields(array('owner' => 'rules'))
+        ->execute();
+    }
+  }
+}
+>>>>>>> SiteReformation

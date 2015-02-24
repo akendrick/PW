@@ -223,7 +223,15 @@ function _field_info_collate_types($reset = FALSE) {
       }
       drupal_alter('field_storage_info', $info['storage types']);
 
+<<<<<<< HEAD
       cache_set("field_info_types:$langcode", $info, 'cache_field');
+=======
+      // Set the cache if we can acquire a lock.
+      if (lock_acquire("field_info_types:$langcode")) {
+        cache_set("field_info_types:$langcode", $info, 'cache_field');
+        lock_release("field_info_types:$langcode");
+      }
+>>>>>>> SiteReformation
     }
   }
 

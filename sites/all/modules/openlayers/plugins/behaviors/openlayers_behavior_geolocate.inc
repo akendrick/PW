@@ -68,6 +68,12 @@ class openlayers_behavior_geolocate extends openlayers_behavior {
    * Render.
    */
   function render(&$map) {
+<<<<<<< HEAD
+=======
+    //make sure that $option['bind'] is a true boolean, and not a string '0'.
+    $this->options['bind'] = !!$this->options['bind'];
+
+>>>>>>> SiteReformation
     drupal_add_js(drupal_get_path('module', 'openlayers') .
       '/plugins/behaviors/openlayers_behavior_geolocate.js');
     return $this->options;

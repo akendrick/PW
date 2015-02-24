@@ -72,7 +72,11 @@ function geofield_field_formatter_info() {
     'settings' => array('data' => '', 'address' => 0),
   );
   $formatters['geofield_description'] = array(
+<<<<<<< HEAD
     'label' => t('Decriptive Text (Accessibility)'),
+=======
+    'label' => t('Descriptive Text (Accessibility)'),
+>>>>>>> SiteReformation
     'field types' => array('geofield'),
     'settings' => array('data' => '', 'address' => 0),
   );

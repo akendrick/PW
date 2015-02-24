@@ -28,6 +28,11 @@ Drupal.openlayers.addBehavior('openlayers_behavior_hover', function (data, optio
       highlightOnly: true,
       renderIntent: 'temporary'
     });
+<<<<<<< HEAD
+=======
+    highlightCtrl.handlers['feature'].stopDown = false;
+    highlightCtrl.handlers['feature'].stopUp = false;
+>>>>>>> SiteReformation
 
     map.addControl(highlightCtrl);
     highlightCtrl.activate();

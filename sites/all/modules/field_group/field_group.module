@@ -244,6 +244,7 @@ function field_group_field_attach_delete_bundle($entity_type, $bundle) {
  * Implements hook_field_attach_form().
  */
 function field_group_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+
   $form['#attached']['css'][] = drupal_get_path('module', 'field_group') . '/field_group.field_ui.css';
   field_group_attach_groups($form, 'form', $form_state);
   $form['#pre_render'][] = 'field_group_form_pre_render';
@@ -291,7 +292,11 @@ function field_group_field_group_formatter_info() {
       'html-element' => array(
         'label' => t('HTML element'),
         'description' => t('This fieldgroup renders the inner content in a HTML element with classes and attributes.'),
+<<<<<<< HEAD
         'instance_settings' => array('element' => 'div', 'classes' => '', 'attributes' => '', 'required_fields' => 1),
+=======
+        'instance_settings' => array('element' => 'div', 'show_label' => 0, 'label_element' => 'div', 'classes' => '', 'attributes' => '', 'required_fields' => 1),
+>>>>>>> SiteReformation
       ),
       'div' => array(
         'label' => t('Div'),
@@ -303,7 +308,11 @@ function field_group_field_group_formatter_info() {
       'html5' => array(
         'label' => t('HTML5'),
         'description' => t('This fieldgroup renders the inner content in a semantic HTML5 wrapper'),
+<<<<<<< HEAD
         'instance_settings' => array('wrapper' => '', 'classes' => ''),
+=======
+        'instance_settings' => array('wrapper' => '', 'classes' => '', 'id' => ''),
+>>>>>>> SiteReformation
       ),
       'fieldset' => array(
         'label' => t('Fieldset'),
@@ -365,19 +374,27 @@ function field_group_field_group_formatter_info() {
       'html-element' => array(
         'label' => t('HTML element'),
         'description' => t('This fieldgroup renders the inner content in a HTML element with classes and attributes.'),
+<<<<<<< HEAD
         'instance_settings' => array('element' => 'div', 'classes' => '', 'attributes' => '', 'required_fields' => 1),
+=======
+        'instance_settings' => array('element' => 'div', 'show_label' => 0, 'label_element' => 'div', 'classes' => '', 'attributes' => '', 'required_fields' => 1),
+>>>>>>> SiteReformation
       ),
       'div' => array(
         'label' => t('Div'),
         'description' => t('This fieldgroup renders the inner content in a simple div with the title as legend.'),
         'format_types' => array('open', 'collapsible', 'collapsed'),
-        'instance_settings' => array('description' => '', 'show_label' => 1, 'label_element' => 'h3', 'effect' => 'none', 'speed' => 'fast', 'classes' => ''),
+        'instance_settings' => array('description' => '', 'show_label' => 1, 'label_element' => 'h3', 'effect' => 'none', 'speed' => 'fast', 'classes' => '', 'id' => ''),
         'default_formatter' => 'collapsible',
       ),
       'html5' => array(
         'label' => t('HTML5'),
         'description' => t('This fieldgroup renders the inner content in a semantic HTML5 wrapper'),
+<<<<<<< HEAD
         'instance_settings' => array('wrapper' => '', 'classes' => ''),
+=======
+        'instance_settings' => array('wrapper' => '', 'classes' => '', 'id' => ''),
+>>>>>>> SiteReformation
       ),
       'fieldset' => array(
         'label' => t('Fieldset'),
@@ -452,7 +469,7 @@ function field_group_field_group_format_settings($group) {
       '#type' => 'select',
       '#options' => drupal_map_assoc($formatter['format_types']),
       '#default_value' => isset($group->format_settings['formatter']) ? $group->format_settings['formatter'] : $formatter['default_formatter'],
-      '#weight' => 1,
+      '#weight' => -4,
     );
   }
 
@@ -470,7 +487,11 @@ function field_group_field_group_format_settings($group) {
       '#title' => t('ID'),
       '#type' => 'textfield',
       '#default_value' => isset($group->format_settings['instance_settings']['id']) ? $group->format_settings['instance_settings']['id'] : (isset($formatter['instance_settings']['id']) ? $formatter['instance_settings']['id'] : ''),
+<<<<<<< HEAD
       '#weight' => 3,
+=======
+      '#weight' => 10,
+>>>>>>> SiteReformation
       '#element_validate' => array('field_group_validate_id'),
     );
   }
@@ -479,7 +500,11 @@ function field_group_field_group_format_settings($group) {
       '#title' => t('Extra CSS classes'),
       '#type' => 'textfield',
       '#default_value' => isset($group->format_settings['instance_settings']['classes']) ? $group->format_settings['instance_settings']['classes'] : (isset($formatter['instance_settings']['classes']) ? $formatter['instance_settings']['classes'] : ''),
+<<<<<<< HEAD
       '#weight' => 4,
+=======
+      '#weight' => 11,
+>>>>>>> SiteReformation
       '#element_validate' => array('field_group_validate_css_class'),
     );
   }
@@ -501,9 +526,30 @@ function field_group_field_group_format_settings($group) {
         '#type' => 'textfield',
         '#default_value' => isset($group->format_settings['instance_settings']['element']) ? $group->format_settings['instance_settings']['element'] : $formatter['instance_settings']['element'],
         '#description' => t('E.g. div, section, aside etc.'),
+<<<<<<< HEAD
         '#weight' => 2,
       );
 
+=======
+        '#weight' => 1,
+      );
+
+      $form['instance_settings']['show_label'] = array(
+        '#title' => t('Show label'),
+        '#type' => 'select',
+        '#options' => array(0 => t('No'), 1 => t('Yes')),
+        '#default_value' => isset($group->format_settings['instance_settings']['show_label']) ? $group->format_settings['instance_settings']['show_label'] : $formatter['instance_settings']['show_label'],
+        '#weight' => 2,
+      );
+
+      $form['instance_settings']['label_element'] = array(
+        '#title' => t('Label element'),
+        '#type' => 'textfield',
+        '#default_value' => isset($group->format_settings['instance_settings']['label_element']) ? $group->format_settings['instance_settings']['label_element'] : $formatter['instance_settings']['label_element'],
+        '#weight' => 3,
+      );
+
+>>>>>>> SiteReformation
       $form['instance_settings']['attributes'] = array(
         '#title' => t('Attributes'),
         '#type' => 'textfield',
@@ -533,7 +579,7 @@ function field_group_field_group_format_settings($group) {
         '#type' => 'select',
         '#options' => array('none' => t('None'), 'blind' => t('Blind')),
         '#default_value' => isset($group->format_settings['instance_settings']['effect']) ? $group->format_settings['instance_settings']['effect'] : $formatter['instance_settings']['effect'],
-        '#weight' => 2,
+        '#weight' => 3,
       );
       $form['instance_settings']['speed'] = array(
         '#title' => t('Speed'),
@@ -617,7 +663,11 @@ function field_group_pre_render_prepare(&$group) {
   $classes = _field_group_get_html_classes($group);
 
   $group->classes = implode(' ', $classes->required);
+<<<<<<< HEAD
   $group->description = isset($group->format_settings['instance_settings']['description']) ? filter_xss_admin(t($group->format_settings['instance_settings']['description'])) : '';
+=======
+  $group->description = !empty($group->format_settings['instance_settings']['description']) ? filter_xss_admin(t($group->format_settings['instance_settings']['description'])) : '';
+>>>>>>> SiteReformation
 
 }
 
@@ -627,7 +677,7 @@ function field_group_pre_render_prepare(&$group) {
  * @param Array $elements by address.
  * @param Object $group The Field group info.
  */
-function field_group_field_group_pre_render(& $element, &$group, & $form) {
+function field_group_field_group_pre_render(&$element, &$group, & $form) {
 
   field_group_pre_render_prepare($group);
 
@@ -640,10 +690,14 @@ function field_group_field_group_pre_render(& $element, &$group, & $form) {
   );
 
   if (isset($group->format_settings['instance_settings']['id']) && !empty($group->format_settings['instance_settings']['id'])) {
+<<<<<<< HEAD
     $element['#id'] = $group->format_settings['instance_settings']['id'];
   }
   else {
     $element['#id'] = $form['#entity_type'] . '_' . $form['#bundle'] . '_' . $view_mode . '_' . $group->group_name;
+=======
+    $element['#id'] = drupal_html_id($group->format_settings['instance_settings']['id']);
+>>>>>>> SiteReformation
   }
 
   $element['#weight'] = $group->weight;
@@ -691,6 +745,11 @@ function field_group_pre_render_fieldset(&$element, $group, &$form) {
  */
 function field_group_pre_render_html_element(&$element, $group, &$form) {
   $html_element = isset($group->format_settings['instance_settings']['element']) ? $group->format_settings['instance_settings']['element'] : 'div';
+<<<<<<< HEAD
+=======
+  $show_label = isset($group->format_settings['instance_settings']['show_label']) ? $group->format_settings['instance_settings']['show_label'] : 0;
+  $label_element = isset($group->format_settings['instance_settings']['label_element']) ? $group->format_settings['instance_settings']['label_element'] : 'div';
+>>>>>>> SiteReformation
   $attributes = isset($group->format_settings['instance_settings']['attributes']) ? ' ' . $group->format_settings['instance_settings']['attributes'] : '';
   $group->classes = trim($group->classes);
 
@@ -715,6 +774,12 @@ function field_group_pre_render_html_element(&$element, $group, &$form) {
   $attributes = drupal_attributes($element_attributes);
 
   $element['#prefix'] = '<' . $html_element . $attributes . '>';
+<<<<<<< HEAD
+=======
+  if ($show_label) {
+    $element['#prefix'] .= '<' . $label_element . '><span>' . check_plain(t($group->label)) . '</span></' . $label_element . '>';
+  }
+>>>>>>> SiteReformation
   $element['#suffix'] = '</' . $html_element . '>';
 }
 
@@ -733,18 +798,32 @@ function field_group_pre_render_div(&$element, $group, &$form) {
   $effect = isset($group->format_settings['instance_settings']['effect']) ? $group->format_settings['instance_settings']['effect'] : 'none';
 
   $element['#type'] = 'markup';
+<<<<<<< HEAD
   if ($group->format_settings['formatter'] != 'open') {
     $element['#prefix'] = '<div id="' . $element['#id'] . '" class="' . $group->classes . '">
+=======
+  $id = isset($element['#id']) ? ' id="' . $element['#id'] . '"' : '';
+
+  if ($group->format_settings['formatter'] != 'open') {
+
+    $element['#prefix'] = '<div' . $id . ' class="' . $group->classes . '">
+>>>>>>> SiteReformation
       <' . $label_element . '><span class="field-group-format-toggler">' . check_plain(t($group->label)) . '</span></' . $label_element . '>
       <div class="field-group-format-wrapper" style="display: ' . (!empty($group->collapsed) ? 'none' : 'block') . ';">';
     $element['#suffix'] = '</div></div>';
   }
   else {
+<<<<<<< HEAD
     $class_attribute = '';
     if (!empty($group->classes)) {
       $class_attribute = 'class = "' . $group->classes . '"';
     }
     $element['#prefix'] = '<div id="' . $element['#id'] . '"' . $class_attribute . '>';
+=======
+    $class_attribute = !empty($group->classes) ? ' class="' . $group->classes . '"' : '';
+
+    $element['#prefix'] = '<div' . $id . $class_attribute . '>';
+>>>>>>> SiteReformation
     if ($show_label) {
       $element['#prefix'] .= '<' . $label_element . '><span>' . check_plain(t($group->label)) . '</span></' . $label_element . '>';
     }
@@ -769,9 +848,17 @@ function field_group_pre_render_div(&$element, $group, &$form) {
  * @param $form The root element or form.
  */
 function field_group_pre_render_html5(&$element, $group, &$form) {
+<<<<<<< HEAD
   $element += array(
     '#type' => 'markup',
     '#prefix' => '<' . $group->format_settings['instance_settings']['wrapper'] . ' id="' . $element['#id'] . '" class="' . $group->classes . '">',
+=======
+  $id = !empty($element['#id']) ? ' id="' . $element['#id'] . '"' : '';
+  $class = !empty($group->classes) ? ' class="' . $group->classes . '"' : '';
+  $element += array(
+    '#type' => 'markup',
+    '#prefix' => '<' . $group->format_settings['instance_settings']['wrapper'] . $id . $class . '>',
+>>>>>>> SiteReformation
     '#suffix' => '</' . $group->format_settings['instance_settings']['wrapper'] . '>',
   );
 }
@@ -1113,11 +1200,13 @@ function field_group_remove_empty_form_groups($name, & $element, $groups, &$form
   $hasChildren = FALSE;
   if (count($children)) {
     foreach ($children as $childname) {
+
       if (in_array($childname, $groups)) {
         field_group_remove_empty_form_groups($childname, $element[$childname], $groups, $form_groups, $entity);
       }
       $exception = $entity . '__' . $childname;
-      $hasChildren = $hasChildren ? TRUE : (isset($element[$childname]['#type']) || in_array($exception, $exceptions));
+      $hasChildren = $hasChildren ? TRUE : (isset($element[$childname]['#type']) || isset($element[$childname]['#markup']) || in_array($exception, $exceptions));
+
     }
   }
 
@@ -1566,8 +1655,15 @@ function field_group_info_groups($entity_type = NULL, $bundle = NULL, $view_mode
       $groups = $cached->data;
     }
     else {
+<<<<<<< HEAD
       drupal_static_reset('ctools_export_load_object');
       drupal_static_reset('ctools_export_load_object_all');
+=======
+      $ctools_export_load_object = &drupal_static('ctools_export_load_object');
+      $ctools_export_load_object_all = &drupal_static('ctools_export_load_object_all');
+      unset($ctools_export_load_object['field_group']);
+      unset($ctools_export_load_object_all['field_group']);
+>>>>>>> SiteReformation
       $groups = field_group_read_groups();
       cache_set('field_groups', $groups, 'cache_field');
     }
@@ -1581,10 +1677,17 @@ function field_group_info_groups($entity_type = NULL, $bundle = NULL, $view_mode
   }
   elseif (!isset($view_mode) && isset($groups[$entity_type][$bundle])) {
     return $groups[$entity_type][$bundle];
+<<<<<<< HEAD
   }
   elseif (isset($groups[$entity_type][$bundle][$view_mode])) {
     return $groups[$entity_type][$bundle][$view_mode];
   }
+=======
+  }
+  elseif (isset($groups[$entity_type][$bundle][$view_mode])) {
+    return $groups[$entity_type][$bundle][$view_mode];
+  }
+>>>>>>> SiteReformation
   return array();
 }
 
@@ -1619,12 +1722,21 @@ function field_group_read_groups($conditions = array(), $enabled = TRUE) {
 
     // Return only enabled groups.
     if ($enabled && isset($group->disabled) && $group->disabled) {
+<<<<<<< HEAD
       continue;
     }
     // Return only disabled groups.
     elseif (!$enabled && (!isset($group->disabled) || !$group->disabled)) {
       continue;
     }
+=======
+      continue;
+    }
+    // Return only disabled groups.
+    elseif (!$enabled && (!isset($group->disabled) || !$group->disabled)) {
+      continue;
+    }
+>>>>>>> SiteReformation
 
     $groups[$group->entity_type][$group->bundle][$group->mode][$group->group_name] = field_group_unpack($group);
 
@@ -1680,7 +1792,11 @@ function field_group_exists($group_name, $entity_type, $bundle, $mode) {
  *   Field group object.
  */
 function field_group_unpack($packed_group) {
+<<<<<<< HEAD
   if (!isset($packed_group->data)) {
+=======
+  if (empty($packed_group->data)) {
+>>>>>>> SiteReformation
     return $packed_group;
   }
 
@@ -1847,7 +1963,11 @@ function field_group_attach_groups(&$element, $view_mode, $form_state = array())
 /**
  * Pre render callback for rendering groups.
  * @see field_group_field_attach_form
+<<<<<<< HEAD
  * @param $element Form that is beïng rendered.
+=======
+ * @param $element Form that is being rendered.
+>>>>>>> SiteReformation
  */
 function field_group_form_pre_render(&$element) {
   return field_group_build_entity_groups($element, 'form');
@@ -1860,6 +1980,7 @@ function field_group_form_pre_render(&$element) {
  * @see field_group_theme_registry_alter
  * @see field_group_fields_nest()
  * @param $vars preprocess vars or form element
+<<<<<<< HEAD
  * @param $type The type of object beïng rendered
  * @return $element Array with re-arranged fields in forms.
  */
@@ -1874,6 +1995,22 @@ function field_group_build_entity_groups(&$vars, $type) {
     $nest_vars = &$vars;
   }
 
+=======
+ * @param $type The type of object being rendered
+ * @return $element Array with re-arranged fields in forms.
+ */
+function field_group_build_entity_groups(&$vars, $type) {
+
+  if ($type == 'form') {
+    $element = &$vars;
+    $nest_vars = NULL;
+  }
+  else {
+    $element = &$vars['elements'];
+    $nest_vars = &$vars;
+  }
+
+>>>>>>> SiteReformation
   // No groups on the entity.
   if (empty($element['#fieldgroups'])) {
     return $element;
@@ -1889,6 +2026,7 @@ function field_group_build_entity_groups(&$vars, $type) {
   if ($type == 'form') {
     return $element;
   }
+<<<<<<< HEAD
 
   // Put groups inside content if we are rendering an entity_view.
   foreach ($element['#groups'] as $group) {
@@ -1900,6 +2038,24 @@ function field_group_build_entity_groups(&$vars, $type) {
     }
   }
 
+=======
+
+  // No groups on the entity. Prerender removed empty field groups.
+  if (empty($element['#fieldgroups'])) {
+    return $element;
+  }
+
+  // Put groups inside content if we are rendering an entity_view.
+  foreach ($element['#fieldgroups'] as $group) {
+    if (!empty($element[$group->group_name]) && $type != 'user_profile') {
+      $vars['content'][$group->group_name] = $element[$group->group_name];
+    }
+    elseif (!empty($element[$group->group_name])) {
+      $vars['user_profile'][$group->group_name] = $element[$group->group_name];
+    }
+  }
+
+>>>>>>> SiteReformation
   // New css / js can be attached.
   drupal_process_attached($element);
 }
@@ -1914,7 +2070,11 @@ function field_group_build_entity_groups(&$vars, $type) {
  * @param Array $element
  *   The current element to analyse for grouping.
  * @param Array $vars
+<<<<<<< HEAD
  *   Rendering vars from the entity beïng viewed.
+=======
+ *   Rendering vars from the entity being viewed.
+>>>>>>> SiteReformation
  */
 function field_group_fields_nest(&$element, &$vars = NULL) {
 
@@ -1947,11 +2107,19 @@ function field_group_fields_nest(&$element, &$vars = NULL) {
     // Entity being viewed
     if ($vars) {
       // If not a group, check vars['content'] for empty field.
+<<<<<<< HEAD
       if (!isset($element['#groups'][$child_name]) && isset($vars['content'][$child_name])) {
         $group_references[$parent_name][$child_name] = $vars['content'][$child_name];
         unset($vars['content'][$child_name]);
       }
       elseif (!isset($element['#groups'][$child_name]) && isset($vars['user_profile'][$child_name])) {
+=======
+      if (!isset($element['#fieldgroups'][$child_name]) && isset($vars['content'][$child_name])) {
+        $group_references[$parent_name][$child_name] = $vars['content'][$child_name];
+        unset($vars['content'][$child_name]);
+      }
+      elseif (!isset($element['#fieldgroups'][$child_name]) && isset($vars['user_profile'][$child_name])) {
+>>>>>>> SiteReformation
         $group_references[$parent_name][$child_name] = $vars['user_profile'][$child_name];
         unset($vars['user_profile'][$child_name]);
       }

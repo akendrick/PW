@@ -9,9 +9,15 @@
  * Places one image over another.
  *
  * @param stdClass $image
+<<<<<<< HEAD
  *   An image object.
  * @param stdClass  $layer
  *   Image object to be placed over or under the $image image.
+=======
+ *   A valid image object.
+ * @param stdClass  $layer
+ *   A valid image object to be placed over or under the $image image.
+>>>>>>> SiteReformation
  * @param int $x
  *   Position of the overlay.
  * @param int $y
@@ -103,10 +109,14 @@ function image_gd_overlay(stdClass $image, stdClass $layer, $x, $y, $alpha = 100
 }
 
 /**
+<<<<<<< HEAD
  * imagemagick toolkit specific implementation of the image overlay effect.
  *
  * @todo: is this comment still valid?
  * Improvements on this are welcomed!
+=======
+ * Imagemagick toolkit specific implementation of the image overlay effect.
+>>>>>>> SiteReformation
  *
  * Please be aware of the limitations of imagemagick libraries out there - the
  * versions distributed on hosted servers (if any) are often several years
@@ -131,6 +141,13 @@ function image_gd_overlay(stdClass $image, stdClass $layer, $x, $y, $alpha = 100
  *   true on success, false otherwise.
  */
 function image_imagemagick_overlay(stdClass $image, stdClass $layer, $x = 0, $y = 0, $alpha = 100, $reverse = FALSE) {
+<<<<<<< HEAD
+=======
+  $realPath = imagecache_actions_find_file($layer->source);
+  if (!$realPath) {
+    return FALSE;
+  }
+>>>>>>> SiteReformation
   // Reset any gravity settings from earlier effects.
   $image->ops[] = '-gravity None';
 
@@ -138,7 +155,11 @@ function image_imagemagick_overlay(stdClass $image, stdClass $layer, $x = 0, $y 
   // - $image is the destination (the image being constructed)
   // - $layer is the source (the source of the current operation)
   // Add the layer image to the imagemagick command line.
+<<<<<<< HEAD
   $image->ops[] = escapeshellarg($layer->source) . ' ';
+=======
+  $image->ops[] = escapeshellarg($realPath) . ' ';
+>>>>>>> SiteReformation
 
   // Set its offset. Offset arguments require a sign in front.
   if ($x >= 0) {

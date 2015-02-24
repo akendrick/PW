@@ -1,13 +1,42 @@
 <?php
-
-require_once dirname(__FILE__) . '/file_entity.pages.inc';
-
 /**
  * @file
  * File administration and module settings UI.
  */
 
+require_once dirname(__FILE__) . '/file_entity.pages.inc';
+
 /**
+<<<<<<< HEAD
+ * @file
+ * File administration and module settings UI.
+=======
+ * List file administration filters that can be applied.
+>>>>>>> SiteReformation
+ */
+function file_filters() {
+  $visible_steam_wrappers = file_get_stream_wrappers(STREAM_WRAPPERS_VISIBLE);
+  $options = array();
+  foreach ($visible_steam_wrappers as $scheme => $information) {
+    $options[$scheme] = check_plain($information['name']);
+  }
+  $filters['uri'] = array(
+    'title' => t('scheme'),
+    'options' => array(
+      '[any]' => t('any'),
+    ) + $options,
+  );
+  $filters['type'] = array(
+    'title' => t('type'),
+    'options' => array(
+      '[any]' => t('any'),
+    ) + file_entity_type_get_names(),
+  );
+  return $filters;
+}
+
+/**
+<<<<<<< HEAD
  * List file administration filters that can be applied.
  */
 function file_filters() {
@@ -89,6 +118,67 @@ function file_entity_filter_form() {
     }
   }
 
+=======
+ * Apply filters for file administration filters based on session.
+ *
+ * @param object $query
+ *   A SelectQuery to which the filters should be applied.
+ */
+function file_entity_build_filter_query(SelectQueryInterface $query) {
+  // Build query.
+  $filter_data = isset($_SESSION['file_entity_overview_filter']) ? $_SESSION['file_entity_overview_filter'] : array();
+  foreach ($filter_data as $index => $filter) {
+    list($key, $value) = $filter;
+    switch ($key) {
+      case 'uri':
+        $query->condition('fm.' . $key, $value . '%', 'LIKE');
+        break;
+
+      case 'type':
+        $query->condition('fm.' . $key, $value);
+        break;
+
+    }
+  }
+}
+
+/**
+ * Return form for file administration filters.
+ */
+function file_entity_filter_form() {
+  $session = isset($_SESSION['file_entity_overview_filter']) ? $_SESSION['file_entity_overview_filter'] : array();
+  $filters = file_filters();
+
+  $i = 0;
+  $form['filters'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Show only items where'),
+    '#theme' => 'exposed_filters__file_entity',
+  );
+  foreach ($session as $filter) {
+    list($type, $value) = $filter;
+    if ($type == 'term') {
+      // Load term name from DB rather than search and parse options array.
+      $value = module_invoke('taxonomy', 'term_load', $value);
+      $value = $value->name;
+    }
+    else {
+      $value = $filters[$type]['options'][$value];
+    }
+    $t_args = array('%property' => $filters[$type]['title'], '%value' => $value);
+    if ($i++) {
+      $form['filters']['current'][] = array('#markup' => t('and where %property is %value', $t_args));
+    }
+    else {
+      $form['filters']['current'][] = array('#markup' => t('where %property is %value', $t_args));
+    }
+    if (in_array($type, array('type', 'uri'))) {
+      // Remove the option if it is already being filtered on.
+      unset($filters[$type]);
+    }
+  }
+
+>>>>>>> SiteReformation
   $form['filters']['status'] = array(
     '#type' => 'container',
     '#attributes' => array('class' => array('clearfix')),
@@ -138,27 +228,54 @@ function file_entity_filter_form_submit($form, &$form_state) {
       // Apply every filter that has a choice selected other than 'any'.
       foreach ($filters as $filter => $options) {
         if (isset($form_state['values'][$filter]) && $form_state['values'][$filter] != '[any]') {
+<<<<<<< HEAD
           // Flatten the options array to accommodate hierarchical/nested options.
           $flat_options = form_options_flatten($filters[$filter]['options']);
           // Only accept valid selections offered on the dropdown, block bad input.
+=======
+          // Flatten the options array to accommodate hierarchical/nested
+          // options.
+          $flat_options = form_options_flatten($filters[$filter]['options']);
+          // Only accept valid selections offered on the dropdown, block bad
+          // input.
+>>>>>>> SiteReformation
           if (isset($flat_options[$form_state['values'][$filter]])) {
             $_SESSION['file_entity_overview_filter'][] = array($filter, $form_state['values'][$filter]);
           }
         }
       }
       break;
+<<<<<<< HEAD
     case t('Undo'):
       array_pop($_SESSION['file_entity_overview_filter']);
       break;
     case t('Reset'):
       $_SESSION['file_entity_overview_filter'] = array();
       break;
+=======
+
+    case t('Undo'):
+      array_pop($_SESSION['file_entity_overview_filter']);
+      break;
+
+    case t('Reset'):
+      $_SESSION['file_entity_overview_filter'] = array();
+      break;
+
+>>>>>>> SiteReformation
   }
 }
 
 /**
+<<<<<<< HEAD
  * Make mass update of files, changing all files in the $files array
  * to update them with the field values in $updates.
+=======
+ * Make mass update of files.
+ *
+ * Change all files in the $files array to update them with the field values in
+ * $updates.
+>>>>>>> SiteReformation
  *
  * IMPORTANT NOTE: This function is intended to work when called
  * from a form submit handler. Calling it outside of the form submission
@@ -176,7 +293,14 @@ function file_entity_mass_update($files, $updates) {
   if (count($files) > 10) {
     $batch = array(
       'operations' => array(
+<<<<<<< HEAD
         array('_file_entity_mass_update_batch_process', array($files, $updates))
+=======
+        array(
+          '_file_entity_mass_update_batch_process',
+          array($files, $updates),
+        ),
+>>>>>>> SiteReformation
       ),
       'finished' => '_file_entity_mass_update_batch_finished',
       'title' => t('Processing'),
@@ -207,6 +331,7 @@ function _file_entity_mass_update_helper($fid, $updates) {
   $file->original = clone $file;
   foreach ($updates as $name => $value) {
     $file->$name = $value;
+<<<<<<< HEAD
   }
   file_save($file);
   return $file;
@@ -256,6 +381,57 @@ function _file_entity_mass_update_batch_finished($success, $results, $operations
     $message .= theme('item_list', array('items' => $results));
     drupal_set_message($message);
   }
+=======
+  }
+  file_save($file);
+  return $file;
+}
+
+/**
+ * File Mass Update Batch operation.
+ */
+function _file_entity_mass_update_batch_process($files, $updates, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($files);
+    $context['sandbox']['files'] = $files;
+  }
+
+  // Process files by groups of 5.
+  $count = min(5, count($context['sandbox']['files']));
+  for ($i = 1; $i <= $count; $i++) {
+    // For each fid, load the file, reset the values, and save it.
+    $fid = array_shift($context['sandbox']['files']);
+    $file = _file_entity_mass_update_helper($fid, $updates);
+
+    // Store result for post-processing in the finished callback.
+    $context['results'][] = l($file->filename, 'file/' . $file->fid);
+
+    // Update our progress information.
+    $context['sandbox']['progress']++;
+  }
+
+  // Inform the batch engine that we are not finished,
+  // and provide an estimation of the completion level we reached.
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+}
+
+/**
+ * File Mass Update Batch 'finished' callback.
+ */
+function _file_entity_mass_update_batch_finished($success, $results, $operations) {
+  if ($success) {
+    drupal_set_message(t('The update has been performed.'));
+  }
+  else {
+    drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
+    $message = format_plural(count($results), '1 item successfully processed:', '@count items successfully processed:');
+    $message .= theme('item_list', array('items' => $results));
+    drupal_set_message($message);
+  }
+>>>>>>> SiteReformation
 }
 
 /**
@@ -309,8 +485,16 @@ function file_entity_admin_files() {
     'type' => array('data' => t('Type'), 'field' => 'fm.type'),
     'size' => array('data' => t('Size'), 'field' => 'fm.filesize'),
     'author' => t('Author'),
+<<<<<<< HEAD
     'timestamp' => array('data' => t('Updated'), 'field' => 'fm.timestamp', 'sort' => 'desc'),
     'usage' => array('data' => t('Usage'), 'field' => 'total_count'),
+=======
+    'timestamp' => array(
+      'data' => t('Updated'),
+      'field' => 'fm.timestamp',
+      'sort' => 'desc'),
+    'usage' => array('data' => t('Used in'), 'field' => 'total_count'),
+>>>>>>> SiteReformation
     'operations' => array('data' => t('Operations')),
   );
 
@@ -328,6 +512,15 @@ function file_entity_admin_files() {
     ->execute()
     ->fetchAllAssoc('fid');
   $files = file_load_multiple(array_keys($result));
+<<<<<<< HEAD
+=======
+
+  $uids = array();
+  foreach ($files as $file) {
+    $uids[] = $file->uid;
+  }
+  $accounts = !empty($uids) ? user_load_multiple(array_unique($uids)) : array();
+>>>>>>> SiteReformation
 
   // Prepare the list of files.
   $destination = drupal_get_destination();
@@ -348,7 +541,11 @@ function file_entity_admin_files() {
       'size' => format_size($file->filesize),
       'author' => theme('username', array('account' => $accounts[$file->uid])),
       'timestamp' => format_date($file->timestamp, 'short'),
+<<<<<<< HEAD
       'usage' => $result[$file->fid]->total_count == NULL ? 0 : $result[$file->fid]->total_count,
+=======
+      'usage' => format_plural((int) $result[$file->fid]->total_count, '1 place', '@count places'),
+>>>>>>> SiteReformation
     );
 
     // Show a warning for files that do not exist.
@@ -365,6 +562,11 @@ function file_entity_admin_files() {
     // Build a list of all the accessible operations for the current file.
     $operations = array();
     if (file_entity_access('update', $file)) {
+<<<<<<< HEAD
+=======
+      // Convert the usage count to a link.
+      $options[$file->fid]['usage'] = l($options[$file->fid]['usage'], 'file/' . $file->fid . '/usage');
+>>>>>>> SiteReformation
       $operations['edit'] = array(
         'title' => t('Edit'),
         'href' => 'file/' . $file->fid . '/edit',
@@ -455,7 +657,11 @@ function file_entity_admin_files_validate($form, &$form_state) {
 function file_entity_admin_files_submit($form, &$form_state) {
   $operations = module_invoke_all('file_operations');
   $operation = $operations[$form_state['values']['operation']];
+<<<<<<< HEAD
   // Filter out unchecked files
+=======
+  // Filter out unchecked files.
+>>>>>>> SiteReformation
   $files = array_filter($form_state['values']['files']);
   if ($function = $operation['callback']) {
     // Add in callback arguments if present.
@@ -476,9 +682,22 @@ function file_entity_admin_files_submit($form, &$form_state) {
   }
 }
 
+<<<<<<< HEAD
 function file_entity_multiple_delete_confirm($form, &$form_state, $files) {
   $form['files'] = array('#prefix' => '<ul>', '#suffix' => '</ul>', '#tree' => TRUE);
   // array_filter returns only elements with TRUE values
+=======
+/**
+ * File entity delete confirmation.
+ */
+function file_entity_multiple_delete_confirm($form, &$form_state, $files) {
+  $form['files'] = array(
+    '#prefix' => '<ul>',
+    '#suffix' => '</ul>',
+    '#tree' => TRUE,
+  );
+  // array_filter returns only elements with TRUE values.
+>>>>>>> SiteReformation
   foreach ($files as $fid => $value) {
     $filename = db_query('SELECT filename FROM {file_managed} WHERE fid = :fid', array(':fid' => $fid))->fetchField();
     $form['files'][$fid] = array(
@@ -499,6 +718,12 @@ function file_entity_multiple_delete_confirm($form, &$form_state, $files) {
                     t('Delete'), t('Cancel'));
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * Submit handler for delete confirmation.
+ */
+>>>>>>> SiteReformation
 function file_entity_multiple_delete_confirm_submit($form, &$form_state) {
   if ($form_state['values']['confirm']) {
     file_delete_multiple(array_keys($form_state['values']['files']));
@@ -527,7 +752,20 @@ function file_entity_list_types_page() {
   $count = count($types);
   foreach ($types as $type) {
     $weight++;
+<<<<<<< HEAD
     $row = array(array('data' => theme('file_entity_file_type_overview', array('label' => $type->label, 'description' => $type->description))));
+=======
+    $row = array(
+      array(
+        'data' => theme('file_entity_file_type_overview',
+          array(
+            'label' => $type->label,
+            'description' => $type->description,
+          )
+        ),
+      ),
+    );
+>>>>>>> SiteReformation
     $path = isset($file_entity_info['bundles'][$type->type]['admin']['real path']) ? $file_entity_info['bundles'][$type->type]['admin']['real path'] : NULL;
 
     if (empty($type->disabled) && isset($path)) {
@@ -540,6 +778,7 @@ function file_entity_list_types_page() {
     }
     else {
       $row += array_fill(1, $colspan - 1, '');
+<<<<<<< HEAD
     }
 
     $admin_path = 'admin/structure/file-types/manage/' . $type->type;
@@ -576,6 +815,44 @@ function file_entity_list_types_page() {
       break;
     }
 
+=======
+    }
+
+    $admin_path = 'admin/structure/file-types/manage/' . $type->type;
+    switch ($type->ctools_type) {
+      // Configuration is in code.
+      case 'Default':
+        if (!empty($type->disabled)) {
+          $row[] = l(t('enable'), $admin_path . '/enable');
+        }
+        else {
+          $row[] = l(t('disable'), $admin_path . '/disable');
+        }
+        break;
+
+      // Configuration is in DB.
+      case 'Normal':
+        if (!empty($type->disabled)) {
+          $status = l(t('enable'), $admin_path . '/enable');
+        }
+        else {
+          $status = l(t('disable'), $admin_path . '/disable');
+        }
+        $row[] = $status . ' | ' . l(t('delete'), $admin_path . '/delete');
+        break;
+
+      // Configuration is in code, but overridden in DB.
+      case 'Overridden':
+        if (!empty($type->disabled)) {
+          $row[] = l(t('enable'), $admin_path . '/enable');
+        }
+        else {
+          $row[] = l(t('disable'), $admin_path . '/disable') . ' | ' . l(t('revert'), $admin_path . '/revert');
+        }
+        break;
+    }
+
+>>>>>>> SiteReformation
     if (!empty($type->disabled)) {
       $row[] = t('Disabled');
       $rows[$weight + $count] = array('data' => $row, 'class' => array('ctools-export-ui-disabled'));
@@ -606,9 +883,7 @@ function file_entity_list_types_page() {
  * Form callback; presents file display settings for a given view mode.
  */
 function file_entity_file_display_form($form, &$form_state, $file_type, $view_mode) {
-  $file_type = $file_type->type;
-
-  $form['#file_type'] = $file_type;
+  $form['#file_type'] = $file_type->type;
   $form['#view_mode'] = $view_mode;
   $form['#tree'] = TRUE;
   $form['#attached']['js'][] = drupal_get_path('module', 'file_entity') . '/file_entity.admin.js';
@@ -617,11 +892,21 @@ function file_entity_file_display_form($form, &$form_state, $file_type, $view_mo
   // filters for existing text formats.
   $formatters = file_info_formatter_types();
   foreach ($formatters as $name => $formatter) {
+<<<<<<< HEAD
     if (!empty($formatter['hidden']) || isset($formatter['file types']) && !in_array($file_type, $formatter['file types'])) {
+=======
+    if (!empty($formatter['hidden'])) {
+      unset($formatters[$name]);
+    }
+    if (isset($formatter['mime types'])) {
+      if (file_entity_match_mimetypes($formatter['mime types'], $file_type->mimetypes)) {
+        continue;
+      }
+>>>>>>> SiteReformation
       unset($formatters[$name]);
     }
   }
-  $current_displays = file_displays_load($file_type, $view_mode, TRUE);
+  $current_displays = file_displays_load($file_type->type, $view_mode, TRUE);
   foreach ($current_displays as $name => $display) {
     $current_displays[$name] = (array) $display;
   }
@@ -633,7 +918,7 @@ function file_entity_file_display_form($form, &$form_state, $file_type, $view_mo
     '#prefix' => '<div id="file-displays-status-wrapper">',
     '#suffix' => '</div>',
   );
-  $i=0;
+  $i = 0;
   foreach ($formatters as $name => $formatter) {
     $form['displays']['status'][$name] = array(
       '#type' => 'checkbox',
@@ -675,13 +960,13 @@ function file_entity_file_display_form($form, &$form_state, $file_type, $view_mo
   $form['display_settings'] = array(
     '#type' => 'vertical_tabs',
   );
-  $i=0;
+  $i = 0;
   foreach ($formatters as $name => $formatter) {
     if (isset($formatter['settings callback']) && ($function = $formatter['settings callback']) && function_exists($function)) {
       $defaults = !empty($formatter['default settings']) ? $formatter['default settings'] : array();
       $settings = !empty($current_displays[$name]['settings']) ? $current_displays[$name]['settings'] : array();
       $settings += $defaults;
-      $settings_form = $function($form, $form_state, $settings, $name, $file_type, $view_mode);
+      $settings_form = $function($form, $form_state, $settings, $name, $file_type->type, $view_mode);
       if (!empty($settings_form)) {
         $form['displays']['settings'][$name] = array(
           '#type' => 'fieldset',
@@ -696,7 +981,10 @@ function file_entity_file_display_form($form, &$form_state, $file_type, $view_mo
   }
 
   $form['actions'] = array('#type' => 'actions');
-  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Save configuration'));
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
 
   return $form;
 }
@@ -718,7 +1006,9 @@ function file_entity_file_display_form_submit($form, &$form_state) {
 }
 
 /**
- * Returns HTML for a file type label and description for the file type admin overview page.
+ * Returns HTML for the file type overview page.
+ *
+ * Specifically, this returns HTML for a file type label and description.
  */
 function theme_file_entity_file_type_overview($variables) {
   return check_plain($variables['label']) . '<div class="description">' . $variables['description'] . '</div>';
@@ -1010,12 +1300,29 @@ function file_entity_type_delete_confirm_submit($form, &$form_state) {
  * Form callback for file_entity settings.
  */
 function file_entity_settings_form($form, &$form_state) {
+<<<<<<< HEAD
+=======
+  $form['file_entity_max_filesize'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maximum upload size'),
+    '#default_value' => variable_get('file_entity_max_filesize', ''),
+    '#description' => t('Enter a value like "512" (bytes), "80 KB" (kilobytes) or "50 MB" (megabytes) in order to restrict the allowed file size. If left empty the file sizes will be limited only by PHP\'s maximum post and file upload sizes (current max limit <strong>%limit</strong>).', array('%limit' => format_size(file_upload_max_size()))),
+    '#size' => 10,
+    '#element_validate' => array('_file_generic_settings_max_filesize'),
+  );
+
+>>>>>>> SiteReformation
   $form['file_entity_default_allowed_extensions'] = array(
     '#type' => 'textfield',
     '#title' => t('Default allowed file extensions'),
     '#default_value' => variable_get('file_entity_default_allowed_extensions', 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm'),
+<<<<<<< HEAD
     '#weight' => -10,
     '#description' => t('Separate extensions with a space or comma and do not include the leading dot.'),
+=======
+    '#description' => t('Separate extensions with a space or comma and do not include the leading dot.'),
+    '#maxlength' => NULL,
+>>>>>>> SiteReformation
   );
 
   $form['file_entity_alt'] = array(
@@ -1023,14 +1330,20 @@ function file_entity_settings_form($form, &$form_state) {
     '#title' => t('Alt attribute'),
     '#description' => t('The text to use as value for the <em>img</em> tag <em>alt</em> attribute.'),
     '#default_value' => variable_get('file_entity_alt', '[file:field_file_image_alt_text]'),
+<<<<<<< HEAD
     '#weight' => -9,
+=======
+>>>>>>> SiteReformation
   );
   $form['file_entity_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Title attribute'),
     '#description' => t('The text to use as value for the <em>img</em> tag <em>title</em> attribute.'),
     '#default_value' => variable_get('file_entity_title', '[file:field_file_image_title_text]'),
+<<<<<<< HEAD
     '#weight' => -8,
+=======
+>>>>>>> SiteReformation
   );
 
   // Provide default token values.
@@ -1039,7 +1352,10 @@ function file_entity_settings_form($form, &$form_state) {
       '#theme' => 'token_tree',
       '#token_types' => array('file'),
       '#dialog' => TRUE,
+<<<<<<< HEAD
       '#weight' => -7,
+=======
+>>>>>>> SiteReformation
     );
     $form['file_entity_alt']['#description'] .= t('This field supports tokens.');
     $form['file_entity_title']['#description'] .= t('This field supports tokens.');
@@ -1047,7 +1363,10 @@ function file_entity_settings_form($form, &$form_state) {
   $form['file_upload_wizard'] = array(
     '#type' => 'fieldset',
     '#title' => t('File upload wizard'),
+<<<<<<< HEAD
     '#weight' => -6,
+=======
+>>>>>>> SiteReformation
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
     '#description' => t('Configure the steps available when uploading a new file.'),

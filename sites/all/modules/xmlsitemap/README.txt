@@ -65,7 +65,11 @@ MORE INFORMATION
   queue at http://drupal.org/project/issues/xmlsitemap.
 
 - For additional documentation, see the online module handbook at
+<<<<<<< HEAD
   http://drupal.org/handbook/modules/gsitemap.
+=======
+  http://drupal.org/handbook/modules/xmlsitemap.
+>>>>>>> SiteReformation
 
 - You can view the sitemap.org specification at http://sitemaps.org.
 

@@ -35,8 +35,15 @@ class geofield_handler_field extends views_handler_field_numeric {
 
     $proximityHandlers = module_invoke_all('proximity_views_handlers');
     foreach ($proximityHandlers as $key => $handler) {
+<<<<<<< HEAD
       $proximityPlugin = new $handler['class']();
       $proximityPlugin->option_definition($options, $this);
+=======
+      if (class_exists($handler['class'])) {
+        $proximityPlugin = new $handler['class']();
+        $proximityPlugin->option_definition($options, $this);
+      }
+>>>>>>> SiteReformation
     } 
     
     $options['radius_of_earth'] = array('default' => GEOFIELD_KILOMETERS);
@@ -62,9 +69,16 @@ class geofield_handler_field extends views_handler_field_numeric {
     $proximityHandlers = module_invoke_all('proximity_views_handlers');
     foreach ($proximityHandlers as $key => $handler) {
       $form['source']['#options'][$key] = $handler['name'];
+<<<<<<< HEAD
 
       $proximityPlugin = new $handler['class']();
       $proximityPlugin->options_form($form, $form_state, $this);
+=======
+      if (class_exists($handler['class'])) {
+        $proximityPlugin = new $handler['class']();
+        $proximityPlugin->options_form($form, $form_state, $this);
+      }
+>>>>>>> SiteReformation
     }
 
     $form['radius_of_earth'] = array(

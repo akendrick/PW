@@ -23,6 +23,7 @@ class DatabaseTestCase extends DrupalWebTestCase {
 
     $schema['test'] = drupal_get_schema('test');
     $schema['test_people'] = drupal_get_schema('test_people');
+    $schema['test_people_copy'] = drupal_get_schema('test_people_copy');
     $schema['test_one_blob'] = drupal_get_schema('test_one_blob');
     $schema['test_two_blobs'] = drupal_get_schema('test_two_blobs');
     $schema['test_task'] = drupal_get_schema('test_task');
@@ -603,9 +604,9 @@ class DatabaseInsertTestCase extends DatabaseTestCase {
   }
 
   /**
-   * Test that the INSERT INTO ... SELECT ... syntax works.
+   * Test that the INSERT INTO ... SELECT (fields) ... syntax works.
    */
-  function testInsertSelect() {
+  function testInsertSelectFields() {
     $query = db_select('test_people', 'tp');
     // The query builder will always append expressions after fields.
     // Add the expression first to test that the insert fields are correctly
@@ -626,6 +627,30 @@ class DatabaseInsertTestCase extends DatabaseTestCase {
 
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', array(':name' => 'Meredith'))->fetchField();
     $this->assertIdentical($saved_age, '30', 'Can retrieve after inserting.');
+<<<<<<< HEAD
+=======
+  }
+
+  /**
+   * Tests that the INSERT INTO ... SELECT * ... syntax works.
+   */
+  function testInsertSelectAll() {
+    $query = db_select('test_people', 'tp')
+      ->fields('tp')
+      ->condition('tp.name', 'Meredith');
+
+    // The resulting query should be equivalent to:
+    // INSERT INTO test_people_copy
+    // SELECT *
+    // FROM test_people tp
+    // WHERE tp.name = 'Meredith'
+    db_insert('test_people_copy')
+      ->from($query)
+      ->execute();
+
+    $saved_age = db_query('SELECT age FROM {test_people_copy} WHERE name = :name', array(':name' => 'Meredith'))->fetchField();
+    $this->assertIdentical($saved_age, '30', 'Can retrieve after inserting.');
+>>>>>>> SiteReformation
   }
 }
 
@@ -1924,6 +1949,18 @@ class DatabaseSelectOrderedTestCase extends DatabaseTestCase {
     }
 
     $this->assertEqual($num_records, 4, 'Returned the correct number of rows.');
+<<<<<<< HEAD
+=======
+  }
+
+  /**
+   * Tests that the sort direction is sanitized properly.
+   */
+  function testOrderByEscaping() {
+    $query = db_select('test')->orderBy('name', 'invalid direction');
+    $order_bys = $query->getOrderBy();
+    $this->assertEqual($order_bys['name'], 'ASC', 'Invalid order by direction is converted to ASC.');
+>>>>>>> SiteReformation
   }
 }
 
@@ -2597,6 +2634,55 @@ class DatabaseTaggingTestCase extends DatabaseTestCase {
 
     $this->assertTrue($query->hasAnyTag('test', 'other'), 'hasAnyTag() returned true.');
     $this->assertFalse($query->hasAnyTag('other', 'stuff'), 'hasAnyTag() returned false.');
+<<<<<<< HEAD
+=======
+  }
+
+  /**
+   * Confirm that an extended query has a "tag" added to it.
+   */
+  function testExtenderHasTag() {
+    $query = db_select('test')
+      ->extend('SelectQueryExtender');
+    $query->addField('test', 'name');
+    $query->addField('test', 'age', 'age');
+
+    $query->addTag('test');
+
+    $this->assertTrue($query->hasTag('test'), 'hasTag() returned true.');
+    $this->assertFalse($query->hasTag('other'), 'hasTag() returned false.');
+  }
+
+  /**
+   * Test extended query tagging "has all of these tags" functionality.
+   */
+  function testExtenderHasAllTags() {
+    $query = db_select('test')
+      ->extend('SelectQueryExtender');
+    $query->addField('test', 'name');
+    $query->addField('test', 'age', 'age');
+
+    $query->addTag('test');
+    $query->addTag('other');
+
+    $this->assertTrue($query->hasAllTags('test', 'other'), 'hasAllTags() returned true.');
+    $this->assertFalse($query->hasAllTags('test', 'stuff'), 'hasAllTags() returned false.');
+  }
+
+  /**
+   * Test extended query tagging "has at least one of these tags" functionality.
+   */
+  function testExtenderHasAnyTag() {
+    $query = db_select('test')
+      ->extend('SelectQueryExtender');
+    $query->addField('test', 'name');
+    $query->addField('test', 'age', 'age');
+
+    $query->addTag('test');
+
+    $this->assertTrue($query->hasAnyTag('test', 'other'), 'hasAnyTag() returned true.');
+    $this->assertFalse($query->hasAnyTag('other', 'stuff'), 'hasAnyTag() returned false.');
+>>>>>>> SiteReformation
   }
 
   /**
@@ -3069,6 +3155,18 @@ class DatabaseTemporaryQueryTestCase extends DrupalWebTestCase {
 
     $this->assertEqual($this->countTableRows($table_name_system), $this->countTableRows("system"), 'A temporary table was created successfully in this request.');
     $this->assertEqual($this->countTableRows($table_name_users), $this->countTableRows("users"), 'A second temporary table was created successfully in this request.');
+<<<<<<< HEAD
+=======
+
+    // Check that leading whitespace and comments do not cause problems
+    // in the modified query.
+    $sql = "
+      -- Let's select some rows into a temporary table
+      SELECT name FROM {test}
+    ";
+    $table_name_test = db_query_temporary($sql, array());
+    $this->assertEqual($this->countTableRows($table_name_test), $this->countTableRows('test'), 'Leading white space and comments do not interfere with temporary table creation.');
+>>>>>>> SiteReformation
   }
 }
 
@@ -3306,7 +3404,38 @@ class DatabaseQueryTestCase extends DatabaseTestCase {
     $names = db_query('SELECT name FROM {test} WHERE age IN (:ages) ORDER BY age', array(':ages' => array(25, 26, 27)))->fetchAll();
 
     $this->assertEqual(count($names), 3, 'Correct number of names returned');
+<<<<<<< HEAD
+=======
   }
+
+  /**
+   * Test SQL injection via database query array arguments.
+   */
+  public function testArrayArgumentsSQLInjection() {
+    // Attempt SQL injection and verify that it does not work.
+    $condition = array(
+      "1 ;INSERT INTO {test} (name) VALUES ('test12345678'); -- " => '',
+      '1' => '',
+    );
+    try {
+      db_query("SELECT * FROM {test} WHERE name = :name", array(':name' => $condition))->fetchObject();
+      $this->fail('SQL injection attempt via array arguments should result in a PDOException.');
+    }
+    catch (PDOException $e) {
+      $this->pass('SQL injection attempt via array arguments should result in a PDOException.');
+    }
+
+    // Test that the insert query that was used in the SQL injection attempt did
+    // not result in a row being inserted in the database.
+    $result = db_select('test')
+      ->condition('name', 'test12345678')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+    $this->assertFalse($result, 'SQL injection attempt did not result in a row being inserted in the database table.');
+>>>>>>> SiteReformation
+  }
+
 }
 
 /**
@@ -3886,6 +4015,7 @@ class ConnectionUnitTest extends DrupalUnitTestCase {
       'description' => 'Tests management of database connections.',
       'group' => 'Database',
     );
+<<<<<<< HEAD
   }
 
   function setUp() {
@@ -3940,6 +4070,62 @@ class ConnectionUnitTest extends DrupalUnitTestCase {
     return (int) Database::getConnection($this->target, $this->key)->query('SELECT CONNECTION_ID()')->fetchField();
   }
 
+=======
+  }
+
+  function setUp() {
+    parent::setUp();
+
+    $this->key = 'default';
+    $this->originalTarget = 'default';
+    $this->target = 'DatabaseConnectionUnitTest';
+
+    // Determine whether the database driver is MySQL. If it is not, the test
+    // methods will not be executed.
+    // @todo Make this test driver-agnostic, or find a proper way to skip it.
+    // @see http://drupal.org/node/1273478
+    $connection_info = Database::getConnectionInfo('default');
+    $this->skipTest = (bool) $connection_info['default']['driver'] != 'mysql';
+    if ($this->skipTest) {
+      // Insert an assertion to prevent Simpletest from interpreting the test
+      // as failure.
+      $this->pass('This test is only compatible with MySQL.');
+    }
+
+    // Create an additional connection to monitor the connections being opened
+    // and closed in this test.
+    // @see TestBase::changeDatabasePrefix()
+    $connection_info = Database::getConnectionInfo('default');
+    Database::addConnectionInfo('default', 'monitor', $connection_info['default']);
+    global $databases;
+    $databases['default']['monitor'] = $connection_info['default'];
+    $this->monitor = Database::getConnection('monitor');
+  }
+
+  /**
+   * Adds a new database connection info to Database.
+   */
+  protected function addConnection() {
+    // Add a new target to the connection, by cloning the current connection.
+    $connection_info = Database::getConnectionInfo($this->key);
+    Database::addConnectionInfo($this->key, $this->target, $connection_info[$this->originalTarget]);
+
+    // Verify that the new target exists.
+    $info = Database::getConnectionInfo($this->key);
+    // Note: Custom assertion message to not expose database credentials.
+    $this->assertIdentical($info[$this->target], $connection_info[$this->key], 'New connection info found.');
+  }
+
+  /**
+   * Returns the connection ID of the current test connection.
+   *
+   * @return integer
+   */
+  protected function getConnectionID() {
+    return (int) Database::getConnection($this->target, $this->key)->query('SELECT CONNECTION_ID()')->fetchField();
+  }
+
+>>>>>>> SiteReformation
   /**
    * Asserts that a connection ID exists.
    *

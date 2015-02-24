@@ -63,7 +63,11 @@ class views_plugin_pager_mini extends views_plugin_pager_full {
     );
     return theme($pager_theme, array(
       'tags' => $tags,
+<<<<<<< HEAD
       'element' => $this->options['id'],
+=======
+      'element' => $this->get_pager_id(),
+>>>>>>> SiteReformation
       'parameters' => $input,
     ));
   }

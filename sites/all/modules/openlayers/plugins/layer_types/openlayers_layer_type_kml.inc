@@ -27,6 +27,10 @@ class openlayers_layer_type_kml extends openlayers_layer_type {
         'extractTracks' => FALSE,
       ),
       'file' => '',
+<<<<<<< HEAD
+=======
+      'attribution' => '',
+>>>>>>> SiteReformation
     ) + parent::options_init();
   }
 
@@ -112,6 +116,15 @@ class openlayers_layer_type_kml extends openlayers_layer_type {
             $this->data['formatOptions']['extractAttributes'] : TRUE,
         ),
       ),
+<<<<<<< HEAD
+=======
+      'attribution' => array(
+        '#type' => 'textfield',
+        '#title' => t('Attribution'),
+        '#default_value' => isset($this->data['attribution']) ?
+          $this->data['attribution'] : '',
+      ),
+>>>>>>> SiteReformation
     );
   }
 
@@ -137,6 +150,11 @@ class openlayers_layer_type_kml extends openlayers_layer_type {
     $form_state['data']['formatOptions']['extractStyles'] = $form_state['data']['formatOptions']['extractStyles']!=0?TRUE:FALSE;
     $form_state['data']['formatOptions']['extractAttributes'] = $form_state['data']['formatOptions']['extractAttributes']!=0?TRUE:FALSE;
     $form_state['data']['formatOptions']['extractTracks'] = $form_state['data']['formatOptions']['extractTracks']!=0?TRUE:FALSE;
+<<<<<<< HEAD
+=======
+
+    $form_state['data']['attribution'] = isset($form_state['data']['attribution']) ? filter_xss($form_state['data']['attribution']) : '';
+>>>>>>> SiteReformation
   }
 
   /**
@@ -173,6 +191,10 @@ class openlayers_layer_type_kml extends openlayers_layer_type {
    * Render.
    */
   function render(&$map) {
+<<<<<<< HEAD
+=======
+    $this->data['url'] = !empty($this->data['url']) ? file_create_url($this->data['url']) : '';
+>>>>>>> SiteReformation
     drupal_add_js(drupal_get_path('module', 'openlayers')
       . '/plugins/layer_types/openlayers_layer_type_kml.js');
   }

@@ -3,7 +3,11 @@ description = Views Administration, Taxonomy, settings, presets and general site
 core = 7.x
 package = Pennywise
 php = 5.2.4
+<<<<<<< HEAD
 version = 7.x-2.61
+=======
+version = 7.x-2.63
+>>>>>>> SiteReformation
 project = pw_admin
 dependencies[] = actions_permissions
 dependencies[] = addanother
@@ -26,8 +30,11 @@ dependencies[] = media
 dependencies[] = menu
 dependencies[] = options
 dependencies[] = path
+<<<<<<< HEAD
 dependencies[] = redirect
 ; dependencies[] = rules
+=======
+>>>>>>> SiteReformation
 dependencies[] = scribd_filter
 dependencies[] = strongarm
 dependencies[] = taxonomy
@@ -83,12 +90,10 @@ features[menu_links][] = menu-pw-admin:node/add/display-ads
 features[menu_links][] = menu-pw-admin:node/add/page
 features[menu_links][] = menu-pw-admin:node/add/pw-digital
 features[node][] = webform
-features[rules_config][] = rules_ad_submission_redirect
 features[taxonomy][] = area
 features[taxonomy][] = classification
 features[taxonomy][] = client
 features[taxonomy][] = tags
-features[user_permission][] = access rules debug
 features[user_role][] = administrator
 features[user_role][] = sales
 features[variable][] = comment_anonymous_webform

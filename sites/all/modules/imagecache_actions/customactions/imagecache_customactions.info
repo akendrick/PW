@@ -1,11 +1,12 @@
 name = Imagecache Custom Actions
-description = Allow direct PHP code manipulation of imagecache images.
+description = Provides the custom and subroutine image effects.
 package = Media
 core = 7.x
 
 dependencies[] = imagecache_actions
 dependencies[] = image
 
+<<<<<<< HEAD
 files[] = imagecache_customactions.install
 files[] = imagecache_customactions.module
 
@@ -14,4 +15,11 @@ version = "7.x-1.4"
 core = "7.x"
 project = "imagecache_actions"
 datestamp = "1377368494"
+=======
+; Information added by Drupal.org packaging script on 2014-11-29
+version = "7.x-1.5"
+core = "7.x"
+project = "imagecache_actions"
+datestamp = "1417256282"
+>>>>>>> SiteReformation
 

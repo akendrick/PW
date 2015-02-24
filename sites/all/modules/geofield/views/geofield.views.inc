@@ -75,26 +75,56 @@ function geofield_proximity_views_handlers() {
     'manual' => array(
       'name' => t('Manually Enter Point'),
       'class' => 'geofieldProximityManual',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
     'entity_from_url' => array(
       'name' => t('Entity From URL'),
       'class' => 'geofieldProximityEntityURL',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
     'current_user' => array(
       'name' => t('Current User'),
       'class' => 'geofieldProximityCurrentUser',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
     'other_geofield' => array(
       'name' => t('Other Geofield'),
       'class' => 'geofieldProximityOtherGeofield',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
     'exposed_geofield_filter' => array(
       'name' => t('Exposed Geofield Proximity Filter'),
       'class' => 'geofieldProximityExposedFilter',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
     'contextual_geofield_filter' => array(
       'name' => t('Contextual Geofield Proximity Filter'),
       'class' => 'geofieldProximityContextualFilter',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     ),
   );
 
@@ -102,6 +132,11 @@ function geofield_proximity_views_handlers() {
     $handlers['geocoder'] = array(
       'name' => t('Geocoded Location'),
       'class' => 'geofieldProximityGeocoder',
+<<<<<<< HEAD
+=======
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+>>>>>>> SiteReformation
     );
   }
 
@@ -118,8 +153,13 @@ function geofield_proximity_views_handlers() {
 
 function geofield_proximity_load_plugin($plugin) {
   $handlers = module_invoke_all('proximity_views_handlers');
+<<<<<<< HEAD
   module_load_include('inc', 'geofield', 'views/proximity_plugins/geofieldProximityManual');
   module_load_include('inc', 'geofield', 'views/proximity_plugins/' . $handlers[$plugin]['class']);
+=======
+  //module_load_include('inc', 'geofield', 'views/proximity_plugins/geofieldProximityManual');
+  module_load_include('inc', $handlers[$plugin]['module'], $handlers[$plugin]['path'] . '/' . $handlers[$plugin]['class']);
+>>>>>>> SiteReformation
   if (class_exists($handlers[$plugin]['class'])) {
     return new $handlers[$plugin]['class'];
   }

@@ -725,6 +725,7 @@ function entity_ui_controller_form_submit($form, &$form_state) {
 }
 
 /**
+<<<<<<< HEAD
  * Gets the page title for the passed operation.
  */
 function entity_ui_get_page_title($op, $entity_type, $entity = NULL) {
@@ -780,6 +781,8 @@ function entity_ui_get_action_title($op, $entity_type, $bundle_name = NULL) {
 }
 
 /**
+=======
+>>>>>>> SiteReformation
  * Submit builder for the main entity form, which extracts the form values and updates the entity.
  *
  * This is a helper function for entities making use of the entity UI
@@ -820,6 +823,7 @@ function theme_entity_ui_overview_item($variables) {
   return $output;
 }
 
+<<<<<<< HEAD
 /**
  * Page callback for viewing an entity.
  *
@@ -832,3 +836,5 @@ function theme_entity_ui_overview_item($variables) {
 function entity_ui_entity_page_view($entity) {
   return $entity->view('full', NULL, TRUE);
 }
+=======
+>>>>>>> SiteReformation

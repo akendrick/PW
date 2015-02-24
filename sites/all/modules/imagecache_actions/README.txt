@@ -9,6 +9,14 @@ Current and past maintainers for Imagecache Actions:
 - fietserwin (https://drupal.org/user/750928)
 
 
+<<<<<<< HEAD
+=======
+Release notes for 7.x-1.x-dev
+-----------------------------
+- Clear all caches after updating.
+
+
+>>>>>>> SiteReformation
 Release notes for 7.x-1.4
 -------------------------
 - This release supports image labels as introduced by Drupal 7.23.

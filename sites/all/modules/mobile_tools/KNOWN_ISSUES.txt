@@ -1,8 +1,0 @@
-**This module is not backwards compatible with previous installations of Mobile Tools**
-
-If you have previously installed the 7.x-2.0-unstable, an older dev release or upgrading from the 6.x branch your site settings will not migrate over. Be sure to fully uninstall mobile tools before upgrading to this version.
-
-- Mobile Tools Roles doesn't work. Do not try and use it.
-- Mobile Tools Browscap doesn't work. The API callbacks need updating to the new Mobile Tools API.
-- Automatic integration with ThemeKey has not been implemented. You can manually create rules matching your PURL device groups for theme switching
-- Spaces settings for each device group is not implemented

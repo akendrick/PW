@@ -11,7 +11,11 @@
 class DBLogTestCase extends DrupalWebTestCase {
 
   /**
+<<<<<<< HEAD
    * A user with some relevent administrative permissions.
+=======
+   * A user with some relevant administrative permissions.
+>>>>>>> SiteReformation
    *
    * @var object
    */

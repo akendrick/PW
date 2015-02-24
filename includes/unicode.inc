@@ -116,11 +116,15 @@ function _unicode_check() {
   if (ini_get('mbstring.encoding_translation') != 0) {
     return array(UNICODE_ERROR, $t('Multibyte string input conversion in PHP is active and must be disabled. Check the php.ini <em>mbstring.encoding_translation</em> setting. Please refer to the <a href="@url">PHP mbstring documentation</a> for more information.', array('@url' => 'http://www.php.net/mbstring')));
   }
-  if (ini_get('mbstring.http_input') != 'pass') {
-    return array(UNICODE_ERROR, $t('Multibyte string input conversion in PHP is active and must be disabled. Check the php.ini <em>mbstring.http_input</em> setting. Please refer to the <a href="@url">PHP mbstring documentation</a> for more information.', array('@url' => 'http://www.php.net/mbstring')));
-  }
-  if (ini_get('mbstring.http_output') != 'pass') {
-    return array(UNICODE_ERROR, $t('Multibyte string output conversion in PHP is active and must be disabled. Check the php.ini <em>mbstring.http_output</em> setting. Please refer to the <a href="@url">PHP mbstring documentation</a> for more information.', array('@url' => 'http://www.php.net/mbstring')));
+  // mbstring.http_input and mbstring.http_output are deprecated and empty by
+  // default in PHP 5.6.
+  if (version_compare(PHP_VERSION, '5.6.0') == -1) {
+    if (ini_get('mbstring.http_input') != 'pass') {
+      return array(UNICODE_ERROR, $t('Multibyte string input conversion in PHP is active and must be disabled. Check the php.ini <em>mbstring.http_input</em> setting. Please refer to the <a href="@url">PHP mbstring documentation</a> for more information.', array('@url' => 'http://www.php.net/mbstring')));
+    }
+    if (ini_get('mbstring.http_output') != 'pass') {
+      return array(UNICODE_ERROR, $t('Multibyte string output conversion in PHP is active and must be disabled. Check the php.ini <em>mbstring.http_output</em> setting. Please refer to the <a href="@url">PHP mbstring documentation</a> for more information.', array('@url' => 'http://www.php.net/mbstring')));
+    }
   }
 
   // Set appropriate configuration
@@ -566,11 +570,19 @@ function drupal_ucfirst($text) {
 
 /**
  * Cuts off a piece of a string based on character indices and counts.
+<<<<<<< HEAD
  *
  * Follows the same behavior as PHP's own substr() function. Note that for
  * cutting off a string at a known character/substring location, the usage of
  * PHP's normal strpos/substr is safe and much faster.
  *
+=======
+ *
+ * Follows the same behavior as PHP's own substr() function. Note that for
+ * cutting off a string at a known character/substring location, the usage of
+ * PHP's normal strpos/substr is safe and much faster.
+ *
+>>>>>>> SiteReformation
  * @param $text
  *   The input string.
  * @param $start

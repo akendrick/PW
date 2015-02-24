@@ -42,7 +42,11 @@ function openlayers_views_views_plugins() {
         'even empty' => FALSE,
       ),
       'openlayers_data' => array(
+<<<<<<< HEAD
         'title' => t('OpenLayers Data Overlay'),
+=======
+        'title' => t('OpenLayers Vector Data Overlay'),
+>>>>>>> SiteReformation
         'help' => t('Provides Data to Power an OpenLayers map.'),
         'handler' => 'openlayers_views_style_data',
         'theme' => 'openlayers_views_data',
@@ -55,6 +59,21 @@ function openlayers_views_views_plugins() {
         'type' => 'openlayers',
         'even empty' => TRUE,
       ),
+<<<<<<< HEAD
+=======
+      'openlayers_data_image' => array(
+        'title' => t('OpenLayers Image Data Overlay'),
+        'help' => t('Provides an image to use as a layer in an OpenLayers map.'),
+        'handler' => 'openlayers_views_style_data_image',
+        'path' => drupal_get_path('module', 'openlayers_views') . '/views',
+        'uses fields' => TRUE,
+        'uses row plugin' => TRUE,
+        'uses options' => TRUE,
+        'uses grouping' => TRUE,
+        'type' => 'openlayers',
+        'even empty' => TRUE,
+      ),
+>>>>>>> SiteReformation
     ),
   );
 }

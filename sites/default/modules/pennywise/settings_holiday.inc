@@ -8,7 +8,7 @@
  */
 
 function pw_holiday_settings_page() {
-  $output = t('Pennywise Holiday Message Settings.');
+  $output = t('Pennywise Ad Submission and Holiday Message Settings.');
   #$output = drupal_get_form('classified_settingsform');
   $output = drupal_get_form('pennywise_holiday_settingsform');
 
@@ -26,6 +26,8 @@ function pennywise_holiday_settingsform() {
   $holiday_settings = array(
     'holiday_settings' => 0,
     'regular_hours'    => t('Open Monday to Thursday 9am - 5pm, Friday 9am - 4pm.'),
+    //'ad_deadline'      => t('3pm Thursday, ') . date("m d", strtotime('thursday')),
+    //'publication_date' => date("F d", strtotime('Tuesday')),
     'holiday_message_type' => 2,
     'holiday'          => t('Pennywise is closed for Christmas'),
     'holiday_hours'    => t('Monday Dec. 19, 2012 - Tuesday Jan 3rd, 2013'),
@@ -47,14 +49,45 @@ function pennywise_holiday_settingsform() {
     '#required'      => TRUE,
   );
 
-  $form['regular_hours'] = array(
-    '#title'       => t('Regular Hours of Operation'),
+  $form['date'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Set Publication Date & Time Defaults'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['date']['regular_hours'] = array(
+    '#title'       => t('Hours of Operation'),
     '#description' => t('This is the defacto days of operation. Shown only when holiday hours are not visible.'),
     '#type'        => 'textfield',
     '#default_value' => $holiday['regular_hours'],
     '#required'      => TRUE,
   );
 
+  $form['date']['deadline'] = array(
+    '#title'       => t('Classified Ad Deadline'),
+    '#description' => t('If the holiday changes the deadline time please update here or else leave blank. <br> EXAMPLE: 3pm Thursday, June 05 for following Tuesday, June 10 publication.'),
+    '#type'        => 'textfield',
+    '#required'      => FALSE,
+  );
+
+
+//  $default_deadline = '3pm Thursday, ' . date("F d", strtotime('thursday'));
+//  $form['date']['ad_deadline'] = array(
+
+//    '#title'        => t('Ad Submission Deadline'),
+//    '#type'         => 'textfield',
+//    '#description'  => 'If left blank the default will be: <b>' . $default_deadline . '</b>.',
+//    '#required'     => FALSE,
+//  );
+
+//  $form['date']['publication_date'] = array(
+//    '#title'        => t('Publication Date'),
+//    '#type'         => 'textfield',
+//    '#description'  => t('Set date of next publication which may be altered in the event of a holiday. If left blank it will default to <b>Next Tuesday</b>'),
+//    '#default_value'=> t('Tuesday, ') . date("F d", strtotime('Tuesday')),
+//    '#required'     => FALSE,
+//  );
 
   $form['hm'] = array(
     '#type' => 'fieldset',
@@ -137,6 +170,7 @@ function pennywise_holiday_settingsform_submit($form, &$form_state) {
 
   $holiday = array(
     'holiday_settings'  => $form_state['values']['holiday_settings'],
+    'deadline'          => $form_state['values']['deadline'],
     'regular_hours'     => $form_state['values']['regular_hours'],
     'holiday_message_type' => $form_state['values']['holiday_message_type'],
     'holiday'          => $form_state['values']['holiday'],

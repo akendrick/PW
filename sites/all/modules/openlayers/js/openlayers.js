@@ -93,6 +93,7 @@ Drupal.behaviors.openlayers = {
 
             // Finally, attach behaviors
             Drupal.attachBehaviors(this);
+<<<<<<< HEAD
 
             if ($.browser.msie) {
               $(window).load(function() {
@@ -101,6 +102,8 @@ Drupal.behaviors.openlayers = {
             } else {
               openlayers.render(map.id);
             }
+=======
+>>>>>>> SiteReformation
           }
           catch (e) {
             var errorMessage = e.name + ': ' + e.message;

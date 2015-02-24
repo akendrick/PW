@@ -106,19 +106,31 @@ function pw_la_ds_layout_settings_info() {
   $ds_layout->view_mode = 'default';
   $ds_layout->layout = 'ds_2col_stacked';
   $ds_layout->settings = array(
+<<<<<<< HEAD
     'hide_empty_regions' => 0,
     'hide_sidebars' => 0,
+=======
+>>>>>>> SiteReformation
     'regions' => array(
       'left' => array(
         0 => 'field_image',
       ),
       'right' => array(
+<<<<<<< HEAD
         0 => 'full_name_display',
         1 => 'field_area_taxonomy',
         2 => 'field_phone',
         3 => 'contact',
         4 => 'field_fax',
         5 => 'field_address',
+=======
+        1 => 'full_name_display',
+        2 => 'field_area_taxonomy',
+        3 => 'field_phone',
+        4 => 'contact',
+        5 => 'field_fax',
+        6 => 'field_address',
+>>>>>>> SiteReformation
       ),
     ),
     'fields' => array(
@@ -131,6 +143,20 @@ function pw_la_ds_layout_settings_info() {
       'field_address' => 'right',
     ),
     'classes' => array(),
+<<<<<<< HEAD
+=======
+    'wrappers' => array(
+      'header' => 'div',
+      'left' => 'div',
+      'right' => 'div',
+      'footer' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+>>>>>>> SiteReformation
   );
   $export['user|user|default'] = $ds_layout;
 

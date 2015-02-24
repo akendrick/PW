@@ -281,9 +281,18 @@ function pw_display_field_default_fields() {
         ),
         'default' => array(
           'label' => 'hidden',
+<<<<<<< HEAD
           'module' => 'lightbox2',
           'settings' => array(),
           'type' => 'lightbox2__lightbox__display_ad_full_page__original',
+=======
+          'module' => 'image_link_formatter',
+          'settings' => array(
+            'image_link' => 'field_link',
+            'image_style' => '',
+          ),
+          'type' => 'image_link_formatter',
+>>>>>>> SiteReformation
           'weight' => '1',
         ),
         'notifications' => array(
@@ -1297,7 +1306,7 @@ with <strong>Page 30</strong>.<br>
   $fields['node-display_ads-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -1390,7 +1399,7 @@ with <strong>Page 30</strong>.<br>
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_select',
+        'type' => 'options_buttons',
         'weight' => '5',
       ),
     ),

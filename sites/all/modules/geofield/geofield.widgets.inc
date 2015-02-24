@@ -33,7 +33,11 @@ define('GEOFIELD_INPUT_BOUNDS', 'bounds');
 // If we have the Openlayers module installed, include their widget code.
 
 if (module_exists('openlayers')) {
+<<<<<<< HEAD
   require_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'geofield') . '/geofield.widgets.openlayers.inc';
+=======
+  module_load_include('inc', 'geofield', 'geofield.widgets.openlayers');
+>>>>>>> SiteReformation
 }
 
 /**

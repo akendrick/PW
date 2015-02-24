@@ -53,14 +53,24 @@ function theme_file_entity_download_link($variables) {
   // http://microformats.org/wiki/file-format-examples
   $uri['options']['attributes']['type'] = $file->filemime . '; length=' . $file->filesize;
 
+<<<<<<< HEAD
   // Provide the default link text
+=======
+  // Provide the default link text.
+>>>>>>> SiteReformation
   if (!isset($variables['text'])) {
     $variables['text'] = t('Download [file:name]');
   }
 
+<<<<<<< HEAD
   // Peform unsanitized token replacement if $uri['options']['html'] is empty
   // since then l() will escape the link text.
   $variables['text'] = token_replace($variables['text'], array('file' => $file), array('clear' => TRUE, 'sanitize' => empty($uri['options']['html'])));
+=======
+  // Perform unsanitized token replacement if $uri['options']['html'] is empty
+  // since then l() will escape the link text.
+  $variables['text'] = token_replace($variables['text'], array('file' => $file), array('clear' => TRUE, 'sanitize' => !empty($uri['options']['html'])));
+>>>>>>> SiteReformation
 
   $output = '<span class="file">' . $icon . ' ' . l($variables['text'], $uri['path'], $uri['options']);
   $output .= ' ' . '<span class="file-size">(' . format_size($file->filesize) . ')</span>';
@@ -72,11 +82,20 @@ function theme_file_entity_download_link($variables) {
 /**
  * Returns HTML for displaying an HTML5 <audio> tag.
  *
+<<<<<<< HEAD
  * @param $variables
  *   An associative array containing:
  *   - file: Associative array of file data, which must include "uri".
  *   - controls: Boolean indicating whether or not controls should be displayed.
  *   - autoplay: Boolean indicating whether or not the audio should start playing automatically.
+=======
+ * @param array $variables
+ *   An associative array containing:
+ *   - file: Associative array of file data, which must include "uri".
+ *   - controls: Boolean indicating whether or not controls should be displayed.
+ *   - autoplay: Boolean indicating whether or not the audio should start
+ *     playing automatically.
+>>>>>>> SiteReformation
  *   - loop: Boolean indicating whether or not the audio should loop.
  *
  * @ingroup themeable
@@ -111,11 +130,20 @@ function theme_file_entity_file_audio($variables) {
 /**
  * Returns HTML for displaying an HTML5 <video> tag.
  *
+<<<<<<< HEAD
  * @param $variables
  *   An associative array containing:
  *   - file: Associative array of file data, which must include "uri".
  *   - controls: Boolean indicating whether or not controls should be displayed.
  *   - autoplay: Boolean indicating whether or not the video should start playing automatically.
+=======
+ * @param array $variables
+ *   An associative array containing:
+ *   - file: Associative array of file data, which must include "uri".
+ *   - controls: Boolean indicating whether or not controls should be displayed.
+ *   - autoplay: Boolean indicating whether or not the video should start
+ *     playing automatically.
+>>>>>>> SiteReformation
  *   - loop: Boolean indicating whether or not the video should loop.
  *   - muted: Boolean indicating whether or not the sound should be muted.
  *   - width: Width, in pixels, of the video player.
@@ -140,8 +168,15 @@ function theme_file_entity_file_video($variables) {
   if ($variables['muted']) {
     $video_attributes['muted'] = 'muted';
   }
+<<<<<<< HEAD
   if ($variables['width'] && $variables['height']) {
     $video_attributes['width'] = $variables['width'];
+=======
+  if ($variables['width']) {
+    $video_attributes['width'] = $variables['width'];
+  }
+  if ($variables['height']) {
+>>>>>>> SiteReformation
     $video_attributes['height'] = $variables['height'];
   }
 

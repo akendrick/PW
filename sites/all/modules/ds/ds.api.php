@@ -420,9 +420,12 @@ function hook_ds_layout_info() {
  *   - entity_type
  *   - bundle
  *   - view_mode
+ * @param array $vars
+ *   All variables available for render. You can use this to add css classes.
  */
-function hook_ds_pre_render_alter(&$layout_render_array, $context) {
+function hook_ds_pre_render_alter(&$layout_render_array, $context, &$vars) {
   $layout_render_array['left'][] = array('#markup' => 'cool!', '#weight' => 20);
+  $vars['attributes_array']['class'][] = 'custom';
 }
 
 /**
@@ -593,6 +596,24 @@ function hook_ds_classes_alter(&$classes, $name) {
   }
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * Alter the field template settings form
+ *
+ * @param array $form
+ *   The form containing the field settings
+ * @param array $field_settings
+ *   The settings of the field
+ */
+function hook_ds_field_theme_functions_settings_alter(&$form, $field_settings) {
+  $form['something'] = array(
+    '#type' => 'textfield',
+    '#title' => 'test',
+  );
+}
+
+>>>>>>> SiteReformation
 /*
  * @} End of "addtogroup hooks".
  */

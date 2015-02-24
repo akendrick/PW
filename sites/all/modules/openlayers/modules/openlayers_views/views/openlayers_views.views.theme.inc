@@ -16,6 +16,7 @@ function theme_openlayers_views_map($args) {
     . $args['map']
     . '</div>';
 }
+<<<<<<< HEAD
 
 /**
  * Implementation of theme function
@@ -42,3 +43,5 @@ function theme_openlayers_image_formatter($variables) {
 
   return $output;
 }
+=======
+>>>>>>> SiteReformation

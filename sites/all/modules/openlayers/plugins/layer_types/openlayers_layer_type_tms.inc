@@ -47,7 +47,12 @@ class openlayers_layer_type_tms extends openlayers_layer_type {
         '#title' => t('File Format'),
         '#options' => array(
           'png' => 'png',
+<<<<<<< HEAD
           'jpg' => 'jpg'),
+=======
+          'jpg' => 'jpg',
+          'jpeg' => 'jpeg'),
+>>>>>>> SiteReformation
         '#default_value' => isset($this->data['type']) ?
           $this->data['type'] : 'png'
       ),

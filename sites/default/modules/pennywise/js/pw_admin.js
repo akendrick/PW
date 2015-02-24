@@ -32,6 +32,27 @@ $(document).ready(function() {
   else {
     $('#block-pennywise-pw-phone-areas').hide();
   }
+<<<<<<< HEAD
+=======
+
+
+  // Admin Multiple Select Hide and Seek
+//  if($('#field-ui-field-edit-form').length > 0) {
+
+    // $('#field-ui-field-edit-form > .form-type-checkboxes > #edit-field-tags-und > .form-type-checkbox').hide();
+    //
+    // var sectHead = Drupal.settings.adPaymentHead;
+    // console.log('Section Heads');
+    // console.log(sectHead);
+
+    //for (i = 0; i < sectHead.length; ++i) {
+    //  $('form-item-field-tags-und-'+sectHead[i]).show();
+    //
+    //}
+
+//  }
+
+>>>>>>> SiteReformation
 })
 
 }(jQuery));

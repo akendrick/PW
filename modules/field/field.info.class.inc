@@ -146,7 +146,14 @@ class FieldInfo {
 
     // Save in "static" and persistent caches.
     $this->fieldMap = $map;
+<<<<<<< HEAD
     cache_set('field_info:field_map', $map, 'cache_field');
+=======
+    if (lock_acquire('field_info:field_map')) {
+      cache_set('field_info:field_map', $map, 'cache_field');
+      lock_release('field_info:field_map');
+    }
+>>>>>>> SiteReformation
 
     return $map;
   }
@@ -174,7 +181,14 @@ class FieldInfo {
       }
 
       // Store in persistent cache.
+<<<<<<< HEAD
       cache_set('field_info:fields', $this->fieldsById, 'cache_field');
+=======
+      if (lock_acquire('field_info:fields')) {
+        cache_set('field_info:fields', $this->fieldsById, 'cache_field');
+        lock_release('field_info:fields');
+      }
+>>>>>>> SiteReformation
     }
 
     // Fill the name/ID map.
@@ -231,7 +245,14 @@ class FieldInfo {
         }
 
         // Store in persistent cache.
+<<<<<<< HEAD
         cache_set('field_info:instances', $this->bundleInstances, 'cache_field');
+=======
+        if (lock_acquire('field_info:instances')) {
+          cache_set('field_info:instances', $this->bundleInstances, 'cache_field');
+          lock_release('field_info:instances');
+        }
+>>>>>>> SiteReformation
       }
 
       $this->loadedAllInstances = TRUE;
@@ -419,7 +440,15 @@ class FieldInfo {
     foreach ($instances as $instance) {
       $cache['fields'][] = $this->fieldsById[$instance['field_id']];
     }
+<<<<<<< HEAD
     cache_set("field_info:bundle:$entity_type:$bundle", $cache, 'cache_field');
+=======
+
+    if (lock_acquire("field_info:bundle:$entity_type:$bundle")) {
+      cache_set("field_info:bundle:$entity_type:$bundle", $cache, 'cache_field');
+      lock_release("field_info:bundle:$entity_type:$bundle");
+    }
+>>>>>>> SiteReformation
 
     return $instances;
   }
@@ -460,7 +489,14 @@ class FieldInfo {
 
     // Store in the 'static' and persistent caches.
     $this->bundleExtraFields[$entity_type][$bundle] = $info;
+<<<<<<< HEAD
     cache_set("field_info:bundle_extra:$entity_type:$bundle", $info, 'cache_field');
+=======
+    if (lock_acquire("field_info:bundle_extra:$entity_type:$bundle")) {
+      cache_set("field_info:bundle_extra:$entity_type:$bundle", $info, 'cache_field');
+      lock_release("field_info:bundle_extra:$entity_type:$bundle");
+    }
+>>>>>>> SiteReformation
 
     return $this->bundleExtraFields[$entity_type][$bundle];
   }

@@ -59,6 +59,7 @@ function file_entity_file_insert($file) {
 
   // Save file metadata.
   if (!empty($file->metadata)) {
+<<<<<<< HEAD
     foreach ($file->metadata as $name => $value) {
       db_merge('file_metadata')
         ->fields(array(
@@ -70,6 +71,17 @@ function file_entity_file_insert($file) {
         ))
         ->execute();
     }
+=======
+    $query = db_insert('file_metadata')->fields(array('fid', 'name', 'value'));
+    foreach ($file->metadata as $name => $value) {
+      $query->values(array(
+        'fid' => $file->fid,
+        'name' => $name,
+        'value' => serialize($value),
+      ));
+    }
+    $query->execute();
+>>>>>>> SiteReformation
   }
 
   // Clear any related field caches.
@@ -77,13 +89,14 @@ function file_entity_file_insert($file) {
 }
 
 /**
- * Implement hook_file_update().
+ * Implements hook_file_update().
  */
 function file_entity_file_update($file) {
   // Ensure field data is saved since file_save() does not in Drupal 7.
   field_attach_update('file', $file);
 
   // Save file metadata.
+<<<<<<< HEAD
   if (!empty($file->metadata)) {
     foreach ($file->metadata as $name => $value) {
       db_merge('file_metadata')
@@ -118,6 +131,28 @@ function file_entity_file_update($file) {
     // If the image dimensions have changed, update any image field references
     // to this file and flush image style derivatives.
     if ($file->metadata['width'] != $file->metadata['width'] || $file->metadata['height'] != $file->metadata['height']) {
+=======
+  db_delete('file_metadata')->condition('fid', $file->fid)->execute();
+  if (!empty($file->metadata)) {
+    $query = db_insert('file_metadata')->fields(array('fid', 'name', 'value'));
+    foreach ($file->metadata as $name => $value) {
+      $query->values(array(
+        'fid' => $file->fid,
+        'name' => $name,
+        'value' => serialize($value),
+      ));
+    }
+    $query->execute();
+  }
+
+  if (module_exists('image') && file_entity_file_get_mimetype_type($file) == 'image' && $file->filesize) {
+    // If the file has changed dimensions or a new file has been uploaded,
+    // update any image field reference to this file and flush image style
+    // derivatives.
+    $file->metadata += array('width' => NULL, 'height' => NULL);
+    $file->original->metadata += array('width' => NULL, 'height' => NULL);
+    if ($file->filesize != $file->original->filesize || $file->metadata['width'] != $file->original->metadata['width'] || $file->metadata['height'] != $file->original->metadata['height']) {
+>>>>>>> SiteReformation
       _file_entity_update_image_field_dimensions($file);
     }
 
@@ -143,9 +178,15 @@ function file_entity_file_delete($file) {
   db_delete('file_metadata')->condition('fid', $file->fid)->execute();
 
   // Remove this file from the search index if needed.
+<<<<<<< HEAD
   // This code is implemented in file entity module rather than in search module,
   // because file entity module is implementing search module's API, not the other
   // way around.
+=======
+  // This code is implemented in file entity module rather than in search
+  // module because file entity is implementing search module's API, not the
+  // other way around.
+>>>>>>> SiteReformation
   if (module_exists('search')) {
     search_reindex($file->fid, 'file');
   }
@@ -246,6 +287,15 @@ function file_entity_metadata_fetch_image_dimensions($file) {
  * @see http://drupal.org/node/1448124
  */
 function _file_entity_update_image_field_dimensions($file) {
+<<<<<<< HEAD
+=======
+  // Prevent PHP notices when trying to read empty files.
+  // @see http://drupal.org/node/681042
+  if (!$file->filesize) {
+    return;
+  }
+
+>>>>>>> SiteReformation
   // Do not bother proceeding if this file does not have an image mime type.
   if (file_entity_file_get_mimetype_type($file) != 'image') {
     return;

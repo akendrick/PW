@@ -13,8 +13,13 @@ class GroupUITestCase extends DrupalWebTestCase {
   public static function getInfo() {
     return array(
       'name' => 'UI tests',
+<<<<<<< HEAD:sites/all/modules/field_group/tests/field_group.ui.test
       'description' => 'Test the field group UI.',
       'group' => 'Field group',
+=======
+      'description' => 'Test the Field Group UI.',
+      'group' => 'Field Group',
+>>>>>>> SiteReformation:sites/all/modules/field_group/tests/field_group.ui.test
     );
   }
 

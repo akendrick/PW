@@ -267,10 +267,19 @@ function pw_vars_strongarm() {
     32 => 'Animals & Livestock',
     24 => 'Announcements',
     1 => 'Bulletin Board',
+    49 => 'Contractors and Tradespeople',
     17 => 'Education & Workshops',
+<<<<<<< HEAD
     20 => 'Employment & Business Opportunities',
     16 => 'Events & Marketplace',
     168 => 'Free',
+=======
+    20 => 'Employment & Business',
+    16 => 'Events & Markets',
+    168 => 'Free',
+    53 => 'Gardening and Landscaping',
+    52 => 'Health and Personal Care',
+>>>>>>> SiteReformation
     15 => 'Merchandise',
     35 => 'Obituaries',
     37 => 'Real Estate & Rentals',
@@ -465,7 +474,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_pattern_pw_digital';
-  $strongarm->value = '[node:field-edition-date:short] Pennywise';
+  $strongarm->value = '[node:field_edition_date] Pennywise';
   $export['ant_pattern_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -888,7 +897,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_pw_digital';
-  $strongarm->value = '2';
+  $strongarm->value = '0';
   $export['comment_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -968,7 +977,13 @@ echo date(\'now\');
     'front_page' => TRUE,
     'mobile_front' => TRUE,
     'jq_mobile_layout' => TRUE,
+<<<<<<< HEAD
     'mobile_layout' => FALSE,
+=======
+    'search_block' => TRUE,
+    'search' => TRUE,
+    'print_block' => TRUE,
+>>>>>>> SiteReformation
   );
   $export['context_status'] = $strongarm;
 
@@ -1915,13 +1930,23 @@ echo date(\'now\');
     'extra_fields' => array(
       'form' => array(
         'title' => array(
+<<<<<<< HEAD
           'weight' => '6',
+=======
+          'weight' => '0',
+>>>>>>> SiteReformation
         ),
         'path' => array(
           'weight' => '5',
         ),
         'redirect' => array(
           'weight' => '9',
+        ),
+        'redirect' => array(
+          'weight' => '9',
+        ),
+        'metatags' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
@@ -2113,7 +2138,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'logintoboggan_unified_login';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['logintoboggan_unified_login'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2155,6 +2180,7 @@ echo date(\'now\');
   $strongarm->value = array(
     0 => 501,
     1 => 493,
+<<<<<<< HEAD
     2 => 250,
     3 => 247,
     4 => 246,
@@ -2201,6 +2227,56 @@ echo date(\'now\');
     45 => 3,
     46 => 2,
     47 => 1,
+=======
+    2 => 251,
+    3 => 250,
+    4 => 247,
+    5 => 246,
+    6 => 245,
+    7 => 127,
+    8 => 126,
+    9 => 125,
+    10 => 124,
+    11 => 123,
+    12 => 122,
+    13 => 121,
+    14 => 117,
+    15 => 112,
+    16 => 63,
+    17 => 62,
+    18 => 61,
+    19 => 60,
+    20 => 59,
+    21 => 58,
+    22 => 56,
+    23 => 48,
+    24 => 45,
+    25 => 44,
+    26 => 31,
+    27 => 30,
+    28 => 29,
+    29 => 28,
+    30 => 27,
+    31 => 25,
+    32 => 24,
+    33 => 23,
+    34 => 22,
+    35 => 21,
+    36 => 15,
+    37 => 14,
+    38 => 13,
+    39 => 12,
+    40 => 11,
+    41 => 10,
+    42 => 8,
+    43 => 7,
+    44 => 6,
+    45 => 5,
+    46 => 4,
+    47 => 3,
+    48 => 2,
+    49 => 1,
+>>>>>>> SiteReformation
   );
   $export['menu_masks'] = $strongarm;
 
@@ -2542,7 +2618,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_default';
-  $strongarm->value = '[current-page:page-title] | [site:name]';
+  $strongarm->value = '[current-page:title] | [site:name]';
   $export['page_title_default'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2619,7 +2695,11 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_classified';
+<<<<<<< HEAD
   $strongarm->value = '[site:name] - [node:field-tags] - [current-page:page-title] ';
+=======
+  $strongarm->value = '[site:name] - [node:field-tags] - [current-page:title]';
+>>>>>>> SiteReformation
   $export['page_title_type_classified'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2661,7 +2741,7 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_title_type_pw_digital';
-  $strongarm->value = '';
+  $strongarm->value = '[node:title]';
   $export['page_title_type_pw_digital'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -2922,13 +3002,22 @@ echo date(\'now\');
   $strongarm->name = 'pennywise_holiday_settings';
   $strongarm->value = array(
     'holiday_settings' => '0',
+    'deadline' => '',
     'regular_hours' => 'OPEN Monday to Thursday 9am - 5pm, Friday 9am - 4pm.',
     'holiday_message_type' => NULL,
+<<<<<<< HEAD
     'holiday' => 'Labour Day ',
     'holiday_hours' => 'Monday Sept. 3, 2013',
     'holiday_details' => 'The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
     'holiday_message' => '<h2>Labour Day </h2><p class="holiday-hours">The Pennywise office will be closed Monday Sept. 3, 2013.</p><p class="holiday-details">The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
     'holiday_message_plain' => 'Labour Day .\\n\\r The Pennywise office will be closed Monday Sept. 3, 2013. \\r\\n The Pennywise is now closed for the Thankgiving Day weekend. We will reopen again on Tuesday, Oct. 15 at 8:30 am. ',
+=======
+    'holiday' => 'BC Family DAy',
+    'holiday_hours' => 'Monday, Feb. 10',
+    'holiday_details' => 'Pennywise will be closed Monday, Feb. 10 for Family Day. We look forward to serving your advertising needs Tuesday, Feb. 11 from 8:30am. Enjoy your Family time!',
+    'holiday_message' => '<h2>BC Family DAy</h2><p class="holiday-hours">The Pennywise office will be closed Monday, Feb. 10.</p><p class="holiday-details">Pennywise will be closed Monday, Feb. 10 for Family Day. We look forward to serving your advertising needs Tuesday, Feb. 11 from 8:30am. Enjoy your Family time!',
+    'holiday_message_plain' => 'BC Family DAy.\\n\\r The Pennywise office will be closed Monday, Feb. 10. \\r\\n Pennywise will be closed Monday, Feb. 10 for Family Day. We look forward to serving your advertising needs Tuesday, Feb. 11 from 8:30am. Enjoy your Family time!',
+>>>>>>> SiteReformation
   );
   $export['pennywise_holiday_settings'] = $strongarm;
 
@@ -3503,7 +3592,11 @@ echo date(\'now\');
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'securepages_enable';
+<<<<<<< HEAD
   $strongarm->value = '0';
+=======
+  $strongarm->value = '1';
+>>>>>>> SiteReformation
   $export['securepages_enable'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -3742,7 +3835,7 @@ ad/*';
   $strongarm->api_version = 1;
   $strongarm->name = 'theme_pwt_settings';
   $strongarm->value = array(
-    'toggle_logo' => 0,
+    'toggle_logo' => 1,
     'toggle_name' => 1,
     'toggle_slogan' => 1,
     'toggle_node_user_picture' => 1,
@@ -3752,7 +3845,7 @@ ad/*';
     'toggle_main_menu' => 0,
     'toggle_secondary_menu' => 0,
     'default_logo' => 0,
-    'logo_path' => 'public://pwlogo.gif',
+    'logo_path' => 'public://PW_web.png',
     'logo_upload' => '',
     'default_favicon' => 0,
     'favicon_path' => 'public://PW_logo_WEB-favicon.ico',
@@ -3850,6 +3943,7 @@ ad/*';
       7 => 0,
       10 => 0,
       12 => 0,
+      13 => 0,
     ),
     'alpha_toggle_messages' => 1,
     'alpha_toggle_action_links' => 1,
@@ -3870,16 +3964,6 @@ ad/*';
     'alpha_region_dashboard_main_css' => '',
     'alpha_region_dashboard_main_equal_height_element' => FALSE,
     'alpha_region_dashboard_main_equal_height_container' => 0,
-    'alpha_region_dashboard_inactive_force' => 0,
-    'alpha_region_dashboard_inactive_zone' => NULL,
-    'alpha_region_dashboard_inactive_prefix' => '0',
-    'alpha_region_dashboard_inactive_columns' => '1',
-    'alpha_region_dashboard_inactive_suffix' => '0',
-    'alpha_region_dashboard_inactive_weight' => '-50',
-    'alpha_region_dashboard_inactive_position' => '0',
-    'alpha_region_dashboard_inactive_css' => '',
-    'alpha_region_dashboard_inactive_equal_height_element' => FALSE,
-    'alpha_region_dashboard_inactive_equal_height_container' => 0,
     'alpha_region_dashboard_sidebar_force' => 0,
     'alpha_region_dashboard_sidebar_zone' => NULL,
     'alpha_region_dashboard_sidebar_prefix' => '0',
@@ -3890,6 +3974,16 @@ ad/*';
     'alpha_region_dashboard_sidebar_css' => '',
     'alpha_region_dashboard_sidebar_equal_height_element' => FALSE,
     'alpha_region_dashboard_sidebar_equal_height_container' => 0,
+    'alpha_region_dashboard_inactive_force' => 0,
+    'alpha_region_dashboard_inactive_zone' => NULL,
+    'alpha_region_dashboard_inactive_prefix' => '0',
+    'alpha_region_dashboard_inactive_columns' => '1',
+    'alpha_region_dashboard_inactive_suffix' => '0',
+    'alpha_region_dashboard_inactive_weight' => '-50',
+    'alpha_region_dashboard_inactive_position' => '0',
+    'alpha_region_dashboard_inactive_css' => '',
+    'alpha_region_dashboard_inactive_equal_height_element' => FALSE,
+    'alpha_region_dashboard_inactive_equal_height_container' => 0,
     'alpha_zone_super_menu_wrapper' => 1,
     'alpha_zone_super_menu_force' => 0,
     'alpha_zone_super_menu_order' => 0,
@@ -4090,16 +4184,6 @@ ad/*';
     'alpha_zone_content_css' => '',
     'alpha_zone_content_wrapper_css' => '',
     'alpha_zone_content_equal_height_container' => 0,
-    'alpha_region_content_force' => 1,
-    'alpha_region_content_zone' => 'content',
-    'alpha_region_content_prefix' => '0',
-    'alpha_region_content_columns' => '16',
-    'alpha_region_content_suffix' => '0',
-    'alpha_region_content_weight' => '-10',
-    'alpha_region_content_position' => '-20',
-    'alpha_region_content_css' => '',
-    'alpha_region_content_equal_height_element' => 0,
-    'alpha_region_content_equal_height_container' => 0,
     'alpha_region_sidebar_first_force' => 1,
     'alpha_region_sidebar_first_zone' => 'content',
     'alpha_region_sidebar_first_prefix' => '0',
@@ -4110,6 +4194,16 @@ ad/*';
     'alpha_region_sidebar_first_css' => '',
     'alpha_region_sidebar_first_equal_height_element' => 0,
     'alpha_region_sidebar_first_equal_height_container' => 0,
+    'alpha_region_content_force' => 1,
+    'alpha_region_content_zone' => 'content',
+    'alpha_region_content_prefix' => '0',
+    'alpha_region_content_columns' => '16',
+    'alpha_region_content_suffix' => '0',
+    'alpha_region_content_weight' => '-10',
+    'alpha_region_content_position' => '-20',
+    'alpha_region_content_css' => '',
+    'alpha_region_content_equal_height_element' => 0,
+    'alpha_region_content_equal_height_container' => 0,
     'alpha_region_sidebar_second_force' => 0,
     'alpha_region_sidebar_second_zone' => 'content',
     'alpha_region_sidebar_second_prefix' => '0',
@@ -4278,7 +4372,7 @@ ad/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'user_email_verification';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['user_email_verification'] = $strongarm;
 
   $strongarm = new stdClass();

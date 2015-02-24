@@ -24,19 +24,49 @@ class openlayers_styles_ui extends ctools_export_ui {
         <li>Absolute path, such as /icon.png (though this is not suggested for maintainability reasons)</li></ul>'),
         'maxlength' => 2083
       ),
+<<<<<<< HEAD
       'imageStyle' => array(
         'type'    => 'select',
         'title'    => 'Image style',
         'options' => array(''=> 'None (original image)') + image_style_options(FALSE),
         'default' => '',
         'desc'    => t('The Drupal Image Style to apply to the marker.'),
+=======
+      'backgroundGraphic' => array(
+        'default' => '',
+        'desc' => t('Url to a graphic to be used as the background under an externalGraphic.'),
+        'maxlength' => 2083
+      ),
+      'backgroundGraphicZIndex' => array(
+        'default' => '',
+        'desc' => t('The integer z-index value to use in rendering the background graphic.'),
+      ),
+      'backgroundXOffset' => array(
+        'default' => '',
+        'desc' => t('The x offset (in pixels) for the background graphic.'),
+      ),
+      'backgroundYOffset' => array(
+        'default' => '',
+        'desc' => t('The y offset (in pixels) for the background graphic.'),
+      ),
+      'backgroundHeight' => array(
+        'default' => '',
+        'desc' => t('The height of the background graphic.  If not provided, the graphicHeight will be used.'),
+      ),
+      'backgroundWidth' => array(
+        'default' => '',
+        'desc' => t('The width of the background width.  If not provided, the graphicWidth will be used.'),
+>>>>>>> SiteReformation
       ),
       'pointRadius' => array(
         'default' => 6,
         'desc' => t('The radius of a vector point or the size of
         an icon. Note that, when using icons, this value should be half the
         width of the icon image.'),
+<<<<<<< HEAD
         'type' => 'integer',
+=======
+>>>>>>> SiteReformation
       ),
       'fillColor' => array(
         'default' => '#EE9900',
@@ -46,6 +76,17 @@ class openlayers_styles_ui extends ctools_export_ui {
         not used if an externalGraphic is applied to a point.  This should be
         a hexadecimal value like #FFFFFF.'),
       ),
+<<<<<<< HEAD
+=======
+      'fillOpacity' => array(
+        'default' => 1,
+        'desc' => t('This is the opacity used for filling in Polygons.
+        It is also used in the center of marks for points: the interior
+        color of circles or other shapes. It is not used if an
+        externalGraphic is applied to a point.  This should be a value
+        between 0 and 1.'),
+      ),
+>>>>>>> SiteReformation
       'strokeColor' => array(
         'default' => '#EE9900',
         'desc' => t('This is color of the line on features. On
@@ -59,6 +100,7 @@ class openlayers_styles_ui extends ctools_export_ui {
         polygons and point marks, it is used as an outline to
         the feature. On lines, this is the representation of the
         feature.  This is a value in pixels.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer_positive'),
       ),
@@ -71,6 +113,8 @@ class openlayers_styles_ui extends ctools_export_ui {
         between 0 and 1.'),
         'type' => 'float',
         'element_validate' => array('_element_validate_between_zero_and_one', 'element_validate_number'),
+=======
+>>>>>>> SiteReformation
       ),
       'strokeOpacity' => array(
         'default' => 1,
@@ -78,8 +122,11 @@ class openlayers_styles_ui extends ctools_export_ui {
         On polygons and point marks, it is used as an outline to the
         feature. On lines, this is the representation of the feature.
         This should be a value between 0 and 1.'),
+<<<<<<< HEAD
         'type' => 'float',
         'element_validate' => array('_element_validate_between_zero_and_one', 'element_validate_number'),
+=======
+>>>>>>> SiteReformation
       ),
       'strokeLinecap' => array(
         'default' => 'round',
@@ -119,8 +166,11 @@ class openlayers_styles_ui extends ctools_export_ui {
         This is an alternative to the pointRadius symbolizer property
         to be used when your graphic has different sizes in the X and
         Y direction.  This should be in pixels.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer_positive'),
+=======
+>>>>>>> SiteReformation
       ),
       'graphicHeight' => array(
         'default' => '',
@@ -128,8 +178,11 @@ class openlayers_styles_ui extends ctools_export_ui {
         This is an alternative to the pointRadius symbolizer property
         to be used when your graphic has different sizes in the X and
         Y direction.  This should be in pixels.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer_positive'),
+=======
+>>>>>>> SiteReformation
       ),
       'graphicOpacity' => array(
         'default' => '1',
@@ -137,28 +190,44 @@ class openlayers_styles_ui extends ctools_export_ui {
         value between 0 and 1. Graphics that are already semitransparent,
         like alpha PNGs, should have this set to 1, or rendering problems in
         Internet Explorer will ensue.'),
+<<<<<<< HEAD
         'type' => 'float',
         'element_validate' => array('_element_validate_between_zero_and_one', 'element_validate_number'),
+=======
+>>>>>>> SiteReformation
       ),
       'graphicXOffset' => array(
         'default' => '',
         'desc' => t('Where the X value of the "center" of an
       externalGraphic should be.  This should be in pixels.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer'),
+=======
+>>>>>>> SiteReformation
       ),
       'graphicYOffset' => array(
         'default' => '',
         'desc' => t('Where the Y value of the "center" of an
       externalGraphic should be.  This should be in pixels.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer'),
+=======
+>>>>>>> SiteReformation
       ),
       'graphicName' => array(
         'default' => '',
         'desc' => t('Name of a type of symbol to be used
         for a point mark.'),
       ),
+<<<<<<< HEAD
+=======
+      'graphicZIndex' => array(
+        'default' => '',
+        'desc' => t('The integer z-index value to use in rendering.'),
+      ),
+>>>>>>> SiteReformation
       'rotation' => array(
         'default' => '',
         'desc' => t('The rotation angle in degrees clockwise for
@@ -173,10 +242,20 @@ class openlayers_styles_ui extends ctools_export_ui {
           'none' => t('None (off)'),
         ),
       ),
+<<<<<<< HEAD
       'label' => array(
         'default' => '',
         'desc' => t('A label to show for features. '
           . 'Typically used with ${attribute} syntax.')
+=======
+      'title' => array(
+        'default' => '',
+        'desc' => t('Tooltip when hovering over a feature.  Not supported by the canvas renderer.')
+      ),
+      'label' => array(
+        'default' => '',
+        'desc' => t('The text for an optional label. For browsers that use the canvas renderer, this requires either fillText or mozDrawText to be available. Typically used with ${attribute} syntax.')
+>>>>>>> SiteReformation
       ),
       'labelAlign' => array(
         'default' => 'cm',
@@ -196,12 +275,16 @@ class openlayers_styles_ui extends ctools_export_ui {
       'labelXOffset' => array(
         'default' => '',
         'desc' => t('Label X offset. Positive numbers move label right.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer'),
+=======
+>>>>>>> SiteReformation
       ),
       'labelYOffset' => array(
         'default' => '',
         'desc' => t('Label Y offset. Positive numbers move label up.'),
+<<<<<<< HEAD
         'type' => 'integer',
         'element_validate' => array('element_validate_integer'),
       ),
@@ -239,6 +322,35 @@ class openlayers_styles_ui extends ctools_export_ui {
       );
     }
 
+=======
+      ),
+      'fontColor' => array(
+        'default' => '',
+        'desc' => t('The font color for the label, to be provided like CSS.'),
+      ),
+      'fontOpacity' => array(
+        'default' => '',
+        'desc' => t('Opacity (0-1) for the label'),
+      ),
+      'fontFamily' => array(
+        'default' => '',
+        'desc' => t('The font family for the label, to be provided like in CSS.'),
+      ),
+      'fontSize' => array(
+        'default' => '',
+        'desc' => t('The font size for the label, to be provided like in CSS.'),
+      ),
+      'fontStyle' => array(
+        'default' => '',
+        'desc' => t('The font style for the label, to be provided like in CSS.'),
+      ),
+      'fontWeight' => array(
+        'default' => '',
+        'desc' => t('The font weight for the label, to be provided like in CSS.'),
+      ),
+    );
+
+>>>>>>> SiteReformation
     $form['info']['title'] = array(
       '#id' => 'styletitle',
       '#type' => 'textfield',
@@ -249,6 +361,65 @@ class openlayers_styles_ui extends ctools_export_ui {
     );
     $form['info']['name']['#machine_name']['source'] = array('info', 'title');
 
+<<<<<<< HEAD
+=======
+    $fields = array();
+    $views = views_get_all_views();
+    foreach($views as $vid => $view) {
+      if (isset($view->display)) {
+        foreach ($view->display as $vdid => $display) {
+          if (isset($display->display_options)) {
+            if (isset($display->display_options['style_plugin'])) {
+              if ($display->display_options['style_plugin'] == 'openlayers_data') {
+                foreach ($display->display_options['fields'] as $fid => $fdata) {
+                  $fields[] = t('<code>@fid</code> <em>(from view @viewname and display @displayname.)</em>', array('@fid' => '${' . $fid . '}', '@viewname' => $view->name, '@displayname' => $vdid));
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    $form['available_fields'] = array(
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#title' => t('Available fields to use as token'),
+      '#description' => t('Notice: Since OpenLayers beta 9, the rendering of
+        . the fields has changed, it\'s not using the raw value of the field,
+        . but the full row rendering. You must disable all the HTML element by
+        . selecting None in the Style setting fieldset of the field in Views or
+        . you might get a mix of HTML with the raw value of the field.'),
+    );
+
+    if ($fields) {
+      $form['available_fields']['fields'] = array(
+        '#markup' => theme('item_list', array('items' => $fields)),
+      );
+    }
+    else {
+      $form['available_fields']['fields'] = array(
+        '#prefix' => '<p class="no-fields-message">',
+        '#markup' => t('There are no available fields to use as tokens.'),
+        '#suffix' => '</p>',
+      );
+
+      $form['available_fields']['fields_instruction'] = array(
+        '#access' => user_access('administer views'),
+        '#prefix' => '<p class="no-fields-instruction">',
+        '#markup' => t(
+          'Go to the <a !attributes>Views administration</a> page and create an "OpenLayers Data Overlay" display.',
+          array(
+            '!attributes' => drupal_attributes(array('href' => url('admin/structure/views'))),
+          )
+        ),
+        '#suffix' => '</p>',
+      );
+    }
+
+>>>>>>> SiteReformation
     // OpenLayers style properties
     $form['data'] = array(
       '#type' => 'fieldset',
@@ -418,6 +589,7 @@ class openlayers_styles_ui extends ctools_export_ui {
     return $options;
   }
 }
+<<<<<<< HEAD
 
 /**
  * Custom validations functions.
@@ -434,3 +606,5 @@ function _element_validate_number_positive($element, &$form_state, $form) {
     form_error($element, t('The @property property must be a positive number.', array('@property' => $element['#title'])));
   }
 }
+=======
+>>>>>>> SiteReformation

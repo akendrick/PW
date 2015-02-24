@@ -101,12 +101,22 @@ class context_reaction_addassets_base extends context_reaction {
               if ($path) {
                 $ext = explode('.', $path);
                 $ext = drupal_strtolower($ext[count($ext)-1]);
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> SiteReformation
                 switch ($ext) {
                   case 'js':
                     drupal_add_js($path, array('group' => JS_DEFAULT));
                     break;
                   case 'css':
+<<<<<<< HEAD
+=======
+                  case 'scss':
+                  case 'sass':
+                  case 'less':
+>>>>>>> SiteReformation
                     drupal_add_css($path, array('group' => CSS_THEME));
                     break;
                 }

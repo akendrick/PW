@@ -1133,7 +1133,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
   $fields['node-ad_s-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -1742,7 +1742,11 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+<<<<<<< HEAD
           'weight' => '5',
+=======
+          'weight' => '4',
+>>>>>>> SiteReformation
         ),
         'notifications' => array(
           'label' => 'above',
@@ -1845,7 +1849,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '1',
+          'weight' => '5',
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2115,7 +2119,11 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
+<<<<<<< HEAD
           'weight' => '3',
+=======
+          'weight' => '2',
+>>>>>>> SiteReformation
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2248,7 +2256,11 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
             'geofield_map_zoom' => '12',
           ),
           'type' => 'geofield_map_map',
+<<<<<<< HEAD
           'weight' => '0',
+=======
+          'weight' => '1',
+>>>>>>> SiteReformation
         ),
         'rss' => array(
           'label' => 'above',
@@ -2484,7 +2496,11 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
+<<<<<<< HEAD
           'weight' => '4',
+=======
+          'weight' => '3',
+>>>>>>> SiteReformation
         ),
         'notifications' => array(
           'label' => 'above',
@@ -2892,7 +2908,7 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
   $fields['node-classified-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',
@@ -2938,7 +2954,11 @@ Your ad will go online within 1/2 hour of our receiving it. Monday - Friday 9am 
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
+<<<<<<< HEAD
           'weight' => '1',
+=======
+          'weight' => '0',
+>>>>>>> SiteReformation
         ),
         'notifications' => array(
           'label' => 'above',
@@ -3385,7 +3405,7 @@ Please don\'t post services in FREE for FREE such as free estimates, no free rid
   $fields['node-free-field_tags'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_tags',

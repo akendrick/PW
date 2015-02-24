@@ -14,10 +14,28 @@ class openlayers_layer_type_bing extends openlayers_layer_type {
    * Provide initial values for options.
    */
   function options_init() {
+<<<<<<< HEAD
+=======
+    // Get the page language and the map language, if set.
+    global $language;
+    $lang = $language->language;
+    $culture = variable_get('openlayers_layers_bing_language', '');
+
+    // Bing does not provide imagery for a language without a country code.
+    // Best guess is to double-up on the language code ('fr' becomes 'fr-FR').
+    // This methods succeeds for all but Dutch (Belgium) 'nl-BE'.
+    // See http://msdn.microsoft.com/en-us/library/hh441729.aspx
+    $lang = $lang . '-' . strtoupper ($lang);
+
+>>>>>>> SiteReformation
     return array(
       'layer_handler' => 'bing',
       'key' => variable_get('openlayers_layers_bing_api', ''),
       'type' => 'Road',
+<<<<<<< HEAD
+=======
+      'culture' => $culture == '' ? $lang : $culture,
+>>>>>>> SiteReformation
     ) + parent::options_init();
   }
 
@@ -59,7 +77,24 @@ class openlayers_layer_type_bing extends openlayers_layer_type {
         '#default_value' => variable_get('openlayers_layers_bing_api', ''),
         '#description' => t('<a href="@microsoft">Get a MS Bing API Key</a>',
           array('@microsoft' => 'http://bingmapsportal.com'))
+<<<<<<< HEAD
       )
+=======
+      ),
+      'openlayers_layers_bing_language' => array(
+        '#type' => 'textfield',
+        '#title' => t('Culture'),
+        '#description' => t(' The culture parameter provides the strings in
+          the language of the culture for geographic place names, map labels,
+          and route instructions.  By default, Bing Maps REST Services will
+          determine the culture automatically.  Only use this is you
+          want to force a specific language.  Please see
+          <a href="!url">this list of supported culture codes</a>.',
+          array('!url' => 'http://msdn.microsoft.com/en-us/library/hh441729.aspx')
+        ),
+        '#default_value' => variable_get('openlayers_layers_bing_language', ''),
+      ),
+>>>>>>> SiteReformation
     );
 
   }

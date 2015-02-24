@@ -1,7 +1,12 @@
 Metatag: Dublin Core
 --------------------
+<<<<<<< HEAD
 This module adds the fifteen Dublin Core Metadata Element Set [1] to the
 available meta tags, as defined by the Dublin Core Metadata Institute [2].
+=======
+This module adds the fifteen Dublin Core Metadata Element Set [1] (plus one) to
+the available meta tags, as defined by the Dublin Core Metadata Institute [2].
+>>>>>>> SiteReformation
 
 The following tags are provided:
 * dcterms.contributor
@@ -12,6 +17,10 @@ The following tags are provided:
 * dcterms.format
 * dcterms.identifier
 * dcterms.language
+<<<<<<< HEAD
+=======
+* dcterms.modified (additional, not part of the DCES)
+>>>>>>> SiteReformation
 * dcterms.publisher
 * dcterms.relation
 * dcterms.rights

@@ -6,9 +6,17 @@ configure = admin/config/content/publishcontent
 files[] = publishcontent_views_handler_field_node_link.inc
 files[] = tests/publishcontent.test
 
+<<<<<<< HEAD
 ; Information added by drupal.org packaging script on 2013-08-03
 version = "7.x-1.2"
 core = "7.x"
 project = "publishcontent"
 datestamp = "1375566693"
+=======
+; Information added by Drupal.org packaging script on 2014-02-25
+version = "7.x-1.3"
+core = "7.x"
+project = "publishcontent"
+datestamp = "1393372405"
+>>>>>>> SiteReformation
 

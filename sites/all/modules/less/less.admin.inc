@@ -3,37 +3,97 @@
 /**
  * @file
  * Contains the administration pages for LESS.
- *
  */
 
-function less_settings($form, &$form_state) {
+/**
+ * Form for LESS module settings.
+ */
+function less_settings_form($form, &$form_state) {
 
   $form['less_flush'] = array(
     '#type' => 'fieldset',
     '#collapsible' => FALSE,
-    '#value' => 'Click this button regenerate all LESS files once.',
+    '#value' => t('Click this button regenerate all LESS files once.'),
   );
 
   $form['less_flush']['flush'] = array(
     '#type' => 'submit',
     '#submit' => array('_flush_less'),
-    '#value' => 'Flush LESS files',
+    '#value' => t('Flush LESS files'),
   );
-
+  
+  $less_engines = array(
+    libraries_detect('less.js'),
+    libraries_detect('less.php'),
+    libraries_detect('lessphp'),
+  );
+  
+  $form['less_engine'] = array(
+    '#type' => 'radios',
+    '#title' => t('LESS engine'),
+    '#options' => array(),
+    '#required' => TRUE,
+    '#default_value' => variable_get('less_engine', 'lessphp'),
+  );
+  
+  foreach ($less_engines as $less_engine) {
+    
+    $form['less_engine']['#options'][$less_engine['name']] = $less_engine['name'];
+    
+    $form['less_engine'][$less_engine['name']] = array(
+      '#type' => 'radio',
+      '#title' => t('@engine_name - <a href="@vendor_url">@vendor_url</a>', array('@engine_name' => $less_engine['name'], '@vendor_url' => $less_engine['vendor url'])),
+      '#return_value' => $less_engine['name'],
+      '#description' => t('Missing - Click vendor link above to read installation instructions.'),
+      '#disabled' => !($less_engine['installed']),
+    );
+    
+    if ($less_engine['installed']) {
+      $form['less_engine'][$less_engine['name']]['#description'] = t('v%version Installed', array('%version' => $less_engine['version']));
+    }
+    
+  }
+  
   $form['less_devel'] = array(
     '#type' => 'checkbox',
     '#title' => t('LESS developer mode'),
-    '#description' => t('Enable the developer mode to ensure LESS files are regenerated every page load, regardless of any change done to the LESS file (which may happen when using the @import notation, and changing only the imported file). Note that this setting does not override "Optimize CSS files" if set via <a href="@performance-url">Performance</a>.', array('@performance-url' => url('admin/config/development/performance'))),
+    '#description' => t('Enable developer mode to ensure LESS files are regenerated every page load.'),
     '#default_value' => variable_get('less_devel', FALSE),
   );
-
+  
+  $form['less_watch'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('LESS watch mode'),
+    '#description' => t('Enable watch mode while developer mode is active to automatically reload styles when changes are detected, including changes to @import-ed files. Does not cause a page reload.'),
+    '#default_value' => variable_get('less_watch', TRUE),
+    '#states' => array(
+      'enabled' => array(
+        ':input[name="less_devel"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  
+  $form['#submit'] = array('less_settings_form_submit');
+  
   return system_settings_form($form);
 }
 
+/**
+ * Form submission function.
+ * 
+ * Trigger clear of LESS module cache data.
+ */
+function less_settings_form_submit($form, &$form_state) {
+  cache_clear_all('less:', 'cache', TRUE);
+}
+
+/**
+ * Submit handler for cache clear button.
+ */
 function _flush_less($form, &$form_state) {
 
-  $less_path = file_default_scheme() . '://less';
-  file_unmanaged_delete_recursive($less_path);
+  _less_get_dir(TRUE);
+  cache_clear_all('less:', 'cache', TRUE);
 
-  drupal_set_message(t('LESS files flushed.'), 'status');
+  drupal_set_message(t('LESS files cache cleared.'), 'status');
 }

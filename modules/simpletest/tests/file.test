@@ -484,6 +484,7 @@ class FileValidatorTest extends DrupalWebTestCase {
     $original_user = $user;
     drupal_save_session(FALSE);
 
+<<<<<<< HEAD
     // Run these test as uid = 1.
     $user = user_load(1);
 
@@ -492,6 +493,8 @@ class FileValidatorTest extends DrupalWebTestCase {
     $errors = file_validate_size($file, 1, 1);
     $this->assertEqual(count($errors), 0, 'No size limits enforced on uid=1.', 'File');
 
+=======
+>>>>>>> SiteReformation
     // Run these tests as a regular user.
     $user = $this->drupalCreateUser();
 
@@ -952,7 +955,11 @@ class FileDirectoryTest extends FileTestCase {
     $this->assertTrue(is_file(file_default_scheme() . '://.htaccess'), 'Successfully re-created the .htaccess file in the files directory.', 'File');
     // Verify contents of .htaccess file.
     $file = file_get_contents(file_default_scheme() . '://.htaccess');
+<<<<<<< HEAD
     $this->assertEqual($file, "SetHandler Drupal_Security_Do_Not_Remove_See_SA_2006_006\nOptions None\nOptions +FollowSymLinks", 'The .htaccess file contains the proper content.', 'File');
+=======
+    $this->assertEqual($file, file_htaccess_lines(FALSE), 'The .htaccess file contains the proper content.', 'File');
+>>>>>>> SiteReformation
   }
 
   /**
@@ -2388,7 +2395,11 @@ class FileDownloadTest extends FileTestCase {
     $this->assertEqual($headers['x-foo'], 'Bar', 'Found header set by file_test module on private download.');
     $this->assertResponse(200, 'Correctly allowed access to a file when file_test provides headers.');
 
+<<<<<<< HEAD
     // Test that the file transfered correctly.
+=======
+    // Test that the file transferred correctly.
+>>>>>>> SiteReformation
     $this->assertEqual($contents, $this->content, 'Contents of the file are correct.');
 
     // Deny access to all downloads via a -1 header.
@@ -2564,6 +2575,7 @@ class FileNameMungingTest extends FileTestCase {
     parent::setUp();
     $this->bad_extension = 'php';
     $this->name = $this->randomName() . '.' . $this->bad_extension . '.txt';
+    $this->name_with_uc_ext = $this->randomName() . '.' . strtoupper($this->bad_extension) . '.txt';
   }
 
   /**
@@ -2601,9 +2613,19 @@ class FileNameMungingTest extends FileTestCase {
    * White listed extensions are ignored by file_munge_filename().
    */
   function testMungeIgnoreWhitelisted() {
+<<<<<<< HEAD
     // Declare our extension as whitelisted.
     $munged_name = file_munge_filename($this->name, $this->bad_extension);
     $this->assertIdentical($munged_name, $this->name, format_string('The new filename (%munged) matches the original (%original) once the extension has been whitelisted.', array('%munged' => $munged_name, '%original' => $this->name)));
+=======
+    // Declare our extension as whitelisted. The declared extensions should
+    // be case insensitive so test using one with a different case.
+    $munged_name = file_munge_filename($this->name_with_uc_ext, $this->bad_extension);
+    $this->assertIdentical($munged_name, $this->name_with_uc_ext, format_string('The new filename (%munged) matches the original (%original) once the extension has been whitelisted.', array('%munged' => $munged_name, '%original' => $this->name_with_uc_ext)));
+    // The allowed extensions should also be normalized.
+    $munged_name = file_munge_filename($this->name, strtoupper($this->bad_extension));
+    $this->assertIdentical($munged_name, $this->name, format_string('The new filename (%munged) matches the original (%original) also when the whitelisted extension is in uppercase.', array('%munged' => $munged_name, '%original' => $this->name)));
+>>>>>>> SiteReformation
   }
 
   /**

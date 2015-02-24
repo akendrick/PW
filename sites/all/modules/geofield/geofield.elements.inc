@@ -269,7 +269,12 @@ function geofield_proximity_element_process($element, &$form_state, $form) {
     '#title' => t('Distance'),
     '#default_value' => !empty($element['#default_value']['distance']) ? $element['#default_value']['distance'] : '',
     '#title_display' => 'invisible',
+<<<<<<< HEAD
     '#element_validate' => array('element_validate_integer_positive'),
+=======
+    // Allow decimal numbers as distances
+    '#element_validate' => array('element_validate_number'),
+>>>>>>> SiteReformation
   );
 
   // If #geofield_range is TRUE, create second option for range.
@@ -279,7 +284,11 @@ function geofield_proximity_element_process($element, &$form_state, $form) {
       '#title' => t('Distance End'),
       '#default_value' => !empty($element['#default_value']['distance2']) ? $element['#default_value']['distance2'] : '',
       '#title_display' => 'invisible',
+<<<<<<< HEAD
       '#element_validate' => array('element_validate_integer_positive'),
+=======
+      '#element_validate' => array('element_validate_number'),
+>>>>>>> SiteReformation
     );
   }
 
@@ -296,7 +305,11 @@ function geofield_proximity_element_process($element, &$form_state, $form) {
   $element['origin'] = array(
     '#type' => (!empty($element['#origin_element'])) ? $element['#origin_element'] : 'textfield',
     '#title' => t('Origin'),
+<<<<<<< HEAD
     '#prefix' => '<span class="geofield-proximity-origin-from">from</span>',
+=======
+    '#prefix' => '<span class="geofield-proximity-origin-from">' . t('from') . '</span>',
+>>>>>>> SiteReformation
     '#title_display' => 'invisible',
     '#required' => !empty($element['#required']) ? $element['#required'] : FALSE,
     '#default_value' => !empty($element['#default_value']['origin']) ? $element['#default_value']['origin'] : FALSE,

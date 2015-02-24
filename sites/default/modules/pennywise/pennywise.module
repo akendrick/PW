@@ -18,6 +18,37 @@
 // Displays Form Data
 define ('DEBUG', FALSE);
 
+
+/**
+* Implementationof HOOK_form_alter
+* 
+* Add a post-form alter hook.
+*/
+function pennywise_field_widget_form_alter(&$element, &$form_state, $context) {
+  if ($context['field']['type'] == 'addressfield') {
+    $element['name_block']['name_line']['#required'] = FALSE;
+    $element['street_block']['thoroughfare']['#required'] = FALSE;
+    $element['locality_block']['dependent_locality']['#required'] = FALSE;
+    $element['locality_block']['locality']['#required'] = FALSE;
+    $element['locality_block']['administrative_area']['#required'] = FALSE;
+    $element['locality_block']['postal_code']['#required'] = FALSE;
+  }
+}
+
+/**
+* Implementationof HOOK_form_alter
+* 
+* Add a post-form alter hook.
+*/
+#function pennywise_remove_required(&$element) {
+#	#$element['#required'] = FALSE;
+#	dpm($element);
+#	
+#	foreach (element_children($element) as $key) {
+#		pennywise_remove_required([$key]);
+#	}
+#}
+
 /**
 * Implementation of HOOK_email_registration_name
 *
@@ -705,6 +736,10 @@ function pennywise_block_view($delta = '') {
     case 'submit_editorial':
       $subject    = '';
       $content    = l('Submit Editorial', 'submit-editorial', array('attributes' => array('id' => 'editorial-submit-link')));
+<<<<<<< HEAD
+=======
+      $content   .= l('Submission Guidelines', 'editorial/submission-guidelines', array('attributes' => array('id' => 'editorial-guidelines')));
+>>>>>>> SiteReformation
       //$content = l('Submit Editorial', 'mailto:editorial@pennywiseads.comm?subject=Pennywise Editorial Submission&body=', array('absolute' => TRUE));
       break;
 
@@ -852,24 +887,28 @@ function pennywise_jcarousel_skin_info() {
 
   $skins['print'] = array(
     'title' => t('PW Print'),
-    'file' => 'skins/print/jcarousel-print.css',
+    'file' => 'skins/print/jcarousel-print.less',
   );
 
   $skins['fineprint'] = array(
     'title' => t('FinePrint'),
+<<<<<<< HEAD
     'file' => 'skins/fineprint/jcarousel-fineprint.css',
+=======
+    'file' => 'skins/fineprint/jcarousel-fineprint.less',
+>>>>>>> SiteReformation
   );
 
 
   $skins['front'] = array(
     'title' => t('Front'),
-    'file' => 'skins/front/jcarousel-front.css',
+    'file' => 'skins/front/jcarousel-front.less',
   );
 
 
   $skins['editorial'] = array(
     'title' => t('Vertical Ed'),
-    'file' => 'skins/editorial/jcarousel-editorial.css',
+    'file' => 'skins/editorial/jcarousel-editorial.less',
   );
 
   return $skins;

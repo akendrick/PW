@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 require_once('geofield.elements.inc');
 require_once('geofield.widgets.inc');
 require_once('geofield.formatters.inc');
@@ -8,6 +9,16 @@ require_once('geofield.feeds.inc');
 require_once('geofield.apachesolr.inc');
 require_once('geofield.schemaorg.inc');
 require_once('geofield.microdata.inc');
+=======
+module_load_include('inc', 'geofield', 'geofield.elements');
+module_load_include('inc', 'geofield', 'geofield.widgets');
+module_load_include('inc', 'geofield', 'geofield.formatters');
+module_load_include('inc', 'geofield', 'geofield.openlayers');
+module_load_include('inc', 'geofield', 'geofield.feeds');
+module_load_include('inc', 'geofield', 'geofield.apachesolr');
+module_load_include('inc', 'geofield', 'geofield.schemaorg');
+module_load_include('inc', 'geofield', 'geofield.microdata');
+>>>>>>> SiteReformation
 
 /* *
  * Max length of geohashes (imposed by database column length).
@@ -278,7 +289,11 @@ function geofield_field_presave($entity_type, $entity, $field, $instance, $langc
     if ($instance['required'] == 0 && empty($items)) {
       $entity_ids = entity_extract_ids($entity_type, $entity);
       if (empty($entity_ids[0])) {
+<<<<<<< HEAD
         $items = array($instance['default_value']);
+=======
+        $items = isset($instance['default_value']) ? array($instance['default_value']) : array();
+>>>>>>> SiteReformation
       }
     }
 
@@ -316,8 +331,18 @@ function geofield_field_load($entity_type, $entities, $field, $instances, $langc
       foreach ($items[$id] as $delta => $item) {
         if (!empty($item['geom'])) {
           $raw_geom = unpack('H*', $item['geom']);
+<<<<<<< HEAD
           $geom = $reader->readHEX($raw_geom[1]);
           $items[$id][$delta]['geom'] = $writer->write($geom);
+=======
+          try {
+            $geom = $reader->readHEX($raw_geom[1]);
+            $items[$id][$delta]['geom'] = $writer->write($geom);
+          }
+          catch (Exception $e) {
+            watchdog(WATCHDOG_ERROR, 'Cannot render poorly formatted WKB value %message', array('%message' => $e->getMessage()));
+          }
+>>>>>>> SiteReformation
         }
       }
     }

@@ -1,2 +1,0 @@
-- use purl modifiers to allow mapping of user specified terms to device groups (see purl readme.txt for more info)
-    - Ex: ['touch', 'mobile']

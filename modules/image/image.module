@@ -835,7 +835,7 @@ function image_style_deliver($style, $scheme) {
     else {
       $headers = module_invoke_all('file_download', $image_uri);
       if (in_array(-1, $headers) || empty($headers)) {
-        return drupal_access_denied();
+        return MENU_ACCESS_DENIED;
       }
       if (count($headers)) {
         foreach ($headers as $name => $value) {
@@ -843,6 +843,12 @@ function image_style_deliver($style, $scheme) {
         }
       }
     }
+  }
+
+  // Confirm that the original source image exists before trying to process it.
+  if (!is_file($image_uri)) {
+    watchdog('image', 'Source image at %source_image_path not found while trying to generate derivative image at %derivative_path.',  array('%source_image_path' => $image_uri, '%derivative_path' => $derivative_uri));
+    return MENU_NOT_FOUND;
   }
 
   // Don't start generating the image if the derivative already exists or if
@@ -854,6 +860,7 @@ function image_style_deliver($style, $scheme) {
       // Tell client to retry again in 3 seconds. Currently no browsers are known
       // to support Retry-After.
       drupal_add_http_header('Status', '503 Service Unavailable');
+      drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
       drupal_add_http_header('Retry-After', 3);
       print t('Image generation in progress. Try again shortly.');
       drupal_exit();
@@ -875,6 +882,7 @@ function image_style_deliver($style, $scheme) {
   else {
     watchdog('image', 'Unable to generate the derived image located at %path.', array('%path' => $derivative_uri));
     drupal_add_http_header('Status', '500 Internal Server Error');
+    drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
     print t('Error generating image.');
     drupal_exit();
   }
@@ -972,7 +980,13 @@ function image_style_flush($style) {
   // Delete the style directory in each registered wrapper.
   $wrappers = file_get_stream_wrappers(STREAM_WRAPPERS_WRITE_VISIBLE);
   foreach ($wrappers as $wrapper => $wrapper_data) {
+<<<<<<< HEAD
     file_unmanaged_delete_recursive($wrapper . '://styles/' . $style['name']);
+=======
+    if (file_exists($directory = $wrapper . '://styles/' . $style['name'])) {
+      file_unmanaged_delete_recursive($directory);
+    }
+>>>>>>> SiteReformation
   }
 
   // Let other modules update as necessary on flush.
@@ -1010,10 +1024,18 @@ function image_style_flush($style) {
  */
 function image_style_url($style_name, $path) {
   $uri = image_style_path($style_name, $path);
+
+  // The passed-in $path variable can be either a relative path or a full URI.
+  $original_uri = file_uri_scheme($path) ? file_stream_wrapper_uri_normalize($path) : file_build_uri($path);
+
   // The token query is added even if the 'image_allow_insecure_derivatives'
   // variable is TRUE, so that the emitted links remain valid if it is changed
   // back to the default FALSE.
+<<<<<<< HEAD
   $token_query = array(IMAGE_DERIVATIVE_TOKEN => image_style_path_token($style_name, file_stream_wrapper_uri_normalize($path)));
+=======
+  $token_query = array(IMAGE_DERIVATIVE_TOKEN => image_style_path_token($style_name, $original_uri));
+>>>>>>> SiteReformation
 
   // If not using clean URLs, the image derivative callback is only available
   // with the query string. If the file does not exist, use url() to ensure

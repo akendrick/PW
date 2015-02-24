@@ -125,35 +125,68 @@ function _openlayers_styles_process($styles = array(),
   }
 
   // Add layer styles
+<<<<<<< HEAD
   foreach ($layer_styles as $style) {
+=======
+  foreach ($layer_styles as $key => $style) {
+>>>>>>> SiteReformation
     if (!isset($processed[$style]) &&
         !empty($styles_info[$style]) &&
         $info = $styles_info[$style]->data) {
       $processed[$style] = $info;
     }
+<<<<<<< HEAD
   }
 
   // Add layer styles select
   foreach ($layer_styles_select as $style) {
+=======
+    if (empty($style)) {
+      // If a particular layer's style is 0, set it to the appropriate default.
+      $map['layer_styles'][$key] = 'default';
+    }
+  }
+
+  // Add layer styles select
+  foreach ($layer_styles_select as $key => $style) {
+>>>>>>> SiteReformation
     if (!isset($processed[$style]) &&
         !empty($styles_info[$style]) &&
         $info = $styles_info[$style]->data) {
       $processed[$style] = $info;
     }
+<<<<<<< HEAD
   }
 
   // Add layer styles temporary
   foreach ($layer_styles_temporary as $style) {
+=======
+    if (empty($style)) {
+      // If a particular layer's style is 0, set it to the appropriate default.
+      $map['layer_styles_select'][$key] = 'select';
+    }
+  }
+
+  // Add layer styles temporary
+  foreach ($layer_styles_temporary as $key => $style) {
+>>>>>>> SiteReformation
     if (!isset($processed[$style]) &&
       !empty($styles_info[$style]) &&
       $info = $styles_info[$style]->data) {
       $processed[$style] = $info;
     }
+<<<<<<< HEAD
   }
 
   // Update URLs to support different types of paths
   foreach ($processed as $k => $style) {
     $processed[$k] = openlayers_render_style($style);
+=======
+    if (empty($style)) {
+      // If a particular layer's style is 0, set it to the appropriate default.
+      $map['layer_styles_temporary'][$key] = 'temporary';
+    }
+>>>>>>> SiteReformation
   }
 
   // Run through theme function
@@ -167,6 +200,7 @@ function _openlayers_styles_process($styles = array(),
 }
 
 /**
+<<<<<<< HEAD
  * Render style array.
  *
  * At the moment, this only makes the external grpahics
@@ -187,6 +221,8 @@ function openlayers_render_style($style = array()) {
 }
 
 /**
+=======
+>>>>>>> SiteReformation
  * Create Map ID
  *
  * Create a unique ID for any maps that are not assigned an ID
@@ -200,6 +236,7 @@ function openlayers_render_style($style = array()) {
 function _openlayers_create_map_id() {
   return drupal_html_id('openlayers-map');
 }
+<<<<<<< HEAD
 
 /**
  * URL Style
@@ -226,3 +263,5 @@ function openlayers_style_path($path) {
   }
   return $path;
 }
+=======
+>>>>>>> SiteReformation

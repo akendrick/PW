@@ -31,6 +31,25 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
    *   (optional) An assertion log message.
    */
   public abstract function assertNodeOperationAccess($nid, $op, $expected_response, $msg = '');
+<<<<<<< HEAD
+=======
+
+  /**
+   * Allow content type to be used with publish content.
+   */
+  public function enablePublishContentForContentType($types) {
+    if (!is_array($types)) {
+      $types = array($types);
+    }
+
+    foreach ($types as $type) {
+      variable_set('publishcontent_' . $type, TRUE);
+    }
+
+    // Rebuild SimpleTests permissions cache.
+    $this->checkPermissions(array(), TRUE);
+  }
+>>>>>>> SiteReformation
 
   /**
    * Assert the status of a given node.
@@ -243,7 +262,11 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
    */
   public function testPublishNotUnpublish() {
     $type = 'page';
+<<<<<<< HEAD
     variable_set('publishcontent_' . $type, TRUE);
+=======
+    $this->enablePublishContentForContentType($type);
+>>>>>>> SiteReformation
 
     $web_user = $this->drupalCreateUser(array(
       'access content',
@@ -274,7 +297,12 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
    */
   public function testNotPublishUnpublish() {
     $type = 'page';
+<<<<<<< HEAD
     variable_set('publishcontent_' . $type, TRUE);
+=======
+    $this->enablePublishContentForContentType($type);
+
+>>>>>>> SiteReformation
     $web_user = $this->drupalCreateUser(array(
       'access content',
       'unpublish any ' . $type . ' content',
@@ -300,7 +328,11 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
    */
   public function testPublishUnpublish() {
     $type = 'page';
+<<<<<<< HEAD
     variable_set('publishcontent_' . $type, TRUE);
+=======
+    $this->enablePublishContentForContentType($type);
+>>>>>>> SiteReformation
 
     $web_user_1 = $this->drupalCreateUser(array(
       'access content',
@@ -339,6 +371,7 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
     $this->drupalLogin($web_user_2);
     $this->assertCurrentUserCannotPublish($node2);
     $this->assertCurrentUserCanUnpublish($node2);
+<<<<<<< HEAD
 
     $web_user_3 = $this->drupalCreateUser(array(
       'access content',
@@ -348,6 +381,17 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
       'unpublish any content',
     ));
 
+=======
+
+    $web_user_3 = $this->drupalCreateUser(array(
+      'access content',
+      'view own unpublished content',
+      'edit any ' . $type . ' content',
+      'publish any content',
+      'unpublish any content',
+    ));
+
+>>>>>>> SiteReformation
     $node3 = $this->drupalCreateNode(
       array(
         'type' => $type,
@@ -366,8 +410,12 @@ abstract class PublishContentWebTestBase extends DrupalWebTestCase {
    */
   public function testBasicPublishCallback() {
     $type = 'page';
+<<<<<<< HEAD
     variable_set('publishcontent_' . $type, TRUE);
     variable_set('publishcontent_article', TRUE);
+=======
+    $this->enablePublishContentForContentType(array($type, 'article'));
+>>>>>>> SiteReformation
 
     $web_user_1 = $this->drupalCreateUser(array(
       'access content',
@@ -697,7 +745,11 @@ class PublishContentCheckboxTests extends PublishContentWebTestBase {
    */
   public function testAccessNodeAdd() {
     $type = 'page';
+<<<<<<< HEAD
     variable_set('publishcontent_' . $type, TRUE);
+=======
+    $this->enablePublishContentForContentType($type);
+>>>>>>> SiteReformation
 
     $web_user_1 = $this->drupalCreateUser(array(
       'access content',

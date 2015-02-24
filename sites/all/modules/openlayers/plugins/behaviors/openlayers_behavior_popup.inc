@@ -16,6 +16,10 @@ class openlayers_behavior_popup extends openlayers_behavior {
       'layers' => array(),
       'panMapIfOutOfView' => FALSE,
       'keepInMap' => TRUE,
+<<<<<<< HEAD
+=======
+      'popupAtPosition' => 'mouse'
+>>>>>>> SiteReformation
     );
   }
 
@@ -41,18 +45,39 @@ class openlayers_behavior_popup extends openlayers_behavior {
         '#default_value' => isset($defaults['layers']) ?
           $defaults['layers'] : array(),
       ),
+<<<<<<< HEAD
+=======
+      'popupAtPosition' => array(
+        '#type' => 'select',
+        '#title' => t('Select where the popup should pop up'),
+        '#description' => t('When selecting a feature, should the popup appear at the mouse position or in the center of the feature ?'),
+        '#default_value' => isset($defaults['popupAtPosition']) ? $defaults['popupAtPosition'] : 'mouse',
+        '#options' => array(
+          'mouse' => 'At the mouse position',
+          'computed' => 'Computed from the center of the feature'
+        )
+      ),
+>>>>>>> SiteReformation
       'panMapIfOutOfView' => array(
         '#type' => 'checkbox',
         '#title' => t('Pan map if popup out of view'),
         '#description' => t('When drawn, pan map such that the entire popup is visible in the current viewport (if necessary).'),
         '#default_value' => isset($defaults['panMapIfOutOfView']) ? $defaults['panMapIfOutOfView'] : FALSE
+<<<<<<< HEAD
         ),
+=======
+      ),
+>>>>>>> SiteReformation
       'keepInMap' => array(
         '#type' => 'checkbox',
         '#title' => t('Keep in map'),
         '#description' => t('If panMapIfOutOfView is false, and this property is true, contrain the popup such that it always fits in the available map space.'),
         '#default_value' => isset($defaults['keepInMap']) ? $defaults['keepInMap'] : TRUE
+<<<<<<< HEAD
         ),
+=======
+      ),
+>>>>>>> SiteReformation
     );
   }
 

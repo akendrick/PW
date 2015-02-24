@@ -6,9 +6,17 @@ dependencies[] = geofield
 files[] = includes/geofield_map.views.inc
 files[] = includes/geofield_map_plugin_style_map.inc
 
+<<<<<<< HEAD
 ; Information added by drupal.org packaging script on 2013-09-22
 version = "7.x-2.0"
 core = "7.x"
 project = "geofield"
 datestamp = "1379874471"
+=======
+; Information added by Drupal.org packaging script on 2014-09-21
+version = "7.x-2.3"
+core = "7.x"
+project = "geofield"
+datestamp = "1411337638"
+>>>>>>> SiteReformation
 

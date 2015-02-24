@@ -1,7 +1,11 @@
 (function ($) {
 
 /**
+<<<<<<< HEAD
  * This script transforms a set of wrappers into a stack of multipage pages. 
+=======
+ * This script transforms a set of wrappers into a stack of multipage pages.
+>>>>>>> SiteReformation
  * Another pane can be entered by clicking next/previous.
  *
  */
@@ -24,22 +28,37 @@ Drupal.behaviors.MultiPage = {
 
       // Transform each div.multipage-pane into a multipage with controls.
       $panes.each(function () {
+<<<<<<< HEAD
         
         $controls = $('<div class="multipage-controls-list clearfix"></div>');
         $(this).append($controls);
         
+=======
+
+        $controls = $('<div class="multipage-controls-list clearfix"></div>');
+        $(this).append($controls);
+
+>>>>>>> SiteReformation
         // Check if the submit button needs to move to the latest pane.
         if (Drupal.settings.field_group.multipage_move_submit && $('.form-actions').length) {
           $('.form-actions', $form).remove().appendTo($($controls, $panes.last()));
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> SiteReformation
         var multipageControl = new Drupal.multipageControl({
           title: $('> .multipage-pane-title', this).text(),
           wrapper: $(this),
           has_next: $(this).next().length,
           has_previous: $(this).prev().length
         });
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> SiteReformation
         $controls.append(multipageControl.item);
         $(this)
           .addClass('multipage-pane')
@@ -48,13 +67,22 @@ Drupal.behaviors.MultiPage = {
         if (this.id == focusID) {
           paneWithFocus = $(this);
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> SiteReformation
       });
 
       if (paneWithFocus === undefined) {
         // If the current URL has a fragment and one of the tabs contains an
         // element that matches the URL fragment, activate that tab.
+<<<<<<< HEAD
         if (window.location.hash && window.location.hash !== '#' && $(window.location.hash, this).length) {
+=======
+        var hash = window.location.hash.replace(/[=%;,\/]/g, "");
+        if (hash !== '#' && $(hash, this).length) {
+>>>>>>> SiteReformation
           paneWithFocus = $(window.location.hash, this).closest('.multipage-pane');
         }
         else {
@@ -85,12 +113,20 @@ Drupal.multipageControl = function (settings) {
     self.nextPage();
     return false;
   });
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> SiteReformation
   this.previousLink.click(function () {
     self.previousPage();
     return false;
   });
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> SiteReformation
 /*
   // Keyboard events added:
   // Pressing the Enter key will open the tab pane.
@@ -116,7 +152,11 @@ Drupal.multipageControl = function (settings) {
 };
 
 Drupal.multipageControl.prototype = {
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> SiteReformation
   /**
    * Displays the tab's content pane.
    */
@@ -135,7 +175,11 @@ Drupal.multipageControl.prototype = {
     $('#active-multipage-control').remove();
     this.nextLink.after('<span id="active-multipage-control" class="element-invisible">' + Drupal.t('(active page)') + '</span>');
   },
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> SiteReformation
   /**
    * Continues to the next page or step in the form.
    */
@@ -143,7 +187,11 @@ Drupal.multipageControl.prototype = {
     this.wrapper.next().data('multipageControl').focus();
     $('html, body').scrollTop(this.wrapper.parents('.field-group-multipage-group-wrapper').offset().top);
   },
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> SiteReformation
   /**
    * Returns to the previous page or step in the form.
    */
@@ -210,6 +258,7 @@ Drupal.theme.prototype.multipage = function (settings) {
 
   var controls = {};
   controls.item = $('<span class="multipage-button"></span>');
+<<<<<<< HEAD
   
   controls.previousLink = $('<input type="button" class="form-submit multipage-link-previous" value="" />');
   controls.previousTitle = Drupal.t('Previous page');
@@ -219,13 +268,28 @@ Drupal.theme.prototype.multipage = function (settings) {
   controls.nextTitle = Drupal.t('Next page');
   controls.item.append(controls.nextLink.val(controls.nextTitle));
   
+=======
+
+  controls.previousLink = $('<input type="button" class="form-submit multipage-link-previous" value="" />');
+  controls.previousTitle = Drupal.t('Previous page');
+  controls.item.append(controls.previousLink.val(controls.previousTitle));
+
+  controls.nextLink = $('<input type="button" class="form-submit multipage-link-next" value="" />');
+  controls.nextTitle = Drupal.t('Next page');
+  controls.item.append(controls.nextLink.val(controls.nextTitle));
+
+>>>>>>> SiteReformation
   if (!settings.has_next) {
     controls.nextLink.hide();
   }
   if (!settings.has_previous) {
     controls.previousLink.hide();
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> SiteReformation
   return controls;
 };
 
@@ -239,6 +303,7 @@ Drupal.FieldGroup.Effects = Drupal.FieldGroup.Effects || {};
 Drupal.FieldGroup.Effects.processMultipage = {
   execute: function (context, settings, type) {
     if (type == 'form') {
+<<<<<<< HEAD
       
       var $firstErrorItem = false;
       
@@ -251,6 +316,20 @@ Drupal.FieldGroup.Effects.processMultipage = {
             $firstErrorItem = $(this).data('multipageControl');
           }          
           
+=======
+
+      var $firstErrorItem = false;
+
+      // Add required fields mark to any element containing required fields
+      $('div.multipage-pane').each(function(i){
+        if ($('.error', $(this)).length) {
+
+          // Save first error item, for focussing it.
+          if (!$firstErrorItem) {
+            $firstErrorItem = $(this).data('multipageControl');
+          }
+
+>>>>>>> SiteReformation
           Drupal.FieldGroup.setGroupWithfocus($(this));
           $(this).data('multipageControl').focus();
         }
@@ -260,7 +339,11 @@ Drupal.FieldGroup.Effects.processMultipage = {
       if ($firstErrorItem) {
         $firstErrorItem.focus();
       }
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> SiteReformation
     }
   }
 }

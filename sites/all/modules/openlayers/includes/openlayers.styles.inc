@@ -16,6 +16,22 @@
 function _openlayers_openlayers_styles() {
   $styles = array();
 
+<<<<<<< HEAD
+=======
+  // Hides features
+  $style = new stdClass();
+  $style->api_version = 1;
+  $style->name = 'invisible';
+  $style->title = t('Invisible style');
+  $style->description = t('Invisible default style.');
+  $style->data = array(
+    'pointRadius' => '0',
+    'strokeWidth' => '0',
+    'fillOpacity' => '0'
+  );
+  $styles[$style->name] = $style;
+
+>>>>>>> SiteReformation
   // Default style
   $style = new stdClass();
   $style->api_version = 1;
@@ -32,6 +48,7 @@ function _openlayers_openlayers_styles() {
   );
   $styles[$style->name] = $style;
 
+<<<<<<< HEAD
   // Hides features
   $style = new stdClass();
   $style->api_version = 1;
@@ -45,6 +62,8 @@ function _openlayers_openlayers_styles() {
   );
   $styles[$style->name] = $style;
 
+=======
+>>>>>>> SiteReformation
   // Default select style
   $style = new stdClass();
   $style->api_version = 1;
@@ -61,6 +80,7 @@ function _openlayers_openlayers_styles() {
   );
   $styles[$style->name] = $style;
 
+<<<<<<< HEAD
   // Marker styles
   $markers = array(
     'red' => t('Red'),
@@ -85,6 +105,23 @@ function _openlayers_openlayers_styles() {
     );
     $styles[$style->name] = $style;
   }
+=======
+  // Default temporary style
+  $style = new stdClass();
+  $style->api_version = 1;
+  $style->name = 'default_temporary_select';
+  $style->title = t('Default temporary select style');
+  $style->description = t('Default temporary style when using tooltips or hovering behavior');
+  $style->data = array(
+    'pointRadius' => '6',
+    'fillColor' => '#222222',
+    'strokeColor' => '#888888',
+    'strokeWidth' => '4',
+    'fillOpacity' => '0.9',
+    'strokeOpacity' => '0.8',
+  );
+  $styles[$style->name] = $style;
+>>>>>>> SiteReformation
 
   // Custom black markers
   $style = new stdClass();
@@ -93,7 +130,11 @@ function _openlayers_openlayers_styles() {
   $style->title = t('Marker Black');
   $style->description = t('Black marker provided by the OpenLayers module.');
   $style->data = array(
+<<<<<<< HEAD
     'externalGraphic' => drupal_get_path('module', 'openlayers') .
+=======
+    'externalGraphic' => base_path() . drupal_get_path('module', 'openlayers') .
+>>>>>>> SiteReformation
       '/themes/default_dark/markers/marker-black.png',
     'graphicWidth' => 25,
     'graphicHeight' => 41,
@@ -108,7 +149,11 @@ function _openlayers_openlayers_styles() {
   $style->title = t('Marker Black Small');
   $style->description = t('Small black marker provided by the OpenLayers module.');
   $style->data = array(
+<<<<<<< HEAD
     'externalGraphic' => drupal_get_path('module', 'openlayers') .
+=======
+    'externalGraphic' => base_path() . drupal_get_path('module', 'openlayers') .
+>>>>>>> SiteReformation
       '/themes/default_dark/markers/marker-black-small.png',
     'graphicWidth' => 16,
     'graphicHeight' => 26,
@@ -117,5 +162,34 @@ function _openlayers_openlayers_styles() {
   );
   $styles[$style->name] = $style;
 
+<<<<<<< HEAD
+=======
+  // Marker styles
+  $markers = array(
+    'red' => t('Red'),
+    'green' => t('Green'),
+    'gold' => t('Gold'),
+    'blue' => t('Blue'),
+  );
+
+  foreach ($markers as $marker => $color) {
+    $style = new stdClass();
+    $style->api_version = 1;
+    $style->name = 'default_marker_' . $marker;
+    $style->title = t('Marker !color', array('!color' => $color));
+    $style->description = t('!color marker provided by the OpenLayers module.',
+      array('!color' => $color));
+    $style->data = array(
+      'externalGraphic' => base_path() . drupal_get_path('module', 'openlayers') .
+        '/themes/default_dark/img/marker-' . $marker . '.png',
+      'graphicWidth' => 21,
+      'graphicHeight' => 25,
+      'graphicXOffset' => -10,
+      'graphicYOffset' => -25,
+    );
+    $styles[$style->name] = $style;
+  }
+
+>>>>>>> SiteReformation
   return $styles;
 }

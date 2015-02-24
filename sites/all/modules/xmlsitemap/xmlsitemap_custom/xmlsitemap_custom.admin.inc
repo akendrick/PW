@@ -21,11 +21,21 @@ function xmlsitemap_custom_list_links() {
   $rows = array();
   $destination = drupal_get_destination();
 
+<<<<<<< HEAD
   $query = db_select('xmlsitemap');
   $query->fields('xmlsitemap');
   $query->condition('type', 'custom');
   $query->extend('PagerDefault')->limit(50);
   $query->extend('TableSort')->orderByHeader($header);
+=======
+  $query = db_select('xmlsitemap')
+    ->extend('PagerDefault')
+    ->extend('TableSort');
+  $query->fields('xmlsitemap');
+  $query->condition('type', 'custom');
+  $query->limit(25);
+  $query->orderByHeader($header);
+>>>>>>> SiteReformation
   $result = $query->execute();
 
   foreach ($result as $link) {

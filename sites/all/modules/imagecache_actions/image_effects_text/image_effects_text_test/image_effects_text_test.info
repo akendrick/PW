@@ -1,5 +1,9 @@
 name = Image Effects Text test
+<<<<<<< HEAD
 description = Image styles that test the text effect
+=======
+description = Defines image styles that test the text effect.
+>>>>>>> SiteReformation
 core = 7.x
 package = Media
 
@@ -8,9 +12,17 @@ dependencies[] = image_effects_text
 dependencies[] = imagecache_canvasactions
 dependencies[] = system_stream_wrapper
 
+<<<<<<< HEAD
 ; Information added by drupal.org packaging script on 2013-08-24
 version = "7.x-1.4"
 core = "7.x"
 project = "imagecache_actions"
 datestamp = "1377368494"
+=======
+; Information added by Drupal.org packaging script on 2014-11-29
+version = "7.x-1.5"
+core = "7.x"
+project = "imagecache_actions"
+datestamp = "1417256282"
+>>>>>>> SiteReformation
 

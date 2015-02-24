@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> SiteReformation
 (function ($) {
 
 Drupal.behaviors.fileFieldsetSummaries = {

@@ -13,8 +13,17 @@ function file_entity_field_formatter_info() {
     'label' => t('Rendered file'),
     'description' => t('Display the file in a specific view mode'),
     'field types' => array('file', 'image'),
+<<<<<<< HEAD
     'settings' => array('file_view_mode' => 'default'),
     'hidden file formatter' => TRUE,
+=======
+    'settings' => array(
+      'file_view_mode' => 'default',
+    ),
+    'file formatter' => array(
+      'hidden' => TRUE,
+    ),
+>>>>>>> SiteReformation
   );
   $info['file_download_link'] = array(
     'label' => t('Download link'),
@@ -34,6 +43,12 @@ function file_entity_field_formatter_info() {
       'loop' => FALSE,
       'multiple_file_behavior' => 'tags',
     ),
+<<<<<<< HEAD
+=======
+    'file formatter' => array(
+      'mime types' => array('audio/*'),
+    ),
+>>>>>>> SiteReformation
   );
   $info['file_video'] = array(
     'label' => t('Video'),
@@ -48,8 +63,41 @@ function file_entity_field_formatter_info() {
       'height' => NULL,
       'multiple_file_behavior' => 'tags',
     ),
+<<<<<<< HEAD
+=======
+    'file formatter' => array(
+      'mime types' => array('video/*'),
+    ),
+>>>>>>> SiteReformation
   );
   return $info;
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function file_entity_field_formatter_info_alter(&$info) {
+  // Add descriptions to core formatters.
+  $descriptions = array(
+    'file_default' => t('Create a simple link to the file. The link is prefixed by a file type icon and the name of the file is used as the link text'),
+    'file_table' => t('Build a two-column table where the first column contains a generic link to the file and the second column displays the size of the file.'),
+    'file_url_plain' => t('Display a plain text URL to the file.'),
+    'image' => t('Format the file as an image. The image can be displayed using an image style and can optionally be linked to the image file itself or its parent content.'),
+  );
+  foreach ($descriptions as $key => $description) {
+    if (isset($info[$key]) && empty($info[$key]['description'])) {
+      $info[$key]['description'] = $description;
+    }
+  }
+
+  // Formatters that can be used for images but not files, should have a
+  // default mimetype restriction added to the image/* mime type for use with
+  // file formatters.
+  foreach ($info as &$formatter) {
+    if (!isset($formatter['file formatter']) && in_array('image', $formatter['field types']) && !in_array('file', $formatter['field types'])) {
+      $formatter['file formatter']['mime types'] = array('image/*');
+    }
+  }
 }
 
 /**
@@ -123,6 +171,14 @@ function file_entity_field_formatter_settings_form($field, $instance, $view_mode
       '#type' => 'checkbox',
       '#default_value' => $settings['loop'],
     );
+<<<<<<< HEAD
+=======
+    $element['muted'] = array(
+      '#title' => t('Muted'),
+      '#type' => 'checkbox',
+      '#default_value' => $settings['muted'],
+    );
+>>>>>>> SiteReformation
     $element['width'] = array(
       '#type' => 'textfield',
       '#title' => t('Width'),
@@ -166,6 +222,46 @@ function file_entity_field_formatter_settings_summary($field, $instance, $view_m
   if ($display['type'] === 'file_rendered') {
     $view_mode_label = file_entity_view_mode_label($settings['file_view_mode'], t('Unknown'));
     $summary[] = t('View mode: %mode', array('%mode' => $view_mode_label));
+<<<<<<< HEAD
+=======
+  }
+  elseif ($display['type'] == 'file_download_link') {
+    $summary[] = t('Link text: %text', array('%text' => $settings['text']));
+  }
+  elseif ($display['type'] === 'file_audio') {
+    if (isset($settings['controls'])) {
+      $summary[] = t('Controls: %controls', array('%controls' => $settings['controls'] ? 'visible' : 'hidden'));
+    }
+    if (isset($settings['autoplay'])) {
+      $summary[] = t('Autoplay: %autoplay', array('%autoplay' => $settings['autoplay'] ? t('yes') : t('no')));
+    }
+    if (isset($settings['loop'])) {
+      $summary[] = t('Loop: %loop', array('%loop' => $settings['loop'] ? t('yes') : t('no')));
+    }
+    if (isset($settings['multiple_file_behavior'])) {
+      $summary[] = t('Multiple files: %multiple', array('%multiple' => $settings['multiple_file_behavior']));
+    }
+  }
+  elseif ($display['type'] === 'file_video') {
+    if (isset($settings['controls'])) {
+      $summary[] = t('Controls: %controls', array('%controls' => $settings['controls'] ? 'visible' : 'hidden'));
+    }
+    if (isset($settings['autoplay'])) {
+      $summary[] = t('Autoplay: %autoplay', array('%autoplay' => $settings['autoplay'] ? t('yes') : t('no')));
+    }
+    if (isset($settings['loop'])) {
+      $summary[] = t('Loop: %loop', array('%loop' => $settings['loop'] ? t('yes') : t('no')));
+    }
+    if (isset($settings['muted'])) {
+      $summary[] = t('Muted: %muted', array('%muted' => $settings['muted'] ? t('yes') : t('no')));
+    }
+    if ($settings['width'] && $settings['height']) {
+      $summary[] = t('Size: %width x %height', array('%width' => $settings['width'], '%height' => $settings['height']));
+    }
+    if (isset($settings['multiple_file_behavior'])) {
+      $summary[] = t('Multiple files: %multiple', array('%multiple' => $settings['multiple_file_behavior']));
+    }
+>>>>>>> SiteReformation
   }
   elseif ($display['type'] == 'file_download_link') {
     $summary[] = t('Link text: %text', array('%text' => $settings['text']));
@@ -184,6 +280,7 @@ function file_entity_field_formatter_settings_summary($field, $instance, $view_m
       $summary[] = t('Multiple files: %multiple', array('%multiple' => $settings['multiple_file_behavior']));
     }
 
+<<<<<<< HEAD
   }
   elseif ($display['type'] === 'file_video') {
     $summary_items = array();
@@ -207,6 +304,8 @@ function file_entity_field_formatter_settings_summary($field, $instance, $view_m
     }
   }
 
+=======
+>>>>>>> SiteReformation
   return implode('<br />', $summary);
 }
 
@@ -227,7 +326,8 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     // If no 'referencing entity' is set, we are starting a new 'reference
     // thread' and need to reset the queue.
     // @todo Bug: $entity->referencing_entity on files referenced in a different
-    // thread on the page. E.g: 1 references 1+2 / 2 references 1+2 / visit homepage.
+    // thread on the page.
+    // E.g: 1 references 1+2 / 2 references 1+2 / visit homepage.
     // We'd need a more accurate way...
     if (!isset($entity->referencing_entity)) {
       $recursion_queue = array();
@@ -248,6 +348,9 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     foreach ($items as $delta => $item) {
       if (!isset($recursion_queue[$item['fid']])) {
         $files_display[$item['fid']] = file_load($item['fid']);
+        if (!empty($item['description'])) {
+          $files_display[$item['fid']]->description = $item['description'];
+        }
       }
     }
 
@@ -255,6 +358,7 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     if ($files_display) {
       foreach ($files_display as $fid => $file) {
         $files_display[$fid]->referencing_entity = $entity;
+        $files_display[$fid]->referencing_entity_type = $entity_type;
         $files_display[$fid]->referencing_field = $field['field_name'];
       }
       $output = file_view_multiple($files_display, $view_mode);
@@ -292,19 +396,31 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     if ($multiple_file_behavior == 'tags') {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'audio') {
+<<<<<<< HEAD
           $source_lists[] = array($item);
+=======
+          $source_lists[$delta] = array($item);
+>>>>>>> SiteReformation
         }
       }
     }
     else {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'audio') {
+<<<<<<< HEAD
           $source_lists[0][] = $item;
+=======
+          $source_lists[0][$delta] = $item;
+>>>>>>> SiteReformation
         }
       }
     }
 
+<<<<<<< HEAD
     // render each source list as an <audio> element
+=======
+    // Render each source list as an <audio> element.
+>>>>>>> SiteReformation
     foreach ($source_lists as $delta => $sources) {
       $element[$delta] = array(
         '#theme' => 'file_entity_file_audio',
@@ -326,22 +442,35 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     if ($multiple_file_behavior == 'tags') {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'video') {
+<<<<<<< HEAD
           $source_lists[] = array($item);
+=======
+          $source_lists[$delta] = array($item);
+>>>>>>> SiteReformation
         }
       }
     }
     else {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'video') {
+<<<<<<< HEAD
           $source_lists[0][] = $item;
+=======
+          $source_lists[0][$delta] = $item;
+>>>>>>> SiteReformation
         }
       }
     }
 
+<<<<<<< HEAD
     // render each source list as an <video> element
     foreach ($source_lists as $delta => $sources) {
       $width = $settings['width'];
       $height = $settings['height'];
+=======
+    // Render each source list as an <video> element.
+    foreach ($source_lists as $delta => $sources) {
+>>>>>>> SiteReformation
       $element[$delta] = array(
         '#theme' => 'file_entity_file_video',
         '#files' => $sources,
@@ -349,8 +478,13 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
         '#autoplay' => $settings['autoplay'],
         '#loop' => $settings['loop'],
         '#muted' => $settings['muted'],
+<<<<<<< HEAD
         '#width' => ($width && $height) ? $width : NULL,
         '#height' => ($width && $height) ? $height : NULL,
+=======
+        '#width' => $settings['width'],
+        '#height' => $settings['height'],
+>>>>>>> SiteReformation
       );
     }
   }

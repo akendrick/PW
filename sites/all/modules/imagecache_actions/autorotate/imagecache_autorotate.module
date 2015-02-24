@@ -7,8 +7,16 @@
  *
  * Originally contributed by jonathan_hunt https://drupal.org/user/28976,
  * September 1, 2009
+<<<<<<< HEAD
+=======
  */
 
+/**
+ * Implements hook_image_effect_info().
+ *
+ * Defines information about the supported effects.
+>>>>>>> SiteReformation
+ */
 function imagecache_autorotate_image_effect_info() {
   $effects = array();
 
@@ -80,6 +88,7 @@ function imagecache_autorotate_form() {
 
 /**
  * Implements theme_hook() for the autorotate effect summary.
+<<<<<<< HEAD
  *
  * param array $variables
  *   An associative array containing:
@@ -110,12 +119,93 @@ function imagecache_autorotate_effect(stdClass $image, $data) {
       if ($image->toolkit === 'imagemagick') {
         drupal_set_message(t('Though imagemagick will work without exif_read_data(), subsequent effects may fail as the image dimensions cannot be updated.'), 'warning');
       }
+=======
+ *
+ * param array $variables
+ *   An associative array containing:
+ *   - data: The current configuration for this image effect.
+ *
+ * @return string
+ *   The HTML for the summary of this image effect.
+ * @ingroup themeable
+ */
+function theme_imagecache_autorotate_summary(/*array $variables*/) {
+  return 'Autorotate image based on its EXIF data.';
+}
+
+/**
+ * Autorotate image based on EXIF Orientation tag.
+ */
+function imagecache_autorotate_effect(stdClass $image /*, $data*/) {
+  // Test to see if EXIF is supported by the current image type.
+  if (in_array($image->info['mime_type'], array('image/jpeg', 'image/tiff'))) {
+    // Hand over to toolkit.
+    return image_toolkit_invoke('imagecache_autorotate', $image);
+  }
+  else if ($image->source === 'modules/image/sample.png' && user_access('administer image styles')) {
+    if (!extension_loaded('exif')) {
+      // Issue a warning if we are in the admin screen and the exif extension is
+      // not enabled.
+      drupal_set_message(t('The autorotate image effect requires the exif extension to be enabled.'), 'warning');
+      if ($image->toolkit === 'imagemagick') {
+        drupal_set_message(t('Though imagemagick will work without the exif extension, subsequent effects may fail as the image dimensions cannot be updated.'), 'warning');
+      }
     }
   }
   return TRUE;
 }
 
 /**
+ * GD toolkit specific implementation of this image effect.
+ *
+ * @param stdClass $image
+ *
+ * @return bool
+ *   true on success, false otherwise.
+ */
+function image_gd_imagecache_autorotate(stdClass $image) {
+  if (!function_exists('exif_read_data')) {
+    watchdog('image', 'Image %file could not be auto-rotated: !message', array('%file' => $image->source, '!message' => t('The exif_read_data() function is not available in this PHP installation. You probably have to enable the exif extension.')));
+    return FALSE;
+  }
+  $exif = exif_read_data(drupal_realpath($image->source));
+  if (isset($exif['Orientation'])) {
+    // http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html:
+    // 1 = Horizontal (normal)
+    // 2 = Mirror horizontal
+    // 3 = Rotate 180
+    // 4 = Mirror vertical
+    // 5 = Mirror horizontal and rotate 270 CW
+    // 6 = Rotate 90 CW
+    // 7 = Mirror horizontal and rotate 90 CW
+    // 8 = Rotate 270 CW
+    // @todo: Add horizontal and vertical flips etc.
+    // imagecopy seems to be able to mirror, see conmments on
+    // http://php.net/manual/en/function.imagecopy.php
+    // @todo: Create sample set for tests.
+    switch ($exif['Orientation']) {
+      case 3:
+        $degrees = 180;
+        break;
+      case 6:
+        $degrees = 90;
+        break;
+      case 8:
+        $degrees = 270;
+        break;
+      default:
+        $degrees = 0;
+    }
+    if ($degrees != 0) {
+      return image_rotate($image, $degrees);
+>>>>>>> SiteReformation
+    }
+  }
+  return TRUE;
+}
+
+/**
+<<<<<<< HEAD
  * GD toolkit specific implementation of this image effect.
  *
  * @param stdClass $image
@@ -168,6 +258,12 @@ function image_gd_imagecache_autorotate(stdClass $image) {
  *
  * @param stdClass $image
  *   An image object. The $image->resource value will be modified by this call.
+=======
+ * Imagemagick toolkit specific implementation of this image effect.
+ *
+ * @param stdClass $image
+ *   An image object.
+>>>>>>> SiteReformation
  *
  * @return bool
  *   true on success, false otherwise.
@@ -175,25 +271,57 @@ function image_gd_imagecache_autorotate(stdClass $image) {
  * @see http://www.imagemagick.org/script/command-line-options.php#auto-orient
  */
 function image_imagemagick_imagecache_autorotate(stdClass $image) {
+<<<<<<< HEAD
   $image->ops[] = '-auto-orient';
   // Use the exif extension, if enabled, to figure out the new dimensions.
+=======
+  // Use the exif extension, if enabled, to figure out the new dimensions.
+  // Moreover (see [#2366163]): to prevent a bug in IM to incorrectly rotate the
+  // image when it should not, we only pass the auto-orient argument when the
+  // exif extension could detect the 'Orientation' tag.
+>>>>>>> SiteReformation
   if (function_exists('exif_read_data')) {
     $exif = exif_read_data(drupal_realpath($image->source));
     if (isset($exif['Orientation'])) {
       switch ($exif['Orientation']) {
+<<<<<<< HEAD
         case 6:
         case 8:
           // 90 or 270 degrees rotation: swap dimensions.
+=======
+        case 1:
+          // Normal orientation: no need to rotate or to change the dimensions.
+          break;
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+          // 90 or 270 degrees rotation (+ optional mirror): swap dimensions.
+          $image->ops[] = '-auto-orient';
+>>>>>>> SiteReformation
           $tmp = $image->info['width'];
           $image->info['width'] = $image->info['height'];
           $image->info['height'] = $tmp;
           break;
         default:
+<<<<<<< HEAD
+=======
+          // All other orientations: pass the arguments, but the dimensions
+          // remain the same.
+          $image->ops[] = '-auto-orient';
+>>>>>>> SiteReformation
           break;
       }
     }
   }
   else {
+<<<<<<< HEAD
+=======
+    // We do add the auto-orient argument to IM. IM will determine itself
+    // whether to rotate or not.
+    $image->ops[] = '-auto-orient';
+    // However we cannot keep track of the dimensions anymore.
+>>>>>>> SiteReformation
     $image->info['width'] = $image->info['height'] = NULL;
   }
   return TRUE;

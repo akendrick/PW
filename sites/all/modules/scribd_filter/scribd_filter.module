@@ -20,7 +20,7 @@ function scribd_filter_help($path, $arg) {
       $output .= '<dl>';
       $output .= '<dt>' . t('Usage') . '</dt>';
       $output .= '<dd>' . t('To embed a document, you need to use the following code snippet: <samp>[scribd id=doc_id key=access_key mode=mode]</samp>.') . ' where mode is optional.</dd>';
-      $output .= '<dt>' . t('How to find the album id?') . '</dt>';
+      $output .= '<dt>' . t('How to find the document id?') . '</dt>';
       $output .= '<dd><ul>';
       $output .= '<li>' . t('Navigate to Scribd and find the embed button') . '.</li>';
       $output .= '<li>' . t('Click on embed') . '.</li>';
@@ -54,6 +54,7 @@ class ScribdInputFilter {
   // suggested in #regex '/\[scribd\sid=([^\s]+)\skey=([^\s]+)\smode=([^]]+)\]/';
   protected $pattern = '/\[scribd\sid=([^\s]+)\skey=([^\s]+)\s*(?:mode=(\S+))?]/';
   protected $filter;
+  protected $default_mode = 'scroll';
   
   public function __construct($filter) {
     $this->filter = $filter;
@@ -61,7 +62,6 @@ class ScribdInputFilter {
   
   static public function type() {
     return array(
-      'embed_flash' => 'Flash',
       'embed_html5' => 'Html5',
       'link' => 'Link'
     );
@@ -69,9 +69,10 @@ class ScribdInputFilter {
   
   static public function mode() {
     return array(
-      'list' => 'Scroll',
-      'slideshow' => 'Slideshow'
-    );
+      'scroll' => 'Scroll',
+      'slideshow' => 'Slideshow',
+      'book' => 'Book',
+      );
   }
   
   public function parse($text) {
@@ -89,7 +90,7 @@ class ScribdInputFilter {
         $data['scribd_mode'] = check_plain($this->filter->settings['scribd_filter_display_mode']);
       }
       else {
-        $data['scribd_mode'] = 'list';
+        $data['scribd_mode'] = $this->default_mode;
       }
     }
     if ($data['scribd_mode'] == 'link') {
@@ -97,9 +98,6 @@ class ScribdInputFilter {
     }
 
     switch (check_plain($this->filter->settings['scribd_filter_display_method'])) {
-      case 'embed_flash':
-        return $this->embed_flash($data['scribd_doc_id'], $data['scribd_access_key'], $data['scribd_mode']);
-        break;
       case 'link':
         return $this->link($data['scribd_doc_id'], $data['scribd_access_key']);
         break;
@@ -108,22 +106,9 @@ class ScribdInputFilter {
         break;
     }
   }
-  
-  protected function embed_html5($scribd_doc_id, $scribd_access_key, $scribd_mode = 'list') {
-    $output = array('<iframe class="scribd_iframe_embed" src="http://www.scribd.com/embeds/' . $scribd_doc_id . '/content?start_page=1&view_mode=' . $scribd_mode . '&access_key=' . $scribd_access_key . '" data-auto-height="true" data-aspect-ratio="1.44339622641509" scrolling="no" id="doc_' . $scribd_doc_id . '" width="100%" height="600" frameborder="0"></iframe>');
-  return implode("\n", $output);
-  }
-  
-  protected function embed_flash($scribd_doc_id, $scribd_access_key, $scribd_mode = 'list') {
-    $output = array('<object id="doc_' . $scribd_doc_id . '" name="doc_' . $scribd_doc_id . '" height="600" width="100%" type="application/x-shockwave-flash" data="http://d1.scribdassets.com/ScribdViewer.swf">');
-    $output[] = '<param name="movie" value="http://d1.scribdassets.com/ScribdViewer.swf">';
-    $output[] = '<param name="wmode" value="opaque">';
-    $output[] = '<param name="bgcolor" value="#ffffff">';
-    $output[] = '<param name="allowFullScreen" value="true">';
-    $output[] = '<param name="allowScriptAccess" value="always">';
-    $output[] = '<param name="FlashVars" value="document_id=' . $scribd_doc_id . '&access_key=' . $scribd_access_key . '&page=1&viewMode=' . $scribd_mode . '">';
-    $output[] = '<embed id="doc_' . $scribd_doc_id . '" name="doc_' . $scribd_doc_id . '" src="http://d1.scribdassets.com/ScribdViewer.swf?document_id=' . $scribd_doc_id . '&access_key=' . $scribd_access_key . '&page=1&viewMode=' . $scribd_mode . '" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" height="600" width="100%" wmode="opaque" bgcolor="#ffffff"></embed>';
-    $output[] = '</object>';
+
+  protected function embed_html5($scribd_doc_id, $scribd_access_key, $scribd_mode = 'scroll') {
+    $output = array('<iframe class="scribd_iframe_embed" src="//www.scribd.com/embeds/' . $scribd_doc_id . '/content?start_page=1&view_mode=' . $scribd_mode . '&access_key=' . $scribd_access_key . '" data-auto-height="true" data-aspect-ratio="1.44339622641509" scrolling="no" id="doc_' . $scribd_doc_id . '" width="100%" height="600" frameborder="0"></iframe>');
     return implode("\n", $output);
   }
 
@@ -131,7 +116,7 @@ class ScribdInputFilter {
    * Replace the text with a link.
    */
   function link($scribd_doc_id, $scribd_access_key) {
-    $scribd_url = 'http://www.scribd.com/full/' . $scribd_doc_id . '?access_key=' . $scribd_access_key;
+    $scribd_url = '//www.scribd.com/full/' . $scribd_doc_id . '?access_key=' . $scribd_access_key;
     return l($scribd_url, $scribd_url);
   }
 }
@@ -151,20 +136,13 @@ function scribd_filter_scribd_filter_settings($form, $form_state, $filter, $form
   $settings['scribd_filter_display_method'] = array(
     '#title' => t('Scribd display method'),
     '#type' => 'select',
-    '#options' => array(
-      'embed_html5' => t('Embed HTML5'),
-      'embed_flash' => t('Embed Flash'),      
-      'link' => t('Link'),
-    ),
+    '#options' => ScribdInputFilter::type(),
     '#default_value' => isset($filter->settings['scribd_filter_display_method']) ? $filter->settings['scribd_filter_display_method'] : $defaults['scribd_filter_display_method'],
   );
   $settings['scribd_filter_display_mode'] = array(
     '#title' => t('Scribd display mode'),
     '#type' => 'select',
-    '#options' => array(
-      'list' => t('Scroll'),
-      'slideshow' => t('Slideshow'),
-    ),
+    '#options' => ScribdInputFilter::mode(),
     '#default_value' => isset($filter->settings['scribd_filter_display_mode']) ? $filter->settings['scribd_filter_display_mode'] : $defaults['scribd_filter_display_mode'],
   );  
   return $settings;
@@ -178,4 +156,3 @@ function scribd_filter_filter_tips($filter, $format, $long = FALSE) {
   $action = $display == 'embed' ? t('embed the scribd document') : t('create a link to the scribd document');
   return t('Use [scribd id=xx key=yy mode=zz] where xx is you scribd document_id, yy is your scribd document access_key and zz is your optional mode (scroll or slideshow) to %action.', array('%action' => $action));
 }
-

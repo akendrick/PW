@@ -9,7 +9,11 @@ tags are provided:
 * twitter:url
 * twitter:title
 * twitter:description
+<<<<<<< HEAD
 * twitter:image
+=======
+* twitter:image:src
+>>>>>>> SiteReformation
 * twitter:image:width
 * twitter:image:height
 * twitter:player

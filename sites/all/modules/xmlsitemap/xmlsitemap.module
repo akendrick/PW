@@ -64,6 +64,11 @@ function xmlsitemap_hook_info() {
     'xmlsitemap_context_info_alter',
     'xmlsitemap_context_url_options',
     'xmlsitemap_context',
+<<<<<<< HEAD
+=======
+    'xmlsitemap_element_alter',
+    'xmlsitemap_root_attributes_alter',
+>>>>>>> SiteReformation
     'xmlsitemap_sitemap_insert',
     'xmlsitemap_sitemap_update',
     'xmlsitemap_sitemap_operations',
@@ -72,6 +77,10 @@ function xmlsitemap_hook_info() {
     'query_xmlsitemap_generate_alter',
     'query_xmlsitemap_link_bundle_access_alter',
     'form_xmlsitemap_sitemap_edit_form_alter',
+<<<<<<< HEAD
+=======
+    'xmlsitemap_rebuild_clear',
+>>>>>>> SiteReformation
   );
 
   $hooks = array_combine($hooks, $hooks);
@@ -234,6 +243,13 @@ function xmlsitemap_cron() {
   if (!variable_get('xmlsitemap_regenerate_needed', FALSE)) {
     return;
   }
+<<<<<<< HEAD
+=======
+  // If cron sitemap file regeneration is disabled, stop.
+  if (variable_get('xmlsitemap_disable_cron_regeneration', 0)) {
+    return;
+  }
+>>>>>>> SiteReformation
 
   // If the minimum sitemap lifetime hasn't been passed, skip.
   $lifetime = REQUEST_TIME - variable_get('xmlsitemap_generated_last', 0);
@@ -290,6 +306,11 @@ function xmlsitemap_variables() {
     'xmlsitemap_frontpage_changefreq' => XMLSITEMAP_FREQUENCY_DAILY,
     'xmlsitemap_lastmod_format' => XMLSITEMAP_LASTMOD_MEDIUM,
     'xmlsitemap_gz' => FALSE,
+<<<<<<< HEAD
+=======
+    'xmlsitemap_disable_cron_regeneration' => 0,
+    'xmlsitemap_output_elements' => array('lastmod', 'changefreq', 'priority'),
+>>>>>>> SiteReformation
     // Removed variables are set to NULL so they can still be deleted.
     'xmlsitemap_regenerate_last' => NULL,
     'xmlsitemap_custom_links' => NULL,
@@ -560,10 +581,22 @@ function xmlsitemap_link_load_multiple(array $conditions = array()) {
 /**
  * Saves or updates a sitemap link.
  *
+<<<<<<< HEAD
  * @param $link
  *   An array with a sitemap link.
  */
 function xmlsitemap_link_save(array $link) {
+=======
+ * @param array $link
+ *   An array with a sitemap link.
+ * @param array $context
+ *   An optional context array containing data related to the link.
+ *
+ * @return array
+ *   The saved sitemap link.
+ */
+function xmlsitemap_link_save(array $link, array $context = array()) {
+>>>>>>> SiteReformation
   $link += array(
     'access' => 1,
     'status' => 1,
@@ -577,7 +610,11 @@ function xmlsitemap_link_save(array $link) {
   );
 
   // Allow other modules to alter the link before saving.
+<<<<<<< HEAD
   drupal_alter('xmlsitemap_link', $link);
+=======
+  drupal_alter('xmlsitemap_link', $link, $context);
+>>>>>>> SiteReformation
 
   // Temporary validation checks.
   // @todo Remove in final?
@@ -599,11 +636,19 @@ function xmlsitemap_link_save(array $link) {
   // Save the link and allow other modules to respond to the link being saved.
   if ($existing) {
     drupal_write_record('xmlsitemap', $link, array('type', 'id'));
+<<<<<<< HEAD
     module_invoke_all('xmlsitemap_link_update', $link);
   }
   else {
     drupal_write_record('xmlsitemap', $link);
     module_invoke_all('xmlsitemap_link_insert', $link);
+=======
+    module_invoke_all('xmlsitemap_link_update', $link, $context);
+  }
+  else {
+    drupal_write_record('xmlsitemap', $link);
+    module_invoke_all('xmlsitemap_link_insert', $link, $context);
+>>>>>>> SiteReformation
   }
 
   return $link;
@@ -1535,5 +1580,52 @@ function xmlsitemap_get_operation_link($url, $options = array()) {
   }
 
   $link += array('query' => $destination);
+<<<<<<< HEAD
   return $link;
 }
+=======
+  drupal_alter('xmlsitemap_operation_link', $link);
+  return $link;
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function xmlsitemap_cron_queue_info() {
+  $info['xmlsitemap_link_process'] = array(
+    'worker callback' => 'xmlsitemap_link_queue_process',
+    'time' => 60,
+  );
+
+  return $info;
+}
+
+/**
+ * Queue callback for processing sitemap links.
+ */
+function xmlsitemap_link_queue_process($data) {
+  $info = xmlsitemap_get_link_info($data['type']);
+  $ids = isset($data['ids']) ? $data['ids'] : array($data['id']);
+  if (function_exists($info['xmlsitemap']['process callback'])) {
+    $info['xmlsitemap']['process callback']($ids);
+  }
+}
+
+/**
+ * Enqueue sitemap links to be updated via the xmlsitemap_link_process queue.
+ *
+ * @param string $type
+ *   The link type.
+ * @param array|int $ids
+ *   An array of link IDs or a singular link ID.
+ */
+function xmlsitemap_link_enqueue($type, $ids) {
+  $data = array();
+  $data['type'] = $type;
+  $data['ids'] = is_array($ids) ? $ids : array($ids);
+
+  /** @var DrupalReliableQueueInterface $queue */
+  $queue = DrupalQueue::get('xmlsitemap_link_process');
+  $queue->createItem($data);
+}
+>>>>>>> SiteReformation

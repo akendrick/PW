@@ -1,6 +1,18 @@
+/**
+ * @file
+ * Basic styling for the Scheduler module.
+ */
 
+<<<<<<< HEAD
 /* This is added until http://drupal.org/node/1015798 gets committed to D7 core css
    or something else gets done about the missing fieldset borders and titles */
+=======
+/**
+ * @todo This is added until http://drupal.org/node/1015798 gets committed to D7
+ *   core css or something else gets done about the missing fieldset borders and
+ *   titles.
+ */
+>>>>>>> SiteReformation
 div.vertical-tabs div.vertical-tabs-panes fieldset.vertical-tabs-pane fieldset legend {
   display: inline-block;
 }
@@ -33,6 +45,15 @@ div.vertical-tabs.bartik div.vertical-tabs-panes fieldset.vertical-tabs-pane {
 div.vertical-tabs.bartik div.vertical-tabs-panes fieldset.vertical-tabs-pane fieldset {
   border-width: 1px;
   padding-bottom: 0;
+<<<<<<< HEAD
+=======
+}
+
+/* This is required for STARK. */
+/* Stop the legend shifting to the right on opening. */
+div.vertical-tabs.stark div.vertical-tabs-panes fieldset.vertical-tabs-pane fieldset {
+  border-width: 1px;
+>>>>>>> SiteReformation
 }
 
 /* This is required for STARK. */

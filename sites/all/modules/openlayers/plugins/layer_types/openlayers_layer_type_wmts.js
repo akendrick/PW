@@ -22,6 +22,19 @@ Drupal.openlayers.layer.wmts = function(title, map, options) {
     formatSuffix: options.formatSuffix,
     isBaseLayer: options.isBaseLayer
   };
+<<<<<<< HEAD
+=======
+
+  if (options.matrixIdsAuto) {
+    layer_options.matrixIds = new Array(26);
+    for (var i=0; i<26; ++i) {
+      layer_options.matrixIds[i] = options.matrixSet + ":" + i;
+    }
+  } else if (options.matrixIds) {
+    layer_options.matrixIds = options.matrixIds;
+  }
+
+>>>>>>> SiteReformation
   if (OpenLayers.Util.isArray(options.maxExtent)) {
     layer_options.maxExtent = OpenLayers.Bounds.fromArray(options.maxExtent);
   }

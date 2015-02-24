@@ -637,11 +637,23 @@ function security_review_check_executable_php($last_check = NULL) {
     $result = FALSE;
     $check_result_value[] = 'missing_htaccess';
   }
+<<<<<<< HEAD
   else {
     $contents = file_get_contents($directory . '/.htaccess');
     // Text from includes/file.inc.
     $expected = "SetHandler Drupal_Security_Do_Not_Remove_See_SA_2006_006\nOptions None\nOptions +FollowSymLinks";
     if ($contents !== $expected) {
+=======
+  elseif (!function_exists('file_htaccess_lines')) {
+    $result = FALSE;
+    $check_result_value[] = 'outdated_core';
+  }
+  else {
+    $contents = file_get_contents($directory . '/.htaccess');
+    // Text from includes/file.inc.
+    $expected = file_htaccess_lines(FALSE);
+    if (trim($contents) !== trim($expected)) {
+>>>>>>> SiteReformation
       $result = FALSE;
       $check_result_value[] = 'incorrect_htaccess';
     }
@@ -656,6 +668,7 @@ function security_review_check_executable_php($last_check = NULL) {
 
 /**
  * Check if $base_url is set in settings.php.
+<<<<<<< HEAD
  */
 function security_review_check_base_url($last_check = NULL) {
   // Support different methods to check for $base_url.
@@ -722,6 +735,74 @@ function security_review_check_temporary_files($last_check = NULL) {
  *     'check_name' => array(...)
  *   )
  */
+=======
+ */
+function security_review_check_base_url($last_check = NULL) {
+  // Support different methods to check for $base_url.
+  $method = variable_get('security_review_base_url_method', 'token');
+  $result = NULL;
+  if ($method === 'token') {
+    if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.php')) {
+      $content = file_get_contents(DRUPAL_ROOT . '/' . conf_path() . '/settings.php');
+      $tokens = token_get_all($content);
+    }
+    $result = FALSE;
+    foreach ($tokens as $token) {
+      if (is_array($token) && $token[0] === T_VARIABLE && $token[1] == '$base_url') {
+        $result = TRUE;
+        break;
+      }
+    }
+  }
+  elseif ($method === 'include') {
+    if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.php')) {
+      include DRUPAL_ROOT . '/' . conf_path() . '/settings.php';
+    }
+    if (isset($base_url)) {
+      $result = TRUE;
+    }
+    else {
+      $result = FALSE;
+    }
+  }
+  return array('result' => $result, 'value' => '');
+}
+
+/**
+ * Check for sensitive temporary files like settings.php~.
+ */
+function security_review_check_temporary_files($last_check = NULL) {
+  $result = TRUE;
+  $check_result_value = array();
+  $files = array();
+  $dir = scandir(DRUPAL_ROOT . '/' . conf_path() . '/');
+  foreach ($dir as $file) {
+    // Set full path to only files.
+    if (!is_dir($file)) {
+      $files[] = DRUPAL_ROOT . '/' . conf_path() . '/' . $file;
+    }
+  }
+  drupal_alter('security_review_temporary_files', $files);
+  foreach ($files as $path) {
+    $matches = array();
+    if (file_exists($path) && preg_match('/.*(~|\.sw[op]|\.bak|\.orig|\.save)$/', $path, $matches) !== FALSE && !empty($matches)) {
+      $result = FALSE;
+      $check_result_value[] = $path;
+    }
+  }
+  return array('result' => $result, 'value' => $check_result_value);
+}
+
+/**
+ * Get core Security Review checks and checks from any hook_security_checks().
+ *
+ * @return array
+ *   Array of checks indexed by module name. e.g.:
+ *   'security_review' => array(
+ *     'check_name' => array(...)
+ *   )
+ */
+>>>>>>> SiteReformation
 function security_review_get_checklist() {
   $checks = _security_review_security_checks();
   $checks = array_merge($checks, module_invoke_all('security_checks'));

@@ -12,7 +12,12 @@ Drupal.openlayers.layer.kml = function(title, map, options) {
     name: options.name,
     drupalID: options.drupalID,
     layer_handler: options.layer_handler,
+<<<<<<< HEAD
     styleMap: Drupal.openlayers.getStyleMap(map, options.drupalID)
+=======
+    styleMap: Drupal.openlayers.getStyleMap(map, options.drupalID),
+    attribution: options.attribution
+>>>>>>> SiteReformation
   });
 
   // KML Projection handling and formating options

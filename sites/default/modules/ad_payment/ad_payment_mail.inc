@@ -68,9 +68,12 @@ function ad_payment_mail($key, &$message, $params) {
     case 'inhouse':
       $message['body'][] = email_receipt_body($message);
       $message['subject'] = $ad_type . $params['user']['phone'] . ' Pennywise Ad ' . $rid;
+<<<<<<< HEAD
 
       #dpm('MESSAGE');
       #dpm($message);
+=======
+>>>>>>> SiteReformation
       break;
   }
 
@@ -129,8 +132,11 @@ function email_receipt_body($params = NULL) {
   // Get ad submission details
   $ad = $params['params'];
   // $rate = $message['params']['rate'];
+<<<<<<< HEAD
   #dpm('Email Body Params');
   #dpm($params);
+=======
+>>>>>>> SiteReformation
 
   // Basic Details
   $duration = $ad['duration'];
@@ -148,6 +154,10 @@ function email_receipt_body($params = NULL) {
   $area_count    = $ad['area_count'];
   $section_count = $ad['section_count'];
   $section  = $ad['sections'];
+
+  //FREE Week
+  $free_week = ($duration == 2) ? "You will receive a 3rd week absolutely FREE!" : "";
+
 
   // Payment Details
   $rid      = $ad['receipt'];
@@ -178,7 +188,7 @@ This email confirms that we have received your ad request. You will receive a fo
 $ad_type DETAILS
 Areas ($area_count): $areas
 Section ($section_count): $section
-Duration: $duration weeks
+Duration: $duration weeks. $free_week
 $image
 
 AD COPY

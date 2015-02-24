@@ -22,7 +22,33 @@ $('form#node-form div.form-item').each(function(){
   var description = $('.form-item-field-image-und-0 .description').html();
   $('.form-item-field-image-und-0 .description')
       .html('<div id="beautytips-toggle-box-bt-picture" class="beautytips-box">'+description+'</div>')
+<<<<<<< HEAD
       .prepend('<span id="bt-picture" class=" beautytips form-toggle">About Pictures</span>');
+=======
+      .prepend('<div class="beautytips image-note">Add a web only picture starting at $1.49/week.</div>')
+      .prepend('<div id="bt-picture" class="beautytips form-toggle">More info.</div>');
+     // .prepend('<span id="bt-picture" class=" beautytips form-toggle">About Pictures</span>');
+
+  // Add CSS to Power Picture drop down button.
+  $("#bt-picture")
+    .css({'background-color':'#303',
+    'color':'#fff',
+    'float':'left',
+    'border-radius':'20px',
+    '-moz-border-radius':'20px',
+    '-webkit-border-radius':'20px',
+    'background-color':'#303',
+    'color':'#fff',
+    'border':'1pt solid #fff',
+    'padding':'2px 6px'});
+  $("#beautytips-toggle-box-bt-picture")
+    .css({
+      'clear':'left',
+      'padding':'4px',
+      'background':'#fff',
+      'margin':'0 0 20px 0',
+      'border':'1pt solid #0059b3'});
+>>>>>>> SiteReformation
 
   // Beauty tips replacement
   // - hide and show extra info for form submission.

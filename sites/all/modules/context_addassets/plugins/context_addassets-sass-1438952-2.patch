@@ -1,0 +1,34 @@
+diff --git a/plugins/context_reaction_addassets_base.inc b/plugins/context_reaction_addassets_base.inc
+index e691f73..241d601 100644
+--- a/plugins/context_reaction_addassets_base.inc
++++ b/plugins/context_reaction_addassets_base.inc
+@@ -101,12 +101,15 @@ class context_reaction_addassets_base extends context_reaction {
+               if ($path) {
+                 $ext = explode('.', $path);
+                 $ext = drupal_strtolower($ext[count($ext)-1]);
+-           
++
+                 switch ($ext) {
+                   case 'js':
+                     drupal_add_js($path, array('group' => JS_DEFAULT));
+                     break;
+                   case 'css':
++                  case 'scss':
++                  case 'sass':
++                  case 'less':
+                     drupal_add_css($path, array('group' => CSS_THEME));
+                     break;
+                 }
+diff --git a/plugins/context_reaction_addcss.inc b/plugins/context_reaction_addcss.inc
+index d05fbaf..e95fcdf 100755
+--- a/plugins/context_reaction_addcss.inc
++++ b/plugins/context_reaction_addcss.inc
+@@ -20,6 +20,6 @@ class context_reaction_addcss extends context_reaction_addassets_base {
+   function __construct($plugin, $info) {
+     parent::__construct($plugin, $info);
+     $this->title = t('CSS from Themes');
+-    $this->search_type = 'css';
++    $this->search_type = 'css|sass|scss|less';
+   }
+ }
+\ No newline at end of file

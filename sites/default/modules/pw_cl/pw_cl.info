@@ -3,7 +3,11 @@ description = Classified ad, ad submission, free ads & adworks. Incl: views, blo
 core = 7.x
 package = Pennywise
 php = 5.2.4
+<<<<<<< HEAD
 version = 7.x-2.01
+=======
+version = 7.x-2.02
+>>>>>>> SiteReformation
 project = pw_cl
 dependencies[] = ad_payment
 dependencies[] = addressfield
@@ -27,7 +31,10 @@ dependencies[] = number
 dependencies[] = path
 dependencies[] = pw_admin
 dependencies[] = pw_vars
+<<<<<<< HEAD
 ; dependencies[] = rules
+=======
+>>>>>>> SiteReformation
 dependencies[] = taxonomy
 dependencies[] = views
 features[ctools][] = ds:ds:1
@@ -123,8 +130,6 @@ features[node][] = ad_s
 features[node][] = adworks_file
 features[node][] = classified
 features[node][] = free
-features[rules_config][] = rules_ad_submission_login_redirect
-features[rules_config][] = rules_ad_submission_submission_redirect
 features[user_role][] = classified editor
 features[user_role][] = submit ad
 features[variable][] = comment_anonymous_free

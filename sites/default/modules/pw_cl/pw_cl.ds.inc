@@ -377,6 +377,7 @@ function pw_cl_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'header' => array(
+<<<<<<< HEAD
         0 => 'field_geofield',
         1 => 'field_image',
         3 => 'field_ad_type',
@@ -404,6 +405,37 @@ function pw_cl_ds_layout_settings_info() {
       'field_email' => 'left',
       'field_link' => 'left',
       'field_ad_copy' => 'right',
+=======
+        0 => 'field_tags',
+        1 => 'field_image',
+        3 => 'field_geofield',
+      ),
+      'left' => array(
+        2 => 'group_details',
+        4 => 'post_date',
+        5 => 'field_email',
+        6 => 'field_phone',
+        7 => 'field_link',
+      ),
+      'right' => array(
+        8 => 'field_ad_copy',
+      ),
+      'footer' => array(
+        9 => 'field_ad_type',
+      ),
+    ),
+    'fields' => array(
+      'field_tags' => 'header',
+      'field_image' => 'header',
+      'group_details' => 'left',
+      'field_geofield' => 'header',
+      'post_date' => 'left',
+      'field_email' => 'left',
+      'field_phone' => 'left',
+      'field_link' => 'left',
+      'field_ad_copy' => 'right',
+      'field_ad_type' => 'footer',
+>>>>>>> SiteReformation
     ),
     'classes' => array(),
     'wrappers' => array(

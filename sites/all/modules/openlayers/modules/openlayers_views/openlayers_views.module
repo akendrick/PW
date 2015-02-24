@@ -115,12 +115,17 @@ function openlayers_views_openlayers_layers() {
       // Check for OpenLayers Data Overlays
       if ($view->display_handler->get_option('style_plugin') == 'openlayers_data' && $display != 'default') {
         //Build Layer
+<<<<<<< HEAD
         $layer = new stdClass();
+=======
+        $layer = new openlayers_layer_type_openlayers_views_vector();
+>>>>>>> SiteReformation
         $layer->api_version = 1;
         $layer->name = $view->name . '_' . $display;
         $layer->title = empty($data->display_options['title']) ? $view->name : $data->display_options['title'];
         $layer->title .= ' - ' . $data->display_title;
         $layer->description = $view->description;
+<<<<<<< HEAD
         $layer->data = array(
           'layer_type' => 'openlayers_views_vector',
           'layer_handler' => 'openlayers_views_vector',
@@ -133,6 +138,22 @@ function openlayers_views_openlayers_layers() {
           'events' => array(),
           'views' => array('view' => $view->name, 'display' => $display),
         );
+=======
+        $layer->data['views'] = array('view' => $view->name, 'display' => $display);
+        $layers[$layer->name] = $layer;
+      }
+
+      // Check for OpenLayers Data Image Overlays
+      if ($view->display_handler->get_option('style_plugin') == 'openlayers_data_image' && $display != 'default') {
+        //Build Layer
+        $layer = new openlayers_layer_type_openlayers_views_image();
+        $layer->api_version = 1;
+        $layer->name = $view->name . '_' . $display;
+        $layer->title = empty($data->display_options['title']) ? $view->name : $data->display_options['title'];
+        $layer->title .= ' - ' . $data->display_title;
+        $layer->description = $view->description;
+        $layer->data['views'] = array('view' => $view->name, 'display' => $display);
+>>>>>>> SiteReformation
         $layers[$layer->name] = $layer;
       }
 
@@ -141,7 +162,11 @@ function openlayers_views_openlayers_layers() {
         $view->display_handler->display->display_plugin == 'page' &&
         $view->display_handler->get_option('path') != ''
       ) {
+<<<<<<< HEAD
         $layer = new stdClass();
+=======
+        $layer = new openlayers_layer_type_geojson();
+>>>>>>> SiteReformation
         $layer->api_version = 1;
         $layer->name = $view->name . '_' . $display;
         $layer->title = empty($data->display_options['title']) ? $view->name : $data->display_options['title'];
@@ -150,6 +175,7 @@ function openlayers_views_openlayers_layers() {
 
         // Determine if we should use a BBOX strategy.
         $useBBOX = FALSE;
+<<<<<<< HEAD
         if (isset($view->display['default']->display_options['arguments']) &&
           isset($view->display['default']->display_options['arguments']['bbox_argument']) &&
           $view->display['default']->display_options['arguments']['bbox_argument']['arg_id'] == 'bbox') {
@@ -163,6 +189,19 @@ function openlayers_views_openlayers_layers() {
           'views' => array('view' => $view->name, 'display' => $display),
           'useBBOX' => $useBBOX,
         );
+=======
+        if (isset($data->display_options['arguments']) &&
+          isset($data->display_options['arguments']['bbox_argument']) &&
+          $view->data->display_options['arguments']['bbox_argument']['arg_id'] == 'bbox') {
+          $useBBOX = TRUE;
+        }
+
+        $layer->data['url'] = url($view->display_handler->get_option('path'), array('absolute' => TRUE));
+        $layer->data['geojson_data'] = '';
+        $layer->data['views'] = array('view' => $view->name, 'display' => $display);
+        $layer->data['useBBOX'] = $useBBOX;
+
+>>>>>>> SiteReformation
         $layers[$layer->name] = $layer;
       }
     }
@@ -171,6 +210,7 @@ function openlayers_views_openlayers_layers() {
   cache_set('openlayers_views', $layers);
   return $layers;
 }
+<<<<<<< HEAD
 
 /**
  * Implements hook_field_formatter_info().
@@ -232,3 +272,5 @@ function openlayers_views_field_formatter_settings_form($field, $instance, $view
 
   return $form;
 }
+=======
+>>>>>>> SiteReformation

@@ -38,8 +38,7 @@ require_once dirname(__FILE__) . '/file_entity.field.inc';
  */
 function file_entity_hook_info() {
   $hooks = array(
-    'file_operation_info',
-    'file_operation_info_alter',
+    'file_operations',
     'file_type_info',
     'file_type_info_alter',
     'file_formatter_info',
@@ -82,6 +81,17 @@ function file_entity_hook_info_alter(&$info) {
     'file_url_alter',
   );
   $info += array_fill_keys($hooks, array('group' => 'file'));
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function file_entity_module_implements_alter(&$implementations, $hook) {
+  // nginx_accel_redirect_file_transfer() is an accidental hook implementation.
+  // @see https://www.drupal.org/node/2278625
+  if ($hook == 'file_transfer') {
+    unset($implementations['nginx_accel_redirect']);
+  }
 }
 
 /**
@@ -188,6 +198,20 @@ function file_entity_menu() {
     'title' => 'Upload',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
+  );
+  $items['file/add/upload/file'] = array(
+    'title' => 'File',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['file/add/upload/archive'] = array(
+    'title' => 'Archive',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('file_entity_upload_archive_form'),
+    'access arguments' => array('administer files'),
+    'file' => 'file_entity.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
   );
   $items['file/%file'] = array(
     'title callback' => 'entity_label',
@@ -887,11 +911,19 @@ function file_entity_entity_info_alter(&$entity_info) {
   $entity_info['file']['view modes']['teaser'] = array(
     'label' => t('Teaser'),
     'custom settings' => TRUE,
+<<<<<<< HEAD
   );
   $entity_info['file']['view modes']['full'] = array(
     'label' => t('Full content'),
     'custom settings' => FALSE,
   );
+=======
+  );
+  $entity_info['file']['view modes']['full'] = array(
+    'label' => t('Full content'),
+    'custom settings' => FALSE,
+  );
+>>>>>>> SiteReformation
   $entity_info['file']['view modes']['preview'] = array(
     'label' => t('Preview'),
     'custom settings' => TRUE,
@@ -1059,6 +1091,7 @@ function file_entity_file_formatter_info() {
 
   // Allow file field formatters to be reused for displaying the file entity's
   // file pseudo-field.
+<<<<<<< HEAD
   foreach (field_info_formatter_types() as $field_formatter_type => $field_formatter_info) {
     $is_file_formatter = in_array('file', $field_formatter_info['field types']);
     $is_image_formatter = in_array('image', $field_formatter_info['field types']);
@@ -1066,17 +1099,34 @@ function file_entity_file_formatter_info() {
     if ($is_file_formatter || $is_image_formatter) {
       $formatters['file_field_' . $field_formatter_type] = array(
         'label' => $field_formatter_info['label'],
+=======
+  foreach (field_info_formatter_types() as $key => $formatter) {
+    if (array_intersect($formatter['field types'], array('file', 'image'))) {
+      $key = 'file_field_' . $key;
+      $formatters[$key] = array(
+        'label' => $formatter['label'],
+        'description' => !empty($formatter['description']) ? $formatter['description'] : '',
+>>>>>>> SiteReformation
         'view callback' => 'file_entity_file_formatter_file_field_view',
         'hidden' => !empty($field_formatter_info['hidden file formatter']),
       );
+<<<<<<< HEAD
       if (!$is_file_formatter) {
         $formatters['file_field_' . $field_formatter_type]['file types'] = array('image');
       }
       if (!empty($field_formatter_info['settings'])) {
         $formatters['file_field_' . $field_formatter_type] += array(
           'default settings' => $field_formatter_info['settings'],
+=======
+      if (!empty($formatter['settings'])) {
+        $formatters[$key] += array(
+          'default settings' => $formatter['settings'],
+>>>>>>> SiteReformation
           'settings callback' => 'file_entity_file_formatter_file_field_settings',
         );
+      }
+      if (!empty($formatter['file formatter'])) {
+        $formatters[$key] += $formatter['file formatter'];
       }
     }
   }
@@ -1087,22 +1137,17 @@ function file_entity_file_formatter_info() {
       'label' => t('Image'),
       'default settings' => array(
         'image_style' => '',
-        'alt' => '',
-        'title' => ''
+        'alt' => '[file:field_file_image_alt_text]',
+        'title' => '[file:field_file_image_title_text]'
       ),
       'view callback' => 'file_entity_file_formatter_file_image_view',
       'settings callback' => 'file_entity_file_formatter_file_image_settings',
       'hidden' => TRUE,
+<<<<<<< HEAD
+=======
+      'mime types' => array('image/*'),
+>>>>>>> SiteReformation
     );
-    // Provide default token values.
-    if (module_exists('token')) {
-      $formatters['file_image']['default settings']['alt'] = '[file:field_file_image_alt_text]';
-      $formatters['file_image']['default settings']['title'] = '[file:field_file_image_title_text]';
-    }
-    elseif (module_exists('entity_token')) {
-      $formatters['file_image']['default settings']['alt'] = '[file:field-file-image-alt-text]';
-      $formatters['file_image']['default settings']['title'] = '[file:field-file-image-title-text]';
-    }
   }
 
   return $formatters;
@@ -1123,9 +1168,16 @@ function file_entity_file_formatter_file_field_view($file, $display, $langcode) 
       // Set $display['type'] to what hook_field_formatter_*() expects.
       $display['type'] = $field_formatter_type;
 
+      // Allow any attribute overrides (e.g. from the Media module) to be
+      // respected.
+      $item = (array) $file;
+      if (!empty($file->override['attributes'])) {
+        $item = array_merge($item, $file->override['attributes']);
+      }
+
       // Set $items to what file field formatters expect. See file_field_load(),
       // and note that, here, $file is already a fully loaded entity.
-      $items = array((array) $file);
+      $items = array($item);
 
       // Invoke hook_field_formatter_prepare_view() and
       // hook_field_formatter_view(). Note that we are reusing field formatter
@@ -1860,6 +1912,7 @@ function _file_entity_query_file_entity_access_alter($query, $type) {
           foreach (array_keys($wrappers['private']) as $wrapper) {
             $subquery_conditions->condition('fm_access.uri', $wrapper . '%', 'LIKE');
           }
+<<<<<<< HEAD
         }
         elseif (user_access('view own private files', $account)) {
           foreach (array_keys($wrappers['private']) as $wrapper) {
@@ -1888,6 +1941,43 @@ function _file_entity_query_file_entity_access_alter($query, $type) {
           $file_conditions->exists($subquery);
         }
         // Otherwise attach it to the node query itself.
+=======
+        }
+        elseif (user_access('view own private files', $account)) {
+          foreach (array_keys($wrappers['private']) as $wrapper) {
+            $subquery_conditions->condition(db_and()
+              ->condition('fm_access.uri', $wrapper . '%', 'LIKE')
+              ->condition('fm_access.uid', $account->uid)
+            );
+          }
+        }
+      }
+
+      if ($subquery_conditions->count()) {
+        $subquery->condition($subquery_conditions);
+
+        $field = 'fid';
+        // Now handle entities.
+        if ($type == 'entity') {
+          // Set a common alias for entities.
+          $base_alias = $falias;
+          $field = 'entity_id';
+        }
+        $subquery->where("$falias.$field = fm_access.fid");
+
+        // For an entity query, attach the subquery to entity conditions.
+        if ($type == 'entity') {
+          $file_conditions->exists($subquery);
+        }
+        // Otherwise attach it to the node query itself.
+        elseif ($table == 'file_managed') {
+          // Fix for https://drupal.org/node/2073085
+          $db_or = db_or();
+          $db_or->exists($subquery);
+          $db_or->isNull($falias . '.' . $field);
+          $query->condition($db_or);
+        }
+>>>>>>> SiteReformation
         else {
           $query->exists($subquery);
         }
@@ -1927,7 +2017,11 @@ function file_entity_file_download($uri) {
     return file_get_content_headers($file);
   }
 
+<<<<<<< HEAD
   return NULL;
+=======
+  return -1;
+>>>>>>> SiteReformation
 }
 
 /**
@@ -2222,7 +2316,11 @@ function pathauto_file_operations() {
  */
 function pathauto_file_update_alias(stdClass $file, $op, array $options = array()) {
   // Skip processing if the user has disabled pathauto for the file.
+<<<<<<< HEAD
   if (isset($file->path['pathauto']) && empty($file->path['pathauto'])) {
+=======
+  if (isset($file->path['pathauto']) && empty($file->path['pathauto']) && empty($options['force'])) {
+>>>>>>> SiteReformation
     return;
   }
 
@@ -2384,7 +2482,11 @@ function file_entity_match_mimetypes($needle, $haystack) {
 
   foreach ($haystack as $mimetype) {
     foreach ($needle as $search) {
+<<<<<<< HEAD
       if (file_entity_fnmatch($search, $mimetype)) {
+=======
+      if (file_entity_fnmatch($search, $mimetype) || file_entity_fnmatch($mimetype, $search)) {
+>>>>>>> SiteReformation
         return TRUE;
       }
     }
@@ -2401,7 +2503,11 @@ function file_entity_match_mimetypes($needle, $haystack) {
  */
 function file_entity_fnmatch($pattern, $string) {
   if (!function_exists('fnmatch')) {
+<<<<<<< HEAD
     return preg_match("#^".strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.', '\[' => '[', '\]' => ']'))."$#", $string);
+=======
+    return preg_match("#^" . strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.', '\[' => '[', '\]' => ']')) . "$#", $string);
+>>>>>>> SiteReformation
   }
   return fnmatch($pattern, $string);
 }
@@ -2439,21 +2545,41 @@ function file_entity_admin_menu_map() {
 }
 
 /*
+<<<<<<< HEAD
  * Generate a file download CSRF token.
  *
  * This is essentially a duplicate of drupal_get_token, that attempts to still
  * work if the user is anonymous, by using ip_address() as the identifier
  * rather than session_id().
+=======
+ * Generates a token to protect a file download URL.
+ *
+ * This prevents unauthorized crawling of all file download URLs since the
+ * {file_managed}.fid column is an auto-incrementing serial field and is easy
+ * to guess or attempt many at once. This can be costly both in CPU time
+ * and bandwidth.
+ *
+ * @see image_style_path_token()
+>>>>>>> SiteReformation
  *
  * @param object $file
  *   A file entity object.
  *
  * @return string
+<<<<<<< HEAD
  *   A CSRF token string.
  */
 function file_entity_get_download_token($file) {
   $identifier = !empty($GLOBALS['user']->uid) ? session_id() : ip_address();
   return drupal_hmac_base64("file/$file->fid/download", $identifier . drupal_get_private_key() . drupal_get_hash_salt());
+=======
+ *   An eight-character token which can be used to protect file downloads
+ *   against denial-of-service attacks.
+ */
+function file_entity_get_download_token($file) {
+  // Return the first eight characters.
+  return substr(drupal_hmac_base64("file/$file->fid/download:" . $file->uri, drupal_get_private_key() . drupal_get_hash_salt()), 0, 8);
+>>>>>>> SiteReformation
 }
 
 /**
@@ -2499,7 +2625,11 @@ function file_entity_field_attach_load($entity_type, $entities, $age, $options) 
           foreach ($items as $delta => $item) {
             // If alt and title text is not specified, fall back to alt and
             // title text on the file.
+<<<<<<< HEAD
             if (empty($item['alt']) || empty($item['title'])) {
+=======
+            if (!empty($item['fid']) && (empty($item['alt']) || empty($item['title']))) {
+>>>>>>> SiteReformation
               $file = file_load($item['fid']);
               foreach (array('alt', 'title') as $key) {
                 if (empty($item[$key]) && !empty($file->{$key})) {

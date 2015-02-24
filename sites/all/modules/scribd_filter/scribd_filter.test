@@ -1,5 +1,6 @@
 <?php
 /**
+ * @file
  * Test class.
  */
 class ScribdFilterTestCase extends DrupalWebTestCase {
@@ -49,7 +50,7 @@ class ScribdFilterTestCase extends DrupalWebTestCase {
     $langcode = LANGUAGE_NONE;
     $edit = array(
       "title" => $this->randomName(),
-      "body[$langcode][0][value]" => 'Hello! [scribd id='.$this->scribd_document_id.' key='.$this->scribd_access_key.']',
+      "body[$langcode][0][value]" => 'Hello! [scribd id=' . $this->scribd_document_id . ' key=' . $this->scribd_access_key . ']',
     );
     $result = $this->drupalPost('node/add/' . $this->contentType->type, $edit, t('Save'));
     $this->assertResponse(200);
@@ -57,7 +58,7 @@ class ScribdFilterTestCase extends DrupalWebTestCase {
     $this->assertRaw('<script type="text/javascript" src="http://www.scribd.com/javascripts/view.js"></script>
 <div id="embedded_flash" class="collapsible collapsed"></div>
 <script type="text/javascript">
-var scribd_doc = scribd.Document.getDoc("'.$this->scribd_document_id.'", "'.$this->scribd_access_key.'");
+var scribd_doc = scribd.Document.getDoc("' . $this->scribd_document_id . '", "' . $this->scribd_access_key . '");
 scribd_doc.addParam("jsapi_version", 1);
 scribd_doc.write("embedded_flash");
 </script>');
@@ -80,12 +81,12 @@ scribd_doc.write("embedded_flash");
     $langcode = LANGUAGE_NONE;
     $edit = array(
       "title" => $this->randomName(),
-      "body[$langcode][0][value]" => 'Hello! [scribd id='.$this->scribd_document_id.' key='.$this->scribd_access_key.']',
+      "body[$langcode][0][value]" => 'Hello! [scribd id=' . $this->scribd_document_id . ' key=' . $this->scribd_access_key . ']',
     );
     $result = $this->drupalPost('node/add/' . $this->contentType->type, $edit, t('Save'));
     $this->assertResponse(200);
-    $url = 'http://www.scribd.com/full/'.$this->scribd_document_id.'?access_key='.$this->scribd_access_key;
-    $this->assertRaw('Hello! <a href="'.$url.'">'.$url.'</a>');
+    $url = 'http://www.scribd.com/full/' . $this->scribd_document_id . '?access_key=' . $this->scribd_access_key;
+    $this->assertRaw('Hello! <a href="' . $url . '">' . $url . '</a>');
 
   }
 }

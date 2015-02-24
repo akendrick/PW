@@ -92,7 +92,11 @@ function pw_digital_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
+<<<<<<< HEAD
     'weight' => '50',
+=======
+    'weight' => '-47',
+>>>>>>> SiteReformation
   );
   // Translatables
   // Included for use with string extractors like potx.

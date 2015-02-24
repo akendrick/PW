@@ -54,6 +54,13 @@ function _openlayers_openlayers_layer_types() {
     'title' => t('OSM'),
     'description' => t('OpenStreetMap Standard'),
   );
+<<<<<<< HEAD
+=======
+  $layer_types['openlayers_layer_type_pointgrid'] = array(
+    'title' => t('PointGrid Layer'),
+    'description' => t('A point grid layer dynamically generates a regularly spaced grid of point features.'),
+  );
+>>>>>>> SiteReformation
   $layer_types['openlayers_layer_type_raw'] = array(
     'title' => t('Raw'),
     'description' => t('Layer type for raw data input - not meant to be added with the UI.'),
